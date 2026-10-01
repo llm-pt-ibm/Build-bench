@@ -1,0 +1,1419 @@
+[    0s] Using BUILD_ROOT=/var/cache/obs/worker/root_20/.mount
+[    0s] Using BUILD_ARCH=x86_64:i686:i586:i486:i386
+[    0s] Doing kvm build in /var/cache/obs/worker/root_20/root
+[    0s] 
+[    1s] 
+[    1s] i04-ch1a started "build OpenShadingLanguage.spec" at Fri Sep 25 08:17:12 UTC 2026.
+[    1s] 
+[    1s] Building OpenShadingLanguage for project 'openSUSE:Factory' repository 'standard' arch 'x86_64' srcmd5 '251ffa3ff3f834ee50bf1b5a7768c212'
+[    1s] 
+[    1s] processing recipe /var/cache/obs/worker/root_20/.build-srcdir/OpenShadingLanguage.spec ...
+[    1s] running changelog2spec --target rpm --file /var/cache/obs/worker/root_20/.build-srcdir/OpenShadingLanguage.spec
+[    1s] init_buildsystem --configdir /var/run/obs/worker/20/build/configs --cachedir /var/cache/build --prepare --clean --rpmlist /var/cache/obs/worker/root_20/.build.rpmlist /var/cache/obs/worker/root_20/.build-srcdir/OpenShadingLanguage.spec build ...
+[    1s] unpacking preinstall image openSUSE:Factory/standard/preinstallimage-base [da5a6d7970d3658f3e0c5682622044f6]
+[    3s] 
+[    3s] copying packages...
+[    4s] reordering...cycle: python313-base -> libpython3_13-1_0
+[    4s]   breaking dependency python313-base -> libpython3_13-1_0
+[    4s] cycle: gio-branding-upstream -> libgio-2_0-0
+[    4s]   breaking dependency libgio-2_0-0 -> gio-branding-upstream
+[    4s] cycle: libgio-2_0-0 -> glib2-tools
+[    4s]   breaking dependency libgio-2_0-0 -> glib2-tools
+[    4s] cycle: girepository-1_0 -> libgirepository-1_0-1
+[    4s]   breaking dependency libgirepository-1_0-1 -> girepository-1_0
+[    4s] cycle: Mesa-dri -> Mesa
+[    4s]   breaking dependency Mesa -> Mesa-dri
+[    4s] cycle: Mesa-dri -> Mesa -> Mesa-libEGL1
+[    4s]   breaking dependency Mesa -> Mesa-libEGL1
+[    4s] cycle: Mesa -> Mesa-libGL1
+[    4s]   breaking dependency Mesa-libGL1 -> Mesa
+[    4s] cycle: Mesa-dri -> Mesa -> Mesa-libGL1
+[    4s]   breaking dependency Mesa-libGL1 -> Mesa-dri
+[    4s] cycle: libglvnd -> Mesa-dri -> Mesa -> Mesa-libGL1
+[    4s]   breaking dependency Mesa -> Mesa-libGL1
+[    4s] cycle: libglvnd -> Mesa-dri -> Mesa
+[    4s]   breaking dependency libglvnd -> Mesa-dri
+[    4s] cycle: fontconfig -> libfontconfig1
+[    4s]   breaking dependency libfontconfig1 -> fontconfig
+[    4s] cycle: libQt6Network6 -> qt6-network-tls
+[    4s]   breaking dependency libQt6Network6 -> qt6-network-tls
+[    4s] cycle: libQt6Network6 -> qt6-networkinformation-connman
+[    4s]   breaking dependency libQt6Network6 -> qt6-networkinformation-connman
+[    4s] cycle: libQt6Network6 -> qt6-networkinformation-glib
+[    4s]   breaking dependency libQt6Network6 -> qt6-networkinformation-glib
+[    4s] cycle: libQt6Network6 -> qt6-networkinformation-nm
+[    4s]   breaking dependency libQt6Network6 -> qt6-networkinformation-nm
+[    4s] cycle: libQt6Gui6 -> libQt6OpenGL6
+[    4s]   breaking dependency libQt6Gui6 -> libQt6OpenGL6
+[    4s] cycle: libQt6Gui6 -> libQt6WaylandClient6
+[    4s]   breaking dependency libQt6Gui6 -> libQt6WaylandClient6
+[    4s] cycle: llvm22-polly-devel -> llvm22-devel
+[    4s]   breaking dependency llvm22-polly-devel -> llvm22-devel
+[    4s] cycle: gstreamer -> libgstreamer-1_0-0
+[    4s]   breaking dependency libgstreamer-1_0-0 -> gstreamer
+[    4s] cycle: gstreamer-plugins-base -> libgstallocators-1_0-0
+[    4s]   breaking dependency gstreamer-plugins-base -> libgstallocators-1_0-0
+[    4s] cycle: libgstapp-1_0-0 -> gstreamer-plugins-base
+[    4s]   breaking dependency gstreamer-plugins-base -> libgstapp-1_0-0
+[    4s] cycle: gstreamer-plugins-base -> libgstaudio-1_0-0
+[    4s]   breaking dependency gstreamer-plugins-base -> libgstaudio-1_0-0
+[    4s] cycle: gstreamer-plugins-base -> libgstgl-1_0-0 -> libgstallocators-1_0-0
+[    4s]   breaking dependency gstreamer-plugins-base -> libgstgl-1_0-0
+[    4s] cycle: gstreamer-plugins-base -> libgstpbutils-1_0-0
+[    4s]   breaking dependency gstreamer-plugins-base -> libgstpbutils-1_0-0
+[    4s] cycle: gstreamer-plugins-base -> libgstriff-1_0-0
+[    4s]   breaking dependency gstreamer-plugins-base -> libgstriff-1_0-0
+[    4s] cycle: gstreamer-plugins-base -> libgsttag-1_0-0
+[    4s]   breaking dependency gstreamer-plugins-base -> libgsttag-1_0-0
+[    4s] cycle: gstreamer-plugins-base -> libgstvideo-1_0-0
+[    4s]   breaking dependency gstreamer-plugins-base -> libgstvideo-1_0-0
+[    4s] done
+[    4s] Detected virtio-serial support
+[    6s] booting kvm...
+[    6s] ### VM INTERACTION START ###
+[    6s] Using virtio-serial support and enabling console input
+[    6s] /usr/bin/qemu-kvm -nodefaults -no-reboot -nographic -vga none -cpu host -M pc,accel=kvm,usb=off,dump-guest-core=off,vmport=off -sandbox on -bios /usr/share/qemu/qboot.rom -object rng-random,filename=/dev/random,id=rng0 -device virtio-rng-pci,rng=rng0 -object iothread,id=io0 -run-with user=qemu -net none -kernel /var/cache/obs/worker/root_20/.mount/boot/kernel -initrd /var/cache/obs/worker/root_20/.mount/boot/initrd -append root=/dev/disk/by-id/virtio-0 rootfstype=ext4 rootflags=noatime elevator=noop nmi_watchdog=0 rw ia32_emulation=1 oops=panic panic=1 quiet console=hvc0 init=/.build/build -m 16384 -drive file=/var/cache/obs/worker/root_20/root,format=raw,if=none,id=disk,cache=unsafe,aio=io_uring -device virtio-blk-pci,iothread=io0,drive=disk,serial=0 -drive file=/var/cache/obs/worker/root_20/swap,format=raw,if=none,id=swap,cache=unsafe,aio=io_uring -device virtio-blk-pci,iothread=io0,drive=swap,serial=1 -device virtio-serial,max_ports=2 -device virtconsole,chardev=virtiocon0 -chardev stdio,mux=on,id=virtiocon0 -mon chardev=virtiocon0 -chardev socket,id=monitor,server=on,wait=off,path=/var/cache/obs/worker/root_20/root.qemu/monitor -mon chardev=monitor,mode=readline -smp 4
+[   10s] P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=b86d78a40e1d423fb08bffc68512aca0;user=root;hostname=localhost;machineid=bb7b064073224f9cac00b40c3ca8f8a4;bootid=d0d78585ee374d44b82246638e81f7ff;pid=1;pidfdid=1;comm=systemd;type=boot\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J### VM INTERACTION END ###
+[   10s] 2nd stage started in virtual machine
+[   10s] ^[[24;80R^[[24;80Rmachine type: x86_64
+[   10s] Linux version: 7.2.7-1-default #1 SMP PREEMPT_DYNAMIC Tue Sep 22 08:00:24 UTC 2026 (e601a2d)
+[   10s] Time: Fri Sep 25 08:17:20 UTC 2026
+[   10s] Increasing log level from now on...
+[   10s] [    3.731976][  T521] sysrq: Changing Loglevel
+[   10s] [    3.732036][  T521] sysrq: Loglevel set to 4
+[   10s] Enable sysrq operations
+[   10s] Setting up swapspace version 1, size = 4 GiB (4294963200 bytes)
+[   10s] no label, UUID=6aeaf168-426e-43b5-ac59-4bd33a51d0fb
+[   10s] logging output to //.build.log...
+[   10s] processing recipe //.build-srcdir/OpenShadingLanguage.spec ...
+[   10s] init_buildsystem --configdir /.build/configs --cachedir /var/cache/build //.build-srcdir/OpenShadingLanguage.spec build ...
+[   10s] initializing rpm db...
+[   10s] querying package ids...
+[   11s] [1/477] cumulate Mesa-KHR-devel-26.2.3-1.1
+[   11s] [2/477] preinstalled aaa_base-84.87+git20260916.e122202-1.1
+[   11s] [3/477] preinstalled aaa_base-malloccheck-84.87+git20260916.e122202-1.1
+[   11s] [4/477] preinstalled alts-2.0+0.4f22c01-1.1
+[   11s] [5/477] preinstalled bash-5.3.15-8.2
+[   11s] [6/477] preinstalled bash-sh-5.3.15-8.2
+[   11s] [7/477] preinstalled binutils-2.45-4.3
+[   11s] [8/477] cumulate boost-license1_92_0-1.92.0-1.1
+[   11s] [9/477] preinstalled brp-check-suse-84.87+git20260317.a0eb4ba-1.3
+[   11s] [10/477] preinstalled build-compare-20260622T095938.6416d96-1.3
+[   11s] [11/477] preinstalled build-mkbaselibs-20260505-1.3
+[   11s] [12/477] preinstalled bzip2-1.0.8-6.1
+[   11s] [13/477] preinstalled compat-usrmerge-build-84.87-5.26
+[   11s] [14/477] preinstalled compat-usrmerge-tools-84.87-5.26
+[   11s] [15/477] preinstalled coreutils-9.12-1.1
+[   11s] [16/477] preinstalled cpio-2.15-9.1
+[   11s] [17/477] preinstalled cpp-16-1.1
+[   11s] [18/477] preinstalled cpp16-16.2.0+git9497-3.1
+[   11s] [19/477] preinstalled crypto-policies-20250714.cd6043a-6.1
+[   11s] [20/477] cumulate dbus-broker-block-restart-37-2.5
+[   11s] [21/477] preinstalled debugedit-5.1-1.7
+[   11s] [22/477] preinstalled diffutils-3.12-1.5
+[   11s] [23/477] preinstalled dwz-0.17-1.1
+[   11s] [24/477] preinstalled elfutils-0.194-1.4
+[   11s] [25/477] preinstalled envsubst-mini-1.0-3.1
+[   11s] [26/477] cumulate ffmpeg-8-mini-libs-8.1.2-5.1
+[   11s] [27/477] preinstalled file-5.48-2.2
+[   11s] [28/477] preinstalled file-magic-5.48-2.2
+[   11s] [29/477] preinstalled filesystem-84.87-21.2
+[   11s] [30/477] preinstalled fillup-1.42-281.7
+[   11s] [31/477] preinstalled findutils-4.11.0-1.2
+[   11s] [32/477] preinstalled gawk-5.4.1-1.2
+[   11s] [33/477] preinstalled gcc-16-1.1
+[   11s] [34/477] preinstalled gcc-PIE-16-1.1
+[   11s] [35/477] preinstalled gcc16-16.2.0+git9497-3.1
+[   11s] [36/477] preinstalled gcc16-PIE-16.2.0+git9497-3.1
+[   11s] [37/477] preinstalled gettext-runtime-mini-1.0-3.1
+[   11s] [38/477] preinstalled gettext-tools-mini-1.0-3.1
+[   11s] [39/477] preinstalled glibc-2.44-2.1
+[   11s] [40/477] preinstalled glibc-devel-2.44-2.1
+[   11s] [41/477] preinstalled glibc-gconv-modules-extra-2.44-2.1
+[   11s] [42/477] preinstalled glibc-locale-base-2.44-2.1
+[   11s] [43/477] preinstalled grep-3.12-1.5
+[   11s] [44/477] preinstalled gzip-1.15-1.1
+[   11s] [45/477] preinstalled kernel-obs-build-7.2.7-1.1
+[   11s] [46/477] cumulate libICE6-1.1.2-1.6
+[   11s] [47/477] cumulate libIex-3_4-33-3.4.14-1.2
+[   11s] [48/477] cumulate libImath-3_2-30-3.2.3-1.1
+[   11s] [49/477] cumulate libLerc4-4.1.0-3.3
+[   11s] [50/477] cumulate libSPIRV-Tools-2026_4_rc2-2026.4~rc2-1.1
+[   11s] [51/477] cumulate libSvtAv1Enc4-4.2.0-1.2
+[   11s] [52/477] cumulate libX11-data-1.8.13-2.1
+[   11s] [53/477] cumulate libXau6-1.0.12-2.5
+[   11s] [54/477] preinstalled libacl1-2.4.0-1.2
+[   11s] [55/477] preinstalled libalternatives1-2.0+0.4f22c01-1.1
+[   11s] [56/477] preinstalled libarchive13-3.8.9-1.1
+[   11s] [57/477] preinstalled libasan8-16.2.0+git9497-3.1
+[   11s] [58/477] preinstalled libasm1-0.194-1.4
+[   11s] [59/477] cumulate libasound2-1.2.16.1-2.1
+[   11s] [60/477] preinstalled libatomic1-16.2.0+git9497-3.1
+[   11s] [61/477] preinstalled libattr1-2.6.0-1.2
+[   11s] [62/477] preinstalled libaudit1-4.0.2-3.5
+[   11s] [63/477] cumulate libb2-1-0.98.1-2.5
+[   11s] [64/477] preinstalled libblkid1-2.42.3-1.1
+[   11s] [65/477] cumulate libbrotlicommon1-1.2.0-2.4
+[   11s] [66/477] preinstalled libbz2-1-1.0.8-6.1
+[   11s] [67/477] preinstalled libcap-ng0-0.8.5-1.7
+[   11s] [68/477] preinstalled libcap2-2.78-1.4
+[   11s] [69/477] cumulate libcom_err2-1.47.3-2.2
+[   11s] [70/477] preinstalled libcrypt1-4.5.2-2.4
+[   11s] [71/477] preinstalled libctf-nobfd0-2.45-4.3
+[   11s] [72/477] preinstalled libctf0-2.45-4.3
+[   11s] [73/477] cumulate libdatrie1-0.2.14-1.6
+[   11s] [74/477] cumulate libdav1d7-1.5.4-1.2
+[   11s] [75/477] cumulate libdeflate0-1.25-1.5
+[   11s] [76/477] cumulate libdisplay-info3-0.3.0-2.5
+[   11s] [77/477] cumulate libdouble-conversion3-3.4.0-1.5
+[   11s] [78/477] cumulate libdrm2-2.4.134-2.2
+[   11s] [79/477] preinstalled libdw1-0.194-1.4
+[   11s] [80/477] cumulate libeconf-devel-0.8.4-1.2
+[   11s] [81/477] preinstalled libeconf0-0.8.4-1.2
+[   11s] [82/477] cumulate libedit0-20250104.3.1-1.5
+[   11s] [83/477] preinstalled libelf1-0.194-1.4
+[   11s] [84/477] cumulate libevdev2-1.13.7-1.1
+[   11s] [85/477] cumulate libexpat1-2.8.4-1.1
+[   11s] [86/477] preinstalled libfdisk1-2.42.3-1.1
+[   11s] [87/477] cumulate libffi8-3.5.2-2.5
+[   11s] [88/477] cumulate libfl2-2.6.4-7.7
+[   11s] [89/477] cumulate libfmt12-12.1.0-1.5
+[   11s] [90/477] cumulate libfribidi0-1.0.16-1.4
+[   11s] [91/477] preinstalled libgcc_s1-16.2.0+git9497-3.1
+[   11s] [92/477] preinstalled libgcrypt20-1.12.4-1.1
+[   11s] [93/477] preinstalled libgdbm6-1.26-1.5
+[   11s] [94/477] preinstalled libgdbm_compat4-1.26-1.5
+[   11s] [95/477] cumulate libgif7-5.2.2-4.3
+[   11s] [96/477] cumulate libglib-2_0-0-2.88.3-2.1
+[   11s] [97/477] preinstalled libgmp10-6.3.0-5.6
+[   11s] [98/477] preinstalled libgomp1-16.2.0+git9497-3.1
+[   11s] [99/477] preinstalled libgpg-error0-1.61-2.1
+[   11s] [100/477] cumulate libgraphite2-3-1.3.15-1.3
+[   11s] [101/477] preinstalled libhwasan0-16.2.0+git9497-3.1
+[   11s] [102/477] cumulate libhwy1-1.4.0-2.1
+[   11s] [103/477] cumulate libicu78-ledata-78.3-1.4
+[   11s] [104/477] preinstalled libisl23-0.27-1.6
+[   11s] [105/477] preinstalled libitm1-16.2.0+git9497-3.1
+[   11s] [106/477] cumulate libjbig2-2.1-5.9
+[   11s] [107/477] preinstalled libjitterentropy3-3.6.3-1.5
+[   11s] [108/477] cumulate libjpeg8-8.3.2-85.1
+[   11s] [109/477] cumulate liblcms2-2-2.19.1-1.3
+[   11s] [110/477] preinstalled liblsan0-16.2.0+git9497-3.1
+[   11s] [111/477] preinstalled liblua5_4-5-5.4.8-4.6
+[   11s] [112/477] preinstalled liblz1-1.16-2.1
+[   11s] [113/477] preinstalled liblz4-1-1.10.0-2.8
+[   11s] [114/477] preinstalled liblzma5-5.8.4-1.1
+[   11s] [115/477] preinstalled libmagic1-5.48-2.2
+[   11s] [116/477] cumulate libmd4c0-0.5.3-1.4
+[   11s] [117/477] preinstalled libmount1-2.42.3-1.1
+[   11s] [118/477] preinstalled libmpc3-1.4.1-1.4
+[   11s] [119/477] cumulate libmpdec4-4.0.1-2.5
+[   11s] [120/477] preinstalled libmpfr6-4.2.2-1.5
+[   11s] [121/477] cumulate libmtdev1-1.1.6-1.21
+[   11s] [122/477] preinstalled libncurses6-6.6.20260919-113.1
+[   11s] [123/477] cumulate libogg0-1.3.6-1.5
+[   11s] [124/477] cumulate libomp22-devel-22.1.8-3.3
+[   11s] [125/477] cumulate libopenjp2-7-2.5.4-2.6
+[   11s] [126/477] cumulate libopenjph0_32-0.32.0-1.1
+[   11s] [127/477] preinstalled libopenssl3-3.5.3-8.1
+[   11s] [128/477] cumulate libopus0-1.6.1-1.5
+[   11s] [129/477] cumulate liborc-0_4-0-0.4.44-1.1
+[   11s] [130/477] cumulate libpartio1-1.20.0-1.4
+[   11s] [131/477] cumulate libpciaccess0-0.19-1.4
+[   11s] [132/477] cumulate libpcre2-16-0-10.48-1.1
+[   11s] [133/477] cumulate libpcre2-32-0-10.48-1.1
+[   11s] [134/477] preinstalled libpcre2-8-0-10.48-1.1
+[   11s] [135/477] cumulate libpcre2-posix3-10.48-1.1
+[   11s] [136/477] cumulate libpixman-1-0-0.46.4-2.5
+[   11s] [137/477] preinstalled libpkgconf7-2.5.1-1.5
+[   11s] [138/477] cumulate libpng16-16-1.6.58-2.1
+[   11s] [139/477] preinstalled libpopt0-1.19-2.4
+[   11s] [140/477] cumulate libpugixml1-1.16-1.2
+[   11s] [141/477] cumulate libpystring0_0-1.1.4-1.7
+[   11s] [142/477] cumulate librav1e0_8-0.8.1-2.4
+[   11s] [143/477] preinstalled libreadline8-8.3.3-2.6
+[   11s] [144/477] cumulate librhash1-1.4.6-2.3
+[   11s] [145/477] preinstalled librpmbuild10-4.20.1-11.1
+[   11s] [146/477] preinstalled libseccomp2-2.6.1-3.1
+[   11s] [147/477] preinstalled libselinux1-3.11-2.1
+[   11s] [148/477] cumulate libsemanage-conf-3.11-1.2
+[   11s] [149/477] cumulate libsepol2-3.11-1.2
+[   11s] [150/477] preinstalled libsframe2-2.45-4.3
+[   11s] [151/477] cumulate libsharpyuv0-1.6.0-2.3
+[   11s] [152/477] preinstalled libsmartcols1-2.42.3-1.1
+[   11s] [153/477] cumulate libsnappy1-1.3.0-1.1
+[   11s] [154/477] preinstalled libstdc++6-16.2.0+git9497-3.1
+[   11s] [155/477] cumulate libstdc++6-devel-gcc16-16.2.0+git9497-3.1
+[   11s] [156/477] cumulate libsubid6-4.20.2-2.1
+[   11s] [157/477] cumulate libsystemd0-mini-261.2-1.1
+[   11s] [158/477] cumulate libtbb12-2023.0.0-1.3
+[   11s] [159/477] cumulate libthai-data-0.1.30-1.5
+[   11s] [160/477] cumulate libtheoradec2-1.2.0-2.5
+[   11s] [161/477] cumulate libts0-1.24-1.5
+[   11s] [162/477] preinstalled libtsan2-16.2.0+git9497-3.1
+[   11s] [163/477] cumulate libturbojpeg0-8.3.2-85.1
+[   11s] [164/477] preinstalled libubsan1-16.2.0+git9497-3.1
+[   11s] [165/477] cumulate libudev-mini1-261.2-1.1
+[   11s] [166/477] cumulate libunwind8-1.8.3-3.3
+[   11s] [167/477] preinstalled libuuid1-2.42.3-1.1
+[   11s] [168/477] cumulate libuv1-1.52.0-1.4
+[   11s] [169/477] cumulate libverto1-0.3.2-3.9
+[   11s] [170/477] cumulate libvmaf3-3.2.1-1.1
+[   11s] [171/477] cumulate libvulkan1-1.4.357-1.1
+[   11s] [172/477] cumulate libwacom-data-2.19.1-1.1
+[   11s] [173/477] cumulate libwayland-egl1-1.26.0-1.2
+[   11s] [174/477] cumulate libwrap0-7.6-901.5
+[   11s] [175/477] preinstalled libxcrypt-devel-4.5.2-2.4
+[   11s] [176/477] preinstalled libxml2-16-2.15.4-1.1
+[   11s] [177/477] cumulate libxshmfence1-1.3.3-1.6
+[   11s] [178/477] cumulate libyaml-cpp0_9-0.9.0-1.4
+[   11s] [179/477] cumulate libz-ng2-2.3.3-2.4
+[   11s] [180/477] preinstalled libz1-1.3.1-3.3
+[   11s] [181/477] preinstalled libzstd1-1.5.7-6.1
+[   11s] [182/477] preinstalled linux-glibc-devel-7.2-2.1
+[   11s] [183/477] cumulate llvm22-polly-22.1.8-3.3
+[   11s] [184/477] cumulate login_defs-4.20.2-2.1
+[   11s] [185/477] preinstalled lua-interpreter-5-3.3
+[   11s] [186/477] preinstalled lua54-5.4.8-4.6
+[   11s] [187/477] cumulate m4-1.4.21-2.1
+[   11s] [188/477] preinstalled make-4.4.1-3.7
+[   11s] [189/477] preinstalled ncurses-utils-6.6.20260919-113.1
+[   11s] [190/477] cumulate ninja-1.13.2-1.5
+[   11s] [191/477] preinstalled pam-1.7.2+git48-2.1
+[   11s] [192/477] preinstalled patch-2.8-3.2
+[   11s] [193/477] preinstalled perl-5.44.0-1.2
+[   11s] [194/477] preinstalled perl-base-5.44.0-1.2
+[   11s] [195/477] preinstalled perl-rpm-packaging-1.3-1.3
+[   11s] [196/477] preinstalled permctl-1699_20260917-1.1
+[   11s] [197/477] preinstalled permissions-1699_20260917-1.1
+[   11s] [198/477] preinstalled permissions-config-1699_20260917-1.1
+[   11s] [199/477] preinstalled pkgconf-2.5.1-1.5
+[   11s] [200/477] preinstalled pkgconf-m4-2.5.1-1.5
+[   11s] [201/477] preinstalled pkgconf-pkg-config-2.5.1-1.5
+[   11s] [202/477] preinstalled polkit-default-privs-1550+20260825.76d85e6-1.1
+[   11s] [203/477] preinstalled post-build-checks-84.87+git20260421.8ed5e73-1.1
+[   11s] [204/477] cumulate python-pybind11-common-devel-3.0.4-1.3
+[   11s] [205/477] cumulate python-rpm-macros-20260909.65d2791-1.1
+[   11s] [206/477] cumulate robin-map-devel-1.4.1-1.3
+[   11s] [207/477] preinstalled rpm-4.20.1-11.1
+[   11s] [208/477] preinstalled rpm-build-4.20.1-11.1
+[   11s] [209/477] preinstalled rpm-config-SUSE-20250904-1.3
+[   11s] [210/477] preinstalled rpmlint-mini-2.10.0+git20260911.f4f012f3-21.40
+[   11s] [211/477] preinstalled rpmlint-strict-2.10.0+git20260911.f4f012f3-1.1
+[   11s] [212/477] preinstalled sed-4.10-1.4
+[   11s] [213/477] preinstalled suse-reproducible-builds-1.0-1.2
+[   11s] [214/477] preinstalled system-user-root-20190513-2.20
+[   11s] [215/477] cumulate systemd-mini-261.2-1.1
+[   11s] [216/477] preinstalled systemd-rpm-macros-26-1.3
+[   11s] [217/477] cumulate sysuser-shadow-3.3-12.3
+[   11s] [218/477] preinstalled tar-1.35-10.1
+[   11s] [219/477] preinstalled terminfo-base-6.6.20260919-113.1
+[   11s] [220/477] cumulate timezone-2026d-1.1
+[   11s] [221/477] cumulate typelib-1_0-GIRepository-3_0-2.88.3-2.1
+[   11s] [222/477] preinstalled util-linux-2.42.3-1.1
+[   11s] [223/477] preinstalled which-2.25-1.3
+[   11s] [224/477] cumulate xkeyboard-config-2.48-1.2
+[   11s] [225/477] cumulate xorgproto-devel-2025.1-1.3
+[   11s] [226/477] preinstalled xz-5.8.4-1.1
+[   11s] [227/477] cumulate zlib-devel-1.3.1-3.3
+[   11s] [228/477] cumulate bison-3.8.2-4.1
+[   11s] [229/477] cumulate dbus-1-common-1.14.10-5.6
+[   11s] [230/477] cumulate fmt-devel-12.1.0-1.5
+[   11s] [231/477] cumulate gcc16-c++-16.2.0+git9497-3.1
+[   11s] [232/477] cumulate libIlmThread-3_4-33-3.4.14-1.2
+[   11s] [233/477] cumulate libLLVM22-22.1.8-3.3
+[   11s] [234/477] cumulate libLLVM23-23.1.1-1.1
+[   11s] [235/477] cumulate libOpenImageIO_Util3_1-3.1.17.0-1.2
+[   11s] [236/477] cumulate libSM6-1.2.6-1.5
+[   11s] [237/477] cumulate libX11-xcb1-1.8.13-2.1
+[   11s] [238/477] cumulate libaom3-3.13.1-2.5
+[   11s] [239/477] cumulate libblkid-devel-2.42.3-1.1
+[   11s] [240/477] cumulate libblosc1-1.21.6-3.3
+[   11s] [241/477] cumulate libboost_atomic1_92_0-1.92.0-1.1
+[   11s] [242/477] cumulate libboost_chrono1_92_0-1.92.0-1.1
+[   11s] [243/477] cumulate libboost_container1_92_0-1.92.0-1.1
+[   11s] [244/477] cumulate libboost_date_time1_92_0-1.92.0-1.1
+[   11s] [245/477] cumulate libboost_filesystem1_92_0-1.92.0-1.1
+[   11s] [246/477] cumulate libboost_iostreams1_92_0-1.92.0-1.1
+[   11s] [247/477] cumulate libboost_thread1_92_0-1.92.0-1.1
+[   11s] [248/477] cumulate libbrotlidec1-1.2.0-2.4
+[   11s] [249/477] cumulate libbrotlienc1-1.2.0-2.4
+[   11s] [250/477] cumulate libdeflate-devel-1.25-1.5
+[   11s] [251/477] cumulate libdrm_amdgpu1-2.4.134-2.2
+[   11s] [252/477] cumulate libdrm_nouveau2-2.4.134-2.2
+[   11s] [253/477] cumulate libdrm_radeon1-2.4.134-2.2
+[   11s] [254/477] cumulate libffi-devel-3.5.2-2.5
+[   11s] [255/477] cumulate libfl-devel-2.6.4-7.7
+[   11s] [256/477] cumulate libgbm1-26.2.3-1.1
+[   11s] [257/477] cumulate libgmodule-2_0-0-2.88.3-2.1
+[   11s] [258/477] cumulate libgthread-2_0-0-2.88.3-2.1
+[   11s] [259/477] cumulate libminizip-ng4-4.1.0-1.4
+[   11s] [260/477] cumulate libsepol-devel-3.11-1.2
+[   11s] [261/477] cumulate libstdc++-devel-16-1.1
+[   11s] [262/477] cumulate libtheoraenc2-1.2.0-2.5
+[   11s] [263/477] cumulate libvorbis0-1.3.7-5.7
+[   11s] [264/477] cumulate libwayland-client0-1.26.0-1.2
+[   11s] [265/477] cumulate libwayland-server0-1.26.0-1.2
+[   11s] [266/477] cumulate libwebp7-1.6.0-2.3
+[   11s] [267/477] cumulate libxcb1-1.17.0-2.7
+[   11s] [268/477] cumulate libxkbcommon0-1.13.2-1.3
+[   11s] [269/477] cumulate libyuv0-20230517+a377993-2.5
+[   11s] [270/477] cumulate partio-devel-1.20.0-1.4
+[   11s] [271/477] cumulate pugixml-devel-1.16-1.2
+[   11s] [272/477] cumulate shared-mime-info-2.5.1-1.1
+[   11s] [273/477] cumulate krb5-mini-1.22.2-4.2
+[   11s] [274/477] cumulate libOpenEXRCore-3_4-33-3.4.14-1.2
+[   11s] [275/477] cumulate libXau-devel-1.0.12-2.5
+[   11s] [276/477] cumulate libdrm_intel1-2.4.134-2.2
+[   11s] [277/477] cumulate libgobject-2_0-0-2.88.3-2.1
+[   11s] [278/477] cumulate libicu78-78.3-1.4
+[   11s] [279/477] cumulate libjpeg8-devel-8.3.2-85.1
+[   11s] [280/477] cumulate libpciaccess-devel-0.19-1.4
+[   11s] [281/477] cumulate libraw25-0.22.2-1.1
+[   11s] [282/477] cumulate libsemanage2-3.11-1.2
+[   11s] [283/477] cumulate libthai0-0.1.30-1.5
+[   11s] [284/477] cumulate libtiff6-4.7.2-1.2
+[   11s] [285/477] cumulate gcc-c++-16-1.1
+[   11s] [286/477] cumulate libLTO22-22.1.8-3.3
+[   11s] [287/477] cumulate libclang-cpp22-22.1.8-3.3
+[   11s] [288/477] cumulate libclang-cpp23-23.1.1-1.1
+[   11s] [289/477] cumulate libvorbisenc2-1.3.7-5.7
+[   11s] [290/477] cumulate libwayland-cursor0-1.26.0-1.2
+[   11s] [291/477] cumulate libwebpdemux2-1.6.0-2.3
+[   11s] [292/477] cumulate libwebpmux3-1.6.0-2.3
+[   11s] [293/477] cumulate libxcb-composite0-1.17.0-2.7
+[   11s] [294/477] cumulate libxcb-damage0-1.17.0-2.7
+[   11s] [295/477] cumulate libxcb-dbe0-1.17.0-2.7
+[   11s] [296/477] cumulate libxcb-dpms0-1.17.0-2.7
+[   11s] [297/477] cumulate libxcb-dri2-0-1.17.0-2.7
+[   11s] [298/477] cumulate libxcb-dri3-0-1.17.0-2.7
+[   11s] [299/477] cumulate libxcb-glx0-1.17.0-2.7
+[   11s] [300/477] cumulate libxcb-icccm4-0.4.2-1.10
+[   11s] [301/477] cumulate libxcb-keysyms1-0.4.1-1.11
+[   11s] [302/477] cumulate libxcb-present0-1.17.0-2.7
+[   11s] [303/477] cumulate libxcb-randr0-1.17.0-2.7
+[   11s] [304/477] cumulate libxcb-record0-1.17.0-2.7
+[   11s] [305/477] cumulate libxcb-render0-1.17.0-2.7
+[   11s] [306/477] cumulate libxcb-res0-1.17.0-2.7
+[   11s] [307/477] cumulate libxcb-screensaver0-1.17.0-2.7
+[   11s] [308/477] cumulate libxcb-shape0-1.17.0-2.7
+[   11s] [309/477] cumulate libxcb-shm0-1.17.0-2.7
+[   11s] [310/477] cumulate libxcb-sync1-1.17.0-2.7
+[   11s] [311/477] cumulate libxcb-util1-0.4.1-1.10
+[   11s] [312/477] cumulate libxcb-xf86dri0-1.17.0-2.7
+[   11s] [313/477] cumulate libxcb-xfixes0-1.17.0-2.7
+[   11s] [314/477] cumulate libxcb-xinerama0-1.17.0-2.7
+[   11s] [315/477] cumulate libxcb-xinput0-1.17.0-2.7
+[   11s] [316/477] cumulate libxcb-xkb1-1.17.0-2.7
+[   11s] [317/477] cumulate libxcb-xtest0-1.17.0-2.7
+[   11s] [318/477] cumulate libxcb-xv0-1.17.0-2.7
+[   11s] [319/477] cumulate libxcb-xvmc0-1.17.0-2.7
+[   11s] [320/477] cumulate libxkbcommon-devel-1.13.2-1.3
+[   11s] [321/477] cumulate llvm22-22.1.8-3.3
+[   11s] [322/477] cumulate llvm22-gold-22.1.8-3.3
+[   11s] [323/477] cumulate Imath-devel-3.2.3-1.1
+[   11s] [324/477] cumulate flex-2.6.4-7.7
+[   11s] [325/477] cumulate libX11-6-1.8.13-2.1
+[   11s] [326/477] cumulate libatk-1_0-0-2.60.7-1.1
+[   11s] [327/477] cumulate libboost_headers1_92_0-devel-1.92.0-1.1
+[   11s] [328/477] cumulate libdbus-1-3-1.14.10-5.6
+[   11s] [329/477] cumulate libfreetype6-2.14.3-1.2
+[   11s] [330/477] cumulate libgraphene-1_0-0-1.10.8-3.1
+[   11s] [331/477] cumulate openjph-devel-0.32.0-1.1
+[   11s] [332/477] cumulate typelib-1_0-GLib-2_0-2.88.3-2.1
+[   11s] [333/477] cumulate libdcmtk20-3.7.0-2.4
+[   11s] [334/477] cumulate libgudev-1_0-0-238-1.11
+[   11s] [335/477] cumulate libheif1-1.23.5-1.1
+[   11s] [336/477] cumulate libjxl0_12-0.12.0-1.1
+[   11s] [337/477] cumulate shadow-4.20.2-2.1
+[   11s] [338/477] cumulate libOpenEXR-3_4-33-3.4.14-1.2
+[   11s] [339/477] cumulate libgirepository-2_0-0-2.88.3-2.1
+[   11s] [340/477] cumulate libopenvdb13_0-13.0.0-2.3
+[   11s] [341/477] cumulate pcre2-devel-10.48-1.1
+[   11s] [342/477] cumulate dbus-broker-37-2.5
+[   11s] [343/477] cumulate libOpenColorIO2_5-2.5.2-1.3
+[   11s] [344/477] cumulate libQt6Core6-6.11.2-2.1
+[   11s] [345/477] cumulate libavif16-1.4.2-1.4
+[   11s] [346/477] cumulate libdrm-devel-2.4.134-2.2
+[   11s] [347/477] cumulate dbus-1-tools-1.14.10-5.6
+[   11s] [348/477] cumulate libXext6-1.3.7-1.5
+[   11s] [349/477] cumulate libXfixes3-6.0.2-2.5
+[   11s] [350/477] cumulate libXrender1-0.9.12-2.1
+[   11s] [351/477] cumulate shadow-pw-mgmt-4.20.2-2.1
+[   11s] [352/477] cumulate libQt6DBus6-6.11.2-2.1
+[   11s] [353/477] cumulate libboost_chrono1_92_0-devel-1.92.0-1.1
+[   11s] [354/477] cumulate libclang13-23.1.1-1.1
+[   11s] [355/477] cumulate libselinux-devel-3.11-2.1
+[   11s] [356/477] cumulate libxcb-render-util0-0.3.10-1.11
+[   11s] [357/477] cumulate typelib-1_0-GModule-2_0-2.88.3-2.1
+[   11s] [358/477] cumulate typelib-1_0-GObject-2_0-2.88.3-2.1
+[   11s] [359/477] cumulate libOpenEXRUtil-3_4-33-3.4.14-1.2
+[   11s] [360/477] cumulate libboost_atomic1_92_0-devel-1.92.0-1.1
+[   11s] [361/477] cumulate libboost_container1_92_0-devel-1.92.0-1.1
+[   11s] [362/477] cumulate libharfbuzz0-14.5.0-1.1
+[   11s] [363/477] cumulate libxcb-image0-0.4.1-1.12
+[   11s] [364/477] cumulate libxkbcommon-x11-0-1.13.2-1.3
+[   11s] [365/477] cumulate typelib-1_0-GLibUnix-2_0-2.88.3-2.1
+[   11s] [366/477] cumulate Mesa-vulkan-device-select-26.2.3-1.1
+[   11s] [367/477] cumulate dbus-1-daemon-1.14.10-5.6
+[   11s] [368/477] cumulate libwacom9-2.19.1-1.1
+[   11s] [369/477] cumulate wayland-devel-1.26.0-1.2
+[   11s] [370/477] cumulate libOpenImageIO3_1-3.1.17.0-1.2
+[   11s] [371/477] cumulate libxcb-devel-1.17.0-2.7
+[   11s] [372/477] cumulate libXi6-1.8.3-1.3
+[   11s] [373/477] cumulate libXtst6-1.2.5-1.7
+[   11s] [374/477] cumulate libXv1-1.0.13-1.6
+[   11s] [375/477] cumulate libXxf86vm1-1.1.7-1.5
+[   11s] [376/477] cumulate libXrandr2-1.5.5-1.5
+[   11s] [377/477] cumulate libmount-devel-2.42.3-1.1
+[   11s] [378/477] cumulate typelib-1_0-Atk-1_0-2.60.7-1.1
+[   11s] [379/477] cumulate dbus-1-1.14.10-5.6
+[   11s] [380/477] cumulate libX11-devel-1.8.13-2.1
+[   11s] [381/477] cumulate libboost_filesystem1_92_0-devel-1.92.0-1.1
+[   11s] [382/477] cumulate libinput10-1.32-1.1
+[   11s] [383/477] cumulate libxcb-cursor0-0.1.6-1.5
+[   11s] [384/477] cumulate libboost_date_time1_92_0-devel-1.92.0-1.1
+[   11s] [385/477] cumulate openexr-devel-3.4.14-1.2
+[   11s] [386/477] cumulate libvulkan_lvp-26.2.3-1.1
+[   11s] [387/477] cumulate libboost_filesystem-devel-1.92.0-1.1
+[   11s] [388/477] cumulate dbus-1-devel-1.14.10-5.6
+[   11s] [389/477] cumulate libXext-devel-1.3.7-1.5
+[   11s] [390/477] cumulate libXfixes-devel-6.0.2-2.5
+[   11s] [391/477] cumulate libXrender-devel-0.9.12-2.1
+[   11s] [392/477] cumulate libboost_thread1_92_0-devel-1.92.0-1.1
+[   11s] [393/477] cumulate libboost_thread-devel-1.92.0-1.1
+[   11s] [394/477] cumulate libXi-devel-1.8.3-1.3
+[   11s] [395/477] cumulate libXrandr-devel-1.5.5-1.5
+[   11s] [396/477] cumulate libXtst-devel-1.2.5-1.7
+[   11s] [397/477] cumulate libglvnd-1.7.0-2.4
+[   11s] [398/477] cumulate llvm22-polly-devel-22.1.8-3.3
+[   11s] [399/477] cumulate libfontconfig1-2.18.1-1.3
+[   11s] [400/477] cumulate python313-base-3.13.15-1.2
+[   11s] [401/477] cumulate libgirepository-1_0-1-1.86.0-3.4
+[   11s] [402/477] cumulate libgio-2_0-0-2.88.3-2.1
+[   11s] [403/477] cumulate gio-branding-upstream-2.88.3-2.1
+[   11s] [404/477] cumulate girepository-1_0-1.86.0-3.4
+[   11s] [405/477] cumulate libclang_rt22-22.1.8-3.3
+[   11s] [406/477] cumulate libclang_rt23-23.1.1-1.1
+[   11s] [407/477] cumulate libglvnd-devel-1.7.0-2.4
+[   11s] [408/477] cumulate libpython3_13-1_0-3.13.15-1.2
+[   11s] [409/477] cumulate python313-packaging-26.3-1.1
+[   11s] [410/477] cumulate python313-pybind11-3.0.4-1.3
+[   11s] [411/477] cumulate fontconfig-2.18.1-1.3
+[   11s] [412/477] cumulate libopencv413-4.13.0-2.1
+[   11s] [413/477] cumulate libpxbackend-1_0-mini-0.5.12-2.4
+[   11s] [414/477] cumulate Mesa-26.2.3-1.1
+[   11s] [415/477] cumulate cmake-mini-4.4.3-1.1
+[   11s] [416/477] cumulate glib2-tools-2.88.3-2.1
+[   11s] [417/477] cumulate libXft2-2.3.9-1.5
+[   11s] [418/477] cumulate typelib-1_0-Gio-2_0-2.88.3-2.1
+[   11s] [419/477] cumulate vulkan-headers-1.4.357-1.1
+[   11s] [420/477] cumulate libatspi0-2.60.7-1.1
+[   11s] [421/477] cumulate libgstreamer-1_0-0-1.28.7-1.1
+[   11s] [422/477] cumulate llvm22-devel-22.1.8-3.3
+[   11s] [423/477] cumulate libcairo2-1.18.4-4.5
+[   11s] [424/477] cumulate Mesa-libGL1-26.2.3-1.1
+[   11s] [425/477] cumulate cmake-4.4.3-1.1
+[   11s] [426/477] cumulate python313-devel-3.13.15-1.2
+[   11s] [427/477] cumulate vulkan-devel-1.4.357-1.1
+[   11s] [428/477] cumulate gstreamer-1.28.7-1.1
+[   11s] [429/477] cumulate libproxy1-0.5.12-2.4
+[   11s] [430/477] cumulate python-rpm-packaging-20210526+a18ca48-1.15
+[   11s] [431/477] cumulate Mesa-libGL-devel-26.2.3-1.1
+[   11s] [432/477] cumulate clang22-22.1.8-3.3
+[   11s] [433/477] cumulate clang23-23.1.1-1.1
+[   11s] [434/477] cumulate typelib-1_0-Atspi-2_0-2.60.7-1.1
+[   11s] [435/477] cumulate libatk-bridge-2_0-0-2.60.7-1.1
+[   11s] [436/477] cumulate libopencv_imgcodecs413-4.13.0-2.1
+[   11s] [437/477] cumulate libpango-1_0-0-1.58.2-1.1
+[   11s] [438/477] cumulate Mesa-dri-26.2.3-1.1
+[   11s] [439/477] cumulate glib2-devel-2.88.3-2.1
+[   11s] [440/477] cumulate clang-23-1.1
+[   11s] [441/477] cumulate qt6-macros-20260508-1.2
+[   11s] [442/477] cumulate python313-pybind11-devel-3.0.4-1.3
+[   11s] [443/477] cumulate libQt6Network6-6.11.2-2.1
+[   11s] [444/477] cumulate at-spi2-core-2.60.7-1.1
+[   11s] [445/477] cumulate Mesa-libEGL1-26.2.3-1.1
+[   11s] [446/477] cumulate gstreamer-plugins-base-1.28.7-1.1
+[   11s] [447/477] cumulate qt6-network-tls-6.11.2-2.1
+[   11s] [448/477] cumulate qt6-networkinformation-connman-6.11.2-2.1
+[   11s] [449/477] cumulate qt6-networkinformation-nm-6.11.2-2.1
+[   11s] [450/477] cumulate Mesa-libEGL-devel-26.2.3-1.1
+[   11s] [451/477] cumulate clang-tools-23.1.1-1.1
+[   11s] [452/477] cumulate libgstapp-1_0-0-1.28.7-1.1
+[   11s] [453/477] cumulate libgsttag-1_0-0-1.28.7-1.1
+[   11s] [454/477] cumulate qt6-networkinformation-glib-6.11.2-2.1
+[   11s] [455/477] cumulate libgstallocators-1_0-0-1.28.7-1.1
+[   11s] [456/477] cumulate qt6-base-common-devel-6.11.2-2.1
+[   11s] [457/477] cumulate at-spi2-core-devel-2.60.7-1.1
+[   11s] [458/477] cumulate libQt6Gui6-6.11.2-2.1
+[   11s] [459/477] cumulate libQt6Widgets6-6.11.2-2.1
+[   11s] [460/477] cumulate qt6-core-devel-6.11.2-2.1
+[   11s] [461/477] cumulate clang22-devel-22.1.8-3.3
+[   11s] [462/477] cumulate libQt6WaylandClient6-6.11.2-2.1
+[   11s] [463/477] cumulate libgstaudio-1_0-0-1.28.7-1.1
+[   11s] [464/477] cumulate libgstvideo-1_0-0-1.28.7-1.1
+[   11s] [465/477] cumulate qt6-dbus-devel-6.11.2-2.1
+[   11s] [466/477] cumulate libQt6OpenGL6-6.11.2-2.1
+[   11s] [467/477] cumulate libgstriff-1_0-0-1.28.7-1.1
+[   11s] [468/477] cumulate libgstpbutils-1_0-0-1.28.7-1.1
+[   11s] [469/477] cumulate libgstgl-1_0-0-1.28.7-1.1
+[   11s] [470/477] cumulate libQt6OpenGLWidgets6-6.11.2-2.1
+[   11s] [471/477] cumulate qt6-gui-devel-6.11.2-2.1
+[   11s] [472/477] cumulate libopencv_videoio413-4.13.0-2.1
+[   11s] [473/477] cumulate qt6-widgets-devel-6.11.2-2.1
+[   11s] [474/477] cumulate qt6-opengl-devel-6.11.2-2.1
+[   11s] [475/477] cumulate OpenImageIO-3.1.17.0-1.2
+[   11s] [476/477] cumulate qt6-openglwidgets-devel-6.11.2-2.1
+[   11s] [477/477] cumulate OpenImageIO-devel-3.1.17.0-1.2
+[   11s] now installing cumulated packages
+[   11s] Preparing...                          ########################################
+[   11s] Updating / installing...
+[   11s] libglib-2_0-0-2.88.3-2.1              ########################################
+[   11s] libdrm2-2.4.134-2.2                   ########################################
+[   11s] libgmodule-2_0-0-2.88.3-2.1           ########################################
+[   11s] libexpat1-2.8.4-1.1                   ########################################
+[   11s] xorgproto-devel-2025.1-1.3            ########################################
+[   11s] libjpeg8-8.3.2-85.1                   ########################################
+[   11s] libffi8-3.5.2-2.5                     ########################################
+[   11s] libgobject-2_0-0-2.88.3-2.1           ########################################
+[   11s] boost-license1_92_0-1.92.0-1.1        ########################################
+[   11s] typelib-1_0-GLib-2_0-2.88.3-2.1       ########################################
+[   11s] libwayland-client0-1.26.0-1.2         ########################################
+[   11s] libpng16-16-1.6.58-2.1                ########################################
+[   11s] libsystemd0-mini-261.2-1.1            ########################################
+[   11s] typelib-1_0-GObject-2_0-2.88.3-2.1    ########################################
+[   11s] libgbm1-26.2.3-1.1                    ########################################
+[   11s] libtbb12-2023.0.0-1.3                 ########################################
+[   11s] libImath-3_2-30-3.2.3-1.1             ########################################
+[   11s] libIex-3_4-33-3.4.14-1.2              ########################################
+[   11s] libOpenImageIO_Util3_1-3.1.17.0-1.2   ########################################
+[   11s] libwayland-cursor0-1.26.0-1.2         ########################################
+[   11s] libatk-1_0-0-2.60.7-1.1               ########################################
+[   11s] zlib-devel-1.3.1-3.3                  ########################################
+[   11s] libudev-mini1-261.2-1.1               ########################################
+[   12s] libsharpyuv0-1.6.0-2.3                ########################################
+[   12s] libwebp7-1.6.0-2.3                    ########################################
+[   12s] libpcre2-16-0-10.48-1.1               ########################################
+[   12s] liborc-0_4-0-0.4.44-1.1               ########################################
+[   12s] libopenjph0_32-0.32.0-1.1             ########################################
+[   12s] libogg0-1.3.6-1.5                     ########################################
+[   12s] libvorbis0-1.3.7-5.7                  ########################################
+[   12s] libwebpdemux2-1.6.0-2.3               ########################################
+[   12s] libwebpmux3-1.6.0-2.3                 ########################################
+[   12s] libgudev-1_0-0-238-1.11               ########################################
+[   12s] typelib-1_0-GModule-2_0-2.88.3-2.1    ########################################
+[   12s] libffi-devel-3.5.2-2.5                ########################################
+[   12s] libdrm_amdgpu1-2.4.134-2.2            ########################################
+[   12s] m4-1.4.21-2.1                         ########################################
+[   12s] libxshmfence1-1.3.3-1.6               ########################################
+[   12s] libwayland-egl1-1.26.0-1.2            ########################################
+[   12s] libvulkan1-1.4.357-1.1                ########################################
+[   12s] libuv1-1.52.0-1.4                     ########################################
+[   12s] libstdc++6-devel-gcc16-16.2.0+git9497-########################################
+[   12s] libstdc++-devel-16-1.1                ########################################
+[   13s] libboost_headers1_92_0-devel-1.92.0-1.########################################
+[   13s] Imath-devel-3.2.3-1.1                 ########################################
+[   13s] libsepol2-3.11-1.2                    ########################################
+[   13s] libpugixml1-1.16-1.2                  ########################################
+[   13s] libpciaccess0-0.19-1.4                ########################################
+[   13s] libdrm_intel1-2.4.134-2.2             ########################################
+[   13s] libopenjp2-7-2.5.4-2.6                ########################################
+[   13s] libmtdev1-1.1.6-1.21                  ########################################
+[   13s] libevdev2-1.13.7-1.1                  ########################################
+[   13s] libedit0-20250104.3.1-1.5             ########################################
+[   13s] libLLVM22-22.1.8-3.3                  ########################################
+[   14s] libLLVM23-23.1.1-1.1                  ########################################
+[   14s] libclang-cpp23-23.1.1-1.1             ########################################
+[   14s] libclang13-23.1.1-1.1                 ########################################
+[   14s] libclang-cpp22-22.1.8-3.3             ########################################
+[   14s] libeconf-devel-0.8.4-1.2              ########################################
+[   14s] libdeflate0-1.25-1.5                  ########################################
+[   14s] libOpenEXRCore-3_4-33-3.4.14-1.2      ########################################
+[   14s] libbrotlicommon1-1.2.0-2.4            ########################################
+[   14s] libbrotlidec1-1.2.0-2.4               ########################################
+[   14s] libfreetype6-2.14.3-1.2               ########################################
+[   14s] libfontconfig1-2.18.1-1.3             ########################################
+[   14s] fontconfig-2.18.1-1.3                 ########################################
+[   14s] libbrotlienc1-1.2.0-2.4               ########################################
+[   14s] libXau6-1.0.12-2.5                    ########################################
+[   14s] libxcb1-1.17.0-2.7                    ########################################
+[   14s] libxcb-shm0-1.17.0-2.7                ########################################
+[   14s] libxcb-dri3-0-1.17.0-2.7              ########################################
+[   14s] libxcb-xfixes0-1.17.0-2.7             ########################################
+[   14s] libxcb-present0-1.17.0-2.7            ########################################
+[   14s] libxcb-randr0-1.17.0-2.7              ########################################
+[   14s] libxcb-render0-1.17.0-2.7             ########################################
+[   14s] libxcb-sync1-1.17.0-2.7               ########################################
+[   14s] libxcb-glx0-1.17.0-2.7                ########################################
+[   14s] libxcb-xkb1-1.17.0-2.7                ########################################
+[   14s] libxcb-render-util0-0.3.10-1.11       ########################################
+[   14s] libxcb-shape0-1.17.0-2.7              ########################################
+[   14s] libxcb-xinput0-1.17.0-2.7             ########################################
+[   14s] libX11-data-1.8.13-2.1                ########################################
+[   14s] libX11-6-1.8.13-2.1                   ########################################
+[   14s] libXext6-1.3.7-1.5                    ########################################
+[   14s] libX11-xcb1-1.8.13-2.1                ########################################
+[   14s] libXrender1-0.9.12-2.1                ########################################
+[   14s] libXi6-1.8.3-1.3                      ########################################
+[   14s] libXtst6-1.2.5-1.7                    ########################################
+[   14s] libSPIRV-Tools-2026_4_rc2-2026.4~rc2-1########################################
+[   14s] libICE6-1.1.2-1.6                     ########################################
+[   15s] ffmpeg-8-mini-libs-8.1.2-5.1          ########################################
+[   15s] Mesa-KHR-devel-26.2.3-1.1             ########################################
+[   15s] libSM6-1.2.6-1.5                      ########################################
+[   15s] libXrandr2-1.5.5-1.5                  ########################################
+[   15s] libXft2-2.3.9-1.5                     ########################################
+[   15s] libXv1-1.0.13-1.6                     ########################################
+[   15s] libXxf86vm1-1.1.7-1.5                 ########################################
+[   15s] libXfixes3-6.0.2-2.5                  ########################################
+[   15s] Mesa-vulkan-device-select-26.2.3-1.1  ########################################
+[   15s] libxcb-composite0-1.17.0-2.7          ########################################
+[   15s] libxcb-damage0-1.17.0-2.7             ########################################
+[   15s] libxcb-dbe0-1.17.0-2.7                ########################################
+[   15s] libxcb-dpms0-1.17.0-2.7               ########################################
+[   15s] libxcb-dri2-0-1.17.0-2.7              ########################################
+[   15s] libxcb-icccm4-0.4.2-1.10              ########################################
+[   15s] libxcb-keysyms1-0.4.1-1.11            ########################################
+[   15s] libxcb-record0-1.17.0-2.7             ########################################
+[   15s] libxcb-res0-1.17.0-2.7                ########################################
+[   15s] libxcb-screensaver0-1.17.0-2.7        ########################################
+[   15s] libxcb-util1-0.4.1-1.10               ########################################
+[   15s] libxcb-image0-0.4.1-1.12              ########################################
+[   15s] libxcb-cursor0-0.1.6-1.5              ########################################
+[   15s] libxcb-xf86dri0-1.17.0-2.7            ########################################
+[   15s] libxcb-xinerama0-1.17.0-2.7           ########################################
+[   15s] libxcb-xtest0-1.17.0-2.7              ########################################
+[   15s] libxcb-xv0-1.17.0-2.7                 ########################################
+[   15s] libxcb-xvmc0-1.17.0-2.7               ########################################
+[   15s] libXau-devel-1.0.12-2.5               ########################################
+[   15s] libxcb-devel-1.17.0-2.7               ########################################
+[   15s] libX11-devel-1.8.13-2.1               ########################################
+[   15s] libXext-devel-1.3.7-1.5               ########################################
+[   15s] libXfixes-devel-6.0.2-2.5             ########################################
+[   15s] libXi-devel-1.8.3-1.3                 ########################################
+[   15s] libXtst-devel-1.2.5-1.7               ########################################
+[   15s] libXrender-devel-0.9.12-2.1           ########################################
+[   15s] libXrandr-devel-1.5.5-1.5             ########################################
+[   15s] libheif1-1.23.5-1.1                   ########################################
+[   15s] libdeflate-devel-1.25-1.5             ########################################
+[   15s] libblkid-devel-2.42.3-1.1             ########################################
+[   15s] libLTO22-22.1.8-3.3                   ########################################
+[   15s] llvm22-22.1.8-3.3                     ########################################
+[   15s] llvm22-gold-22.1.8-3.3                ########################################
+[   15s] libpciaccess-devel-0.19-1.4           ########################################
+[   15s] libsepol-devel-3.11-1.2               ########################################
+[   15s] gcc16-c++-16.2.0+git9497-3.1          ########################################
+[   15s] gcc-c++-16-1.1                        ########################################
+[   15s] libvorbisenc2-1.3.7-5.7               ########################################
+[   15s] libtheoraenc2-1.2.0-2.5               ########################################
+[   15s] typelib-1_0-Atk-1_0-2.60.7-1.1        ########################################
+[   15s] libIlmThread-3_4-33-3.4.14-1.2        ########################################
+[   15s] libOpenEXR-3_4-33-3.4.14-1.2          ########################################
+[   15s] libOpenEXRUtil-3_4-33-3.4.14-1.2      ########################################
+[   15s] typelib-1_0-GLibUnix-2_0-2.88.3-2.1   ########################################
+[   15s] libboost_atomic1_92_0-1.92.0-1.1      ########################################
+[   15s] libboost_atomic1_92_0-devel-1.92.0-1.1########################################
+[   15s] libboost_chrono1_92_0-1.92.0-1.1      ########################################
+[   15s] libboost_chrono1_92_0-devel-1.92.0-1.1########################################
+[   15s] libboost_container1_92_0-1.92.0-1.1   ########################################
+[   15s] libboost_container1_92_0-devel-1.92.0-########################################
+[   15s] libboost_date_time1_92_0-1.92.0-1.1   ########################################
+[   15s] libboost_date_time1_92_0-devel-1.92.0-########################################
+[   15s] libboost_filesystem1_92_0-1.92.0-1.1  ########################################
+[   15s] libboost_filesystem1_92_0-devel-1.92.0########################################
+[   15s] libboost_iostreams1_92_0-1.92.0-1.1   ########################################
+[   15s] libboost_thread1_92_0-1.92.0-1.1      ########################################
+[   15s] libboost_thread1_92_0-devel-1.92.0-1.1########################################
+[   15s] libgraphene-1_0-0-1.10.8-3.1          ########################################
+[   15s] libgirepository-2_0-0-2.88.3-2.1      ########################################
+[   15s] girepository-1_0-1.86.0-3.4           ########################################
+[   15s] libgirepository-1_0-1-1.86.0-3.4      ########################################
+[   15s] libwayland-server0-1.26.0-1.2         ########################################
+[   15s] wayland-devel-1.26.0-1.2              ########################################
+[   15s] libyuv0-20230517+a377993-2.5          ########################################
+[   15s] libdrm_nouveau2-2.4.134-2.2           ########################################
+[   15s] libdrm_radeon1-2.4.134-2.2            ########################################
+[   15s] libdrm-devel-2.4.134-2.2              ########################################
+[   15s] libgthread-2_0-0-2.88.3-2.1           ########################################
+[   15s] shared-mime-info-2.5.1-1.1            ########################################
+[   16s] xkeyboard-config-2.48-1.2             ########################################
+[   16s] libxkbcommon0-1.13.2-1.3              ########################################
+[   16s] libxkbcommon-devel-1.13.2-1.3         ########################################
+[   16s] libxkbcommon-x11-0-1.13.2-1.3         ########################################
+[   16s] typelib-1_0-GIRepository-3_0-2.88.3-2.########################################
+[   16s] timezone-2026d-1.1                    ########################################
+[   16s] systemd-mini-261.2-1.1                ########################################
+[   16s] python-rpm-macros-20260909.65d2791-1.1########################################
+[   16s] python-pybind11-common-devel-3.0.4-1.3########################################
+[   16s] ninja-1.13.2-1.5                      ########################################
+[   16s] login_defs-4.20.2-2.1                 ########################################
+[   16s] llvm22-polly-22.1.8-3.3               ########################################
+[   16s] libz-ng2-2.3.3-2.4                    ########################################
+[   16s] libminizip-ng4-4.1.0-1.4              ########################################
+[   16s] libyaml-cpp0_9-0.9.0-1.4              ########################################
+[   16s] libwrap0-7.6-901.5                    ########################################
+[   16s] libwacom-data-2.19.1-1.1              ########################################
+[   17s] libwacom9-2.19.1-1.1                  ########################################
+[   17s] libinput10-1.32-1.1                   ########################################
+[   17s] libvmaf3-3.2.1-1.1                    ########################################
+[   17s] libaom3-3.13.1-2.5                    ########################################
+[   17s] libverto1-0.3.2-3.9                   ########################################
+[   17s] libunwind8-1.8.3-3.3                  ########################################
+[   17s] libturbojpeg0-8.3.2-85.1              ########################################
+[   17s] libjpeg8-devel-8.3.2-85.1             ########################################
+[   17s] openjph-devel-0.32.0-1.1              ########################################
+[   17s] libts0-1.24-1.5                       ########################################
+[   17s] libtheoradec2-1.2.0-2.5               ########################################
+[   17s] libthai-data-0.1.30-1.5               ########################################
+[   17s] libsubid6-4.20.2-2.1                  ########################################
+[   17s] libsnappy1-1.3.0-1.1                  ########################################
+[   17s] libblosc1-1.21.6-3.3                  ########################################
+[   17s] libopenvdb13_0-13.0.0-2.3             ########################################
+[   17s] libsemanage-conf-3.11-1.2             ########################################
+[   17s] libsemanage2-3.11-1.2                 ########################################
+[   17s] shadow-pw-mgmt-4.20.2-2.1             ########################################
+[   17s] /usr/bin/newgidmap: setting to root:root 0755 "cap_setgid=ep". (missing capabilities)
+[   17s] /usr/bin/newuidmap: setting to root:root 0755 "cap_setuid=ep". (missing capabilities)
+[   17s] shadow-4.20.2-2.1                     ########################################
+[   17s] sysuser-shadow-3.3-12.3               ########################################
+[   17s] /usr/bin/systemd-sysusers --replace=/usr/lib/sysusers.d/dbus.conf -
+[   17s] Creating group 'systemd-journal' with GID 499.
+[   17s] Creating group 'messagebus' with GID 498.
+[   17s] Creating user 'messagebus' (User for D-Bus) with UID 498 and GID 498.
+[   17s] dbus-1-common-1.14.10-5.6             ########################################
+[   17s] libdbus-1-3-1.14.10-5.6               ########################################
+[   17s] dbus-1-daemon-1.14.10-5.6             ########################################
+[   17s] gio-branding-upstream-2.88.3-2.1      ########################################
+[   17s] libgio-2_0-0-2.88.3-2.1               ########################################
+[   17s] glib2-tools-2.88.3-2.1                ########################################
+[   17s] No schema files found: doing nothing.
+[   17s] gstreamer-1.28.7-1.1                  ########################################
+[   17s] /usr/libexec/gstreamer-1.0/gst-ptp-helper: setting to root:root 0755 "cap_net_bind_service=ep". (missing capabilities)
+[   17s] libgstreamer-1_0-0-1.28.7-1.1         ########################################
+[   17s] libatspi0-2.60.7-1.1                  ########################################
+[   17s] typelib-1_0-Atspi-2_0-2.60.7-1.1      ########################################
+[   17s] libatk-bridge-2_0-0-2.60.7-1.1        ########################################
+[   17s] libpxbackend-1_0-mini-0.5.12-2.4      ########################################
+[   17s] libproxy1-0.5.12-2.4                  ########################################
+[   17s] typelib-1_0-Gio-2_0-2.88.3-2.1        ########################################
+[   17s] dbus-1-tools-1.14.10-5.6              ########################################
+[   17s] librhash1-1.4.6-2.3                   ########################################
+[   17s] librav1e0_8-0.8.1-2.4                 ########################################
+[   17s] libpystring0_0-1.1.4-1.7              ########################################
+[   17s] libOpenColorIO2_5-2.5.2-1.3           ########################################
+[   17s] libpixman-1-0-0.46.4-2.5              ########################################
+[   17s] libcairo2-1.18.4-4.5                  ########################################
+[   17s] libpcre2-posix3-10.48-1.1             ########################################
+[   17s] libpcre2-32-0-10.48-1.1               ########################################
+[   17s] pcre2-devel-10.48-1.1                 ########################################
+[   17s] libselinux-devel-3.11-2.1             ########################################
+[   17s] libmount-devel-2.42.3-1.1             ########################################
+[   17s] libpartio1-1.20.0-1.4                 ########################################
+[   17s] libopus0-1.6.1-1.5                    ########################################
+[   17s] libomp22-devel-22.1.8-3.3             ########################################
+[   17s] llvm22-polly-devel-22.1.8-3.3         ########################################
+[   17s] llvm22-devel-22.1.8-3.3               ########################################
+[   17s] libmpdec4-4.0.1-2.5                   ########################################
+[   17s] libpython3_13-1_0-3.13.15-1.2         ########################################
+[   18s] python313-base-3.13.15-1.2            ########################################
+[   18s] libclang_rt22-22.1.8-3.3              ########################################
+[   18s] clang22-22.1.8-3.3                    ########################################
+[   18s] libclang_rt23-23.1.1-1.1              ########################################
+[   18s] clang23-23.1.1-1.1                    ########################################
+[   18s] clang-23-1.1                          ########################################
+[   18s] clang-tools-23.1.1-1.1                ########################################
+[   18s] python313-packaging-26.3-1.1          ########################################
+[   18s] python313-pybind11-3.0.4-1.3          ########################################
+[   18s] cmake-mini-4.4.3-1.1                  ########################################
+[   19s] cmake-4.4.3-1.1                       ########################################
+[   19s] qt6-macros-20260508-1.2               ########################################
+[   19s] vulkan-headers-1.4.357-1.1            ########################################
+[   19s] vulkan-devel-1.4.357-1.1              ########################################
+[   19s] python313-devel-3.13.15-1.2           ########################################
+[   19s] glib2-devel-2.88.3-2.1                ########################################
+[   19s] No schema files found: doing nothing.
+[   19s] libmd4c0-0.5.3-1.4                    ########################################
+[   19s] liblcms2-2-2.19.1-1.3                 ########################################
+[   19s] libraw25-0.22.2-1.1                   ########################################
+[   19s] libjbig2-2.1-5.9                      ########################################
+[   19s] libicu78-ledata-78.3-1.4              ########################################
+[   19s] libicu78-78.3-1.4                     ########################################
+[   19s] libhwy1-1.4.0-2.1                     ########################################
+[   19s] libjxl0_12-0.12.0-1.1                 ########################################
+[   19s] libgraphite2-3-1.3.15-1.3             ########################################
+[   19s] libharfbuzz0-14.5.0-1.1               ########################################
+[   19s] libgif7-5.2.2-4.3                     ########################################
+[   19s] libfribidi0-1.0.16-1.4                ########################################
+[   19s] libfmt12-12.1.0-1.5                   ########################################
+[   19s] fmt-devel-12.1.0-1.5                  ########################################
+[   19s] libfl2-2.6.4-7.7                      ########################################
+[   19s] libfl-devel-2.6.4-7.7                 ########################################
+[   19s] libdouble-conversion3-3.4.0-1.5       ########################################
+[   19s] libdisplay-info3-0.3.0-2.5            ########################################
+[   19s] libvulkan_lvp-26.2.3-1.1              ########################################
+[   19s] libglvnd-1.7.0-2.4                    ########################################
+[   19s] Mesa-libGL1-26.2.3-1.1                ########################################
+[   19s] Mesa-26.2.3-1.1                       ########################################
+[   19s] Mesa-dri-26.2.3-1.1                   ########################################
+[   19s] Mesa-libEGL1-26.2.3-1.1               ########################################
+[   19s] libopencv413-4.13.0-2.1               ########################################
+[   19s] libglvnd-devel-1.7.0-2.4              ########################################
+[   20s] Mesa-libGL-devel-26.2.3-1.1           ########################################
+[   20s] Mesa-libEGL-devel-26.2.3-1.1          ########################################
+[   20s] libdav1d7-1.5.4-1.2                   ########################################
+[   20s] libdatrie1-0.2.14-1.6                 ########################################
+[   20s] libthai0-0.1.30-1.5                   ########################################
+[   20s] libpango-1_0-0-1.58.2-1.1             ########################################
+[   20s] libcom_err2-1.47.3-2.2                ########################################
+[   20s] krb5-mini-1.22.2-4.2                  ########################################
+[   20s] Updating /etc/sysconfig/kadmind ...
+[   20s] Updating /etc/sysconfig/krb5kdc ...
+[   20s] libb2-1-0.98.1-2.5                    ########################################
+[   20s] libQt6Core6-6.11.2-2.1                ########################################
+[   20s] libQt6DBus6-6.11.2-2.1                ########################################
+[   20s] qt6-network-tls-6.11.2-2.1            ########################################
+[   20s] qt6-networkinformation-connman-6.11.2-########################################
+[   20s] qt6-networkinformation-nm-6.11.2-2.1  ########################################
+[   20s] libQt6Network6-6.11.2-2.1             ########################################
+[   20s] qt6-networkinformation-glib-6.11.2-2.1########################################
+[   20s] libQt6Widgets6-6.11.2-2.1             ########################################
+[   20s] libQt6WaylandClient6-6.11.2-2.1       ########################################
+[   20s] libQt6OpenGL6-6.11.2-2.1              ########################################
+[   20s] libQt6Gui6-6.11.2-2.1                 ########################################
+[   20s] libQt6OpenGLWidgets6-6.11.2-2.1       ########################################
+[   20s] qt6-base-common-devel-6.11.2-2.1      ########################################
+[   20s] qt6-core-devel-6.11.2-2.1             ########################################
+[   20s] qt6-dbus-devel-6.11.2-2.1             ########################################
+[   20s] libasound2-1.2.16.1-2.1               ########################################
+[   20s] libgstapp-1_0-0-1.28.7-1.1            ########################################
+[   20s] libgsttag-1_0-0-1.28.7-1.1            ########################################
+[   20s] libgstallocators-1_0-0-1.28.7-1.1     ########################################
+[   20s] libgstaudio-1_0-0-1.28.7-1.1          ########################################
+[   20s] libgstvideo-1_0-0-1.28.7-1.1          ########################################
+[   20s] libgstgl-1_0-0-1.28.7-1.1             ########################################
+[   20s] libgstriff-1_0-0-1.28.7-1.1           ########################################
+[   20s] libgstpbutils-1_0-0-1.28.7-1.1        ########################################
+[   20s] gstreamer-plugins-base-1.28.7-1.1     ########################################
+[   20s] libSvtAv1Enc4-4.2.0-1.2               ########################################
+[   20s] libavif16-1.4.2-1.4                   ########################################
+[   20s] libLerc4-4.1.0-3.3                    ########################################
+[   20s] libtiff6-4.7.2-1.2                    ########################################
+[   20s] libdcmtk20-3.7.0-2.4                  ########################################
+[   20s] libOpenImageIO3_1-3.1.17.0-1.2        ########################################
+[   20s] libopencv_imgcodecs413-4.13.0-2.1     ########################################
+[   20s] libopencv_videoio413-4.13.0-2.1       ########################################
+[   20s] OpenImageIO-3.1.17.0-1.2              ########################################
+[   20s] dbus-broker-block-restart-37-2.5      ########################################
+[   20s] dbus-broker-37-2.5                    ########################################
+[   21s] dbus-1-1.14.10-5.6                    ########################################
+[   21s] dbus-1-devel-1.14.10-5.6              ########################################
+[   21s] at-spi2-core-2.60.7-1.1               ########################################
+[   21s] at-spi2-core-devel-2.60.7-1.1         ########################################
+[   21s] qt6-gui-devel-6.11.2-2.1              ########################################
+[   21s] qt6-widgets-devel-6.11.2-2.1          ########################################
+[   21s] qt6-opengl-devel-6.11.2-2.1           ########################################
+[   21s] qt6-openglwidgets-devel-6.11.2-2.1    ########################################
+[   21s] OpenImageIO-devel-3.1.17.0-1.2        ########################################
+[   21s] flex-2.6.4-7.7                        ########################################
+[   21s] python313-pybind11-devel-3.0.4-1.3    ########################################
+[   21s] python-rpm-packaging-20210526+a18ca48-########################################
+[   21s] clang22-devel-22.1.8-3.3              ########################################
+[   21s] partio-devel-1.20.0-1.4               ########################################
+[   21s] openexr-devel-3.4.14-1.2              ########################################
+[   21s] libboost_thread-devel-1.92.0-1.1      ########################################
+[   21s] libboost_filesystem-devel-1.92.0-1.1  ########################################
+[   21s] pugixml-devel-1.16-1.2                ########################################
+[   21s] bison-3.8.2-4.1                       ########################################
+[   21s] robin-map-devel-1.4.1-1.3             ########################################
+[   22s] now finalizing build dir...
+[   22s] ... running 01-add_abuild_user_to_trusted_group
+[   22s] ... running 02-set_timezone_to_utc
+[   22s] ... running 03-set-permissions-secure
+[   22s] ... running 11-hack_uname_version_to_kernel_version
+[   22s] setting SOURCE_DATE_EPOCH_MTIME to 1783935415
+[   23s] spec file parser line 138: cannot expand %(...)
+[   23s] spec file parser line 143: cannot expand %(...)
+[   23s] spec file parser line 148: cannot expand %(...)
+[   23s] spec file parser line 153: cannot expand %(...)
+[   23s] spec file parser line 158: cannot expand %(...)
+[   23s] spec file parser line 163: cannot expand %(...)
+[   23s] spec file parser line 168: cannot expand %(...)
+[   23s] spec file parser line 173: cannot expand %(...)
+[   23s] spec file parser line 178: cannot expand %(...)
+[   23s] spec file parser line 183: cannot expand %(...)
+[   23s] spec file parser line 208: cannot expand %(...)
+[   23s] spec file parser line 209: cannot expand %(...)
+[   23s] spec file parser line 210: cannot expand %(...)
+[   23s] spec file parser line 211: cannot expand %(...)
+[   23s] spec file parser line 212: cannot expand %(...)
+[   23s] spec file parser line 268: cannot expand %(...)
+[   23s] spec file parser line 269: cannot expand %(...)
+[   23s] spec file parser line 270: cannot expand %(...)
+[   23s] spec file parser line 271: cannot expand %(...)
+[   23s] spec file parser line 272: cannot expand %(...)
+[   23s] spec file parser line 291: cannot expand %(...)
+[   23s] spec file parser line 293: cannot expand %(...)
+[   23s] spec file parser line 295: cannot expand %(...)
+[   23s] spec file parser line 297: cannot expand %(...)
+[   23s] spec file parser line 299: cannot expand %(...)
+[   23s] spec file parser line 301: cannot expand %(...)
+[   23s] spec file parser line 303: cannot expand %(...)
+[   23s] spec file parser line 305: cannot expand %(...)
+[   23s] spec file parser line 307: cannot expand %(...)
+[   23s] spec file parser line 309: cannot expand %(...)
+[   23s] -----------------------------------------------------------------
+[   23s] I have the following modifications for OpenShadingLanguage.spec:
+[   23s] 48c48
+[   23s] < Release:        0
+[   23s] ---
+[   23s] > Release:        3.4
+[   23s] -----------------------------------------------------------------
+[   23s] ----- building OpenShadingLanguage.spec (user abuild)
+[   23s] -----------------------------------------------------------------
+[   23s] -----------------------------------------------------------------
+[   24s] setting SOURCE_DATE_EPOCH_MTIME to 1783935415
+[   24s] + exec rpmbuild -ba --define '_srcdefattr (-,root,root)' --nosignature --define '_build_create_debug 1' --define 'disturl obs://build.opensuse.org/openSUSE:Factory/standard/251ffa3ff3f834ee50bf1b5a7768c212-OpenShadingLanguage' /home/abuild/rpmbuild/SOURCES/OpenShadingLanguage.spec
+[   24s] using SOURCE_DATE_EPOCH with value 1783935411 as build time
+[   24s] Executing(%mkbuilddir): /usr/bin/bash -e /var/tmp/rpm-tmp.BK6eUz
+[   24s] Executing(%prep): /usr/bin/bash -e /var/tmp/rpm-tmp.OQEd0j
+[   24s] + umask 022
+[   24s] + cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build
+[   24s] + cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build
+[   24s] + rm -rf OpenShadingLanguage-1.15.4.0
+[   24s] + /usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/OpenShadingLanguage-1.15.4.0.tar.gz
+[   24s] + STATUS=0
+[   24s] + '[' 0 -ne 0 ']'
+[   24s] + cd OpenShadingLanguage-1.15.4.0
+[   24s] + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+[   24s] + /usr/lib/rpm/rpmuncompress /home/abuild/rpmbuild/SOURCES/fix-install-paths.patch
+[   24s] + /usr/bin/patch -p1 -s --fuzz=0 --no-backup-if-mismatch -f
+[   24s] + find . -iname CMakeLists.txt -exec sed -i '-e s/COMMAND python/COMMAND python3.13/' '{}' ';'
+[   24s] + RPM_EC=0
+[   24s] ++ jobs -p
+[   24s] + exit 0
+[   24s] Executing(%build): /usr/bin/bash -e /var/tmp/rpm-tmp.Wonh0E
+[   24s] + umask 022
+[   24s] + cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build
+[   24s] + /usr/bin/rm -rf /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/BUILDROOT
+[   24s] ++ dirname /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/BUILDROOT
+[   24s] + /usr/bin/mkdir -p /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build
+[   24s] + /usr/bin/mkdir /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/BUILDROOT
+[   24s] + cd OpenShadingLanguage-1.15.4.0
+[   24s] + '[' -e /usr/bin/llvm-as ']'
+[   24s] ++ sort -n
+[   24s] ++ head -n 1
+[   24s] ++ ls -1 /usr/bin/llvm-as-22
+[   24s] + LLVM_AS=/usr/bin/llvm-as-22
+[   24s] + '[' -e /usr/bin/llvm-link ']'
+[   24s] ++ sort -n
+[   24s] ++ head -n 1
+[   24s] ++ ls -1 /usr/bin/llvm-link-22
+[   24s] + LLVM_LINK=/usr/bin/llvm-link-22
+[   24s] + find . -type f -name CMakeLists.txt -exec sed -i -re '/^[[:blank:]]*[sS][eE][tT][[:blank:]]*\([[:blank:]]*(CMAKE_BUILD_TYPE|CMAKE_COLOR_MAKEFILE|CMAKE_INSTALL_PREFIX|CMAKE_VERBOSE_MAKEFILE).*\)/{s/^/#IGNORE /}' '{}' +
+[   25s] + mkdir -p build
+[   25s] + cd build
+[   25s] + /usr/bin/cmake /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/. '-GUnix Makefiles' -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_INSTALL_BINDIR:PATH=bin -DCMAKE_INSTALL_SBINDIR:PATH=sbin -DCMAKE_INSTALL_LIBEXECDIR:PATH=libexec -DCMAKE_INSTALL_SYSCONFDIR:PATH=etc -DCMAKE_INSTALL_SHAREDSTATEDIR:PATH=/var/lib -DCMAKE_INSTALL_LOCALSTATEDIR:PATH=var -DCMAKE_INSTALL_RUNSTATEDIR:PATH=run -DCMAKE_INSTALL_LIBDIR:PATH=lib64 -DCMAKE_INSTALL_INCLUDEDIR:PATH=include -DCMAKE_INSTALL_DATAROOTDIR:PATH=share -DCMAKE_INSTALL_DOCDIR:PATH=share/doc/packages/OpenShadingLanguage -DCMAKE_INSTALL_MANDIR:PATH=share/man -DCMAKE_INSTALL_INFODIR:PATH=share/info -DINCLUDE_INSTALL_DIR:PATH=/usr/include -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DSYSCONF_INSTALL_DIR:PATH=/etc -DSHARE_INSTALL_PREFIX:PATH=/usr/share -DCMAKE_BUILD_TYPE=RelWithDebInfo '-DCMAKE_C_FLAGS=-fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g' '-DCMAKE_CXX_FLAGS=-fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g' '-DCMAKE_Fortran_FLAGS=-fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g' '-DCMAKE_EXE_LINKER_FLAGS=  -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now' '-DCMAKE_MODULE_LINKER_FLAGS=  -Wl,--as-needed' '-DCMAKE_SHARED_LINKER_FLAGS=  -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now' -DLIB_SUFFIX=64 -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON -DBUILD_STATIC_LIBS:BOOL=OFF -DCMAKE_COLOR_MAKEFILE:BOOL=OFF -DCMAKE_INSTALL_DO_STRIP:BOOL=OFF -DCMAKE_MODULES_INSTALL_DIR=/usr/lib64/cmake/OpenShadingLanguage -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DLLVM_AS_TOOL:FILEPATH=/usr/bin/llvm-as-22 -DLLVM_LINK_TOOL:FILEPATH=/usr/bin/llvm-link-22 -DCMAKE_SKIP_RPATH:BOOL=TRUE -DCMAKE_INSTALL_DOCDIR:PATH=/usr/share/doc/packages/OpenShadingLanguage -DOSL_SHADER_INSTALL_DIR:PATH=/usr/share/OSL/shaders/ -DCMAKE_CXX_STANDARD:STRING=17
+[   25s] -- The CXX compiler identification is GNU 16.2.0
+[   25s] -- The C compiler identification is GNU 16.2.0
+[   25s] -- Detecting CXX compiler ABI info
+[   25s] -- Detecting CXX compiler ABI info - done
+[   25s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[   25s] -- Detecting CXX compile features
+[   25s] -- Detecting CXX compile features - done
+[   25s] -- Detecting C compiler ABI info
+[   25s] -- Detecting C compiler ABI info - done
+[   25s] -- Check for working C compiler: /usr/bin/cc - skipped
+[   25s] -- Detecting C compile features
+[   25s] -- Detecting C compile features - done
+[   25s] -- Configuring OSL 1.15.4.0
+[   25s] -- CMake 4.4.3
+[   25s] -- CMake system           = Linux-7.2.7-1-default
+[   25s] -- CMake system name      = Linux
+[   25s] -- Project source dir     = /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0
+[   25s] -- Project build dir      = /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build
+[   25s] -- Project install prefix = /usr
+[   25s] -- Configuration types    = 
+[   25s] -- Build type             = RelWithDebInfo
+[   25s] -- Supported release      = ON
+[   25s] -- OSL_USE_OPTIX: OFF
+[   25s] -- Outer namespace PROJ_OUTER_NAMESPACE:   OSL
+[   25s] -- Inner namespace PROJ_VERSION_NAMESPACE: v1_15
+[   25s] -- Joint namespace PROJ_NAMESPACE_V:       OSL_v1_15
+[   25s] -- CMAKE_CXX_COMPILER     = /usr/bin/c++
+[   25s] -- CMAKE_CXX_COMPILER_ID  = GNU
+[   25s] -- Building with C++17, downstream minimum C++17
+[   25s] -- ccache not found
+[   25s] -- Compiling with SIMD level 
+[   25s] -- Compiling with NO batched SIMD targets, USE_BATCHED is empty
+[   25s] -- clang-format found: /usr/bin/clang-format
+[   25s] -- [1;37m
+[   25s] -- * Checking for dependencies...
+[   25s] -- *   - Missing a dependency 'Package'?
+[   25s] -- *     Try cmake -DPackage_ROOT=path or set environment var Package_ROOT=path
+[   25s] -- *     For many dependencies, we supply src/build-scripts/build_Package.bash
+[   25s] -- *   - To exclude an optional dependency (even if found),
+[   25s] -- *     -DUSE_Package=OFF or set environment var USE_Package=OFF 
+[   25s] -- [m
+[   25s] -- CMAKE_PREFIX_PATH = /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist;/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/dist
+[   25s] -- [32mFound ZLIB 1.3.1 [m
+[   25s] -- [32mFound Imath 3.2.3 [m
+[   25s] -- [32mFound OpenImageIO 3.1.17.0 [m
+[   25s] -- [32mFound pugixml 1.16 [m
+[   25s] -- [32mFound LLVM 22.1.8 [m
+[   25s] -- Could NOT find partio (missing: partio_DIR)
+[   25s] -- [32mFound partio  [m
+[   25s] -- [32mFound Python3 3.13.15 [m
+[   26s] -- [32mFound pybind11 3.0.4 [m
+[   26s] -- Found OpenGL: /usr/lib64/libOpenGL.so
+[   26s] -- [32mFound Qt6 6.11.2 [m
+[   26s] -- CUDA/OptiX support disabled
+[   26s] -- [32mFound Robinmap  [m
+[   26s] -- [32mFound BISON 3.8.2 [m
+[   26s] -- [32mFound FLEX 2.6.4 [m
+[   26s] -- All docdeep docs = /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/doc/OSLQuery.md.html;/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/doc/docdeep.md.html
+[   27s] -- 
+[   27s] -- [1;33m=========================================================================[m
+[   27s] -- [1;33m= Dependency report                                                     =[m
+[   27s] -- [1;33m=========================================================================[m
+[   27s] -- 
+[   27s] -- [1;37mThe following dependencies were found externally:[m
+[   27s] --     BISON 3.8.2  (REQUIRED)
+[   27s] --     FLEX 2.6.4  (REQUIRED)
+[   27s] --     Imath 3.2.3  (REQUIRED)
+[   27s] --     LLVM 22.1.8  (REQUIRED)
+[   27s] --     OpenImageIO 3.1.17.0  (REQUIRED)
+[   27s] --     pugixml 1.16  (REQUIRED)
+[   27s] --     pybind11 3.0.4  (REQUIRED)
+[   27s] --     Python3 3.13.15  (REQUIRED)
+[   27s] --     Qt6 6.11.2 
+[   27s] --     ZLIB 1.3.1  (REQUIRED)
+[   27s] -- 
+[   27s] -- [1;33m=========================================================================[m
+[   27s] -- 
+[   27s] -- Configuring done (2.0s)
+[   27s] -- Generating done (0.1s)
+[   27s] CMake Warning (unused-cli):
+[   27s]   Manually-specified variables were not used by the project:
+[   27s] 
+[   27s]     BUILD_STATIC_LIBS
+[   27s]     CMAKE_Fortran_FLAGS
+[   27s]     CMAKE_INSTALL_DO_STRIP
+[   27s]     CMAKE_MODULES_INSTALL_DIR
+[   27s]     INCLUDE_INSTALL_DIR
+[   27s]     LIB_INSTALL_DIR
+[   27s]     LIB_SUFFIX
+[   27s]     SHARE_INSTALL_PREFIX
+[   27s]     SYSCONF_INSTALL_DIR
+[   27s] 
+[   27s] 
+[   27s] -- Build files have been written to: /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build
+[   27s] + /usr/bin/make -O VERBOSE=1 -j4
+[   27s] /usr/bin/cmake -S/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0 -B/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build --check-build-system CMakeFiles/Makefile.cmake 0
+[   27s] /usr/bin/cmake -E cmake_progress_start /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/CMakeFiles /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build//CMakeFiles/progress.marks
+[   27s] /usr/bin/make  -f CMakeFiles/Makefile2 all
+[   27s] /usr/bin/make  -f CMakeFiles/CopyFiles.dir/build.make CMakeFiles/CopyFiles.dir/depend
+[   27s] /usr/bin/make  -f src/liboslcomp/CMakeFiles/oslcomp.dir/build.make src/liboslcomp/CMakeFiles/oslcomp.dir/depend
+[   27s] /usr/bin/make  -f src/liboslquery/CMakeFiles/oslquery.dir/build.make src/liboslquery/CMakeFiles/oslquery.dir/depend
+[   27s] /usr/bin/make  -f src/liboslnoise/CMakeFiles/oslnoise.dir/build.make src/liboslnoise/CMakeFiles/oslnoise.dir/depend
+[   27s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0 /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0 /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/CMakeFiles/CopyFiles.dir/DependInfo.cmake CopyFiles
+[   27s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] /usr/bin/make  -f CMakeFiles/CopyFiles.dir/build.make CMakeFiles/CopyFiles.dir/build
+[   27s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0 /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslnoise /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslnoise /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslnoise/CMakeFiles/oslnoise.dir/DependInfo.cmake oslnoise
+[   27s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] /usr/bin/make  -f src/liboslnoise/CMakeFiles/oslnoise.dir/build.make src/liboslnoise/CMakeFiles/oslnoise.dir/build
+[   27s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] [  1%] Generating osolex.cpp
+[   27s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery && /usr/bin/flex --prefix=oso -o /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery/osolex.cpp /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery/../liboslexec/osolex.l
+[   27s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] [  2%] Generating testsuite/runtest.py
+[   27s] /usr/bin/cmake -E copy_if_different /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/testsuite/runtest.py /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/testsuite/runtest.py
+[   27s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] [  2%] Generating osllex.cpp
+[   27s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp && /usr/bin/flex --prefix=osl -o /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp/osllex.cpp /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp/osllex.l
+[   27s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] [  4%] Built target CopyFiles
+[   27s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] /usr/bin/make  -f src/liboslexec/CMakeFiles/dual_test.dir/build.make src/liboslexec/CMakeFiles/dual_test.dir/depend
+[   27s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0 /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslexec /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslexec /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslexec/CMakeFiles/dual_test.dir/DependInfo.cmake dual_test
+[   27s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] /usr/bin/make  -f src/liboslexec/CMakeFiles/dual_test.dir/build.make src/liboslexec/CMakeFiles/dual_test.dir/build
+[   27s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] [  4%] Generating osogram.cpp
+[   27s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery && /usr/bin/bison -dv -p oso -o /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery/osogram.cpp /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery/../liboslexec/osogram.y
+[   27s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0 /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery/CMakeFiles/oslquery.dir/DependInfo.cmake oslquery
+[   27s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] /usr/bin/make  -f src/liboslquery/CMakeFiles/oslquery.dir/build.make src/liboslquery/CMakeFiles/oslquery.dir/build
+[   27s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] [  5%] Generating oslgram.cpp
+[   27s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp && /usr/bin/bison -dv -p osl -o /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp/oslgram.cpp /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp/oslgram.y
+[   27s] /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp/oslgram.y: warning: 1 shift/reduce conflict [-Wconflicts-sr]
+[   27s] /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp/oslgram.y: warning: 3 reduce/reduce conflicts [-Wconflicts-rr]
+[   27s] /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp/oslgram.y: note: rerun with option '-Wcounterexamples' to generate conflict counterexamples
+[   27s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0 /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp/CMakeFiles/oslcomp.dir/DependInfo.cmake oslcomp
+[   27s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   27s] /usr/bin/make  -f src/liboslcomp/CMakeFiles/oslcomp.dir/build.make src/liboslcomp/CMakeFiles/oslcomp.dir/build
+[   31s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   31s] [  3%] Building CXX object src/liboslnoise/CMakeFiles/oslnoise.dir/gabornoise.cpp.o
+[   31s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslnoise && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Doslnoise_EXPORTS -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslnoise/../liboslexec -isystem /usr/include/Imath -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslnoise/CMakeFiles/oslnoise.dir/gabornoise.cpp.o -MF CMakeFiles/oslnoise.dir/gabornoise.cpp.o.d -o CMakeFiles/oslnoise.dir/gabornoise.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslnoise/gabornoise.cpp
+[   31s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] [  9%] Building CXX object src/liboslnoise/CMakeFiles/oslnoise.dir/simplexnoise.cpp.o
+[   35s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslnoise && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Doslnoise_EXPORTS -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslnoise/../liboslexec -isystem /usr/include/Imath -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslnoise/CMakeFiles/oslnoise.dir/simplexnoise.cpp.o -MF CMakeFiles/oslnoise.dir/simplexnoise.cpp.o.d -o CMakeFiles/oslnoise.dir/simplexnoise.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslnoise/simplexnoise.cpp
+[   35s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] [ 10%] Linking CXX shared library ../../lib/liboslnoise.so
+[   35s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslnoise && /usr/bin/cmake -E cmake_link_script CMakeFiles/oslnoise.dir/link.txt --verbose=1
+[   35s] /usr/bin/c++ -fPIC -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -shared   -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now -Wl,--version-script=/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/build-scripts/hidesymbols.map  -Wl,--exclude-libs,ALL -Wl,--dependency-file=CMakeFiles/oslnoise.dir/link.d -Wl,-soname,liboslnoise.so.1.15 -o ../../lib/liboslnoise.so.1.15.4 CMakeFiles/oslnoise.dir/gabornoise.cpp.o CMakeFiles/oslnoise.dir/simplexnoise.cpp.o  /usr/lib64/libOpenImageIO.so.3.1.17 -ldl /usr/lib64/libOpenImageIO_Util.so.3.1.17 /usr/lib64/libImath-3_2.so.30.3.2.3 -lm
+[   35s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslnoise && /usr/bin/cmake -E cmake_symlink_library ../../lib/liboslnoise.so.1.15.4 ../../lib/liboslnoise.so.1.15 ../../lib/liboslnoise.so
+[   35s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] [ 10%] Built target oslnoise
+[   35s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] /usr/bin/make  -f src/libbsdl/CMakeFiles/genluts.dir/build.make src/libbsdl/CMakeFiles/genluts.dir/depend
+[   35s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] [  6%] Building CXX object src/liboslexec/CMakeFiles/dual_test.dir/dual_test.cpp.o
+[   35s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslexec && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Dosoparse=OSL_v1_15_osoparse -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslexec -isystem /usr/include/Imath -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS -O2 -g -DNDEBUG -std=c++17 -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslexec/CMakeFiles/dual_test.dir/dual_test.cpp.o -MF CMakeFiles/dual_test.dir/dual_test.cpp.o.d -o CMakeFiles/dual_test.dir/dual_test.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslexec/dual_test.cpp
+[   35s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0 /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/libbsdl /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/libbsdl /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/libbsdl/CMakeFiles/genluts.dir/DependInfo.cmake genluts
+[   35s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] /usr/bin/make  -f src/libbsdl/CMakeFiles/genluts.dir/build.make src/libbsdl/CMakeFiles/genluts.dir/build
+[   35s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] [ 10%] Linking CXX executable ../../bin/dual_test
+[   35s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslexec && /usr/bin/cmake -E cmake_link_script CMakeFiles/dual_test.dir/link.txt --verbose=1
+[   35s] /usr/bin/c++ -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS -O2 -g -DNDEBUG   -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now -Wl,--dependency-file=CMakeFiles/dual_test.dir/link.d CMakeFiles/dual_test.dir/dual_test.cpp.o -o ../../bin/dual_test  /usr/lib64/libOpenImageIO.so.3.1.17 -ldl /usr/lib64/libOpenImageIO_Util.so.3.1.17 /usr/lib64/libImath-3_2.so.30.3.2.3 -lm
+[   35s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] [ 11%] Built target dual_test
+[   35s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] /usr/bin/make  -f src/testshade/CMakeFiles/testshade_dso.dir/build.make src/testshade/CMakeFiles/testshade_dso.dir/depend
+[   35s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0 /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/testshade /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/testshade /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/testshade/CMakeFiles/testshade_dso.dir/DependInfo.cmake testshade_dso
+[   35s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] /usr/bin/make  -f src/testshade/CMakeFiles/testshade_dso.dir/build.make src/testshade/CMakeFiles/testshade_dso.dir/build
+[   35s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   35s] [  7%] Building CXX object src/liboslquery/CMakeFiles/oslquery.dir/oslquery.cpp.o
+[   35s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Doslquery_EXPORTS -Dosoparse=OSL_v1_15_osoparse -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery/../liboslexec -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslquery/CMakeFiles/oslquery.dir/oslquery.cpp.o -MF CMakeFiles/oslquery.dir/oslquery.cpp.o.d -o CMakeFiles/oslquery.dir/oslquery.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery/oslquery.cpp
+[   35s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   36s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   36s] [ 12%] Building CXX object src/testshade/CMakeFiles/testshade_dso.dir/testshade_dso.cpp.o
+[   36s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/testshade && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/testshade/CMakeFiles/testshade_dso.dir/testshade_dso.cpp.o -MF CMakeFiles/testshade_dso.dir/testshade_dso.cpp.o.d -o CMakeFiles/testshade_dso.dir/testshade_dso.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/testshade/testshade_dso.cpp
+[   36s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   36s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   36s] [ 13%] Linking CXX executable ../../bin/testshade_dso
+[   36s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/testshade && /usr/bin/cmake -E cmake_link_script CMakeFiles/testshade_dso.dir/link.txt --verbose=1
+[   36s] /usr/bin/c++ -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG   -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now -Wl,--dependency-file=CMakeFiles/testshade_dso.dir/link.d CMakeFiles/testshade_dso.dir/testshade_dso.cpp.o -o ../../bin/testshade_dso  /usr/lib64/libOpenImageIO.so.3.1.17 -ldl /usr/lib64/libOpenImageIO_Util.so.3.1.17
+[   36s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   36s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   36s] [ 13%] Built target testshade_dso
+[   36s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   36s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   36s] [  8%] Building CXX object src/liboslcomp/CMakeFiles/oslcomp.dir/ast.cpp.o
+[   36s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Doslcomp_EXPORTS -Doslparse=OSL_v1_15_oslparse -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp -isystem /usr/include/Imath -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslcomp/CMakeFiles/oslcomp.dir/ast.cpp.o -MF CMakeFiles/oslcomp.dir/ast.cpp.o.d -o CMakeFiles/oslcomp.dir/ast.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp/ast.cpp
+[   36s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   39s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   39s] [ 11%] Building CXX object src/libbsdl/CMakeFiles/genluts.dir/src/genluts.cpp.o
+[   39s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/libbsdl && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/libbsdl/include -isystem /usr/include/Imath -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/libbsdl/CMakeFiles/genluts.dir/src/genluts.cpp.o -MF CMakeFiles/genluts.dir/src/genluts.cpp.o.d -o CMakeFiles/genluts.dir/src/genluts.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/libbsdl/src/genluts.cpp
+[   39s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   46s] [ 14%] Building CXX object src/liboslquery/CMakeFiles/oslquery.dir/osogram.cpp.o
+[   46s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Doslquery_EXPORTS -Dosoparse=OSL_v1_15_osoparse -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery/../liboslexec -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslquery/CMakeFiles/oslquery.dir/osogram.cpp.o -MF CMakeFiles/oslquery.dir/osogram.cpp.o.d -o CMakeFiles/oslquery.dir/osogram.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery/osogram.cpp
+[   46s] /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery/osogram.cpp: In function ‘int OSL_v1_15_osoparse(void*, OSL::v1_15::pvt::OSOReader*)’:
+[   46s] /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery/osogram.cpp:72:25: warning: variable ‘osonerrs’ set but not used [-Wunused-but-set-variable=]
+[   46s]    72 | #define yynerrs         osonerrs
+[   46s]       |                         ^~~~~~~~
+[   46s] /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery/osogram.cpp:1084:9: note: in expansion of macro ‘yynerrs’
+[   46s]  1084 |     int yynerrs = 0;
+[   46s]       |         ^~~~~~~
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   47s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   47s] [ 12%] Building CXX object src/liboslquery/CMakeFiles/oslquery.dir/__/liboslexec/typespec.cpp.o
+[   47s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Doslquery_EXPORTS -Dosoparse=OSL_v1_15_osoparse -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery/../liboslexec -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslquery/CMakeFiles/oslquery.dir/__/liboslexec/typespec.cpp.o -MF CMakeFiles/oslquery.dir/__/liboslexec/typespec.cpp.o.d -o CMakeFiles/oslquery.dir/__/liboslexec/typespec.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslexec/typespec.cpp
+[   47s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   47s] /usr/bin/make  -f src/doc/CMakeFiles/generated_docs.dir/build.make src/doc/CMakeFiles/generated_docs.dir/depend
+[   47s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   47s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0 /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/doc /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/doc /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/doc/CMakeFiles/generated_docs.dir/DependInfo.cmake generated_docs
+[   47s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   47s] /usr/bin/make  -f src/doc/CMakeFiles/generated_docs.dir/build.make src/doc/CMakeFiles/generated_docs.dir/build
+[   47s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   47s] [ 16%] docdeep OSLQuery
+[   47s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/doc && /usr/bin/python3.13 /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/build-scripts/docdeep.py -d OSLQuery -s docs.css /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include/OSL/oslquery.h /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/oslinfo/oslinfo.cpp > /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/doc/OSLQuery.md.html
+[   47s] /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/build-scripts/docdeep.py:189: SyntaxWarning: invalid escape sequence '\.'
+[   47s]   doc_begin_pattern = re.compile ('(^[ \t]*)((///)|(###))[ ]*<doc(\.\.\.)?[ ]*(\w*)[ ]*>')
+[   47s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   47s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   47s] [ 17%] docdeep docdeep
+[   47s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/doc && /usr/bin/python3.13 /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/build-scripts/docdeep.py -d docdeep -s docs.css /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/build-scripts/docdeep.py > /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/doc/docdeep.md.html
+[   47s] /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/build-scripts/docdeep.py:189: SyntaxWarning: invalid escape sequence '\.'
+[   47s]   doc_begin_pattern = re.compile ('(^[ \t]*)((///)|(###))[ ]*<doc(\.\.\.)?[ ]*(\w*)[ ]*>')
+[   47s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   47s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   47s] [ 17%] Built target generated_docs
+[   47s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   47s] /usr/bin/make  -f src/liboslnoise/CMakeFiles/oslnoise_test.dir/build.make src/liboslnoise/CMakeFiles/oslnoise_test.dir/depend
+[   47s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   47s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0 /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslnoise /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslnoise /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslnoise/CMakeFiles/oslnoise_test.dir/DependInfo.cmake oslnoise_test
+[   47s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   47s] /usr/bin/make  -f src/liboslnoise/CMakeFiles/oslnoise_test.dir/build.make src/liboslnoise/CMakeFiles/oslnoise_test.dir/build
+[   52s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   52s] [ 13%] Building CXX object src/liboslcomp/CMakeFiles/oslcomp.dir/codegen.cpp.o
+[   52s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Doslcomp_EXPORTS -Doslparse=OSL_v1_15_oslparse -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp -isystem /usr/include/Imath -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslcomp/CMakeFiles/oslcomp.dir/codegen.cpp.o -MF CMakeFiles/oslcomp.dir/codegen.cpp.o.d -o CMakeFiles/oslcomp.dir/codegen.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp/codegen.cpp
+[   52s] /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp/codegen.cpp: In member function ‘void OSL::v1_15::pvt::ASTNode::codegen_initlist(ref, OSL::v1_15::pvt::TypeSpec, OSL::v1_15::pvt::Symbol*)’:
+[   52s] /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp/codegen.cpp:940:13: warning: variable ‘length’ set but not used [-Wunused-but-set-variable=]
+[   52s]   940 |         int length        = 0;
+[   52s]       |             ^~~~~~
+[   52s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   60s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   60s] [ 15%] Building CXX object src/liboslquery/CMakeFiles/oslquery.dir/osolex.cpp.o
+[   60s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Doslquery_EXPORTS -Dosoparse=OSL_v1_15_osoparse -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery/../liboslexec -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslquery/CMakeFiles/oslquery.dir/osolex.cpp.o -MF CMakeFiles/oslquery.dir/osolex.cpp.o.d -o CMakeFiles/oslquery.dir/osolex.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery/osolex.cpp
+[   60s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   60s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   60s] [ 19%] Linking CXX shared library ../../lib/liboslquery.so
+[   60s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery && /usr/bin/cmake -E cmake_link_script CMakeFiles/oslquery.dir/link.txt --verbose=1
+[   60s] /usr/bin/c++ -fPIC -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -shared   -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now -Wl,--version-script=/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/build-scripts/hidesymbols.map -Wl,--dependency-file=CMakeFiles/oslquery.dir/link.d -Wl,-soname,liboslquery.so.1.15 -o ../../lib/liboslquery.so.1.15.4 CMakeFiles/oslquery.dir/oslquery.cpp.o CMakeFiles/oslquery.dir/__/liboslexec/typespec.cpp.o CMakeFiles/oslquery.dir/osogram.cpp.o CMakeFiles/oslquery.dir/osolex.cpp.o  /usr/lib64/libOpenImageIO_Util.so.3.1.17
+[   60s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery && /usr/bin/cmake -E cmake_symlink_library ../../lib/liboslquery.so.1.15.4 ../../lib/liboslquery.so.1.15 ../../lib/liboslquery.so
+[   60s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   60s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   60s] [ 19%] Built target oslquery
+[   60s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   60s] /usr/bin/make  -f src/liboslquery/CMakeFiles/pyoslquery.dir/build.make src/liboslquery/CMakeFiles/pyoslquery.dir/depend
+[   60s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   60s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0 /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery/CMakeFiles/pyoslquery.dir/DependInfo.cmake pyoslquery
+[   60s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   60s] /usr/bin/make  -f src/liboslquery/CMakeFiles/pyoslquery.dir/build.make src/liboslquery/CMakeFiles/pyoslquery.dir/build
+[   73s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   73s] [ 17%] Building CXX object src/liboslnoise/CMakeFiles/oslnoise_test.dir/oslnoise_test.cpp.o
+[   73s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslnoise && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -isystem /usr/include/Imath -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslnoise/CMakeFiles/oslnoise_test.dir/oslnoise_test.cpp.o -MF CMakeFiles/oslnoise_test.dir/oslnoise_test.cpp.o.d -o CMakeFiles/oslnoise_test.dir/oslnoise_test.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslnoise/oslnoise_test.cpp
+[   73s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   74s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   74s] [ 21%] Linking CXX executable ../../bin/oslnoise_test
+[   74s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslnoise && /usr/bin/cmake -E cmake_link_script CMakeFiles/oslnoise_test.dir/link.txt --verbose=1
+[   74s] /usr/bin/c++ -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG   -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now -Wl,--dependency-file=CMakeFiles/oslnoise_test.dir/link.d CMakeFiles/oslnoise_test.dir/oslnoise_test.cpp.o -o ../../bin/oslnoise_test  -Wl,-rpath,/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/lib ../../lib/liboslnoise.so.1.15.4 /usr/lib64/libOpenImageIO.so.3.1.17 /usr/lib64/libOpenImageIO_Util.so.3.1.17 /usr/lib64/libImath-3_2.so.30.3.2.3 -lm
+[   74s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   74s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   74s] [ 21%] Built target oslnoise_test
+[   74s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   74s] /usr/bin/make  -f src/liboslexec/CMakeFiles/oslexec.dir/build.make src/liboslexec/CMakeFiles/oslexec.dir/depend
+[   79s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   79s] [ 22%] Generating pointcloud_host_rs.bc
+[   79s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslexec && /usr/bin/clang++ -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOIIO_DISABLE_DEPRECATED=900000 -DOSL_INTERNAL=1 -DOIIO_DISABLE_DEPRECATED=900000 -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS -DOIIO_HIDE_FORMAT=1 -DOSL_LLVM_VERSION=221 -DOSL_LLVM_FULL_VERSION="22.1.8" -Dosoparse=OSL_v1_15_osoparse -std=c++17 -fno-use-cxa-atexit -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOIIO_DISABLE_DEPRECATED=900000 -DOSL_INTERNAL=1 -DOIIO_DISABLE_DEPRECATED=900000 -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS -DOIIO_HIDE_FORMAT=1 -DOSL_LLVM_VERSION=221 -DOSL_LLVM_FULL_VERSION="22.1.8" -Dosoparse=OSL_v1_15_osoparse -std=c++17 -fno-use-cxa-atexit -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOIIO_DISABLE_DEPRECATED=900000 -DOSL_INTERNAL=1 -DOIIO_DISABLE_DEPRECATED=900000 -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS -DOIIO_HIDE_FORMAT=1 -DOSL_LLVM_VERSION=221 -DOSL_LLVM_FULL_VERSION="22.1.8" -Dosoparse=OSL_v1_15_osoparse -std=c++17 -fno-use-cxa-atexit -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOIIO_DISABLE_DEPRECATED=900000 -DOSL_INTERNAL=1 -DOIIO_DISABLE_DEPRECATED=900000 -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS -DOIIO_HIDE_FORMAT=1 -DOSL_LLVM_VERSION=221 -DOSL_LLVM_FULL_VERSION="22.1.8" -Dosoparse=OSL_v1_15_osoparse -std=c++17 -fno-use-cxa-atexit -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslexec -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/usr/include -I/usr/include -I/usr/include -DOSL_COMPILING_TO_BITCODE=1 -Wno-deprecated-register -Wno-ignored-attributes -Wno-unknown-attributes -O3 -fno-math-errno -S -emit-llvm -o /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslexec/pointcloud_host_rs.s pointcloud.cpp
+[   79s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslexec && /usr/bin/llvm-as-22 -f -o /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslexec/pointcloud_host_rs.bc /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslexec/pointcloud_host_rs.s
+[   79s] /usr/bin/llvm-as-22: /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslexec/pointcloud_host_rs.s:6:11: error: expected string constant
+[   79s] module asm(target_features: "+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87", target_cpu: "x86-64")
+[   79s]           ^
+[   79s] make[2]: *** [src/liboslexec/CMakeFiles/oslexec.dir/build.make:767: src/liboslexec/pointcloud_host_rs.bc] Error 1
+[   79s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   79s] make[1]: *** [CMakeFiles/Makefile2:1519: src/liboslexec/CMakeFiles/oslexec.dir/all] Error 2
+[   79s] make[1]: *** Waiting for unfinished jobs....
+[   83s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   83s] [ 18%] Building CXX object src/liboslcomp/CMakeFiles/oslcomp.dir/oslcomp.cpp.o
+[   83s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Doslcomp_EXPORTS -Doslparse=OSL_v1_15_oslparse -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp -isystem /usr/include/Imath -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslcomp/CMakeFiles/oslcomp.dir/oslcomp.cpp.o -MF CMakeFiles/oslcomp.dir/oslcomp.cpp.o.d -o CMakeFiles/oslcomp.dir/oslcomp.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp/oslcomp.cpp
+[   83s] /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp/oslcomp.cpp: In member function ‘void OSL::v1_15::pvt::OSLCompilerImpl::track_variable_dependencies()’:
+[   83s] /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp/oslcomp.cpp:1246:9: warning: variable ‘opnum’ set but not used [-Wunused-but-set-variable=]
+[   83s]  1246 |     int opnum = 0;
+[   83s]       |         ^~~~~
+[   83s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   88s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   88s] [ 20%] Building CXX object src/liboslquery/CMakeFiles/pyoslquery.dir/py_osl.cpp.o
+[   88s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -DPYMODULE_NAME=oslquery -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Dosoparse=OSL_v1_15_osoparse -Dpyoslquery_EXPORTS -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery -isystem /usr/include/python3.13 -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslquery/CMakeFiles/pyoslquery.dir/py_osl.cpp.o -MF CMakeFiles/pyoslquery.dir/py_osl.cpp.o.d -o CMakeFiles/pyoslquery.dir/py_osl.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslquery/py_osl.cpp
+[   88s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   88s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   88s] [ 25%] Linking CXX shared module ../../lib/python/site-packages/oslquery.cpython-313-x86_64-linux-gnu.so
+[   88s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslquery && /usr/bin/cmake -E cmake_link_script CMakeFiles/pyoslquery.dir/link.txt --verbose=1
+[   88s] /usr/bin/c++ -fPIC -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -shared   -Wl,--as-needed -Wl,--version-script=/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/build-scripts/hidesymbols.map  -Wl,--exclude-libs,ALL -Wl,--dependency-file=CMakeFiles/pyoslquery.dir/link.d  -o ../../lib/python/site-packages/oslquery.cpython-313-x86_64-linux-gnu.so CMakeFiles/pyoslquery.dir/py_osl.cpp.o  -Wl,-rpath,/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/lib: ../../lib/liboslquery.so.1.15.4 /usr/lib64/libOpenImageIO_Util.so.3.1.17
+[   88s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   88s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   88s] [ 25%] Built target pyoslquery
+[   88s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   93s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[   93s] [ 23%] Building CXX object src/liboslcomp/CMakeFiles/oslcomp.dir/symtab.cpp.o
+[   93s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Doslcomp_EXPORTS -Doslparse=OSL_v1_15_oslparse -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp -isystem /usr/include/Imath -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslcomp/CMakeFiles/oslcomp.dir/symtab.cpp.o -MF CMakeFiles/oslcomp.dir/symtab.cpp.o.d -o CMakeFiles/oslcomp.dir/symtab.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp/symtab.cpp
+[   93s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  100s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  100s] [ 24%] Building CXX object src/liboslcomp/CMakeFiles/oslcomp.dir/typecheck.cpp.o
+[  100s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Doslcomp_EXPORTS -Doslparse=OSL_v1_15_oslparse -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp -isystem /usr/include/Imath -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslcomp/CMakeFiles/oslcomp.dir/typecheck.cpp.o -MF CMakeFiles/oslcomp.dir/typecheck.cpp.o.d -o CMakeFiles/oslcomp.dir/typecheck.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp/typecheck.cpp
+[  100s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  101s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  101s] [ 25%] Building CXX object src/liboslcomp/CMakeFiles/oslcomp.dir/__/liboslexec/oslexec.cpp.o
+[  101s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Doslcomp_EXPORTS -Doslparse=OSL_v1_15_oslparse -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp -isystem /usr/include/Imath -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslcomp/CMakeFiles/oslcomp.dir/__/liboslexec/oslexec.cpp.o -MF CMakeFiles/oslcomp.dir/__/liboslexec/oslexec.cpp.o.d -o CMakeFiles/oslcomp.dir/__/liboslexec/oslexec.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslexec/oslexec.cpp
+[  101s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  108s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  108s] [ 26%] Building CXX object src/liboslcomp/CMakeFiles/oslcomp.dir/__/liboslexec/typespec.cpp.o
+[  108s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Doslcomp_EXPORTS -Doslparse=OSL_v1_15_oslparse -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp -isystem /usr/include/Imath -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslcomp/CMakeFiles/oslcomp.dir/__/liboslexec/typespec.cpp.o -MF CMakeFiles/oslcomp.dir/__/liboslexec/typespec.cpp.o.d -o CMakeFiles/oslcomp.dir/__/liboslexec/typespec.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslexec/typespec.cpp
+[  108s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  114s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  114s] [ 27%] Building CXX object src/liboslcomp/CMakeFiles/oslcomp.dir/oslgram.cpp.o
+[  114s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Doslcomp_EXPORTS -Doslparse=OSL_v1_15_oslparse -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp -isystem /usr/include/Imath -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslcomp/CMakeFiles/oslcomp.dir/oslgram.cpp.o -MF CMakeFiles/oslcomp.dir/oslgram.cpp.o.d -o CMakeFiles/oslcomp.dir/oslgram.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp/oslgram.cpp
+[  114s] /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp/oslgram.cpp: In function ‘int OSL_v1_15_oslparse(void*, OSL::v1_15::pvt::OSLCompilerImpl*)’:
+[  114s] /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp/oslgram.cpp:72:25: warning: variable ‘oslnerrs’ set but not used [-Wunused-but-set-variable=]
+[  114s]    72 | #define yynerrs         oslnerrs
+[  114s]       |                         ^~~~~~~~
+[  114s] /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp/oslgram.cpp:1448:9: note: in expansion of macro ‘yynerrs’
+[  114s]  1448 |     int yynerrs = 0;
+[  114s]       |         ^~~~~~~
+[  114s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  116s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  116s] [ 28%] Building CXX object src/liboslcomp/CMakeFiles/oslcomp.dir/osllex.cpp.o
+[  116s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp && /usr/bin/c++ -DOIIO_DISABLE_DEPRECATED=900000 -DOIIO_HIDE_FORMAT=1 -DOSL_FAST_MATH=1 -DOSL_INTERNAL=1 -DOSL_LLVM_FULL_VERSION=\"22.1.8\" -DOSL_LLVM_VERSION=221 -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -Doslcomp_EXPORTS -Doslparse=OSL_v1_15_oslparse -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/ext/dist/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/deps/include -I/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/liboslcomp -isystem /usr/include/Imath -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -std=c++17 -fPIC -fvisibility=hidden -Wall -Wno-error=strict-overflow -Wno-unused-local-typedefs -Wno-unused-result -Wno-error=misleading-indentation -fno-math-errno -MD -MT src/liboslcomp/CMakeFiles/oslcomp.dir/osllex.cpp.o -MF CMakeFiles/oslcomp.dir/osllex.cpp.o.d -o CMakeFiles/oslcomp.dir/osllex.cpp.o -c /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp/osllex.cpp
+[  116s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  117s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  117s] [ 29%] Linking CXX shared library ../../lib/liboslcomp.so
+[  117s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp && /usr/bin/cmake -E cmake_link_script CMakeFiles/oslcomp.dir/link.txt --verbose=1
+[  117s] /usr/bin/c++ -fPIC -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG -shared   -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now -Wl,--version-script=/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/src/build-scripts/hidesymbols.map  -Wl,--exclude-libs,ALL -Wl,--dependency-file=CMakeFiles/oslcomp.dir/link.d -Wl,-soname,liboslcomp.so.1.15 -o ../../lib/liboslcomp.so.1.15.4 CMakeFiles/oslcomp.dir/ast.cpp.o CMakeFiles/oslcomp.dir/codegen.cpp.o CMakeFiles/oslcomp.dir/oslcomp.cpp.o CMakeFiles/oslcomp.dir/symtab.cpp.o CMakeFiles/oslcomp.dir/typecheck.cpp.o CMakeFiles/oslcomp.dir/__/liboslexec/oslexec.cpp.o CMakeFiles/oslcomp.dir/__/liboslexec/typespec.cpp.o CMakeFiles/oslcomp.dir/oslgram.cpp.o CMakeFiles/oslcomp.dir/osllex.cpp.o  /usr/lib64/libOpenImageIO.so.3.1.17 -ldl /usr/lib64/libclang-cpp.so /usr/lib64/libLLVM.so /usr/lib64/libOpenImageIO_Util.so.3.1.17 /usr/lib64/libImath-3_2.so.30.3.2.3 -lm
+[  117s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/liboslcomp && /usr/bin/cmake -E cmake_symlink_library ../../lib/liboslcomp.so.1.15.4 ../../lib/liboslcomp.so.1.15 ../../lib/liboslcomp.so
+[  117s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  117s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  117s] [ 29%] Built target oslcomp
+[  117s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  127s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  127s] [ 14%] Linking CXX executable ../../bin/genluts
+[  127s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/libbsdl && /usr/bin/cmake -E cmake_link_script CMakeFiles/genluts.dir/link.txt --verbose=1
+[  127s] /usr/bin/c++ -fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -O2 -g -DNDEBUG   -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now -Wl,--dependency-file=CMakeFiles/genluts.dir/link.d CMakeFiles/genluts.dir/src/genluts.cpp.o -o ../../bin/genluts  /usr/lib64/libImath-3_2.so.30.3.2.3 -lm
+[  127s] Generating BSDL lookup tables ...
+[  127s] cd /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/libbsdl && ../../bin/genluts /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/libbsdl//geninclude/BSDL
+[  127s] Generating LUTs for MiniMicrofacetGGX ...
+[  127s] Wrote LUTs to /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/libbsdl//geninclude/BSDL/SPI/microfacet_tools_luts.h
+[  127s] Generating LUTs for PlasticGGX ...
+[  127s] Wrote LUTs to /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/libbsdl//geninclude/BSDL/SPI/bsdf_clearcoat_luts.h
+[  127s] Generating LUTs for DielectricFront ...
+[  127s] Wrote LUTs to /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/libbsdl//geninclude/BSDL/SPI/bsdf_dielectric_front_luts.h
+[  127s] Generating LUTs for DielectricBack ...
+[  127s] Wrote LUTs to /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/libbsdl//geninclude/BSDL/SPI/bsdf_dielectric_back_luts.h
+[  127s] Generating LUTs for Thinlayer ...
+[  127s] Wrote LUTs to /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/libbsdl//geninclude/BSDL/SPI/bsdf_thinlayer_luts.h
+[  127s] Generating LUTs for ContyKullaSheen ...
+[  127s] Wrote LUTs to /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/libbsdl//geninclude/BSDL/MTX/bsdf_contysheen_luts.h
+[  127s] Generating LUTs for ZeltnerBurleySheen ...
+[  127s] Wrote LUTs to /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/libbsdl//geninclude/BSDL/MTX/bsdf_zeltnersheen_luts.h
+[  127s] Generating LUTs for DielectricReflFront ...
+[  127s] Wrote LUTs to /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/libbsdl//geninclude/BSDL/MTX/bsdf_dielectric_reflfront_luts.h
+[  127s] Generating LUTs for DielectricBothFront ...
+[  127s] Wrote LUTs to /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/libbsdl//geninclude/BSDL/MTX/bsdf_dielectric_bothfront_luts.h
+[  127s] Generating LUTs for DielectricBothBack ...
+[  127s] Wrote LUTs to /home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build/src/libbsdl//geninclude/BSDL/MTX/bsdf_dielectric_bothback_luts.h
+[  127s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  127s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  127s] [ 29%] Built target genluts
+[  127s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/OpenShadingLanguage-1.15.4.0-build/OpenShadingLanguage-1.15.4.0/build'
+[  127s] make: *** [Makefile:169: all] Error 2
+[  127s] error: Bad exit status from /var/tmp/rpm-tmp.Wonh0E (%build)
+[  127s] 
+[  127s] RPM build errors:
+[  127s]     Bad exit status from /var/tmp/rpm-tmp.Wonh0E (%build)
+[  127s] ### VM INTERACTION START ###
+[  127s] Powering off.
+[  127s] ### VM INTERACTION END ###
+[  127s] 
+[  127s] i04-ch1a failed "build OpenShadingLanguage.spec" at Fri Sep 25 08:19:18 UTC 2026.
+[  127s] 

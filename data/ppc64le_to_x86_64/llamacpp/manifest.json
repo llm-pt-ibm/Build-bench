@@ -1,0 +1,59 @@
+{
+  "task": {
+    "package": "llamacpp",
+    "direction": "ppc64le_to_x86_64",
+    "source": {
+      "project": "openSUSE:Factory:PowerPC",
+      "arch": "ppc64le",
+      "srcmd5": "f115f224763fa8f91d033123c93ebacf"
+    },
+    "target": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64"
+    }
+  },
+  "files": [
+    {
+      "name": "LICENSE-Apache-2.0.txt",
+      "size": "11326"
+    },
+    {
+      "name": "LICENSE-MPL-2.0.txt",
+      "size": "16727"
+    },
+    {
+      "name": "_service",
+      "size": "125"
+    },
+    {
+      "name": "fix-negative-top-n.patch",
+      "size": "1090"
+    },
+    {
+      "name": "llama-b10964-ui.tar.gz",
+      "size": "3084524"
+    },
+    {
+      "name": "llamacpp-0.4.1.tar.gz",
+      "size": "37422659"
+    },
+    {
+      "name": "llamacpp-third-party-licenses.txt",
+      "size": "23053"
+    },
+    {
+      "name": "llamacpp.changes",
+      "size": "84170"
+    },
+    {
+      "name": "llamacpp.spec",
+      "size": "14646"
+    },
+    {
+      "name": "skip-sme-variants-when-unsupported.patch",
+      "size": "1839"
+    }
+  ],
+  "created_at": 1790692958,
+  "version": 1
+}

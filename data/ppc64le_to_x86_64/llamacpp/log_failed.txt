@@ -1,0 +1,1078 @@
+[    0s] Using BUILD_ROOT=/var/cache/obs/worker/root_23/.mount
+[    0s] Using BUILD_ARCH=x86_64:i686:i586:i486:i386
+[    0s] Doing kvm build in /var/cache/obs/worker/root_23/root
+[    0s] 
+[    0s] 
+[    0s] i03-ch2d started "build llamacpp.spec" at Fri Sep 25 08:17:12 UTC 2026.
+[    0s] 
+[    0s] Building llamacpp for project 'openSUSE:Factory' repository 'standard' arch 'x86_64' srcmd5 'f115f224763fa8f91d033123c93ebacf'
+[    0s] 
+[    0s] processing recipe /var/cache/obs/worker/root_23/.build-srcdir/llamacpp.spec ...
+[    0s] running changelog2spec --target rpm --file /var/cache/obs/worker/root_23/.build-srcdir/llamacpp.spec
+[    0s] init_buildsystem --configdir /var/run/obs/worker/23/build/configs --cachedir /var/cache/build --prepare --clean --rpmlist /var/cache/obs/worker/root_23/.build.rpmlist /var/cache/obs/worker/root_23/.build-srcdir/llamacpp.spec build ...
+[    1s] unpacking preinstall image openSUSE:Factory/standard/preinstallimage-base [da5a6d7970d3658f3e0c5682622044f6]
+[    2s] 
+[    2s] copying packages...
+[    3s] reordering...cycle: Mesa-dri -> Mesa
+[    3s]   breaking dependency Mesa -> Mesa-dri
+[    3s] cycle: Mesa-dri -> Mesa -> Mesa-libEGL1
+[    3s]   breaking dependency Mesa -> Mesa-libEGL1
+[    3s] cycle: Mesa -> Mesa-libGL1
+[    3s]   breaking dependency Mesa-libGL1 -> Mesa
+[    3s] cycle: Mesa-dri -> Mesa -> Mesa-libGL1
+[    3s]   breaking dependency Mesa-libGL1 -> Mesa-dri
+[    3s] cycle: libglvnd -> Mesa-dri -> Mesa -> Mesa-libGL1
+[    3s]   breaking dependency Mesa -> Mesa-libGL1
+[    3s] cycle: libglvnd -> Mesa-dri -> Mesa
+[    3s]   breaking dependency libglvnd -> Mesa-dri
+[    3s] cycle: libpython3_13-1_0 -> python313-base
+[    3s]   breaking dependency python313-base -> libpython3_13-1_0
+[    3s] cycle: openssl -> openssl-3
+[    3s]   breaking dependency openssl-3 -> openssl
+[    3s] cycle: libopenssl-devel -> libopenssl-3-devel
+[    3s]   breaking dependency libopenssl-devel -> libopenssl-3-devel
+[    3s] done
+[    3s] Detected virtio-serial support
+[    4s] booting kvm...
+[    4s] ### VM INTERACTION START ###
+[    4s] Using virtio-serial support and enabling console input
+[    4s] /usr/bin/qemu-kvm -nodefaults -no-reboot -nographic -vga none -cpu host -M pc,accel=kvm,usb=off,dump-guest-core=off,vmport=off -sandbox on -bios /usr/share/qemu/qboot.rom -object rng-random,filename=/dev/random,id=rng0 -device virtio-rng-pci,rng=rng0 -object iothread,id=io0 -run-with user=qemu -net none -kernel /var/cache/obs/worker/root_23/.mount/boot/kernel -initrd /var/cache/obs/worker/root_23/.mount/boot/initrd -append root=/dev/disk/by-id/virtio-0 rootfstype=ext4 rootflags=noatime elevator=noop nmi_watchdog=0 rw ia32_emulation=1 oops=panic panic=1 quiet console=hvc0 init=/.build/build -m 16384 -drive file=/var/cache/obs/worker/root_23/root,format=raw,if=none,id=disk,cache=unsafe,aio=io_uring -device virtio-blk-pci,iothread=io0,drive=disk,serial=0 -drive file=/var/cache/obs/worker/root_23/swap,format=raw,if=none,id=swap,cache=unsafe,aio=io_uring -device virtio-blk-pci,iothread=io0,drive=swap,serial=1 -device virtio-serial,max_ports=2 -device virtconsole,chardev=virtiocon0 -chardev stdio,mux=on,id=virtiocon0 -mon chardev=virtiocon0 -chardev socket,id=monitor,server=on,wait=off,path=/var/cache/obs/worker/root_23/root.qemu/monitor -mon chardev=monitor,mode=readline -smp 4
+[    8s] P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=c89c59e3534d488b9f2c1003714b55b6;user=root;hostname=localhost;machineid=0ddc9d6b65de42128266802ed2a94a07;bootid=fdeb7b89e59a4d899ddad02f8fbe33ed;pid=1;pidfdid=1;comm=systemd;type=boot\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J### VM INTERACTION END ###
+[    8s] 2nd stage started in virtual machine
+[    8s] ^[[24;80R^[[24;80Rmachine type: x86_64
+[    8s] Linux version: 7.2.7-1-default #1 SMP PREEMPT_DYNAMIC Tue Sep 22 08:00:24 UTC 2026 (e601a2d)
+[    8s] Time: Fri Sep 25 08:17:19 UTC 2026
+[    8s] Increasing log level from now on...
+[    8s] [    3.648304][  T515] sysrq: Changing Loglevel
+[    8s] [    3.648356][  T515] sysrq: Loglevel set to 4
+[    8s] Enable sysrq operations
+[    8s] Setting up swapspace version 1, size = 4 GiB (4294963200 bytes)
+[    8s] no label, UUID=c118b739-6171-4d6d-8b74-fbb5c7769cba
+[    8s] logging output to //.build.log...
+[    8s] processing recipe //.build-srcdir/llamacpp.spec ...
+[    8s] init_buildsystem --configdir /.build/configs --cachedir /var/cache/build //.build-srcdir/llamacpp.spec build ...
+[    8s] initializing rpm db...
+[    8s] querying package ids...
+[   10s] [1/401] cumulate Mesa-KHR-devel-26.2.3-1.1
+[   10s] [2/401] preinstalled aaa_base-84.87+git20260916.e122202-1.1
+[   10s] [3/401] preinstalled aaa_base-malloccheck-84.87+git20260916.e122202-1.1
+[   10s] [4/401] preinstalled alts-2.0+0.4f22c01-1.1
+[   10s] [5/401] preinstalled bash-5.3.15-8.2
+[   10s] [6/401] preinstalled bash-sh-5.3.15-8.2
+[   10s] [7/401] preinstalled binutils-2.45-4.3
+[   10s] [8/401] preinstalled brp-check-suse-84.87+git20260317.a0eb4ba-1.3
+[   10s] [9/401] preinstalled build-compare-20260622T095938.6416d96-1.3
+[   10s] [10/401] preinstalled build-mkbaselibs-20260505-1.3
+[   10s] [11/401] preinstalled bzip2-1.0.8-6.1
+[   10s] [12/401] preinstalled compat-usrmerge-build-84.87-5.26
+[   10s] [13/401] preinstalled compat-usrmerge-tools-84.87-5.26
+[   10s] [14/401] preinstalled coreutils-9.12-1.1
+[   10s] [15/401] preinstalled cpio-2.15-9.1
+[   10s] [16/401] preinstalled cpp-16-1.1
+[   10s] [17/401] preinstalled cpp16-16.2.0+git9497-3.1
+[   10s] [18/401] preinstalled crypto-policies-20250714.cd6043a-6.1
+[   10s] [19/401] preinstalled debugedit-5.1-1.7
+[   10s] [20/401] preinstalled diffutils-3.12-1.5
+[   10s] [21/401] preinstalled dwz-0.17-1.1
+[   10s] [22/401] preinstalled elfutils-0.194-1.4
+[   10s] [23/401] preinstalled envsubst-mini-1.0-3.1
+[   10s] [24/401] preinstalled file-5.48-2.2
+[   10s] [25/401] preinstalled file-magic-5.48-2.2
+[   10s] [26/401] preinstalled filesystem-84.87-21.2
+[   10s] [27/401] preinstalled fillup-1.42-281.7
+[   10s] [28/401] preinstalled findutils-4.11.0-1.2
+[   10s] [29/401] preinstalled gawk-5.4.1-1.2
+[   10s] [30/401] preinstalled gcc-16-1.1
+[   10s] [31/401] preinstalled gcc-PIE-16-1.1
+[   10s] [32/401] preinstalled gcc16-16.2.0+git9497-3.1
+[   10s] [33/401] preinstalled gcc16-PIE-16.2.0+git9497-3.1
+[   10s] [34/401] preinstalled gettext-runtime-mini-1.0-3.1
+[   10s] [35/401] preinstalled gettext-tools-mini-1.0-3.1
+[   10s] [36/401] preinstalled glibc-2.44-2.1
+[   10s] [37/401] preinstalled glibc-devel-2.44-2.1
+[   10s] [38/401] preinstalled glibc-gconv-modules-extra-2.44-2.1
+[   10s] [39/401] preinstalled glibc-locale-base-2.44-2.1
+[   10s] [40/401] preinstalled grep-3.12-1.5
+[   10s] [41/401] preinstalled gzip-1.15-1.1
+[   10s] [42/401] cumulate hwloc-data-2.13.0-1.3
+[   10s] [43/401] cumulate jitterentropy-devel-3.6.3-1.5
+[   10s] [44/401] preinstalled kernel-obs-build-7.2.7-1.1
+[   10s] [45/401] cumulate less-704-1.3
+[   10s] [46/401] cumulate libOpenCL1-2.3.4-2.1
+[   10s] [47/401] cumulate libSPIRV-Tools-2026_4_rc2-2026.4~rc2-1.1
+[   10s] [48/401] cumulate libX11-data-1.8.13-2.1
+[   10s] [49/401] cumulate libXau6-1.0.12-2.5
+[   10s] [50/401] cumulate libabsl_base_cpu_detect2608_0_0-20260817.0-1.1
+[   10s] [51/401] cumulate libabsl_city2608_0_0-20260817.0-1.1
+[   10s] [52/401] cumulate libabsl_civil_time2608_0_0-20260817.0-1.1
+[   10s] [53/401] cumulate libabsl_exponential_biased2608_0_0-20260817.0-1.1
+[   10s] [54/401] cumulate libabsl_flags_commandlineflag2608_0_0-20260817.0-1.1
+[   10s] [55/401] cumulate libabsl_flags_commandlineflag_internal2608_0_0-20260817.0-1.1
+[   10s] [56/401] cumulate libabsl_flags_private_handle_accessor2608_0_0-20260817.0-1.1
+[   10s] [57/401] cumulate libabsl_hardening2608_0_0-20260817.0-1.1
+[   10s] [58/401] cumulate libabsl_int128-2608_0_0-20260817.0-1.1
+[   10s] [59/401] cumulate libabsl_leak_check2608_0_0-20260817.0-1.1
+[   10s] [60/401] cumulate libabsl_log_internal_fnmatch2608_0_0-20260817.0-1.1
+[   10s] [61/401] cumulate libabsl_log_internal_nullguard2608_0_0-20260817.0-1.1
+[   10s] [62/401] cumulate libabsl_log_severity2608_0_0-20260817.0-1.1
+[   10s] [63/401] cumulate libabsl_log_sink2608_0_0-20260817.0-1.1
+[   10s] [64/401] cumulate libabsl_poison2608_0_0-20260817.0-1.1
+[   10s] [65/401] cumulate libabsl_random_distributions2608_0_0-20260817.0-1.1
+[   10s] [66/401] cumulate libabsl_random_internal_platform2608_0_0-20260817.0-1.1
+[   10s] [67/401] cumulate libabsl_random_internal_randen_hwaes2608_0_0-20260817.0-1.1
+[   10s] [68/401] cumulate libabsl_random_internal_randen_hwaes_impl2608_0_0-20260817.0-1.1
+[   10s] [69/401] cumulate libabsl_random_seed_gen_exception2608_0_0-20260817.0-1.1
+[   10s] [70/401] cumulate libabsl_raw_logging_internal2608_0_0-20260817.0-1.1
+[   10s] [71/401] cumulate libabsl_scoped_set_env2608_0_0-20260817.0-1.1
+[   10s] [72/401] cumulate libabsl_source_location2608_0_0-20260817.0-1.1
+[   10s] [73/401] cumulate libabsl_spinlock_wait2608_0_0-20260817.0-1.1
+[   10s] [74/401] cumulate libabsl_strerror2608_0_0-20260817.0-1.1
+[   10s] [75/401] cumulate libabsl_throw_delegate2608_0_0-20260817.0-1.1
+[   10s] [76/401] cumulate libabsl_time_zone2608_0_0-20260817.0-1.1
+[   10s] [77/401] cumulate libabsl_tracing_internal2608_0_0-20260817.0-1.1
+[   10s] [78/401] cumulate libabsl_utf8_for_code_point2608_0_0-20260817.0-1.1
+[   10s] [79/401] preinstalled libacl1-2.4.0-1.2
+[   10s] [80/401] preinstalled libalternatives1-2.0+0.4f22c01-1.1
+[   10s] [81/401] preinstalled libarchive13-3.8.9-1.1
+[   10s] [82/401] preinstalled libasan8-16.2.0+git9497-3.1
+[   10s] [83/401] preinstalled libasm1-0.194-1.4
+[   10s] [84/401] preinstalled libatomic1-16.2.0+git9497-3.1
+[   10s] [85/401] preinstalled libattr1-2.6.0-1.2
+[   10s] [86/401] preinstalled libaudit1-4.0.2-3.5
+[   10s] [87/401] preinstalled libblkid1-2.42.3-1.1
+[   10s] [88/401] cumulate libbrotlicommon1-1.2.0-2.4
+[   10s] [89/401] preinstalled libbz2-1-1.0.8-6.1
+[   10s] [90/401] preinstalled libcap-ng0-0.8.5-1.7
+[   10s] [91/401] preinstalled libcap2-2.78-1.4
+[   10s] [92/401] cumulate libcom_err2-1.47.3-2.2
+[   10s] [93/401] preinstalled libcrypt1-4.5.2-2.4
+[   10s] [94/401] preinstalled libctf-nobfd0-2.45-4.3
+[   10s] [95/401] preinstalled libctf0-2.45-4.3
+[   10s] [96/401] cumulate libdisplay-info3-0.3.0-2.5
+[   10s] [97/401] cumulate libdrm2-2.4.134-2.2
+[   10s] [98/401] preinstalled libdw1-0.194-1.4
+[   10s] [99/401] preinstalled libeconf0-0.8.4-1.2
+[   10s] [100/401] cumulate libedit0-20250104.3.1-1.5
+[   10s] [101/401] preinstalled libelf1-0.194-1.4
+[   10s] [102/401] cumulate libexpat1-2.8.4-1.1
+[   10s] [103/401] preinstalled libfdisk1-2.42.3-1.1
+[   10s] [104/401] cumulate libffi8-3.5.2-2.5
+[   10s] [105/401] cumulate libflatbuffers25_2_10-25.2.10-2.5
+[   10s] [106/401] preinstalled libgcc_s1-16.2.0+git9497-3.1
+[   10s] [107/401] preinstalled libgcrypt20-1.12.4-1.1
+[   10s] [108/401] preinstalled libgdbm6-1.26-1.5
+[   10s] [109/401] preinstalled libgdbm_compat4-1.26-1.5
+[   10s] [110/401] preinstalled libgmp10-6.3.0-5.6
+[   10s] [111/401] preinstalled libgomp1-16.2.0+git9497-3.1
+[   10s] [112/401] preinstalled libgpg-error0-1.61-2.1
+[   10s] [113/401] preinstalled libhwasan0-16.2.0+git9497-3.1
+[   10s] [114/401] cumulate libirml1-2023.0.0-1.3
+[   10s] [115/401] preinstalled libisl23-0.27-1.6
+[   10s] [116/401] preinstalled libitm1-16.2.0+git9497-3.1
+[   10s] [117/401] preinstalled libjitterentropy3-3.6.3-1.5
+[   10s] [118/401] preinstalled liblsan0-16.2.0+git9497-3.1
+[   10s] [119/401] preinstalled liblua5_4-5-5.4.8-4.6
+[   10s] [120/401] preinstalled liblz1-1.16-2.1
+[   10s] [121/401] preinstalled liblz4-1-1.10.0-2.8
+[   10s] [122/401] preinstalled liblzma5-5.8.4-1.1
+[   10s] [123/401] preinstalled libmagic1-5.48-2.2
+[   10s] [124/401] preinstalled libmount1-2.42.3-1.1
+[   10s] [125/401] preinstalled libmpc3-1.4.1-1.4
+[   10s] [126/401] cumulate libmpdec4-4.0.1-2.5
+[   10s] [127/401] preinstalled libmpfr6-4.2.2-1.5
+[   10s] [128/401] preinstalled libncurses6-6.6.20260919-113.1
+[   10s] [129/401] cumulate libnghttp2-14-1.70.0-1.1
+[   10s] [130/401] cumulate libnghttp3-9-1.18.0-2.1
+[   10s] [131/401] cumulate libngtcp2-16-1.25.0-2.1
+[   10s] [132/401] preinstalled libopenssl3-3.5.3-8.1
+[   10s] [133/401] cumulate libpciaccess0-0.19-1.4
+[   10s] [134/401] preinstalled libpcre2-8-0-10.48-1.1
+[   10s] [135/401] preinstalled libpkgconf7-2.5.1-1.5
+[   10s] [136/401] preinstalled libpopt0-1.19-2.4
+[   10s] [137/401] cumulate libpugixml1-1.16-1.2
+[   10s] [138/401] preinstalled libreadline8-8.3.3-2.6
+[   10s] [139/401] cumulate librhash1-1.4.6-2.3
+[   10s] [140/401] preinstalled librpmbuild10-4.20.1-11.1
+[   10s] [141/401] cumulate libsasl2-3-2.1.28-12.5
+[   10s] [142/401] preinstalled libseccomp2-2.6.1-3.1
+[   10s] [143/401] preinstalled libselinux1-3.11-2.1
+[   10s] [144/401] preinstalled libsframe2-2.45-4.3
+[   10s] [145/401] cumulate libsha1detectcoll1-1.0.3-5.7
+[   10s] [146/401] preinstalled libsmartcols1-2.42.3-1.1
+[   10s] [147/401] cumulate libsnappy1-1.3.0-1.1
+[   10s] [148/401] cumulate libssh-config-0.11.5-3.1
+[   10s] [149/401] preinstalled libstdc++6-16.2.0+git9497-3.1
+[   10s] [150/401] cumulate libstdc++6-devel-gcc16-16.2.0+git9497-3.1
+[   10s] [151/401] cumulate libtbb12-2023.0.0-1.3
+[   10s] [152/401] cumulate libtbbmalloc2-2023.0.0-1.3
+[   10s] [153/401] preinstalled libtsan2-16.2.0+git9497-3.1
+[   10s] [154/401] preinstalled libubsan1-16.2.0+git9497-3.1
+[   10s] [155/401] cumulate libunistring5-1.4.2-1.4
+[   10s] [156/401] cumulate libutf8_range-36_2_0-36.2-1.1
+[   10s] [157/401] preinstalled libuuid1-2.42.3-1.1
+[   10s] [158/401] cumulate libuv1-1.52.0-1.4
+[   10s] [159/401] cumulate libva2-2.24.1-1.1
+[   10s] [160/401] cumulate libverto1-0.3.2-3.9
+[   10s] [161/401] cumulate libvulkan1-1.4.357-1.1
+[   10s] [162/401] cumulate libwayland-egl1-1.26.0-1.2
+[   10s] [163/401] preinstalled libxcrypt-devel-4.5.2-2.4
+[   10s] [164/401] preinstalled libxml2-16-2.15.4-1.1
+[   10s] [165/401] cumulate libxshmfence1-1.3.3-1.6
+[   10s] [166/401] preinstalled libz1-1.3.1-3.3
+[   10s] [167/401] cumulate libzstd-devel-1.5.7-6.1
+[   10s] [168/401] preinstalled libzstd1-1.5.7-6.1
+[   10s] [169/401] preinstalled linux-glibc-devel-7.2-2.1
+[   10s] [170/401] preinstalled lua-interpreter-5-3.3
+[   10s] [171/401] preinstalled lua54-5.4.8-4.6
+[   10s] [172/401] preinstalled make-4.4.1-3.7
+[   10s] [173/401] preinstalled ncurses-utils-6.6.20260919-113.1
+[   10s] [174/401] cumulate ninja-1.13.2-1.5
+[   10s] [175/401] cumulate opencl-headers-2026.05.29-1.3
+[   10s] [176/401] preinstalled pam-1.7.2+git48-2.1
+[   10s] [177/401] preinstalled patch-2.8-3.2
+[   10s] [178/401] preinstalled perl-5.44.0-1.2
+[   10s] [179/401] cumulate perl-Error-0.170.300-1.5
+[   10s] [180/401] preinstalled perl-base-5.44.0-1.2
+[   10s] [181/401] preinstalled perl-rpm-packaging-1.3-1.3
+[   10s] [182/401] preinstalled permctl-1699_20260917-1.1
+[   10s] [183/401] preinstalled permissions-1699_20260917-1.1
+[   10s] [184/401] preinstalled permissions-config-1699_20260917-1.1
+[   10s] [185/401] preinstalled pkgconf-2.5.1-1.5
+[   10s] [186/401] preinstalled pkgconf-m4-2.5.1-1.5
+[   10s] [187/401] preinstalled pkgconf-pkg-config-2.5.1-1.5
+[   10s] [188/401] preinstalled polkit-default-privs-1550+20260825.76d85e6-1.1
+[   10s] [189/401] preinstalled post-build-checks-84.87+git20260421.8ed5e73-1.1
+[   10s] [190/401] cumulate python-rpm-macros-20260909.65d2791-1.1
+[   10s] [191/401] preinstalled rpm-4.20.1-11.1
+[   10s] [192/401] preinstalled rpm-build-4.20.1-11.1
+[   10s] [193/401] preinstalled rpm-config-SUSE-20250904-1.3
+[   10s] [194/401] preinstalled rpmlint-mini-2.10.0+git20260911.f4f012f3-21.40
+[   10s] [195/401] preinstalled rpmlint-strict-2.10.0+git20260911.f4f012f3-1.1
+[   10s] [196/401] preinstalled sed-4.10-1.4
+[   10s] [197/401] cumulate spirv-headers-1.202609.0-1.1
+[   10s] [198/401] preinstalled suse-reproducible-builds-1.0-1.2
+[   10s] [199/401] preinstalled system-user-root-20190513-2.20
+[   10s] [200/401] preinstalled systemd-rpm-macros-26-1.3
+[   10s] [201/401] preinstalled tar-1.35-10.1
+[   10s] [202/401] preinstalled terminfo-base-6.6.20260919-113.1
+[   10s] [203/401] preinstalled util-linux-2.42.3-1.1
+[   10s] [204/401] preinstalled which-2.25-1.3
+[   10s] [205/401] cumulate xorgproto-devel-2025.1-1.3
+[   10s] [206/401] preinstalled xz-5.8.4-1.1
+[   10s] [207/401] cumulate zlib-devel-1.3.1-3.3
+[   10s] [208/401] cumulate flatbuffers-devel-25.2.10-2.5
+[   10s] [209/401] cumulate gcc16-c++-16.2.0+git9497-3.1
+[   10s] [210/401] cumulate libLLVM23-23.1.1-1.1
+[   10s] [211/401] cumulate libX11-xcb1-1.8.13-2.1
+[   10s] [212/401] cumulate libabsl_cordz_functions2608_0_0-20260817.0-1.1
+[   10s] [213/401] cumulate libabsl_crc_internal2608_0_0-20260817.0-1.1
+[   10s] [214/401] cumulate libabsl_debugging_internal2608_0_0-20260817.0-1.1
+[   10s] [215/401] cumulate libabsl_decode_rust_punycode2608_0_0-20260817.0-1.1
+[   10s] [216/401] cumulate libabsl_hash2608_0_0-20260817.0-1.1
+[   10s] [217/401] cumulate libabsl_log_internal_globals2608_0_0-20260817.0-1.1
+[   10s] [218/401] cumulate libabsl_log_internal_proto2608_0_0-20260817.0-1.1
+[   10s] [219/401] cumulate libabsl_periodic_sampler2608_0_0-20260817.0-1.1
+[   10s] [220/401] cumulate libabsl_random_internal_randen_slow2608_0_0-20260817.0-1.1
+[   10s] [221/401] cumulate libabsl_random_internal_seed_material2608_0_0-20260817.0-1.1
+[   10s] [222/401] cumulate libabsl_strings_internal2608_0_0-20260817.0-1.1
+[   10s] [223/401] cumulate libbrotlidec1-1.2.0-2.4
+[   10s] [224/401] cumulate libbrotlienc1-1.2.0-2.4
+[   10s] [225/401] cumulate libcom_err-devel-1.47.3-2.2
+[   10s] [226/401] cumulate libdrm_amdgpu1-2.4.134-2.2
+[   10s] [227/401] cumulate libdrm_nouveau2-2.4.134-2.2
+[   10s] [228/401] cumulate libdrm_radeon1-2.4.134-2.2
+[   10s] [229/401] cumulate libffi-devel-3.5.2-2.5
+[   10s] [230/401] cumulate libgbm1-26.2.3-1.1
+[   10s] [231/401] cumulate libglslang16-16.6.0-1.1
+[   10s] [232/401] cumulate libidn2-0-2.3.8-1.5
+[   10s] [233/401] cumulate libldap2-2.6.13-1.6
+[   10s] [234/401] cumulate libnghttp2-devel-1.70.0-1.1
+[   10s] [235/401] cumulate libngtcp2_crypto_ossl0-1.25.0-2.1
+[   10s] [236/401] cumulate libstdc++-devel-16-1.1
+[   10s] [237/401] cumulate libverto-devel-0.3.2-3.9
+[   10s] [238/401] cumulate libwayland-client0-1.26.0-1.2
+[   10s] [239/401] cumulate libwayland-server0-1.26.0-1.2
+[   10s] [240/401] cumulate libxcb1-1.17.0-2.7
+[   10s] [241/401] cumulate nghttp3-devel-1.18.0-2.1
+[   10s] [242/401] cumulate ngtcp2-devel-1.25.0-2.1
+[   10s] [243/401] cumulate opencl-cpp-headers-2026.05.29-1.1
+[   10s] [244/401] cumulate perl-Git-2.55.0-3.2
+[   10s] [245/401] cumulate pugixml-devel-1.16-1.2
+[   10s] [246/401] cumulate snappy-devel-1.3.0-1.1
+[   10s] [247/401] cumulate krb5-mini-1.22.2-4.2
+[   10s] [248/401] cumulate libXau-devel-1.0.12-2.5
+[   10s] [249/401] cumulate libabsl_base2608_0_0-20260817.0-1.1
+[   10s] [250/401] cumulate libdrm_intel1-2.4.134-2.2
+[   10s] [251/401] cumulate libhwloc15-2.13.0-1.3
+[   10s] [252/401] cumulate libopenvino2640-2026.4.0-2.1
+[   10s] [253/401] cumulate libpciaccess-devel-0.19-1.4
+[   10s] [254/401] cumulate libva-drm2-2.24.1-1.1
+[   10s] [255/401] cumulate gcc-c++-16-1.1
+[   10s] [256/401] cumulate libabsl_crc32c2608_0_0-20260817.0-1.1
+[   10s] [257/401] cumulate libabsl_demangle_rust2608_0_0-20260817.0-1.1
+[   10s] [258/401] cumulate libabsl_log_internal_conditions2608_0_0-20260817.0-1.1
+[   10s] [259/401] cumulate libabsl_log_internal_structured_proto2608_0_0-20260817.0-1.1
+[   10s] [260/401] cumulate libabsl_stacktrace2608_0_0-20260817.0-1.1
+[   10s] [261/401] cumulate libidn2-devel-2.3.8-1.5
+[   10s] [262/401] cumulate libopenvino_c2640-2026.4.0-2.1
+[   10s] [263/401] cumulate libopenvino_onnx_frontend2640-2026.4.0-2.1
+[   10s] [264/401] cumulate libopenvino_paddle_frontend2640-2026.4.0-2.1
+[   10s] [265/401] cumulate libopenvino_pytorch_frontend2640-2026.4.0-2.1
+[   10s] [266/401] cumulate libopenvino_tensorflow_lite_frontend2640-2026.4.0-2.1
+[   10s] [267/401] cumulate libtbbbind_2_5-3-2023.0.0-1.3
+[   10s] [268/401] cumulate libwayland-cursor0-1.26.0-1.2
+[   10s] [269/401] cumulate libxcb-composite0-1.17.0-2.7
+[   10s] [270/401] cumulate libxcb-damage0-1.17.0-2.7
+[   10s] [271/401] cumulate libxcb-dbe0-1.17.0-2.7
+[   10s] [272/401] cumulate libxcb-dpms0-1.17.0-2.7
+[   10s] [273/401] cumulate libxcb-dri2-0-1.17.0-2.7
+[   10s] [274/401] cumulate libxcb-dri3-0-1.17.0-2.7
+[   10s] [275/401] cumulate libxcb-glx0-1.17.0-2.7
+[   10s] [276/401] cumulate libxcb-present0-1.17.0-2.7
+[   10s] [277/401] cumulate libxcb-randr0-1.17.0-2.7
+[   10s] [278/401] cumulate libxcb-record0-1.17.0-2.7
+[   10s] [279/401] cumulate libxcb-render0-1.17.0-2.7
+[   10s] [280/401] cumulate libxcb-res0-1.17.0-2.7
+[   10s] [281/401] cumulate libxcb-screensaver0-1.17.0-2.7
+[   10s] [282/401] cumulate libxcb-shape0-1.17.0-2.7
+[   10s] [283/401] cumulate libxcb-shm0-1.17.0-2.7
+[   10s] [284/401] cumulate libxcb-sync1-1.17.0-2.7
+[   10s] [285/401] cumulate libxcb-xf86dri0-1.17.0-2.7
+[   10s] [286/401] cumulate libxcb-xfixes0-1.17.0-2.7
+[   10s] [287/401] cumulate libxcb-xinerama0-1.17.0-2.7
+[   10s] [288/401] cumulate libxcb-xinput0-1.17.0-2.7
+[   10s] [289/401] cumulate libxcb-xkb1-1.17.0-2.7
+[   10s] [290/401] cumulate libxcb-xtest0-1.17.0-2.7
+[   10s] [291/401] cumulate libxcb-xv0-1.17.0-2.7
+[   10s] [292/401] cumulate libxcb-xvmc0-1.17.0-2.7
+[   10s] [293/401] cumulate nlohmann_json-devel-3.12.0-2.4
+[   10s] [294/401] cumulate libX11-6-1.8.13-2.1
+[   10s] [295/401] cumulate libabsl_log_globals2608_0_0-20260817.0-1.1
+[   10s] [296/401] cumulate libabsl_log_initialize2608_0_0-20260817.0-1.1
+[   10s] [297/401] cumulate libopenvino_ir_frontend2640-2026.4.0-2.1
+[   10s] [298/401] cumulate libopenvino_tensorflow_frontend2640-2026.4.0-2.1
+[   10s] [299/401] cumulate libpsl5-0.23.3-1.1
+[   10s] [300/401] cumulate libssh4-0.11.5-3.1
+[   10s] [301/401] cumulate shaderc-2026.4-1.1
+[   10s] [302/401] cumulate krb5-mini-devel-1.22.2-4.2
+[   10s] [303/401] cumulate libabsl_malloc_internal2608_0_0-20260817.0-1.1
+[   10s] [304/401] cumulate libabsl_random_internal_randen2608_0_0-20260817.0-1.1
+[   10s] [305/401] cumulate libabsl_strings2608_0_0-20260817.0-1.1
+[   10s] [306/401] cumulate libbrotli-devel-1.2.0-2.4
+[   10s] [307/401] cumulate libva-wayland2-2.24.1-1.1
+[   10s] [308/401] cumulate libdrm-devel-2.4.134-2.2
+[   10s] [309/401] cumulate libXext6-1.3.7-1.5
+[   10s] [310/401] cumulate libXfixes3-6.0.2-2.5
+[   10s] [311/401] cumulate libXrender1-0.9.12-2.1
+[   10s] [312/401] cumulate libabsl_crc_cord_state2608_0_0-20260817.0-1.1
+[   10s] [313/401] cumulate libabsl_demangle_internal2608_0_0-20260817.0-1.1
+[   10s] [314/401] cumulate libssh-devel-0.11.5-3.1
+[   10s] [315/401] cumulate libpsl-devel-0.23.3-1.1
+[   10s] [316/401] cumulate libabsl_graphcycles_internal2608_0_0-20260817.0-1.1
+[   10s] [317/401] cumulate libabsl_log_internal_check_op2608_0_0-20260817.0-1.1
+[   10s] [318/401] cumulate libabsl_str_format_internal2608_0_0-20260817.0-1.1
+[   10s] [319/401] cumulate libabsl_time2608_0_0-20260817.0-1.1
+[   10s] [320/401] cumulate Mesa-vulkan-device-select-26.2.3-1.1
+[   10s] [321/401] cumulate tbb-devel-2023.0.0-1.3
+[   10s] [322/401] cumulate wayland-devel-1.26.0-1.2
+[   10s] [323/401] cumulate libabsl_random_internal_entropy_pool2608_0_0-20260817.0-1.1
+[   10s] [324/401] cumulate libcurl4-8.22.0-1.1
+[   10s] [325/401] cumulate libxcb-devel-1.17.0-2.7
+[   10s] [326/401] cumulate libabsl_random_seed_sequences2608_0_0-20260817.0-1.1
+[   10s] [327/401] cumulate libXxf86vm1-1.1.7-1.5
+[   10s] [328/401] cumulate libabsl_generic_printer_internal2608_0_0-20260817.0-1.1
+[   10s] [329/401] cumulate libabsl_kernel_timeout_internal2608_0_0-20260817.0-1.1
+[   10s] [330/401] cumulate libXrandr2-1.5.5-1.5
+[   10s] [331/401] cumulate libabsl_cord_internal2608_0_0-20260817.0-1.1
+[   10s] [332/401] cumulate libabsl_flags_marshalling2608_0_0-20260817.0-1.1
+[   10s] [333/401] cumulate libabsl_random_internal_distribution_test_util2608_0_0-20260817.0-1.1
+[   10s] [334/401] cumulate git-core-2.55.0-3.2
+[   10s] [335/401] cumulate libX11-devel-1.8.13-2.1
+[   10s] [336/401] cumulate libabsl_log_entry2608_0_0-20260817.0-1.1
+[   10s] [337/401] cumulate libabsl_log_internal_format2608_0_0-20260817.0-1.1
+[   10s] [338/401] cumulate libabsl_symbolize2608_0_0-20260817.0-1.1
+[   10s] [339/401] cumulate libva-x11-2-2.24.1-1.1
+[   10s] [340/401] cumulate libvulkan_lvp-26.2.3-1.1
+[   10s] [341/401] cumulate git-2.55.0-3.2
+[   10s] [342/401] cumulate libabsl_examine_stack2608_0_0-20260817.0-1.1
+[   10s] [343/401] cumulate libXext-devel-1.3.7-1.5
+[   10s] [344/401] cumulate libXfixes-devel-6.0.2-2.5
+[   10s] [345/401] cumulate libXrender-devel-0.9.12-2.1
+[   10s] [346/401] cumulate libabsl_synchronization2608_0_0-20260817.0-1.1
+[   10s] [347/401] cumulate libabsl_cordz_handle2608_0_0-20260817.0-1.1
+[   10s] [348/401] cumulate libabsl_flags_program_name2608_0_0-20260817.0-1.1
+[   10s] [349/401] cumulate libabsl_flags_usage2608_0_0-20260817.0-1.1
+[   10s] [350/401] cumulate libabsl_clock_interface2608_0_0-20260817.0-1.1
+[   10s] [351/401] cumulate libabsl_failure_signal_handler2608_0_0-20260817.0-1.1
+[   10s] [352/401] cumulate libabsl_hashtablez_sampler2608_0_0-20260817.0-1.1
+[   10s] [353/401] cumulate libabsl_vlog_config_internal2608_0_0-20260817.0-1.1
+[   10s] [354/401] cumulate libXrandr-devel-1.5.5-1.5
+[   10s] [355/401] cumulate libabsl_log_internal_log_sink_set2608_0_0-20260817.0-1.1
+[   10s] [356/401] cumulate libva-devel-2.24.1-1.1
+[   10s] [357/401] cumulate libabsl_flags_config2608_0_0-20260817.0-1.1
+[   10s] [358/401] cumulate libabsl_raw_hash_set2608_0_0-20260817.0-1.1
+[   10s] [359/401] cumulate libabsl_cordz_info2608_0_0-20260817.0-1.1
+[   10s] [360/401] cumulate libabsl_log_internal_message2608_0_0-20260817.0-1.1
+[   10s] [361/401] cumulate libabsl_cordz_sample_token2608_0_0-20260817.0-1.1
+[   10s] [362/401] cumulate libabsl_die_if_null2608_0_0-20260817.0-1.1
+[   10s] [363/401] cumulate libabsl_profile_builder2608_0_0-20260817.0-1.1
+[   10s] [364/401] cumulate libabsl_cord2608_0_0-20260817.0-1.1
+[   10s] [365/401] cumulate libabsl_flags_internal2608_0_0-20260817.0-1.1
+[   10s] [366/401] cumulate libabsl_flags_reflection2608_0_0-20260817.0-1.1
+[   10s] [367/401] cumulate libabsl_flags_usage_internal2608_0_0-20260817.0-1.1
+[   10s] [368/401] cumulate libabsl_hashtable_profiler2608_0_0-20260817.0-1.1
+[   10s] [369/401] cumulate libabsl_log_flags2608_0_0-20260817.0-1.1
+[   10s] [370/401] cumulate libabsl_status2608_0_0-20260817.0-1.1
+[   10s] [371/401] cumulate libabsl_statusor2608_0_0-20260817.0-1.1
+[   10s] [372/401] cumulate libabsl_status_builder2608_0_0-20260817.0-1.1
+[   10s] [373/401] cumulate libabsl_flags_parse2608_0_0-20260817.0-1.1
+[   10s] [374/401] cumulate libprotobuf-lite36_2_0-36.2-1.1
+[   10s] [375/401] cumulate libprotobuf36_2_0-36.2-1.1
+[   10s] [376/401] cumulate abseil-cpp-devel-20260817.0-1.1
+[   10s] [377/401] cumulate libprotoc36_2_0-36.2-1.1
+[   10s] [378/401] cumulate protobuf-devel-36.2-1.1
+[   10s] [379/401] cumulate openssl-3-3.5.3-8.1
+[   10s] [380/401] cumulate libglvnd-1.7.0-2.4
+[   10s] [381/401] cumulate python313-base-3.13.15-1.2
+[   10s] [382/401] cumulate libglvnd-devel-1.7.0-2.4
+[   10s] [383/401] cumulate libpython3_13-1_0-3.13.15-1.2
+[   10s] [384/401] cumulate openssl-3.5.3-1.3
+[   10s] [385/401] cumulate python313-packaging-26.3-1.1
+[   10s] [386/401] cumulate Mesa-26.2.3-1.1
+[   10s] [387/401] cumulate cmake-mini-4.4.3-1.1
+[   10s] [388/401] cumulate vulkan-headers-1.4.357-1.1
+[   10s] [389/401] cumulate Mesa-libGL1-26.2.3-1.1
+[   10s] [390/401] cumulate cmake-4.4.3-1.1
+[   10s] [391/401] cumulate libopenssl-devel-3.5.3-1.3
+[   10s] [392/401] cumulate vulkan-devel-1.4.357-1.1
+[   10s] [393/401] cumulate python-rpm-packaging-20210526+a18ca48-1.15
+[   10s] [394/401] cumulate Mesa-dri-26.2.3-1.1
+[   10s] [395/401] cumulate libopenssl-3-devel-3.5.3-8.1
+[   10s] [396/401] cumulate Mesa-libEGL1-26.2.3-1.1
+[   10s] [397/401] cumulate Mesa-libEGL-devel-26.2.3-1.1
+[   10s] [398/401] cumulate libngtcp2_crypto_ossl-devel-1.25.0-2.1
+[   10s] [399/401] cumulate ocl-icd-devel-2.3.4-2.1
+[   10s] [400/401] cumulate libcurl-devel-8.22.0-1.1
+[   10s] [401/401] cumulate openvino-devel-2026.4.0-2.1
+[   10s] now installing cumulated packages
+[   10s] Preparing...                          ########################################
+[   10s] Updating / installing...
+[   10s] libabsl_raw_logging_internal2608_0_0-2########################################
+[   10s] libdrm2-2.4.134-2.2                   ########################################
+[   10s] libabsl_throw_delegate2608_0_0-2026081########################################
+[   10s] libabsl_spinlock_wait2608_0_0-20260817########################################
+[   10s] libabsl_base2608_0_0-20260817.0-1.1   ########################################
+[   10s] libabsl_log_internal_nullguard2608_0_0########################################
+[   10s] xorgproto-devel-2025.1-1.3            ########################################
+[   10s] libexpat1-2.8.4-1.1                   ########################################
+[   10s] libabsl_log_internal_globals2608_0_0-2########################################
+[   10s] libabsl_strings_internal2608_0_0-20260########################################
+[   10s] libabsl_strings2608_0_0-20260817.0-1.1########################################
+[   10s] libabsl_int128-2608_0_0-20260817.0-1.1########################################
+[   10s] libabsl_str_format_internal2608_0_0-20########################################
+[   10s] libabsl_log_internal_conditions2608_0_########################################
+[   10s] libabsl_malloc_internal2608_0_0-202608########################################
+[   10s] libabsl_log_internal_proto2608_0_0-202########################################
+[   10s] libva2-2.24.1-1.1                     ########################################
+[   10s] libutf8_range-36_2_0-36.2-1.1         ########################################
+[   10s] libffi8-3.5.2-2.5                     ########################################
+[   10s] libwayland-client0-1.26.0-1.2         ########################################
+[   10s] libabsl_time_zone2608_0_0-20260817.0-1########################################
+[   10s] libabsl_time2608_0_0-20260817.0-1.1   ########################################
+[   10s] libSPIRV-Tools-2026_4_rc2-2026.4~rc2-1########################################
+[   10s] libabsl_kernel_timeout_internal2608_0_########################################
+[   10s] libabsl_flags_marshalling2608_0_0-2026########################################
+[   10s] libabsl_debugging_internal2608_0_0-202########################################
+[   10s] libabsl_stacktrace2608_0_0-20260817.0-########################################
+[   10s] zlib-devel-1.3.1-3.3                  ########################################
+[   10s] opencl-headers-2026.05.29-1.3         ########################################
+[   10s] libpugixml1-1.16-1.2                  ########################################
+[   10s] libpciaccess0-0.19-1.4                ########################################
+[   10s] libngtcp2-16-1.25.0-2.1               ########################################
+[   10s] libbrotlicommon1-1.2.0-2.4            ########################################
+[   10s] libabsl_strerror2608_0_0-20260817.0-1.########################################
+[   10s] libabsl_random_internal_randen_hwaes_i########################################
+[   10s] libabsl_leak_check2608_0_0-20260817.0-########################################
+[   10s] libabsl_log_internal_check_op2608_0_0-########################################
+[   10s] libabsl_flags_private_handle_accessor2########################################
+[   10s] libabsl_flags_commandlineflag2608_0_0-########################################
+[   10s] libabsl_exponential_biased2608_0_0-202########################################
+[   10s] libabsl_cordz_functions2608_0_0-202608########################################
+[   10s] libbrotlidec1-1.2.0-2.4               ########################################
+[   10s] libngtcp2_crypto_ossl0-1.25.0-2.1     ########################################
+[   10s] ngtcp2-devel-1.25.0-2.1               ########################################
+[   10s] libdrm_intel1-2.4.134-2.2             ########################################
+[   10s] libabsl_log_internal_format2608_0_0-20########################################
+[   10s] libabsl_log_initialize2608_0_0-2026081########################################
+[   10s] libabsl_log_internal_structured_proto2########################################
+[   10s] libdrm_amdgpu1-2.4.134-2.2            ########################################
+[   10s] libgbm1-26.2.3-1.1                    ########################################
+[   10s] libabsl_crc_internal2608_0_0-20260817.########################################
+[   10s] libabsl_crc32c2608_0_0-20260817.0-1.1 ########################################
+[   10s] libabsl_crc_cord_state2608_0_0-2026081########################################
+[   10s] libabsl_cord_internal2608_0_0-20260817########################################
+[   10s] libabsl_random_internal_seed_material2########################################
+[   10s] libxshmfence1-1.3.3-1.6               ########################################
+[   10s] libvulkan1-1.4.357-1.1                ########################################
+[   10s] libverto1-0.3.2-3.9                   ########################################
+[   10s] libuv1-1.52.0-1.4                     ########################################
+[   10s] libunistring5-1.4.2-1.4               ########################################
+[   10s] libidn2-0-2.3.8-1.5                   ########################################
+[   10s] libidn2-devel-2.3.8-1.5               ########################################
+[   10s] libpsl5-0.23.3-1.1                    ########################################
+[   10s] libtbb12-2023.0.0-1.3                 ########################################
+[   10s] libopenvino2640-2026.4.0-2.1          ########################################
+[   10s] libstdc++6-devel-gcc16-16.2.0+git9497-########################################
+[   10s] libsnappy1-1.3.0-1.1                  ########################################
+[   10s] libnghttp3-9-1.18.0-2.1               ########################################
+[   10s] libnghttp2-14-1.70.0-1.1              ########################################
+[   10s] libcom_err2-1.47.3-2.2                ########################################
+[   10s] krb5-mini-1.22.2-4.2                  ########################################
+[   10s] Updating /etc/sysconfig/kadmind ...
+[   10s] Updating /etc/sysconfig/krb5kdc ...
+[   10s] libabsl_utf8_for_code_point2608_0_0-20########################################
+[   10s] libabsl_decode_rust_punycode2608_0_0-2########################################
+[   10s] libabsl_demangle_rust2608_0_0-20260817########################################
+[   10s] libabsl_demangle_internal2608_0_0-2026########################################
+[   10s] libabsl_symbolize2608_0_0-20260817.0-1########################################
+[   10s] libabsl_examine_stack2608_0_0-20260817########################################
+[   10s] libabsl_tracing_internal2608_0_0-20260########################################
+[   10s] libabsl_synchronization2608_0_0-202608########################################
+[   10s] libabsl_flags_program_name2608_0_0-202########################################
+[   10s] libabsl_flags_config2608_0_0-20260817.########################################
+[   10s] libabsl_hashtablez_sampler2608_0_0-202########################################
+[   10s] libabsl_cordz_handle2608_0_0-20260817.########################################
+[   10s] libabsl_cordz_info2608_0_0-20260817.0-########################################
+[   10s] libabsl_cord2608_0_0-20260817.0-1.1   ########################################
+[   10s] libabsl_flags_usage2608_0_0-20260817.0########################################
+[   10s] libabsl_random_seed_gen_exception2608_########################################
+[   10s] libabsl_random_internal_randen_hwaes26########################################
+[   10s] libabsl_random_internal_platform2608_0########################################
+[   10s] libabsl_random_internal_randen_slow260########################################
+[   10s] libabsl_random_internal_randen2608_0_0########################################
+[   10s] libabsl_random_internal_entropy_pool26########################################
+[   10s] libabsl_log_sink2608_0_0-20260817.0-1.########################################
+[   10s] libabsl_log_severity2608_0_0-20260817.########################################
+[   10s] libabsl_log_internal_fnmatch2608_0_0-2########################################
+[   10s] libabsl_vlog_config_internal2608_0_0-2########################################
+[   10s] libabsl_flags_commandlineflag_internal########################################
+[   10s] libabsl_flags_internal2608_0_0-2026081########################################
+[   10s] libabsl_city2608_0_0-20260817.0-1.1   ########################################
+[   10s] libabsl_hash2608_0_0-20260817.0-1.1   ########################################
+[   10s] libabsl_raw_hash_set2608_0_0-20260817.########################################
+[   10s] libabsl_status2608_0_0-20260817.0-1.1 ########################################
+[   10s] libabsl_statusor2608_0_0-20260817.0-1.########################################
+[   10s] libabsl_flags_reflection2608_0_0-20260########################################
+[   10s] libabsl_log_globals2608_0_0-20260817.0########################################
+[   10s] libabsl_log_internal_log_sink_set2608_########################################
+[   10s] libabsl_log_internal_message2608_0_0-2########################################
+[   10s] libabsl_die_if_null2608_0_0-20260817.0########################################
+[   10s] libprotobuf36_2_0-36.2-1.1            ########################################
+[   10s] libabsl_flags_usage_internal2608_0_0-2########################################
+[   10s] libabsl_profile_builder2608_0_0-202608########################################
+[   10s] libXau6-1.0.12-2.5                    ########################################
+[   10s] libxcb1-1.17.0-2.7                    ########################################
+[   10s] libxcb-dri3-0-1.17.0-2.7              ########################################
+[   10s] libxcb-present0-1.17.0-2.7            ########################################
+[   10s] libxcb-xfixes0-1.17.0-2.7             ########################################
+[   10s] libxcb-randr0-1.17.0-2.7              ########################################
+[   10s] libxcb-shm0-1.17.0-2.7                ########################################
+[   10s] libxcb-sync1-1.17.0-2.7               ########################################
+[   11s] libxcb-glx0-1.17.0-2.7                ########################################
+[   11s] libX11-data-1.8.13-2.1                ########################################
+[   11s] libX11-6-1.8.13-2.1                   ########################################
+[   11s] libX11-xcb1-1.8.13-2.1                ########################################
+[   11s] libXext6-1.3.7-1.5                    ########################################
+[   11s] libXfixes3-6.0.2-2.5                  ########################################
+[   11s] libXrender1-0.9.12-2.1                ########################################
+[   11s] libXrandr2-1.5.5-1.5                  ########################################
+[   11s] libva-x11-2-2.24.1-1.1                ########################################
+[   11s] libXxf86vm1-1.1.7-1.5                 ########################################
+[   11s] Mesa-vulkan-device-select-26.2.3-1.1  ########################################
+[   11s] libxcb-composite0-1.17.0-2.7          ########################################
+[   11s] libxcb-damage0-1.17.0-2.7             ########################################
+[   11s] libxcb-dbe0-1.17.0-2.7                ########################################
+[   11s] libxcb-dpms0-1.17.0-2.7               ########################################
+[   11s] libxcb-dri2-0-1.17.0-2.7              ########################################
+[   11s] libxcb-record0-1.17.0-2.7             ########################################
+[   11s] libxcb-render0-1.17.0-2.7             ########################################
+[   11s] libxcb-res0-1.17.0-2.7                ########################################
+[   11s] libxcb-screensaver0-1.17.0-2.7        ########################################
+[   11s] libxcb-shape0-1.17.0-2.7              ########################################
+[   11s] libxcb-xf86dri0-1.17.0-2.7            ########################################
+[   11s] libxcb-xinerama0-1.17.0-2.7           ########################################
+[   11s] libxcb-xinput0-1.17.0-2.7             ########################################
+[   11s] libxcb-xkb1-1.17.0-2.7                ########################################
+[   11s] libxcb-xtest0-1.17.0-2.7              ########################################
+[   11s] libxcb-xv0-1.17.0-2.7                 ########################################
+[   11s] libxcb-xvmc0-1.17.0-2.7               ########################################
+[   11s] libXau-devel-1.0.12-2.5               ########################################
+[   11s] libxcb-devel-1.17.0-2.7               ########################################
+[   11s] libX11-devel-1.8.13-2.1               ########################################
+[   11s] libXext-devel-1.3.7-1.5               ########################################
+[   11s] libXfixes-devel-6.0.2-2.5             ########################################
+[   11s] libXrender-devel-0.9.12-2.1           ########################################
+[   11s] libXrandr-devel-1.5.5-1.5             ########################################
+[   11s] libabsl_hashtable_profiler2608_0_0-202########################################
+[   11s] libabsl_flags_parse2608_0_0-20260817.0########################################
+[   11s] libprotoc36_2_0-36.2-1.1              ########################################
+[   11s] libprotobuf-lite36_2_0-36.2-1.1       ########################################
+[   11s] libabsl_log_flags2608_0_0-20260817.0-1########################################
+[   11s] libabsl_status_builder2608_0_0-2026081########################################
+[   11s] libabsl_log_entry2608_0_0-20260817.0-1########################################
+[   11s] libabsl_random_seed_sequences2608_0_0-########################################
+[   11s] libabsl_cordz_sample_token2608_0_0-202########################################
+[   11s] libabsl_clock_interface2608_0_0-202608########################################
+[   11s] libabsl_failure_signal_handler2608_0_0########################################
+[   11s] libcom_err-devel-1.47.3-2.2           ########################################
+[   11s] libnghttp2-devel-1.70.0-1.1           ########################################
+[   11s] nghttp3-devel-1.18.0-2.1              ########################################
+[   11s] snappy-devel-1.3.0-1.1                ########################################
+[   11s] libopenvino_tensorflow_frontend2640-20########################################
+[   11s] gcc16-c++-16.2.0+git9497-3.1          ########################################
+[   11s] gcc-c++-16-1.1                        ########################################
+[   11s] libstdc++-devel-16-1.1                ########################################
+[   11s] nlohmann_json-devel-3.12.0-2.4        ########################################
+[   11s] libopenvino_c2640-2026.4.0-2.1        ########################################
+[   11s] libopenvino_onnx_frontend2640-2026.4.0########################################
+[   11s] libopenvino_paddle_frontend2640-2026.4########################################
+[   11s] libopenvino_pytorch_frontend2640-2026.########################################
+[   11s] libopenvino_tensorflow_lite_frontend26########################################
+[   11s] libopenvino_ir_frontend2640-2026.4.0-2########################################
+[   11s] libpsl-devel-0.23.3-1.1               ########################################
+[   11s] libverto-devel-0.3.2-3.9              ########################################
+[   11s] krb5-mini-devel-1.22.2-4.2            ########################################
+[   11s] libabsl_periodic_sampler2608_0_0-20260########################################
+[   11s] libbrotlienc1-1.2.0-2.4               ########################################
+[   11s] libbrotli-devel-1.2.0-2.4             ########################################
+[   11s] libpciaccess-devel-0.19-1.4           ########################################
+[   11s] pugixml-devel-1.16-1.2                ########################################
+[   11s] libglslang16-16.6.0-1.1               ########################################
+[   11s] libwayland-cursor0-1.26.0-1.2         ########################################
+[   11s] libva-wayland2-2.24.1-1.1             ########################################
+[   11s] libffi-devel-3.5.2-2.5                ########################################
+[   11s] libwayland-server0-1.26.0-1.2         ########################################
+[   11s] libva-drm2-2.24.1-1.1                 ########################################
+[   11s] libabsl_graphcycles_internal2608_0_0-2########################################
+[   11s] libabsl_generic_printer_internal2608_0########################################
+[   11s] libabsl_random_internal_distribution_t########################################
+[   11s] libdrm_nouveau2-2.4.134-2.2           ########################################
+[   11s] libdrm_radeon1-2.4.134-2.2            ########################################
+[   11s] libdrm-devel-2.4.134-2.2              ########################################
+[   11s] openssl-3.5.3-1.3                     ########################################
+[   11s] openssl-3-3.5.3-8.1                   ########################################
+[   11s] python-rpm-macros-20260909.65d2791-1.1########################################
+[   11s] perl-Error-0.170.300-1.5              ########################################
+[   11s] perl-Git-2.55.0-3.2                   ########################################
+[   11s] libzstd-devel-1.5.7-6.1               ########################################
+[   11s] libwayland-egl1-1.26.0-1.2            ########################################
+[   11s] wayland-devel-1.26.0-1.2              ########################################
+[   11s] libva-devel-2.24.1-1.1                ########################################
+[   11s] libtbbmalloc2-2023.0.0-1.3            ########################################
+[   11s] libssh-config-0.11.5-3.1              ########################################
+[   11s] libssh4-0.11.5-3.1                    ########################################
+[   11s] libssh-devel-0.11.5-3.1               ########################################
+[   11s] libsha1detectcoll1-1.0.3-5.7          ########################################
+[   11s] libsasl2-3-2.1.28-12.5                ########################################
+[   11s] libldap2-2.6.13-1.6                   ########################################
+[   11s] libcurl4-8.22.0-1.1                   ########################################
+[   11s] librhash1-1.4.6-2.3                   ########################################
+[   11s] libmpdec4-4.0.1-2.5                   ########################################
+[   11s] libpython3_13-1_0-3.13.15-1.2         ########################################
+[   11s] python313-base-3.13.15-1.2            ########################################
+[   12s] python313-packaging-26.3-1.1          ########################################
+[   12s] cmake-mini-4.4.3-1.1                  ########################################
+[   12s] vulkan-headers-1.4.357-1.1            ########################################
+[   12s] libirml1-2023.0.0-1.3                 ########################################
+[   12s] libflatbuffers25_2_10-25.2.10-2.5     ########################################
+[   12s] flatbuffers-devel-25.2.10-2.5         ########################################
+[   12s] libedit0-20250104.3.1-1.5             ########################################
+[   12s] libLLVM23-23.1.1-1.1                  ########################################
+[   13s] libdisplay-info3-0.3.0-2.5            ########################################
+[   13s] libvulkan_lvp-26.2.3-1.1              ########################################
+[   13s] libglvnd-1.7.0-2.4                    ########################################
+[   13s] Mesa-libGL1-26.2.3-1.1                ########################################
+[   13s] Mesa-26.2.3-1.1                       ########################################
+[   13s] Mesa-dri-26.2.3-1.1                   ########################################
+[   13s] Mesa-libEGL1-26.2.3-1.1               ########################################
+[   13s] libglvnd-devel-1.7.0-2.4              ########################################
+[   13s] libabsl_source_location2608_0_0-202608########################################
+[   13s] libabsl_scoped_set_env2608_0_0-2026081########################################
+[   13s] libabsl_random_distributions2608_0_0-2########################################
+[   13s] libabsl_poison2608_0_0-20260817.0-1.1 ########################################
+[   13s] libabsl_hardening2608_0_0-20260817.0-1########################################
+[   13s] libabsl_civil_time2608_0_0-20260817.0-########################################
+[   13s] libabsl_base_cpu_detect2608_0_0-202608########################################
+[   13s] abseil-cpp-devel-20260817.0-1.1       ########################################
+[   13s] protobuf-devel-36.2-1.1               ########################################
+[   13s] libOpenCL1-2.3.4-2.1                  ########################################
+[   13s] less-704-1.3                          ########################################
+[   13s] git-core-2.55.0-3.2                   ########################################
+[   13s] jitterentropy-devel-3.6.3-1.5         ########################################
+[   13s] libopenssl-3-devel-3.5.3-8.1          ########################################
+[   13s] libopenssl-devel-3.5.3-1.3            ########################################
+[   13s] libngtcp2_crypto_ossl-devel-1.25.0-2.1########################################
+[   13s] hwloc-data-2.13.0-1.3                 ########################################
+[   13s] libhwloc15-2.13.0-1.3                 ########################################
+[   13s] libtbbbind_2_5-3-2023.0.0-1.3         ########################################
+[   13s] tbb-devel-2023.0.0-1.3                ########################################
+[   13s] Mesa-KHR-devel-26.2.3-1.1             ########################################
+[   13s] Mesa-libEGL-devel-26.2.3-1.1          ########################################
+[   13s] ocl-icd-devel-2.3.4-2.1               ########################################
+[   13s] openvino-devel-2026.4.0-2.1           ########################################
+[   13s] libcurl-devel-8.22.0-1.1              ########################################
+[   13s] git-2.55.0-3.2                        ########################################
+[   13s] vulkan-devel-1.4.357-1.1              ########################################
+[   13s] cmake-4.4.3-1.1                       ########################################
+[   13s] python-rpm-packaging-20210526+a18ca48-########################################
+[   13s] shaderc-2026.4-1.1                    ########################################
+[   13s] opencl-cpp-headers-2026.05.29-1.1     ########################################
+[   13s] spirv-headers-1.202609.0-1.1          ########################################
+[   13s] ninja-1.13.2-1.5                      ########################################
+[   14s] now finalizing build dir...
+[   14s] ... running 01-add_abuild_user_to_trusted_group
+[   14s] ... running 02-set_timezone_to_utc
+[   14s] ... running 03-set-permissions-secure
+[   14s] ... running 11-hack_uname_version_to_kernel_version
+[   14s] setting SOURCE_DATE_EPOCH_MTIME to 1789689381
+[   15s] Running build time source services...
+[   15s] -----------------------------------------------------------------
+[   15s] I have the following modifications for llamacpp.spec:
+[   15s] 47c47
+[   15s] < Release:        0
+[   15s] ---
+[   15s] > Release:        1.2
+[   15s] -----------------------------------------------------------------
+[   15s] ----- building llamacpp.spec (user abuild)
+[   15s] -----------------------------------------------------------------
+[   15s] -----------------------------------------------------------------
+[   15s] setting SOURCE_DATE_EPOCH_MTIME to 1789689381
+[   15s] + exec rpmbuild -ba --define '_srcdefattr (-,root,root)' --nosignature --define '_build_create_debug 1' --define 'disturl obs://build.opensuse.org/openSUSE:Factory/standard/f115f224763fa8f91d033123c93ebacf-llamacpp' /home/abuild/rpmbuild/SOURCES/llamacpp.spec
+[   15s] using SOURCE_DATE_EPOCH with value 1789689379 as build time
+[   15s] Executing(%mkbuilddir): /usr/bin/bash -e /var/tmp/rpm-tmp.yejslm
+[   15s] Executing(%prep): /usr/bin/bash -e /var/tmp/rpm-tmp.uP1heM
+[   15s] + umask 022
+[   15s] + cd /home/abuild/rpmbuild/BUILD/llamacpp-0.4.1-build
+[   15s] + cd /home/abuild/rpmbuild/BUILD/llamacpp-0.4.1-build
+[   15s] + rm -rf llama.cpp-0.4.1
+[   15s] + /usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/llamacpp-0.4.1.tar.gz
+[   16s] + STATUS=0
+[   16s] + '[' 0 -ne 0 ']'
+[   16s] + cd llama.cpp-0.4.1
+[   16s] + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+[   16s] + /usr/lib/rpm/rpmuncompress /home/abuild/rpmbuild/SOURCES/skip-sme-variants-when-unsupported.patch
+[   16s] + /usr/bin/patch -p1 -s --fuzz=0 --no-backup-if-mismatch -f
+[   16s] + /usr/lib/rpm/rpmuncompress /home/abuild/rpmbuild/SOURCES/fix-negative-top-n.patch
+[   16s] + /usr/bin/patch -p1 -s --fuzz=0 --no-backup-if-mismatch -f
+[   16s] + mkdir -p tools/ui/dist
+[   16s] + tar -xzf /home/abuild/rpmbuild/SOURCES/llama-b10964-ui.tar.gz --strip-components=1 -C tools/ui/dist
+[   16s] + install -D -m 0644 /home/abuild/rpmbuild/SOURCES/llamacpp-third-party-licenses.txt licenses/LICENSE-packaged-third-party
+[   16s] + install -D -m 0644 /home/abuild/rpmbuild/SOURCES/LICENSE-Apache-2.0.txt licenses/LICENSE-Apache-2.0.txt
+[   16s] + install -D -m 0644 /home/abuild/rpmbuild/SOURCES/LICENSE-MPL-2.0.txt licenses/LICENSE-MPL-2.0.txt
+[   16s] + RPM_EC=0
+[   16s] ++ jobs -p
+[   16s] + exit 0
+[   16s] Executing(%build): /usr/bin/bash -e /var/tmp/rpm-tmp.cjUpEh
+[   16s] + umask 022
+[   16s] + cd /home/abuild/rpmbuild/BUILD/llamacpp-0.4.1-build
+[   16s] + /usr/bin/rm -rf /home/abuild/rpmbuild/BUILD/llamacpp-0.4.1-build/BUILDROOT
+[   16s] ++ dirname /home/abuild/rpmbuild/BUILD/llamacpp-0.4.1-build/BUILDROOT
+[   16s] + /usr/bin/mkdir -p /home/abuild/rpmbuild/BUILD/llamacpp-0.4.1-build
+[   16s] + /usr/bin/mkdir /home/abuild/rpmbuild/BUILD/llamacpp-0.4.1-build/BUILDROOT
+[   16s] + cd llama.cpp-0.4.1
+[   16s] + mkdir -p /usr/lib64
+[   16s] + find . -type f -name CMakeLists.txt -exec sed -i -re '/^[[:blank:]]*[sS][eE][tT][[:blank:]]*\([[:blank:]]*(CMAKE_BUILD_TYPE|CMAKE_COLOR_MAKEFILE|CMAKE_INSTALL_PREFIX|CMAKE_VERBOSE_MAKEFILE).*\)/{s/^/#IGNORE /}' '{}' +
+[   16s] + mkdir -p build
+[   16s] + cd build
+[   16s] + /usr/bin/cmake /home/abuild/rpmbuild/BUILD/llamacpp-0.4.1-build/llama.cpp-0.4.1/. -GNinja -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_INSTALL_BINDIR:PATH=bin -DCMAKE_INSTALL_SBINDIR:PATH=sbin -DCMAKE_INSTALL_LIBEXECDIR:PATH=libexec -DCMAKE_INSTALL_SYSCONFDIR:PATH=etc -DCMAKE_INSTALL_SHAREDSTATEDIR:PATH=/var/lib -DCMAKE_INSTALL_LOCALSTATEDIR:PATH=var -DCMAKE_INSTALL_RUNSTATEDIR:PATH=run -DCMAKE_INSTALL_LIBDIR:PATH=lib64 -DCMAKE_INSTALL_INCLUDEDIR:PATH=include -DCMAKE_INSTALL_DATAROOTDIR:PATH=share -DCMAKE_INSTALL_DOCDIR:PATH=share/doc/packages/llamacpp -DCMAKE_INSTALL_MANDIR:PATH=share/man -DCMAKE_INSTALL_INFODIR:PATH=share/info -DINCLUDE_INSTALL_DIR:PATH=/usr/include -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DSYSCONF_INSTALL_DIR:PATH=/etc -DSHARE_INSTALL_PREFIX:PATH=/usr/share -DCMAKE_BUILD_TYPE=RelWithDebInfo '-DCMAKE_C_FLAGS=-fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g' '-DCMAKE_CXX_FLAGS=-fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g' '-DCMAKE_Fortran_FLAGS=-fcf-protection -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g' '-DCMAKE_EXE_LINKER_FLAGS=  -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now' '-DCMAKE_MODULE_LINKER_FLAGS=  -Wl,--as-needed' '-DCMAKE_SHARED_LINKER_FLAGS=  -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now' -DLIB_SUFFIX=64 -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON -DBUILD_STATIC_LIBS:BOOL=OFF -DCMAKE_COLOR_MAKEFILE:BOOL=OFF -DCMAKE_INSTALL_DO_STRIP:BOOL=OFF -DCMAKE_MODULES_INSTALL_DIR=/usr/lib64/cmake/llamacpp -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_SKIP_RPATH=ON -DLLAMA_BUILD_TESTS=OFF -DLLAMA_BUILD_EXAMPLES=OFF -DLLAMA_BUILD_TOOLS=ON -DLLAMA_CURL=ON -DGGML_NATIVE=OFF -DGGML_CPU=ON -DGGML_CPU_ALL_VARIANTS=ON -DGGML_VULKAN=ON -DGGML_OPENCL=ON -DGGML_OPENVINO=ON -DGGML_BACKEND_DL=ON -DGGML_BACKEND_DIR=/usr/lib64/ggml -DGGML_OPENCL_USE_ADRENO_KERNELS=OFF -DLLAMA_BUILD_IS_DEV=OFF -DLLAMA_BUILD_NUMBER=10964 -DLLAMA_VERSION=0.4.1
+[   16s] -- The C compiler identification is GNU 16.2.0
+[   16s] -- The CXX compiler identification is GNU 16.2.0
+[   16s] -- Detecting C compiler ABI info
+[   16s] -- Detecting C compiler ABI info - done
+[   16s] -- Check for working C compiler: /usr/bin/cc - skipped
+[   16s] -- Detecting C compile features
+[   16s] -- Detecting C compile features - done
+[   16s] -- Detecting CXX compiler ABI info
+[   16s] -- Detecting CXX compiler ABI info - done
+[   16s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[   16s] -- Detecting CXX compile features
+[   16s] -- Detecting CXX compile features - done
+[   16s] -- llama.cpp version: 0.4.1
+[   16s] CMAKE_BUILD_TYPE=RelWithDebInfo
+[   16s] -- Found Git: /usr/bin/git (found version "2.55.0")
+[   17s] fatal: not a git repository (or any of the parent directories): .git
+[   17s] fatal: not a git repository (or any of the parent directories): .git
+[   17s] CMake Warning at CMakeLists.txt:181 (message):
+[   17s]   LLAMA_CURL is deprecated and will be ignored
+[   17s] Call Stack (most recent call first):
+[   17s]   CMakeLists.txt:195 (llama_option_depr)
+[   17s] 
+[   17s] 
+[   17s] -- The ASM compiler identification is GNU
+[   17s] -- Found assembler: /usr/bin/cc
+[   17s] -- Setting GGML_NATIVE_DEFAULT to OFF
+[   17s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[   17s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[   17s] -- Found Threads: TRUE
+[   17s] -- Warning: ccache not found - consider installing it for faster compilation or disable this warning with GGML_CCACHE=OFF
+[   17s] -- CMAKE_SYSTEM_PROCESSOR: x86_64
+[   17s] -- GGML_SYSTEM_ARCH: x86
+[   17s] -- Found OpenMP_C: -fopenmp (found version "5.2")
+[   17s] -- Found OpenMP_CXX: -fopenmp (found version "5.2")
+[   17s] -- Found OpenMP: TRUE (found version "5.2")
+[   17s] -- Including CPU backend
+[   17s] -- x86 detected
+[   17s] -- Adding CPU backend variant ggml-cpu-x64:  
+[   17s] -- x86 detected
+[   17s] -- Adding CPU backend variant ggml-cpu-sse42: -msse4.2 GGML_SSE42
+[   17s] -- x86 detected
+[   17s] -- Adding CPU backend variant ggml-cpu-sandybridge: -msse4.2;-mavx GGML_SSE42;GGML_AVX
+[   17s] -- x86 detected
+[   17s] -- Adding CPU backend variant ggml-cpu-ivybridge: -msse4.2;-mf16c;-mavx GGML_SSE42;GGML_F16C;GGML_AVX
+[   17s] -- x86 detected
+[   17s] -- Adding CPU backend variant ggml-cpu-piledriver: -msse4.2;-mf16c;-mfma;-mavx GGML_SSE42;GGML_F16C;GGML_FMA;GGML_AVX
+[   17s] -- x86 detected
+[   17s] -- Adding CPU backend variant ggml-cpu-haswell: -msse4.2;-mf16c;-mfma;-mbmi2;-mavx;-mavx2 GGML_SSE42;GGML_F16C;GGML_FMA;GGML_BMI2;GGML_AVX;GGML_AVX2
+[   17s] -- x86 detected
+[   17s] -- Adding CPU backend variant ggml-cpu-skylakex: -msse4.2;-mf16c;-mfma;-mbmi2;-mavx;-mavx2;-mavx512f;-mavx512cd;-mavx512vl;-mavx512dq;-mavx512bw GGML_SSE42;GGML_F16C;GGML_FMA;GGML_BMI2;GGML_AVX;GGML_AVX2;GGML_AVX512
+[   17s] -- x86 detected
+[   17s] -- Adding CPU backend variant ggml-cpu-cannonlake: -msse4.2;-mf16c;-mfma;-mbmi2;-mavx;-mavx2;-mavx512f;-mavx512cd;-mavx512vl;-mavx512dq;-mavx512bw;-mavx512vbmi GGML_SSE42;GGML_F16C;GGML_FMA;GGML_BMI2;GGML_AVX;GGML_AVX2;GGML_AVX512;GGML_AVX512_VBMI
+[   17s] -- x86 detected
+[   17s] -- Adding CPU backend variant ggml-cpu-cascadelake: -msse4.2;-mf16c;-mfma;-mbmi2;-mavx;-mavx2;-mavx512f;-mavx512cd;-mavx512vl;-mavx512dq;-mavx512bw;-mavx512vnni GGML_SSE42;GGML_F16C;GGML_FMA;GGML_BMI2;GGML_AVX;GGML_AVX2;GGML_AVX512;GGML_AVX512_VNNI
+[   17s] -- x86 detected
+[   17s] -- Adding CPU backend variant ggml-cpu-icelake: -msse4.2;-mf16c;-mfma;-mbmi2;-mavx;-mavx2;-mavx512f;-mavx512cd;-mavx512vl;-mavx512dq;-mavx512bw;-mavx512vbmi;-mavx512vnni GGML_SSE42;GGML_F16C;GGML_FMA;GGML_BMI2;GGML_AVX;GGML_AVX2;GGML_AVX512;GGML_AVX512_VBMI;GGML_AVX512_VNNI
+[   17s] -- x86 detected
+[   17s] -- Adding CPU backend variant ggml-cpu-cooperlake: -msse4.2;-mf16c;-mfma;-mbmi2;-mavx;-mavx2;-mavx512f;-mavx512cd;-mavx512vl;-mavx512dq;-mavx512bw;-mavx512vnni;-mavx512bf16 GGML_SSE42;GGML_F16C;GGML_FMA;GGML_BMI2;GGML_AVX;GGML_AVX2;GGML_AVX512;GGML_AVX512_VNNI;GGML_AVX512_BF16
+[   17s] -- x86 detected
+[   17s] -- Adding CPU backend variant ggml-cpu-zen4: -msse4.2;-mf16c;-mfma;-mbmi2;-mavx;-mavx2;-mavx512f;-mavx512cd;-mavx512vl;-mavx512dq;-mavx512bw;-mavx512vbmi;-mavx512vnni;-mavx512bf16 GGML_SSE42;GGML_F16C;GGML_FMA;GGML_BMI2;GGML_AVX;GGML_AVX2;GGML_AVX512;GGML_AVX512_VBMI;GGML_AVX512_VNNI;GGML_AVX512_BF16
+[   17s] -- x86 detected
+[   17s] -- Adding CPU backend variant ggml-cpu-alderlake: -msse4.2;-mf16c;-mfma;-mbmi2;-mavx;-mavx2;-mavxvnni GGML_SSE42;GGML_F16C;GGML_FMA;GGML_BMI2;GGML_AVX;GGML_AVX2;GGML_AVX_VNNI
+[   17s] -- x86 detected
+[   17s] -- Adding CPU backend variant ggml-cpu-sapphirerapids: -msse4.2;-mf16c;-mfma;-mbmi2;-mavx;-mavx2;-mavx512f;-mavx512cd;-mavx512vl;-mavx512dq;-mavx512bw;-mavx512vbmi;-mavx512vnni;-mavx512bf16;-mamx-tile;-mamx-int8 GGML_SSE42;GGML_F16C;GGML_FMA;GGML_BMI2;GGML_AVX;GGML_AVX2;GGML_AVX512;GGML_AVX512_VBMI;GGML_AVX512_VNNI;GGML_AVX512_BF16;GGML_AMX_TILE;GGML_AMX_INT8
+[   17s] -- Found Vulkan: /usr/lib64/libvulkan.so (found version "1.4.357") found components: glslc missing components: glslangValidator
+[   17s] -- Vulkan found
+[   17s] -- GL_KHR_cooperative_matrix supported by glslc
+[   17s] -- GL_NV_cooperative_matrix2 supported by glslc
+[   17s] -- GL_NV_cooperative_matrix_decode_vector supported by glslc
+[   18s] -- GL_EXT_integer_dot_product supported by glslc
+[   18s] -- GL_EXT_bfloat16 supported by glslc
+[   18s] -- GL_EXT_float_e2m1 supported by glslc
+[   18s] -- GL_EXT_float_e4m3 supported by glslc
+[   18s] -- Including Vulkan backend
+[   18s] -- Looking for include file OpenCL/cl.h
+[   18s] -- Looking for include file OpenCL/cl.h - not found
+[   18s] -- Looking for CL_VERSION_3_0
+[   18s] -- Looking for CL_VERSION_3_0 - found
+[   18s] -- Found OpenCL: /usr/lib64/libOpenCL.so (found version "3.0")
+[   18s] -- Found Python3: /usr/bin/python3.13 (found version "3.13.15") found components: Interpreter
+[   18s] -- opencl: embedding kernel add
+[   18s] -- opencl: embedding kernel add_id
+[   18s] -- opencl: embedding kernel moe_add_id_glu
+[   18s] -- opencl: embedding kernel argsort
+[   18s] -- opencl: embedding kernel tri
+[   18s] -- opencl: embedding kernel fill
+[   18s] -- opencl: embedding kernel clamp
+[   18s] -- opencl: embedding kernel cpy
+[   18s] -- opencl: embedding kernel cvt
+[   18s] -- opencl: embedding kernel diag_mask_inf
+[   18s] -- opencl: embedding kernel diag
+[   18s] -- opencl: embedding kernel div
+[   18s] -- opencl: embedding kernel gelu
+[   18s] -- opencl: embedding kernel get_rows
+[   18s] -- opencl: embedding kernel glu
+[   18s] -- opencl: embedding kernel group_norm
+[   18s] -- opencl: embedding kernel solve_tri
+[   18s] -- opencl: embedding kernel im2col_f32
+[   18s] -- opencl: embedding kernel im2col_f16
+[   18s] -- opencl: embedding kernel mean
+[   18s] -- opencl: embedding kernel mul_mv_f16_f16
+[   18s] -- opencl: embedding kernel mul_mv_f16_f32_1row
+[   18s] -- opencl: embedding kernel mul_mv_f16_f32_l4
+[   18s] -- opencl: embedding kernel mul_mv_f16_f32
+[   18s] -- opencl: embedding kernel mul_mv_f16_f32_mrow
+[   18s] -- opencl: embedding kernel mul_mv_f32_f32
+[   18s] -- opencl: embedding kernel mul_mv_q1_0_f32
+[   18s] -- opencl: embedding kernel mul_mv_q1_0_f32_flat
+[   18s] -- opencl: embedding kernel mul_mv_q4_0_f32
+[   18s] -- opencl: embedding kernel mul_mv_q4_0_f32_v
+[   18s] -- opencl: embedding kernel mul_mv_q4_0_f32_8x_flat
+[   18s] -- opencl: embedding kernel mul_mv_q4_0_f32_1d_8x_flat
+[   18s] -- opencl: embedding kernel mul_mv_q4_0_f32_1d_16x_flat
+[   18s] -- opencl: embedding kernel mul_mv_q4_1_f32
+[   18s] -- opencl: embedding kernel mul_mv_q4_1_f32_flat
+[   18s] -- opencl: embedding kernel mul_mv_q4_k_f32
+[   18s] -- opencl: embedding kernel mul_mv_q4_k_f32_flat
+[   18s] -- opencl: embedding kernel mul_mv_q5_0_f32
+[   18s] -- opencl: embedding kernel mul_mv_q5_0_f32_flat
+[   18s] -- opencl: embedding kernel mul_mv_q5_1_f32
+[   18s] -- opencl: embedding kernel mul_mv_q5_1_f32_flat
+[   18s] -- opencl: embedding kernel mul_mv_q5_k_f32
+[   18s] -- opencl: embedding kernel mul_mv_q5_k_f32_flat
+[   18s] -- opencl: embedding kernel mul_mv_q6_k_f32
+[   18s] -- opencl: embedding kernel mul_mv_q6_k_f32_flat
+[   18s] -- opencl: embedding kernel mul_mv_q8_0_f32
+[   18s] -- opencl: embedding kernel mul_mv_q8_0_f32_flat
+[   18s] -- opencl: embedding kernel mul_mv_iq4_nl_f32
+[   18s] -- opencl: embedding kernel mul_mv_iq4_nl_f32_flat
+[   18s] -- opencl: embedding kernel mul_mv_mxfp4_f32
+[   18s] -- opencl: embedding kernel mul_mv_mxfp4_f32_flat
+[   18s] -- opencl: embedding kernel mul_mv_id_q4_0_f32_8x_flat
+[   18s] -- opencl: embedding kernel mul_mv_id_q8_0_f32
+[   18s] -- opencl: embedding kernel mul_mv_id_q8_0_f32_flat
+[   18s] -- opencl: embedding kernel mul_mv_id_mxfp4_f32
+[   18s] -- opencl: embedding kernel mul_mv_id_mxfp4_f32_flat
+[   18s] -- opencl: embedding kernel gemm_moe_q4_0_f32_ns
+[   18s] -- opencl: embedding kernel gemm_moe_q4_0_q8_1_dp4a
+[   18s] -- opencl: embedding kernel gemv_moe_q4_0_f32_ns
+[   18s] -- opencl: embedding kernel gemm_moe_q8_0_f32_ns
+[   18s] -- opencl: embedding kernel gemm_moe_q4_1_f32_ns
+[   18s] -- opencl: embedding kernel gemv_moe_q4_1_f32_ns
+[   18s] -- opencl: embedding kernel gemm_moe_q5_0_f32_ns
+[   18s] -- opencl: embedding kernel gemv_moe_q5_0_f32_ns
+[   18s] -- opencl: embedding kernel gemm_moe_q5_1_f32_ns
+[   18s] -- opencl: embedding kernel gemv_moe_q5_1_f32_ns
+[   18s] -- opencl: embedding kernel gemm_moe_q4_k_f32_ns
+[   18s] -- opencl: embedding kernel gemm_moe_q4_k_q8_1_dp4a
+[   18s] -- opencl: embedding kernel gemm_moe_q6_k_q8_1_dp4a
+[   18s] -- opencl: embedding kernel gemm_moe_q8_1_dp4a
+[   18s] -- opencl: embedding kernel moe_reorder_quant_a_q8_1
+[   18s] -- opencl: embedding kernel gemm_noshuffle_q4_k_q8_1_dp4a
+[   18s] -- opencl: embedding kernel gemm_noshuffle_q5_k_q8_1_dp4a
+[   18s] -- opencl: embedding kernel gemm_noshuffle_q6_k_q8_1_dp4a
+[   18s] -- opencl: embedding kernel gemm_noshuffle_q8_0_q8_1_dp4a
+[   18s] -- opencl: embedding kernel gemm_noshuffle_q5_0_q8_1_dp4a
+[   18s] -- opencl: embedding kernel gemm_noshuffle_iq4_nl_q8_1_dp4a
+[   18s] -- opencl: embedding kernel gemm_noshuffle_q4_0_q8_1_dp4a
+[   18s] -- opencl: embedding kernel quant_a_q8_1
+[   18s] -- opencl: embedding kernel gemv_moe_q4_k_f32_ns
+[   18s] -- opencl: embedding kernel gemm_moe_q5_k_f32_ns
+[   18s] -- opencl: embedding kernel gemv_moe_q5_k_f32_ns
+[   18s] -- opencl: embedding kernel gemm_moe_q6_k_f32_ns
+[   18s] -- opencl: embedding kernel gemv_moe_q6_k_f32_ns
+[   18s] -- opencl: embedding kernel gemm_moe_mxfp4_f32
+[   18s] -- opencl: embedding kernel gemv_moe_mxfp4_f32
+[   18s] -- opencl: embedding kernel gemm_moe_mxfp4_f32_ns
+[   18s] -- opencl: embedding kernel gemm_moe_mxfp4_q8_1_dp4a
+[   18s] -- opencl: embedding kernel gemv_moe_mxfp4_f32_ns
+[   18s] -- opencl: embedding kernel moe_reorder_b
+[   18s] -- opencl: embedding kernel moe_combine
+[   18s] -- opencl: embedding kernel moe_sort_by_expert
+[   18s] -- opencl: embedding kernel mul_mm_f32_f32_l4_lm
+[   18s] -- opencl: embedding kernel mul_mm_f16_f32_l4_lm
+[   18s] -- opencl: embedding kernel mul_mm_q1_0_f32_l4_lm
+[   18s] -- opencl: embedding kernel mul_mm_q4_0_f32_l4_lm
+[   18s] -- opencl: embedding kernel mul_mm_q4_1_f32_l4_lm
+[   18s] -- opencl: embedding kernel mul_mm_q5_0_f32_l4_lm
+[   18s] -- opencl: embedding kernel mul_mm_q5_1_f32_l4_lm
+[   18s] -- opencl: embedding kernel mul_mm_q8_0_f32_l4_lm
+[   18s] -- opencl: embedding kernel mul_mm_iq4_nl_f32_l4_lm
+[   18s] -- opencl: embedding kernel mul_mm_q4_k_f32_l4_lm
+[   18s] -- opencl: embedding kernel mul_mm_q5_k_f32_l4_lm
+[   18s] -- opencl: embedding kernel mul_mm_q6_k_f32_l4_lm
+[   18s] -- opencl: embedding kernel gemv_noshuffle_q1_0_f32
+[   18s] -- opencl: embedding kernel gemm_noshuffle_q1_0_f32
+[   18s] -- opencl: embedding kernel gemv_noshuffle_q4_0_f32
+[   18s] -- opencl: embedding kernel gemv_noshuffle_q4_0_f32_spec
+[   18s] -- opencl: embedding kernel gemm_noshuffle_q4_0_f32
+[   18s] -- opencl: embedding kernel gemv_noshuffle_q4_0_f32_32b_trans
+[   18s] -- opencl: embedding kernel gemv_noshuffle_q4_1_f32
+[   18s] -- opencl: embedding kernel gemm_noshuffle_q4_1_f32
+[   18s] -- opencl: embedding kernel gemv_noshuffle_q5_0_f32
+[   18s] -- opencl: embedding kernel gemm_noshuffle_q5_0_f32
+[   18s] -- opencl: embedding kernel gemv_noshuffle_q5_1_f32
+[   18s] -- opencl: embedding kernel gemm_noshuffle_q5_1_f32
+[   18s] -- opencl: embedding kernel gemv_noshuffle_iq4_nl_f32
+[   18s] -- opencl: embedding kernel gemm_noshuffle_iq4_nl_f32
+[   18s] -- opencl: embedding kernel gemv_noshuffle_q8_0_f32
+[   18s] -- opencl: embedding kernel gemm_noshuffle_q8_0_f32
+[   18s] -- opencl: embedding kernel gemv_noshuffle_q4_k_f32
+[   18s] -- opencl: embedding kernel gemv_noshuffle_q4_k_f32_o4
+[   18s] -- opencl: embedding kernel gemv_noshuffle_q4_k_f32_tiled
+[   18s] -- opencl: embedding kernel gemm_noshuffle_q4_k_f32
+[   18s] -- opencl: embedding kernel gemv_noshuffle_q4_k_f32_32b_trans
+[   18s] -- opencl: embedding kernel gemv_noshuffle_q6_k_f32
+[   18s] -- opencl: embedding kernel gemv_noshuffle_q6_k_f32_o4
+[   18s] -- opencl: embedding kernel gemv_noshuffle_q6_k_f32_tiled
+[   18s] -- opencl: embedding kernel gemm_noshuffle_q6_k_f32
+[   18s] -- opencl: embedding kernel gemm_noshuffle_q6_k_f32_tiled
+[   18s] -- opencl: embedding kernel gemv_noshuffle_q5_k_f32
+[   18s] -- opencl: embedding kernel gemm_noshuffle_q5_k_f32
+[   18s] -- opencl: embedding kernel mul
+[   18s] -- opencl: embedding kernel neg
+[   18s] -- opencl: embedding kernel norm
+[   18s] -- opencl: embedding kernel relu
+[   18s] -- opencl: embedding kernel l2_norm
+[   18s] -- opencl: embedding kernel rms_norm
+[   18s] -- opencl: embedding kernel rope
+[   18s] -- opencl: embedding kernel scale
+[   18s] -- opencl: embedding kernel set_rows
+[   18s] -- opencl: embedding kernel sigmoid
+[   18s] -- opencl: embedding kernel silu
+[   18s] -- opencl: embedding kernel softmax_4_f32
+[   18s] -- opencl: embedding kernel softmax_4_f16
+[   18s] -- opencl: embedding kernel softmax_f32
+[   18s] -- opencl: embedding kernel softmax_f16
+[   18s] -- opencl: embedding kernel sqr
+[   18s] -- opencl: embedding kernel sqrt
+[   18s] -- opencl: embedding kernel ssm_conv
+[   18s] -- opencl: embedding kernel ssm_scan
+[   18s] -- opencl: embedding kernel gated_delta_net
+[   18s] -- opencl: embedding kernel sub
+[   18s] -- opencl: embedding kernel sum_rows
+[   18s] -- opencl: embedding kernel cumsum
+[   18s] -- opencl: embedding kernel transpose
+[   18s] -- opencl: embedding kernel concat
+[   18s] -- opencl: embedding kernel tsembd
+[   18s] -- opencl: embedding kernel upscale
+[   18s] -- opencl: embedding kernel tanh
+[   18s] -- opencl: embedding kernel exp
+[   18s] -- opencl: embedding kernel expm1
+[   18s] -- opencl: embedding kernel abs
+[   18s] -- opencl: embedding kernel unary_ext
+[   18s] -- opencl: embedding kernel softplus
+[   18s] -- opencl: embedding kernel pad
+[   18s] -- opencl: embedding kernel repeat
+[   18s] -- opencl: embedding kernel mul_mat_f16_f32
+[   18s] -- opencl: embedding kernel mul_mm_f16_f32_kq_kqv
+[   18s] -- opencl: embedding kernel conv2d
+[   18s] -- opencl: embedding kernel conv2d_f16_f32
+[   18s] -- opencl: embedding kernel flash_attn_pre_f16
+[   18s] -- opencl: embedding kernel flash_attn_f32_f16
+[   18s] -- opencl: embedding kernel flash_attn_f32_q8_0
+[   18s] -- opencl: embedding kernel flash_attn_f32_q4_0
+[   18s] -- opencl: embedding kernel flash_attn_f16
+[   18s] -- opencl: embedding kernel flash_attn_f32
+[   18s] -- Including OpenCL backend
+[   18s] CMake Error at /usr/lib64/cmake/OpenVINO/OpenVINOTargets.cmake:145 (message):
+[   18s]   The imported target "openvino::frontend::gguf" references the file
+[   18s] 
+[   18s]      "/usr/lib64/libopenvino_gguf_frontend.so.2026.4.0"
+[   18s] 
+[   18s]   but this file does not exist.  Possible reasons include:
+[   18s] 
+[   18s]   * The file was deleted, renamed, or moved to another location.
+[   18s] 
+[   18s]   * An install or uninstall procedure did not complete successfully.
+[   18s] 
+[   18s]   * The installation package was faulty and contained
+[   18s] 
+[   18s]      "/usr/lib64/cmake/OpenVINO/OpenVINOTargets.cmake"
+[   18s] 
+[   18s]   but not all the files it references.
+[   18s] 
+[   18s] Call Stack (most recent call first):
+[   18s]   /usr/lib64/cmake/OpenVINO/OpenVINOConfig.cmake:544 (include)
+[   18s]   ggml/src/ggml-openvino/CMakeLists.txt:1 (find_package)
+[   18s] 
+[   18s] 
+[   18s] -- Configuring incomplete, errors occurred!
+[   18s] error: Bad exit status from /var/tmp/rpm-tmp.cjUpEh (%build)
+[   18s] 
+[   18s] RPM build errors:
+[   18s]     Bad exit status from /var/tmp/rpm-tmp.cjUpEh (%build)
+[   18s] ### VM INTERACTION START ###
+[   18s] [   13.759394][    T1] sysrq: Power Off
+[   18s] ### VM INTERACTION END ###
+[   18s] 
+[   18s] i03-ch2d failed "build llamacpp.spec" at Fri Sep 25 08:17:30 UTC 2026.
+[   18s] 

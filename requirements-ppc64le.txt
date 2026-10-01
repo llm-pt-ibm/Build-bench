@@ -1,0 +1,12 @@
+mcp==1.20.0
+mcp-types==2.2.0
+openai==2.6.1
+python-dotenv==1.2.3
+PyYAML==6.0.3
+requests==2.34.2
+tree-sitter==0.26.0
+tree-sitter-cpp @ git+https://github.com/tree-sitter/tree-sitter-cpp@f41e1a044c8a84ea9fa8577fdd2eab92ec96de02
+tree-sitter-go==0.25.0
+tree-sitter-java @ git+https://github.com/tree-sitter/tree-sitter-java@94703d5a6bed02b98e438d7cad1136c01a60ba2c
+tree-sitter-rust @ git+https://github.com/tree-sitter/tree-sitter-rust@18b0515fca567f5a10aee9978c6d2640e878671a
+tree-sitter-typescript @ git+https://github.com/tree-sitter/tree-sitter-typescript@f975a621f4e7f532fe322e13c4f79495e0a7b2e7

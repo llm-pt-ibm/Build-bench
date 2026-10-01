@@ -7,9 +7,9 @@ paths:
   log_dir: "result_log_res"
 
 user:
-  user_name: "lalala123"
-  password: "zhaochenyu921"
-  target_project: "home:lalala123:case_study"
+  user_name: "SEU_USUARIO_OBS"
+  password: ""  # preencha com a SUA senha do OBS
+  target_project: "home:SEU_USUARIO_OBS:build-bench"
   repository_name: "arm"
   architecture_name: "aarch64"
   obs_api_url: "https://api.opensuse.org"

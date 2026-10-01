@@ -1,0 +1,39 @@
+{
+  "task": {
+    "package": "zita-resampler",
+    "direction": "x86_64_to_ppc64le",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "622d5871f13d4f3b01ae735d4fab93f4"
+    },
+    "target": {
+      "project": "openSUSE:Factory:PowerPC",
+      "arch": "ppc64le"
+    }
+  },
+  "files": [
+    {
+      "name": "disable-sse.patch",
+      "size": "416"
+    },
+    {
+      "name": "fix-makefile.patch",
+      "size": "674"
+    },
+    {
+      "name": "zita-resampler-1.11.2.tar.xz",
+      "size": "123452"
+    },
+    {
+      "name": "zita-resampler.changes",
+      "size": "1888"
+    },
+    {
+      "name": "zita-resampler.spec",
+      "size": "3664"
+    }
+  ],
+  "created_at": 1790692907,
+  "version": 1
+}

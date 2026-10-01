@@ -1,4 +1,5 @@
 import asyncio
+import sys
 import os
 import json
 import time
@@ -114,7 +115,7 @@ class AutoRepairClientPatch:
     async def connect(self, attempt: int = 1) -> bool:
         self._log("global", f"Connecting to MCP server... (attempt {attempt})")
         try:
-            params = StdioServerParameters(command="uv", args=["run", self.server_script])
+            params = StdioServerParameters(command=sys.executable, args=[self.server_script])
             stdio_transport = await self.exit_stack.enter_async_context(stdio_client(params))
             stdio, write = stdio_transport
             self.session = await self.exit_stack.enter_async_context(ClientSession(stdio, write))
@@ -453,7 +454,7 @@ class AutoRepairClientPatch:
 async def main():
     # Choose provider + model here.
     provider = os.getenv("LLM_PROVIDER").lower()
-    default_model = {
+    default_model = os.getenv("LLM_MODEL") or {
         "openai": "gpt-5",
         "qwen": "qwen3-max",
         "claude": "claude-sonnet-4-5-20250929",

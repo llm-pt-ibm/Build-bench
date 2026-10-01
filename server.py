@@ -158,10 +158,9 @@ def parse_build_result_tool(result_content: str, package_name: str) -> str:
     """
     try:
         status = result_content.split(": ", 1)[-1]
-        low = status.lower()
-        success = any(
-            k in low for k in ["success", "succeeded", "successfully", "passed", "ok"]
-        )
+        # Só o texto exato de sucesso do check_build_result conta. A busca por
+        # substrings do original aceitava "broken" (contém "ok") e caminhos de log.
+        success = status.startswith("Build succeeded!")
         return json.dumps({"success": success, "status": status})
     except Exception:
         return json.dumps({"success": False, "status": "Unknown (parse error)"})
@@ -340,14 +339,24 @@ def record_tool_call_history(call_key: str, package_name: str) -> str:
     return f"Recorded tool call history for {package_name}"
 
 
+STRUCTURE_MAX_CHARS = 40000
+
+
 @mcp.tool()
-def get_structure_of_files(package_path) -> dict:
+def get_structure_of_files(package_path) -> str:
     """
     Retrieve project structure diagram.
     Args:
         package_path (str): Package path.
     """
-    return get_project_structure_from_local(package_path)
+    # Com o código extraído, a saída do original chega a centenas de milhares de
+    # caracteres (154 mil só no texmath) e vai inteira para o contexto do modelo.
+    text = json.dumps(get_project_structure_from_local(package_path), indent=1)
+    if len(text) > STRUCTURE_MAX_CHARS:
+        text = (text[:STRUCTURE_MAX_CHARS]
+                + f"\n... [truncated: {len(text)} characters in total. "
+                "Use get_file_content_tool on the specific files you need.]")
+    return text
 
 
 @mcp.tool()
