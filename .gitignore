@@ -11,5 +11,4 @@ wheels/
 .env
 
 .DS_Store
-# Originais do upstream (info.yaml.orig tem credenciais de terceiros)
 *.orig

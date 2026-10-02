@@ -8,7 +8,7 @@ paths:
 
 user:
   user_name: "SEU_USUARIO_OBS"
-  password: ""  # preencha com a SUA senha do OBS
+  password: ""  
   target_project: "home:SEU_USUARIO_OBS:build-bench"
   repository_name: "arm"
   architecture_name: "aarch64"

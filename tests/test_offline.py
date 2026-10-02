@@ -1,12 +1,3 @@
-"""Teste offline do laço agente-ferramentas: sem API de LLM e sem OBS.
-
-Troca o modelo por um roteiro fixo de respostas e confere:
-- rodada com várias ferramentas em paralelo gera uma conversa válida para a API;
-- a trava de repetição bloqueia a 4ª chamada idêntica e avisa no resultado;
-- check_build_result antes de upload é recusado;
-- o parser só aceita "Build succeeded!" (o original aceitava "broken").
-uso: BENCH_CONFIG=config/x86_64_to_ppc64le.yaml python tests/test_offline.py
-"""
 import asyncio
 import json
 import os
@@ -17,7 +8,7 @@ sys.path.insert(0, ROOT)
 os.chdir(ROOT)
 os.environ.setdefault("BENCH_CONFIG", "config/x86_64_to_ppc64le.yaml")
 os.environ["API_KEY"] = "offline-test"
-os.environ["API_BASE_URL"] = "http://127.0.0.1:9/v1"  # nunca é chamado
+os.environ["API_BASE_URL"] = "http://127.0.0.1:9/v1"
 os.environ["OBS_USER"] = os.environ["OBS_PASSWORD"] = ""
 
 from openai.types.chat.chat_completion import Choice  # noqa: E402
@@ -32,23 +23,18 @@ def call(i, name, **args):
 
 
 SCRIPT = [
-    # 1: duas ferramentas na mesma resposta (o original quebrava aqui)
     [call(1, "get_file_content_tool", file_path=f"{TMP}/log_failed.txt"),
      call(2, "get_file_content_tool", file_path=f"{TMP}/zita-resampler.spec")],
-    # 2: verificar antes de enviar -> deve ser recusado
     [call(3, "check_build_result", input_dir=TMP, package_name=PKG)],
-    # 3-6: a mesma leitura 4 vezes -> a 4ª é bloqueada
     [call(4, "get_structure_of_files", package_path=TMP)],
     [call(5, "get_structure_of_files", package_path=TMP)],
     [call(6, "get_structure_of_files", package_path=TMP)],
     [call(7, "get_structure_of_files", package_path=TMP)],
-    None,  # 7: resposta só com texto -> fim da tentativa
+    None,
 ]
 
 
 def validate_conversation(messages):
-    """Regra da API: toda mensagem do assistente com tool_calls é seguida pelas
-    respostas de todos os ids, antes de qualquer outra mensagem."""
     i = 0
     while i < len(messages):
         m = messages[i]
@@ -59,7 +45,7 @@ def validate_conversation(messages):
             while j < len(messages) and messages[j]["role"] == "tool":
                 got.add(messages[j]["tool_call_id"])
                 j += 1
-            assert got == ids, f"mensagem {i}: esperava respostas {ids}, veio {got}"
+            assert got == ids, f"message {i}: expected responses {ids}, got {got}"
             i = j
         else:
             i += 1
@@ -99,12 +85,12 @@ async def main():
         assert not ok and text == "done"
         tool_msgs = {m["tool_call_id"]: m["content"] for m in messages if m["role"] == "tool"}
         validate_conversation(messages)
-        assert "arm_neon.h" in tool_msgs["call_1"], "log não foi lido"
-        assert tool_msgs["call_2"].startswith("#"), "spec não foi lido"
+        assert "arm_neon.h" in tool_msgs["call_1"], "log was not read"
+        assert tool_msgs["call_2"].startswith("#"), "spec was not read"
         assert tool_msgs["call_3"].startswith("ERROR: Cannot call check_build_result")
         assert "exceeded max repeat count" in tool_msgs["call_7"], tool_msgs["call_7"][:200]
         assert "truncated" not in tool_msgs["call_4"] or len(tool_msgs["call_4"]) < 41000
-        print(f"laço: OK ({cli.usage['tool_calls']} chamadas de ferramenta, conversa válida)")
+        print(f"loop: OK ({cli.usage['tool_calls']} tool calls, valid conversation)")
 
         cases = {
             "Build result: Build succeeded! The build has been successfully completed.": True,
@@ -117,14 +103,14 @@ async def main():
             got = json.loads((await cli.session.call_tool("parse_build_result_tool", {
                 "result_content": text_in, "package_name": PKG})).content[0].text)["success"]
             assert got == expected, (text_in, got)
-        print("parser: OK (só 'Build succeeded!' conta como sucesso)")
+        print("parser: OK (only 'Build succeeded!' counts as success)")
 
         up = (await cli.session.call_tool("upload_file_to_obs_tool", {"package_path": TMP})).content[0].text
         assert "credentials missing" in up, up
-        print("upload sem credenciais: OK (erro explícito, nenhuma chamada ao OBS)")
+        print("upload without credentials: OK (explicit error, no OBS call)")
     finally:
         await cli.cleanup()
 
 
 asyncio.run(main())
-print("\nTODOS OS TESTES PASSARAM")
+print("\nALL TESTS PASSED")

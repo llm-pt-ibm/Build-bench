@@ -8,10 +8,7 @@ from xml.etree import ElementTree
 
 from tools.auto_repair.obs_config import load_obs_config
 
-# Estados em que o OBS já decidiu o build. Todo o resto (scheduled, dispatching,
-# blocked, building, signing, finished, ...) quer dizer que ainda falta esperar.
 FINAL = {"succeeded", "failed", "unresolvable", "broken", "excluded", "disabled"}
-# O cabeçalho do _log diz de qual revisão o build veio.
 LOG_SRCMD5 = re.compile(r"srcmd5 '([0-9a-f]{32})'")
 
 
@@ -22,12 +19,6 @@ def _get(url, auth, **params):
 
 
 def check_main(temp_dir: str, package_name: str) -> str:
-    """Espera o build da ÚLTIMA revisão enviada e devolve o resultado.
-
-    O código original aceitava qualquer estado diferente de "building" e caía
-    em "failed" com o log do build anterior. Aqui o build só vale quando o
-    srcmd5 no cabeçalho do log é o do último upload (.last_upload.json).
-    """
     marker = os.path.join(temp_dir, ".last_upload.json")
     if not os.path.exists(marker):
         return "Build check error: no upload found in this directory. Call upload_file_to_obs_tool first."
@@ -54,7 +45,6 @@ def check_main(temp_dir: str, package_name: str) -> str:
 
             if code in FINAL and not dirty:
                 if code in ("unresolvable", "broken", "excluded", "disabled"):
-                    # Sem log para conferir a revisão: só aceita depois de um tempo do upload.
                     if time.time() - uploaded["time"] > 60:
                         return {
                             "unresolvable": f"Build unresolvable! The build can not begin: {details}",
@@ -65,7 +55,6 @@ def check_main(temp_dir: str, package_name: str) -> str:
                 else:
                     head = _get(f"{build_url}/_log", auth, start=0, end=8192).text
                     m = LOG_SRCMD5.search(head)
-                    # Sem srcmd5 no cabeçalho não há como conferir; aceita o resultado.
                     if m is None or m.group(1) == uploaded["srcmd5"]:
                         if code == "succeeded":
                             return "Build succeeded! The build has been successfully completed."

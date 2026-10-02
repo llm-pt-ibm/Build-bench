@@ -1,6 +1,4 @@
-# Sentido: compila em x86_64, falha em ppc64le. O reparo é validado no repositório ppc64le.
-# Credenciais ficam no .env (OBS_USER / OBS_PASSWORD), nunca aqui.
-LLM_PROVIDER: "openai"   # API compatível com OpenAI (OpenRouter)
+LLM_PROVIDER: "openai"   
 source_arch: "x86_64"
 target_arch: "ppc64le"
 
@@ -17,5 +15,5 @@ user:
   obs_api_url: "https://api.opensuse.org"
 
 obs:
-  max_wait_seconds: 3600   # builds grandes (llamacpp) passam de 10 min
+  max_wait_seconds: 3600  
   check_interval: 30

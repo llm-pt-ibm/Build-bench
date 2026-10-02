@@ -1,11 +1,3 @@
-"""Monta um caso do benchmark a partir da API pública do OBS (não precisa de conta).
-
-Baixa as fontes do projeto onde o pacote COMPILA e o log de falha da arquitetura
-onde ele QUEBRA, no mesmo formato de data/case_study/x86_succeed_pro/<pacote>/.
-
-uso: python fetch_package.py <pacote> <direcao>
-     direcao: x86_64_to_ppc64le | ppc64le_to_x86_64
-"""
 import json
 import os
 import sys
@@ -49,7 +41,7 @@ def main(pkg: str, direction: str) -> None:
     }
     with open(os.path.join(out, "manifest.json"), "w") as f:
         json.dump(manifest, f, indent=2)
-    print(f"ok: {out} (+ log_failed.txt de {tgt_prj}/{tgt_arch})")
+    print(f"ok: {out} (+ log_failed.txt from {tgt_prj}/{tgt_arch})")
 
 
 if __name__ == "__main__":

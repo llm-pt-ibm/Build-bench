@@ -1,6 +1,4 @@
 #!/bin/bash
-# Piloto: 1 pacote em cada sentido (zita-resampler x86_64->ppc64le, llamacpp ppc64le->x86_64).
-# Pré-requisitos: .env preenchido e `python dataset/setup_obs.py` já executado uma vez.
 set -euo pipefail
 cd "$(dirname "$0")"
 PY=/root/miniforge3/envs/build_bench/bin/python

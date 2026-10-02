@@ -1,15 +1,3 @@
-"""Prepara o projeto no OBS e confere o ponto de partida de cada caso.
-
-1. Cria home:<OBS_USER>:build-bench com dois repositórios:
-     x86_64  -> openSUSE:Factory/standard
-     ppc64le -> openSUSE:Factory:PowerPC/standard
-2. Cria cada pacote de data/<sentido>/ e sobe as fontes originais.
-3. Espera o build nos dois repositórios e confere a triagem do artigo:
-   tem que compilar na arquitetura de origem e falhar na de destino.
-4. Desliga o repositório de origem do pacote, para cada reparo gerar só um build.
-
-uso: python dataset/setup_obs.py [pacote ...]   (sem argumentos: todos os casos)
-"""
 import os
 import shutil
 import sys
@@ -38,7 +26,7 @@ API, PRJ = cfg["api"], cfg["project"]
 def put(url, body):
     r = requests.put(url, data=body, auth=auth, timeout=120)
     if r.status_code != 200:
-        sys.exit(f"ERRO {r.status_code} em PUT {url}:\n{r.text[:500]}")
+        sys.exit(f"ERROR {r.status_code} on PUT {url}:\n{r.text[:500]}")
 
 
 def project_meta() -> str:
@@ -46,7 +34,7 @@ def project_meta() -> str:
         f'<repository name="{arch}"><path project="{p}" repository="{r}"/><arch>{arch}</arch></repository>'
         for arch, (p, r) in REPOS.items())
     return (f'<project name="{PRJ}"><title>Build-bench cross-ISA</title>'
-            f'<description>Benchmark de reparo de build x86_64 &lt;-&gt; ppc64le</description>'
+            f'<description>Cross-ISA build repair benchmark x86_64 &lt;-&gt; ppc64le</description>'
             f'<person userid="{cfg["user"]}" role="maintainer"/>'
             f'<publish><disable/></publish>{repos}</project>')
 
@@ -58,7 +46,7 @@ def package_meta(pkg: str, disable_repo: str = "") -> str:
 
 def wait_both(pkg: str, timeout=4 * 3600) -> dict:
     deadline, codes = time.time() + timeout, {}
-    time.sleep(60)  # dá tempo de o agendador ver a revisão nova
+    time.sleep(60)
     while time.time() < deadline:
         r = requests.get(f"{API}/build/{PRJ}/_result", params={"package": pkg}, auth=auth, timeout=120)
         codes = {}
@@ -74,7 +62,7 @@ def wait_both(pkg: str, timeout=4 * 3600) -> dict:
 
 
 def main(only: list) -> None:
-    print(f"projeto {PRJ}")
+    print(f"project {PRJ}")
     put(f"{API}/source/{PRJ}/_meta", project_meta())
     for direction in DIRECTIONS:
         src_arch, tgt_arch = direction.split("_to_")
@@ -84,19 +72,19 @@ def main(only: list) -> None:
                 continue
             print(f"\n== {direction}: {pkg}")
             put(f"{API}/source/{PRJ}/{pkg}/_meta", package_meta(pkg))
-            with tempfile.TemporaryDirectory() as tmp:  # o marcador de upload não suja data/
+            with tempfile.TemporaryDirectory() as tmp:
                 work = os.path.join(tmp, pkg)
                 shutil.copytree(os.path.join(base, pkg), work)
                 print(" ", main_upload(pkg, work))
             codes = wait_both(pkg)
             ok = codes.get(src_arch) == "succeeded" and codes.get(tgt_arch) == "failed"
-            print(f"  triagem: {src_arch}={codes.get(src_arch)} {tgt_arch}={codes.get(tgt_arch)} -> "
-                  + ("CASO VÁLIDO" if ok else "CASO INVÁLIDO (não reproduz no seu projeto)"))
+            print(f"  triage: {src_arch}={codes.get(src_arch)} {tgt_arch}={codes.get(tgt_arch)} -> "
+                  + ("VALID CASE" if ok else "INVALID CASE (does not reproduce in your project)"))
             if ok:
                 put(f"{API}/source/{PRJ}/{pkg}/_meta", package_meta(pkg, disable_repo=src_arch))
 
 
 if __name__ == "__main__":
     if not cfg["user"] or not cfg["password"]:
-        sys.exit("Preencha OBS_USER e OBS_PASSWORD no .env antes.")
+        sys.exit("Set OBS_USER and OBS_PASSWORD in .env first.")
     main(sys.argv[1:])

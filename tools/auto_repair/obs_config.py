@@ -1,10 +1,3 @@
-"""Configuração do OBS compartilhada por upload e verificação.
-
-O arquivo de configuração vem de BENCH_CONFIG (padrão: config/info.yaml), para
-que cada sentido de migração tenha o seu. As credenciais vêm do .env
-(OBS_USER / OBS_PASSWORD), e não do YAML: o servidor MCP é iniciado com um
-ambiente reduzido, então ele mesmo carrega o .env.
-"""
 import os
 import yaml
 from dotenv import load_dotenv
@@ -21,7 +14,6 @@ def load_obs_config() -> dict:
         "api": user["obs_api_url"].rstrip("/"),
         "user": name,
         "password": os.getenv("OBS_PASSWORD") or user.get("password"),
-        # "home:{user}:build-bench" vira o projeto de quem está rodando.
         "project": user["target_project"].format(user=name),
         "repository": user["repository_name"],
         "arch": user["architecture_name"],

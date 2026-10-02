@@ -13,12 +13,9 @@ from mcp.client.stdio import stdio_client
 from mcp import ClientSession, StdioServerParameters
 
 load_dotenv(".env")
-# Um arquivo por sentido de migração (config/x86_64_to_ppc64le.yaml, ...).
 CONFIG_PATH = os.getenv("BENCH_CONFIG", "config/info.yaml")
 with open(CONFIG_PATH, "r") as f:
     info = yaml.safe_load(f)
-# check_build_result espera o OBS por até max_wait_seconds; o timeout da
-# ferramenta precisa ser maior que isso (o original cortava em 600 s).
 TOOL_TIMEOUT = int(info.get("obs", {}).get("max_wait_seconds", 3600)) + 300
 
 
@@ -61,7 +58,6 @@ class LLMConfig:
         return OpenAI(api_key=self.api_key)
 
 
-# Só ferramentas de leitura cujo resultado não muda dentro de uma tentativa.
 CACHEABLE_TOOLS = {"get_structure_of_files"}
 
 
@@ -129,8 +125,6 @@ class AutoRepairClient:
         try:
             params = StdioServerParameters(
                 command=sys.executable, args=[self.server_script],
-                # Sem env explícito o SDK passa só PATH/HOME, e o servidor não
-                # veria BENCH_CONFIG.
                 env=dict(os.environ),
             )
             stdio_transport = await self.exit_stack.enter_async_context(
@@ -283,7 +277,6 @@ class AutoRepairClient:
 
         with open(result_file, "w", encoding="utf-8") as f:
             f.write(final_text)
-        # Métricas do artigo (sucesso, tempo, tokens) + custo, por pacote.
         with open(os.path.splitext(result_file)[0] + ".json", "w", encoding="utf-8") as f:
             json.dump({"package": package_name, "model": self.llm_cfg.model,
                        "direction": f"{info['source_arch']}_to_{info['target_arch']}",
@@ -295,10 +288,9 @@ class AutoRepairClient:
             self._log(package_name, "Max attempts reached without success.")
 
     def _chat(self, messages: List[Dict], tools: List[Dict]):
-        """Uma chamada ao modelo, somando tokens e custo em self.usage."""
         kwargs = {}
         if "openrouter.ai" in (self.llm_cfg.base_url or ""):
-            kwargs["extra_body"] = {"usage": {"include": True}}  # a OpenRouter devolve o custo
+            kwargs["extra_body"] = {"usage": {"include": True}}
         resp = self.client.chat.completions.create(
             model=self.llm_cfg.model,
             messages=messages,
@@ -317,7 +309,6 @@ class AutoRepairClient:
         return resp.choices[0]
 
     async def _run_one_tool(self, package_name: str, tc) -> Tuple[str, str]:
-        """Executa uma chamada de ferramenta com as regras da casa. Devolve (nome, resultado)."""
         tool_name = tc.function.name
         try:
             tool_args = json.loads(tc.function.arguments or "{}")
@@ -326,20 +317,16 @@ class AutoRepairClient:
         self.usage["tool_calls"] += 1
         self._log(package_name, f"Tool call: {tool_name}({json.dumps(tool_args, ensure_ascii=False)[:500]})")
 
-        # Regra: não verificar build antes de enviar.
         if tool_name == "check_build_result" and not self.upload_status.get(package_name, False):
             return tool_name, ("ERROR: Cannot call check_build_result before uploading. "
                                "You must call upload_file_to_obs_tool first.")
 
-        # Trava de repetição (mesma ferramenta + mesmos argumentos, por tentativa).
         args_key = make_args_key(tool_name, tool_args)
         repeat = json.loads((await self.session.call_tool(
             "check_repeat_tool_call",
             {"tool_name": tool_name, "args_key": args_key, "max_repeat": 3, "package_name": package_name},
         )).content[0].text)
         if not repeat.get("allowed", True):
-            # O aviso vai no próprio resultado: uma mensagem "user" no meio das
-            # respostas de ferramenta deixaria a conversa inválida.
             return tool_name, (f"{repeat.get('message', 'repeated call blocked')}. "
                                f"Do not call {tool_name} again with the same arguments in this attempt.")
 
@@ -353,8 +340,6 @@ class AutoRepairClient:
                 res = await asyncio.wait_for(self.session.call_tool(tool_name, tool_args), timeout=TOOL_TIMEOUT)
                 tool_ret = res.content[0].text if res.content else ""
                 self._log(package_name, f"Tool return text: {tool_ret[:1000]}")
-                # O original guardava modify_file_tool no cache, e um acerto pulava a
-                # escrita no disco. Nenhuma ferramenta de escrita entra no cache.
                 if tool_name in CACHEABLE_TOOLS and "error" not in tool_ret.lower():
                     await self.session.call_tool(
                         "cache_tool_result", {"call_key": args_key, "result": tool_ret, "package_name": package_name})
@@ -377,7 +362,6 @@ class AutoRepairClient:
         tools: List[Dict],
     ) -> Tuple[str, bool]:
         assert self.session is not None
-        # O upload anterior é de outra tentativa: exige um novo antes de verificar.
         self.upload_status[package_name] = False
         did_upload = False
         latest_text = ""
@@ -394,9 +378,6 @@ class AutoRepairClient:
             rounds += 1
             self._log(package_name, f"== Tool round {rounds} ==")
 
-            # Uma mensagem do assistente por rodada, seguida da resposta de CADA
-            # chamada. O original repetia a mensagem do assistente a cada chamada,
-            # o que a API rejeita quando o modelo pede várias ferramentas de uma vez.
             messages.append({
                 "role": "assistant",
                 "content": choice.message.content,
@@ -421,8 +402,6 @@ class AutoRepairClient:
                 self._log(package_name, f"Model continuation failed: {e}")
                 break
 
-        # Se o modelo não enviou nada, envia o estado atual para a próxima tentativa
-        # partir do mesmo lugar que o OBS vai ver.
         if not did_upload:
             try:
                 up_res = await self.session.call_tool("upload_file_to_obs_tool", {"package_path": package_path})

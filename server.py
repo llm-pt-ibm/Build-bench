@@ -158,8 +158,6 @@ def parse_build_result_tool(result_content: str, package_name: str) -> str:
     """
     try:
         status = result_content.split(": ", 1)[-1]
-        # Só o texto exato de sucesso do check_build_result conta. A busca por
-        # substrings do original aceitava "broken" (contém "ok") e caminhos de log.
         success = status.startswith("Build succeeded!")
         return json.dumps({"success": success, "status": status})
     except Exception:
@@ -349,8 +347,6 @@ def get_structure_of_files(package_path) -> str:
     Args:
         package_path (str): Package path.
     """
-    # Com o código extraído, a saída do original chega a centenas de milhares de
-    # caracteres (154 mil só no texmath) e vai inteira para o contexto do modelo.
     text = json.dumps(get_project_structure_from_local(package_path), indent=1)
     if len(text) > STRUCTURE_MAX_CHARS:
         text = (text[:STRUCTURE_MAX_CHARS]
