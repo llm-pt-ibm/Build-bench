@@ -11,6 +11,33 @@ To list every changed file of a branch:
 git diff --stat original <branch>
 ```
 
+## improvements: changes on top of main
+
+This branch starts from `main` and inherits every modification listed in the
+next section. Its own changes are listed here; `git diff --stat main
+improvements` shows them file by file.
+
+### Done
+- None yet.
+
+### Planned
+- Expose only the repair tools to the LLM; the bookkeeping tools
+  (`check_repeat_tool_call`, `reset_package_cache_tool`,
+  `track_file_modification_tool`, ...) are currently callable by the model.
+- Feed real modification history into the next attempt's prompt.
+- Count a repair as successful only if the package still builds on the source
+  architecture.
+- Do not end an attempt with an unverified fallback upload.
+- Invalidate the cached `get_structure_of_files` result after extraction or
+  modification.
+- Make `extract_archive_tool`/`compress_to_archive_tool` act on the same
+  archive when a package ships several.
+- Restrict file tools to the package's temporary directory and extract
+  archives with `filter="data"`.
+- Port the Patch strategy (`client_patch.py`) to the per-direction configs.
+- Answer unknown tool names with the list of valid tools.
+- Update `README.md`.
+
 ## main: port to x86_64 ↔ ppc64le
 
 ### Configuration
