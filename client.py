@@ -17,6 +17,7 @@ CONFIG_PATH = os.getenv("BENCH_CONFIG", "config/info.yaml")
 with open(CONFIG_PATH, "r") as f:
     info = yaml.safe_load(f)
 TOOL_TIMEOUT = int(info.get("obs", {}).get("max_wait_seconds", 3600)) + 300
+OPENROUTER_PROVIDER = os.getenv("OPENROUTER_PROVIDER")
 
 
 class LLMConfig:
@@ -279,6 +280,7 @@ class AutoRepairClient:
             f.write(final_text)
         with open(os.path.splitext(result_file)[0] + ".json", "w", encoding="utf-8") as f:
             json.dump({"package": package_name, "model": self.llm_cfg.model,
+                       "provider_pinned": OPENROUTER_PROVIDER,
                        "direction": f"{info['source_arch']}_to_{info['target_arch']}",
                        "success": build_succeeded, "success_attempt": success_attempt,
                        "minutes": round((time.time() - t0) / 60, 2), **self.usage},
@@ -291,6 +293,8 @@ class AutoRepairClient:
         kwargs = {}
         if "openrouter.ai" in (self.llm_cfg.base_url or ""):
             kwargs["extra_body"] = {"usage": {"include": True}}
+            if OPENROUTER_PROVIDER:
+                kwargs["extra_body"]["provider"] = {"order": [OPENROUTER_PROVIDER], "allow_fallbacks": False}
         resp = self.client.chat.completions.create(
             model=self.llm_cfg.model,
             messages=messages,
@@ -306,6 +310,9 @@ class AutoRepairClient:
             details = getattr(u, "prompt_tokens_details", None)
             self.usage["cached_tokens"] += (getattr(details, "cached_tokens", 0) or 0) if details else 0
             self.usage["cost_usd"] += float((u.model_extra or {}).get("cost") or 0)
+        served = (resp.model_extra or {}).get("provider") or "unknown"
+        providers = self.usage.setdefault("providers", {})
+        providers[served] = providers.get(served, 0) + 1
         return resp.choices[0]
 
     async def _run_one_tool(self, package_name: str, tc) -> Tuple[str, str]:
