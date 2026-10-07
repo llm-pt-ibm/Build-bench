@@ -59,9 +59,6 @@ class LLMConfig:
         return OpenAI(api_key=self.api_key)
 
 
-CACHEABLE_TOOLS = {"get_structure_of_files"}
-
-
 def make_args_key(tool_name: str, tool_args: dict) -> str:
     return f"{tool_name}::{json.dumps(tool_args, sort_keys=True, ensure_ascii=False, separators=(',', ':'))}"
 
@@ -274,7 +271,14 @@ class AutoRepairClient:
                 success_attempt = attempt
                 final_text = f"Build succeeded on attempt {attempt}.\n{content or ''}"
                 break
-            final_text = f"Build failed on attempt {attempt}.\n{content or ''}"
+            else:
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": f"Build failed after attempt {attempt}. Continue analyzing and repairing, then retry.",
+                    }
+                )
+                final_text = f"Build failed on attempt {attempt}.\n{content or ''}"
 
         with open(result_file, "w", encoding="utf-8") as f:
             f.write(final_text)
@@ -313,53 +317,7 @@ class AutoRepairClient:
         served = (resp.model_extra or {}).get("provider") or "unknown"
         providers = self.usage.setdefault("providers", {})
         providers[served] = providers.get(served, 0) + 1
-        return resp.choices[0]
-
-    async def _run_one_tool(self, package_name: str, tc) -> Tuple[str, str]:
-        tool_name = tc.function.name
-        try:
-            tool_args = json.loads(tc.function.arguments or "{}")
-        except json.JSONDecodeError:
-            return tool_name, f"Error: invalid JSON arguments for {tool_name}."
-        self.usage["tool_calls"] += 1
-        self._log(package_name, f"Tool call: {tool_name}({json.dumps(tool_args, ensure_ascii=False)[:500]})")
-
-        if tool_name == "check_build_result" and not self.upload_status.get(package_name, False):
-            return tool_name, ("ERROR: Cannot call check_build_result before uploading. "
-                               "You must call upload_file_to_obs_tool first.")
-
-        args_key = make_args_key(tool_name, tool_args)
-        repeat = json.loads((await self.session.call_tool(
-            "check_repeat_tool_call",
-            {"tool_name": tool_name, "args_key": args_key, "max_repeat": 3, "package_name": package_name},
-        )).content[0].text)
-        if not repeat.get("allowed", True):
-            return tool_name, (f"{repeat.get('message', 'repeated call blocked')}. "
-                               f"Do not call {tool_name} again with the same arguments in this attempt.")
-
-        cache = json.loads((await self.session.call_tool(
-            "check_tool_cache", {"call_key": args_key, "tool_name": tool_name, "package_name": package_name},
-        )).content[0].text)
-        if cache.get("hit"):
-            tool_ret = cache["result"]
-        else:
-            try:
-                res = await asyncio.wait_for(self.session.call_tool(tool_name, tool_args), timeout=TOOL_TIMEOUT)
-                tool_ret = res.content[0].text if res.content else ""
-                self._log(package_name, f"Tool return text: {tool_ret[:1000]}")
-                if tool_name in CACHEABLE_TOOLS and "error" not in tool_ret.lower():
-                    await self.session.call_tool(
-                        "cache_tool_result", {"call_key": args_key, "result": tool_ret, "package_name": package_name})
-            except asyncio.TimeoutError:
-                tool_ret = f"Error: Tool {tool_name} timed out"
-            except Exception as e:
-                tool_ret = f"Error: Tool {tool_name} failed: {e}"
-        await self.session.call_tool("record_tool_call_history", {"call_key": args_key, "package_name": package_name})
-
-        if tool_name == "upload_file_to_obs_tool" and tool_ret.startswith("Upload successful"):
-            self.upload_status[package_name] = True
-            self._log(package_name, "✓ Upload marked as successful")
-        return tool_name, tool_ret
+        return resp
 
     async def _llm_tools_loop(
         self,
@@ -368,51 +326,198 @@ class AutoRepairClient:
         messages: List[Dict],
         tools: List[Dict],
     ) -> Tuple[str, bool]:
-        assert self.session is not None
-        self.upload_status[package_name] = False
-        did_upload = False
+        choice = None
         latest_text = ""
+        rounds = 0
+        did_upload = False
 
+        # Initial model step
         try:
-            choice = self._chat(messages, tools)
+            resp = self._chat(messages, tools)
+            choice = resp.choices[0]
+            latest_text = choice.message.content or ""
         except Exception as e:
             self._log(package_name, f"Model call failed: {e}")
             return f"Model call failed: {e}", False
-        latest_text = choice.message.content or ""
 
-        rounds = 0
-        while rounds < self.max_tool_rounds and choice.message.tool_calls:
+        while rounds < self.max_tool_rounds and choice.finish_reason in (
+            "tool_calls",
+            None,
+        ):
             rounds += 1
             self._log(package_name, f"== Tool round {rounds} ==")
 
-            messages.append({
-                "role": "assistant",
-                "content": choice.message.content,
-                "tool_calls": [t.model_dump() for t in choice.message.tool_calls],
-            })
-            succeeded = False
-            for tc in choice.message.tool_calls:
-                tool_name, tool_ret = await self._run_one_tool(package_name, tc)
-                did_upload = did_upload or self.upload_status.get(package_name, False)
-                messages.append({"role": "tool", "tool_call_id": tc.id, "content": tool_ret})
+            for tc in choice.message.tool_calls or []:
+                tool_name = tc.function.name
+                self.usage["tool_calls"] += 1
+                try:
+                    tool_args = json.loads(tc.function.arguments or "{}")
+                except json.JSONDecodeError:
+                    tool_args = {}
+                self._log(
+                    package_name,
+                    f"Tool call: {tool_name}({json.dumps(tool_args, ensure_ascii=False)[:500]})",
+                )
+
+                # Repeat guard
+                args_key = make_args_key(tool_name, tool_args)
+                repeat_check = await self.session.call_tool(
+                    "check_repeat_tool_call",
+                    {
+                        "tool_name": tool_name,
+                        "args_key": args_key,
+                        "max_repeat": 3,
+                        "package_name": package_name,
+                    },
+                )
+                repeat_allowed = json.loads(repeat_check.content[0].text).get(
+                    "allowed", True
+                )
+
+                # Enforce upload-before-check rule (from client_claude)
+                if tool_name == "check_build_result" and not self.upload_status.get(
+                    package_name, False
+                ):
+                    tool_ret = (
+                        "ERROR: Cannot call check_build_result before uploading. "
+                        "You must call upload_file_to_obs_tool first."
+                    )
+                    # Feed back the error as tool result
+                    messages.append(
+                        {
+                            "role": "assistant",
+                            "content": choice.message.content,
+                            "tool_calls": [
+                                t.model_dump()
+                                for t in (choice.message.tool_calls or [])
+                            ],
+                        }
+                    )
+                    messages.append(
+                        {"role": "tool", "tool_call_id": tc.id, "content": tool_ret}
+                    )
+                    continue
+
+                if not repeat_allowed:
+                    # Block and nudge
+                    tool_ret = json.loads(repeat_check.content[0].text).get(
+                        "message", "repeated call blocked"
+                    )
+                    messages.append(
+                        {
+                            "role": "user",
+                            "content": f"Do not call {tool_name} again in this attempt. Continue with code changes or other tools.",
+                        }
+                    )
+                else:
+                    # Cache lookup
+                    cache = await self.session.call_tool(
+                        "check_tool_cache",
+                        {
+                            "call_key": args_key,
+                            "tool_name": tool_name,
+                            "package_name": package_name,
+                        },
+                    )
+                    cache_data = json.loads(cache.content[0].text)
+                    if cache_data.get("hit"):
+                        tool_ret = cache_data["result"]
+                    else:
+                        try:
+                            res = await asyncio.wait_for(
+                                self.session.call_tool(tool_name, tool_args),
+                                timeout=TOOL_TIMEOUT,
+                            )
+                            tool_ret = res.content[0].text
+                            self._log(
+                                package_name, f"Tool return text: {tool_ret[:1000]}"
+                            )
+                            # Cache only for safe/beneficial tools (example from original)
+                            if (
+                                tool_name in ["modify_file_tool"]
+                                and "error" not in tool_ret.lower()
+                            ):
+                                await self.session.call_tool(
+                                    "cache_tool_result",
+                                    {
+                                        "call_key": args_key,
+                                        "result": tool_ret,
+                                        "package_name": package_name,
+                                    },
+                                )
+                        except asyncio.TimeoutError:
+                            tool_ret = f"Error: Tool {tool_name} timed out"
+                        except Exception as e:
+                            tool_ret = f"Error: Tool {tool_name} failed: {e}"
+
+                    # Record history of tool calls regardless of cache
+                    await self.session.call_tool(
+                        "record_tool_call_history",
+                        {"call_key": args_key, "package_name": package_name},
+                    )
+
+                if tool_name in [
+                    "upload_file_to_obs_tool",
+                    "upload_file_to_obs_tool_deepseek",
+                ]:
+                    if (
+                        "successful" in tool_ret.lower()
+                        or "success" in tool_ret.lower()
+                    ):
+                        self.upload_status[package_name] = True
+                        did_upload = True
+                        self._log(package_name, "✓ Upload marked as successful")
+
+                # Feed back results to the model
+                messages.append(
+                    {
+                        "role": "assistant",
+                        "content": choice.message.content,
+                        "tool_calls": [
+                            t.model_dump() for t in (choice.message.tool_calls or [])
+                        ],
+                    }
+                )
+                messages.append(
+                    {"role": "tool", "tool_call_id": tc.id, "content": tool_ret}
+                )
+
+                # If it's a build verification, parse immediately
                 if tool_name == "check_build_result":
                     parsed = await self.session.call_tool(
-                        "parse_build_result_tool", {"result_content": tool_ret, "package_name": package_name})
-                    succeeded = succeeded or json.loads(parsed.content[0].text).get("success", False)
-            if succeeded:
-                return latest_text, True
+                        "parse_build_result_tool",
+                        {"result_content": tool_ret, "package_name": package_name},
+                    )
+                    if json.loads(parsed.content[0].text).get("success"):
+                        return latest_text, True
 
+            # next model step
             try:
-                choice = self._chat(messages, tools)
+                resp = self._chat(messages, tools)
+                choice = resp.choices[0]
                 latest_text = choice.message.content or latest_text
             except Exception as e:
                 self._log(package_name, f"Model continuation failed: {e}")
                 break
 
+        # Fallback: enforce upload & (optionally) check if model forgot
         if not did_upload:
             try:
-                up_res = await self.session.call_tool("upload_file_to_obs_tool", {"package_path": package_path})
-                self._log(package_name, f"[fallback] upload_file_to_obs_tool => {up_res.content[0].text[:300]}")
+                up_res = await self.session.call_tool(
+                    "upload_file_to_obs_tool", {"package_path": package_path}
+                )
+                up_txt = up_res.content[0].text
+                self._log(
+                    package_name,
+                    f"[fallback] upload_file_to_obs_tool => {up_txt[:300]}",
+                )
+                messages.append(
+                    {
+                        "role": "tool",
+                        "tool_call_id": "fallback_upload",
+                        "content": up_txt,
+                    }
+                )
             except Exception as e:
                 self._log(package_name, f"[fallback] upload failed: {e}")
 

@@ -158,7 +158,10 @@ def parse_build_result_tool(result_content: str, package_name: str) -> str:
     """
     try:
         status = result_content.split(": ", 1)[-1]
-        success = status.startswith("Build succeeded!")
+        low = status.lower()
+        success = any(
+            k in low for k in ["success", "succeeded", "successfully", "passed", "ok"]
+        )
         return json.dumps({"success": success, "status": status})
     except Exception:
         return json.dumps({"success": False, "status": "Unknown (parse error)"})
@@ -337,22 +340,14 @@ def record_tool_call_history(call_key: str, package_name: str) -> str:
     return f"Recorded tool call history for {package_name}"
 
 
-STRUCTURE_MAX_CHARS = 40000
-
-
 @mcp.tool()
-def get_structure_of_files(package_path) -> str:
+def get_structure_of_files(package_path) -> dict:
     """
     Retrieve project structure diagram.
     Args:
         package_path (str): Package path.
     """
-    text = json.dumps(get_project_structure_from_local(package_path), indent=1)
-    if len(text) > STRUCTURE_MAX_CHARS:
-        text = (text[:STRUCTURE_MAX_CHARS]
-                + f"\n... [truncated: {len(text)} characters in total. "
-                "Use get_file_content_tool on the specific files you need.]")
-    return text
+    return get_project_structure_from_local(package_path)
 
 
 @mcp.tool()

@@ -31,30 +31,25 @@ git diff --stat original <branch>
   hard-coded x86_64 → aarch64 wording became `{source_arch}`/`{target_arch}`.
 
 ### Agent loop (`client.py`, Full-File strategy)
-- Valid conversation format: one assistant message per round, followed by one
-  tool message per tool call. The original appended the assistant message once
-  per tool call and sent no tool response for blocked repeated calls, which
-  breaks the API contract when the model makes parallel calls.
-- Blocked repeated calls now receive a tool response explaining the block.
-- Only `get_structure_of_files` is cached (the original cached
-  `modify_file_tool`).
-- An upload counts as successful only when the tool returns
-  `Upload successful` (the original matched the substring `success`).
-- Tool timeout is `obs.max_wait_seconds + 300` (the original used a fixed
-  600 s, shorter than a real OBS build).
+The agent loop keeps the original logic (conversation format, repeat guard,
+cache, upload detection, fallback upload). Only these changes were made:
 - The MCP server is started with the current interpreter instead of `uv run`
-  (also in `client_patch.py`).
+  (also in `client_patch.py`), since `uv` is not available on the Power9
+  environment.
+- The prompt template is filled with `source_arch`/`target_arch` from the
+  selected config.
+- Model calls go through `_chat`, which pins the OpenRouter provider when
+  `OPENROUTER_PROVIDER` is set and accumulates token usage and cost.
 - Per-package metrics are written to `<package>_result.json`: success,
   successful attempt, minutes, LLM calls, tool calls, prompt/completion/cached
   tokens, cost reported by OpenRouter and the providers that served the calls.
-
-### MCP server (`server.py`)
-- `parse_build_result_tool`: success only when the result starts with
-  `Build succeeded!`. The original matched substrings such as `ok`, so
-  `Build broken` was counted as a success.
-- `get_structure_of_files` returns JSON text truncated at 40,000 characters.
+- Tool timeout is `obs.max_wait_seconds + 300` instead of a fixed 600 s, so
+  that `check_build_result` can wait for a real ppc64le build (see below).
 
 ### OBS integration (`tools/auto_repair/`)
+Kept because the original check returned the first status other than
+`building` within a fixed 180 s, which reports stale or `scheduled` results
+for ppc64le builds that take several minutes.
 - `upload_files.py` (rewritten): uploads every source file, commits them with
   `commitfilelist`, fails if OBS reports missing files and records the
   resulting `srcmd5`/revision in `.last_upload.json`.
@@ -77,8 +72,7 @@ git diff --stat original <branch>
   `disabled`).
 
 ### Tooling (new)
-- `run_pilot.sh`, `smoke_test.py`, `tests/test_offline.py`,
-  `requirements-ppc64le.txt`.
+- `run_pilot.sh`, `smoke_test.py`, `requirements-ppc64le.txt`.
 - `.gitignore` ignores `*.orig`; the committed `__pycache__/*.pyc` files were
   removed.
 
@@ -87,6 +81,12 @@ git diff --stat original <branch>
   benchmark loop (partitions Cliente, LLM, Servidor MCP and OBS), with the MCP
   tools used by each action. `images/build-bench-atividade-uml.html` is its
   source; regenerate the PDF with headless Chrome (`--print-to-pdf`).
+
+### Logic fixes not in main
+Fixes to the agent loop and to `server.py` (valid conversation format for
+parallel tool calls, stricter `parse_build_result_tool`, upload detection,
+per-attempt upload status, cache target, structure truncation) and the
+offline test that covers them live in the `improvements` branch.
 
 ### Not ported
 - Patch strategy: `client_patch.py` still reads `config/info.yaml` and does
