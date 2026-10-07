@@ -1,0 +1,165 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+@page{size:1270px 764px;margin:0}
+html,body{margin:0;padding:0;background:#FFFFFF}
+svg{display:block}
+text{font-family:Arimo,Arial,Helvetica,sans-serif;fill:#1B2430}
+.t{font-size:14px;font-weight:700}
+.tool{font-family:"IBM Plex Mono",Menlo,monospace;font-size:12.5px;fill:#24313F}
+.s{font-size:12px;fill:#44505C}
+.g{font-size:12px;fill:#1B2430}
+.lbl{font-size:13px}
+.lbl tspan.k{fill:#5F6A76}
+.lane{fill:none;stroke:#9AA5B1;stroke-width:1}
+.lhead{fill:#F2F4F7;stroke:#9AA5B1;stroke-width:1}
+.lname{font-size:14px;font-weight:700}
+.region{fill:none;stroke:#4A5562;stroke-width:1.1;stroke-dasharray:6 4}
+.edge{fill:none;stroke:#2B2B2B;stroke-width:1.3}
+.cli{fill:#DCE8F8;stroke:#2E6FD0;stroke-width:1.2}
+.llm{fill:#FCE3CC;stroke:#D06816;stroke-width:1.2}
+.srv{fill:#ECE6F7;stroke:#7A5BC0;stroke-width:1.2}
+.obs{fill:#DCF0DF;stroke:#3A9E4A;stroke-width:1.2}
+.node{fill:#FFFFFF;stroke:#2B2B2B;stroke-width:1.2}
+</style></head><body>
+<svg width="1270" height="764" viewBox="0 0 1270 764" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#2B2B2B" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+
+<rect class="lhead" x="4" y="4" width="78" height="756"/>
+<rect class="lane" x="4" y="4" width="1262" height="756"/>
+<line class="lane" x1="4" y1="374" x2="1266" y2="374"/>
+<line class="lane" x1="4" y1="442" x2="1266" y2="442"/>
+<line class="lane" x1="4" y1="672" x2="1266" y2="672"/>
+<text class="lname" x="43" y="186" text-anchor="middle">Cliente</text>
+<text class="s" x="43" y="204" text-anchor="middle">client.py</text>
+<text class="lname" x="43" y="413" text-anchor="middle">LLM</text>
+<text class="lname" x="43" y="545" text-anchor="middle">Servidor</text>
+<text class="lname" x="43" y="562" text-anchor="middle">MCP</text>
+<text class="s" x="43" y="580" text-anchor="middle">server.py</text>
+<text class="lname" x="43" y="721" text-anchor="middle">OBS</text>
+
+<circle cx="195" cy="11" r="6.5" fill="#2B2B2B"/>
+<line class="edge" x1="195" y1="17.5" x2="195" y2="31" marker-end="url(#ah)"/>
+<rect class="cli" x="100" y="33" width="190" height="38" rx="10"/>
+<text class="t" x="195" y="48" text-anchor="middle">Listar pacotes</text>
+<text class="tool" x="195" y="64" text-anchor="middle">get_packages_to_process</text>
+<line class="edge" x1="195" y1="71" x2="195" y2="84" marker-end="url(#ah)"/>
+
+<rect class="region" x="90" y="92" width="1172" height="570" rx="14"/>
+<rect class="node" x="173" y="85" width="44" height="14"/>
+<line class="edge" x1="184" y1="85" x2="184" y2="99"/><line class="edge" x1="195" y1="85" x2="195" y2="99"/><line class="edge" x1="206" y1="85" x2="206" y2="99"/>
+<text class="lbl" x="232" y="111"><tspan class="k">«iterative»</tspan> para cada pacote</text>
+<line class="edge" x1="195" y1="99" x2="195" y2="118" marker-end="url(#ah)"/>
+
+<rect class="cli" x="100" y="120" width="234" height="50" rx="10"/>
+<text class="t" x="217" y="139" text-anchor="middle">Preparar o pacote</text>
+<text class="tool" x="217" y="160" text-anchor="middle">init_package_environment_tool</text>
+<line class="edge" x1="150" y1="170" x2="150" y2="187" marker-end="url(#ah)"/>
+
+<rect class="cli" x="1040" y="122" width="160" height="48" rx="10"/>
+<text class="t" x="1120" y="142" text-anchor="middle">Salvar o resultado</text>
+<text class="s" x="1120" y="161" text-anchor="middle">JSON do pacote</text>
+<line class="edge" x1="1236" y1="92" x2="1236" y2="56" marker-end="url(#ah)"/>
+<circle class="node" cx="1236" cy="44" r="10"/><circle cx="1236" cy="44" r="6" fill="#2B2B2B"/>
+
+<rect class="region" x="100" y="188" width="1150" height="464" rx="14"/>
+<text class="lbl" x="232" y="206"><tspan class="k">«loop»</tspan> tentativa [até 3, ou até o build ser aprovado]</text>
+<line class="edge" x1="1120" y1="188" x2="1120" y2="172" marker-end="url(#ah)"/>
+
+<circle cx="150" cy="200" r="5.5" fill="#2B2B2B"/>
+<line class="edge" x1="150" y1="205.5" x2="150" y2="223" marker-end="url(#ah)"/>
+<rect class="cli" x="110" y="224" width="250" height="72" rx="10"/>
+<text class="t" x="235" y="244" text-anchor="middle">Montar o prompt</text>
+<text class="tool" x="235" y="265" text-anchor="middle">reset_package_cache_tool</text>
+<text class="tool" x="235" y="283" text-anchor="middle">update_prompt_with_history_tool</text>
+<path class="edge" d="M235 296 V336 H370" marker-end="url(#ah)"/>
+
+<rect class="region" x="372" y="220" width="640" height="422" rx="14"/>
+<text class="lbl" x="382" y="238"><tspan class="k">«loop»</tspan> rodada [até 20, enquanto a LLM pedir ferramentas e o build não for aprovado]</text>
+
+<circle cx="434" cy="356" r="6" fill="#2B2B2B"/>
+<line class="edge" x1="434" y1="362" x2="434" y2="378" marker-end="url(#ah)"/>
+<rect class="llm" x="378" y="380" width="112" height="56" rx="10"/>
+<text class="t" x="434" y="397" text-anchor="middle">LLM responde</text>
+<text class="s" x="434" y="413" text-anchor="middle">pede 1 ou mais</text>
+<text class="s" x="434" y="427" text-anchor="middle">ferramentas</text>
+<line class="edge" x1="490" y1="408" x2="503" y2="408" marker-end="url(#ah)"/>
+
+<rect class="region" x="512" y="250" width="488" height="382" rx="14"/>
+<text class="lbl" x="522" y="268"><tspan class="k">«iterative»</tspan> para cada chamada</text>
+<rect class="node" x="505" y="386" width="14" height="44"/>
+<line class="edge" x1="505" y1="397" x2="519" y2="397"/><line class="edge" x1="505" y1="408" x2="519" y2="408"/><line class="edge" x1="505" y1="419" x2="519" y2="419"/>
+<path class="edge" d="M519 398 H528 V342" marker-end="url(#ah)"/>
+
+<rect class="cli" x="520" y="280" width="188" height="60" rx="10"/>
+<text class="t" x="614" y="297" text-anchor="middle">Controlar a chamada</text>
+<text class="tool" x="614" y="316" text-anchor="middle">check_repeat_tool_call</text>
+<text class="tool" x="614" y="332" text-anchor="middle">check_tool_cache</text>
+<line class="edge" x1="614" y1="340" x2="614" y2="449" marker-end="url(#ah)"/>
+
+<rect class="cli" x="744" y="280" width="200" height="66" rx="10"/>
+<text class="t" x="844" y="297" text-anchor="middle">Registrar a chamada</text>
+<text class="tool" x="844" y="314" text-anchor="middle">cache_tool_result</text>
+<text class="tool" x="844" y="328" text-anchor="middle">record_tool_call_history</text>
+<text class="tool" x="844" y="342" text-anchor="middle">parse_build_result_tool</text>
+
+<polygon class="node" points="614,451 625,462 614,473 603,462"/>
+<line class="edge" x1="614" y1="473" x2="614" y2="490" marker-end="url(#ah)"/>
+<text class="g" x="620" y="487">[inspecionar ou editar]</text>
+<path class="edge" d="M625 462 H848 V490" marker-end="url(#ah)"/>
+<text class="g" x="700" y="456">[enviar ou checar no OBS]</text>
+<line class="edge" x1="603" y1="462" x2="589" y2="462" marker-end="url(#ah)"/>
+<circle class="node" cx="582" cy="462" r="7"/>
+<line class="edge" x1="577" y1="457" x2="587" y2="467"/><line class="edge" x1="587" y1="457" x2="577" y2="467"/>
+<text class="g" x="540" y="485">[recusada]</text>
+
+<rect class="srv" x="532" y="492" width="206" height="96" rx="10"/>
+<text class="t" x="635" y="509" text-anchor="middle">Inspecionar ou editar</text>
+<text class="tool" x="635" y="526" text-anchor="middle">get_structure_of_files</text>
+<text class="tool" x="635" y="540" text-anchor="middle">get_file_content_tool</text>
+<text class="tool" x="635" y="554" text-anchor="middle">extract_archive_tool</text>
+<text class="tool" x="635" y="568" text-anchor="middle">modify_file_tool</text>
+<text class="tool" x="635" y="582" text-anchor="middle">compress_to_archive_tool</text>
+
+<rect class="srv" x="750" y="492" width="196" height="94" rx="10"/>
+<text class="t" x="848" y="509" text-anchor="middle">Enviar/checar no OBS</text>
+<text class="tool" x="848" y="528" text-anchor="middle">upload_file_to_obs_tool</text>
+<text class="s" x="848" y="542" text-anchor="middle">envia «revisão enviada»</text>
+<text class="tool" x="848" y="562" text-anchor="middle">check_build_result</text>
+<text class="s" x="848" y="576" text-anchor="middle">espera «resultado do build»</text>
+
+<path class="edge" d="M635 588 V612 H954" marker-end="url(#ah)"/>
+<path class="edge" d="M946 539 H966 V600" marker-end="url(#ah)"/>
+<polygon class="node" points="966,602 976,612 966,622 956,612"/>
+<path class="edge" d="M976 612 H990 V313 H946" marker-end="url(#ah)"/>
+
+<line class="edge" x1="1012" y1="240" x2="1116" y2="240" marker-end="url(#ah)"/>
+<polygon class="node" points="1130,228 1142,240 1130,252 1118,240"/>
+<line class="edge" x1="1130" y1="252" x2="1130" y2="266" marker-end="url(#ah)"/>
+<text class="g" x="1137" y="263">[não aprovado]</text>
+<path class="edge" d="M1142 240 H1238 V361 H1142" marker-end="url(#ah)"/>
+<text class="g" x="1150" y="232">[aprovado]</text>
+
+<rect class="cli" x="1032" y="268" width="196" height="68" rx="10"/>
+<text class="t" x="1130" y="284" text-anchor="middle">Encerrar a tentativa</text>
+<text class="tool" x="1130" y="300" text-anchor="middle">upload_file_to_obs_tool</text>
+<text class="s" x="1130" y="315" text-anchor="middle">só se não houve upload;</text>
+<text class="s" x="1130" y="329" text-anchor="middle">envia «revisão enviada»</text>
+<line class="edge" x1="1130" y1="336" x2="1130" y2="349" marker-end="url(#ah)"/>
+<polygon class="node" points="1130,351 1140,361 1130,371 1120,361"/>
+<line class="edge" x1="1120" y1="361" x2="1102" y2="361" marker-end="url(#ah)"/>
+<circle class="node" cx="1093" cy="361" r="7"/>
+<line class="edge" x1="1088" y1="356" x2="1098" y2="366"/><line class="edge" x1="1098" y1="356" x2="1088" y2="366"/>
+
+<polygon class="obs" points="560,694 730,694 730,734 560,734 574,714"/>
+<text class="t" x="652" y="719" text-anchor="middle">revisão enviada</text>
+<line class="edge" x1="730" y1="714" x2="758" y2="714" marker-end="url(#ah)"/>
+<rect class="obs" x="760" y="692" width="180" height="44" rx="10"/>
+<text class="t" x="850" y="710" text-anchor="middle">Compilar o pacote</text>
+<text class="s" x="850" y="727" text-anchor="middle">arquitetura de destino</text>
+<line class="edge" x1="940" y1="714" x2="968" y2="714" marker-end="url(#ah)"/>
+<polygon class="obs" points="970,694 1136,694 1152,714 1136,734 970,734"/>
+<text class="t" x="1058" y="719" text-anchor="middle">resultado do build</text>
+</svg>
+</body></html>

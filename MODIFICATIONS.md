@@ -82,6 +82,12 @@ git diff --stat original <branch>
 - `.gitignore` ignores `*.orig`; the committed `__pycache__/*.pyc` files were
   removed.
 
+### Documentation (new)
+- `images/build-bench-atividade-uml.{pdf,png}`: UML 2.5 activity diagram of the
+  benchmark loop (partitions Cliente, LLM, Servidor MCP and OBS), with the MCP
+  tools used by each action. `images/build-bench-atividade-uml.html` is its
+  source; regenerate the PDF with headless Chrome (`--print-to-pdf`).
+
 ### Not ported
 - Patch strategy: `client_patch.py` still reads `config/info.yaml` and does
   not pass `source_arch`/`target_arch` to the prompt, so it fails with a
