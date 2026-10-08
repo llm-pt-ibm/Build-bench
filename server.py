@@ -36,6 +36,7 @@ def init_package_environment_tool(
     """
     try:
         package_temp_dir = os.path.join(temp_work_dir, package_name)
+        server_state["modification_history"].pop(package_name, None)
         if os.path.exists(package_temp_dir):
             shutil.rmtree(package_temp_dir)
         os.makedirs(package_temp_dir, exist_ok=True)
@@ -164,6 +165,9 @@ def parse_build_result_tool(result_content: str, package_name: str) -> str:
         return json.dumps({"success": False, "status": "Unknown (parse error)"})
 
 
+DIFF_PROMPT_MAX_CHARS = 3000
+
+
 @mcp.tool()
 def update_prompt_with_history_tool(
     package_name: str, package_path: str, build_attempt: int, formatted_prompt: str) -> str:
@@ -189,8 +193,14 @@ def update_prompt_with_history_tool(
             current_prompt += "\n\nPrevious modifications:\n"
             for mod in prev_modifications:
                 current_prompt += f"File: {mod['file_path']}\n"
+                if "diff_text" in mod:
+                    text = mod["diff_text"]
+                    if len(text) > DIFF_PROMPT_MAX_CHARS:
+                        text = text[:DIFF_PROMPT_MAX_CHARS] + "\n... [diff truncated]"
+                    current_prompt += f"```diff\n{text}\n```\n\n"
+                    continue
                 current_prompt += "Changes:\n"
-                for change in mod["diff"]:
+                for change in mod.get("diff", []):
                     op = change["operation"]
                     line = change["line_number"]
                     content = change["content"][:200]
@@ -385,6 +395,17 @@ def modify_file_tool(file_path: str, new_content: str):
                 lineterm="",
             )
         )
+
+        # record the change for the next attempt's prompt
+        if diff:
+            rel_path = "/".join(file_path.split("/")[2:]) or file_path
+            server_state["modification_history"].setdefault(package_name, []).append(
+                {
+                    "file_path": rel_path,
+                    "diff_text": "\n".join(line.rstrip("\n") for line in diff),
+                    "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+                }
+            )
 
         # write diff to log (with timestamp)
         if diff:

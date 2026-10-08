@@ -32,9 +32,16 @@ improvements` shows them file by file.
   the client only, matching the paper, where they are part of the framework
   rather than agent tools. A call to any other name, including a hallucinated
   one such as `get_file_content`, is refused with the list of valid tools.
+- `modify_file_tool` records every effective change (path relative to the
+  package and the unified diff) in the modification history, which
+  `update_prompt_with_history_tool` shows as `diff` blocks (up to 3,000
+  characters each) from the second attempt on. Before, the history was only
+  filled when the LLM itself called `track_file_modification_tool`, so later
+  attempts usually started without knowing what had been changed; the paper
+  describes this history as part of every iteration's input. The history is
+  cleared when a package is prepared.
 
 ### Planned
-- Feed real modification history into the next attempt's prompt.
 - Count a repair as successful only if the package still builds on the source
   architecture.
 - Do not end an attempt with an unverified fallback upload.

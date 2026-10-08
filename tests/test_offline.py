@@ -110,6 +110,17 @@ async def main():
             assert got == expected, (text_in, got)
         print("parser: OK (only 'Build succeeded!' counts as success)")
 
+        spec = f"{TMP}/zita-resampler.spec"
+        old = open(spec, encoding="utf-8").read()
+        new = old.replace("%ifnarch x86_64", "%ifarch aarch64", 1)
+        assert new != old
+        (await cli.session.call_tool("modify_file_tool", {"file_path": spec, "new_content": new}))
+        upd = json.loads((await cli.session.call_tool("update_prompt_with_history_tool", {
+            "package_name": PKG, "package_path": TMP, "build_attempt": 2,
+            "formatted_prompt": "system"})).content[0].text)["messages"][1]["content"]
+        assert "File: zita-resampler.spec" in upd and "+%ifarch aarch64" in upd, upd[:500]
+        print("history: OK (modify_file_tool feeds the next attempt's prompt)")
+
         up = (await cli.session.call_tool("upload_file_to_obs_tool", {"package_path": TMP})).content[0].text
         assert "credentials missing" in up, up
         print("upload without credentials: OK (explicit error, no OBS call)")
