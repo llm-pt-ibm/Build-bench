@@ -18,7 +18,10 @@ next section. Its own changes are listed here; `git diff --stat main
 improvements` shows them file by file.
 
 ### Done
-- None yet.
+- `LLM_TEMPERATURE` (optional, in `.env` or the environment) sets the sampling
+  temperature sent with every model call; it is recorded as `temperature` in
+  `<package>_result.json`. When unset, no temperature is sent and the
+  provider's default applies (the behaviour of `main`).
 
 ### Planned
 - Expose only the repair tools to the LLM; the bookkeeping tools

@@ -18,6 +18,7 @@ with open(CONFIG_PATH, "r") as f:
     info = yaml.safe_load(f)
 TOOL_TIMEOUT = int(info.get("obs", {}).get("max_wait_seconds", 3600)) + 300
 OPENROUTER_PROVIDER = os.getenv("OPENROUTER_PROVIDER")
+LLM_TEMPERATURE = float(os.environ["LLM_TEMPERATURE"]) if os.getenv("LLM_TEMPERATURE") else None
 
 
 class LLMConfig:
@@ -281,6 +282,7 @@ class AutoRepairClient:
         with open(os.path.splitext(result_file)[0] + ".json", "w", encoding="utf-8") as f:
             json.dump({"package": package_name, "model": self.llm_cfg.model,
                        "provider_pinned": OPENROUTER_PROVIDER,
+                       "temperature": LLM_TEMPERATURE,
                        "direction": f"{info['source_arch']}_to_{info['target_arch']}",
                        "success": build_succeeded, "success_attempt": success_attempt,
                        "minutes": round((time.time() - t0) / 60, 2), **self.usage},
@@ -291,6 +293,8 @@ class AutoRepairClient:
 
     def _chat(self, messages: List[Dict], tools: List[Dict]):
         kwargs = {}
+        if LLM_TEMPERATURE is not None:
+            kwargs["temperature"] = LLM_TEMPERATURE
         if "openrouter.ai" in (self.llm_cfg.base_url or ""):
             kwargs["extra_body"] = {"usage": {"include": True}}
             if OPENROUTER_PROVIDER:
