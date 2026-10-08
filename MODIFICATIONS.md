@@ -22,11 +22,18 @@ improvements` shows them file by file.
   temperature sent with every model call; it is recorded as `temperature` in
   `<package>_result.json`. When unset, no temperature is sent and the
   provider's default applies (the behaviour of `main`).
+- The LLM only sees the seven repair tools (`LLM_TOOLS` in `client.py`):
+  structure, file content, archive extraction/compression, file modification,
+  OBS upload and build check. The bookkeeping tools (`check_repeat_tool_call`,
+  `check_tool_cache`, `cache_tool_result`, `record_tool_call_history`,
+  `reset_package_cache_tool`, `update_prompt_with_history_tool`,
+  `parse_build_result_tool`, `track_file_modification_tool`,
+  `get_packages_to_process`, `init_package_environment_tool`) stay callable by
+  the client only, matching the paper, where they are part of the framework
+  rather than agent tools. A call to any other name, including a hallucinated
+  one such as `get_file_content`, is refused with the list of valid tools.
 
 ### Planned
-- Expose only the repair tools to the LLM; the bookkeeping tools
-  (`check_repeat_tool_call`, `reset_package_cache_tool`,
-  `track_file_modification_tool`, ...) are currently callable by the model.
 - Feed real modification history into the next attempt's prompt.
 - Count a repair as successful only if the package still builds on the source
   architecture.
@@ -38,7 +45,6 @@ improvements` shows them file by file.
 - Restrict file tools to the package's temporary directory and extract
   archives with `filter="data"`.
 - Port the Patch strategy (`client_patch.py`) to the per-direction configs.
-- Answer unknown tool names with the list of valid tools.
 - Update `README.md`.
 
 ## main: port to x86_64 ↔ ppc64le

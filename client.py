@@ -62,6 +62,18 @@ class LLMConfig:
 
 CACHEABLE_TOOLS = {"get_structure_of_files"}
 
+# Repair tools the LLM may call (the agent tools described in the Build-bench
+# paper). The other server tools are bookkeeping used only by this client.
+LLM_TOOLS = (
+    "get_structure_of_files",
+    "get_file_content_tool",
+    "extract_archive_tool",
+    "modify_file_tool",
+    "compress_to_archive_tool",
+    "upload_file_to_obs_tool",
+    "check_build_result",
+)
+
 
 def make_args_key(tool_name: str, tool_args: dict) -> str:
     return f"{tool_name}::{json.dumps(tool_args, sort_keys=True, ensure_ascii=False, separators=(',', ':'))}"
@@ -184,12 +196,7 @@ class AutoRepairClient:
         self._log("global", f"Found {len(packages)} packages.")
 
         tools = await self.list_tools_openai_format()
-        # Prevent LLM from re-invoking init tool (we invoke it explicitly below)
-        tools = [
-            t
-            for t in tools
-            if t.get("function", {}).get("name") != "init_package_environment_tool"
-        ]
+        tools = [t for t in tools if t["function"]["name"] in LLM_TOOLS]
 
         for idx, pkg in enumerate(packages, 1):
             self._log("global", f"\n=== [{idx}/{len(packages)}] {pkg} ===")
@@ -327,6 +334,10 @@ class AutoRepairClient:
             return tool_name, f"Error: invalid JSON arguments for {tool_name}."
         self.usage["tool_calls"] += 1
         self._log(package_name, f"Tool call: {tool_name}({json.dumps(tool_args, ensure_ascii=False)[:500]})")
+
+        if tool_name not in LLM_TOOLS:
+            return tool_name, (f"Error: unknown tool {tool_name}. "
+                               f"Available tools: {', '.join(LLM_TOOLS)}.")
 
         if tool_name == "check_build_result" and not self.upload_status.get(package_name, False):
             return tool_name, ("ERROR: Cannot call check_build_result before uploading. "

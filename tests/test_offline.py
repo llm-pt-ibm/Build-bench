@@ -30,6 +30,8 @@ SCRIPT = [
     [call(5, "get_structure_of_files", package_path=TMP)],
     [call(6, "get_structure_of_files", package_path=TMP)],
     [call(7, "get_structure_of_files", package_path=TMP)],
+    [call(8, "reset_package_cache_tool", package_name=PKG),
+     call(9, "get_file_content", file_path=f"{TMP}/log_failed.txt")],
     None,
 ]
 
@@ -73,7 +75,8 @@ async def main():
     cli = ScriptedClient(llm=llm)
     assert await cli.connect()
     try:
-        tools = await cli.list_tools_openai_format()
+        tools = [t for t in await cli.list_tools_openai_format() if t["function"]["name"] in client.LLM_TOOLS]
+        assert sorted(t["function"]["name"] for t in tools) == sorted(client.LLM_TOOLS), tools
         init = json.loads((await cli.session.call_tool("init_package_environment_tool", {
             "base_dir": cli.base_dir, "package_name": PKG,
             "temp_work_dir": cli.temp_work_dir, "result_dir": cli.result_dir})).content[0].text)
@@ -89,6 +92,8 @@ async def main():
         assert tool_msgs["call_2"].startswith("#"), "spec was not read"
         assert tool_msgs["call_3"].startswith("ERROR: Cannot call check_build_result")
         assert "exceeded max repeat count" in tool_msgs["call_7"], tool_msgs["call_7"][:200]
+        for cid in ("call_8", "call_9"):
+            assert tool_msgs[cid].startswith("Error: unknown tool"), tool_msgs[cid][:200]
         assert "truncated" not in tool_msgs["call_4"] or len(tool_msgs["call_4"]) < 41000
         print(f"loop: OK ({cli.usage['tool_calls']} tool calls, valid conversation)")
 
