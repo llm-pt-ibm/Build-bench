@@ -8,6 +8,7 @@ from datetime import datetime
 from tools.auto_repair.get_repo_structure import get_project_structure_from_local
 from tools.auto_repair.check_build_res import check_main
 from tools.auto_repair.upload_files import main_upload
+from tools.auto_repair.patch_check import check_patch_format
 import tarfile
 import zipfile
 
@@ -18,7 +19,39 @@ server_state = {
     "modification_history": {},  # {package_name: [{file_path, diff, timestamp}, ...]}
     "tool_call_history": {},  # {package_name: [(tool_name, args_key), ...]}
     "tool_cache": {},  # {package_name: {call_key: result, ...}}
+    "extractions": {},  # {package_dir: {"archive": path, "fingerprint": [...]}}
 }
+
+# Directory that holds the per-package working copies; file tools refuse paths
+# outside it. The client passes it through the environment.
+TEMP_ROOT = os.path.realpath(os.getenv("BENCH_TEMP_DIR", "temp_workspace"))
+FILE_MAX_CHARS = 60000
+
+
+def _in_workspace(path) -> bool:
+    real = os.path.realpath(str(path))
+    return real == TEMP_ROOT or real.startswith(TEMP_ROOT + os.sep)
+
+
+def _outside(path) -> str:
+    return (f"Error: '{path}' is outside the package workspace "
+            f"({os.path.relpath(TEMP_ROOT)}); use paths inside the package directory.")
+
+
+def _package_and_rel(file_path):
+    rel = os.path.relpath(os.path.realpath(file_path), TEMP_ROOT)
+    parts = rel.split(os.sep)
+    return parts[0], os.sep.join(parts[1:]) or rel
+
+
+def _fingerprint(directory):
+    entries = []
+    for root, _, files in os.walk(directory):
+        for name in files:
+            path = os.path.join(root, name)
+            st = os.lstat(path)
+            entries.append((os.path.relpath(path, directory), st.st_size, st.st_mtime_ns))
+    return sorted(entries)
 
 
 @mcp.tool()
@@ -37,6 +70,7 @@ def init_package_environment_tool(
     try:
         package_temp_dir = os.path.join(temp_work_dir, package_name)
         server_state["modification_history"].pop(package_name, None)
+        server_state["extractions"].pop(os.path.realpath(package_temp_dir), None)
         if os.path.exists(package_temp_dir):
             shutil.rmtree(package_temp_dir)
         os.makedirs(package_temp_dir, exist_ok=True)
@@ -58,6 +92,11 @@ def init_package_environment_tool(
                 shutil.copytree(src, dst, dirs_exist_ok=True)
             else:
                 shutil.copy2(src, dst)
+
+        # keep the original failure: log_failed.txt is replaced after each failed build
+        original_log = os.path.join(package_temp_dir, "log_failed.txt")
+        if os.path.exists(original_log):
+            shutil.copy2(original_log, os.path.join(package_temp_dir, "log_failed_original.txt"))
 
         result_file = os.path.join(result_dir, f"{package_name}_result.txt")
 
@@ -222,19 +261,37 @@ def update_prompt_with_history_tool(
 
 
 @mcp.tool()
-def get_file_content_tool(file_path: str) -> str:
+def get_file_content_tool(file_path: str, start_line: int = 1, max_lines: int = 0) -> str:
     """
-    Get file contents
+    Get file contents.
     Args:
-        file_path: Absolute file path
+        file_path: Path of the file inside the package directory
+        start_line: First line to return (1-based, default 1)
+        max_lines: Number of lines to return (default 0: until the end of the file)
     Returns:
-        File contents
+        File contents. Very large files are shortened in the middle; read a
+        specific part with start_line/max_lines.
     """
+    if not _in_workspace(file_path):
+        return _outside(file_path)
     try:
         if not os.path.exists(file_path):
             return f"Error: File not found - {file_path}"
-        with open(file_path, "r", encoding="utf-8") as f:
-            return f.read()
+        with open(file_path, "r", encoding="utf-8", errors="replace") as f:
+            text = f.read()
+        if start_line > 1 or max_lines > 0:
+            lines = text.splitlines(keepends=True)
+            first = max(start_line, 1) - 1
+            last = len(lines) if max_lines <= 0 else min(len(lines), first + max_lines)
+            text = f"[lines {first + 1}-{last} of {len(lines)}]\n" + "".join(lines[first:last])
+        if len(text) > FILE_MAX_CHARS:
+            head = FILE_MAX_CHARS // 3
+            tail = FILE_MAX_CHARS - head
+            omitted = len(text) - head - tail
+            text = (text[:head]
+                    + f"\n... [{omitted} characters omitted; use start_line/max_lines to read them] ...\n"
+                    + text[-tail:])
+        return text
     except Exception as e:
         return f"Error reading file: {str(e)}"
 
@@ -357,6 +414,8 @@ def get_structure_of_files(package_path) -> str:
     Args:
         package_path (str): Package path.
     """
+    if not _in_workspace(package_path):
+        return _outside(package_path)
     text = json.dumps(get_project_structure_from_local(package_path), indent=1)
     if len(text) > STRUCTURE_MAX_CHARS:
         text = (text[:STRUCTURE_MAX_CHARS]
@@ -368,37 +427,40 @@ def get_structure_of_files(package_path) -> str:
 @mcp.tool()
 def modify_file_tool(file_path: str, new_content: str):
     """
-    Replace entire file content with new content.
+    Replace the entire content of a file, or create a new file, inside the package directory.
     Args:
-        file_path (str): File path to modify.
-        new_content (str): New content to write.
+        file_path (str): File path to modify or create.
+        new_content (str): Complete new content of the file.
     """
+    if not _in_workspace(file_path):
+        return _outside(file_path)
     try:
-        if not os.path.exists(file_path):
-            return f"Error: File does not exist - {file_path}"
+        created = not os.path.exists(file_path)
+        parent = os.path.dirname(file_path) or "."
+        if created and not os.path.isdir(parent):
+            return f"Error: Directory does not exist - {parent}"
 
-        package_name = file_path.split("/")[1]
+        package_name, rel_path = _package_and_rel(file_path)
         diff_log_path = f"data/case_study/{package_name}_diff.log"
 
-        # read old content
-        with open(file_path, "r", encoding="utf-8") as f:
-            old_lines = f.readlines()
+        old_lines = []
+        if not created:
+            with open(file_path, "r", encoding="utf-8") as f:
+                old_lines = f.readlines()
         new_lines = new_content.splitlines(keepends=True)
 
-        # generate diff
         diff = list(
             difflib.unified_diff(
                 old_lines,
                 new_lines,
-                fromfile=f"{file_path} (old)",
+                fromfile="/dev/null" if created else f"{file_path} (old)",
                 tofile=f"{file_path} (new)",
                 lineterm="",
             )
         )
 
-        # record the change for the next attempt's prompt
         if diff:
-            rel_path = "/".join(file_path.split("/")[2:]) or file_path
+            # record the change for the next attempt's prompt
             server_state["modification_history"].setdefault(package_name, []).append(
                 {
                     "file_path": rel_path,
@@ -406,9 +468,6 @@ def modify_file_tool(file_path: str, new_content: str):
                     "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
                 }
             )
-
-        # write diff to log (with timestamp)
-        if diff:
             with open(diff_log_path, "a", encoding="utf-8") as log:
                 log.write("\n" + "=" * 80 + "\n")
                 log.write(f"Timestamp: {datetime.now()}\n")
@@ -420,9 +479,15 @@ def modify_file_tool(file_path: str, new_content: str):
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(new_content)
 
-        return (
-            f"Success: Replaced content of {file_path}\nPreview: {new_content[:100]}..."
-        )
+        action = "Created" if created else "Replaced content of"
+        message = f"Success: {action} {file_path}\nPreview: {new_content[:100]}..."
+        if file_path.endswith((".patch", ".diff")):
+            problems = check_patch_format(new_content)
+            if problems:
+                message += ("\nWarning: this patch is malformed and will be rejected when the "
+                            "package is built (rpm applies patches with --fuzz=0): "
+                            + "; ".join(problems))
+        return message
 
     except Exception as e:
         return f"Modify file failed: {str(e)}"
@@ -444,8 +509,15 @@ def get_archive_format(file_path: str) -> tuple:
 
 
 @mcp.tool()
-def extract_archive_tool(package_path: str):
-    """Extract archive files in various formats"""
+def extract_archive_tool(package_path: str, force: bool = False):
+    """
+    Extract the package's source archive into <package_path>/extracted.
+    Args:
+        package_path: Package directory (or a specific archive inside it)
+        force: Extract again even if extracted/ exists, discarding edits made inside it
+    """
+    if not _in_workspace(package_path):
+        return _outside(package_path)
     try:
         archive_path = None
         package_dir = None
@@ -461,25 +533,25 @@ def extract_archive_tool(package_path: str):
                 return f"Error: Unsupported archive format for '{package_path}'"
 
         elif os.path.isdir(package_path):
-            found = False
-            for item in os.listdir(package_path):
+            for item in sorted(os.listdir(package_path)):
                 item_path = os.path.join(package_path, item)
-                if os.path.isfile(item_path):
-                    fmt, _ = get_archive_format(item_path)
-                    if fmt:
-                        archive_path = item_path
-                        archive_file = item
-                        package_dir = package_path
-                        found = True
-                        break
-
-            if not found:
+                if os.path.isfile(item_path) and get_archive_format(item_path)[0]:
+                    archive_path = item_path
+                    archive_file = item
+                    package_dir = package_path
+                    break
+            if archive_path is None:
                 return f"Error: No supported archive in '{package_path}'"
 
         else:
             return f"Error: Invalid path '{package_path}'"
 
         extract_dir = os.path.join(package_dir, "extracted")
+        if os.path.exists(extract_dir) and not force:
+            previous = server_state["extractions"].get(os.path.realpath(package_dir), {})
+            source = os.path.basename(previous.get("archive", "")) or "an archive"
+            return (f"Already extracted to {extract_dir} (from {source}); edits inside it are kept. "
+                    "Pass force=true to discard them and extract again.")
         if os.path.exists(extract_dir):
             shutil.rmtree(extract_dir)
         os.makedirs(extract_dir, exist_ok=True)
@@ -487,11 +559,22 @@ def extract_archive_tool(package_path: str):
         fmt, mode = get_archive_format(archive_path)
         if fmt in ["tar.gz", "tar.xz", "tar.bz2"]:
             with tarfile.open(archive_path, mode) as tar:
-                tar.extractall(extract_dir)
+                try:
+                    tar.extractall(extract_dir, filter="data")
+                except TypeError:  # Python without extraction filters
+                    tar.extractall(extract_dir)
         elif fmt == "zip":
             with zipfile.ZipFile(archive_path, "r") as zip_ref:
+                root = os.path.realpath(extract_dir) + os.sep
+                for name in zip_ref.namelist():
+                    if not os.path.realpath(os.path.join(extract_dir, name)).startswith(root):
+                        return f"Error: archive member '{name}' would be extracted outside {extract_dir}"
                 zip_ref.extractall(extract_dir)
 
+        server_state["extractions"][os.path.realpath(package_dir)] = {
+            "archive": archive_path,
+            "fingerprint": _fingerprint(extract_dir),
+        }
         return f"Successfully extracted {archive_file} to {extract_dir}"
 
     except Exception as e:
@@ -500,7 +583,9 @@ def extract_archive_tool(package_path: str):
 
 @mcp.tool()
 def compress_to_archive_tool(package_path: str):
-    """Compress extracted directory back to original format"""
+    """Compress <package_path>/extracted back into the archive it was extracted from"""
+    if not _in_workspace(package_path):
+        return _outside(package_path)
     try:
         if not package_path or not isinstance(package_path, str):
             return "Error: package_path must be valid string"
@@ -512,21 +597,32 @@ def compress_to_archive_tool(package_path: str):
         if not os.path.exists(extracted_dir):
             return f"Error: Extracted directory '{extracted_dir}' not found"
 
+        record = server_state["extractions"].get(os.path.realpath(package_path))
         original_archive = None
         original_fmt = None
-        for item in os.listdir(package_path):
-            item_path = os.path.join(package_path, item)
-            if os.path.isfile(item_path):
-                fmt, _ = get_archive_format(item_path)
-                if fmt:
-                    original_archive = item_path
-                    original_fmt = fmt
-                    break
+        if record and os.path.exists(record["archive"]):
+            original_archive = record["archive"]
+            original_fmt = get_archive_format(original_archive)[0]
+        else:
+            for item in sorted(os.listdir(package_path)):
+                item_path = os.path.join(package_path, item)
+                if os.path.isfile(item_path):
+                    fmt, _ = get_archive_format(item_path)
+                    if fmt:
+                        original_archive = item_path
+                        original_fmt = fmt
+                        break
 
         if not original_archive:
             return f"Error: No original archive in '{package_path}'"
 
         original_filename = os.path.basename(original_archive)
+        if record and record["fingerprint"] == _fingerprint(extracted_dir):
+            shutil.rmtree(extracted_dir)
+            server_state["extractions"].pop(os.path.realpath(package_path), None)
+            return (f"No files inside {extracted_dir} changed; kept the original archive "
+                    f"{original_filename} and removed extracted/.")
+
         output_archive = os.path.join(package_path, f"{original_filename}")
 
         if os.path.exists(output_archive):
@@ -547,6 +643,7 @@ def compress_to_archive_tool(package_path: str):
                         zip_ref.write(file_path, arcname)
 
         shutil.rmtree(extracted_dir)
+        server_state["extractions"].pop(os.path.realpath(package_path), None)
         return f"Success: Compressed to {output_archive}"
 
     except Exception as e:
@@ -556,6 +653,8 @@ def compress_to_archive_tool(package_path: str):
 @mcp.tool()
 def upload_file_to_obs_tool(package_path: str):
     """Upload repaired package to OBS"""
+    if not _in_workspace(package_path):
+        return _outside(package_path)
     if not os.path.isdir(package_path):
         return f"Error: '{package_path}' is not a directory"
 
@@ -580,6 +679,8 @@ def upload_file_to_obs_tool(package_path: str):
 @mcp.tool()
 def check_build_result(input_dir: str, package_name: str):
     """Check build result in OBS"""
+    if not _in_workspace(input_dir):
+        return _outside(input_dir)
     try:
         obs_result = check_main(input_dir, package_name)
         return f"Build result: {obs_result}"
