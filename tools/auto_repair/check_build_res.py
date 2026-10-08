@@ -7,13 +7,15 @@ from requests.auth import HTTPBasicAuth
 from xml.etree import ElementTree
 
 from tools.auto_repair.obs_config import load_obs_config
+from tools.auto_repair.obs_http import obs_request
+from tools.auto_repair.log_excerpt import error_excerpt
 
 FINAL = {"succeeded", "failed", "unresolvable", "broken", "excluded", "disabled"}
 LOG_SRCMD5 = re.compile(r"srcmd5 '([0-9a-f]{32})'")
 
 
 def _get(url, auth, **params):
-    r = requests.get(url, auth=auth, params=params, timeout=600)
+    r = obs_request("GET", url, auth=auth, params=params, timeout=600)
     r.raise_for_status()
     return r
 
@@ -62,7 +64,9 @@ def check_main(temp_dir: str, package_name: str) -> str:
                         path = os.path.join(temp_dir, "log_failed.txt")
                         with open(path, "wb") as f:
                             f.write(log)
-                        return f"Build failed! The failed log has been updated to: {path}"
+                        excerpt = error_excerpt(log.decode("utf-8", errors="replace"))
+                        return (f"Build failed! The failed log has been updated to: {path}\n"
+                                f"Key lines of the log:\n{excerpt}")
         except (requests.exceptions.RequestException, ElementTree.ParseError):
             pass
         time.sleep(cfg["check_interval"])
