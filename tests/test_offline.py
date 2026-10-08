@@ -81,11 +81,16 @@ async def main():
             "base_dir": cli.base_dir, "package_name": PKG,
             "temp_work_dir": cli.temp_work_dir, "result_dir": cli.result_dir})).content[0].text)
         assert init["success"], init
+        assert os.path.exists(f"{TMP}/log_failed_original.txt"), "original log not kept"
         cli.usage = {k: 0 for k in ("llm_calls", "tool_calls", "prompt_tokens",
                                     "completion_tokens", "cached_tokens", "cost_usd")}
+        cli.timing = {k: 0.0 for k in ("llm_seconds", "upload_seconds",
+                                       "build_check_seconds", "other_tool_seconds")}
+        cli.dirty = cli.unchecked_upload = False
         messages = [{"role": "system", "content": "test"}, {"role": "user", "content": "go"}]
-        text, ok = await cli._llm_tools_loop(PKG, init["package_path"], messages, tools)
+        text, ok, summary = await cli._llm_tools_loop(PKG, init["package_path"], messages, tools)
         assert not ok and text == "done"
+        assert summary["ended_by"] == "no_tool_calls" and summary["final_check"] is None, summary
         tool_msgs = {m["tool_call_id"]: m["content"] for m in messages if m["role"] == "tool"}
         validate_conversation(messages)
         assert "arm_neon.h" in tool_msgs["call_1"], "log was not read"
@@ -120,6 +125,28 @@ async def main():
             "formatted_prompt": "system"})).content[0].text)["messages"][1]["content"]
         assert "File: zita-resampler.spec" in upd and "+%ifarch aarch64" in upd, upd[:500]
         print("history: OK (modify_file_tool feeds the next attempt's prompt)")
+
+        async def tool(name, **args):
+            return (await cli.session.call_tool(name, args)).content[0].text
+
+        assert (await tool("get_file_content_tool", file_path="/etc/hostname")).startswith("Error:"), "path guard"
+        assert "outside the package workspace" in await tool("modify_file_tool", file_path="client.py", new_content="x")
+        assert (await tool("modify_file_tool", file_path=f"{TMP}/new-fix.patch",
+                           new_content="--- a/x\n+++ b/x\n@@ -1,2 +1,2 @@\n-a\n+b\n")).startswith("Success: Created")
+        bad = open(f"data/x86_64_to_ppc64le/{PKG}/disable-sse.patch").read().replace("+CPPFLAGS += -DENABLE_NEON\n", "")
+        assert "Warning: this patch is malformed" in await tool("modify_file_tool", file_path=f"{TMP}/disable-sse.patch", new_content=bad)
+        part = await tool("get_file_content_tool", file_path=f"{TMP}/log_failed.txt", start_line=2, max_lines=3)
+        assert part.startswith("[lines 2-4 of "), part[:80]
+        print("file tools: OK (workspace guard, new files, patch check, line ranges)")
+
+        assert (await tool("extract_archive_tool", package_path=TMP)).startswith("Successfully extracted")
+        assert (await tool("extract_archive_tool", package_path=TMP)).startswith("Already extracted")
+        assert (await tool("compress_to_archive_tool", package_path=TMP)).startswith("No files inside")
+        assert (await tool("extract_archive_tool", package_path=TMP)).startswith("Successfully extracted")
+        mk = f"{TMP}/extracted/zita-resampler-1.11.2/source/Makefile"
+        await tool("modify_file_tool", file_path=mk, new_content=open(mk).read() + "# edited\n")
+        assert (await tool("compress_to_archive_tool", package_path=TMP)).startswith("Success: Compressed")
+        print("archive tools: OK (no silent re-extraction, unchanged archives kept)")
 
         up = (await cli.session.call_tool("upload_file_to_obs_tool", {"package_path": TMP})).content[0].text
         assert "credentials missing" in up, up

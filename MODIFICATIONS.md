@@ -41,16 +41,61 @@ improvements` shows them file by file.
   describes this history as part of every iteration's input. The history is
   cleared when a package is prepared.
 
+- Prompt (`prompts/full_file_generation.txt`) aligned with the tool workflow:
+  it lists the seven tools, ends every repair cycle with compress → upload →
+  `check_build_result`, states the real build wait (`obs.max_wait_seconds`),
+  explains `log_failed.txt` vs `log_failed_original.txt` and that patches are
+  applied with `--fuzz=0`. Removed the "Output format" section (answer only
+  with `===FILE: …===` blocks) and the request to save results to a file, which
+  contradicted tool use: a reply without tool calls ends the attempt.
+- Final verification instead of the fallback upload: when an attempt ends with
+  edits that were never uploaded, files changed inside `extracted/`, or an
+  upload whose build was never checked, the client compresses, uploads and
+  checks the build itself. A success found this way is recorded with
+  `success_verified_by: "framework"` (`"agent"` when the model checked it).
+- The client no longer makes a 21st model call whose answer was discarded.
+- `log_failed_original.txt` keeps the failure that motivated the task;
+  `log_failed.txt` is still replaced by the latest failed build, as in the
+  paper.
+- `check_build_result` returns the key lines of a failed build log
+  (`tools/auto_repair/log_excerpt.py`), so the model does not need to reread
+  the whole log.
+- `modify_file_tool` can create new files (for example a new patch) and warns
+  when a `.patch`/`.diff` file is malformed, using the same hunk-count rule as
+  `patch --fuzz=0` (`tools/auto_repair/patch_check.py`).
+- `get_file_content_tool` accepts `start_line`/`max_lines` and shortens files
+  larger than 60,000 characters in the middle.
+- `extract_archive_tool` no longer silently discards edits made inside
+  `extracted/` (it needs `force=true`), extracts tar archives with
+  `filter="data"` and rejects zip members outside the target directory.
+  `compress_to_archive_tool` repacks the archive that was extracted, and keeps
+  it untouched when nothing inside `extracted/` changed.
+- File tools refuse paths outside the working directory (`BENCH_TEMP_DIR`, set
+  by the client from `paths.temp_work_dir`).
+- No tool result is cached any more: the only cached tool,
+  `get_structure_of_files`, returned stale listings after an extraction.
+- OBS requests are retried on timeouts and transient errors (408, 429, 5xx)
+  (`tools/auto_repair/obs_http.py`), and uploads only send files whose md5
+  differs from the committed revision.
+- `<package>_result.json` adds `timing` (model, upload, build check and other
+  tools), one summary per attempt (rounds, how it ended, build results, final
+  check) and `run` metadata (git commit and branch, config, limits). The full
+  conversation of every attempt is saved as
+  `<package>_attempt<N>_messages.json` in the log directory.
+- `scripts/run_repeats.sh <label> <n> [config]` runs the benchmark N times and
+  archives each run in its own directory; `scripts/summarize_runs.py` prints a
+  table and the success rate per label.
+- `tests/test_helpers.py` (no dependencies) covers the patch check and the log
+  excerpt; `tests/test_offline.py` covers the new file and archive behaviour.
+
 ### Planned
 - Count a repair as successful only if the package still builds on the source
   architecture.
-- Do not end an attempt with an unverified fallback upload.
-- Invalidate the cached `get_structure_of_files` result after extraction or
-  modification.
-- Make `extract_archive_tool`/`compress_to_archive_tool` act on the same
-  archive when a package ships several.
-- Restrict file tools to the package's temporary directory and extract
-  archives with `filter="data"`.
+- Use one OBS project per migration direction, so that a package name present
+  in both directions cannot clash.
+- Classify candidate failures during dataset triage (skip infrastructure
+  failures such as "no compliant workers") and filter by source size and
+  build time.
 - Port the Patch strategy (`client_patch.py`) to the per-direction configs.
 - Update `README.md`.
 
