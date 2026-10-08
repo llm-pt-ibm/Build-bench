@@ -1,4 +1,5 @@
 import asyncio
+import subprocess
 import sys
 import os
 import json
@@ -60,7 +61,9 @@ class LLMConfig:
         return OpenAI(api_key=self.api_key)
 
 
-CACHEABLE_TOOLS = {"get_structure_of_files"}
+# No tool result is cached: the files change while the agent works, so a cached
+# structure listing would go stale after an extraction or an edit.
+CACHEABLE_TOOLS = set()
 
 # Repair tools the LLM may call (the agent tools described in the Build-bench
 # paper). The other server tools are bookkeeping used only by this client.
@@ -73,6 +76,25 @@ LLM_TOOLS = (
     "upload_file_to_obs_tool",
     "check_build_result",
 )
+
+
+def run_metadata(max_build_attempts: int, max_tool_rounds: int) -> Dict:
+    def git(*args):
+        try:
+            out = subprocess.run(["git", *args], capture_output=True, text=True, timeout=10)
+            return out.stdout.strip() if out.returncode == 0 else None
+        except Exception:
+            return None
+
+    status = git("status", "--porcelain", "--untracked-files=no")
+    return {
+        "git_commit": git("rev-parse", "--short", "HEAD"),
+        "git_branch": git("rev-parse", "--abbrev-ref", "HEAD"),
+        "git_uncommitted_changes": bool(status) if status is not None else None,
+        "config": CONFIG_PATH,
+        "max_build_attempts": max_build_attempts,
+        "max_tool_rounds": max_tool_rounds,
+    }
 
 
 def make_args_key(tool_name: str, tool_args: dict) -> str:
@@ -88,7 +110,7 @@ class AutoRepairClient:
     - Features from both originals:
         * repeat-call guard + caching of tool results
         * upload-before-check-build enforcement
-        * fallback auto-upload if model doesn't upload
+        * final verification: edits or uploads the model left unchecked are built
     """
 
     def __init__(
@@ -118,6 +140,8 @@ class AutoRepairClient:
         os.makedirs(self.result_dir, exist_ok=True)
         os.makedirs(self.temp_work_dir, exist_ok=True)
         os.makedirs(self.log_dir, exist_ok=True)
+        # the MCP server limits its file tools to this directory
+        os.environ["BENCH_TEMP_DIR"] = self.temp_work_dir
 
         self.server_script = server_script
         self.max_retries = max_retries
@@ -238,6 +262,12 @@ class AutoRepairClient:
         success_attempt = None
         self.usage = {"llm_calls": 0, "tool_calls": 0, "prompt_tokens": 0,
                       "completion_tokens": 0, "cached_tokens": 0, "cost_usd": 0.0}
+        self.timing = {"llm_seconds": 0.0, "upload_seconds": 0.0,
+                       "build_check_seconds": 0.0, "other_tool_seconds": 0.0}
+        self.dirty = False            # files changed since the last upload
+        self.unchecked_upload = False  # an upload whose build was never checked
+        attempts = []
+        verified_by = None
         t0 = time.time()
 
         # Multiple build attempts
@@ -265,6 +295,7 @@ class AutoRepairClient:
                         temp_dir=package_path,
                         source_arch=info["source_arch"],
                         target_arch=info["target_arch"],
+                        build_wait_minutes=int(info.get("obs", {}).get("max_wait_seconds", 3600)) // 60,
                     ),
                 },
             )
@@ -274,10 +305,13 @@ class AutoRepairClient:
             if messages and messages[0].get("role") != "system":
                 messages.insert(0, {"role": "system", "content": system_prompt_tpl})
 
-            content, ok = await self._llm_tools_loop(
+            content, ok, summary = await self._llm_tools_loop(
                 package_name, package_path, messages, tools
             )
+            attempts.append({"attempt": attempt, **summary})
+            self._save_transcript(package_name, attempt, messages)
             if ok:
+                verified_by = summary["verified_by"]
                 build_succeeded = True
                 success_attempt = attempt
                 final_text = f"Build succeeded on attempt {attempt}.\n{content or ''}"
@@ -292,7 +326,11 @@ class AutoRepairClient:
                        "temperature": LLM_TEMPERATURE,
                        "direction": f"{info['source_arch']}_to_{info['target_arch']}",
                        "success": build_succeeded, "success_attempt": success_attempt,
-                       "minutes": round((time.time() - t0) / 60, 2), **self.usage},
+                       "success_verified_by": verified_by,
+                       "minutes": round((time.time() - t0) / 60, 2), **self.usage,
+                       "timing": {k: round(v, 1) for k, v in self.timing.items()},
+                       "attempts": attempts,
+                       "run": run_metadata(self.max_build_attempts, self.max_tool_rounds)},
                       f, indent=2)
         self._log(package_name, f"Final saved to {result_file} | usage: {json.dumps(self.usage)}")
         if not build_succeeded:
@@ -306,13 +344,17 @@ class AutoRepairClient:
             kwargs["extra_body"] = {"usage": {"include": True}}
             if OPENROUTER_PROVIDER:
                 kwargs["extra_body"]["provider"] = {"order": [OPENROUTER_PROVIDER], "allow_fallbacks": False}
-        resp = self.client.chat.completions.create(
-            model=self.llm_cfg.model,
-            messages=messages,
-            tools=tools,
-            tool_choice="auto",
-            **kwargs,
-        )
+        started = time.time()
+        try:
+            resp = self.client.chat.completions.create(
+                model=self.llm_cfg.model,
+                messages=messages,
+                tools=tools,
+                tool_choice="auto",
+                **kwargs,
+            )
+        finally:
+            self.timing["llm_seconds"] += time.time() - started
         u = resp.usage
         self.usage["llm_calls"] += 1
         if u is not None:
@@ -358,6 +400,7 @@ class AutoRepairClient:
         if cache.get("hit"):
             tool_ret = cache["result"]
         else:
+            started = time.time()
             try:
                 res = await asyncio.wait_for(self.session.call_tool(tool_name, tool_args), timeout=TOOL_TIMEOUT)
                 tool_ret = res.content[0].text if res.content else ""
@@ -369,6 +412,10 @@ class AutoRepairClient:
                 tool_ret = f"Error: Tool {tool_name} timed out"
             except Exception as e:
                 tool_ret = f"Error: Tool {tool_name} failed: {e}"
+            bucket = {"upload_file_to_obs_tool": "upload_seconds",
+                      "check_build_result": "build_check_seconds"}.get(tool_name, "other_tool_seconds")
+            self.timing[bucket] += time.time() - started
+            self._track_package_state(tool_name, tool_ret)
         await self.session.call_tool("record_tool_call_history", {"call_key": args_key, "package_name": package_name})
 
         if tool_name == "upload_file_to_obs_tool" and tool_ret.startswith("Upload successful"):
@@ -376,28 +423,97 @@ class AutoRepairClient:
             self._log(package_name, "✓ Upload marked as successful")
         return tool_name, tool_ret
 
+    def _track_package_state(self, tool_name: str, tool_ret: str, by_framework: bool = False):
+        if tool_name == "modify_file_tool" and tool_ret.startswith("Success"):
+            self.dirty = True
+        elif tool_name == "compress_to_archive_tool" and tool_ret.startswith("Success: Compressed"):
+            self.dirty = True
+        elif tool_name == "upload_file_to_obs_tool" and tool_ret.startswith("Upload successful"):
+            self.dirty = False
+            self.unchecked_upload = True
+        elif tool_name == "check_build_result" and tool_ret.startswith("Build result:"):
+            self.unchecked_upload = False
+            line = tool_ret.splitlines()[0]
+            self.builds.append(f"{line} (framework)" if by_framework else line)
+
+    def _save_transcript(self, package_name: str, attempt: int, messages: List[Dict]):
+        path = os.path.join(self.log_dir, f"{package_name}_attempt{attempt}_messages.json")
+        try:
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(messages, f, ensure_ascii=False, indent=1, default=str)
+        except Exception as e:
+            self._log(package_name, f"Could not save transcript: {e}")
+
+    async def _call(self, tool_name: str, args: Dict, bucket: str) -> str:
+        started = time.time()
+        try:
+            res = await asyncio.wait_for(self.session.call_tool(tool_name, args), timeout=TOOL_TIMEOUT)
+            return res.content[0].text if res.content else ""
+        finally:
+            self.timing[bucket] += time.time() - started
+
+    async def _final_verification(self, package_name: str, package_path: str, summary: Dict) -> bool:
+        """Build what the agent left unverified, so that a repair is never lost.
+
+        Runs when the attempt ends with edits that were never uploaded or with an
+        upload whose build was never checked.
+        """
+        steps = []
+        try:
+            if os.path.isdir(os.path.join(package_path, "extracted")):
+                ret = await self._call("compress_to_archive_tool", {"package_path": package_path},
+                                       "other_tool_seconds")
+                steps.append(f"compress: {ret[:200]}")
+                self._track_package_state("compress_to_archive_tool", ret, by_framework=True)
+            if self.dirty:
+                ret = await self._call("upload_file_to_obs_tool", {"package_path": package_path},
+                                       "upload_seconds")
+                steps.append(f"upload: {ret[:200]}")
+                self._track_package_state("upload_file_to_obs_tool", ret, by_framework=True)
+            if self.unchecked_upload:
+                ret = await self._call("check_build_result",
+                                       {"input_dir": package_path, "package_name": package_name},
+                                       "build_check_seconds")
+                steps.append(f"check: {ret.splitlines()[0] if ret else ret}")
+                self._track_package_state("check_build_result", ret, by_framework=True)
+                parsed = await self.session.call_tool(
+                    "parse_build_result_tool", {"result_content": ret, "package_name": package_name})
+                if json.loads(parsed.content[0].text).get("success", False):
+                    summary["verified_by"] = "framework"
+        except Exception as e:
+            steps.append(f"error: {e}")
+        for step in steps:
+            self._log(package_name, f"[final check] {step}")
+        summary["final_check"] = steps or None
+        return summary["verified_by"] == "framework"
+
     async def _llm_tools_loop(
         self,
         package_name: str,
         package_path: str,
         messages: List[Dict],
         tools: List[Dict],
-    ) -> Tuple[str, bool]:
+    ) -> Tuple[str, bool, Dict]:
         assert self.session is not None
         self.upload_status[package_name] = False
-        did_upload = False
+        self.builds = []
+        summary = {"rounds": 0, "ended_by": None, "builds": self.builds,
+                   "verified_by": None, "final_check": None}
         latest_text = ""
 
         try:
             choice = self._chat(messages, tools)
         except Exception as e:
             self._log(package_name, f"Model call failed: {e}")
-            return f"Model call failed: {e}", False
+            summary["ended_by"] = "model_error"
+            ok = await self._final_verification(package_name, package_path, summary)
+            return f"Model call failed: {e}", ok, summary
         latest_text = choice.message.content or ""
 
         rounds = 0
-        while rounds < self.max_tool_rounds and choice.message.tool_calls:
+        while choice.message.tool_calls:
             rounds += 1
+            summary["rounds"] = rounds
             self._log(package_name, f"== Tool round {rounds} ==")
 
             messages.append({
@@ -408,30 +524,30 @@ class AutoRepairClient:
             succeeded = False
             for tc in choice.message.tool_calls:
                 tool_name, tool_ret = await self._run_one_tool(package_name, tc)
-                did_upload = did_upload or self.upload_status.get(package_name, False)
                 messages.append({"role": "tool", "tool_call_id": tc.id, "content": tool_ret})
                 if tool_name == "check_build_result":
                     parsed = await self.session.call_tool(
                         "parse_build_result_tool", {"result_content": tool_ret, "package_name": package_name})
                     succeeded = succeeded or json.loads(parsed.content[0].text).get("success", False)
             if succeeded:
-                return latest_text, True
+                summary.update(ended_by="success", verified_by="agent")
+                return latest_text, True, summary
 
+            if rounds >= self.max_tool_rounds:
+                summary["ended_by"] = "round_limit"
+                break
             try:
                 choice = self._chat(messages, tools)
                 latest_text = choice.message.content or latest_text
             except Exception as e:
                 self._log(package_name, f"Model continuation failed: {e}")
+                summary["ended_by"] = "model_error"
                 break
+        else:
+            summary["ended_by"] = "no_tool_calls"
 
-        if not did_upload:
-            try:
-                up_res = await self.session.call_tool("upload_file_to_obs_tool", {"package_path": package_path})
-                self._log(package_name, f"[fallback] upload_file_to_obs_tool => {up_res.content[0].text[:300]}")
-            except Exception as e:
-                self._log(package_name, f"[fallback] upload failed: {e}")
-
-        return latest_text, False
+        ok = await self._final_verification(package_name, package_path, summary)
+        return latest_text, ok, summary
 
     async def cleanup(self):
         try:
