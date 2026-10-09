@@ -62,7 +62,9 @@ improvements` shows them file by file.
   the whole log. For patch failures they include the message of `patch` (for
   example "patch unexpectedly ends in middle of line") and the `Patch #N`
   header of the failing patch; lines from installing the build environment are
-  skipped.
+  skipped, and so are `-Winline` "inlining failed" warnings.
+- `BENCH_PACKAGES` (optional, comma-separated) limits a run to those packages
+  of the data directory.
 - `BENCH_FINAL_NEWLINE` (default `add`, or `off`): `modify_file_tool` adds the
   final newline to the content of a new file or of a file that had one.
   DeepSeek V4 (StreamLake, Alibaba and Relace) and Qwen3-Coder cannot end a

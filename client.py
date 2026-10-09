@@ -19,6 +19,8 @@ with open(CONFIG_PATH, "r") as f:
     info = yaml.safe_load(f)
 TOOL_TIMEOUT = int(info.get("obs", {}).get("max_wait_seconds", 3600)) + 300
 OPENROUTER_PROVIDER = os.getenv("OPENROUTER_PROVIDER")
+# Optional comma-separated list of packages to run (default: every package)
+BENCH_PACKAGES = {p.strip() for p in os.getenv("BENCH_PACKAGES", "").split(",") if p.strip()}
 LLM_TEMPERATURE = float(os.environ["LLM_TEMPERATURE"]) if os.getenv("LLM_TEMPERATURE") else None
 
 
@@ -218,6 +220,8 @@ class AutoRepairClient:
             return
 
         packages = pkg_info.get("packages", [])
+        if BENCH_PACKAGES:
+            packages = [p for p in packages if p in BENCH_PACKAGES]
         self._log("global", f"Found {len(packages)} packages.")
 
         tools = await self.list_tools_openai_format()

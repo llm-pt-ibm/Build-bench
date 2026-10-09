@@ -17,7 +17,7 @@ PATCH_ERROR = re.compile(
 PATCH_HEADER = re.compile(r"^(\[\s*\d+s\]\s*)?Patch #\d+ \(")
 PATCHING_FILE = re.compile(r"^(\[\s*\d+s\]\s*)?patching file ")
 NOISE = re.compile(
-    r"libgpg-error|-Werror|-Wno-error|error\.[ch]\b|errors?\.(c|h|o|go)\b"
+    r"libgpg-error|-Werror|-Wno-error|error\.[ch]\b|errors?\.(c|h|o|go)\b|inlining failed"
     r"|scriptlet failed|VM INTERACTION|sysrq:|^(\[\s*\d+s\]\s*)?\S+ failed \"build "
 )
 # Start of the package build; lines before it come from installing the build
@@ -63,6 +63,6 @@ def error_excerpt(log_text: str, max_key_lines: int = 15, tail_lines: int = 5) -
         elif KEY_LINE.search(line):
             add(line)
     key = key[-max_key_lines:]
-    tail = [l for l in lines[-tail_lines:]
+    tail = [l for l in (lines[-tail_lines:] if tail_lines > 0 else [])
             if _text(l) and _text(l) not in seen and not NOISE.search(l)]
     return "\n".join(key + (["..."] if key and tail else []) + tail)
