@@ -9,7 +9,7 @@ API = "https://api.opensuse.org/public"
 PROJ = {"x86_64": "openSUSE:Factory", "ppc64le": "openSUSE:Factory:PowerPC"}
 
 
-def main(pkg: str, direction: str) -> None:
+def main(pkg: str, direction: str, log_pkg: str = "") -> None:
     src_arch, tgt_arch = direction.split("_to_")
     src_prj, tgt_prj = PROJ[src_arch], PROJ[tgt_arch]
     out = os.path.join(os.path.dirname(__file__), "..", "data", direction, pkg)
@@ -26,7 +26,7 @@ def main(pkg: str, direction: str) -> None:
         files.append({"name": name, "size": e.get("size")})
         print(f"  {name} ({int(e.get('size')) // 1024} KiB)")
 
-    log = requests.get(f"{API}/build/{tgt_prj}/standard/{tgt_arch}/{pkg}/_log", timeout=600)
+    log = requests.get(f"{API}/build/{tgt_prj}/standard/{tgt_arch}/{log_pkg or pkg}/_log", timeout=600)
     log.raise_for_status()
     with open(os.path.join(out, "log_failed.txt"), "wb") as f:
         f.write(log.content)
@@ -45,4 +45,6 @@ def main(pkg: str, direction: str) -> None:
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    # optional third argument: package name of the failing log, e.g. a
+    # multibuild flavor such as python-torch:standard
+    main(*sys.argv[1:4])

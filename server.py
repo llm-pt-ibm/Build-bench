@@ -8,6 +8,8 @@ from datetime import datetime
 from tools.auto_repair.get_repo_structure import get_project_structure_from_local
 from tools.auto_repair.check_build_res import check_main
 from tools.auto_repair.upload_files import main_upload
+from tools.auto_repair.local_build import local_upload, local_check
+from tools.auto_repair.obs_config import load_obs_config
 from tools.auto_repair.patch_check import check_patch_format
 import tarfile
 import zipfile
@@ -679,7 +681,11 @@ def upload_file_to_obs_tool(package_path: str):
 
     package_name = os.path.basename(package_path)
     try:
-        obs_result = main_upload(package_name, package_path)
+        cfg = load_obs_config()
+        if cfg["backend"] == "local":
+            obs_result = local_upload(package_name, package_path, cfg)
+        else:
+            obs_result = main_upload(package_name, package_path)
         if "error" in str(obs_result).lower():
             return f"Upload failed: {obs_result}"
         return f"Upload successful. Result: {obs_result}"
@@ -693,7 +699,11 @@ def check_build_result(input_dir: str, package_name: str):
     if not _in_workspace(input_dir):
         return _outside(input_dir)
     try:
-        obs_result = check_main(input_dir, package_name)
+        cfg = load_obs_config()
+        if cfg["backend"] == "local":
+            obs_result = local_check(input_dir, package_name, cfg)
+        else:
+            obs_result = check_main(input_dir, package_name)
         return f"Build result: {obs_result}"
     except Exception as e:
         return f"Build check error: {str(e)}"

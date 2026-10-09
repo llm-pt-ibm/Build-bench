@@ -97,6 +97,7 @@ def run_metadata(max_build_attempts: int, max_tool_rounds: int) -> Dict:
         "max_build_attempts": max_build_attempts,
         "max_tool_rounds": max_tool_rounds,
         "final_newline": os.getenv("BENCH_FINAL_NEWLINE", "add").lower(),
+        "build_backend": (os.getenv("BENCH_BUILD_BACKEND") or (info.get("build") or {}).get("backend", "obs")).lower(),
     }
 
 

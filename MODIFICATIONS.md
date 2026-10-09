@@ -63,6 +63,21 @@ improvements` shows them file by file.
   example "patch unexpectedly ends in middle of line") and the `Patch #N`
   header of the failing patch; lines from installing the build environment are
   skipped, and so are `-Winline` "inlining failed" warnings.
+- Local build backend (`build.backend: local` in the config, or
+  `BENCH_BUILD_BACKEND=local`): `upload_file_to_obs_tool` copies the sources
+  and starts `osc build` in a local worker, and `check_build_result` waits for
+  it and returns the same messages as with OBS
+  (`tools/auto_repair/local_build.py`). The worker is an openSUSE Tumbleweed
+  chroot created by `scripts/local_worker/setup.sh`; `osc build` resolves the
+  dependencies against `openSUSE:Factory:PowerPC/standard`, as OBS does, and
+  the saved log keeps only the build output. It removes the OBS worker
+  constraints (packages such as python-torch never start on OBS ppc64le
+  workers: "no compliant workers") and the queue. The zita-resampler failure
+  reproduces locally (`arm_neon.h`, 18 s). `config/x86_64_to_ppc64le_local.yaml`
+  uses it, with separate result directories and a 6 h build timeout. The
+  backend is recorded in `run.build_backend`.
+- `dataset/fetch_package.py` accepts the package name of the failing log as a
+  third argument (for multibuild flavors such as `python-torch:standard`).
 - `BENCH_PACKAGES` (optional, comma-separated) limits a run to those packages
   of the data directory.
 - `BENCH_FINAL_NEWLINE` (default `add`, or `off`): `modify_file_tool` adds the

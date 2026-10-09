@@ -40,4 +40,45 @@ for expected in ("Patch #1 (disable-sse.patch)", "unexpectedly ends", "Hunk #1 F
     assert expected in excerpt, excerpt
 assert "fix-makefile" not in excerpt and excerpt.count("Bad exit status") == 1, excerpt
 print("log excerpt: OK")
+import json, shutil, tempfile  # noqa: E402
+import tools.auto_repair.local_build as local_build  # noqa: E402
+
+work = tempfile.mkdtemp()
+fake = os.path.join(work, "fake_build.sh")
+with open(fake, "w") as f:
+    f.write('#!/bin/bash\n'
+            'test -f "$OBS_WORKER_ROOT/rootfs/var/tmp/bench-src/$2/p.spec" || exit 9\n'
+            'echo "1/2 (P) foo.rpm"\n'
+            'echo "[    0s] ----- building p.spec"\n'
+            'if grep -q broken "$OBS_WORKER_ROOT/rootfs/var/tmp/bench-src/$2/p.spec"; then\n'
+            '  echo "[    1s] p.c:1:1: error: boom"; echo "[    1s] error: Bad exit status from x (%build)"\n'
+            '  echo "Build failed with exit code 1"; exit 1; fi\n'
+            'echo ok\n')
+os.chmod(fake, 0o755)
+local_build.BUILD_SCRIPT = fake
+cfg = {"max_wait_seconds": 60, "check_interval": 1,
+       "local": {"worker_root": os.path.join(work, "worker"), "project": "P", "repository": "standard",
+                 "arch": "ppc64le", "jobs": 1}}
+pkg_dir = os.path.join(work, "p")
+os.makedirs(pkg_dir)
+open(os.path.join(pkg_dir, "log_failed.txt"), "w").write("old")
+open(os.path.join(pkg_dir, "p.spec"), "w").write("broken\n")
+assert local_build.local_check(pkg_dir, "p", cfg).startswith("Build check error: no upload")
+assert local_build.local_upload("p", pkg_dir, cfg).startswith("Success: 1 files staged")
+staged = os.listdir(os.path.join(cfg["local"]["worker_root"], "rootfs/var/tmp/bench-src/p"))
+assert staged == ["p.spec"], staged
+res = local_build.local_check(pkg_dir, "p", cfg)
+assert res.startswith("Build failed!") and "error: boom" in res, res
+saved = open(os.path.join(pkg_dir, "log_failed.txt")).read()
+assert saved.startswith("[    0s] ----- building") and saved.rstrip().endswith("(%build)"), saved
+open(os.path.join(pkg_dir, "p.spec"), "w").write("fixed\n")
+local_build.local_upload("p", pkg_dir, cfg)
+assert local_build.local_check(pkg_dir, "p", cfg).startswith("Build succeeded!")
+marker = json.load(open(os.path.join(pkg_dir, ".last_upload.json")))
+marker["srcmd5"] = "x"
+json.dump(marker, open(os.path.join(pkg_dir, ".last_upload.json"), "w"))
+assert "no build was started for the last upload" in local_build.local_check(pkg_dir, "p", cfg)
+shutil.rmtree(work)
+print("local build backend: OK")
+
 print("\nALL TESTS PASSED")
