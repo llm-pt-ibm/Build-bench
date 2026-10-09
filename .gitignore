@@ -12,3 +12,8 @@ wheels/
 
 .DS_Store
 *.orig
+
+# run logs written by scripts/run_repeats.sh, run_pilot.sh and dataset/setup_obs.py
+repeats_*.log
+pilot_*.log
+setup_obs.log
