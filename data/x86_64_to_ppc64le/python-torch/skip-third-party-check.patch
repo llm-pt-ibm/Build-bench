@@ -1,0 +1,28 @@
+From 4f4138cfc5a4ea59384b613a4389bf388ebfa7bb Mon Sep 17 00:00:00 2001
+From: Christian Goll <cgoll@suse.com>
+Date: Fri, 5 Jul 2024 14:53:32 +0200
+Subject: [PATCH] skip-third-party-check
+
+Signed-off-by: Christian Goll <cgoll@suse.com>
+---
+ cmake/public/utils.cmake | 3 ++-
+ setup.py                 | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/cmake/public/utils.cmake b/cmake/public/utils.cmake
+index 78a90dbc587..172f8ef422c 100644
+--- a/cmake/public/utils.cmake
++++ b/cmake/public/utils.cmake
+@@ -185,7 +185,8 @@ endfunction()
+ macro(caffe2_update_option variable value)
+   if(CAFFE2_CMAKE_BUILDING_WITH_MAIN_REPO)
+     get_property(__help_string CACHE ${variable} PROPERTY HELPSTRING)
+-    set(${variable} ${value} CACHE BOOL ${__help_string} FORCE)
++    #set(${variable} ${value} CACHE BOOL ${__help_string} FORCE)
++    set(${variable} ${value})
+   else()
+     set(${variable} ${value})
+   endif()
+-- 
+2.43.0
+

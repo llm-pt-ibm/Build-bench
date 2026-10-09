@@ -1,0 +1,5 @@
+package build was not possible:
+
+no compliant workers (constraints mismatch hint: hardware:memoryperjob)
+
+Please adapt your constraints.

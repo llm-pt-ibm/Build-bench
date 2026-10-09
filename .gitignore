@@ -17,3 +17,6 @@ wheels/
 repeats_*.log
 pilot_*.log
 setup_obs.log
+
+# sources over the GitHub file size limit; dataset/fetch_package.py downloads them
+data/x86_64_to_ppc64le/python-torch/pytorch-v*.tar.gz

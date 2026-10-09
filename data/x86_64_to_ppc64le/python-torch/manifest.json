@@ -1,0 +1,67 @@
+{
+  "task": {
+    "package": "python-torch",
+    "direction": "x86_64_to_ppc64le",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "0604abfdda50ef701a7ad081b47a99d9"
+    },
+    "target": {
+      "project": "openSUSE:Factory:PowerPC",
+      "arch": "ppc64le"
+    }
+  },
+  "files": [
+    {
+      "name": "_constraints",
+      "size": "279"
+    },
+    {
+      "name": "_multibuild",
+      "size": "87"
+    },
+    {
+      "name": "_service",
+      "size": "451"
+    },
+    {
+      "name": "disable-py312-intrinsics.patch",
+      "size": "855"
+    },
+    {
+      "name": "python-torch-rpmlintrc",
+      "size": "834"
+    },
+    {
+      "name": "python-torch.changes",
+      "size": "25788"
+    },
+    {
+      "name": "python-torch.spec",
+      "size": "17135"
+    },
+    {
+      "name": "pytorch-patch-onednn.patch",
+      "size": "457"
+    },
+    {
+      "name": "pytorch-v2.14.0.tar.gz",
+      "size": "784344345"
+    },
+    {
+      "name": "releases.html",
+      "size": "575533"
+    },
+    {
+      "name": "skip-third-party-check.patch",
+      "size": "940"
+    },
+    {
+      "name": "xnnpack-aarch64-fix.patch",
+      "size": "2348"
+    }
+  ],
+  "created_at": 1791568524,
+  "version": 1
+}

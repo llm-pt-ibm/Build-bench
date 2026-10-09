@@ -1,0 +1,53 @@
+From 7ae1761a044a7a67420433e4d03b32bd1a750ce7 Mon Sep 17 00:00:00 2001
+From: Pedro Gonnet <gonnet@google.com>
+Date: Wed, 12 Feb 2025 05:46:31 -0800
+Subject: [PATCH] Ensure non-`void` functions always return a value.
+
+PiperOrigin-RevId: 726019381
+---
+ third_party/XNNPACK/src/pf16-gemm/pf16-gemm-32x32-minmax-neonsme2.c           | 2 ++
+ third_party/XNNPACK/src/pf32-gemm/pf32-gemm-32x32-minmax-neonsme2.c           | 2 ++
+ third_party/XNNPACK/src/pqs8-qc8w-gemm/pqs8-qc8w-gemm-32x32-minmax-neonsme2.c | 2 ++
+ third_party/XNNPACK/src/x16-pack-lh/x16-packlh-neonsme2.c                     | 2 ++
+ third_party/XNNPACK/src/x32-pack-lh/x32-packlh-neonsme2.c                     | 2 ++
+ third_party/XNNPACK/src/x8-pack-lh/x8--packlh-neonsme2.c                      | 2 ++
+ 6 files changed, 12 insertions(+)
+
+diff --git a/third_party/XNNPACK/src/pf32-gemm/pf32-gemm-32x32-minmax-neonsme2.c b/third_party/XNNPACK/src/pf32-gemm/pf32-gemm-32x32-minmax-neonsme2.c
+index 24359d9a4cd..bcfaa3a1740 100644
+--- a/third_party/XNNPACK/src/pf32-gemm/pf32-gemm-32x32-minmax-neonsme2.c
++++ b/third_party/XNNPACK/src/pf32-gemm/pf32-gemm-32x32-minmax-neonsme2.c
+@@ -20,6 +20,7 @@ size_t xnn_pf32_gemm_minmax_ukernel_32x32__neonsme2_get_mr() {
+   assert(
+       "Calling KleidiAI kai_get_mr wrapper, but XNNPACK was compiled without "
+       "`XNN_ENABLE_KLEIDIAI`." && 0);
++  return 0;
+ #endif  // XNN_ENABLE_KLEIDIAI
+ }
+ 
+@@ -30,6 +31,7 @@ size_t xnn_pf32_gemm_minmax_ukernel_32x32__neonsme2_get_nr() {
+   assert(
+       "Calling KleidiAI kai_get_nr wrapper, but XNNPACK was compiled without "
+       "`XNN_ENABLE_KLEIDIAI`." && 0);
++  return 0;
+ #endif  // XNN_ENABLE_KLEIDIAI
+ }
+ 
+--- a/third_party/XNNPACK/src/x32-pack-lh/x32-packlh-neonsme2.c  2026-06-15 15:45:39.463764153 +0200
++++ b/third_party/XNNPACK/src/x32-pack-lh/x32-packlh-neonsme2.c  2026-06-15 15:46:17.185680957 +0200
+@@ -34,6 +34,7 @@ void xnn_x32_pack_lh_ukernel__neonsme2(s
+                                      lhs_stride, lhs_packed);
+ #else
+   assert("Not compiled with XNN_ENABLE_KLEIDIAI" && 0);
++  return;
+ #endif  // XNN_ENABLE_KLEIDIAI
+ }
+
+@@ -42,5 +43,6 @@ size_t xnn_x32_pack_lh_size__neonsme2(si
+   return kai_get_lhs_packed_size_lhs_pack_f32p2vlx1_f32_sme(m, k, mr, kr, sr);
+ #else
+   assert("Not compiled with XNN_ENABLE_KLEIDIAI" && 0);
++  return 0;
+ #endif  // XNN_ENABLE_KLEIDIAI
+ }
+

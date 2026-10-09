@@ -1,0 +1,31 @@
+{
+  "task": {
+    "package": "ttynvt",
+    "direction": "x86_64_to_ppc64le",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "0ebda41564677e0ca05896b1abe99a63"
+    },
+    "target": {
+      "project": "openSUSE:Factory:PowerPC",
+      "arch": "ppc64le"
+    }
+  },
+  "files": [
+    {
+      "name": "ttynvt-v0.17.tar.bz2",
+      "size": "29651"
+    },
+    {
+      "name": "ttynvt.changes",
+      "size": "1601"
+    },
+    {
+      "name": "ttynvt.spec",
+      "size": "1862"
+    }
+  ],
+  "created_at": 1791555725,
+  "version": 1
+}

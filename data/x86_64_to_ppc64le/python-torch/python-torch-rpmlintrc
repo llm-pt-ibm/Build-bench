@@ -1,0 +1,12 @@
+# torch/_thread_safe_fork.py is empty by design: the OSS tree ships the module
+# with no body, only Meta's internal build patches fork-safety hooks into it.
+# It is imported unconditionally by torch/_inductor/compile_worker/*, so it has
+# to ship - deleting it would be an ImportError on every torch.compile run.
+addFilter("zero-length .*/torch/_thread_safe_fork\.py")
+
+# numpy is deliberately not in upstream's install_requires (upstream keeps the
+# PyPI wheel slim), but we build against numpy-devel, so numpy support is
+# compiled into torch._C, and 29 shipped modules import numpy at module scope.
+# Keeping the Requires is intentional; rationale also sits next to it in the spec.
+# Anchored to torch's own packages so an unrelated future numpy leftover still shows.
+addFilter("python3\d+-torch.*python-leftover-require .*numpy")

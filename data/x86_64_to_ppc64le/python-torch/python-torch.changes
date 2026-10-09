@@ -1,0 +1,542 @@
+-------------------------------------------------------------------
+Sat Sep 12 08:10:54 UTC 2026 - Martin Pluskal <mpluskal@suse.com>
+
+- Update to version 2.14.0 (NVGEMM CUTLASS kernels, torch.switch /
+  torch.while_loop in CUDA graphs, declarative dynamic shapes,
+  complex tensor support in torch.compile, nccl2 backend).
+- Build moved to the scikit-build-core PEP 517 backend: add the
+  BuildRequires (setup.py is a shim now) and export
+  PYTORCH_BUILD_VERSION/NUMBER (tarball has no .git, would read
+  2.14.0a0 and break the torchvision ==2.14.0 pairing).
+- Pass -fno-lto via CMAKE_*_FLAGS (LTO ICEs gcc on SVE code) and
+  drop the CMAKE_INSTALL_PREFIX export (it pinned installs to
+  /usr/include).
+- Ship the new torchfrtrace script like torchrun; keep
+  xnnpack-aarch64-fix.patch (neonsme2 stubs still broken without
+  XNN_ENABLE_KLEIDIAI); no Requires or License delta.
+
+-------------------------------------------------------------------
+Sun Aug 30 21:23:49 UTC 2026 - Martin Pluskal <mpluskal@suse.com>
+
+- Update to version 2.13.0:
+  * FlexAttention on Apple Silicon (MPS) and a deterministic
+    backward path on CUDA
+  * CuTeDSL "Native DSL" Inductor backend alongside Triton
+    [prototype]
+  * nn.LinearCrossEntropyLoss fuses prediction and loss, cutting
+    peak memory for large-vocabulary LM training
+  * torchcomms distributed backend; FSDP2 can overlap
+    reduce-scatter with all-gather on a dedicated process group
+  * Armv9-A torch.compile targeting; ROCm AOTriton 0.12b
+  * Stop building CPython 3.13t (free-threaded) binaries -
+    manylinux dropped 3.13t upstream
+- Raise cmake floor 3.5 -> 3.27, matching this release's
+  cmake_minimum_required.
+- Re-derive the License expression against the code actually
+  compiled into the shipped binaries, not third_party/ as a
+  whole; adds Apache-2.0 WITH LLVM-exception for the LLVM-derived
+  c10 sources, which upstream now declares too. See the
+  Legal-Review-Notice comment in the spec.
+- Force mode 0644 and strip CRLF on the third_party license texts
+  2.13.0 started vendoring into dist-info/licenses: two ship
+  executable and miniz's has CRLF, so rpmlint reads them as
+  scripts.
+- Keep xnnpack-aarch64-fix.patch: the neonsme2 stubs still fall
+  off the end of non-void functions without XNN_ENABLE_KLEIDIAI in
+  2.13.0. Latent here (those files are not compiled), so the patch
+  is retained rather than dropped.
+- Drop obsolete Group: tags and %defattr; express the devel
+  BuildRequires as pkgconfig() where an unambiguous .pc exists
+  (opencv-devel only ships opencv4.pc).
+- Strip the vestigial "#!/usr/bin/env python3" from the imported
+  library modules in %prep rather than rewriting the interpreter in
+  %install: clears 108 non-executable-script errors, and the sed no
+  longer runs after %fdupes, where it replaced every inode and undid
+  the hardlinks (8 files-duplicate).
+- Switch torchrun from update-alternatives to libalternatives. The
+  %post/%postun scriptlets were missing outright, so /usr/bin/torchrun
+  pointed at an /etc/alternatives entry nothing ever created.
+- Requires: add filelock, setuptools, networkx, Jinja2 and fsspec
+  (upstream's install_requires); drop six (no importer left) and
+  protobuf (wanted only by torch.utils.tensorboard, which hard-imports
+  tensorboard - not in Factory). numpy stays, it is compiled into
+  torch._C here.
+- Add python-torch-rpmlintrc for the two findings that are not
+  defects: the deliberately empty torch/_thread_safe_fork.py, and the
+  numpy Requires above.
+- Encode upstream's declared runtime floors: fsspec >= 0.8.5,
+  networkx >= 2.5.1, setuptools >= 77.0.3, sympy >= 1.13.3 and
+  typing_extensions >= 4.10.0.
+- Double the % in the spec comments that mention %{_libdir}
+  (macro-in-comment), and drop the hardcoded /usr from the vulkan
+  CXXFLAGS.
+
+-------------------------------------------------------------------
+Wed Jul 22 09:09:57 UTC 2026 - Andreas Schwab <schwab@suse.de>
+
+- Enable use of oneDNN on riscv64
+- Use mold on riscv64 to avoid running out of memory
+
+-------------------------------------------------------------------
+Mon Jul 13 07:57:40 UTC 2026 - Martin Pluskal <mpluskal@suse.com>
+
+- Fix Caffe2Targets.cmake / find_package(Torch) referencing
+  libc10/libtorch/libtorch_cpu at the pre-move site-packages path,
+  which broke every downstream C++ torch consumer: after the
+  libraries are moved to %{_libdir} for the separate libtorch
+  package, ship compatibility symlinks under torch/lib so the
+  relative CMake config (${_IMPORT_PREFIX}/lib and
+  ${TORCH_INSTALL_PREFIX}/lib) resolves again.
+
+-------------------------------------------------------------------
+Mon Jun 15 13:22:33 UTC 2026 - Guillaume GARDET <guillaume.gardet@opensuse.org>
+
+- Backport upstream patch to fix build on aarch64:
+  * xnnpack-aarch64-fix.patch
+
+-------------------------------------------------------------------
+Mon Jun  8 12:19:07 UTC 2026 - Christian Goll <cgoll@suse.com>
+
+- Update to v2.12.0 which uses _service and so does the vendoring via
+  git submodules, this leads to the removal of following previosly vendored
+  sources and patches:
+  * FP16-4dfe081.tar.gz
+  * FXdiv-b408327.tar.gz
+  * XNNPACK-51a0103.tar.gz
+  * add-cstdint.patch
+  * cpp-httplib-3b6597b.tar.gz
+  * cpuinfo-1e83a2f.tar.gz
+  * flatbuffers-01834de.tar.gz
+  * fmt-1239137.tar.gz
+  * gemmlowp-3fb5c17.tar.gz
+  * gloo-5354032.tar.gz
+  * gloo-gcc15-fix.patch
+  * kineto-a054a4b.tar.gz
+  * kleidiai-cca02c2.tar.gz
+  * libnop-910b558.tar.gz
+  * onnx-b8baa84.tar.gz
+  * opentelemetry-cpp-a799f4a.tar.gz
+  * pocketfft-9d3ab05.tar.gz
+  * psimd-072586a.tar.gz
+  * pthreadpool-4fe0e1e.tar.gz
+  * pybind11-a2e59f0.tar.gz
+  * pytorch-2.7.1.tar.gz
+  * sleef-56e1f79.tar.gz
+  * tensorpipe-52791a2.tar.gz
+  * fix-setup.patch
+- Added disable-py312-intrinsics.patch which disables test for incomaptible python3.12 
+- increased limits for build machines
+- Highlights of v2.12.0:
+  * Batched linalg.eigh on CUDA is up to 100x faster due to updated cuSolver
+    backend selection
+  * Added new torch.accelerator.Graph API to unify graph capture and replay
+    across CUDA, XPU, and out-of-tree backends
+  * Added torch.export.save support for Microscaling (MX) quantization formats
+  * Adagrad optimizer now supports fused=True for a single-kernel optimizer
+  * torch.cond control flow can now be captured and replayed inside CUDA Graphs
+  * ROCm improvements include expandable memory segments, rocSHMEM symmetric
+    memory collectives, and FlexAttention pipelining
+  * Python 3.14 support: Added experimental support for torch.compile()
+- Backwards Incompatible & Breaking Changes in v2.12.0:
+  * C++20 minimum is now enforced in CMake build files
+  * SVE Compile Checks strictly validated in FindARM.cmake
+  * torch.distributed.nn.functional ops now raise RuntimeError under torch.compile
+    (users should migrate to functional collectives API)
+  * torchrun port default is now dynamically assigned (OS-allocated free port)
+    instead of static port 29500
+  * Deprecated CUDA 12.8 builds in favor of CUDA 13.0
+  * MAGMA backend deprecated for some operators, dispatching to cuSolver or cuBLAS
+- Summarized highlights and breaking changes from intermediate versions (v2.8.0 to v2.11.0):
+  * Highlights from v2.11.0:
+    - Differentiable Collectives support for functional collectives in distributed
+      training
+    - Expanded operator support for Metal Performance Shaders (MPS) on XPU Graph support 
+      for Intel XPU backends
+  * Backwards Incompatible & Breaking Changes from v2.11.0:
+    - DLPack objects updated to align with the latest DLPack release,
+      potentially breaking low-level integrations using torch.utils.dlpack
+  * Highlights from v2.10.0:
+    - Full support for torch.compile() on Python 3.14, with experimental support
+      for free-threaded builds (Python 3.14t)
+    - New DebugMode tool for tracking dispatched calls and debugging numerical
+      divergence; horizontal fusion of combo-kernels to reduce launch overhead
+      in torchinductor
+  * Backwards Incompatible & Breaking Changes from v2.10.0:
+    - Sampler data_source argument removed from DataLoader, and legacy grouping
+      datapipes imports removed (use sharding datapipes instead)
+    - fallback=False is now the default in torch.onnx.export (defaults to
+      dynamo=True without fallback)
+    - Nested Jagged Tensor support removed from flex_attention
+    - TorchScript (torch.jit) is officially deprecated and not guaranteed to work
+      on Python 3.14
+  * Highlights from v2.9.0:
+    - Symmetric Memory feature enabling high-performance programming of multi-GPU
+      kernels
+    - Stable libtorch ABI updates with torch::stable::Tensor APIs and device/stream
+      utilities
+    - Arbitrary toggle between error or resume on graph breaks in torch.compile for
+      debuggability
+  * Backwards Incompatible & Breaking Changes from v2.9.0:
+    - Minimum supported Python version updated to 3.10 (Python 3.9 support dropped)
+    - DLPack upgraded to 1.0, breaking torch.utils.dlpack low-level APIs
+    - Outputs of custom operators registered via torch.library are no longer allowed
+      to share storage with input Tensors (can cause undefined behavior under compile)
+    - Exception type changes where torch.cat and unsupported dtypes raise specific
+      errors (e.g., ValueError, IndexError, NotImplementedError) instead of RuntimeError
+  * Highlights from v2.8.0:
+    - Introduced limited stable libtorch ABI subset for third-party extensions
+    - Native support for high-performance quantized LLM inference on Intel CPUs
+    - Inductor CUTLASS backend support for torch.compile and AOTInductor
+  * Backwards Incompatible & Breaking Changes from v2.8.0:
+    - Dropped Maxwell (sm50) and Pascal (sm60, sm61) GPU support in CUDA 12.8+ builds
+      (older GPUs must use CUDA 12.6)
+    - Stricter SVE validation in CMake and header cleanup removing implicit
+      torch/types.h from Dispatcher.h
+    - Error triggered if custom autograd.Function mutates a view of a leaf requiring
+      gradients
+ 
+
+
+-------------------------------------------------------------------
+Thu Jul 10 08:58:20 UTC 2025 - Guillaume GARDET <guillaume.gardet@opensuse.org>
+
+- Add kleidiai dep (vendored)
+- Workaround build error on aarch64 with -Wno-incompatible-pointer-types
+
+-------------------------------------------------------------------
+Fri Jul  4 12:27:50 UTC 2025 - Christian Goll <cgoll@suse.com>
+
+- Updated to 2.7.1 with following fiex:
+  * Fix assertion error due to inductor permuting inputs to flex attention (#151959)
+  * Fix performance regression on nanogpt speedrun (#152641)
+  * Fix improve PyTorch Wheel size due to introduction of addition of 128 bit vectorization (#148320) (#152396)
+  * Fix fmsub function definition (#152075)
+  * Fix Floating point exception in torch.mkldnn_max_pool2d (#151848)
+  * Fix ONNX decomposition does not preserve custom CompositeImplicitAutograd ops (#151826)
+  * Fix error with dynamic linking of libgomp library (#150084)
+  * Fix segfault in profiler with Python 3.13 (#153848)
+- Changes from 2.7.0:
+  * torch.onnx.dynamo_export now uses the ExportedProgram logic path (#137296)
+    Users using the torch.onnx.dynamo_export API may see some ExportOptions
+    become unsupported due to an internal switch to use torch.onnx.export(...,
+    dynamo=True): diagnostic_options, fake_context and onnx_registry are
+    removed/ignored by ExportOptions. Only dynamic_shapes is retained.
+  * Finish deprecation of LRScheduler.print_lr() along with the verbose kwarg
+    to the LRScheduler constructor. (#147301)
+  * libtorch_python.so symbols are now invisible by default on all platforms (#142214)
+  * Please use torch.export.export instead of capture_pre_autograd_graph to
+    export the model for pytorch 2 export quantization (#139505)
+  * New interface for
+    torch.fx.passes.graph_transform_observer.GraphTransformObserver to enable
+    Node Level provenance tracking (#144277)
+  * torch.ao.quantization.pt2e.graph_utils.get_control_flow_submodules is no
+    longer public (#141612)
+  * torch.onnx.dynamo_export is deprecated (#146425, #146639, #146923)
+  * XNNPACKQuantizer is deprecated in PyTorch and moved to ExecuTorch, please
+    use it from executorch.backends.xnnpack.quantizer.xnnpack_quantizer instead
+    of torch.ao.quantization.quantizer.xnnpack_quantizer. (#144940)
+- Changes from 2.6.0
+  * [Beta] torch.compiler.set_stance
+  * [Beta] torch.library.triton_op
+  * [Beta] torch.compile support for Python 3.13
+  * [Beta] New packaging APIs for AOTInductor
+  * [Beta] New packaging APIs for AOTInductor
+  * [Beta] AOTInductor: minifier
+  * [Beta] AOTInductor: ABI-compatible mode code generation
+  * [Beta] FP16 support for X86 CPUs (both eager and Inductor modes)
+  * FlexAttention support on X86 CPU for LLMs
+- Added patches for gcc15 compatibilty:
+  * add-cstdint.patch
+  * gloo-gcc15-fix.patch
+- Updated vendored sources:
+  * kineto-d975313.tar.gz -> kineto-a054a4b.tar.gz
+  * onnx-3bf92c0.tar.gz -> onnx-b8baa84.tar.gz
+  * pybind11-7c33cdc.tar.gz -> pybind11-a2e59f0.tar.gz
+  * sleef-60e76d2.tar.gz -> sleef-56e1f79.tar.gz
+  * XNNPACK-fcbf55a.tar.gz -> XNNPACK-51a0103.tar.gz
+  * cpuinfo-fa1c679.tar.gz -> cpuinfo-1e83a2f.tar.gz
+  * fmt-e69e5f9.tar.gz -> fmt-1239137.tar.gz
+
+-------------------------------------------------------------------
+Tue Dec 17 09:32:47 UTC 2024 - Andreas Schwab <schwab@suse.de>
+
+- Use oneDNN only on x86_64 aarch64 ppc64le
+
+-------------------------------------------------------------------
+Fri Oct 18 06:24:55 UTC 2024 - Guillaume GARDET <guillaume.gardet@opensuse.org>
+
+-  Update to 2.5.0:
+  * https://github.com/pytorch/pytorch/releases/tag/v2.5.0
+
+-------------------------------------------------------------------
+Fri Oct  4 09:39:46 UTC 2024 - Guillaume GARDET <guillaume.gardet@opensuse.org>
+
+- Add patch to fix build with oneDNN:
+  * pytorch-patch-onednn.patch
+
+-------------------------------------------------------------------
+Tue Oct  1 14:48:08 UTC 2024 - Guillaume GARDET <guillaume.gardet@opensuse.org>
+
+- Update to 2.4.1:
+  * https://github.com/pytorch/pytorch/releases/tag/v2.4.1
+- Skip update to 2.4.0:
+  * https://github.com/pytorch/pytorch/releases/tag/v2.4.0
+- Remove _service since 'osc mr download_files' is easier to use
+  and maintain
+- Drop config vars not used anymore: BUILD_CAFFE2, USE_LEVELDB, USE_LMDB,
+  USE_OPENCV, USE_TBB
+- Remove examples package since code has been removed upstream
+- Refresh pacth:
+  * skip-third-party-check.patch
+
+-------------------------------------------------------------------
+Thu Aug 29 04:28:03 UTC 2024 - Guang Yee <gyee@suse.com>
+
+- Enable sle15_python_module_pythons.
+- GCC 9.3 or newer is required, regardless if CUDA is enabled.
+  See https://github.com/pytorch/pytorch/blob/v2.3.1/CMakeLists.txt#L48
+  Therefore, for SLE15 we went with GCC 11 as it seems to be the most
+  common one.
+- Use %gcc_version macro for Tumbleweed.
+
+-------------------------------------------------------------------
+Thu Jul 11 09:37:17 UTC 2024 - Christian Goll <cgoll@suse.com>
+
+- update to 2.3.1 with following summarized highlights:
+  * from 2.0.x:
+    - torch.compile is the main API for PyTorch 2.0, which wraps your model and
+      returns a compiled model. It is a fully additive (and optional) feature
+      and hence 2.0 is 100% backward compatible by definition
+    - Accelerated Transformers introduce high-performance support for training
+      and inference using a custom kernel architecture for scaled dot product
+      attention (SPDA). The API is integrated with torch.compile() and model
+      developers may also use the scaled dot product attention kernels directly
+      by calling the new scaled_dot_product_attention() operato
+  * from 2.1.x:
+    - automatic dynamic shape support in torch.compile,
+      torch.distributed.checkpoint for saving/loading distributed training jobs
+      on multiple ranks in parallel, and torch.compile support for the NumPy
+      API.
+    - In addition, this release offers numerous performance improvements (e.g.
+      CPU inductor improvements, AVX512 support, scaled-dot-product-attention
+      support) as well as a prototype release of torch.export, a sound
+      full-graph capture mechanism, and torch.export-based quantization.
+  * from 2.2.x:
+    - 2x performance improvements to scaled_dot_product_attention via
+      FlashAttention-v2 integration, as well as AOTInductor, a new
+      ahead-of-time compilation and deployment tool built for non-python
+      server-side deployments.
+  * from 2.3.x:
+    - support for user-defined Triton kernels in torch.compile, allowing for
+      users to migrate their own Triton kernels from eager without
+      experiencing performance complications or graph breaks. As well, Tensor
+      Parallelism improves the experience for training Large Language Models
+      using native PyTorch functions, which has been validated on training
+      runs for 100B parameter models.
+- added seperate openmpi4 build
+- added sepetate vulcan build, although this functions isn't exposed to python
+  abi
+- For the obs build all the vendored sources follow the pattern 
+  NAME-7digitcommit.tar.gz and not the NAME-COMMIT.tar.gz
+- added following patches:
+  * skip-third-party-check.patch
+  * fix-setup.patch
+- removed patches:
+  * pytorch-rm-some-gitmodules.patch 
+  * fix-call-of-onnxInitGraph.patch
+
+-------------------------------------------------------------------
+Thu Jul 22 14:40:45 UTC 2021 - Guillaume GARDET <guillaume.gardet@opensuse.org>
+
+- Fix build on x86_64 by using GCC10 instead of GCC11
+  https://github.com/google/XNNPACK/issues/1550
+
+-------------------------------------------------------------------
+Thu Jul 22 10:11:03 UTC 2021 - Guillaume GARDET <guillaume.gardet@opensuse.org>
+
+- Update to 1.9.0
+- Release notes: https://github.com/pytorch/pytorch/releases/tag/v1.9.0
+- Drop upstreamed patch:
+  * fix-mov-operand-for-gcc.patch
+- Drop unneeded patches:
+  * removed-peachpy-depedency.patch
+- Refresh patches:
+  * skip-third-party-check.patch
+  * fix-call-of-onnxInitGraph.patch
+- Add new patch:
+  * pytorch-rm-some-gitmodules.patch
+
+-------------------------------------------------------------------
+Thu Jul 22 09:07:31 UTC 2021 - Guillaume GARDET <guillaume.gardet@opensuse.org>
+
+- Add _service file to ease future update of deps
+
+-------------------------------------------------------------------
+Thu Jul 22 08:26:17 UTC 2021 - Guillaume GARDET <guillaume.gardet@opensuse.org>
+
+- Update sleef to fix build on aarch64
+
+-------------------------------------------------------------------
+Fri Apr 23 21:51:36 UTC 2021 - Matej Cepl <mcepl@suse.com>
+
+- Don't build python36-* package (missing pandas)
+
+-------------------------------------------------------------------
+Thu Jan 21 23:28:20 UTC 2021 - Benjamin Greiner <code@bnavigator.de>
+
+- Fix python-rpm-macros usage
+
+-------------------------------------------------------------------
+Wed Oct  7 15:15:28 UTC 2020 - Guillaume GARDET <guillaume.gardet@opensuse.org>
+
+- Use GCC9 to build on aarch64 Tumbleweed to workaround SVE
+  problem with GCC10 with sleef, see:
+  https://github.com/pytorch/pytorch/issues/45971
+
+-------------------------------------------------------------------
+Thu Aug 20 09:04:08 UTC 2020 - Martin Liška <mliska@suse.cz>
+
+- Use memoryperjob constraint instead of %limit_build macro.
+
+-------------------------------------------------------------------
+Tue Jun 23 15:28:57 UTC 2020 - Christian Goll <cgoll@suse.com>
+
+- updated to new stable release 1.5.1 which has following changes:
+  This release includes several major new API additions and improvements. These
+  include new APIs for autograd allowing for easy computation of hessians and
+  jacobians, a significant update to the C++ frontend, ‘channels last’ memory
+  format for more performant computer vision models, a stable release of the
+  distributed RPC framework used for model parallel training, and a new API
+  that allows for the creation of Custom C++ Classes that was inspired by
+  PyBind. Additionally torch_xla 1.5 is now available and tested with the
+  PyTorch 1.5 release providing a mature Cloud TPU experience.
+  * see release.html for detailed information
+- added patches: 
+  * fix-call-of-onnxInitGraph.patch for API mismatch in onnx
+  * fix-mov-operand-for-gcc.patch for aarch64 operands
+
+- removed sources:
+  * cpuinfo-89fe1695edf9ee14c22f815f24bac45577a4f135.tar.gz
+  * gloo-7c541247a6fa49e5938e304ab93b6da661823d0f.tar.gz
+  * onnx-fea8568cac61a482ed208748fdc0e1a8e47f62f5.tar.gz
+  * psimd-90a938f30ba414ada2f4b00674ee9631d7d85e19.tar.gz
+  * pthreadpool-13da0b4c21d17f94150713366420baaf1b5a46f4.tar.gz
+- added sources:
+  * cpuinfo-0e6bde92b343c5fbcfe34ecd41abf9515d54b4a7.tar.gz
+  * gloo-113bde13035594cafdca247be953610b53026553.tar.gz
+  * onnx-9fdae4c68960a2d44cd1cc871c74a6a9d469fa1f.tar.gz
+  * psimd-10b4ffc6ea9e2e11668f86969586f88bc82aaefa.tar.gz
+  * pthreadpool-d465747660ecf9ebbaddf8c3db37e4a13d0c9103.tar.gz
+
+-------------------------------------------------------------------
+Tue Jun 23 09:25:06 UTC 2020 - Christian Goll <cgoll@suse.com>
+
+- updated to bugfix release 1.4.1 and added _multibuild file so 
+  that cuda versions can be build on commandline
+
+-------------------------------------------------------------------
+Thu Apr 23 14:30:22 UTC 2020 - Tomáš Chvátal <tchvatal@suse.com>
+
+- Make sure to pull py2/py3 package from the devel pkg
+
+-------------------------------------------------------------------
+Thu Apr 23 09:54:25 UTC 2020 - Tomáš Chvátal <tchvatal@suse.com>
+
+- Do not pull in python2 only dependencies
+
+-------------------------------------------------------------------
+Wed Feb 26 13:07:14 UTC 2020 - Simon Lees <sflees@suse.de>
+
+- Exclude i586 builds for now, they fail with a cryptic return
+  code of 1 from cmake from python.
+
+-------------------------------------------------------------------
+Fri Feb 21 14:15:00 UTC 2020 - Christian Goll <cgoll@suse.com>
+
+- updated to stable release 1.4.0, which has as Highlights:
+  * Distributed Model Parallel Training
+  * Pruning functionalities have been added to PyTorch 
+- New Features:
+  * torch.optim.lr_scheduler now support “chaining.”
+  * torch.distributed.rpc is a newly introduced package
+- full Changelog listed in relases file or under
+  https://github.com/pytorch/pytorch/releases
+  and in the releases.hml file
+- added files: 
+  * skip-third-party-check.patch which is a patch to skip
+    the check of disabled dependencies
+  * QNNPACK-7d2a4e9931a82adc3814275b6219a03e24e36b4c.tar.gz
+    which is part of pytorch but developed in different repo
+  * releases.html which is the downloaded releases file
+- removed patch files:
+  * fix-build-options.patch
+  * honor-PSIMD-env.patch
+  * removed-some-tests.patch
+
+-------------------------------------------------------------------
+Tue Jan 14 13:01:33 UTC 2020 - Guillaume GARDET <guillaume.gardet@opensuse.org>
+
+- Requires python-PeachPy on x86_64 only, as it is optional
+  and available on x86_64 only
+
+-------------------------------------------------------------------
+Wed Jan  8 10:47:18 UTC 2020 - Christian Goll <cgoll@suse.com>
+
+- updated the requirement for examples and converters
+
+-------------------------------------------------------------------
+Wed Jun 12 11:17:34 UTC 2019 - Christian Goll <cgoll@suse.com>
+
+- Updated to stable version 1.1.0, which needed also updates of
+  following dependend sources:
+  * onnx-1.4.1.tar.gz ->
+    onnx-22662bfd4dcc6baebf29e3b823a051676f991001.tar.gz
+- Removed following sources:
+  * FBGEMM-f65f0ebe54f0512d8f42ee10025b596e3f42e0b8.tar.gz
+- Added following sources:
+  * foxi-8f74bc4df3a4cfc69b1a3eadf62aa29d9961c72d.tar.gz
+- Changed patch 
+  * fix-build-options.patch to work with new buid system and
+    exclude FBGEMM
+- Added patch:
+  * honor-PSIMD-env.patch, which makes depend sources of pytorch
+    to use the source of psimd
+
+-------------------------------------------------------------------
+Tue Mar 26 09:33:11 UTC 2019 - Christian Goll <cgoll@suse.com>
+
+- Inital commit of pytorch/caffe2 which is an opensource 
+  machineleraning platform. This is the stable release 1.0.1 
+  including like other tools a lot of third party sources, 
+  which could not be used from the base system due to messy 
+  build system. Additional sources are
+  * gloo, a communitcation library for GPUs as
+    gloo-670b4d4aa46886cc66874e2a4dc846f5cfc2a285.tar.gz
+  * fbgemm, a low precission, high peformance matrix lib
+    FBGEMM-f65f0ebe54f0512d8f42ee10025b596e3f42e0b8.tar.gz
+  * cpuinfo, a cross platform cpu information tool
+    cpuinfo-89fe1695edf9ee14c22f815f24bac45577a4f135.tar.gz
+  * sleef, a function for elementary functions
+    sleef-191f655caa25526ae226cf88dd2529265176014a.tar.gz
+  * pytbind11, which exposes C/C++ headers to pythob, but
+    the source code of this library is deeply integrated into
+    pytorch, so we need
+    pybind11-25abf7efba0b2990f5a6dfb0a31bc65c0f2f4d17.tar.gz
+  * onnx, which is an format for exchaning neural networks as
+    onnx-1.4.1.tar.gz
+  * pthreadpool, a pthread based thread tool implementation, which 
+    can be used when omp is not available
+    pthreadpool-13da0b4c21d17f94150713366420baaf1b5a46f4.tar.gz
+  * FXdiv, a Header-only library for division via fixed-point 
+    multiplication by inverse, which has no stable API atm, so
+    FXdiv-b742d1143724d646cd0f914646f1240eacf5bd73.tar.gz
+  * psimd, portable 128-bit SIMD intrinsics
+    psimd-90a938f30ba414ada2f4b00674ee9631d7d85e19.tar.gz
+  * fp16, a numeric conversion library
+    FP16-febbb1c163726b5db24bed55cc9dc42529068997.tar.gz
+  * gemmlowp, self-contained low-precision GEMM library as
+    gemmlowp-8416bab644641a5c0a81ecf91a5cda804af0aee1.tar.gz
+  * fix-build-options.patch, which points pytorch to system libs
+  * removed-peachpy-depedency.patch, which forces to use system 
+    peachpy
+   

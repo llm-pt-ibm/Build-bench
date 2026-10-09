@@ -1,0 +1,24 @@
+--- a/torch/testing/_internal/py312_intrinsics.py
++++ b/torch/testing/_internal/py312_intrinsics.py
+@@ -1,3 +1,9 @@
++# This file requires Python 3.12+ syntax (PEP 695) which is not compatible
++# with Python 3.11. Disabled for builds with Python < 3.12.
++import sys
++if sys.version_info < (3, 12):
++    raise ImportError("py312_intrinsics requires Python 3.12+")
++
+ import torch
+
+
+@@ -8,7 +14,10 @@ import torch
+ class Foo:
+     @classmethod
+     def _default_update(cls):
+-        def f[T](a: "This is a new annotation"):  # noqa: F722
++        # Note: Original syntax requires Python 3.12+
++        # Original: def f[T](a: "This is a new annotation"):  # noqa: F722
++        # Disabled for Python < 3.12 compatibility
++        def f(a: "This is a new annotation"):  # noqa: F722
+             """This is a test"""
+
+         f.attr = "This is also a test"
