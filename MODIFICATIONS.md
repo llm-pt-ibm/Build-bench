@@ -59,7 +59,17 @@ improvements` shows them file by file.
   paper.
 - `check_build_result` returns the key lines of a failed build log
   (`tools/auto_repair/log_excerpt.py`), so the model does not need to reread
-  the whole log.
+  the whole log. For patch failures they include the message of `patch` (for
+  example "patch unexpectedly ends in middle of line") and the `Patch #N`
+  header of the failing patch; lines from installing the build environment are
+  skipped.
+- `BENCH_FINAL_NEWLINE` (default `add`, or `off`): `modify_file_tool` adds the
+  final newline to the content of a new file or of a file that had one.
+  DeepSeek V4 (StreamLake, Alibaba and Relace) and Qwen3-Coder cannot end a
+  tool-call string argument with a newline (asked for `"abc\n\n"`, DeepSeek
+  sends `"abc"` and Qwen3-Coder `"abc\n"`; GLM 5.1 and Claude Sonnet 4.5 send it
+  intact), so every patch they wrote was rejected by `patch` regardless of its
+  content. The value is recorded in `run.final_newline`.
 - `modify_file_tool` can create new files (for example a new patch) and warns
   when a `.patch`/`.diff` file is malformed, using the same hunk-count rule as
   `patch --fuzz=0` (`tools/auto_repair/patch_check.py`).

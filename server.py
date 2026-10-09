@@ -26,6 +26,11 @@ server_state = {
 # outside it. The client passes it through the environment.
 TEMP_ROOT = os.path.realpath(os.getenv("BENCH_TEMP_DIR", "temp_workspace"))
 FILE_MAX_CHARS = 60000
+# Some models (DeepSeek, Qwen3-Coder) cannot end a tool-call string argument
+# with a newline: their tool-call format trims it. With "add", modify_file_tool
+# restores the final newline of a new file or of a file that had one, so that
+# patches are not rejected for it; "off" writes the content unchanged.
+FINAL_NEWLINE = os.getenv("BENCH_FINAL_NEWLINE", "add").lower()
 
 
 def _in_workspace(path) -> bool:
@@ -447,6 +452,10 @@ def modify_file_tool(file_path: str, new_content: str):
         if not created:
             with open(file_path, "r", encoding="utf-8") as f:
                 old_lines = f.readlines()
+        added_newline = (FINAL_NEWLINE == "add" and new_content and not new_content.endswith("\n")
+                         and (created or not old_lines or old_lines[-1].endswith("\n")))
+        if added_newline:
+            new_content += "\n"
         new_lines = new_content.splitlines(keepends=True)
 
         diff = list(
@@ -481,6 +490,8 @@ def modify_file_tool(file_path: str, new_content: str):
 
         action = "Created" if created else "Replaced content of"
         message = f"Success: {action} {file_path}\nPreview: {new_content[:100]}..."
+        if added_newline:
+            message += "\nNote: a final newline was added to the content."
         if file_path.endswith((".patch", ".diff")):
             problems = check_patch_format(new_content)
             if problems:

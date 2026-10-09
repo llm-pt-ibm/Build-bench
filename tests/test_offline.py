@@ -135,9 +135,17 @@ async def main():
                            new_content="--- a/x\n+++ b/x\n@@ -1,2 +1,2 @@\n-a\n+b\n")).startswith("Success: Created")
         bad = open(f"data/x86_64_to_ppc64le/{PKG}/disable-sse.patch").read().replace("+CPPFLAGS += -DENABLE_NEON\n", "")
         assert "Warning: this patch is malformed" in await tool("modify_file_tool", file_path=f"{TMP}/disable-sse.patch", new_content=bad)
+        good = open(f"data/x86_64_to_ppc64le/{PKG}/disable-sse.patch").read()
+        assert "final newline was added" in await tool("modify_file_tool", file_path=f"{TMP}/disable-sse.patch",
+                                                       new_content=good.rstrip("\n"))
+        assert open(f"{TMP}/disable-sse.patch").read() == good, "final newline restored"
+        await tool("modify_file_tool", file_path=f"{TMP}/no-eol.txt", new_content="x\n")
+        open(f"{TMP}/no-eol.txt", "w").write("x")
+        await tool("modify_file_tool", file_path=f"{TMP}/no-eol.txt", new_content="y")
+        assert open(f"{TMP}/no-eol.txt").read() == "y", "files without a final newline are kept so"
         part = await tool("get_file_content_tool", file_path=f"{TMP}/log_failed.txt", start_line=2, max_lines=3)
         assert part.startswith("[lines 2-4 of "), part[:80]
-        print("file tools: OK (workspace guard, new files, patch check, line ranges)")
+        print("file tools: OK (workspace guard, new files, patch check, final newline, line ranges)")
 
         assert (await tool("extract_archive_tool", package_path=TMP)).startswith("Successfully extracted")
         assert (await tool("extract_archive_tool", package_path=TMP)).startswith("Already extracted")
