@@ -90,6 +90,11 @@ PROMPTS = {"rpm": "prompts/full_file_generation.txt", "recipe": "prompts/build_r
 # When the conversation grows past this many characters, the oldest tool
 # results are shortened (0: never). The last ones are always kept whole.
 MAX_CONTEXT_CHARS = int(LLM_CFG.get("max_context_chars", 0))
+# With repeat_guard_per_build, identical calls are counted per build: each
+# build result starts a new count, so upload, check and reading the new log
+# can be repeated in every repair cycle, while loops without a new build are
+# still blocked. Without it, identical calls are counted per attempt.
+REPEAT_GUARD_PER_BUILD = bool(LLM_CFG.get("repeat_guard_per_build", False))
 KEEP_RECENT_TOOL_RESULTS = int(LLM_CFG.get("keep_recent_tool_results", 8))
 
 
@@ -112,6 +117,7 @@ def run_metadata(max_build_attempts: int, max_tool_rounds: int) -> Dict:
         "final_newline": os.getenv("BENCH_FINAL_NEWLINE", "add").lower(),
         "llm_tools": list(LLM_TOOLS),
         "max_context_chars": MAX_CONTEXT_CHARS,
+        "repeat_guard_per_build": REPEAT_GUARD_PER_BUILD,
         "build_backend": (os.getenv("BENCH_BUILD_BACKEND") or (info.get("build") or {}).get("backend", "obs")).lower(),
     }
 
@@ -433,6 +439,8 @@ class AutoRepairClient:
                                "You must call upload_file_to_obs_tool first.")
 
         args_key = make_args_key(tool_name, tool_args)
+        if REPEAT_GUARD_PER_BUILD:
+            args_key += f"#build{len(self.builds)}"
         repeat = json.loads((await self.session.call_tool(
             "check_repeat_tool_call",
             {"tool_name": tool_name, "args_key": args_key, "max_repeat": 3, "package_name": package_name},
