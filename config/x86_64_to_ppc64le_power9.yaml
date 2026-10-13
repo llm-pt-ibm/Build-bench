@@ -33,6 +33,7 @@ build:
 
 # Extensions for large code bases
 llm:
+  max_tool_rounds: 60            # per attempt (20 in the paper); attempts stay 3
   extra_tools: ["search_files_tool", "replace_in_file_tool"]
   max_context_chars: 600000
   keep_recent_tool_results: 8

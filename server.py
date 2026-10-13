@@ -507,7 +507,10 @@ def _write_file(file_path: str, new_content: str, action: str) -> str:
     if added_newline:
         message += "\nNote: a final newline was added to the content."
     if file_path.endswith((".patch", ".diff")):
-        problems = check_patch_format(new_content)
+        # rpm applies patches with GNU patch; other build systems may use
+        # stricter patchers (Bazel's ctx.patch, git apply)
+        strict = case_type(os.path.join(TEMP_ROOT, package_name)) == "recipe"
+        problems = check_patch_format(new_content, strict=strict)
         if problems:
             message += ("\nWarning: this patch is malformed and will be rejected when the "
                         "package is built (patches are applied with --fuzz=0): "

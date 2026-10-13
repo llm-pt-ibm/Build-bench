@@ -105,6 +105,15 @@ improvements` shows them file by file.
   when the conversation grows past `max_context_chars`.
   `config/x86_64_to_ppc64le_power9.yaml` enables them and builds everything on
   the Power9 (RPM packages with osc, recipes on the host).
+- More options for large packages (all off by default, on in
+  `config/x86_64_to_ppc64le_power9.yaml`): `llm.max_tool_rounds` (rounds per
+  attempt, 20 in the paper; the 3 attempts are kept), `llm.round_notice_at`
+  (tell the model when few rounds are left), `llm.carry_notes_chars` (the next
+  attempt gets the model's own notes, so findings are not lost when it made no
+  edit) and `llm.repeat_guard_per_build` (identical calls counted per build,
+  so upload/check are not capped at 3 per attempt). Patch files of
+  build-recipe cases are checked strictly (Bazel's `ctx.patch` and
+  `git apply` reject short hunks that GNU patch accepts).
 - `check_patch_format` no longer flags valid patches: extra context lines after
   a hunk (ignored by patch), empty patches and git rename-only patches. The
   log excerpt also keeps Bazel/Starlark failures (`Error in fail:`, `FAIL:`).

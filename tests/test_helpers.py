@@ -18,6 +18,8 @@ assert check_patch_format("--- a/x\n+++ b/x\n@@ -1,1 +1,1 @@\n-a\n+b\n+c\n")
 patch = open("data/x86_64_to_ppc64le/zita-resampler/disable-sse.patch").read()
 assert check_patch_format(patch.replace("+CPPFLAGS += -DENABLE_NEON\n", ""))
 assert check_patch_format("no hunks here\n")
+short = "--- a/v.bzl\n+++ b/v.bzl\n@@ -1164,7 +1164,7 @@\n     os = 1,\n-    arch = 1,\n+    arch = 2,\n   ),\n"
+assert not check_patch_format(short) and check_patch_format(short, strict=True)
 print("patch check: OK")
 
 log = open("data/x86_64_to_ppc64le/zita-resampler/log_failed.txt", errors="replace").read()

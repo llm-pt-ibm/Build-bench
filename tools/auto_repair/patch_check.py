@@ -5,7 +5,7 @@ GIT_EXTENDED = re.compile(r"^(rename|copy) (from|to) |^(new|deleted) file mode |
                           r"^similarity index |^GIT binary patch|^Binary files ", re.MULTILINE)
 
 
-def check_patch_format(text: str) -> list:
+def check_patch_format(text: str, strict: bool = False) -> list:
     """Return the structural problems that make `patch` reject a unified diff.
 
     Each hunk header declares how many old (-) and new (+) lines its body has;
@@ -44,8 +44,9 @@ def check_patch_format(text: str) -> list:
             i += 1
         at_eof = all(l == "" for l in lines[i:])
         missing_context = old_decl - old_seen == new_decl - new_seen > 0
-        if at_eof and missing_context:
-            # GNU patch accepts a last hunk cut short by trailing context lines
+        if at_eof and missing_context and not strict:
+            # GNU patch (used by rpm) accepts a last hunk cut short by trailing
+            # context lines; strict patchers (Bazel's ctx.patch, git apply) do not
             continue
         if old_seen != old_decl or new_seen != new_decl:
             problems.append(
