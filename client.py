@@ -95,6 +95,13 @@ MAX_CONTEXT_CHARS = int(LLM_CFG.get("max_context_chars", 0))
 # can be repeated in every repair cycle, while loops without a new build are
 # still blocked. Without it, identical calls are counted per attempt.
 REPEAT_GUARD_PER_BUILD = bool(LLM_CFG.get("repeat_guard_per_build", False))
+# When this many rounds are left in an attempt (0: never), the framework tells
+# the model, so that it applies its fix before the attempt ends.
+ROUND_NOTICE_AT = int(LLM_CFG.get("round_notice_at", 0))
+# The next attempt's prompt carries up to this many characters of the model's
+# own notes (its text replies) from the previous attempt (0: none), so that
+# what it found out is not lost when it made no edit.
+CARRY_NOTES_CHARS = int(LLM_CFG.get("carry_notes_chars", 0))
 KEEP_RECENT_TOOL_RESULTS = int(LLM_CFG.get("keep_recent_tool_results", 8))
 
 
@@ -118,6 +125,8 @@ def run_metadata(max_build_attempts: int, max_tool_rounds: int) -> Dict:
         "llm_tools": list(LLM_TOOLS),
         "max_context_chars": MAX_CONTEXT_CHARS,
         "repeat_guard_per_build": REPEAT_GUARD_PER_BUILD,
+        "round_notice_at": ROUND_NOTICE_AT,
+        "carry_notes_chars": CARRY_NOTES_CHARS,
         "build_backend": (os.getenv("BENCH_BUILD_BACKEND") or (info.get("build") or {}).get("backend", "obs")).lower(),
     }
 
@@ -298,6 +307,7 @@ class AutoRepairClient:
         self.dirty = False            # files changed since the last upload
         self.unchecked_upload = False  # an upload whose build was never checked
         attempts = []
+        notes = ""
         verified_by = None
         t0 = time.time()
 
@@ -328,6 +338,7 @@ class AutoRepairClient:
                         target_arch=info["target_arch"],
                         build_wait_minutes=int(info.get("obs", {}).get("max_wait_seconds", 3600)) // 60,
                         build_cache_dir=readonly_dirs,
+                        max_tool_rounds=self.max_tool_rounds,
                     ),
                 },
             )
@@ -336,12 +347,18 @@ class AutoRepairClient:
             # Ensure the first message is a system message for OpenAI-chat format
             if messages and messages[0].get("role") != "system":
                 messages.insert(0, {"role": "system", "content": system_prompt_tpl})
+            if notes and len(messages) > 1 and messages[1].get("role") == "user":
+                messages[1]["content"] += (
+                    "\n\n## Your notes from the previous attempt\n"
+                    "What you wrote while working in the previous attempt (the files may have "
+                    "changed since):\n" + notes)
 
             content, ok, summary = await self._llm_tools_loop(
                 package_name, package_path, messages, tools
             )
             attempts.append({"attempt": attempt, **summary})
             self._save_transcript(package_name, attempt, messages)
+            notes = self._notes(messages)
             if ok:
                 verified_by = summary["verified_by"]
                 build_succeeded = True
@@ -367,6 +384,26 @@ class AutoRepairClient:
         self._log(package_name, f"Final saved to {result_file} | usage: {json.dumps(self.usage)}")
         if not build_succeeded:
             self._log(package_name, "Max attempts reached without success.")
+
+    @staticmethod
+    def _notes(messages: List[Dict]) -> str:
+        """The model's own text replies of an attempt, latest kept first when
+        they exceed CARRY_NOTES_CHARS."""
+        if CARRY_NOTES_CHARS <= 0:
+            return ""
+        texts, seen = [], set()
+        for m in messages[2:]:
+            text = (m.get("content") or "").strip() if m.get("role") == "assistant" else ""
+            if text and text not in seen:
+                seen.add(text)
+                texts.append(text)
+        kept, size = [], 0
+        for text in reversed(texts):
+            if size + len(text) > CARRY_NOTES_CHARS:
+                break
+            kept.insert(0, text)
+            size += len(text)
+        return "\n".join(f"- {t}" for t in kept)
 
     @staticmethod
     def _compact(messages: List[Dict]) -> None:
@@ -591,6 +628,12 @@ class AutoRepairClient:
             if rounds >= self.max_tool_rounds:
                 summary["ended_by"] = "round_limit"
                 break
+            left = self.max_tool_rounds - rounds
+            if ROUND_NOTICE_AT and left <= ROUND_NOTICE_AT and messages[-1].get("role") == "tool":
+                messages[-1]["content"] += (
+                    f"\n\n[framework note] {left} round(s) of tool calls left in this attempt. "
+                    "If you know the fix, apply it now and start a build; edits that you leave "
+                    "unbuilt are built by the framework when the attempt ends.")
             try:
                 choice = self._chat(messages, tools)
                 latest_text = choice.message.content or latest_text

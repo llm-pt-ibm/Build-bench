@@ -27,6 +27,7 @@ Build systems such as Bazel, CMake or Cargo download dependency sources during t
 
 ## Workflow & Stop Rules
 - Work entirely within `{temp_dir}` (the package root).
+- Each attempt allows up to {max_tool_rounds} replies with tool calls. Put independent calls (e.g. several reads or searches) in the same reply, and once you have found the cause, apply the fix and build instead of reading more: the build tells you whether the fix is right.
 - Finish every repair cycle with these calls, in this order:
   1) `compress_to_archive_tool[package_path="{temp_dir}"]` **(only if** you changed files inside `extracted/`)
   2) `upload_file_to_obs_tool[package_path="{temp_dir}"]`
