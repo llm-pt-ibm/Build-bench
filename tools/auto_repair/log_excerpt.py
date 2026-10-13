@@ -3,7 +3,9 @@ import re
 KEY_LINE = re.compile(
     r"error:|fatal error|\bFAILED\b|undefined reference|No such file or directory"
     r"|malformed patch|Bad exit status|make(\[\d+\])?: \*\*\*|\bKilled\b"
-    r"|Segmentation fault|cannot find -l|nothing provides|have choice for",
+    r"|Segmentation fault|cannot find -l|nothing provides|have choice for"
+    # Bazel/Starlark: "Error in fail: ..." and the "... FAIL: <message>" lines
+    r"|Error in \w+:|\bFAIL:",
     re.IGNORECASE,
 )
 # Messages of patch(1); they explain why a hunk failed, so they are kept with

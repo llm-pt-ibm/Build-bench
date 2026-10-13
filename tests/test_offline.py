@@ -10,6 +10,12 @@ os.environ.setdefault("BENCH_CONFIG", "config/x86_64_to_ppc64le.yaml")
 os.environ["API_KEY"] = "offline-test"
 os.environ["API_BASE_URL"] = "http://127.0.0.1:9/v1"
 os.environ["OBS_USER"] = os.environ["OBS_PASSWORD"] = ""
+# a read-only build directory (dependency sources of build-recipe cases)
+READONLY = os.path.join(ROOT, ".test_readonly")
+os.makedirs(READONLY, exist_ok=True)
+with open(os.path.join(READONLY, "dep.bzl"), "w") as f:
+    f.write("cpu = select({'x86': 1})\n")
+os.environ["BENCH_READONLY_DIRS"] = READONLY
 
 from openai.types.chat.chat_completion import Choice  # noqa: E402
 import client  # noqa: E402
@@ -143,9 +149,26 @@ async def main():
         open(f"{TMP}/no-eol.txt", "w").write("x")
         await tool("modify_file_tool", file_path=f"{TMP}/no-eol.txt", new_content="y")
         assert open(f"{TMP}/no-eol.txt").read() == "y", "files without a final newline are kept so"
+        spec_path = f"{TMP}/zita-resampler.spec"
+        assert (await tool("replace_in_file_tool", file_path=spec_path, old_text="Name:", new_text="Name: ")
+                ).startswith("Success: Replaced 1 occurrence")
+        assert "not found" in await tool("replace_in_file_tool", file_path=spec_path, old_text="no such text",
+                                         new_text="x")
+        assert "occurs" in await tool("replace_in_file_tool", file_path=spec_path, old_text="%", new_text="%")
+        assert "outside the package workspace" in await tool("replace_in_file_tool", file_path="client.py",
+                                                             old_text="import", new_text="x")
+        found = await tool("search_files_tool", path=TMP, pattern="^Name: ", file_glob="*.spec")
+        assert found.startswith(f"{TMP}/zita-resampler.spec:"), found
+        assert "dep.bzl:1:" in await tool("search_files_tool", path=READONLY, pattern="select")
+        assert (await tool("get_file_content_tool", file_path=f"{READONLY}/dep.bzl")).startswith("cpu = ")
+        assert (await tool("modify_file_tool", file_path=f"{READONLY}/dep.bzl", new_content="x")).startswith("Error")
+        assert (await tool("search_files_tool", path="/etc", pattern="root")).startswith("Error")
+        shallow = json.loads(await tool("get_structure_of_files", package_path="temp_workspace", max_depth=1))
+        assert shallow["structure"]["temp_workspace"][PKG].startswith("<"), shallow
         part = await tool("get_file_content_tool", file_path=f"{TMP}/log_failed.txt", start_line=2, max_lines=3)
         assert part.startswith("[lines 2-4 of "), part[:80]
-        print("file tools: OK (workspace guard, new files, patch check, final newline, line ranges)")
+        print("file tools: OK (workspace guard, new files, patch check, final newline, line ranges,"
+              " replace, search, read-only build dirs, structure depth)")
 
         assert (await tool("extract_archive_tool", package_path=TMP)).startswith("Successfully extracted")
         assert (await tool("extract_archive_tool", package_path=TMP)).startswith("Already extracted")
@@ -161,6 +184,8 @@ async def main():
         print("upload without credentials: OK (explicit error, no OBS call)")
     finally:
         await cli.cleanup()
+        import shutil
+        shutil.rmtree(READONLY, ignore_errors=True)
 
 
 asyncio.run(main())

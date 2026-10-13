@@ -78,6 +78,36 @@ improvements` shows them file by file.
   backend is recorded in `run.build_backend`.
 - `dataset/fetch_package.py` accepts the package name of the failing log as a
   third argument (for multibuild flavors such as `python-torch:standard`).
+- Build-recipe cases, for packages that are not RPM packages or are too large
+  for OBS (any build system: Bazel, CMake, Cargo, pip...): a case directory
+  with a `build.sh` and its sources (directories or archives), detected by
+  `tools/auto_repair/case_type.py`. `upload_file_to_obs_tool` mirrors the
+  package to a stable build directory (only changed files are copied) and runs
+  `build.sh` there through `scripts/script_worker/run.sh`;
+  `check_build_result` returns the same messages as with OBS
+  (`tools/auto_repair/script_build.py`). Each package keeps a persistent cache
+  (`BENCH_CACHE_DIR`), so builds are incremental across attempts and runs;
+  paths of the build copy in the log are rewritten to the workspace. The case
+  declares its build environment in `manifest.json` (`envs/<name>.sh`, set up
+  before `build.sh` and not editable by the model, like an OBS build host).
+  `prompts/build_recipe_generation.txt` is the prompt of these cases.
+  `dataset/recipe_baseline.py` builds a case without the model and saves the
+  original failure. First case: jaxlib 0.10.2 (`data/x86_64_to_ppc64le/jaxlib`,
+  sources fetched by `dataset/fetch_jaxlib.sh`, environment
+  `envs/jax-power9.sh`); it fails in 2 minutes as on any ppc64le host
+  (rules_python finds no host Python for ppc64le).
+- Extensions for large code bases, enabled per config (`llm.extra_tools`,
+  `llm.max_context_chars`): `search_files_tool` (grep -rnE),
+  `replace_in_file_tool` (edit an exact piece of a file, with the same history
+  and checks as `modify_file_tool`), `get_structure_of_files(max_depth)`, read
+  access to the build cache (`BENCH_READONLY_DIRS`), where builds keep the
+  dependency sources they download, and shortening of the oldest tool results
+  when the conversation grows past `max_context_chars`.
+  `config/x86_64_to_ppc64le_power9.yaml` enables them and builds everything on
+  the Power9 (RPM packages with osc, recipes on the host).
+- `check_patch_format` no longer flags valid patches: extra context lines after
+  a hunk (ignored by patch), empty patches and git rename-only patches. The
+  log excerpt also keeps Bazel/Starlark failures (`Error in fail:`, `FAIL:`).
 - `BENCH_PACKAGES` (optional, comma-separated) limits a run to those packages
   of the data directory.
 - `BENCH_FINAL_NEWLINE` (default `add`, or `off`): `modify_file_tool` adds the

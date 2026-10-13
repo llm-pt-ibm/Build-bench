@@ -5,12 +5,23 @@ from dotenv import load_dotenv
 load_dotenv(".env")
 
 
+def _auto_jobs(gb_per_job: int = 5) -> int:
+    """One job per gb_per_job GB of available memory, at most the number of CPUs."""
+    try:
+        with open("/proc/meminfo") as f:
+            kb = next(int(l.split()[1]) for l in f if l.startswith("MemAvailable"))
+        return max(1, min(os.cpu_count() or 1, kb // (gb_per_job * 1024 * 1024)))
+    except (OSError, StopIteration, ValueError):
+        return os.cpu_count() or 1
+
+
 def load_obs_config() -> dict:
     with open(os.getenv("BENCH_CONFIG", "config/info.yaml"), "r") as f:
         info = yaml.safe_load(f)
     user = info["user"]
     build = info.get("build") or {}
     local = build.get("local") or {}
+    script = build.get("script") or {}
     name = os.getenv("OBS_USER") or user.get("user_name")
     return {
         "api": user["obs_api_url"].rstrip("/"),
@@ -30,5 +41,10 @@ def load_obs_config() -> dict:
             "repository": local.get("repository", "standard"),
             "arch": local.get("arch", user["architecture_name"]),
             "jobs": int(local.get("jobs", 0)),
+        },
+        # build-recipe cases (build.sh), see tools/auto_repair/script_build.py
+        "script": {
+            "stage_root": os.getenv("BENCH_STAGE_ROOT") or script.get("stage_root", "/root/obs-worker/script"),
+            "jobs": int(script.get("jobs", 0)) or _auto_jobs(),
         },
     }

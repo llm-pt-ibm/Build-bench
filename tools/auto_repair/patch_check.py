@@ -1,6 +1,8 @@
 import re
 
 HUNK_HEADER = re.compile(r"^@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@")
+GIT_EXTENDED = re.compile(r"^(rename|copy) (from|to) |^(new|deleted) file mode |^(old|new) mode |"
+                          r"^similarity index |^GIT binary patch|^Binary files ", re.MULTILINE)
 
 
 def check_patch_format(text: str) -> list:
@@ -53,10 +55,14 @@ def check_patch_format(text: str) -> list:
         if i < n:
             nxt = lines[i]
             signature = nxt == "-- "  # git format-patch trailer
-            if nxt[:1] in ("+", "-", " ") and not signature and not nxt.startswith(("+++ ", "--- ")):
+            # a change line past the declared count is silently dropped by
+            # patch; extra context lines are ignored and harmless
+            if nxt[:1] in ("+", "-") and not signature and not nxt.startswith(("+++ ", "--- ")):
                 problems.append(
                     f"hunk at line {header_line} has more lines than its header "
                     f"declares (-{old_decl}/+{new_decl}); extra line {i + 1}: {nxt[:80]!r}")
-    if hunks == 0:
+    # empty patches and git patches that only rename, copy or change modes are valid
+    git_only = GIT_EXTENDED.search(text)
+    if hunks == 0 and text.strip() and not git_only:
         problems.append("no hunk header (@@ -a,b +c,d @@) found")
     return problems

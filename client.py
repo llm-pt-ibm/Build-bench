@@ -12,6 +12,8 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from mcp.client.stdio import stdio_client
 from mcp import ClientSession, StdioServerParameters
+from tools.auto_repair.case_type import case_type
+from tools.auto_repair.obs_config import load_obs_config
 
 load_dotenv(".env")
 CONFIG_PATH = os.getenv("BENCH_CONFIG", "config/info.yaml")
@@ -78,6 +80,17 @@ LLM_TOOLS = (
     "upload_file_to_obs_tool",
     "check_build_result",
 )
+# Extensions for large code bases, enabled in the config (llm.extra_tools):
+# search_files_tool and replace_in_file_tool.
+LLM_CFG = info.get("llm") or {}
+LLM_TOOLS = LLM_TOOLS + tuple(LLM_CFG.get("extra_tools") or ())
+# Prompt template per case type (tools/auto_repair/case_type.py)
+PROMPTS = {"rpm": "prompts/full_file_generation.txt", "recipe": "prompts/build_recipe_generation.txt",
+           **(info.get("prompts") or {})}
+# When the conversation grows past this many characters, the oldest tool
+# results are shortened (0: never). The last ones are always kept whole.
+MAX_CONTEXT_CHARS = int(LLM_CFG.get("max_context_chars", 0))
+KEEP_RECENT_TOOL_RESULTS = int(LLM_CFG.get("keep_recent_tool_results", 8))
 
 
 def run_metadata(max_build_attempts: int, max_tool_rounds: int) -> Dict:
@@ -97,6 +110,8 @@ def run_metadata(max_build_attempts: int, max_tool_rounds: int) -> Dict:
         "max_build_attempts": max_build_attempts,
         "max_tool_rounds": max_tool_rounds,
         "final_newline": os.getenv("BENCH_FINAL_NEWLINE", "add").lower(),
+        "llm_tools": list(LLM_TOOLS),
+        "max_context_chars": MAX_CONTEXT_CHARS,
         "build_backend": (os.getenv("BENCH_BUILD_BACKEND") or (info.get("build") or {}).get("backend", "obs")).lower(),
     }
 
@@ -144,8 +159,10 @@ class AutoRepairClient:
         os.makedirs(self.result_dir, exist_ok=True)
         os.makedirs(self.temp_work_dir, exist_ok=True)
         os.makedirs(self.log_dir, exist_ok=True)
-        # the MCP server limits its file tools to this directory
+        # the MCP server limits its file tools to this directory, and lets the
+        # model read the build directories of build-recipe cases
         os.environ["BENCH_TEMP_DIR"] = self.temp_work_dir
+        os.environ.setdefault("BENCH_READONLY_DIRS", load_obs_config()["script"]["stage_root"])
 
         self.server_script = server_script
         self.max_retries = max_retries
@@ -259,9 +276,11 @@ class AutoRepairClient:
         package_path = init_data["package_path"]
         result_file = init_data["result_file"]
 
-        # Load system prompt template
-        with open("prompts/full_file_generation.txt", "r", encoding="utf-8") as f:
+        # Load the system prompt template for this kind of case
+        kind = case_type(package_path)
+        with open(PROMPTS[kind], "r", encoding="utf-8") as f:
             system_prompt_tpl = f.read()
+        readonly_dirs = os.path.join(load_obs_config()["script"]["stage_root"], package_name, "cache")
 
         build_succeeded = False
         final_text = ""
@@ -302,6 +321,7 @@ class AutoRepairClient:
                         source_arch=info["source_arch"],
                         target_arch=info["target_arch"],
                         build_wait_minutes=int(info.get("obs", {}).get("max_wait_seconds", 3600)) // 60,
+                        build_cache_dir=readonly_dirs,
                     ),
                 },
             )
@@ -342,7 +362,28 @@ class AutoRepairClient:
         if not build_succeeded:
             self._log(package_name, "Max attempts reached without success.")
 
+    @staticmethod
+    def _compact(messages: List[Dict]) -> None:
+        """Shorten the oldest tool results while the conversation is longer than
+        MAX_CONTEXT_CHARS; the last KEEP_RECENT_TOOL_RESULTS stay whole."""
+        if MAX_CONTEXT_CHARS <= 0:
+            return
+        size = sum(len(str(m.get("content") or "")) + len(json.dumps(m.get("tool_calls") or ""))
+                   for m in messages)
+        tools_idx = [i for i, m in enumerate(messages) if m.get("role") == "tool"]
+        for i in tools_idx[:-KEEP_RECENT_TOOL_RESULTS] if KEEP_RECENT_TOOL_RESULTS else tools_idx:
+            if size <= MAX_CONTEXT_CHARS:
+                break
+            content = str(messages[i].get("content") or "")
+            if content.startswith("[older tool result shortened") or len(content) < 600:
+                continue
+            short = (f"[older tool result shortened to save context; it had {len(content)} characters. "
+                     f"Call the tool again if you need it.]\n{content[:400]}")
+            messages[i]["content"] = short
+            size -= len(content) - len(short)
+
     def _chat(self, messages: List[Dict], tools: List[Dict]):
+        self._compact(messages)
         kwargs = {}
         if LLM_TEMPERATURE is not None:
             kwargs["temperature"] = LLM_TEMPERATURE
@@ -430,7 +471,7 @@ class AutoRepairClient:
         return tool_name, tool_ret
 
     def _track_package_state(self, tool_name: str, tool_ret: str, by_framework: bool = False):
-        if tool_name == "modify_file_tool" and tool_ret.startswith("Success"):
+        if tool_name in ("modify_file_tool", "replace_in_file_tool") and tool_ret.startswith("Success"):
             self.dirty = True
         elif tool_name == "compress_to_archive_tool" and tool_ret.startswith("Success: Compressed"):
             self.dirty = True

@@ -1,0 +1,101 @@
+=== build environment: jax-power9
+ldconfig: /root/miniforge3/envs/jax_build/lib/liblzma.so.5 is not a symbolic link
+
+BAZEL=/usr/local/bin/bazel-7.7.0 (bazel 7.7.0)
+CLANG=/root/miniforge3/envs/jax_build/bin/clang (clang version 17.0.6 (https://github.com/conda-forge/clangdev-feedstock 8d7a58135ca9bf5ee26df8d4df19e052c3446255))
+PYTHON=/root/miniforge3/envs/jax_build/bin/python (Python 3.12.13); TEST_PYTHON=/root/miniforge3/envs/bench_jax_test/bin/python (no jax installed)
+LOCAL_WHEELS=/root/jax/dist: ml_dtypes-0.5.4-cp312-cp312-linux_ppc64le.whl numpy-2.0.2-cp312-cp312-linux_ppc64le.whl zstandard-0.25.0-cp312-cp312-manylinux2014_ppc64le.manylinux_2_17_ppc64le.whl 
+BENCH_CACHE_DIR=/root/obs-worker/script/jaxlib/cache (persistent build cache)
+=== build host: ppc64le, 160 cpus, 109 jobs
+=== running build.sh
+2026-10-13 16:45:35,376 - INFO - 
+     _   _  __  __
+    | | / \ \ \/ /
+ _  | |/ _ \ \  /
+| |_| / ___ \/  \
+ \___/_/   \/_/\_\
+
+
+2026-10-13 16:45:35,377 - INFO - Verbose logging enabled
+2026-10-13 16:45:35,385 - DEBUG - Bazel path: /usr/local/bin/bazel-7.7.0
+2026-10-13 16:45:35,385 - DEBUG - Bazel version: 7.7.0
+2026-10-13 16:45:35,385 - DEBUG - Additional Bazel startup options: ['--output_user_root=/root/obs-worker/script/jaxlib/cache/bazel']
+2026-10-13 16:45:35,385 - DEBUG - Hermetic Python version: 3.12
+2026-10-13 16:45:35,385 - DEBUG - Local XLA path: temp_workspace/jaxlib/xla
+2026-10-13 16:45:35,447 - DEBUG - Using Clang as the compiler, clang path: /root/miniforge3/envs/jax_build/bin/clang, clang version: 17
+2026-10-13 16:45:35,447 - DEBUG - Enabling MKL DNN
+2026-10-13 16:45:35,447 - DEBUG - Additional Bazel build options: ['--repo_env=ML_WHEEL_TYPE=release', '--keep_going', '--jobs=109']
+2026-10-13 16:45:35,447 - INFO - Bazel options written to .jax_configure.bazelrc
+2026-10-13 16:45:35,447 - DEBUG - Artifacts output directory: temp_workspace/jaxlib/jax/dist
+2026-10-13 16:45:35,447 - INFO - Building jaxlib for linux ppc64le...
+2026-10-13 16:45:35,447 - INFO - [EXECUTING] /usr/local/bin/bazel-7.7.0 --output_user_root=/root/obs-worker/script/jaxlib/cache/bazel build --repo_env=HERMETIC_PYTHON_VERSION=3.12 --verbose_failures=true //jaxlib/tools:jaxlib_wheel
+Extracting Bazel installation...
+Starting local Bazel server and connecting to it...
+INFO: Options provided by the client:
+  Inherited 'common' options: --isatty=0 --terminal_columns=80
+INFO: Reading rc options for 'build' from temp_workspace/jaxlib/jax/.bazelrc:
+  Inherited 'common' options: --noenable_bzlmod --announce_rc --spawn_strategy=local --enable_platform_specific_config --experimental_cc_shared_library --incompatible_enable_cc_toolchain_resolution --repo_env USE_HERMETIC_CC_TOOLCHAIN=1 --define=grpc_no_ares=true --define=tsl_link_protobuf=true -c opt --output_filter=DONT_MATCH_ANYTHING --copt=-DMLIR_PYTHON_PACKAGE_PREFIX=jaxlib.mlir. --copt=-DNB_DOMAIN=jax --legacy_external_runfiles=false --repo_env=USE_PYWRAP_RULES=True --copt=-DGRPC_BAZEL_BUILD --host_copt=-DGRPC_BAZEL_BUILD --action_env=GRPC_BAZEL_RUNTIME=1 --repo_env=PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=upb --action_env=PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=upb --@rules_python//python/config_settings:precompile=force_disabled --experimental_repo_remote_exec
+INFO: Reading rc options for 'build' from temp_workspace/jaxlib/jax/.bazelrc:
+  'build' options: --experimental_downloader_config=bazel_downloader.cfg --@rules_python//python/config_settings:bootstrap_impl=script --repo_env=RULES_PYTHON_ENABLE_PIPSTAR=0
+INFO: Reading rc options for 'build' from temp_workspace/jaxlib/jax/.jax_configure.bazelrc:
+  'build' options: --repo_env=HERMETIC_PYTHON_VERSION=3.12 --verbose_failures=true --override_repository=xla=temp_workspace/jaxlib/xla --override_module=xla=temp_workspace/jaxlib/xla --config=clang_local --action_env=CLANG_COMPILER_PATH=/root/miniforge3/envs/jax_build/bin/clang --repo_env=CC=/root/miniforge3/envs/jax_build/bin/clang --repo_env=CXX=/root/miniforge3/envs/jax_build/bin/clang++ --repo_env=BAZEL_COMPILER=/root/miniforge3/envs/jax_build/bin/clang --config=clang --define=xnn_enable_avxvnniint8=false --config=mkl_open_source_only --repo_env=ML_WHEEL_TYPE=release --keep_going --jobs=109
+INFO: Found applicable config definition common:clang_local in file temp_workspace/jaxlib/jax/.bazelrc: --noincompatible_enable_cc_toolchain_resolution --@rules_ml_toolchain//common:enable_hermetic_cc=False --repo_env USE_HERMETIC_CC_TOOLCHAIN=0
+INFO: Found applicable config definition common:clang in file temp_workspace/jaxlib/jax/.bazelrc: --copt=-Wno-gnu-offsetof-extensions --copt=-Qunused-arguments --copt=-Werror=mismatched-tags --copt=-Wno-error=c23-extensions
+INFO: Found applicable config definition common:mkl_open_source_only in file temp_workspace/jaxlib/jax/.bazelrc: --define=tensorflow_mkldnn_contraction_kernel=1
+INFO: Found applicable config definition common:linux in file temp_workspace/jaxlib/jax/.bazelrc: --config=posix --copt=-Wno-unknown-warning-option --copt=-Wno-stringop-truncation --copt=-Wno-array-parameter --copt=-Wno-deprecated-register --copt=-Wno-register
+INFO: Found applicable config definition common:posix in file temp_workspace/jaxlib/jax/.bazelrc: --copt=-fvisibility=hidden --copt=-Wno-sign-compare --cxxopt=-std=c++17 --host_cxxopt=-std=c++17
+Computing main repo mapping: 
+DEBUG: temp_workspace/jaxlib/jax/third_party/repo.bzl:138:14: 
+Warning: skipping import of repository 'rules_ml_toolchain' because it already exists.
+Computing main repo mapping: 
+Computing main repo mapping: 
+Computing main repo mapping: 
+Computing main repo mapping: 
+DEBUG: /root/obs-worker/script/jaxlib/cache/bazel/4ebb03ef3cb1bd622034ef725e8576a1/external/rules_ml_toolchain/py/python_repo.bzl:108:14: !!!Using pywrap rules instead of directly creating .so objects!!!
+DEBUG: /root/obs-worker/script/jaxlib/cache/bazel/4ebb03ef3cb1bd622034ef725e8576a1/external/rules_ml_toolchain/py/python_repo.bzl:113:10: 
+=============================
+Hermetic Python configuration:
+Version: "3.12"
+Kind: ""
+Interpreter: "default" (provided by rules_python)
+Requirements_lock label: "@python_version_repo//:requirements_lock_3_12.txt"
+=====================================
+Computing main repo mapping: 
+INFO: Repository python_3_12_host instantiated at:
+  temp_workspace/jaxlib/jax/WORKSPACE:79:26: in <toplevel>
+  /root/obs-worker/script/jaxlib/cache/bazel/4ebb03ef3cb1bd622034ef725e8576a1/external/rules_ml_toolchain/py/python_register_toolchain.bzl:85:35: in python_register_toolchain
+  /root/obs-worker/script/jaxlib/cache/bazel/4ebb03ef3cb1bd622034ef725e8576a1/external/rules_python/python/private/python_register_toolchains.bzl:174:32: in python_register_toolchains
+Repository rule host_compatible_python_repo defined at:
+  /root/obs-worker/script/jaxlib/cache/bazel/4ebb03ef3cb1bd622034ef725e8576a1/external/rules_python/python/private/toolchains_repo.bzl:383:46: in <toplevel>
+ERROR: /root/obs-worker/script/jaxlib/cache/bazel/4ebb03ef3cb1bd622034ef725e8576a1/external/rules_python/python/private/repo_utils.bzl:83:16: An error occurred during the fetch of repository 'python_3_12_host':
+   Traceback (most recent call last):
+	File "/root/obs-worker/script/jaxlib/cache/bazel/4ebb03ef3cb1bd622034ef725e8576a1/external/rules_python/python/private/toolchains_repo.bzl", line 316, column 46, in _host_compatible_python_repo_impl
+		impl_repo_name = _get_host_impl_repo_name(
+	File "/root/obs-worker/script/jaxlib/cache/bazel/4ebb03ef3cb1bd622034ef725e8576a1/external/rules_python/python/private/toolchains_repo.bzl", line 620, column 23, in _get_host_impl_repo_name
+		return logger.fail("Could not find a compatible 'host' python for '{os_name}', '{cpu_name}' from the loaded platforms: {platforms}".format(
+	File "/root/obs-worker/script/jaxlib/cache/bazel/4ebb03ef3cb1bd622034ef725e8576a1/external/rules_python/python/private/repo_utils.bzl", line 93, column 39, in lambda
+		fail = lambda message_cb: _log(-1, "FAIL", message_cb, fail),
+	File "/root/obs-worker/script/jaxlib/cache/bazel/4ebb03ef3cb1bd622034ef725e8576a1/external/rules_python/python/private/repo_utils.bzl", line 83, column 16, in _log
+		printer("\nrules_python:{} {}:".format(
+Error in fail: 
+rules_python:host_compatible_python_repo(@@python_3_12_host) FAIL: Could not find a compatible 'host' python for 'linux', 'ppc64le' from the loaded platforms: ["aarch64-apple-darwin", "aarch64-pc-windows-msvc", "aarch64-unknown-linux-gnu", "ppc64le-unknown-linux-gnu", "riscv64-unknown-linux-gnu", "s390x-unknown-linux-gnu", "x86_64-apple-darwin", "x86_64-pc-windows-msvc", "x86_64-unknown-linux-gnu", "x86_64-unknown-linux-musl"]
+ERROR: Error computing the main repository mapping: Encountered error while reading extension file 'requirements.bzl': no such package '@@pypi//': no such package '@@python_3_12_host//': 
+rules_python:host_compatible_python_repo(@@python_3_12_host) FAIL: Could not find a compatible 'host' python for 'linux', 'ppc64le' from the loaded platforms: ["aarch64-apple-darwin", "aarch64-pc-windows-msvc", "aarch64-unknown-linux-gnu", "ppc64le-unknown-linux-gnu", "riscv64-unknown-linux-gnu", "s390x-unknown-linux-gnu", "x86_64-apple-darwin", "x86_64-pc-windows-msvc", "x86_64-unknown-linux-gnu", "x86_64-unknown-linux-musl"]
+2026-10-13 16:45:48,994 - DEBUG - Command finished with return code 1
+
+
+Traceback (most recent call last):
+  File "temp_workspace/jaxlib/jax/build/build.py", line 839, in <module>
+    asyncio.run(main())
+  File "/root/miniforge3/envs/jax_build/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/root/miniforge3/envs/jax_build/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniforge3/envs/jax_build/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "temp_workspace/jaxlib/jax/build/build.py", line 771, in main
+    raise RuntimeError(f"Command failed with return code {result.return_code}")
+RuntimeError: Command failed with return code 1

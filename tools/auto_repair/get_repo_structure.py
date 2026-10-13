@@ -509,7 +509,7 @@ def check_file_ext(file_name, language):
     return False
 
 
-def create_structure(directory_path):
+def create_structure(directory_path, max_depth=0):
     """Create the structure of the repository directory by parsing Python files.
     :param directory_path: Path to the repository directory.
     :return: A dictionary representing the structure.
@@ -524,12 +524,17 @@ def create_structure(directory_path):
         "doc",
     }
 
-    def build_structure(current_path: str):
+    def build_structure(current_path: str, depth: int = 1):
         """Build the structure of the repository directory.
         :param current_path: Path to the current directory.
         :return: A dictionary representing the structure.
         """
         current_struct = {}
+        if max_depth and depth > max_depth:
+            try:
+                return f"<{len(os.listdir(current_path))} entries>"
+            except OSError:
+                return current_struct
         try:
             with os.scandir(current_path) as entries:
                 for entry in entries:
@@ -538,7 +543,7 @@ def create_structure(directory_path):
 
                     if entry.is_dir(follow_symlinks=False):
                         # Recursively build structure for subdirectories
-                        sub_struct = build_structure(entry.path)
+                        sub_struct = build_structure(entry.path, depth + 1)
                         if sub_struct:  # Only keep non-empty subdirectories
                             current_struct[entry.name] = sub_struct
                     else:
@@ -550,15 +555,15 @@ def create_structure(directory_path):
 
     # Start building structure from the root directory
     root_name = os.path.basename(directory_path)
-    structure[root_name] = build_structure(directory_path)
+    structure[root_name] = build_structure(directory_path, 1)
 
     return structure
 
 
-def get_project_structure_from_local(code_folder):
+def get_project_structure_from_local(code_folder, max_depth=0):
     assert os.path.exists(code_folder), f"{code_folder} does not exist"
 
-    structure = create_structure(code_folder)
+    structure = create_structure(code_folder, max_depth)
     d = {
         "repo": os.path.basename(code_folder),
         "structure": structure,

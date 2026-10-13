@@ -1,0 +1,42 @@
+LLM_PROVIDER: "openai"
+source_arch: "x86_64"
+target_arch: "ppc64le"
+
+paths:
+  base_dir: "data/x86_64_to_ppc64le"
+  result_dir: "result_text_res/x86_64_to_ppc64le_power9"
+  temp_work_dir: "temp_workspace"
+  log_dir: "result_log_res/x86_64_to_ppc64le_power9"
+
+user:
+  target_project: "home:{user}:build-bench"
+  repository_name: "ppc64le"
+  architecture_name: "ppc64le"
+  obs_api_url: "https://api.opensuse.org"
+
+# Every build runs on this Power9 host, for any kind of package:
+# - RPM packages (.spec): osc build in the local worker (scripts/local_worker),
+#   against openSUSE:Factory:PowerPC like OBS;
+# - build-recipe cases (build.sh): the recipe runs on the host, in the build
+#   environment the case declares (envs/), with a persistent build cache.
+build:
+  backend: "local"
+  local:
+    worker_root: "/root/obs-worker"
+    project: "openSUSE:Factory:PowerPC"
+    repository: "standard"
+    arch: "ppc64le"
+    jobs: 0          # 0: one job per 5 GB of available memory, at most nproc
+  script:
+    stage_root: "/root/obs-worker/script"
+    jobs: 0
+
+# Extensions for large code bases
+llm:
+  extra_tools: ["search_files_tool", "replace_in_file_tool"]
+  max_context_chars: 600000
+  keep_recent_tool_results: 8
+
+obs:
+  max_wait_seconds: 14400   # large packages take hours from a cold cache
+  check_interval: 30

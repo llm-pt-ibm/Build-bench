@@ -1,6 +1,7 @@
 import os
 import json
 import shutil
+import subprocess
 import difflib
 import time
 from mcp.server.fastmcp import FastMCP
@@ -9,6 +10,8 @@ from tools.auto_repair.get_repo_structure import get_project_structure_from_loca
 from tools.auto_repair.check_build_res import check_main
 from tools.auto_repair.upload_files import main_upload
 from tools.auto_repair.local_build import local_upload, local_check
+from tools.auto_repair.script_build import script_upload, script_check
+from tools.auto_repair.case_type import case_type
 from tools.auto_repair.obs_config import load_obs_config
 from tools.auto_repair.patch_check import check_patch_format
 import tarfile
@@ -38,6 +41,21 @@ FINAL_NEWLINE = os.getenv("BENCH_FINAL_NEWLINE", "add").lower()
 def _in_workspace(path) -> bool:
     real = os.path.realpath(str(path))
     return real == TEMP_ROOT or real.startswith(TEMP_ROOT + os.sep)
+
+
+# Directories the model may read but not change (e.g. dependency sources a
+# build downloaded into its cache), set by the client from the config.
+READONLY_ROOTS = [os.path.realpath(d) for d in os.getenv("BENCH_READONLY_DIRS", "").split(os.pathsep) if d]
+
+
+def _readable(path) -> bool:
+    real = os.path.realpath(str(path))
+    return _in_workspace(path) or any(real == r or real.startswith(r + os.sep) for r in READONLY_ROOTS)
+
+
+def _unreadable(path) -> str:
+    extra = f" or the read-only build directories ({', '.join(READONLY_ROOTS)})" if READONLY_ROOTS else ""
+    return (f"Error: '{path}' is outside the package workspace ({os.path.relpath(TEMP_ROOT)}){extra}.")
 
 
 def _outside(path) -> str:
@@ -279,8 +297,8 @@ def get_file_content_tool(file_path: str, start_line: int = 1, max_lines: int = 
         File contents. Very large files are shortened in the middle; read a
         specific part with start_line/max_lines.
     """
-    if not _in_workspace(file_path):
-        return _outside(file_path)
+    if not _readable(file_path):
+        return _unreadable(file_path)
     try:
         if not os.path.exists(file_path):
             return f"Error: File not found - {file_path}"
@@ -415,20 +433,86 @@ STRUCTURE_MAX_CHARS = 40000
 
 
 @mcp.tool()
-def get_structure_of_files(package_path) -> str:
+def get_structure_of_files(package_path, max_depth: int = 0) -> str:
     """
     Retrieve project structure diagram.
     Args:
         package_path (str): Package path.
+        max_depth (int): Levels of subdirectories to list (default 0: all). Deeper
+            directories are shown with their number of entries.
     """
-    if not _in_workspace(package_path):
-        return _outside(package_path)
-    text = json.dumps(get_project_structure_from_local(package_path), indent=1)
+    if not _readable(package_path):
+        return _unreadable(package_path)
+    text = json.dumps(get_project_structure_from_local(package_path, max_depth), indent=1)
     if len(text) > STRUCTURE_MAX_CHARS:
         text = (text[:STRUCTURE_MAX_CHARS]
                 + f"\n... [truncated: {len(text)} characters in total. "
                 "Use get_file_content_tool on the specific files you need.]")
     return text
+
+
+def _write_file(file_path: str, new_content: str, action: str) -> str:
+    """Write a file of the workspace, recording the change for the history and
+    the diff log, and check patch files."""
+    created = not os.path.exists(file_path)
+    parent = os.path.dirname(file_path) or "."
+    if created and not os.path.isdir(parent):
+        return f"Error: Directory does not exist - {parent}"
+
+    package_name, rel_path = _package_and_rel(file_path)
+    diff_log_path = f"data/case_study/{package_name}_diff.log"
+
+    old_lines = []
+    if not created:
+        with open(file_path, "r", encoding="utf-8") as f:
+            old_lines = f.readlines()
+    added_newline = (FINAL_NEWLINE == "add" and new_content and not new_content.endswith("\n")
+                     and (created or not old_lines or old_lines[-1].endswith("\n")))
+    if added_newline:
+        new_content += "\n"
+    new_lines = new_content.splitlines(keepends=True)
+
+    diff = list(
+        difflib.unified_diff(
+            old_lines,
+            new_lines,
+            fromfile="/dev/null" if created else f"{file_path} (old)",
+            tofile=f"{file_path} (new)",
+            lineterm="",
+        )
+    )
+
+    if diff:
+        # record the change for the next attempt's prompt
+        server_state["modification_history"].setdefault(package_name, []).append(
+            {
+                "file_path": rel_path,
+                "diff_text": "\n".join(line.rstrip("\n") for line in diff),
+                "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+            }
+        )
+        os.makedirs(os.path.dirname(diff_log_path), exist_ok=True)
+        with open(diff_log_path, "a", encoding="utf-8") as log:
+            log.write("\n" + "=" * 80 + "\n")
+            log.write(f"Timestamp: {datetime.now()}\n")
+            log.write(f"File: {file_path}\n")
+            log.write(f"Diff lines: {len(diff)}\n\n")
+            for line in diff:
+                log.write(line + "\n")
+
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(new_content)
+
+    message = f"Success: {'Created' if created else action} {file_path}\nPreview: {new_content[:100]}..."
+    if added_newline:
+        message += "\nNote: a final newline was added to the content."
+    if file_path.endswith((".patch", ".diff")):
+        problems = check_patch_format(new_content)
+        if problems:
+            message += ("\nWarning: this patch is malformed and will be rejected when the "
+                        "package is built (patches are applied with --fuzz=0): "
+                        + "; ".join(problems))
+    return message
 
 
 @mcp.tool()
@@ -442,68 +526,83 @@ def modify_file_tool(file_path: str, new_content: str):
     if not _in_workspace(file_path):
         return _outside(file_path)
     try:
-        created = not os.path.exists(file_path)
-        parent = os.path.dirname(file_path) or "."
-        if created and not os.path.isdir(parent):
-            return f"Error: Directory does not exist - {parent}"
-
-        package_name, rel_path = _package_and_rel(file_path)
-        diff_log_path = f"data/case_study/{package_name}_diff.log"
-
-        old_lines = []
-        if not created:
-            with open(file_path, "r", encoding="utf-8") as f:
-                old_lines = f.readlines()
-        added_newline = (FINAL_NEWLINE == "add" and new_content and not new_content.endswith("\n")
-                         and (created or not old_lines or old_lines[-1].endswith("\n")))
-        if added_newline:
-            new_content += "\n"
-        new_lines = new_content.splitlines(keepends=True)
-
-        diff = list(
-            difflib.unified_diff(
-                old_lines,
-                new_lines,
-                fromfile="/dev/null" if created else f"{file_path} (old)",
-                tofile=f"{file_path} (new)",
-                lineterm="",
-            )
-        )
-
-        if diff:
-            # record the change for the next attempt's prompt
-            server_state["modification_history"].setdefault(package_name, []).append(
-                {
-                    "file_path": rel_path,
-                    "diff_text": "\n".join(line.rstrip("\n") for line in diff),
-                    "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
-                }
-            )
-            with open(diff_log_path, "a", encoding="utf-8") as log:
-                log.write("\n" + "=" * 80 + "\n")
-                log.write(f"Timestamp: {datetime.now()}\n")
-                log.write(f"File: {file_path}\n")
-                log.write(f"Diff lines: {len(diff)}\n\n")
-                for line in diff:
-                    log.write(line + "\n")
-
-        with open(file_path, "w", encoding="utf-8") as f:
-            f.write(new_content)
-
-        action = "Created" if created else "Replaced content of"
-        message = f"Success: {action} {file_path}\nPreview: {new_content[:100]}..."
-        if added_newline:
-            message += "\nNote: a final newline was added to the content."
-        if file_path.endswith((".patch", ".diff")):
-            problems = check_patch_format(new_content)
-            if problems:
-                message += ("\nWarning: this patch is malformed and will be rejected when the "
-                            "package is built (rpm applies patches with --fuzz=0): "
-                            + "; ".join(problems))
-        return message
-
+        return _write_file(file_path, new_content, "Replaced content of")
     except Exception as e:
         return f"Modify file failed: {str(e)}"
+
+
+@mcp.tool()
+def replace_in_file_tool(file_path: str, old_text: str, new_text: str, replace_all: bool = False):
+    """
+    Replace an exact piece of text in a file inside the package directory,
+    without rewriting the whole file.
+    Args:
+        file_path (str): File to change.
+        old_text (str): Text to replace, copied exactly from the file (including
+            indentation). It must occur once, unless replace_all is true.
+        new_text (str): Replacement text.
+        replace_all (bool): Replace every occurrence (default false).
+    """
+    if not _in_workspace(file_path):
+        return _outside(file_path)
+    try:
+        if not os.path.isfile(file_path):
+            return f"Error: File not found - {file_path}"
+        if not old_text:
+            return "Error: old_text is empty"
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        count = content.count(old_text)
+        if count == 0:
+            return f"Error: old_text was not found in {file_path}; read the file and copy the text exactly."
+        if count > 1 and not replace_all:
+            return (f"Error: old_text occurs {count} times in {file_path}; include more surrounding "
+                    "lines to make it unique, or pass replace_all=true.")
+        new_content = content.replace(old_text, new_text) if replace_all else content.replace(old_text, new_text, 1)
+        message = _write_file(file_path, new_content, "Edited")
+        return message.replace("Success: Edited", f"Success: Replaced {count if replace_all else 1} occurrence(s) in", 1)
+    except Exception as e:
+        return f"Replace failed: {str(e)}"
+
+
+SEARCH_MAX_RESULTS = 200
+SEARCH_LINE_CHARS = 300
+
+
+@mcp.tool()
+def search_files_tool(path: str, pattern: str, file_glob: str = "", max_results: int = 50):
+    """
+    Search the files under a directory for a regular expression (like grep -rn).
+    Args:
+        path (str): Directory or file to search, inside the package directory or a
+            read-only build directory.
+        pattern (str): Extended regular expression (grep -E syntax).
+        file_glob (str): Only search files whose name matches this glob, e.g. "*.bzl".
+        max_results (int): Maximum number of matching lines to return (default 50).
+    Returns:
+        Matching lines as path:line:text.
+    """
+    if not _readable(path):
+        return _unreadable(path)
+    if not os.path.exists(path):
+        return f"Error: Path not found - {path}"
+    limit = max(1, min(int(max_results or 50), SEARCH_MAX_RESULTS))
+    cmd = ["grep", "-rInE", "--binary-files=without-match", "-e", pattern]
+    if file_glob:
+        cmd.append(f"--include={file_glob}")
+    cmd.append(path)
+    try:
+        proc = subprocess.run(cmd, capture_output=True, text=True, errors="replace", timeout=300)
+    except subprocess.TimeoutExpired:
+        return "Error: search timed out; narrow the path or the pattern."
+    if proc.returncode == 2 and not proc.stdout:
+        return f"Error: {proc.stderr.strip()[:500]}"
+    lines = proc.stdout.splitlines()
+    if not lines:
+        return "No matches."
+    shown = [l if len(l) <= SEARCH_LINE_CHARS else l[:SEARCH_LINE_CHARS] + " ..." for l in lines[:limit]]
+    more = f"\n... [{len(lines) - limit} more matches; narrow the search]" if len(lines) > limit else ""
+    return "\n".join(shown) + more
 
 
 SUPPORTED_FORMATS = {
@@ -671,18 +770,21 @@ def upload_file_to_obs_tool(package_path: str):
     if not os.path.isdir(package_path):
         return f"Error: '{package_path}' is not a directory"
 
+    recipe = case_type(package_path) == "recipe"
     has_spec = any(
         f.endswith(".spec")
         for f in os.listdir(package_path)
         if os.path.isfile(os.path.join(package_path, f))
     )
-    if not has_spec:
+    if not has_spec and not recipe:
         return f"Error: No .spec file in '{package_path}'"
 
     package_name = os.path.basename(package_path)
     try:
         cfg = load_obs_config()
-        if cfg["backend"] == "local":
+        if recipe:
+            obs_result = script_upload(package_name, package_path, cfg)
+        elif cfg["backend"] == "local":
             obs_result = local_upload(package_name, package_path, cfg)
         else:
             obs_result = main_upload(package_name, package_path)
@@ -700,7 +802,9 @@ def check_build_result(input_dir: str, package_name: str):
         return _outside(input_dir)
     try:
         cfg = load_obs_config()
-        if cfg["backend"] == "local":
+        if case_type(input_dir) == "recipe":
+            obs_result = script_check(input_dir, package_name, cfg)
+        elif cfg["backend"] == "local":
             obs_result = local_check(input_dir, package_name, cfg)
         else:
             obs_result = check_main(input_dir, package_name)

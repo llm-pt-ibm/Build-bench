@@ -10,7 +10,11 @@ from tools.auto_repair.patch_check import check_patch_format  # noqa: E402
 from tools.auto_repair.log_excerpt import error_excerpt  # noqa: E402
 
 for path in glob.glob("data/**/*.patch", recursive=True):
-    assert not check_patch_format(open(path, errors="replace").read()), path
+    if "/testdata/" not in path:
+        assert not check_patch_format(open(path, errors="replace").read()), path
+assert not check_patch_format("")
+assert not check_patch_format("diff --git a/x b/y\nsimilarity index 100%\nrename from x\nrename to y\n")
+assert check_patch_format("--- a/x\n+++ b/x\n@@ -1,1 +1,1 @@\n-a\n+b\n+c\n")
 patch = open("data/x86_64_to_ppc64le/zita-resampler/disable-sse.patch").read()
 assert check_patch_format(patch.replace("+CPPFLAGS += -DENABLE_NEON\n", ""))
 assert check_patch_format("no hunks here\n")
@@ -39,6 +43,10 @@ assert "polkit" not in excerpt and "VM INTERACTION" not in excerpt, excerpt
 for expected in ("Patch #1 (disable-sse.patch)", "unexpectedly ends", "Hunk #1 FAILED"):
     assert expected in excerpt, excerpt
 assert "fix-makefile" not in excerpt and excerpt.count("Bad exit status") == 1, excerpt
+bazel_log = ("ERROR: /c/external/rules_python/repo_utils.bzl:83:16: An error occurred during the fetch\n"
+             "Error in fail: \nrules_python:host_compatible_python_repo FAIL: Could not find a compatible "
+             "'host' python for 'linux', 'ppc64le'\n")
+assert "Could not find a compatible" in error_excerpt(bazel_log)
 print("log excerpt: OK")
 import json, shutil, tempfile  # noqa: E402
 import tools.auto_repair.local_build as local_build  # noqa: E402
@@ -80,5 +88,27 @@ json.dump(marker, open(os.path.join(pkg_dir, ".last_upload.json"), "w"))
 assert "no build was started for the last upload" in local_build.local_check(pkg_dir, "p", cfg)
 shutil.rmtree(work)
 print("local build backend: OK")
+
+import tools.auto_repair.script_build as script_build  # noqa: E402
+work = tempfile.mkdtemp()
+cfg = {"max_wait_seconds": 60, "check_interval": 1, "local": {"arch": "ppc64le"},
+       "script": {"stage_root": os.path.join(work, "stage"), "jobs": 2}}
+pkg_dir = os.path.join(work, "r")
+os.makedirs(os.path.join(pkg_dir, "src"))
+open(os.path.join(pkg_dir, "src", "main.c"), "w").write("broken\n")
+open(os.path.join(pkg_dir, "build.sh"), "w").write(
+    'echo "jobs=$BENCH_JOBS cache=$BENCH_CACHE_DIR"; touch out.o\n'
+    'grep -q broken src/main.c && { echo "$(pwd)/src/main.c:1:1: error: boom"; exit 1; }\nexit 0\n')
+res = script_build.script_upload("r", pkg_dir, cfg)
+assert res.startswith("Success: sources snapshotted"), res
+res = script_build.script_check(pkg_dir, "r", cfg)
+assert res.startswith("Build failed!") and f"{pkg_dir}/src/main.c:1:1: error: boom" in res, res
+assert "jobs=2" in open(os.path.join(pkg_dir, "log_failed.txt")).read()
+open(os.path.join(pkg_dir, "src", "main.c"), "w").write("fixed\n")
+script_build.script_upload("r", pkg_dir, cfg)
+assert script_build.script_check(pkg_dir, "r", cfg).startswith("Build succeeded!")
+assert not os.path.exists(os.path.join(pkg_dir, "out.o")), "the build runs on a copy"
+shutil.rmtree(work)
+print("build-recipe backend: OK")
 
 print("\nALL TESTS PASSED")

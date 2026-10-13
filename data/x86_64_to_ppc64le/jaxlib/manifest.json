@@ -1,0 +1,16 @@
+{
+  "task": {
+    "package": "jaxlib",
+    "version": "0.10.2",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "jax": "https://github.com/jax-ml/jax/archive/refs/tags/jax-v0.10.2.tar.gz",
+      "xla": "https://github.com/openxla/xla/archive/5a9e73cbd92530cac2ac36f4736a774b2412afe2.tar.gz plus the XLA patches of jax/third_party/xla/workspace.bzl"
+    },
+    "source_build": "official jaxlib 0.10.2 wheels for x86_64 on PyPI"
+  },
+  "environment": "jax-power9",
+  "fetch": "dataset/fetch_jaxlib.sh",
+  "version": 1
+}
