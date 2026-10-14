@@ -49,6 +49,12 @@ bazel_log = ("ERROR: /c/external/rules_python/repo_utils.bzl:83:16: An error occ
              "Error in fail: \nrules_python:host_compatible_python_repo FAIL: Could not find a compatible "
              "'host' python for 'linux', 'ppc64le'\n")
 assert "Could not find a compatible" in error_excerpt(bazel_log)
+many = "".join(f"ERROR: /c/curl/BUILD:26:11: Compiling lib/f{i}.c failed: (Exit 1): clang failed (from target @@curl//:curl)\n"
+               f"/c/boringssl/base.h:124:2: error: \"Unknown target CPU\"\n" for i in range(300))
+many += "/c/hwy/targets.cc: undeclared inclusion(s) error: x\nERROR: Build did NOT complete successfully\n"
+ex = error_excerpt(many)
+assert 'error: "Unknown target CPU" [x300]' in ex and "undeclared inclusion" in ex, ex
+assert ex.count("@@curl//:curl") == 1 and "[and 299 more failed actions of this target]" in ex, ex
 print("log excerpt: OK")
 import json, shutil, tempfile  # noqa: E402
 import tools.auto_repair.local_build as local_build  # noqa: E402

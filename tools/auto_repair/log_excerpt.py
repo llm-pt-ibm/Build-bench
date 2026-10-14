@@ -34,17 +34,33 @@ def _text(line: str) -> str:
     return PREFIX.sub("", line.strip()).strip()
 
 
+# A failed build action as Bazel reports it, one line per source file; the
+# compiler diagnostics above it explain the failure, so these lines are
+# collapsed to one per target
+ACTION_FAILED = re.compile(r"^ERROR: .*: (?:Compiling|Linking|Generating|Executing|Action) .* failed[:.]")
+ACTION_TARGET = re.compile(r"\(from target (\S+?)\)\s*$")
+MAX_ACTION_LINES = 5
+LAST_LINES_KEPT = 3
+
+
 def error_excerpt(log_text: str, max_key_lines: int = 15, tail_lines: int = 5) -> str:
-    """Pick the lines of an OBS build log that explain the failure."""
+    """Pick the lines of a build log that explain the failure: compiler and
+    build-tool error messages (each once, with its count when repeated),
+    failed build actions collapsed per target, and the end of the log."""
     lines = [l.rstrip() for l in log_text.splitlines()]
     start = next((i for i, l in enumerate(lines) if BUILD_START.search(l)), 0)
     lines = lines[start:]
 
-    key, seen = [], set()
+    key, seen, count = [], set(), {}
+    actions = {}  # target -> [first line, number of failed actions]
 
     def add(line):
-        if _text(line) and _text(line) not in seen:
-            seen.add(_text(line))
+        text = _text(line)
+        if not text:
+            return
+        count[text] = count.get(text, 0) + 1
+        if text not in seen:
+            seen.add(text)
             key.append(line)
 
     patch_header = patching_file = None
@@ -57,14 +73,35 @@ def error_excerpt(log_text: str, max_key_lines: int = 15, tail_lines: int = 5) -
             continue
         if NOISE.search(line):
             continue
-        if PATCH_ERROR.search(line):
+        if ACTION_FAILED.search(line):
+            m = ACTION_TARGET.search(line)
+            group = actions.setdefault(m.group(1) if m else line, [line, 0])
+            group[1] += 1
+            seen.add(_text(line))
+        elif PATCH_ERROR.search(line):
             for context in (patch_header, patching_file):
                 if context:
                     add(context)
             add(line)
         elif KEY_LINE.search(line):
             add(line)
-    key = key[-max_key_lines:]
+
+    action_lines = [line if n == 1 else f"{line} [and {n - 1} more failed actions of this target]"
+                    for line, n in list(actions.values())[:MAX_ACTION_LINES]]
+    if len(actions) > MAX_ACTION_LINES:
+        action_lines.append(f"[{len(actions) - MAX_ACTION_LINES} more targets with failed actions]")
+    budget = max(max_key_lines - len(action_lines), LAST_LINES_KEPT + 1)
+    if len(key) > budget:
+        # keep the most repeated messages (an error in a header shows up once
+        # per file that includes it), the first ones (usually the cause) and
+        # the last ones (the outcome), in log order
+        middle = key[:-LAST_LINES_KEPT]
+        room = budget - LAST_LINES_KEPT
+        frequent = sorted(range(len(middle)), key=lambda i: -count[_text(middle[i])])[:room // 2]
+        chosen = sorted(frequent + [i for i in range(len(middle)) if i not in frequent][:room - len(frequent)])
+        key = [middle[i] for i in chosen] + ["..."] + key[-LAST_LINES_KEPT:]
+    shown = [l if count.get(_text(l), 1) == 1 else f"{l} [x{count[_text(l)]}]" for l in key]
     tail = [l for l in (lines[-tail_lines:] if tail_lines > 0 else [])
             if _text(l) and _text(l) not in seen and not NOISE.search(l)]
-    return "\n".join(key + (["..."] if key and tail else []) + tail)
+    body = shown + action_lines
+    return "\n".join(body + (["..."] if body and tail else []) + tail)
