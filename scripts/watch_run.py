@@ -62,6 +62,15 @@ def tail_text(path, size=65536):
 
 
 def build_status(cfg, package):
+    # files of the build directory change under our feet (a new upload
+    # removes them), so a failed read just means "try again next refresh"
+    try:
+        return _build_status(cfg, package)
+    except (OSError, ValueError) as e:
+        return f"unavailable ({e.__class__.__name__}), retrying"
+
+
+def _build_status(cfg, package):
     """State of the package's current build: running (with progress) or finished."""
     build = cfg.get("build") or {}
     candidates = [os.path.join((build.get("script") or {}).get("stage_root", "/root/obs-worker/script"), package, "run"),
