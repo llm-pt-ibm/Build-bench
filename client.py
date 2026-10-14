@@ -97,7 +97,8 @@ MAX_CONTEXT_CHARS = int(LLM_CFG.get("max_context_chars", 0))
 REPEAT_GUARD_PER_BUILD = bool(LLM_CFG.get("repeat_guard_per_build", False))
 # When this many rounds are left in an attempt (0: never), the framework tells
 # the model, so that it applies its fix before the attempt ends.
-ROUND_NOTICE_AT = int(LLM_CFG.get("round_notice_at", 0))
+_notice = LLM_CFG.get("round_notice_at", 0)
+ROUND_NOTICE_AT = sorted({int(n) for n in (_notice if isinstance(_notice, list) else [_notice]) if int(n) > 0})
 # The next attempt's prompt carries up to this many characters of the model's
 # own notes (its text replies) from the previous attempt (0: none), so that
 # what it found out is not lost when it made no edit.
@@ -186,6 +187,7 @@ class AutoRepairClient:
 
         # Per-package state
         self.upload_status: Dict[str, bool] = {}
+        self.attempt = 0
 
     def _log(self, tag: str, msg: str):
         ts = time.strftime("%Y-%m-%d %H:%M:%S")
@@ -313,6 +315,7 @@ class AutoRepairClient:
 
         # Multiple build attempts
         for attempt in range(1, self.max_build_attempts + 1):
+            self.attempt = attempt
             self._log(
                 package_name,
                 f"--- Build attempt {attempt}/{self.max_build_attempts} ---",
@@ -628,8 +631,9 @@ class AutoRepairClient:
             if rounds >= self.max_tool_rounds:
                 summary["ended_by"] = "round_limit"
                 break
+            self._save_transcript(package_name, self.attempt, messages)
             left = self.max_tool_rounds - rounds
-            if ROUND_NOTICE_AT and left <= ROUND_NOTICE_AT and messages[-1].get("role") == "tool":
+            if left in ROUND_NOTICE_AT and messages[-1].get("role") == "tool":
                 messages[-1]["content"] += (
                     f"\n\n[framework note] {left} round(s) of tool calls left in this attempt. "
                     "If you know the fix, apply it now and start a build; edits that you leave "
