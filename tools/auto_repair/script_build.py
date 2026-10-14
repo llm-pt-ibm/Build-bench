@@ -18,6 +18,7 @@ import shutil
 import subprocess
 import time
 
+from tools.auto_repair.acceptance import acceptance_test, failure_message, run_acceptance
 from tools.auto_repair.case_type import case_environment
 from tools.auto_repair.local_build import _stop
 from tools.auto_repair.log_excerpt import error_excerpt
@@ -149,13 +150,32 @@ def script_check(temp_dir: str, package_name: str, cfg: dict) -> str:
     time.sleep(1)
     with open(status_path) as f:
         code = f.read().strip()
-    if code == "0":
-        return "Build succeeded! The build has been successfully completed."
-    with open(log_path, "rb") as f:
-        text = f.read().decode("utf-8", errors="replace")
-    # paths of the build copy -> paths in the package workspace
-    text = text.replace(dirs["src"] + "/", temp_dir.rstrip("/") + "/").replace(dirs["src"], temp_dir.rstrip("/"))
+    workspace = temp_dir.rstrip("/")
+
+    def to_workspace(text):
+        # paths of the build copy -> paths in the package workspace
+        return text.replace(dirs["src"] + "/", workspace + "/").replace(dirs["src"], workspace)
+
     path = os.path.join(temp_dir, "log_failed.txt")
+    if code == "0":
+        test = acceptance_test(cfg, package_name)
+        if not test:
+            return "Build succeeded! The build has been successfully completed."
+        env_name = case_environment(temp_dir)
+        passed, output = run_acceptance(
+            test, os.path.join(ENVS_DIR, f"{env_name}.sh") if env_name else "", dirs["src"],
+            {"BENCH_PACKAGE": package_name, "BENCH_SRC_DIR": dirs["src"], "BENCH_CACHE_DIR": dirs["cache"],
+             "BENCH_JOBS": str(cfg["script"]["jobs"])}, cfg["acceptance_timeout"])
+        with open(os.path.join(dirs["run"], "acceptance.log"), "w", encoding="utf-8") as f:
+            f.write(output)
+        if passed:
+            return "Build succeeded! The build has been successfully completed and its acceptance test passed."
+        output = to_workspace(output)
+        with open(path, "w", encoding="utf-8") as f:
+            f.write("=== the build succeeded; output of the acceptance test:\n" + output)
+        return failure_message(test, path, error_excerpt(output))
+    with open(log_path, "rb") as f:
+        text = to_workspace(f.read().decode("utf-8", errors="replace"))
     with open(path, "w", encoding="utf-8") as f:
         f.write(text)
     return (f"Build failed! The failed log has been updated to: {path}\n"

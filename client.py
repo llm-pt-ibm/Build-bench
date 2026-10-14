@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from mcp.client.stdio import stdio_client
 from mcp import ClientSession, StdioServerParameters
+from tools.auto_repair.acceptance import ACCEPTANCE_DIR, acceptance_test
 from tools.auto_repair.case_type import case_type
 from tools.auto_repair.obs_config import load_obs_config
 
@@ -179,7 +180,8 @@ class AutoRepairClient:
         # the MCP server limits its file tools to this directory, and lets the
         # model read the build directories of build-recipe cases
         os.environ["BENCH_TEMP_DIR"] = self.temp_work_dir
-        os.environ.setdefault("BENCH_READONLY_DIRS", load_obs_config()["script"]["stage_root"])
+        os.environ.setdefault("BENCH_READONLY_DIRS", os.pathsep.join(
+            [load_obs_config()["script"]["stage_root"], ACCEPTANCE_DIR]))
 
         self.server_script = server_script
         self.max_retries = max_retries
@@ -300,6 +302,14 @@ class AutoRepairClient:
         with open(PROMPTS[kind], "r", encoding="utf-8") as f:
             system_prompt_tpl = f.read()
         readonly_dirs = os.path.join(load_obs_config()["script"]["stage_root"], package_name, "cache")
+        test = acceptance_test(load_obs_config(), package_name)
+        if test:
+            system_prompt_tpl += (
+                "\n\n## Acceptance test\n"
+                f"After every successful build the framework runs the acceptance test `{test}` to check that "
+                "the built software installs and works correctly on {target_arch}; a failing test is reported "
+                "as a failed build, with the test output as the log. You can read the test, but not change it. "
+                "The repair is complete only when the build succeeds and the test passes.")
 
         build_succeeded = False
         final_text = ""

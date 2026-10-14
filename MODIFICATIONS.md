@@ -114,6 +114,23 @@ improvements` shows them file by file.
   so upload/check are not capped at 3 per attempt). Patch files of
   build-recipe cases are checked strictly (Bazel's `ctx.patch` and
   `git apply` reject short hunks that GNU patch accepts).
+- Acceptance tests: a build only counts as successful when the built
+  software works. A case can have `acceptance/<source>_to_<target>/<package>.sh`,
+  outside the package, which the framework runs after every successful build
+  with the local backends (`tools/auto_repair/acceptance.py`); the model can
+  read it but not change it, and a failing test is reported as a failed build
+  with the test output as the log. `manifest.json` and
+  `log_failed_original.txt` can no longer be changed by the model.
+  - `jaxlib.sh`: installs the wheel in a clean Python and runs a numerical
+    battery against NumPy (float32/64, float16, bfloat16, int8 inside jit,
+    linear algebra, FFT, gradients, PRNG bit-identical to x86_64, a small
+    training run) and JAX's own `random`, `linalg` and `nn` tests. The wheel
+    of the manual port passes (1528 tests); the wheel built in run 19, which
+    only had a smoke test in `build.sh`, fails 20 tests: attention kernels
+    abort (bfloat16 in LLVM's PowerPC backend) and two int8 results are wrong
+    (fusion emitters). The check was removed from the jaxlib `build.sh`.
+  - `zita-resampler.sh`: installs the built RPMs in the build root and
+    resamples a 1 kHz sine from 44.1 to 48 kHz with Resampler and VResampler.
 - `build.script.build_original_on_init`: before the first attempt the
   framework builds the original package once, so the build cache and the
   dependency sources the model reads there reflect the original package (in

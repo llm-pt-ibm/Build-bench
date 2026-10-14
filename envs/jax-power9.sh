@@ -40,6 +40,12 @@ if [ ! -x "$_test_env/bin/python" ]; then
     || { echo "error: could not create the test environment"; return 1; }
 fi
 
+# test tools for acceptance tests (the JAX test suite runs with pytest)
+if ! "$_test_env/bin/python" -c "import pytest, xdist, absl.testing, hypothesis" >/dev/null 2>&1; then
+  "$_test_env/bin/python" -m pip install -q pytest pytest-xdist absl-py hypothesis >/dev/null 2>&1 \
+    || { echo "error: could not install the test tools"; return 1; }
+fi
+
 export JAVA_HOME=$(dirname "$(dirname "$(readlink -f "$(command -v javac)")")")
 export PATH=/usr/local/bin:$_build_env/bin:$PATH
 export BAZEL=/usr/local/bin/bazel-7.7.0
@@ -50,6 +56,6 @@ export LOCAL_WHEELS=/root/jax/dist
 
 echo "BAZEL=$BAZEL ($($BAZEL --version 2>/dev/null))"
 echo "CLANG=$CLANG ($($CLANG --version | head -1))"
-echo "PYTHON=$PYTHON ($($PYTHON --version 2>&1)); TEST_PYTHON=$TEST_PYTHON (no jax installed)"
+echo "PYTHON=$PYTHON ($($PYTHON --version 2>&1)); TEST_PYTHON=$TEST_PYTHON (no jax installed; pytest)"
 echo "LOCAL_WHEELS=$LOCAL_WHEELS: $(cd "$LOCAL_WHEELS" && ls *.whl | tr '\n' ' ')"
 echo "BENCH_CACHE_DIR=$BENCH_CACHE_DIR (persistent build cache)"

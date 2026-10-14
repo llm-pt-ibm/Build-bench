@@ -121,7 +121,23 @@ open(os.path.join(pkg_dir, "src", "main.c"), "w").write("fixed\n")
 script_build.script_upload("r", pkg_dir, cfg)
 assert script_build.script_check(pkg_dir, "r", cfg).startswith("Build succeeded!")
 assert not os.path.exists(os.path.join(pkg_dir, "out.o")), "the build runs on a copy"
+# acceptance test of the framework (outside the package): run after a successful build
+import tools.auto_repair.acceptance as acceptance  # noqa: E402
+acceptance.ACCEPTANCE_DIR = os.path.join(work, "acceptance")
+os.makedirs(os.path.join(acceptance.ACCEPTANCE_DIR, "a_to_b"))
+with open(os.path.join(acceptance.ACCEPTANCE_DIR, "a_to_b", "r.sh"), "w") as f:
+    f.write('grep -q works "$BENCH_SRC_DIR/src/main.c" || { echo "Check failed: the program does not work"; exit 1; }\n')
+cfg.update(direction="a_to_b", acceptance_timeout=60)
+script_build.script_upload("r", pkg_dir, cfg)
+res = script_build.script_check(pkg_dir, "r", cfg)
+assert res.startswith("Build failed! The package was built, but its acceptance test failed"), res
+assert "Check failed: the program does not work" in res, res
+assert "the build succeeded" in open(os.path.join(pkg_dir, "log_failed.txt")).read()
+open(os.path.join(pkg_dir, "src", "main.c"), "w").write("fixed, works\n")
+script_build.script_upload("r", pkg_dir, cfg)
+res = script_build.script_check(pkg_dir, "r", cfg)
+assert res == "Build succeeded! The build has been successfully completed and its acceptance test passed.", res
 shutil.rmtree(work)
-print("build-recipe backend: OK")
+print("build-recipe backend: OK (with acceptance test)")
 
 print("\nALL TESTS PASSED")

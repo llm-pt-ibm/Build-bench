@@ -451,15 +451,21 @@ def get_structure_of_files(package_path, max_depth: int = 0) -> str:
     return text
 
 
+# Files of the package root that belong to the framework, not to the package
+FRAMEWORK_FILES = {"manifest.json", "log_failed_original.txt"}
+
+
 def _write_file(file_path: str, new_content: str, action: str) -> str:
     """Write a file of the workspace, recording the change for the history and
     the diff log, and check patch files."""
+    package_name, rel_path = _package_and_rel(file_path)
+    if rel_path in FRAMEWORK_FILES:
+        return f"Error: {rel_path} belongs to the benchmark framework and cannot be changed."
     created = not os.path.exists(file_path)
     parent = os.path.dirname(file_path) or "."
     if created and not os.path.isdir(parent):
         return f"Error: Directory does not exist - {parent}"
 
-    package_name, rel_path = _package_and_rel(file_path)
     diff_log_path = f"data/case_study/{package_name}_diff.log"
 
     old_lines = []

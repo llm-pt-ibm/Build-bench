@@ -11,6 +11,7 @@ import signal
 import subprocess
 import time
 
+from tools.auto_repair.acceptance import acceptance_test, failure_message, run_acceptance
 from tools.auto_repair.log_excerpt import error_excerpt
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -124,7 +125,24 @@ def local_check(temp_dir: str, package_name: str, cfg: dict) -> str:
         log = f.read()
     text = log.decode("utf-8", errors="replace")
     if code == "0":
-        return "Build succeeded! The build has been successfully completed."
+        test = acceptance_test(cfg, package_name)
+        if not test:
+            return "Build succeeded! The build has been successfully completed."
+        build_root = os.path.join(cfg["local"]["worker_root"], "rootfs", "var", "tmp", "build-root", package_name)
+        if os.path.isdir(os.path.join(build_root, ".mount")):
+            build_root = os.path.join(build_root, ".mount")
+        cache = os.path.join(run, "cache")
+        os.makedirs(cache, exist_ok=True)
+        passed, output = run_acceptance(test, "", run, {"BENCH_PACKAGE": package_name, "BENCH_BUILD_ROOT": build_root,
+                                                        "BENCH_CACHE_DIR": cache}, cfg["acceptance_timeout"])
+        with open(os.path.join(run, "acceptance.log"), "w", encoding="utf-8") as f:
+            f.write(output)
+        if passed:
+            return "Build succeeded! The build has been successfully completed and its acceptance test passed."
+        path = os.path.join(temp_dir, "log_failed.txt")
+        with open(path, "w", encoding="utf-8") as f:
+            f.write("=== the build succeeded; output of the acceptance test:\n" + output)
+        return failure_message(test, path, error_excerpt(output))
     if "----- building " not in text and any(s in text for s in UNRESOLVABLE):
         return f"Build unresolvable! The build can not begin: {error_excerpt(text, max_key_lines=10)}"
     text = _build_log(text)

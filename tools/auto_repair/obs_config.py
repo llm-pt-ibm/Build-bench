@@ -32,6 +32,8 @@ def load_obs_config() -> dict:
         "arch": user["architecture_name"],
         "max_wait_seconds": int(info.get("obs", {}).get("max_wait_seconds", 3600)),
         "check_interval": int(info.get("obs", {}).get("check_interval", 30)),
+        "direction": f"{info.get('source_arch', 'x86_64')}_to_{info.get('target_arch', 'ppc64le')}",
+        "acceptance_timeout": int((info.get("acceptance") or {}).get("timeout_seconds", 3600)),
         # "obs" builds on OBS; "local" builds with osc in the local worker
         # (scripts/local_worker), see tools/auto_repair/local_build.py
         "backend": (os.getenv("BENCH_BUILD_BACKEND") or build.get("backend", "obs")).lower(),

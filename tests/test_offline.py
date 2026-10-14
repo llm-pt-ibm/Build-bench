@@ -149,6 +149,8 @@ async def main():
         open(f"{TMP}/no-eol.txt", "w").write("x")
         await tool("modify_file_tool", file_path=f"{TMP}/no-eol.txt", new_content="y")
         assert open(f"{TMP}/no-eol.txt").read() == "y", "files without a final newline are kept so"
+        assert "belongs to the benchmark framework" in await tool(
+            "modify_file_tool", file_path=f"{TMP}/log_failed_original.txt", new_content="x")
         spec_path = f"{TMP}/zita-resampler.spec"
         assert (await tool("replace_in_file_tool", file_path=spec_path, old_text="Name:", new_text="Name: ")
                 ).startswith("Success: Replaced 1 occurrence")
