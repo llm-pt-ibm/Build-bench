@@ -83,6 +83,7 @@ LLM_TOOLS = (
 # Extensions for large code bases, enabled in the config (llm.extra_tools):
 # search_files_tool and replace_in_file_tool.
 LLM_CFG = info.get("llm") or {}
+SCRIPT_CFG = (info.get("build") or {}).get("script") or {}
 LLM_TOOLS = LLM_TOOLS + tuple(LLM_CFG.get("extra_tools") or ())
 # Prompt template per case type (tools/auto_repair/case_type.py)
 PROMPTS = {"rpm": "prompts/full_file_generation.txt", "recipe": "prompts/build_recipe_generation.txt",
@@ -274,6 +275,7 @@ class AutoRepairClient:
 
         # Reset upload status for hard dependency enforcement
         self.upload_status[package_name] = False
+        self.package = package_name
 
         # Initialize temp env (copy package -> temp dir)
         init_ret = await self.session.call_tool(
@@ -308,6 +310,14 @@ class AutoRepairClient:
                        "build_check_seconds": 0.0, "other_tool_seconds": 0.0}
         self.dirty = False            # files changed since the last upload
         self.unchecked_upload = False  # an upload whose build was never checked
+        if kind == "recipe" and SCRIPT_CFG.get("build_original_on_init", False):
+            # build the package as it is, so that the build cache (and the
+            # dependency sources the model can read there) reflects the
+            # original package and not the last build of an earlier run
+            await self._call("upload_file_to_obs_tool", {"package_path": package_path}, "upload_seconds")
+            ret = await self._call("check_build_result", {"input_dir": package_path, "package_name": package_name},
+                                   "build_check_seconds")
+            self._log(package_name, f"[init] build of the original package: {ret.splitlines()[0] if ret else ret}")
         attempts = []
         notes = ""
         verified_by = None
@@ -459,7 +469,23 @@ class AutoRepairClient:
         served = (resp.model_extra or {}).get("provider") or "unknown"
         providers = self.usage.setdefault("providers", {})
         providers[served] = providers.get(served, 0) + 1
+        self._write_status(messages)
         return resp.choices[0]
+
+    def _write_status(self, messages: List[Dict]) -> None:
+        """Live progress of the current package (scripts/watch_run.py reads it)."""
+        if not getattr(self, "package", None):
+            return
+        status = {"package": self.package, "attempt": self.attempt, "max_attempts": self.max_build_attempts,
+                  "round": getattr(self, "round", 0), "max_rounds": self.max_tool_rounds,
+                  "context_chars": sum(len(str(m.get("content") or "")) for m in messages),
+                  "builds": list(getattr(self, "builds", [])), "usage": self.usage,
+                  "time": time.strftime("%Y-%m-%d %H:%M:%S")}
+        try:
+            with open(os.path.join(self.log_dir, f"{self.package}_status.json"), "w") as f:
+                json.dump(status, f, indent=1)
+        except OSError:
+            pass
 
     async def _run_one_tool(self, package_name: str, tc) -> Tuple[str, str]:
         tool_name = tc.function.name
@@ -592,6 +618,7 @@ class AutoRepairClient:
         assert self.session is not None
         self.upload_status[package_name] = False
         self.builds = []
+        self.round = 0
         summary = {"rounds": 0, "ended_by": None, "builds": self.builds,
                    "verified_by": None, "final_check": None}
         latest_text = ""
@@ -608,6 +635,7 @@ class AutoRepairClient:
         rounds = 0
         while choice.message.tool_calls:
             rounds += 1
+            self.round = rounds
             summary["rounds"] = rounds
             self._log(package_name, f"== Tool round {rounds} ==")
 

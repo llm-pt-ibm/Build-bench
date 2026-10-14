@@ -114,6 +114,14 @@ improvements` shows them file by file.
   so upload/check are not capped at 3 per attempt). Patch files of
   build-recipe cases are checked strictly (Bazel's `ctx.patch` and
   `git apply` reject short hunks that GNU patch accepts).
+- `build.script.build_original_on_init`: before the first attempt the
+  framework builds the original package once, so the build cache and the
+  dependency sources the model reads there reflect the original package (in
+  the fourth jaxlib run they still had a patch from an earlier run).
+- Live progress: `client.py` writes `<log_dir>/<package>_status.json` after
+  every model call (attempt, round, builds, context size, tokens and cost);
+  `scripts/watch_run.py [config] [package]` shows it with the latest tool
+  calls, refreshed every 10 s. Transcripts are saved after every round.
 - `check_patch_format` no longer flags valid patches: extra context lines after
   a hunk (ignored by patch), empty patches and git rename-only patches. The
   log excerpt also keeps Bazel/Starlark failures (`Error in fail:`, `FAIL:`).
