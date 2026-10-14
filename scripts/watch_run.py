@@ -43,6 +43,55 @@ def key_spend_today():
         return None
 
 
+PROGRESS = re.compile(r"\[([\d,]+) / ([\d,]+)\](.*)")
+
+
+def host_path(path):
+    """A path of the build host, also when watching through the sshfs mount
+    (this repository is /root/build-bench there)."""
+    if os.path.exists(path) or not path.startswith("/root/"):
+        return path
+    return os.path.join(os.path.dirname(ROOT), path[len("/root/"):])
+
+
+def tail_text(path, size=65536):
+    with open(path, "rb") as f:
+        f.seek(0, 2)
+        f.seek(max(0, f.tell() - size))
+        return f.read().decode("utf-8", errors="replace")
+
+
+def build_status(cfg, package):
+    """State of the package's current build: running (with progress) or finished."""
+    build = cfg.get("build") or {}
+    candidates = [os.path.join((build.get("script") or {}).get("stage_root", "/root/obs-worker/script"), package, "run"),
+                  os.path.join((build.get("local") or {}).get("worker_root", "/root/obs-worker"), "runs", package)]
+    for run in map(host_path, candidates):
+        log = os.path.join(run, "build.log")
+        if not os.path.exists(log):
+            continue
+        try:
+            with open(os.path.join(run, "state.json")) as f:
+                started = json.load(f)["time"]
+        except (OSError, ValueError, KeyError):
+            started = os.path.getmtime(log)
+        status_file = os.path.join(run, "status")
+        if os.path.exists(status_file):
+            with open(status_file) as f:
+                code = f.read().strip()
+            ended = os.path.getmtime(status_file)
+            return (f"finished at {time.strftime('%H:%M:%S', time.localtime(ended))} after "
+                    f"{(ended - started) / 60:.0f} min ({'succeeded' if code == '0' else f'failed, exit {code}'})")
+        lines = [l for l in tail_text(log).splitlines() if l.strip()]
+        progress = next((PROGRESS.search(l) for l in reversed(lines) if PROGRESS.search(l)), None)
+        state = f"running for {(time.time() - started) / 60:.0f} min"
+        if progress:
+            done, total = (int(x.replace(",", "")) for x in progress.groups()[:2])
+            return f"{state}: {done:,} / {total:,} actions ({100 * done // max(total, 1)}%){progress.group(3)[:70]}"
+        return f"{state}: {short(lines[-1], 90) if lines else ''}"
+    return "none"
+
+
 def short(text, n):
     text = re.sub(r"/root/obs-worker/script/[^/]+/cache/bazel/[0-9a-f]+/external", "<cache>", text)
     return text if len(text) <= n else text[:n - 1] + "…"
@@ -51,7 +100,8 @@ def short(text, n):
 def main():
     config = sys.argv[1] if len(sys.argv) > 1 else "config/x86_64_to_ppc64le_power9.yaml"
     with open(os.path.join(ROOT, config)) as f:
-        log_dir = os.path.join(ROOT, yaml.safe_load(f)["paths"]["log_dir"])
+        cfg = yaml.safe_load(f)
+    log_dir = os.path.join(ROOT, cfg["paths"]["log_dir"])
     package = sys.argv[2] if len(sys.argv) > 2 else None
     every = int(sys.argv[3]) if len(sys.argv) > 3 else 10
     while True:
@@ -91,7 +141,8 @@ def main():
             spend = key_spend_today()
             print(f"cost: OpenRouter key spend today ${spend:.4f} (no status file for this run)"
                   if spend is not None else "cost: not available")
-        print("\nlast build: " + (short(builds[-1][22:], 150) if builds else "none yet"))
+        print("\nlast build result: " + (short(builds[-1][22:], 150) if builds else "none yet"))
+        print("current build: " + build_status(cfg, package))
         print("\nlast tool calls:")
         for t, name, args in calls[-8:]:
             print(f"  {t[11:]} {name:24} {short(args, 110)}")
