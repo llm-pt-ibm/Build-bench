@@ -55,6 +55,11 @@ many += "/c/hwy/targets.cc: undeclared inclusion(s) error: x\nERROR: Build did N
 ex = error_excerpt(many)
 assert 'error: "Unknown target CPU" [x300]' in ex and "undeclared inclusion" in ex, ex
 assert ex.count("@@curl//:curl") == 1 and "[and 299 more failed actions of this target]" in ex, ex
+crash = ("=== check: install the wheel and run a program\n"
+         "F1014 14:28:57.030297   48137 ir_compiler.cc:398] Unsupported CPU type: powerpc64le-unknown-linux-gnu\n"
+         + "    @     0x7fffa6df6030  xla::cpu::IrCompiler::operator()()\n" * 20
+         + "./build.sh: line 42: 47654 Aborted                 (core dumped)\n")
+assert "Unsupported CPU type" in error_excerpt(crash), error_excerpt(crash)
 print("log excerpt: OK")
 import json, shutil, tempfile  # noqa: E402
 import tools.auto_repair.local_build as local_build  # noqa: E402

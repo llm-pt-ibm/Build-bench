@@ -5,7 +5,10 @@ KEY_LINE = re.compile(
     r"|malformed patch|Bad exit status|make(\[\d+\])?: \*\*\*|\bKilled\b"
     r"|Segmentation fault|cannot find -l|nothing provides|have choice for"
     # Bazel/Starlark: "Error in fail: ..." and the "... FAIL: <message>" lines
-    r"|Error in \w+:|\bFAIL:",
+    r"|Error in \w+:|\bFAIL:"
+    # glog/absl fatal messages (F1014 12:00:00.000 123 file.cc:42] ...) and
+    # failed checks, e.g. a crash when a built program runs in a test
+    r"|^[FE]\d{4} \d\d:\d\d:\d\d\.\d+ +\d+ \S+:\d+\]|Check failed|Traceback \(most recent call last\)|\bAborted\b",
     re.IGNORECASE,
 )
 # Messages of patch(1); they explain why a hunk failed, so they are kept with
