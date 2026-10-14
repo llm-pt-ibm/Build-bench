@@ -131,6 +131,17 @@ improvements` shows them file by file.
     (fusion emitters). The check was removed from the jaxlib `build.sh`.
   - `zita-resampler.sh`: installs the built RPMs in the build root and
     resamples a 1 kHz sine from 44.1 to 48 kHz with Resampler and VResampler.
+- Infrastructure failures are not blamed on the package: when a local build
+  fails because the network is unreachable or a name does not resolve
+  (`tools/auto_repair/infra.py`), the backend retries it after 1, 3 and 5
+  minutes; if it still fails, the check returns "Build infrastructure error!",
+  which ends the package's run with `infrastructure_error: true` instead of
+  using up the model's attempts (in run 20, a 50-minute DNS outage of the
+  container made all 56 zita builds fail). `scripts/summarize_runs.py` shows
+  these runs as INFRA and leaves them out of the success rate.
+- `llm.empty_reply_retries`: a model reply with neither text nor tool calls
+  is a glitch, not a decision to stop; the framework asks the model to go on
+  (in run 20 such a reply ended jaxlib's first attempt at round 20).
 - `build.script.build_original_on_init`: before the first attempt the
   framework builds the original package once, so the build cache and the
   dependency sources the model reads there reflect the original package (in

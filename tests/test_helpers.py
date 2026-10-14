@@ -99,8 +99,26 @@ marker = json.load(open(os.path.join(pkg_dir, ".last_upload.json")))
 marker["srcmd5"] = "x"
 json.dump(marker, open(os.path.join(pkg_dir, ".last_upload.json"), "w"))
 assert "no build was started for the last upload" in local_build.local_check(pkg_dir, "p", cfg)
+# network failures before the build: retried, then reported as infrastructure errors
+import tools.auto_repair.infra as infra  # noqa: E402
+infra.RETRY_WAITS = (0, 0)
+flaky = os.path.join(work, "flaky_build.sh")
+with open(flaky, "w") as f:
+    f.write('#!/bin/bash\nn=$(cat "$OBS_WORKER_ROOT/tries" 2>/dev/null || echo 0); echo $((n+1)) > "$OBS_WORKER_ROOT/tries"\n'
+            '[ "$n" -lt "$(cat "$OBS_WORKER_ROOT/fail_times")" ] && { echo "HTTPSConnection: Failed to resolve api.opensuse.org"; exit 1; }\n'
+            'echo "[    0s] ----- building p.spec"; echo ok\n')
+os.chmod(flaky, 0o755)
+local_build.BUILD_SCRIPT = flaky
+open(os.path.join(cfg["local"]["worker_root"], "fail_times"), "w").write("2")
+local_build.local_upload("p", pkg_dir, cfg)
+assert local_build.local_check(pkg_dir, "p", cfg).startswith("Build succeeded!"), "retried after network failures"
+os.remove(os.path.join(cfg["local"]["worker_root"], "tries"))
+open(os.path.join(cfg["local"]["worker_root"], "fail_times"), "w").write("9")
+local_build.local_upload("p", pkg_dir, cfg)
+res = local_build.local_check(pkg_dir, "p", cfg)
+assert res.startswith("Build infrastructure error!") and "Failed to resolve" in res, res
 shutil.rmtree(work)
-print("local build backend: OK")
+print("local build backend: OK (with infrastructure retries)")
 
 import tools.auto_repair.script_build as script_build  # noqa: E402
 work = tempfile.mkdtemp()

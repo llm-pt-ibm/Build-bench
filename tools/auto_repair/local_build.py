@@ -12,6 +12,7 @@ import subprocess
 import time
 
 from tools.auto_repair.acceptance import acceptance_test, failure_message, run_acceptance
+from tools.auto_repair.infra import infra_failure, retry_or_give_up
 from tools.auto_repair.log_excerpt import error_excerpt
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -94,7 +95,7 @@ def local_upload(package_name: str, package_dir: str, cfg: dict) -> str:
             f"{local['project']}/{local['repository']}/{local['arch']} (srcmd5 {srcmd5[:8]}); build started.")
 
 
-def local_check(temp_dir: str, package_name: str, cfg: dict) -> str:
+def local_check(temp_dir: str, package_name: str, cfg: dict, _retry: int = 0) -> str:
     marker = os.path.join(temp_dir, ".last_upload.json")
     if not os.path.exists(marker):
         return "Build check error: no upload found in this directory. Call upload_file_to_obs_tool first."
@@ -143,6 +144,10 @@ def local_check(temp_dir: str, package_name: str, cfg: dict) -> str:
         with open(path, "w", encoding="utf-8") as f:
             f.write("=== the build succeeded; output of the acceptance test:\n" + output)
         return failure_message(test, path, error_excerpt(output))
+    infra = infra_failure(text) if "----- building " not in text else None
+    if infra:
+        message = retry_or_give_up(_retry, infra, lambda: local_upload(package_name, temp_dir, cfg))
+        return message or local_check(temp_dir, package_name, cfg, _retry + 1)
     if "----- building " not in text and any(s in text for s in UNRESOLVABLE):
         return f"Build unresolvable! The build can not begin: {error_excerpt(text, max_key_lines=10)}"
     text = _build_log(text)

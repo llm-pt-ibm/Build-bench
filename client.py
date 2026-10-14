@@ -105,6 +105,11 @@ ROUND_NOTICE_AT = sorted({int(n) for n in (_notice if isinstance(_notice, list) 
 # own notes (its text replies) from the previous attempt (0: none), so that
 # what it found out is not lost when it made no edit.
 CARRY_NOTES_CHARS = int(LLM_CFG.get("carry_notes_chars", 0))
+# A reply with neither text nor tool calls is a glitch of the model or the
+# provider, not a decision to stop: ask the model to continue, at most this
+# many times per attempt (0: such a reply ends the attempt, as in the paper).
+EMPTY_REPLY_RETRIES = int(LLM_CFG.get("empty_reply_retries", 0))
+INFRA_ERROR = "Build result: Build infrastructure error!"
 KEEP_RECENT_TOOL_RESULTS = int(LLM_CFG.get("keep_recent_tool_results", 8))
 
 
@@ -130,6 +135,7 @@ def run_metadata(max_build_attempts: int, max_tool_rounds: int) -> Dict:
         "repeat_guard_per_build": REPEAT_GUARD_PER_BUILD,
         "round_notice_at": ROUND_NOTICE_AT,
         "carry_notes_chars": CARRY_NOTES_CHARS,
+        "empty_reply_retries": EMPTY_REPLY_RETRIES,
         "build_backend": (os.getenv("BENCH_BUILD_BACKEND") or (info.get("build") or {}).get("backend", "obs")).lower(),
     }
 
@@ -330,6 +336,7 @@ class AutoRepairClient:
             self._log(package_name, f"[init] build of the original package: {ret.splitlines()[0] if ret else ret}")
         attempts = []
         notes = ""
+        infrastructure_error = False
         verified_by = None
         t0 = time.time()
 
@@ -382,6 +389,10 @@ class AutoRepairClient:
             attempts.append({"attempt": attempt, **summary})
             self._save_transcript(package_name, attempt, messages)
             notes = self._notes(messages)
+            if summary.get("ended_by") == "infrastructure_error":
+                infrastructure_error = True
+                final_text = f"Stopped on attempt {attempt}: the build infrastructure failed (not the package)."
+                break
             if ok:
                 verified_by = summary["verified_by"]
                 build_succeeded = True
@@ -398,6 +409,7 @@ class AutoRepairClient:
                        "temperature": LLM_TEMPERATURE,
                        "direction": f"{info['source_arch']}_to_{info['target_arch']}",
                        "success": build_succeeded, "success_attempt": success_attempt,
+                       "infrastructure_error": infrastructure_error,
                        "success_verified_by": verified_by,
                        "minutes": round((time.time() - t0) / 60, 2), **self.usage,
                        "timing": {k: round(v, 1) for k, v in self.timing.items()},
@@ -607,6 +619,8 @@ class AutoRepairClient:
                                        "build_check_seconds")
                 steps.append(f"check: {ret.splitlines()[0] if ret else ret}")
                 self._track_package_state("check_build_result", ret, by_framework=True)
+                if ret.startswith(INFRA_ERROR):
+                    summary["ended_by"] = "infrastructure_error"
                 parsed = await self.session.call_tool(
                     "parse_build_result_tool", {"result_content": ret, "package_name": package_name})
                 if json.loads(parsed.content[0].text).get("success", False):
@@ -665,6 +679,11 @@ class AutoRepairClient:
             if succeeded:
                 summary.update(ended_by="success", verified_by="agent")
                 return latest_text, True, summary
+            if any(m.get("role") == "tool" and str(m.get("content", "")).startswith(INFRA_ERROR)
+                   for m in messages[-len(choice.message.tool_calls):]):
+                self._log(package_name, "Build infrastructure error: ending the run of this package")
+                summary["ended_by"] = "infrastructure_error"
+                return latest_text, False, summary
 
             if rounds >= self.max_tool_rounds:
                 summary["ended_by"] = "round_limit"
@@ -678,6 +697,16 @@ class AutoRepairClient:
                     "unbuilt are built by the framework when the attempt ends.")
             try:
                 choice = self._chat(messages, tools)
+                retries = summary.setdefault("empty_replies", 0)
+                while (not choice.message.tool_calls and not (choice.message.content or "").strip()
+                       and retries < EMPTY_REPLY_RETRIES):
+                    retries += 1
+                    summary["empty_replies"] = retries
+                    self._log(package_name, f"Empty model reply; asking to continue ({retries}/{EMPTY_REPLY_RETRIES})")
+                    messages.append({"role": "user", "content": (
+                        "[framework note] Your last reply was empty. Continue the repair with tool calls; "
+                        "reply without tool calls only when you are done.")})
+                    choice = self._chat(messages, tools)
                 latest_text = choice.message.content or latest_text
             except Exception as e:
                 self._log(package_name, f"Model continuation failed: {e}")

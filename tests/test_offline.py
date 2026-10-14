@@ -64,13 +64,17 @@ class ScriptedClient(client.AutoRepairClient):
         super().__init__(*a, **kw)
         self.step = 0
         self.seen = []
+        self.script = SCRIPT
 
     def _chat(self, messages, tools):
         validate_conversation(messages)
         self.seen = messages
-        calls = SCRIPT[self.step]
+        calls = self.script[self.step]
         self.step += 1
         self.usage["llm_calls"] += 1
+        if calls == "EMPTY":
+            return Choice.model_validate({"index": 0, "finish_reason": "stop",
+                                          "message": {"role": "assistant", "content": ""}})
         msg = {"role": "assistant", "content": None if calls else "done", "tool_calls": calls}
         return Choice.model_validate({"index": 0, "finish_reason": "tool_calls" if calls else "stop",
                                       "message": msg})
@@ -107,6 +111,17 @@ async def main():
             assert tool_msgs[cid].startswith("Error: unknown tool"), tool_msgs[cid][:200]
         assert "truncated" not in tool_msgs["call_4"] or len(tool_msgs["call_4"]) < 41000
         print(f"loop: OK ({cli.usage['tool_calls']} tool calls, valid conversation)")
+
+        # an empty reply is retried instead of ending the attempt
+        client.EMPTY_REPLY_RETRIES = 2
+        cli.script, cli.step = [[call(20, "get_file_content_tool", file_path=f"{TMP}/log_failed.txt")], "EMPTY",
+                                [call(21, "get_file_content_tool", file_path=f"{TMP}/zita-resampler.spec")], None], 0
+        messages = [{"role": "system", "content": "test"}, {"role": "user", "content": "go"}]
+        text, ok, summary = await cli._llm_tools_loop(PKG, init["package_path"], messages, tools)
+        assert summary["ended_by"] == "no_tool_calls" and summary["rounds"] == 2 and summary["empty_replies"] == 1, summary
+        assert any("Your last reply was empty" in str(m.get("content")) for m in messages)
+        client.EMPTY_REPLY_RETRIES = 0
+        print("empty replies: OK (retried, the attempt goes on)")
 
         cases = {
             "Build result: Build succeeded! The build has been successfully completed.": True,

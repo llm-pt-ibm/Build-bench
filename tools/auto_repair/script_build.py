@@ -20,6 +20,7 @@ import time
 
 from tools.auto_repair.acceptance import acceptance_test, failure_message, run_acceptance
 from tools.auto_repair.case_type import case_environment
+from tools.auto_repair.infra import infra_failure, retry_or_give_up
 from tools.auto_repair.local_build import _stop
 from tools.auto_repair.log_excerpt import error_excerpt
 
@@ -123,7 +124,7 @@ def script_upload(package_name: str, package_dir: str, cfg: dict) -> str:
             f"{f' (environment {env_name})' if env_name else ''} (srcmd5 {srcmd5[:8]}); build started.")
 
 
-def script_check(temp_dir: str, package_name: str, cfg: dict) -> str:
+def script_check(temp_dir: str, package_name: str, cfg: dict, _retry: int = 0) -> str:
     marker = os.path.join(temp_dir, ".last_upload.json")
     if not os.path.exists(marker):
         return "Build check error: no upload found in this directory. Call upload_file_to_obs_tool first."
@@ -176,6 +177,10 @@ def script_check(temp_dir: str, package_name: str, cfg: dict) -> str:
         return failure_message(test, path, error_excerpt(output))
     with open(log_path, "rb") as f:
         text = to_workspace(f.read().decode("utf-8", errors="replace"))
+    infra = infra_failure(text)
+    if infra:
+        message = retry_or_give_up(_retry, infra, lambda: script_upload(package_name, temp_dir, cfg))
+        return message or script_check(temp_dir, package_name, cfg, _retry + 1)
     with open(path, "w", encoding="utf-8") as f:
         f.write(text)
     return (f"Build failed! The failed log has been updated to: {path}\n"

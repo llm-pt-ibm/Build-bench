@@ -20,18 +20,22 @@ for path in sorted(glob.glob(os.path.join(result_dir, f"{prefix}*", "*_result.js
     run = os.path.basename(os.path.dirname(path))
     rows.append((run, d))
 
-header = f"{'run':<28} {'package':<20} {'ok':<4} {'att':<4} {'by':<10} {'min':>6} {'calls':>6} {'cost $':>8}"
+header = f"{'run':<28} {'package':<20} {'ok':<5} {'att':<4} {'by':<10} {'min':>6} {'calls':>6} {'cost $':>8}"
 print(header)
 print("-" * len(header))
 groups = defaultdict(list)
 for run, d in rows:
-    print(f"{run:<28} {d['package']:<20} {'yes' if d['success'] else 'no':<4} "
+    ok_text = "yes" if d["success"] else "INFRA" if d.get("infrastructure_error") else "no"
+    print(f"{run:<28} {d['package']:<20} {ok_text:<5} "
           f"{str(d.get('success_attempt') or '-'):<4} {str(d.get('success_verified_by') or '-'):<10} "
           f"{d['minutes']:>6} {d['llm_calls']:>6} {d['cost_usd']:>8.4f}")
     groups[run.rsplit("_", 1)[0]].append(d)
 
 print()
 for group, ds in groups.items():
+    infra = [d for d in ds if d.get("infrastructure_error")]
+    ds = [d for d in ds if not d.get("infrastructure_error")]   # not counted: not caused by the package
     ok = sum(d["success"] for d in ds)
-    cost = sum(d["cost_usd"] for d in ds) / len(ds)
-    print(f"{group}: {ok}/{len(ds)} successful, mean cost ${cost:.4f}")
+    cost = sum(d["cost_usd"] for d in ds) / len(ds) if ds else 0.0
+    extra = f" ({len(infra)} not counted: infrastructure error)" if infra else ""
+    print(f"{group}: {ok}/{len(ds)} successful, mean cost ${cost:.4f}{extra}")
