@@ -100,7 +100,9 @@ improvements` shows them file by file.
   time, whose stack trace has no file paths. Runs up to run26c used the
   prompt without this paragraph.
   `dataset/recipe_baseline.py` builds a case without the model and saves the
-  original failure. First case: jaxlib 0.10.2 (`data/x86_64_to_ppc64le/jaxlib`,
+  original failure; `dataset/recipe_reference_fix.py` builds a copy of a case
+  with known patches applied, through the same upload/check as the model, to
+  show that the case can be solved with changes inside the package. First case: jaxlib 0.10.2 (`data/x86_64_to_ppc64le/jaxlib`,
   sources fetched by `dataset/fetch_jaxlib.sh`, environment
   `envs/jax-power9.sh`); it fails in 2 minutes as on any ppc64le host
   (rules_python finds no host Python for ppc64le).

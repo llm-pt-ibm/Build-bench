@@ -26,3 +26,6 @@ data/x86_64_to_ppc64le/jaxlib/jax/
 data/x86_64_to_ppc64le/jaxlib/xla/
 data/x86_64_to_ppc64le/jaxlib/dist/
 .test_readonly/
+
+# working copies of the packages the model repairs (paths.temp_work_dir)
+temp_workspace/
