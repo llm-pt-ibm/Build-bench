@@ -98,7 +98,9 @@ improvements` shows them file by file.
   point into the build cache, but spent attempts 10 to 12 working around in
   XLA an LLVM PowerPC backend crash (`Cannot select: bf16_to_fp`) seen at run
   time, whose stack trace has no file paths. Runs up to run26c used the
-  prompt without this paragraph.
+  prompt without this paragraph. Until run26d the `run` metadata of a result
+  was read when the package ended, so run26c records commit 218344b although
+  it ran aa08d15; it is now read when the package starts.
   `dataset/recipe_baseline.py` builds a case without the model and saves the
   original failure; `dataset/recipe_reference_fix.py` builds a copy of a case
   with known patches applied, through the same upload/check as the model, to

@@ -373,6 +373,8 @@ class AutoRepairClient:
         infrastructure_error = False
         verified_by = None
         t0 = time.time()
+        # the code and config this package runs with (not those found when it ends)
+        run_info = run_metadata(self.max_build_attempts, self.max_tool_rounds)
 
         # Multiple build attempts
         for attempt in range(first, last + 1):
@@ -455,7 +457,7 @@ class AutoRepairClient:
                        "minutes": round((time.time() - t0) / 60, 2), **self.usage,
                        "timing": {k: round(v, 1) for k, v in self.timing.items()},
                        "attempts": attempts,
-                       "run": run_metadata(self.max_build_attempts, self.max_tool_rounds)},
+                       "run": run_info},
                       f, indent=2)
         self._log(package_name, f"Final saved to {result_file} | usage: {json.dumps(self.usage)}")
         if not build_succeeded:
