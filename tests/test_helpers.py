@@ -60,6 +60,10 @@ crash = ("=== check: install the wheel and run a program\n"
          + "    @     0x7fffa6df6030  xla::cpu::IrCompiler::operator()()\n" * 20
          + "./build.sh: line 42: 47654 Aborted                 (core dumped)\n")
 assert "Unsupported CPU type" in error_excerpt(crash), error_excerpt(crash)
+indented = "".join(f"FAIL check{i} (exit status 134, aborted)\n    F1015 20:18:0{i}.5 2449{i} ir_compiler.cc:398] "
+                   "Unsupported CPU type: powerpc64le-unknown-linux-gnu\n" for i in range(9))
+ex = error_excerpt(indented)
+assert "Unsupported CPU type" in ex and "[x9]" in ex, ex
 from tools.auto_repair.log_excerpt import same_failure  # noqa: E402
 original = open("data/x86_64_to_ppc64le/jaxlib/log_failed.txt", errors="replace").read()
 moved = original.replace("4ebb03ef3cb1bd622034ef725e8576a1", "0123456789abcdef0123456789abcdef")

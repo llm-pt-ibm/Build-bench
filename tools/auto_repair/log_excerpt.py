@@ -8,7 +8,7 @@ KEY_LINE = re.compile(
     r"|Error in \w+:|\bFAIL:"
     # glog/absl fatal messages (F1014 12:00:00.000 123 file.cc:42] ...) and
     # failed checks, e.g. a crash when a built program runs in a test
-    r"|^[FE]\d{4} \d\d:\d\d:\d\d\.\d+ +\d+ \S+:\d+\]|Check failed|Traceback \(most recent call last\)|\bAborted\b",
+    r"|^\s*[FE]\d{4} \d\d:\d\d:\d\d\.\d+ +\d+ \S+:\d+\]|Check failed|Traceback \(most recent call last\)|\bAborted\b",
     re.IGNORECASE,
 )
 # Messages of patch(1); they explain why a hunk failed, so they are kept with
@@ -33,8 +33,13 @@ BUILD_START = re.compile(r"----- building |exec rpmbuild |Executing\(%")
 PREFIX = re.compile(r"^(\[\s*\d+s\]\s*)?(error:\s*)?")
 
 
+GLOG_PREFIX = re.compile(r"^[FE]\d{4} \d\d:\d\d:\d\d\.\d+ +\d+ ")
+
+
 def _text(line: str) -> str:
-    return PREFIX.sub("", line.strip()).strip()
+    # without timestamps, prefixes and the time/thread of glog messages, so
+    # the same message from many processes is counted as one
+    return GLOG_PREFIX.sub("", PREFIX.sub("", line.strip()).strip())
 
 
 # A failed build action as Bazel reports it, one line per source file; the
