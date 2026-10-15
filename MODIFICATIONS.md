@@ -139,6 +139,10 @@ improvements` shows them file by file.
   using up the model's attempts (in run 20, a 50-minute DNS outage of the
   container made all 56 zita builds fail). `scripts/summarize_runs.py` shows
   these runs as INFRA and leaves them out of the success rate.
+- The local worker's resolver lists public DNS servers after the host's
+  (`scripts/local_worker/enter.sh`, `WORKER_FALLBACK_DNS`): the container's
+  embedded DNS fails at times, which is what made the osc builds of zita fail
+  in runs 20 and 21 while the host could still resolve names.
 - `llm.empty_reply_retries`: a model reply with neither text nor tool calls
   is a glitch, not a decision to stop; the framework asks the model to go on
   (in run 20 such a reply ended jaxlib's first attempt at round 20).
