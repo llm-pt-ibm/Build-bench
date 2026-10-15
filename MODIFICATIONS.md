@@ -154,6 +154,12 @@ improvements` shows them file by file.
   (`scripts/local_worker/enter.sh`, `WORKER_FALLBACK_DNS`): the container's
   embedded DNS fails at times, which is what made the osc builds of zita fail
   in runs 20 and 21 while the host could still resolve names.
+- Model calls that fail for a passing reason (rate limits, which StreamLake
+  reports as 413, unavailable servers, timeouts, dropped connections) are
+  retried after 20 s, 1, 2, 5 and 10 min (`llm.retry_waits`); if the provider
+  still fails, the package's run stops with `infrastructure_error: "model
+  provider"` instead of using up the remaining attempts (in run 23 a rate
+  limit ended attempts 2 and 3 in their first second).
 - `llm.empty_reply_retries`: a model reply with neither text nor tool calls
   is a glitch, not a decision to stop; the framework asks the model to go on
   (in run 20 such a reply ended jaxlib's first attempt at round 20).

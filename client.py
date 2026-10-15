@@ -9,6 +9,7 @@ from typing import Dict, List, Optional, Tuple
 from contextlib import AsyncExitStack
 import yaml
 from dotenv import load_dotenv
+import openai
 from openai import OpenAI
 from mcp.client.stdio import stdio_client
 from mcp import ClientSession, StdioServerParameters
@@ -112,6 +113,12 @@ CARRY_NOTES_CHARS = int(LLM_CFG.get("carry_notes_chars", 0))
 # many times per attempt (0: such a reply ends the attempt, as in the paper).
 EMPTY_REPLY_RETRIES = int(LLM_CFG.get("empty_reply_retries", 0))
 INFRA_ERROR = "Build result: Build infrastructure error!"
+# Model calls that fail for a passing reason (rate limits, which some
+# providers report as 413, unavailable servers, timeouts, dropped connections)
+# are retried after these waits, in seconds; if the provider still fails, the
+# package's run stops as an infrastructure failure instead of using up attempts.
+MODEL_RETRY_WAITS = tuple(LLM_CFG.get("retry_waits", (20, 60, 120, 300, 600)))
+RETRYABLE_STATUS = {408, 409, 413, 429, 500, 502, 503, 504}
 KEEP_RECENT_TOOL_RESULTS = int(LLM_CFG.get("keep_recent_tool_results", 8))
 
 
@@ -138,6 +145,7 @@ def run_metadata(max_build_attempts: int, max_tool_rounds: int) -> Dict:
         "round_notice_at": ROUND_NOTICE_AT,
         "carry_notes_chars": CARRY_NOTES_CHARS,
         "empty_reply_retries": EMPTY_REPLY_RETRIES,
+        "model_retry_waits": list(MODEL_RETRY_WAITS),
         "build_backend": (os.getenv("BENCH_BUILD_BACKEND") or (info.get("build") or {}).get("backend", "obs")).lower(),
     }
 
@@ -385,9 +393,9 @@ class AutoRepairClient:
             attempts.append({"attempt": attempt, **summary})
             self._save_transcript(package_name, attempt, messages)
             notes = self._notes(messages)
-            if summary.get("ended_by") == "infrastructure_error":
-                infrastructure_error = True
-                final_text = f"Stopped on attempt {attempt}: the build infrastructure failed (not the package)."
+            if summary.get("ended_by") in ("infrastructure_error", "model_error"):
+                infrastructure_error = "build host" if summary["ended_by"] == "infrastructure_error" else "model provider"
+                final_text = f"Stopped on attempt {attempt}: the {infrastructure_error} failed (not the package)."
                 break
             if ok:
                 verified_by = summary["verified_by"]
@@ -499,13 +507,8 @@ class AutoRepairClient:
                 kwargs["extra_body"]["provider"] = {"order": [OPENROUTER_PROVIDER], "allow_fallbacks": False}
         started = time.time()
         try:
-            resp = self.client.chat.completions.create(
-                model=self.llm_cfg.model,
-                messages=messages,
-                tools=tools,
-                tool_choice="auto",
-                **kwargs,
-            )
+            resp = self._create_with_retries(model=self.llm_cfg.model, messages=messages, tools=tools,
+                                             tool_choice="auto", **kwargs)
         finally:
             self.timing["llm_seconds"] += time.time() - started
         u = resp.usage
@@ -521,6 +524,24 @@ class AutoRepairClient:
         providers[served] = providers.get(served, 0) + 1
         self._write_status(messages)
         return resp.choices[0]
+
+    def _create_with_retries(self, **kwargs):
+        for attempt in range(len(MODEL_RETRY_WAITS) + 1):
+            try:
+                return self.client.chat.completions.create(**kwargs)
+            except (openai.APIConnectionError, openai.APITimeoutError) as e:
+                error = e
+            except openai.APIStatusError as e:
+                if e.status_code not in RETRYABLE_STATUS:
+                    raise
+                error = e
+            if attempt == len(MODEL_RETRY_WAITS):
+                raise error
+            wait = MODEL_RETRY_WAITS[attempt]
+            self._log(getattr(self, "package", None) or "global",
+                      f"Model call failed ({getattr(error, 'status_code', type(error).__name__)}): "
+                      f"{str(error)[:200]}; retrying in {wait}s")
+            time.sleep(wait)
 
     def _write_status(self, messages: List[Dict]) -> None:
         """Live progress of the current package (scripts/watch_run.py reads it)."""

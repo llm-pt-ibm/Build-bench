@@ -123,6 +123,31 @@ async def main():
         client.EMPTY_REPLY_RETRIES = 0
         print("empty replies: OK (retried, the attempt goes on)")
 
+        # passing provider errors (e.g. rate limits reported as 413) are retried
+        import httpx
+        import openai
+        client.MODEL_RETRY_WAITS = (0, 0)
+        calls = []
+
+        def flaky_create(**kwargs):
+            calls.append(1)
+            if len(calls) < 3:
+                raise openai.APIStatusError("rate limit", response=httpx.Response(
+                    413, request=httpx.Request("POST", "http://x")), body=None)
+            return "reply"
+        cli.client = type("C", (), {"chat": type("Ch", (), {"completions": type("Co", (), {
+            "create": staticmethod(flaky_create)})})})()
+        assert cli._create_with_retries(model="m") == "reply" and len(calls) == 3
+        calls.clear()
+        cli.client.chat.completions.create = staticmethod(lambda **kw: (_ for _ in ()).throw(openai.APIStatusError(
+            "bad request", response=httpx.Response(400, request=httpx.Request("POST", "http://x")), body=None)))
+        try:
+            cli._create_with_retries(model="m")
+            raise AssertionError("a 400 error must not be retried")
+        except openai.APIStatusError as e:
+            assert e.status_code == 400
+        print("model calls: OK (passing provider errors retried, others raised)")
+
         cases = {
             "Build result: Build succeeded! The build has been successfully completed.": True,
             "Build result: Build broken! OBS could not process the sources: x": False,
