@@ -788,9 +788,11 @@ async def main():
     }.get(provider)
 
     llm_cfg = LLMConfig(provider=provider, model=default_model)
-    # rounds of tool calls per attempt (20 in the paper); the number of
-    # attempts stays 3
-    cli = AutoRepairClient(llm=llm_cfg, max_tool_rounds=int(LLM_CFG.get("max_tool_rounds", 20)))
+    # attempts per package (3 in the paper; BENCH_MAX_ATTEMPTS overrides the
+    # config for a single run) and rounds of tool calls per attempt (20)
+    attempts = int(os.getenv("BENCH_MAX_ATTEMPTS") or LLM_CFG.get("max_build_attempts", 3))
+    cli = AutoRepairClient(llm=llm_cfg, max_build_attempts=attempts,
+                           max_tool_rounds=int(LLM_CFG.get("max_tool_rounds", 20)))
     try:
         await cli.process_all_packages()
     finally:

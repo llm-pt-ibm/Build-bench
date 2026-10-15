@@ -105,6 +105,8 @@ improvements` shows them file by file.
   when the conversation grows past `max_context_chars`.
   `config/x86_64_to_ppc64le_power9.yaml` enables them and builds everything on
   the Power9 (RPM packages with osc, recipes on the host).
+- `llm.max_build_attempts` (3 by default, as in the paper) sets the attempts
+  per package; `BENCH_MAX_ATTEMPTS` overrides it for a single run.
 - More options for large packages (all off by default, on in
   `config/x86_64_to_ppc64le_power9.yaml`): `llm.max_tool_rounds` (rounds per
   attempt, 20 in the paper; the 3 attempts are kept), `llm.round_notice_at`
