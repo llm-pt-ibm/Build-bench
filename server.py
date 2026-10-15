@@ -81,7 +81,7 @@ def _fingerprint(directory):
 
 @mcp.tool()
 def init_package_environment_tool(
-    base_dir: str, package_name: str, temp_work_dir: str, result_dir: str) -> str:
+    base_dir: str, package_name: str, temp_work_dir: str, result_dir: str, keep_workspace: bool = False) -> str:
     """
     Initializes the package's temporary working environment and copies the original files to a temporary directory.
     Args:
@@ -96,6 +96,12 @@ def init_package_environment_tool(
         package_temp_dir = os.path.join(temp_work_dir, package_name)
         server_state["modification_history"].pop(package_name, None)
         server_state["extractions"].pop(os.path.realpath(package_temp_dir), None)
+        if keep_workspace and os.path.isdir(package_temp_dir):
+            # continuing a run: the workspace keeps the earlier attempts' changes
+            return json.dumps({"success": True, "package_temp_dir": package_temp_dir,
+                               "package_path": package_temp_dir,
+                               "result_file": os.path.join(result_dir, f"{package_name}_result.txt"),
+                               "message": f"Kept the package environment: {package_temp_dir}"})
         if os.path.exists(package_temp_dir):
             shutil.rmtree(package_temp_dir)
         os.makedirs(package_temp_dir, exist_ok=True)

@@ -17,6 +17,7 @@ from tools.auto_repair.acceptance import ACCEPTANCE_DIR, acceptance_test
 from tools.auto_repair.case_type import case_type
 from tools.auto_repair.log_excerpt import same_failure
 from tools.auto_repair.script_build import reset_cache
+from tools.auto_repair.resume import workspace_changes
 from tools.auto_repair.obs_config import load_obs_config
 
 load_dotenv(".env")
@@ -113,6 +114,12 @@ CARRY_NOTES_CHARS = int(LLM_CFG.get("carry_notes_chars", 0))
 # many times per attempt (0: such a reply ends the attempt, as in the paper).
 EMPTY_REPLY_RETRIES = int(LLM_CFG.get("empty_reply_retries", 0))
 INFRA_ERROR = "Build result: Build infrastructure error!"
+# Continue an earlier run (its label, e.g. run26_flash_6att_1): keep the
+# package workspace (optionally copied from BENCH_RESUME_WORKSPACE) and the
+# build cache, number the attempts after the earlier ones, and tell the model
+# what the earlier attempts changed. BENCH_MAX_ATTEMPTS sets how many more.
+RESUME_FROM = os.getenv("BENCH_RESUME_FROM")
+RESUME_WORKSPACE = os.getenv("BENCH_RESUME_WORKSPACE")
 # Model calls that fail for a passing reason (rate limits, which some
 # providers report as 413, unavailable servers, timeouts, dropped connections)
 # are retried after these waits, in seconds; if the provider still fails, the
@@ -295,6 +302,13 @@ class AutoRepairClient:
         self.upload_status[package_name] = False
         self.package = package_name
 
+        resumed = self._resume_state(package_name)
+        if resumed and RESUME_WORKSPACE:
+            import shutil
+            work = os.path.join(self.temp_work_dir, package_name)
+            shutil.rmtree(work, ignore_errors=True)
+            shutil.copytree(RESUME_WORKSPACE, work, symlinks=True)
+
         # Initialize temp env (copy package -> temp dir)
         init_ret = await self.session.call_tool(
             "init_package_environment_tool",
@@ -303,6 +317,7 @@ class AutoRepairClient:
                 "package_name": package_name,
                 "temp_work_dir": self.temp_work_dir,
                 "result_dir": self.result_dir,
+                "keep_workspace": bool(resumed),
             },
         )
         init_data = json.loads(init_ret.content[0].text)
@@ -336,20 +351,22 @@ class AutoRepairClient:
                        "build_check_seconds": 0.0, "other_tool_seconds": 0.0}
         self.dirty = False            # files changed since the last upload
         self.unchecked_upload = False  # an upload whose build was never checked
-        if kind == "recipe" and SCRIPT_CFG.get("build_original_on_init", False):
+        if kind == "recipe" and SCRIPT_CFG.get("build_original_on_init", False) and not resumed:
             await self._build_original(package_name, package_path)
         attempts = []
-        notes = ""
+        notes = resumed["notes"] if resumed else ""
+        first = resumed["attempts"] + 1 if resumed else 1
+        last = first + self.max_build_attempts - 1
         infrastructure_error = False
         verified_by = None
         t0 = time.time()
 
         # Multiple build attempts
-        for attempt in range(1, self.max_build_attempts + 1):
+        for attempt in range(first, last + 1):
             self.attempt = attempt
             self._log(
                 package_name,
-                f"--- Build attempt {attempt}/{self.max_build_attempts} ---",
+                f"--- Build attempt {attempt}/{last} ---",
             )
             try:
                 await self.session.call_tool(
@@ -381,6 +398,11 @@ class AutoRepairClient:
             # Ensure the first message is a system message for OpenAI-chat format
             if messages and messages[0].get("role") != "system":
                 messages.insert(0, {"role": "system", "content": system_prompt_tpl})
+            if resumed and attempt == first and len(messages) > 1 and messages[1].get("role") == "user":
+                messages[1]["content"] += (
+                    f"\n\n## Earlier attempts\nThis run continues an earlier one: {resumed['attempts']} attempts "
+                    "were already made and the package already contains their changes, shown here "
+                    "against the original package:\n\n" + (resumed["changes"] or "(no changes)"))
             if notes and len(messages) > 1 and messages[1].get("role") == "user":
                 messages[1]["content"] += (
                     "\n\n## Your notes from the previous attempt\n"
@@ -414,6 +436,8 @@ class AutoRepairClient:
                        "direction": f"{info['source_arch']}_to_{info['target_arch']}",
                        "success": build_succeeded, "success_attempt": success_attempt,
                        "infrastructure_error": infrastructure_error,
+                       "resumed_from": RESUME_FROM,
+                       "previous_attempts": resumed["attempts"] if resumed else 0,
                        "success_verified_by": verified_by,
                        "minutes": round((time.time() - t0) / 60, 2), **self.usage,
                        "timing": {k: round(v, 1) for k, v in self.timing.items()},
@@ -423,6 +447,25 @@ class AutoRepairClient:
         self._log(package_name, f"Final saved to {result_file} | usage: {json.dumps(self.usage)}")
         if not build_succeeded:
             self._log(package_name, "Max attempts reached without success.")
+
+    def _resume_state(self, package_name: str):
+        """What a continued run needs from the earlier one: its number of
+        attempts, the model's notes of its last attempt and the changes made to
+        the package so far (None when not continuing a run)."""
+        if not RESUME_FROM:
+            return None
+        with open(os.path.join(self.result_dir, RESUME_FROM, f"{package_name}_result.json")) as f:
+            done = len(json.load(f)["attempts"])
+        notes = ""
+        try:
+            with open(os.path.join(self.log_dir, RESUME_FROM, f"{package_name}_attempt{done}_messages.json")) as f:
+                notes = self._notes(json.load(f))
+        except (OSError, ValueError):
+            pass
+        work = RESUME_WORKSPACE or os.path.join(self.temp_work_dir, package_name)
+        changes = workspace_changes(os.path.join(self.base_dir, package_name), work)
+        self._log(package_name, f"Continuing {RESUME_FROM} after {done} attempts")
+        return {"attempts": done, "notes": notes, "changes": changes}
 
     async def _build_original(self, package_name: str, package_path: str) -> None:
         """Start the run from a clean per-run build cache and build the package

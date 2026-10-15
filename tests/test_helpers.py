@@ -183,4 +183,23 @@ assert os.listdir(shared) == ["content-addressed"], "the shared cache is kept"
 shutil.rmtree(work)
 print("build-recipe backend: OK (with acceptance test and cache reset)")
 
+# changes made by earlier attempts, for continued runs
+from tools.auto_repair.resume import workspace_changes  # noqa: E402
+work = tempfile.mkdtemp()
+orig, ws = os.path.join(work, "orig"), os.path.join(work, "ws")
+os.makedirs(os.path.join(orig, "src"))
+open(os.path.join(orig, "src", "a.c"), "w").write("int a;\n")
+open(os.path.join(orig, "src", "same.c"), "w").write("x\n")
+os.symlink("same.c", os.path.join(orig, "src", "link.c"))
+open(os.path.join(orig, "log_failed.txt"), "w").write("log\n")
+shutil.copytree(orig, ws)                       # symlinks become files, as in a workspace
+open(os.path.join(ws, "src", "a.c"), "w").write("int a = 1;\n")
+open(os.path.join(ws, "src", "new.patch"), "w").write("+x\n")
+open(os.path.join(ws, "log_failed.txt"), "w").write("other log\n")
+changes = workspace_changes(orig, ws)
+assert "File: src/a.c" in changes and "+int a = 1;" in changes and "File: src/new.patch" in changes, changes
+assert "same.c" not in changes and "link.c" not in changes and "log_failed" not in changes, changes
+shutil.rmtree(work)
+print("resume: OK (changes against the original package)")
+
 print("\nALL TESTS PASSED")

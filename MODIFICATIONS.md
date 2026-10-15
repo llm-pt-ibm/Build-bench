@@ -105,6 +105,12 @@ improvements` shows them file by file.
   when the conversation grows past `max_context_chars`.
   `config/x86_64_to_ppc64le_power9.yaml` enables them and builds everything on
   the Power9 (RPM packages with osc, recipes on the host).
+- Continuing a run: with `BENCH_RESUME_FROM=<earlier run label>` (and
+  `BENCH_MAX_ATTEMPTS` more attempts) the client keeps the package workspace
+  (or copies `BENCH_RESUME_WORKSPACE`) and the build cache, numbers the
+  attempts after the earlier ones, and starts with the earlier changes
+  against the original package (`tools/auto_repair/resume.py`) and the
+  model's notes of the last attempt. The result records `resumed_from`.
 - `llm.max_build_attempts` (3 by default, as in the paper) sets the attempts
   per package; `BENCH_MAX_ATTEMPTS` overrides it for a single run.
 - More options for large packages (all off by default, on in
