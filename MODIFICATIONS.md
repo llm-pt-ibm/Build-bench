@@ -137,6 +137,10 @@ improvements` shows them file by file.
     only had a smoke test in `build.sh`, fails 20 tests: attention kernels
     abort (bfloat16 in LLVM's PowerPC backend) and two int8 results are wrong
     (fusion emitters). The check was removed from the jaxlib `build.sh`.
+  - When JAX's tests crash a pytest worker, the error output is lost, so
+    the test runs two of the crashed tests alone without output capture and
+    shows why they abort (e.g. `LLVM ERROR: Cannot select: ... bf16_to_fp`
+    in LLVM's PowerPC instruction selection).
   - `zita-resampler.sh`: installs the built RPMs in the build root and
     resamples a 1 kHz sine from 44.1 to 48 kHz with Resampler and VResampler.
 - Infrastructure failures are not blamed on the package: when a local build

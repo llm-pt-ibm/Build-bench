@@ -41,7 +41,16 @@ if [ $rc -eq 0 ]; then
   echo "PASS jax_test_suite: $summary"
 else
   echo "FAIL jax_test_suite (exit status $rc): ${summary:-no summary, see below}"
-  grep -E "^(FAILED|ERROR) |worker '.*' crashed|LLVM ERROR|Fatal Python error|Aborted|Segmentation fault" "$log" | head -40 | sed 's/^/    /'
+  grep -E "^(FAILED|ERROR) " "$log" | head -20 | sed 's/^/    /'
+  grep -oE "worker '[^']*' crashed while running '[^']*'" "$log" | head -20 | sed 's/^/    /'
+  grep -E "LLVM ERROR|Segmentation fault" "$log" | sort -u | head -5 | sed 's/^/    /'
+  # a crashed pytest worker loses the test's error output: run a few of the
+  # crashed tests alone, without output capture, to show why they crash
+  for t in $(grep -oE "crashed while running '[^']*'" "$log" | sed "s/.*running '//; s/'\$//" | head -2); do
+    echo "    --- $t, run alone:"
+    (cd "$BENCH_SRC_DIR/jax" && timeout 600 "$venv/bin/python" -P -m pytest -q -s -p no:cacheprovider -p no:xdist "$t" 2>&1) \
+      | grep -E "LLVM ERROR|Cannot select|Check failed|^E |^[FE][0-9]{4} |@ .*(llvm::|xla::|PPC|X86|AArch64)" | head -12 | sed 's/^/        /'
+  done
   [ -z "$summary" ] && tail -30 "$log" | sed 's/^/    /'
   failed=$((failed + 1))
 fi
