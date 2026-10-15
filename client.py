@@ -157,6 +157,19 @@ def run_metadata(max_build_attempts: int, max_tool_rounds: int) -> Dict:
     }
 
 
+def message_reasoning(message) -> str:
+    """The model's reasoning behind a reply, when the provider returns it
+    (OpenRouter: `reasoning`; DeepSeek's own API: `reasoning_content`)."""
+    extra = message.model_extra or {}
+    return extra.get("reasoning") or extra.get("reasoning_content") or ""
+
+
+def api_messages(messages: List[Dict]) -> List[Dict]:
+    """The conversation as sent to the model: the reasoning is kept in the
+    saved transcripts only, so the model sees what it saw before."""
+    return [{k: v for k, v in m.items() if k != "reasoning"} for m in messages]
+
+
 def make_args_key(tool_name: str, tool_args: dict) -> str:
     return f"{tool_name}::{json.dumps(tool_args, sort_keys=True, ensure_ascii=False, separators=(',', ':'))}"
 
@@ -552,7 +565,7 @@ class AutoRepairClient:
                 kwargs["extra_body"]["provider"] = {"order": [OPENROUTER_PROVIDER], "allow_fallbacks": False}
         started = time.time()
         try:
-            resp = self._create_with_retries(model=self.llm_cfg.model, messages=messages, tools=tools,
+            resp = self._create_with_retries(model=self.llm_cfg.model, messages=api_messages(messages), tools=tools,
                                              tool_choice="auto", **kwargs)
         finally:
             self.timing["llm_seconds"] += time.time() - started
@@ -757,11 +770,14 @@ class AutoRepairClient:
             summary["rounds"] = rounds
             self._log(package_name, f"== Tool round {rounds} ==")
 
-            messages.append({
+            reply = {
                 "role": "assistant",
                 "content": choice.message.content,
                 "tool_calls": [t.model_dump() for t in choice.message.tool_calls],
-            })
+            }
+            if message_reasoning(choice.message):
+                reply["reasoning"] = message_reasoning(choice.message)
+            messages.append(reply)
             succeeded = False
             for tc in choice.message.tool_calls:
                 tool_name, tool_ret = await self._run_one_tool(package_name, tc)

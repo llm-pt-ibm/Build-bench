@@ -90,7 +90,15 @@ improvements` shows them file by file.
   paths of the build copy in the log are rewritten to the workspace. The case
   declares its build environment in `manifest.json` (`envs/<name>.sh`, set up
   before `build.sh` and not editable by the model, like an OBS build host).
-  `prompts/build_recipe_generation.txt` is the prompt of these cases.
+  `prompts/build_recipe_generation.txt` is the prompt of these cases. It
+  tells the model that the cause may be in a downloaded dependency (a
+  library, a code generator, a compiler backend) and is fixed there with a
+  patch, even when the log only names its functions: in the jaxlib runs the
+  model patched highway, boringssl and rules_python, whose compile errors
+  point into the build cache, but spent attempts 10 to 12 working around in
+  XLA an LLVM PowerPC backend crash (`Cannot select: bf16_to_fp`) seen at run
+  time, whose stack trace has no file paths. Runs up to run26c used the
+  prompt without this paragraph.
   `dataset/recipe_baseline.py` builds a case without the model and saves the
   original failure. First case: jaxlib 0.10.2 (`data/x86_64_to_ppc64le/jaxlib`,
   sources fetched by `dataset/fetch_jaxlib.sh`, environment
@@ -216,7 +224,9 @@ improvements` shows them file by file.
   tools), one summary per attempt (rounds, how it ended, build results, final
   check) and `run` metadata (git commit and branch, config, limits). The full
   conversation of every attempt is saved as
-  `<package>_attempt<N>_messages.json` in the log directory.
+  `<package>_attempt<N>_messages.json` in the log directory, with the model's
+  reasoning (`reasoning`, when the provider returns it) next to each reply;
+  the reasoning is not sent back to the model.
 - `scripts/run_repeats.sh <label> <n> [config]` runs the benchmark N times and
   archives each run in its own directory; `scripts/summarize_runs.py` prints a
   table and the success rate per label.

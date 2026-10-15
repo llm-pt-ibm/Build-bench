@@ -65,6 +65,7 @@ class ScriptedClient(client.AutoRepairClient):
         self.step = 0
         self.seen = []
         self.script = SCRIPT
+        self.reasoning = None
 
     def _chat(self, messages, tools):
         validate_conversation(messages)
@@ -76,6 +77,8 @@ class ScriptedClient(client.AutoRepairClient):
             return Choice.model_validate({"index": 0, "finish_reason": "stop",
                                           "message": {"role": "assistant", "content": ""}})
         msg = {"role": "assistant", "content": None if calls else "done", "tool_calls": calls}
+        if self.reasoning:
+            msg["reasoning"] = self.reasoning
         return Choice.model_validate({"index": 0, "finish_reason": "tool_calls" if calls else "stop",
                                       "message": msg})
 
@@ -122,6 +125,17 @@ async def main():
         assert any("Your last reply was empty" in str(m.get("content")) for m in messages)
         client.EMPTY_REPLY_RETRIES = 0
         print("empty replies: OK (retried, the attempt goes on)")
+
+        # the model's reasoning is saved with its replies but never sent back
+        cli.script, cli.step = [[call(22, "get_file_content_tool", file_path=f"{TMP}/log_failed.txt")], None], 0
+        cli.reasoning = "the error is in the dependency"
+        messages = [{"role": "system", "content": "test"}, {"role": "user", "content": "go"}]
+        await cli._llm_tools_loop(PKG, init["package_path"], messages, tools)
+        cli.reasoning = None
+        assert messages[2]["reasoning"] == "the error is in the dependency", messages[2]
+        assert not any("reasoning" in m for m in client.api_messages(messages))
+        assert "dependency" not in cli._notes(messages)
+        print("reasoning: OK (kept in the transcript, not sent to the model)")
 
         # passing provider errors (e.g. rate limits reported as 413) are retried
         import httpx
