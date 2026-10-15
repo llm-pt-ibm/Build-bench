@@ -455,7 +455,9 @@ class AutoRepairClient:
         if not RESUME_FROM:
             return None
         with open(os.path.join(self.result_dir, RESUME_FROM, f"{package_name}_result.json")) as f:
-            done = len(json.load(f)["attempts"])
+            earlier = json.load(f)
+        # the earlier run may itself continue another one
+        done = int(earlier.get("previous_attempts") or 0) + len(earlier["attempts"])
         notes = ""
         try:
             with open(os.path.join(self.log_dir, RESUME_FROM, f"{package_name}_attempt{done}_messages.json")) as f:
