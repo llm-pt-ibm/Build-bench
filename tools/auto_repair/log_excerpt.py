@@ -108,3 +108,36 @@ def error_excerpt(log_text: str, max_key_lines: int = 15, tail_lines: int = 5) -
             if _text(l) and _text(l) not in seen and not NOISE.search(l)]
     body = shown + action_lines
     return "\n".join(body + (["..."] if body and tail else []) + tail)
+
+
+def _normalize(line: str) -> str:
+    """A key line without what changes between equivalent builds: timestamps,
+    absolute paths, hashes and numbers."""
+    line = _text(line)
+    line = re.sub(r"\S*/external/", "<ext>/", line)
+    line = re.sub(r"\S*temp_workspace/[^/\s]+/", "", line)
+    line = re.sub(r"\b[0-9a-f]{12,}\b", "<hash>", line)
+    return re.sub(r"\d+", "#", line).strip()
+
+
+def key_lines(log_text: str) -> list:
+    """The error lines of a build log, normalized, in order of appearance."""
+    lines = [l.rstrip() for l in log_text.splitlines()]
+    start = next((i for i, l in enumerate(lines) if BUILD_START.search(l)), 0)
+    out = []
+    for line in lines[start:]:
+        if NOISE.search(line) or not (PATCH_ERROR.search(line) or KEY_LINE.search(line)):
+            continue
+        norm = _normalize(line)
+        if norm and norm not in out:
+            out.append(norm)
+    return out
+
+
+def same_failure(original_log: str, new_log: str) -> bool:
+    """Whether a build failed for the same root cause as the original failure:
+    the first error of the new log is one of the errors of the original."""
+    new, original = key_lines(new_log), key_lines(original_log)
+    if not new or not original:
+        return not new and not original
+    return new[0] in original

@@ -6,8 +6,13 @@ waits for it and returns the same messages.
 Each package gets a stable directory <stage_root>/<package>:
   src/    mirror of the package sources (only changed files are copied, so
           incremental build systems and their caches keep working)
-  cache/  persistent across builds and runs (BENCH_CACHE_DIR), e.g. a Bazel
-          output root or a ccache directory
+  cache/  build state kept across the builds of a run (BENCH_CACHE_DIR), e.g.
+          a Bazel output root; it is cleared when a run starts, so that what
+          one run breaks (say, a build.sh that deletes part of it) does not
+          reach the next
+  shared/ content-addressed caches kept across runs (BENCH_SHARED_CACHE_DIR),
+          e.g. Bazel's --disk_cache and --repository_cache or ccache: losing
+          an entry only costs time, so they are safe to share
 Paths of src/ in the log are rewritten to the package workspace, so the model
 can open the files the errors point to; cache/ is readable by the file tools
 (dependency sources downloaded by the build live there)."""
@@ -15,6 +20,7 @@ import hashlib
 import json
 import os
 import shutil
+import signal
 import subprocess
 import time
 
@@ -33,8 +39,8 @@ NOT_SOURCES = {"log_failed.txt", "log_failed_original.txt", "manifest.json", "ex
 def _dirs(cfg: dict, package_name: str) -> dict:
     base = os.path.join(cfg["script"]["stage_root"], package_name)
     dirs = {"base": base, "src": os.path.join(base, "src"), "cache": os.path.join(base, "cache"),
-            "run": os.path.join(base, "run")}
-    for name in ("src", "cache", "run"):
+            "shared": os.path.join(base, "shared"), "run": os.path.join(base, "run")}
+    for name in ("src", "cache", "shared", "run"):
         os.makedirs(dirs[name], exist_ok=True)
     return dirs
 
@@ -94,6 +100,49 @@ def sync_tree(src: str, dst: str) -> str:
     return digest.hexdigest()
 
 
+def reset_cache(package_name: str, cfg: dict) -> None:
+    """Clear the package's per-run build cache (not the shared one), after
+    stopping its build and every process that still uses the cache (e.g. a
+    Bazel server) with everything it started."""
+    dirs = _dirs(cfg, package_name)
+    _stop(os.path.join(dirs["run"], "state.json"))
+    cache = dirs["cache"]
+    users, children, parent = set(), {}, {}
+    for pid in filter(str.isdigit, os.listdir("/proc")):
+        try:
+            with open(f"/proc/{pid}/cmdline", "rb") as f:
+                cmdline = f.read().decode(errors="replace")
+            with open(f"/proc/{pid}/stat") as f:
+                ppid = int(f.read().rsplit(")", 1)[1].split()[1])
+        except (OSError, ValueError, IndexError):
+            continue
+        children.setdefault(ppid, []).append(int(pid))
+        parent[int(pid)] = ppid
+        if cache in cmdline:
+            users.add(int(pid))
+    # never this process or the ones that started it (whose command line may
+    # mention the cache too)
+    spared, pid = set(), os.getpid()
+    while pid > 1 and pid not in spared:
+        spared.add(pid)
+        pid = parent.get(pid, 1)
+    # the processes that use the cache and everything they started
+    todo, victims = list(users - spared), set()
+    while todo:
+        pid = todo.pop()
+        if pid not in victims and pid not in spared:
+            victims.add(pid)
+            todo.extend(children.get(pid, []))
+    for pid in victims:
+        try:
+            os.kill(pid, signal.SIGKILL)
+        except OSError:
+            pass
+    time.sleep(2)
+    shutil.rmtree(cache, ignore_errors=True)
+    os.makedirs(cache, exist_ok=True)
+
+
 def script_upload(package_name: str, package_dir: str, cfg: dict) -> str:
     if not os.path.isfile(os.path.join(package_dir, "build.sh")):
         return f"Error: no build.sh in {package_dir}"
@@ -110,8 +159,8 @@ def script_upload(package_name: str, package_dir: str, cfg: dict) -> str:
     for path in (log, status):
         if os.path.exists(path):
             os.remove(path)
-    env = dict(os.environ, BENCH_CACHE_DIR=dirs["cache"], BENCH_JOBS=str(cfg["script"]["jobs"]),
-               BENCH_PACKAGE=package_name)
+    env = dict(os.environ, BENCH_CACHE_DIR=dirs["cache"], BENCH_SHARED_CACHE_DIR=dirs["shared"],
+               BENCH_JOBS=str(cfg["script"]["jobs"]), BENCH_PACKAGE=package_name)
     proc = subprocess.Popen(
         ["bash", "-c", '"$0" "$1" "$2" > "$3" 2>&1; echo $? > "$4"',
          RUNNER, dirs["src"], env_script, log, status],

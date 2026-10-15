@@ -139,6 +139,17 @@ improvements` shows them file by file.
   using up the model's attempts (in run 20, a 50-minute DNS outage of the
   container made all 56 zita builds fail). `scripts/summarize_runs.py` shows
   these runs as INFRA and leaves them out of the success rate.
+- Runs of build-recipe cases are isolated from each other: the per-run build
+  cache (`BENCH_CACHE_DIR`, e.g. Bazel's output root) is cleared when a run
+  starts, after stopping the processes that use it (`reset_cache`), and only
+  content-addressed caches are shared between runs (`BENCH_SHARED_CACHE_DIR`,
+  used by the jaxlib recipe for Bazel's `--disk_cache` and
+  `--repository_cache`). In run 22 the model made `build.sh` delete parts of
+  the Bazel cache, which would have broken the following runs in a way the
+  original build cannot show (it fails before reaching the damage). The
+  framework also warns when the original package no longer fails as the
+  case's original failure (`same_failure`), and the recipe prompt asks not to
+  delete the cache.
 - The local worker's resolver lists public DNS servers after the host's
   (`scripts/local_worker/enter.sh`, `WORKER_FALLBACK_DNS`): the container's
   embedded DNS fails at times, which is what made the osc builds of zita fail

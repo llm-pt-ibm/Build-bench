@@ -14,6 +14,8 @@ from mcp.client.stdio import stdio_client
 from mcp import ClientSession, StdioServerParameters
 from tools.auto_repair.acceptance import ACCEPTANCE_DIR, acceptance_test
 from tools.auto_repair.case_type import case_type
+from tools.auto_repair.log_excerpt import same_failure
+from tools.auto_repair.script_build import reset_cache
 from tools.auto_repair.obs_config import load_obs_config
 
 load_dotenv(".env")
@@ -327,13 +329,7 @@ class AutoRepairClient:
         self.dirty = False            # files changed since the last upload
         self.unchecked_upload = False  # an upload whose build was never checked
         if kind == "recipe" and SCRIPT_CFG.get("build_original_on_init", False):
-            # build the package as it is, so that the build cache (and the
-            # dependency sources the model can read there) reflects the
-            # original package and not the last build of an earlier run
-            await self._call("upload_file_to_obs_tool", {"package_path": package_path}, "upload_seconds")
-            ret = await self._call("check_build_result", {"input_dir": package_path, "package_name": package_name},
-                                   "build_check_seconds")
-            self._log(package_name, f"[init] build of the original package: {ret.splitlines()[0] if ret else ret}")
+            await self._build_original(package_name, package_path)
         attempts = []
         notes = ""
         infrastructure_error = False
@@ -419,6 +415,38 @@ class AutoRepairClient:
         self._log(package_name, f"Final saved to {result_file} | usage: {json.dumps(self.usage)}")
         if not build_succeeded:
             self._log(package_name, "Max attempts reached without success.")
+
+    async def _build_original(self, package_name: str, package_path: str) -> None:
+        """Start the run from a clean per-run build cache and build the package
+        as it is, so that the cache (and the dependency sources the model can
+        read there) reflects the original package and nothing an earlier run
+        did. The build must fail as the case's original failure; otherwise the
+        case or its environment changed, and the run log says so."""
+        def original_failure():
+            try:
+                with open(os.path.join(package_path, "log_failed_original.txt"), errors="replace") as f:
+                    return f.read()
+            except OSError:
+                return ""
+
+        async def build():
+            await self._call("upload_file_to_obs_tool", {"package_path": package_path}, "upload_seconds")
+            ret = await self._call("check_build_result", {"input_dir": package_path, "package_name": package_name},
+                                   "build_check_seconds")
+            self._log(package_name, f"[init] build of the original package: {ret.splitlines()[0] if ret else ret}")
+            try:
+                with open(os.path.join(package_path, "log_failed.txt"), errors="replace") as f:
+                    return ret, f.read()
+            except OSError:
+                return ret, ""
+
+        reset_cache(package_name, load_obs_config())
+        self._log(package_name, "[init] per-run build cache cleared")
+        ret, log = await build()
+        original = original_failure()
+        if original and not ("Build failed!" in ret and same_failure(original, log)):
+            self._log(package_name, "[init] warning: the original package does not fail as the case's original "
+                                    "failure; the case or its build environment changed")
 
     @staticmethod
     def _notes(messages: List[Dict]) -> str:

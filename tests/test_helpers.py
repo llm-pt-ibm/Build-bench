@@ -60,7 +60,14 @@ crash = ("=== check: install the wheel and run a program\n"
          + "    @     0x7fffa6df6030  xla::cpu::IrCompiler::operator()()\n" * 20
          + "./build.sh: line 42: 47654 Aborted                 (core dumped)\n")
 assert "Unsupported CPU type" in error_excerpt(crash), error_excerpt(crash)
-print("log excerpt: OK")
+from tools.auto_repair.log_excerpt import same_failure  # noqa: E402
+original = open("data/x86_64_to_ppc64le/jaxlib/log_failed.txt", errors="replace").read()
+moved = original.replace("4ebb03ef3cb1bd622034ef725e8576a1", "0123456789abcdef0123456789abcdef")
+corrupted = ("ERROR: /root/obs-worker/script/jaxlib/cache/bazel/4ebb03ef3cb1bd622034ef725e8576a1/external/rules_python/"
+             "python/private/pypi/pypi_repo_utils.bzl:112:31: An error occurred during the fetch of repository 'pypi':\n"
+             "Error in path: Unable to load package for @@pypi__packaging//:packaging-24.2.dist-info/RECORD\n")
+assert same_failure(original, moved) and not same_failure(original, corrupted)
+print("log excerpt: OK (with root-cause comparison)")
 import json, shutil, tempfile  # noqa: E402
 import tools.auto_repair.local_build as local_build  # noqa: E402
 
@@ -128,13 +135,14 @@ pkg_dir = os.path.join(work, "r")
 os.makedirs(os.path.join(pkg_dir, "src"))
 open(os.path.join(pkg_dir, "src", "main.c"), "w").write("broken\n")
 open(os.path.join(pkg_dir, "build.sh"), "w").write(
-    'echo "jobs=$BENCH_JOBS cache=$BENCH_CACHE_DIR"; touch out.o\n'
+    'echo "jobs=$BENCH_JOBS cache=$BENCH_CACHE_DIR shared=$BENCH_SHARED_CACHE_DIR"; touch out.o\n'
     'grep -q broken src/main.c && { echo "$(pwd)/src/main.c:1:1: error: boom"; exit 1; }\nexit 0\n')
 res = script_build.script_upload("r", pkg_dir, cfg)
 assert res.startswith("Success: sources snapshotted"), res
 res = script_build.script_check(pkg_dir, "r", cfg)
 assert res.startswith("Build failed!") and f"{pkg_dir}/src/main.c:1:1: error: boom" in res, res
 assert "jobs=2" in open(os.path.join(pkg_dir, "log_failed.txt")).read()
+assert "/r/shared" in open(os.path.join(pkg_dir, "log_failed.txt")).read()
 open(os.path.join(pkg_dir, "src", "main.c"), "w").write("fixed\n")
 script_build.script_upload("r", pkg_dir, cfg)
 assert script_build.script_check(pkg_dir, "r", cfg).startswith("Build succeeded!")
@@ -155,7 +163,24 @@ open(os.path.join(pkg_dir, "src", "main.c"), "w").write("fixed, works\n")
 script_build.script_upload("r", pkg_dir, cfg)
 res = script_build.script_check(pkg_dir, "r", cfg)
 assert res == "Build succeeded! The build has been successfully completed and its acceptance test passed.", res
+# a cache left inconsistent is removed, with the processes that still use it
+import subprocess  # noqa: E402
+import time  # noqa: E402
+cache = os.path.join(cfg["script"]["stage_root"], "r", "cache")
+shared = os.path.join(cfg["script"]["stage_root"], "r", "shared")
+open(os.path.join(cache, "stale"), "w").write("x")
+open(os.path.join(shared, "content-addressed"), "w").write("x")
+child_pid = os.path.join(work, "child.pid")
+user = subprocess.Popen([sys.executable, "-c", "import subprocess, sys, time; "
+                         "open(sys.argv[2], 'w').write(str(subprocess.Popen(['sleep', '60']).pid)); time.sleep(60)",
+                         cache, child_pid])
+while not os.path.exists(child_pid) or not open(child_pid).read():
+    time.sleep(0.1)
+script_build.reset_cache("r", cfg)
+assert user.wait(timeout=10) != 0 and os.listdir(cache) == [], os.listdir(cache)
+assert not os.path.exists(f"/proc/{open(child_pid).read()}/cmdline"), "a child of a cache user survived"
+assert os.listdir(shared) == ["content-addressed"], "the shared cache is kept"
 shutil.rmtree(work)
-print("build-recipe backend: OK (with acceptance test)")
+print("build-recipe backend: OK (with acceptance test and cache reset)")
 
 print("\nALL TESTS PASSED")

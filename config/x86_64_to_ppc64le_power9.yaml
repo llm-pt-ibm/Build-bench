@@ -30,8 +30,8 @@ build:
   script:
     stage_root: "/root/obs-worker/script"
     jobs: 0
-    # build the original package before the first attempt, so the build cache
-    # does not keep dependency sources patched in an earlier run
+    # start each run from a clean per-run build cache and build the original
+    # package before the first attempt (the shared caches are kept)
     build_original_on_init: true
 
 # Extensions for large code bases

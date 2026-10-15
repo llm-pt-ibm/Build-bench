@@ -5,7 +5,8 @@
 # in jax/dist; the framework's acceptance test then checks that it works.
 # Tools from the build host: $BAZEL, $CLANG, $PYTHON,
 # $LOCAL_WHEELS (wheels for this architecture missing from PyPI),
-# $BENCH_CACHE_DIR (persistent cache), $BENCH_JOBS (parallel jobs).
+# $BENCH_CACHE_DIR (build state of the run), $BENCH_SHARED_CACHE_DIR
+# (content-addressed caches shared by runs), $BENCH_JOBS (parallel jobs).
 set -euo pipefail
 root=$(pwd)
 
@@ -20,6 +21,8 @@ cd jax
   --clang_path="$CLANG" \
   --local_xla_path="$root/xla" \
   --bazel_options=--repo_env=ML_WHEEL_TYPE=release \
+  --bazel_options=--disk_cache="$BENCH_SHARED_CACHE_DIR/bazel-disk" \
+  --bazel_options=--repository_cache="$BENCH_SHARED_CACHE_DIR/bazel-repo" \
   --bazel_options=--keep_going \
   --bazel_options=--jobs="$BENCH_JOBS" \
   --verbose
