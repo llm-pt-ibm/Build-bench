@@ -219,12 +219,18 @@ if os.geteuid() == 0 and shutil.which("unshare") and \
         workspace = os.path.join(tmp, "work", "demo")
         os.makedirs(workspace)
         open(os.path.join(workspace, "build.sh"), "w").write("true\n")
-        cfg = {"script": {"stage_root": os.path.join(tmp, "stage"), "jobs": 2, "experiment_paths": []}}
+        tool_dir = os.path.join(tmp, "toolchain")
+        os.makedirs(os.path.join(tool_dir, "secret"))
+        open(os.path.join(tool_dir, "tool.txt"), "w").write("toolchain\n")
+        open(os.path.join(tool_dir, "secret", "answer.txt"), "w").write("solution\n")
+        cfg = {"script": {"stage_root": os.path.join(tmp, "stage"), "jobs": 2, "experiment_paths": [tool_dir],
+                          "experiment_hide": [os.path.join(tool_dir, "secret")]}}
         os.makedirs(os.path.join(tmp, "stage", "demo", "cache"))
         open(os.path.join(tmp, "stage", "demo", "cache", "dep.txt"), "w").write("dependency\n")
         out = run_experiment("demo", workspace, " ; ".join([
             "echo hello > note.txt && cat note.txt",
             "cat $BENCH_CACHE_DIR/dep.txt",
+            f"cat {tool_dir}/tool.txt; cat {tool_dir}/secret/answer.txt 2>&1 | grep -o 'No such file'",
             "touch $BENCH_WORKSPACE/x 2>&1 | grep -o 'Read-only file system'",
             "touch $BENCH_CACHE_DIR/x 2>&1 | grep -o 'Read-only file system'",
             f"ls {ROOT}/MODIFICATIONS.md 2>&1 | grep -o 'No such file'",
@@ -232,7 +238,8 @@ if os.geteuid() == 0 and shutil.which("unshare") and \
             "(exec 3<>/dev/tcp/1.1.1.1/53) 2>&1 | grep -o 'Network is unreachable'",
             "exit 3"]), 60, cfg)
         assert out.startswith("Command exit status 3"), out
-        for expected in ("hello", "dependency", "Read-only file system\nRead-only file system",
+        assert "solution" not in out, out
+        for expected in ("hello", "dependency", "toolchain\nNo such file", "Read-only file system\nRead-only file system",
                          "No such file", "must be superuser", "Network is unreachable"):
             assert expected in out, (expected, out)
         assert open(os.path.join(tmp, "stage", "demo", "scratch", "note.txt")).read() == "hello\n"

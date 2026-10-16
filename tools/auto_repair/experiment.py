@@ -10,7 +10,9 @@ container does):
   - visible again, read-only: the package workspace, the last build's copy
     (BENCH_SRC_DIR), the package's build cache (BENCH_CACHE_DIR), the
     acceptance tests, the build environments and the paths the build host
-    needs (script.experiment_paths in the config);
+    needs (script.experiment_paths in the config), except what
+    script.experiment_hide lists inside them (e.g. a jaxlib installed in the
+    build environment by an earlier, manual port);
   - writable: a scratch directory kept for the run (BENCH_SCRATCH_DIR, the
     working directory), so that files are only changed with the edit tools;
   - no network, no other processes, no capabilities (the sandbox cannot be
@@ -35,10 +37,11 @@ def scratch_dir(cfg: dict, package_name: str) -> str:
     return os.path.join(cfg["script"]["stage_root"], package_name, "scratch")
 
 
-def _sandbox_script(mounts: list, scratch: str, command_file: str, env_script: str, env: dict) -> str:
+def _sandbox_script(mounts: list, hide: list, scratch: str, command_file: str, env_script: str,
+                    env: dict) -> str:
     """Bash run as root in new mount/net/pid namespaces: hide HIDDEN, mount
-    back the (path, writable) pairs of mounts, drop the capabilities and run
-    the command in the build environment."""
+    back the (path, writable) pairs of mounts, hide the hide paths inside
+    them, drop the capabilities and run the command in the build environment."""
     q = shlex.quote
     lines = ["set -e", "mkdir -p /run/bench-exp && mount -t tmpfs tmpfs /run/bench-exp"]
     for i, (path, _) in enumerate(mounts):
@@ -48,6 +51,7 @@ def _sandbox_script(mounts: list, scratch: str, command_file: str, env_script: s
         lines.append(f"mkdir -p {q(path)} && mount --move /run/bench-exp/{i} {q(path)}")
         if not writable:
             lines.append(f"mount -o remount,bind,ro {q(path)}")
+    lines += [f"mount -t tmpfs -o ro tmpfs {q(path)}" for path in hide]
     lines.append("umount /run/bench-exp")
     exports = " ".join(f"{k}={q(v)}" for k, v in env.items())
     runner = os.path.join(ROOT, "scripts", "script_worker", "run.sh")
@@ -74,7 +78,8 @@ def run_experiment(package_name: str, workspace: str, command: str, timeout: int
            "HOME": scratch, "TMPDIR": scratch, "PYTHONDONTWRITEBYTECODE": "1"}
     env_name = case_environment(workspace)
     env_script = os.path.join(ENVS_DIR, f"{env_name}.sh") if env_name else ""
-    script = _sandbox_script(mounts, scratch, command_file, env_script, env)
+    hide = [os.path.realpath(p) for p in cfg["script"].get("experiment_hide") or [] if os.path.isdir(p)]
+    script = _sandbox_script(mounts, hide, scratch, command_file, env_script, env)
     started = time.time()
     proc = subprocess.Popen(["unshare", "--mount", "--net", "--pid", "--fork", "--mount-proc",
                              "--propagation", "private", "bash", "-c", script],

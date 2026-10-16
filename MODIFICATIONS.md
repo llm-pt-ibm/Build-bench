@@ -115,7 +115,14 @@ improvements` shows them file by file.
   files cannot be read), the workspace, the last build's copy and the build
   cache come back read-only, the scratch directory (cleared with the cache)
   is writable, and there is no network and no capability left. The paths the
-  build environment needs are listed in `script.experiment_paths`. In run28
+  build environment needs are listed in `script.experiment_paths`, and
+  directories inside them that stay hidden in `script.experiment_hide`: in
+  run28c, its first run, all of /root/miniforge3 was visible and the model
+  found the team's manual port there (jaxlib 0.10.2 installed in the
+  jax_build and jax_user environments, the conda package cache and
+  conda-bld) and ran the JAX tests with it, so the run was stopped and
+  discarded; only the two environments the build uses are shown now,
+  without their jax and jaxlib. In run28
   the model spent attempts 7-12 on two numeric JAX test failures it could
   only observe through full builds; reproducing them by hand took a few
   short commands: `jnp.array([-3, 5], int8).astype(float32)` gives

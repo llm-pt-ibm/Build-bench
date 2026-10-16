@@ -51,5 +51,7 @@ def load_obs_config() -> dict:
             # paths the build environment needs, shown read-only to the
             # sandbox of run_command_tool (tools/auto_repair/experiment.py)
             "experiment_paths": list(script.get("experiment_paths") or []),
+            # directories inside them that stay hidden there
+            "experiment_hide": list(script.get("experiment_hide") or []),
         },
     }

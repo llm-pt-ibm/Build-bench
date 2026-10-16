@@ -34,8 +34,16 @@ build:
     # package before the first attempt (the shared caches are kept)
     build_original_on_init: true
     # what envs/jax-power9.sh uses, read-only in run_command_tool's sandbox
-    # (the rest of /root is hidden there)
-    experiment_paths: ["/root/miniforge3", "/root/jax/dist", "/root/bazel_source/bazel-7.7.0/bazel-bin/src"]
+    # (the rest of /root is hidden there). Only these two conda environments:
+    # the others, the conda package cache and conda-bld hold the team's
+    # manual port of jax (jaxlib 0.10.2 builds and the jax-power9 recipe).
+    experiment_paths: ["/root/miniforge3/envs/jax_build", "/root/miniforge3/envs/bench_jax_test",
+                       "/root/jax/dist", "/root/bazel_source/bazel-7.7.0/bazel-bin/src"]
+    # jax_build has the manual port's jax and jaxlib installed
+    experiment_hide: ["/root/miniforge3/envs/jax_build/lib/python3.12/site-packages/jax",
+                      "/root/miniforge3/envs/jax_build/lib/python3.12/site-packages/jaxlib",
+                      "/root/miniforge3/envs/jax_build/lib/python3.12/site-packages/jax-0.10.2.dist-info",
+                      "/root/miniforge3/envs/jax_build/lib/python3.12/site-packages/jaxlib-0.10.2.dist-info"]
 
 # Extensions for large code bases
 llm:
