@@ -357,6 +357,17 @@ class AutoRepairClient:
                 "the built software installs and works correctly on {target_arch}; a failing test is reported "
                 "as a failed build, with the test output as the log. You can read the test, but not change it. "
                 "The repair is complete only when the build succeeds and the test passes.")
+        if kind == "recipe" and "run_command_tool" in LLM_TOOLS:
+            system_prompt_tpl += (
+                "\n\n## Experiments\n"
+                "`run_command_tool(package_name, command, timeout_seconds)` runs shell commands on the build "
+                "host, in the build environment, in seconds instead of a full build: use it to test a hypothesis "
+                "before changing the package, e.g. run a single failing test against the last build's artifacts "
+                "(in $BENCH_SRC_DIR, and what the acceptance test left in $BENCH_CACHE_DIR), or compile and run "
+                "a small program that reproduces a compiler or library bug. The package, $BENCH_SRC_DIR and "
+                "$BENCH_CACHE_DIR are read-only there and there is no network; the working directory "
+                "$BENCH_SCRATCH_DIR is writable. Changes to the package are still made with the edit tools "
+                "and checked with a build.")
 
         build_succeeded = False
         final_text = ""

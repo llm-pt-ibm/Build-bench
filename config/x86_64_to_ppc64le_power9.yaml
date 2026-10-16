@@ -33,11 +33,14 @@ build:
     # start each run from a clean per-run build cache and build the original
     # package before the first attempt (the shared caches are kept)
     build_original_on_init: true
+    # what envs/jax-power9.sh uses, read-only in run_command_tool's sandbox
+    # (the rest of /root is hidden there)
+    experiment_paths: ["/root/miniforge3", "/root/jax/dist", "/root/bazel_source/bazel-7.7.0/bazel-bin/src"]
 
 # Extensions for large code bases
 llm:
   max_tool_rounds: 60            # per attempt (20 in the paper); attempts stay 3
-  extra_tools: ["search_files_tool", "replace_in_file_tool"]
+  extra_tools: ["search_files_tool", "replace_in_file_tool", "run_command_tool"]
   max_context_chars: 600000
   keep_recent_tool_results: 8
   repeat_guard_per_build: true   # repair cycles per attempt are not capped at 3

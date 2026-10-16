@@ -48,5 +48,8 @@ def load_obs_config() -> dict:
         "script": {
             "stage_root": os.getenv("BENCH_STAGE_ROOT") or script.get("stage_root", "/root/obs-worker/script"),
             "jobs": int(script.get("jobs", 0)) or _auto_jobs(),
+            # paths the build environment needs, shown read-only to the
+            # sandbox of run_command_tool (tools/auto_repair/experiment.py)
+            "experiment_paths": list(script.get("experiment_paths") or []),
         },
     }

@@ -100,7 +100,32 @@ improvements` shows them file by file.
   time, whose stack trace has no file paths. Runs up to run26c used the
   prompt without this paragraph. Until run26d the `run` metadata of a result
   was read when the package ended, so run26c records commit 218344b although
-  it ran aa08d15; it is now read when the package starts.
+  it ran aa08d15; it is now read when the package starts. After run28 the
+  paragraph also accepts a workaround (turning off the failing feature or
+  code path) when the fix in the dependency does not work out: its first
+  wording ("rather than only avoiding the failing code path") kept the model
+  from turning off XLA's CPU fusion emitters, the manual port's workaround
+  for the int8 failures below.
+- `run_command_tool(package_name, command, timeout_seconds)` (build-recipe
+  cases, enabled with `llm.extra_tools`): runs short shell commands on the
+  build host, in the build environment, so the model can test a hypothesis
+  in seconds instead of a full build (`tools/auto_repair/experiment.py`).
+  Each command runs in a sandbox of Linux namespaces: /root, /tmp, /var/tmp
+  and /dev/shm are hidden (other builds, earlier runs and the framework's
+  files cannot be read), the workspace, the last build's copy and the build
+  cache come back read-only, the scratch directory (cleared with the cache)
+  is writable, and there is no network and no capability left. The paths the
+  build environment needs are listed in `script.experiment_paths`. In run28
+  the model spent attempts 7-12 on two numeric JAX test failures it could
+  only observe through full builds; reproducing them by hand took a few
+  short commands: `jnp.array([-3, 5], int8).astype(float32)` gives
+  `[253, 5]`, and a 10-line C program built with `-mcpu=pwr9` shows the
+  cause, an LLVM PowerPC bug (the Power9 patterns for signed byte
+  vector-extract to fp in `PPCInstrVSX.td` sign-extend from a halfword).
+  `dataset/reference/jaxlib/ppc_vextsb2d.patch` fixes it; with it and the
+  model's own bf16 patch (`ppc_bf16_by_model_run28.patch`), the run28
+  workspace passes the acceptance test (1528/1528 JAX tests). The files in
+  `dataset/reference/` are outside the cases and never reach the model.
   `dataset/recipe_baseline.py` builds a case without the model and saves the
   original failure; `dataset/recipe_reference_fix.py` builds a copy of a case
   with known patches applied, through the same upload/check as the model, to

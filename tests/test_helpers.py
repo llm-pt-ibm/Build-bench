@@ -206,4 +206,42 @@ assert "same.c" not in changes and "link.c" not in changes and "log_failed" not 
 shutil.rmtree(work)
 print("resume: OK (changes against the original package)")
 
+# experiments run sandboxed (needs root and unshare, as on the Power9 build host)
+import shutil  # noqa: E402
+import subprocess  # noqa: E402
+import tempfile  # noqa: E402
+from tools.auto_repair.experiment import run_experiment  # noqa: E402
+
+if os.geteuid() == 0 and shutil.which("unshare") and \
+        subprocess.run(["unshare", "--mount", "true"], capture_output=True).returncode == 0:
+    tmp = tempfile.mkdtemp(dir=ROOT, prefix=".test_experiment_")
+    try:
+        workspace = os.path.join(tmp, "work", "demo")
+        os.makedirs(workspace)
+        open(os.path.join(workspace, "build.sh"), "w").write("true\n")
+        cfg = {"script": {"stage_root": os.path.join(tmp, "stage"), "jobs": 2, "experiment_paths": []}}
+        os.makedirs(os.path.join(tmp, "stage", "demo", "cache"))
+        open(os.path.join(tmp, "stage", "demo", "cache", "dep.txt"), "w").write("dependency\n")
+        out = run_experiment("demo", workspace, " ; ".join([
+            "echo hello > note.txt && cat note.txt",
+            "cat $BENCH_CACHE_DIR/dep.txt",
+            "touch $BENCH_WORKSPACE/x 2>&1 | grep -o 'Read-only file system'",
+            "touch $BENCH_CACHE_DIR/x 2>&1 | grep -o 'Read-only file system'",
+            f"ls {ROOT}/MODIFICATIONS.md 2>&1 | grep -o 'No such file'",
+            "umount /root 2>&1 | grep -o 'must be superuser'",
+            "(exec 3<>/dev/tcp/1.1.1.1/53) 2>&1 | grep -o 'Network is unreachable'",
+            "exit 3"]), 60, cfg)
+        assert out.startswith("Command exit status 3"), out
+        for expected in ("hello", "dependency", "Read-only file system\nRead-only file system",
+                         "No such file", "must be superuser", "Network is unreachable"):
+            assert expected in out, (expected, out)
+        assert open(os.path.join(tmp, "stage", "demo", "scratch", "note.txt")).read() == "hello\n"
+        assert not os.path.exists(os.path.join(workspace, "x"))
+        assert "timed out after 2 s" in run_experiment("demo", workspace, "sleep 30", 2, cfg)
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+    print("experiments: OK (sandbox hides /root, read-only package and cache, no network)")
+else:
+    print("experiments: skipped (needs root and unshare)")
+
 print("\nALL TESTS PASSED")

@@ -141,6 +141,8 @@ def reset_cache(package_name: str, cfg: dict) -> None:
     time.sleep(2)
     shutil.rmtree(cache, ignore_errors=True)
     os.makedirs(cache, exist_ok=True)
+    # the scratch directory of run_command_tool belongs to the run as well
+    shutil.rmtree(os.path.join(dirs["base"], "scratch"), ignore_errors=True)
 
 
 def script_upload(package_name: str, package_dir: str, cfg: dict) -> str:

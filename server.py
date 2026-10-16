@@ -12,6 +12,7 @@ from tools.auto_repair.upload_files import main_upload
 from tools.auto_repair.local_build import local_upload, local_check
 from tools.auto_repair.script_build import script_upload, script_check
 from tools.auto_repair.case_type import case_type
+from tools.auto_repair.experiment import run_experiment
 from tools.auto_repair.obs_config import load_obs_config
 from tools.auto_repair.patch_check import check_patch_format
 import tarfile
@@ -618,6 +619,30 @@ def search_files_tool(path: str, pattern: str, file_glob: str = "", max_results:
     shown = [l if len(l) <= SEARCH_LINE_CHARS else l[:SEARCH_LINE_CHARS] + " ..." for l in lines[:limit]]
     more = f"\n... [{len(lines) - limit} more matches; narrow the search]" if len(lines) > limit else ""
     return "\n".join(shown) + more
+
+
+@mcp.tool()
+def run_command_tool(package_name: str, command: str, timeout_seconds: int = 300):
+    """
+    Run a shell command on the build host, in the package's build environment, to test a
+    hypothesis without a full build: e.g. run one test of the last build's artifacts, compile
+    and run a small program, inspect a built file. The command runs in a sandbox: the package,
+    the last build's copy ($BENCH_SRC_DIR) and the build cache ($BENCH_CACHE_DIR) are
+    read-only, the working directory $BENCH_SCRATCH_DIR is writable and kept for the run,
+    and there is no network. Change the package with the edit tools, not with commands.
+    Args:
+        package_name (str): Package name.
+        command (str): Bash commands to run.
+        timeout_seconds (int): Time limit (default 300, at most 900).
+    Returns:
+        The exit status and the output (stdout and stderr; long output is shortened in the middle).
+    """
+    workspace = os.path.join(TEMP_ROOT, package_name)
+    if not os.path.isdir(workspace):
+        return f"Error: package directory not found - {workspace}"
+    if case_type(workspace) != "recipe":
+        return "Error: run_command_tool is only available for build-recipe cases (packages with a build.sh)."
+    return run_experiment(package_name, workspace, command, timeout_seconds, load_obs_config())
 
 
 SUPPORTED_FORMATS = {
