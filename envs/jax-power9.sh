@@ -29,10 +29,12 @@ fi
 if [ ! -f /etc/ld.so.conf.d/zz-conda-jax.conf ]; then
   echo "$_build_env/lib" > /etc/ld.so.conf.d/zz-conda-jax.conf && ldconfig
 fi
-ln -sf "$_build_env/bin/clang" /usr/local/bin/clang
-ln -sf "$_build_env/bin/clang++" /usr/local/bin/clang++
-ln -sf "$_build_env/bin/clang" /usr/bin/powerpc64le-linux-gnu-gcc
-ln -sf "$_build_env/bin/clang++" /usr/bin/powerpc64le-linux-gnu-g++
+# (only when missing: run_command_tool's sandbox cannot write there)
+_link() { [ "$(readlink "$2")" = "$1" ] || ln -sf "$1" "$2"; }
+_link "$_build_env/bin/clang" /usr/local/bin/clang
+_link "$_build_env/bin/clang++" /usr/local/bin/clang++
+_link "$_build_env/bin/clang" /usr/bin/powerpc64le-linux-gnu-gcc
+_link "$_build_env/bin/clang++" /usr/bin/powerpc64le-linux-gnu-g++
 # a Python for testing built wheels, without any jax/jaxlib installed
 if [ ! -x "$_test_env/bin/python" ]; then
   "$_conda/bin/conda" create -q -y -n bench_jax_test --clone jax_build >/dev/null 2>&1 \
