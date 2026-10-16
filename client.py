@@ -214,10 +214,13 @@ class AutoRepairClient:
         os.makedirs(self.temp_work_dir, exist_ok=True)
         os.makedirs(self.log_dir, exist_ok=True)
         # the MCP server limits its file tools to this directory, and lets the
-        # model read the build directories of build-recipe cases
+        # model read the build caches of the packages of this run (not the
+        # whole stage root, which may hold other builds, e.g. a reference fix)
         os.environ["BENCH_TEMP_DIR"] = self.temp_work_dir
+        stage_root = load_obs_config()["script"]["stage_root"]
+        packages = sorted(BENCH_PACKAGES or (os.listdir(self.base_dir) if os.path.isdir(self.base_dir) else []))
         os.environ.setdefault("BENCH_READONLY_DIRS", os.pathsep.join(
-            [load_obs_config()["script"]["stage_root"], ACCEPTANCE_DIR]))
+            [os.path.join(stage_root, p, "cache") for p in packages] + [ACCEPTANCE_DIR]))
 
         self.server_script = server_script
         self.max_retries = max_retries

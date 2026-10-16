@@ -113,7 +113,10 @@ improvements` shows them file by file.
   `replace_in_file_tool` (edit an exact piece of a file, with the same history
   and checks as `modify_file_tool`), `get_structure_of_files(max_depth)`, read
   access to the build cache (`BENCH_READONLY_DIRS`), where builds keep the
-  dependency sources they download, and shortening of the oldest tool results
+  dependency sources they download (only the caches of the run's packages:
+  until run28 the whole stage root was readable, and in run28's attempt 5 the
+  model found and read the build of a reference fix stored there; that
+  attempt was discarded), and shortening of the oldest tool results
   when the conversation grows past `max_context_chars`.
   `config/x86_64_to_ppc64le_power9.yaml` enables them and builds everything on
   the Power9 (RPM packages with osc, recipes on the host).
