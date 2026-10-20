@@ -281,6 +281,16 @@ improvements` shows them file by file.
   ATTEMPTS=<n>` continues an archived run; `make status`/`watch` show the
   active run; `make summary` lists the archived runs with the total cost,
   stopped ones included.
+- More commands: `make transcript` (`scripts/transcript.py`) shows the
+  attempts of a run or one attempt round by round, with the reasoning, tool
+  calls and results, filtered by tool or text; `make new-case`
+  (`dataset/new_case.py`) starts a build-recipe case from a template and
+  `make check-case` (`dataset/check_case.py`) checks a case before a run.
+  `make stop` also stops the commands of run_command_tool still running.
+  Run logs go to `logs/` (also the client output of run_repeats.sh until the
+  run is archived), and `run_pilot.sh` and `smoke_test.py` moved to
+  `scripts/`. The tests write only to temporary directories (a copy of the
+  config with temporary paths, `BENCH_DIFF_LOG_DIR` for the diff logs).
 - `<package>_result.json` is written after every attempt, with `complete`
   false until the package ends, so a stopped run can be continued from its
   last finished attempt (`make resume FROM=<run>_stopped ATTEMPTS=<n>`; the
