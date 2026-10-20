@@ -269,6 +269,18 @@ improvements` shows them file by file.
 - `scripts/run_repeats.sh <label> <n> [config]` runs the benchmark N times and
   archives each run in its own directory; `scripts/summarize_runs.py` prints a
   table and the success rate per label.
+- `make` and `bench.yaml`: the commands of the benchmark in one place
+  (`scripts/bench.py`). The run profile `bench.yaml` says what to run
+  (config, packages, model, provider, attempts, label, repeats), and make
+  variables override it (`make run LABEL=... ATTEMPTS=...`). `make run`
+  starts run_repeats.sh in the background and records it in
+  `.bench/active.json`: one run at a time, and no start over the files an
+  interrupted run left, which run_repeats.sh would archive with the new run.
+  `make stop` stops the run, its builds (they run in sessions of their own)
+  and archives what it left as `<run>_stopped`; `make resume FROM=<run>
+  ATTEMPTS=<n>` continues an archived run; `make status`/`watch` show the
+  active run; `make summary` lists the archived runs with the total cost,
+  stopped ones included.
 - `tests/test_helpers.py` (no dependencies) covers the patch check and the log
   excerpt; `tests/test_offline.py` covers the new file and archive behaviour.
 

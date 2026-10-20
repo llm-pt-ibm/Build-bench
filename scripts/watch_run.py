@@ -2,7 +2,8 @@
 and cost, refreshed every few seconds.
 Usage: python scripts/watch_run.py [config] [package] [seconds]
   (defaults: config/x86_64_to_ppc64le_power9.yaml, the package of the newest
-  log, 10 s). Works through the sshfs mount too; Ctrl-C stops it.
+  log, 10 s; 0 s prints the view once). Works through the sshfs mount too;
+  Ctrl-C stops it.
 The cost comes from <package>_status.json, written by client.py after every
 model call; for runs started before that existed it falls back to the
 OpenRouter key's spend today (usage_daily), which includes any other use of
@@ -117,6 +118,12 @@ def main():
         if not package:
             logs = [p for p in glob.glob(os.path.join(log_dir, "*.log")) if not p.endswith("global.log")]
             package = os.path.basename(max(logs, key=os.path.getmtime))[:-4] if logs else None
+        if not package:   # nothing running yet (or any more)
+            print(f"{time.strftime('%H:%M:%S')}  no package log in {os.path.relpath(log_dir, ROOT)} yet")
+            if every <= 0:
+                break
+            time.sleep(every)
+            continue
         lines = []
         try:
             with open(os.path.join(log_dir, f"{package}.log"), errors="replace") as f:
@@ -137,7 +144,8 @@ def main():
         except (OSError, ValueError):
             pass
         usage = status.get("usage") or {}
-        print("\033[2J\033[H", end="")
+        if every > 0:
+            print("\033[2J\033[H", end="")
         print(f"{time.strftime('%H:%M:%S')}  package {package}   (log {os.path.relpath(log_dir, ROOT)})")
         print(f"started {lines[0][1:20] if lines else '-'}   {attempt[22:].strip(' -')}   {rnd[22:].strip(' =')}")
         print(f"tool calls {len(calls)}   edits {edits}   builds {len(builds)}"
@@ -158,6 +166,8 @@ def main():
         if any("Final saved" in l for l in lines):
             print("\nrun finished for this package")
         sys.stdout.flush()
+        if every <= 0:
+            break
         time.sleep(every)
 
 

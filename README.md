@@ -82,6 +82,31 @@ API_BASE_URL="xxx"
 ```
 
 ## 🚀 Running the Framework
+
+### With make (this fork)
+What to run is set in `bench.yaml` (the run profile: benchmark config,
+packages, model, provider, attempts, run label); each setting can be
+overridden on the command line. Commands run on the build host:
+
+```bash
+make                      # list the commands
+make run                  # start the profile's run in the background
+make run LABEL=run31 ATTEMPTS=6 MODEL=deepseek/deepseek-v4.1-flash
+make status               # the active run: attempt, round, builds, cost
+make watch                # the same, refreshed (Ctrl-C stops watching only)
+make stop                 # stop the run and its builds, archive it as <run>_stopped
+make resume FROM=run29_v41flash_scratch_12att_1 ATTEMPTS=3
+make summary              # archived runs, results and total cost (KEY=1: API key usage)
+make test
+```
+
+Only one run can be active (`.bench/active.json`), and a run does not start
+over the files an interrupted one left (`make archive NAME=<run>_stopped`).
+Background runs log to `logs/<label>.log`; results are archived per run in the
+config's `result_dir` and `log_dir`. `MODIFICATIONS.md` describes the configs,
+backends and options.
+
+### Directly
 Full-File Generation Strategy
 ```bash
 # Launch the client for iterative repair

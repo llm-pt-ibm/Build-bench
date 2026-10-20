@@ -206,6 +206,41 @@ assert "same.c" not in changes and "link.c" not in changes and "log_failed" not 
 shutil.rmtree(work)
 print("resume: OK (changes against the original package)")
 
+# run profile tooling (scripts/bench.py)
+import importlib.util  # noqa: E402
+import tempfile as _tempfile  # noqa: E402
+spec = importlib.util.spec_from_file_location("bench", os.path.join(ROOT, "scripts", "bench.py"))
+bench = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(bench)
+with _tempfile.TemporaryDirectory() as tmp:
+    profile_path = os.path.join(tmp, "bench.yaml")
+    open(profile_path, "w").write("config: c.yaml\nlabel: r1\npackages: [a, b]\nmodel: m\nprovider: p\n"
+                                  "attempts: 12\ntemperature:\n")
+    p = bench.load_profile(profile_path, {"attempts": "3", "packages": "x,y", "model": None})
+    assert p["attempts"] == "3" and p["packages"] == ["x", "y"] and p["model"] == "m" and p["repeats"] == 1, p
+    os.environ["LLM_TEMPERATURE"] = "0.5"
+    env = bench.run_env(p, resume={"from": "r0_1", "workspace": None})
+    assert env["BENCH_PACKAGES"] == "x,y" and env["BENCH_MAX_ATTEMPTS"] == "3" and env["LLM_MODEL"] == "m"
+    assert env["OPENROUTER_PROVIDER"] == "p" and env["BENCH_RESUME_FROM"] == "r0_1"
+    assert "LLM_TEMPERATURE" not in env and "BENCH_RESUME_WORKSPACE" not in env, "unset settings are removed"
+    del os.environ["LLM_TEMPERATURE"]
+    paths = {k: os.path.join(tmp, k) for k in ("base_dir", "result_dir", "log_dir", "temp_work_dir")}
+    for d in paths.values():
+        os.makedirs(d)
+    os.makedirs(os.path.join(paths["base_dir"], "a"))
+    os.makedirs(os.path.join(paths["log_dir"], "r0_1"))
+    open(os.path.join(paths["log_dir"], "a.log"), "w").write("x")
+    open(os.path.join(paths["result_dir"], "a_result.json"), "w").write("{}")
+    assert len(bench.leftovers(paths, ["a"])) == 2, bench.leftovers(paths, ["a"])
+    bench.archive(paths, ["a"], "r1_1_stopped")
+    assert not bench.leftovers(paths, ["a"])
+    assert os.path.isfile(os.path.join(paths["log_dir"], "r1_1_stopped", "a.log"))
+    assert os.path.isfile(os.path.join(paths["result_dir"], "r1_1_stopped", "a_result.json"))
+    bench.STATE_DIR, bench.ACTIVE = tmp, os.path.join(tmp, "active.json")
+    open(bench.ACTIVE, "w").write('{"label": "r1", "pid": 999999999}')
+    assert bench.active_run()["alive"] is False, "a dead runner is not an active run"
+print("run profile: OK (overrides, environment, leftovers archived, stale lock)")
+
 # experiments run sandboxed (needs root and unshare, as on the Power9 build host)
 import shutil  # noqa: E402
 import subprocess  # noqa: E402

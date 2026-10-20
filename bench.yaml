@@ -1,0 +1,25 @@
+# Run profile: what `make run` (scripts/bench.py) runs. Every setting can be
+# overridden on the command line, e.g.  make run LABEL=run31 ATTEMPTS=6
+# The benchmark itself (direction, paths, build backend, model options such as
+# max_tool_rounds) is set in the config file named here.
+
+# benchmark config
+config: config/x86_64_to_ppc64le_power9.yaml
+
+# runs are archived as <label>_1 ... <label>_<repeats> in the config's
+# result and log directories
+label: run30
+repeats: 1
+
+# cases of the config's data directory to run; empty: all of them
+packages: [jaxlib]
+
+# model on OpenRouter, and the provider to pin (empty: OpenRouter's routing)
+model: deepseek/deepseek-v4.1-flash
+provider: streamlake/fp8
+
+# build attempts per package (empty: the config's llm.max_build_attempts)
+attempts: 12
+
+# sampling temperature (empty: the provider's default)
+temperature:
