@@ -241,6 +241,34 @@ with _tempfile.TemporaryDirectory() as tmp:
     assert bench.active_run()["alive"] is False, "a dead runner is not an active run"
 print("run profile: OK (overrides, environment, leftovers archived, stale lock)")
 
+# leak check: built copies and reference-fix files within the model's reach
+import shutil  # noqa: E402
+from tools.auto_repair.leak_check import leak_report  # noqa: E402
+ref_dir = os.path.join(ROOT, "dataset", "reference", "demo-leaktest")
+with _tempfile.TemporaryDirectory() as tmp:
+    try:
+        os.makedirs(ref_dir)
+        open(os.path.join(ref_dir, "fix.patch"), "w").write("--- a/x\n+++ b/x\n@@ -1 +1 @@\n-a\n+the fix\n")
+        case = os.path.join(tmp, "demo-leaktest")
+        os.makedirs(case)
+        open(os.path.join(case, "build.sh"), "w").write("true\n")
+        env = os.path.join(tmp, "env")
+        for d in ("lib/python3.12/site-packages/demo_leaktest", "hidden/site-packages/demo_leaktest", "pkgs"):
+            os.makedirs(os.path.join(env, d))
+        open(os.path.join(env, "pkgs", "demo_leaktest-1.0-py3-none-any.whl"), "w").write("x")
+        open(os.path.join(env, "copy-of-fix.diff"), "w").write(open(os.path.join(ref_dir, "fix.patch")).read())
+        cfg = {"script": {"experiment_paths": [env], "experiment_hide": [os.path.join(env, "hidden")]}}
+        found = leak_report(cfg, "demo-leaktest", case)
+        assert len(found) == 3, found
+        assert any("installed copy" in f and "lib/python3.12" in f for f in found), found
+        assert any("built copy" in f and f.endswith(".whl") for f in found), found
+        assert any("reference fix" in f and f.endswith("copy-of-fix.diff") for f in found), found
+        assert not any("/hidden/" in f for f in found), "hidden paths are not reported"
+        assert leak_report({"script": {}}, "demo-leaktest", case) == [], "only what the model can read"
+    finally:
+        shutil.rmtree(ref_dir, ignore_errors=True)
+print("leak check: OK (installed copies, built packages, reference fixes by content, hidden paths skipped)")
+
 # experiments run sandboxed (needs root and unshare, as on the Power9 build host)
 import shutil  # noqa: E402
 import subprocess  # noqa: E402

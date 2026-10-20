@@ -15,6 +15,7 @@ from mcp.client.stdio import stdio_client
 from mcp import ClientSession, StdioServerParameters
 from tools.auto_repair.acceptance import ACCEPTANCE_DIR, acceptance_test
 from tools.auto_repair.case_type import case_type
+from tools.auto_repair.leak_check import leak_report
 from tools.auto_repair.log_excerpt import same_failure
 from tools.auto_repair.script_build import reset_cache
 from tools.auto_repair.resume import workspace_changes
@@ -389,6 +390,10 @@ class AutoRepairClient:
         t0 = time.time()
         # the code and config this package runs with (not those found when it ends)
         run_info = run_metadata(self.max_build_attempts, self.max_tool_rounds)
+        # the answer within the model's reach (scripts/bench.py refuses to start then)
+        leaks = leak_report(load_obs_config(), package_name, os.path.join(self.base_dir, package_name))
+        for leak in leaks:
+            self._log(package_name, f"[leak check] warning: {leak}")
 
         # Multiple build attempts
         for attempt in range(first, last + 1):
@@ -447,32 +452,38 @@ class AutoRepairClient:
             if summary.get("ended_by") in ("infrastructure_error", "model_error"):
                 infrastructure_error = "build host" if summary["ended_by"] == "infrastructure_error" else "model provider"
                 final_text = f"Stopped on attempt {attempt}: the {infrastructure_error} failed (not the package)."
-                break
-            if ok:
+            elif ok:
                 verified_by = summary["verified_by"]
                 build_succeeded = True
                 success_attempt = attempt
                 final_text = f"Build succeeded on attempt {attempt}.\n{content or ''}"
+            else:
+                final_text = f"Build failed on attempt {attempt}.\n{content or ''}"
+            finished = bool(infrastructure_error) or build_succeeded or attempt == last
+            # after every attempt: a run stopped later can then be continued
+            # from its last finished attempt (BENCH_RESUME_FROM)
+            with open(result_file, "w", encoding="utf-8") as f:
+                f.write(final_text)
+            with open(os.path.splitext(result_file)[0] + ".json", "w", encoding="utf-8") as f:
+                json.dump({"package": package_name, "model": self.llm_cfg.model,
+                           "provider_pinned": OPENROUTER_PROVIDER,
+                           "temperature": LLM_TEMPERATURE,
+                           "direction": f"{info['source_arch']}_to_{info['target_arch']}",
+                           "complete": finished,
+                           "success": build_succeeded, "success_attempt": success_attempt,
+                           "infrastructure_error": infrastructure_error,
+                           "resumed_from": RESUME_FROM,
+                           "previous_attempts": resumed["attempts"] if resumed else 0,
+                           "success_verified_by": verified_by,
+                           "leak_check": leaks,
+                           "minutes": round((time.time() - t0) / 60, 2), **self.usage,
+                           "timing": {k: round(v, 1) for k, v in self.timing.items()},
+                           "attempts": attempts,
+                           "run": run_info},
+                          f, indent=2)
+            if finished:
                 break
-            final_text = f"Build failed on attempt {attempt}.\n{content or ''}"
 
-        with open(result_file, "w", encoding="utf-8") as f:
-            f.write(final_text)
-        with open(os.path.splitext(result_file)[0] + ".json", "w", encoding="utf-8") as f:
-            json.dump({"package": package_name, "model": self.llm_cfg.model,
-                       "provider_pinned": OPENROUTER_PROVIDER,
-                       "temperature": LLM_TEMPERATURE,
-                       "direction": f"{info['source_arch']}_to_{info['target_arch']}",
-                       "success": build_succeeded, "success_attempt": success_attempt,
-                       "infrastructure_error": infrastructure_error,
-                       "resumed_from": RESUME_FROM,
-                       "previous_attempts": resumed["attempts"] if resumed else 0,
-                       "success_verified_by": verified_by,
-                       "minutes": round((time.time() - t0) / 60, 2), **self.usage,
-                       "timing": {k: round(v, 1) for k, v in self.timing.items()},
-                       "attempts": attempts,
-                       "run": run_info},
-                      f, indent=2)
         self._log(package_name, f"Final saved to {result_file} | usage: {json.dumps(self.usage)}")
         if not build_succeeded:
             self._log(package_name, "Max attempts reached without success.")

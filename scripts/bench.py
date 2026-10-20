@@ -26,6 +26,7 @@ import time
 import yaml
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, ROOT)
 STATE_DIR = os.path.join(ROOT, ".bench")
 ACTIVE = os.path.join(STATE_DIR, "active.json")
 LOGS_DIR = os.path.join(ROOT, "logs")
@@ -118,7 +119,21 @@ def fail(message: str) -> None:
     sys.exit(1)
 
 
-def check_can_start(profile: dict, paths: dict) -> None:
+def obs_config(config: str) -> dict:
+    os.environ["BENCH_CONFIG"] = os.path.join(ROOT, config)
+    from tools.auto_repair.obs_config import load_obs_config
+    return load_obs_config()
+
+
+def leak_findings(config: str, paths: dict, packages: list) -> dict:
+    """Package -> what the model could read that gives the answer away."""
+    from tools.auto_repair.leak_check import leak_report
+    cfg = obs_config(config)
+    print("checking what the model can read for leaks of the answer ...", file=sys.stderr, flush=True)
+    return {pkg: leak_report(cfg, pkg, os.path.join(paths["base_dir"], pkg)) for pkg in case_names(paths, packages)}
+
+
+def check_can_start(profile: dict, paths: dict, allow_leaks: bool = False) -> None:
     run = active_run()
     if run and run["alive"]:
         fail(f"run {run['label']} is active (pid {run['pid']}); stop it with `make stop` first")
@@ -137,6 +152,13 @@ def check_can_start(profile: dict, paths: dict) -> None:
             fail(f"no case {pkg} in {os.path.relpath(paths['base_dir'], ROOT)}")
     if not os.path.isfile(os.path.join(ROOT, ".env")) and not os.getenv("API_KEY"):
         fail("no .env with API_KEY (and no API_KEY in the environment)")
+    leaks = {pkg: found for pkg, found in leak_findings(profile["config"], paths, profile["packages"]).items()
+             if found}
+    if leaks and not allow_leaks:
+        fail("the model could read the answer:\n" + "\n".join(f"  {pkg}: {line}" for pkg, found in leaks.items()
+                                                            for line in found)
+             + "\nhide it (script.experiment_hide in the config), move it out of reach, "
+               "or start anyway with ALLOW_LEAKS=1")
 
 
 def runner(spec: dict) -> int:
@@ -156,11 +178,11 @@ def runner(spec: dict) -> int:
 
 # --- commands ----------------------------------------------------------------
 
-def cmd_run(profile: dict, background: bool, resume: dict = None) -> None:
+def cmd_run(profile: dict, background: bool, resume: dict = None, allow_leaks: bool = False) -> None:
     if not profile.get("label"):
         fail("no label: set it in the profile or with LABEL=...")
     paths = bench_paths(profile["config"])
-    check_can_start(profile, paths)
+    check_can_start(profile, paths, allow_leaks)
     spec = {"label": profile["label"], "repeats": profile["repeats"], "config": profile["config"],
             "packages": profile["packages"], "model": profile.get("model"), "provider": profile.get("provider"),
             "attempts": profile.get("attempts"), "resume": resume, "started": time.strftime("%Y-%m-%d %H:%M:%S"),
@@ -187,28 +209,26 @@ def cmd_run(profile: dict, background: bool, resume: dict = None) -> None:
           "  follow it with `make status` or `make watch`; stop it with `make stop`")
 
 
-def cmd_resume(profile: dict, source: str, workspace: str, background: bool, attempts) -> None:
+def cmd_resume(profile: dict, source: str, workspace: str, background: bool, attempts,
+               allow_leaks: bool = False) -> None:
     if not attempts:
         fail("say how many more attempts: ATTEMPTS=<n> (the profile's value is not used for a continuation)")
     profile["attempts"] = attempts
     paths = bench_paths(profile["config"])
     for pkg in case_names(paths, profile["packages"]):
         if not os.path.isfile(os.path.join(paths["result_dir"], source, f"{pkg}_result.json")):
-            fail(f"{source} has no result for {pkg}: only runs that ended can be continued "
+            fail(f"{source} has no result for {pkg}: it was stopped before its first attempt ended "
                  f"(see {os.path.relpath(paths['result_dir'], ROOT)}/)")
     if not profile.get("label") or profile["label"] == load_profile(PROFILE_PATH, {}).get("label"):
         profile["label"] = f"{source}_cont"
     profile["repeats"] = 1
-    cmd_run(profile, background, resume={"from": source, "workspace": workspace})
+    cmd_run(profile, background, resume={"from": source, "workspace": workspace}, allow_leaks=allow_leaks)
 
 
 def stop_builds(config: str, packages: list) -> None:
     """Builds and their tests run in sessions of their own: stop them too."""
-    os.environ["BENCH_CONFIG"] = os.path.join(ROOT, config)
-    sys.path.insert(0, ROOT)
     from tools.auto_repair.local_build import _stop
-    from tools.auto_repair.obs_config import load_obs_config
-    cfg = load_obs_config()
+    cfg = obs_config(config)
     for pkg in packages:
         _stop(os.path.join(cfg["script"]["stage_root"], pkg, "run", "state.json"))
         _stop(os.path.join(cfg["local"]["worker_root"], "runs", pkg, "state.json"))
@@ -267,7 +287,8 @@ def cmd_summary(profile: dict, prefix: str, key_usage: bool) -> None:
         for path in sorted(glob.glob(os.path.join(paths["result_dir"], run, "*_result.json"))):
             with open(path) as f:
                 d = json.load(f)
-            ok = "yes" if d["success"] else "INFRA" if d.get("infrastructure_error") else "no"
+            ok = ("yes" if d["success"] else "INFRA" if d.get("infrastructure_error")
+                  else "stop" if d.get("complete") is False else "no")
             attempts = int(d.get("previous_attempts") or 0) + len(d.get("attempts") or [])
             minutes = f"{d['minutes']:.0f}" if d.get("minutes") is not None else "-"
             rows.append((run, d["package"], ok, str(d.get("success_attempt") or "-"), str(attempts),
@@ -297,6 +318,16 @@ def cmd_summary(profile: dict, prefix: str, key_usage: bool) -> None:
             print(f"OpenRouter key usage not available: {e}")
 
 
+def cmd_leaks(profile: dict) -> None:
+    paths = bench_paths(profile["config"])
+    findings = leak_findings(profile["config"], paths, profile["packages"])
+    for pkg, found in findings.items():
+        print(f"{pkg}: " + ("nothing found" if not found else f"{len(found)} finding(s)"))
+        for line in found:
+            print(f"  {line}")
+    sys.exit(1 if any(findings.values()) else 0)
+
+
 def cmd_archive(profile: dict, name: str) -> None:
     run = active_run()
     if run and run["alive"]:
@@ -321,10 +352,13 @@ def main() -> None:
     sub = parser.add_subparsers(dest="command", required=True)
     run = sub.add_parser("run")
     run.add_argument("--bg", action="store_true", help="run in the background")
+    run.add_argument("--allow-leaks", action="store_true", help="start even if the leak check finds something")
     resume = sub.add_parser("resume")
     resume.add_argument("source", help="archived run to continue, e.g. run29_v41flash_scratch_12att_1")
     resume.add_argument("--workspace", help="copy of the workspace to continue from (default: the current one)")
     resume.add_argument("--bg", action="store_true")
+    resume.add_argument("--allow-leaks", action="store_true")
+    sub.add_parser("leaks")
     sub.add_parser("stop")
     sub.add_parser("status")
     watch = sub.add_parser("watch")
@@ -340,9 +374,11 @@ def main() -> None:
                                           ("config", "label", "packages", "model", "provider", "attempts",
                                            "repeats", "temperature")})
     if args.command == "run":
-        cmd_run(profile, args.bg)
+        cmd_run(profile, args.bg, allow_leaks=args.allow_leaks)
     elif args.command == "resume":
-        cmd_resume(profile, args.source, args.workspace, args.bg, args.attempts)
+        cmd_resume(profile, args.source, args.workspace, args.bg, args.attempts, args.allow_leaks)
+    elif args.command == "leaks":
+        cmd_leaks(profile)
     elif args.command == "stop":
         cmd_stop(profile)
     elif args.command == "status":

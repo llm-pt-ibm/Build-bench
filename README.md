@@ -97,11 +97,16 @@ make watch                # the same, refreshed (Ctrl-C stops watching only)
 make stop                 # stop the run and its builds, archive it as <run>_stopped
 make resume FROM=run29_v41flash_scratch_12att_1 ATTEMPTS=3
 make summary              # archived runs, results and total cost (KEY=1: API key usage)
+make leaks                # look for the answer within the model's reach
 make test
 ```
 
 Only one run can be active (`.bench/active.json`), and a run does not start
 over the files an interrupted one left (`make archive NAME=<run>_stopped`).
+A run does not start either when the leak check finds a built copy of a
+package or a file of its reference fix (`dataset/reference/`) within the
+model's reach (ALLOW_LEAKS=1 overrides). Results are written after every
+attempt, so a stopped run can be continued too.
 Background runs log to `logs/<label>.log`; results are archived per run in the
 config's `result_dir` and `log_dir`. `MODIFICATIONS.md` describes the configs,
 backends and options.

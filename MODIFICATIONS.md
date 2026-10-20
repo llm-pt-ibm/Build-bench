@@ -281,6 +281,23 @@ improvements` shows them file by file.
   ATTEMPTS=<n>` continues an archived run; `make status`/`watch` show the
   active run; `make summary` lists the archived runs with the total cost,
   stopped ones included.
+- `<package>_result.json` is written after every attempt, with `complete`
+  false until the package ends, so a stopped run can be continued from its
+  last finished attempt (`make resume FROM=<run>_stopped ATTEMPTS=<n>`; the
+  workspace keeps the edits of the interrupted attempt, which the continued
+  run lists among the earlier changes). Until now only finished runs had a
+  result, and continuing run28 needed one written by hand.
+- Leak check (`tools/auto_repair/leak_check.py`, `make leaks`): before a
+  package runs, what the model can read is searched for the answer: a built
+  copy of the package (installed Python package, wheel, conda package, RPM)
+  and any file with the content of its reference fix
+  (`dataset/reference/<package>/`). Checked are the case, the acceptance
+  tests, the build environments and the paths of run_command_tool's sandbox
+  (without `script.experiment_hide`). `make run` and `make resume` refuse to
+  start when something is found (ALLOW_LEAKS=1 overrides), and client.py logs
+  the findings and records them as `leak_check` in the result. It finds the
+  two leaks of run28 and run28c when the protections are taken out. It cannot
+  cover build.sh, which runs outside the sandbox with the whole host.
 - `tests/test_helpers.py` (no dependencies) covers the patch check and the log
   excerpt; `tests/test_offline.py` covers the new file and archive behaviour.
 
