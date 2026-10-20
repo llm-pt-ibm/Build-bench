@@ -350,6 +350,12 @@ def cmd_new_case(profile: dict, name: str, environment: str) -> None:
                      environment or ""])
 
 
+def cmd_transcript(profile: dict, extra: list) -> None:
+    paths = bench_paths(profile["config"])
+    sys.exit(subprocess.call([sys.executable, os.path.join(ROOT, "scripts", "transcript.py"), paths["log_dir"]]
+                             + extra))
+
+
 def cmd_archive(profile: dict, name: str) -> None:
     run = active_run()
     if run and run["alive"]:
@@ -386,6 +392,8 @@ def main() -> None:
     new = sub.add_parser("new-case")
     new.add_argument("name")
     new.add_argument("--env", default="")
+    transcript = sub.add_parser("transcript", help="see scripts/transcript.py")
+    transcript.add_argument("extra", nargs=argparse.REMAINDER)
     sub.add_parser("stop")
     sub.add_parser("status")
     watch = sub.add_parser("watch")
@@ -410,6 +418,8 @@ def main() -> None:
         cmd_check_case(profile, args.name)
     elif args.command == "new-case":
         cmd_new_case(profile, args.name, args.env)
+    elif args.command == "transcript":
+        cmd_transcript(profile, args.extra)
     elif args.command == "stop":
         cmd_stop(profile)
     elif args.command == "status":

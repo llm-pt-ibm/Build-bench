@@ -16,7 +16,7 @@ BENCH = $(PY) scripts/bench.py --profile $(PROFILE) $(OPTS)
 LEAKS = $(if $(ALLOW_LEAKS),--allow-leaks)
 
 .DEFAULT_GOAL := help
-.PHONY: help run run-fg resume stop status watch summary leaks check-case new-case archive test
+.PHONY: help run run-fg resume stop status watch summary leaks check-case new-case transcript archive test
 
 help: ## list the commands
 	@echo "usage: make <command> [LABEL=... PACKAGES=... MODEL=... PROVIDER=... ATTEMPTS=... REPEATS=... CONFIG=...]"
@@ -55,6 +55,11 @@ check-case: ## check that case CASE=<name> is ready to run (files, environment, 
 new-case: ## start build-recipe case CASE=<name> from a template (ENV=<environment> optional)
 	@test -n "$(CASE)" || { echo "usage: make new-case CASE=<name> [ENV=<environment>]"; exit 2; }
 	@$(BENCH) new-case $(CASE) --env "$(ENV)"
+
+transcript: ## what the model did in RUN=<run|current>: overview, or ATTEMPT=n (REASONING=1 FULL=1 TOOL=... GREP=...)
+	@test -n "$(RUN)" || { echo "usage: make transcript RUN=<archived run|current> [PACKAGE=...] [ATTEMPT=n] [REASONING=1] [FULL=1] [TOOL=name] [GREP=regex]"; exit 2; }
+	@$(BENCH) transcript $(RUN) $(if $(PACKAGE),--package $(PACKAGE)) $(if $(ATTEMPT),--attempt $(ATTEMPT)) \
+	    $(if $(REASONING),--reasoning) $(if $(FULL),--full) $(if $(TOOL),--tool $(TOOL)) $(if $(GREP),--grep '$(GREP)')
 
 archive: ## move the files an interrupted run left into NAME=<run>_stopped
 	@test -n "$(NAME)" || { echo "usage: make archive NAME=<run>_stopped"; exit 2; }
