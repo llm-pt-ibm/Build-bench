@@ -5,8 +5,8 @@ overridden on the command line (--label, --model, --attempts, ...):
   run [--bg]        start a run of the profile's packages
   resume FROM       continue the archived run FROM with more attempts
   stop              stop the active run and its builds, and archive what it left
-  status            the active run and a view of its current package
-  watch             the same view, refreshed every few seconds
+  status            the dashboard of the benchmark (scripts/dashboard.py), once
+  watch             the dashboard, refreshed every few seconds
   summary [PREFIX]  results of the archived runs, with the total cost
   archive NAME      move the files an interrupted run left into run directory NAME
 
@@ -19,6 +19,7 @@ import glob
 import json
 import os
 import signal
+import socket
 import subprocess
 import sys
 import time
@@ -75,18 +76,28 @@ def case_names(paths: dict, packages: list) -> list:
 # --- the active run ----------------------------------------------------------
 
 def active_run():
-    """The recorded active run, with alive=False when its process is gone."""
+    """The recorded active run, with alive=False when its process is gone, and
+    alive=None when it runs on another host (e.g. seen through a mount)."""
     try:
         with open(ACTIVE) as f:
             run = json.load(f)
     except (OSError, ValueError):
         return None
+    if run.get("host", socket.gethostname()) != socket.gethostname():
+        run["alive"] = None
+        return run
     try:
         os.kill(run["pid"], 0)
         run["alive"] = True
     except OSError:
         run["alive"] = False
     return run
+
+
+def elsewhere(run) -> None:
+    """Commands that act on a run work only on the host it runs on."""
+    if run and run["alive"] is None:
+        fail(f"run {run['label']} runs on {run['host']}: use this command there")
 
 
 def leftovers(paths: dict, packages: list) -> list:
@@ -134,10 +145,30 @@ def leak_findings(config: str, paths: dict, packages: list) -> dict:
     return {pkg: leak_report(cfg, pkg, os.path.join(paths["base_dir"], pkg)) for pkg in case_names(paths, packages)}
 
 
+def check_build_host(config: str, paths: dict, packages: list) -> None:
+    """Local and build-recipe builds run on this host: it must be the build host
+    (and not, say, a laptop that sees the repository through a mount)."""
+    from tools.auto_repair.case_type import case_type
+    with open(os.path.join(ROOT, config)) as f:
+        build = yaml.safe_load(f).get("build") or {}
+    needs = []
+    if (os.getenv("BENCH_BUILD_BACKEND") or build.get("backend") or "obs").lower() == "local":
+        needs.append((build.get("local") or {}).get("worker_root", "/root/obs-worker"))
+    stage_root = os.getenv("BENCH_STAGE_ROOT") or (build.get("script") or {}).get("stage_root", "/root/obs-worker/script")
+    if any(case_type(os.path.join(paths["base_dir"], pkg)) == "recipe" for pkg in case_names(paths, packages)):
+        needs.append(os.path.dirname(stage_root))
+    missing = sorted({p for p in needs if not os.path.isdir(p)})
+    if missing:
+        fail(f"this host ({socket.gethostname()}) is not the build host of {config}: "
+             f"{', '.join(missing)} not found; start the run there")
+
+
 def check_can_start(profile: dict, paths: dict, allow_leaks: bool = False) -> None:
     run = active_run()
+    elsewhere(run)
     if run and run["alive"]:
         fail(f"run {run['label']} is active (pid {run['pid']}); stop it with `make stop` first")
+    check_build_host(profile["config"], paths, profile["packages"])
     left = leftovers(paths, profile["packages"])
     if left:
         fail("an interrupted run left these files, which the new run would archive as its own:\n  "
@@ -167,7 +198,7 @@ def runner(spec: dict) -> int:
     os.makedirs(STATE_DIR, exist_ok=True)
     record = {k: v for k, v in spec.items() if k != "env"}   # the environment may hold secrets
     with open(ACTIVE, "w") as f:
-        json.dump(dict(record, pid=os.getpid(), pgid=os.getpgid(0)), f, indent=1)
+        json.dump(dict(record, pid=os.getpid(), pgid=os.getpgid(0), host=socket.gethostname()), f, indent=1)
     try:
         return subprocess.call(["bash", os.path.join(ROOT, "scripts", "run_repeats.sh"), spec["label"],
                                 str(spec["repeats"]), spec["config"]], env=spec["env"], cwd=ROOT)
@@ -242,6 +273,7 @@ def cmd_stop(profile: dict) -> None:
     run = active_run()
     if not run:
         fail("no active run (see `make status`)")
+    elsewhere(run)
     if run["alive"]:
         print(f"stopping run {run['label']} (pid {run['pid']})")
         group = run.get("pgid", run["pid"])   # the runner, run_repeats.sh, client.py and server.py
@@ -266,18 +298,10 @@ def cmd_stop(profile: dict) -> None:
 
 
 def cmd_status(profile: dict, every: int) -> None:
+    """The dashboard of scripts/dashboard.py: once, or refreshed every `every` seconds."""
     run = active_run()
     config = run["config"] if run else profile["config"]
-    if run:
-        state = "running" if run["alive"] else "not running (ended without cleaning up: see its log)"
-        print(f"run {run['label']}: {state}, started {run['started']}, "
-              f"{', '.join(run['packages']) or 'all packages'}, {run.get('model') or ''}"
-              f"{', continuing ' + run['resume']['from'] if run.get('resume') else ''}\n")
-    else:
-        print("no active run (`make summary` lists the archived ones)")
-        return
-    package = run["packages"][0] if len(run["packages"]) == 1 else ""
-    subprocess.call([sys.executable, os.path.join(ROOT, "scripts", "watch_run.py"), config, package, str(every)])
+    subprocess.call([sys.executable, os.path.join(ROOT, "scripts", "dashboard.py"), config, str(every)])
 
 
 def cmd_summary(profile: dict, prefix: str, key_usage: bool) -> None:
@@ -358,6 +382,7 @@ def cmd_transcript(profile: dict, extra: list) -> None:
 
 def cmd_archive(profile: dict, name: str) -> None:
     run = active_run()
+    elsewhere(run)
     if run and run["alive"]:
         fail(f"run {run['label']} is active; stop it with `make stop`")
     paths = bench_paths(profile["config"])

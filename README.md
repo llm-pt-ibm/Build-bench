@@ -78,8 +78,8 @@ overridden on the command line. The commands run on the build host.
 make                      # list the commands
 make run                  # start the profile's run in the background
 make run LABEL=run31 ATTEMPTS=6 MODEL=deepseek/deepseek-v4.1-flash
-make status               # the active run: attempt, round, edits, builds, cost
-make watch                # the same, refreshed (Ctrl-C stops watching only)
+make status               # the dashboard, once
+make watch                # the live dashboard (Ctrl-C stops watching only)
 make stop                 # stop the run, its builds and experiments; archive it as <run>_stopped
 make resume FROM=run29_v41flash_scratch_12att_1 ATTEMPTS=3
 make summary              # archived runs, results and total cost (KEY=1: API key usage)
@@ -89,6 +89,15 @@ make new-case CASE=<name> [ENV=<environment>]
 make check-case CASE=<name>
 make test
 ```
+
+`make watch` is a live dashboard of the run in the terminal: the packages
+done and to do, the current package's attempt and round, how each attempt
+ended, the build (with Bazel's progress) and the acceptance test in progress,
+what the model is doing and its latest reasoning, the recent tool calls and
+the cost so far. Watch it from another machine with
+`ssh -t <build host> 'cd /root/build-bench && make watch'`, or through a
+mount of the repository (it only reads files; commands that act on a run
+refuse to work away from its host).
 
 Only one run can be active (`.bench/active.json`). A run does not start over
 the files an interrupted one left (`make archive NAME=<run>_stopped`), nor

@@ -281,6 +281,17 @@ improvements` shows them file by file.
   ATTEMPTS=<n>` continues an archived run; `make status`/`watch` show the
   active run; `make summary` lists the archived runs with the total cost,
   stopped ones included.
+- `make watch`/`make status` show a dashboard of the benchmark
+  (`scripts/dashboard.py`): the run, its packages (done, running, waiting),
+  the current package's attempt and round as progress bars, how each attempt
+  ended, the build with Bazel's progress and the acceptance test (running,
+  or its checks and test suite result), whether the model is thinking or
+  waiting for a build, its latest reasoning, the recent tool calls, elapsed
+  time, tokens and cost; with no run, the latest archived one. It only reads
+  files, so it also works from another machine through a mount of the
+  repository. The active run records its host: away from it the dashboard
+  shows "running on <host>", and `make stop`/`archive`/`run` refuse to act,
+  as `make run` does on a host that is not the config's build host.
 - More commands: `make transcript` (`scripts/transcript.py`) shows the
   attempts of a run or one attempt round by round, with the reasoning, tool
   calls and results, filtered by tool or text; `make new-case`
