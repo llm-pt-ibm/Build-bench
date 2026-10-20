@@ -16,12 +16,12 @@ BENCH = $(PY) scripts/bench.py --profile $(PROFILE) $(OPTS)
 LEAKS = $(if $(ALLOW_LEAKS),--allow-leaks)
 
 .DEFAULT_GOAL := help
-.PHONY: help run run-fg resume stop status watch summary leaks archive test
+.PHONY: help run run-fg resume stop status watch summary leaks check-case new-case archive test
 
 help: ## list the commands
 	@echo "usage: make <command> [LABEL=... PACKAGES=... MODEL=... PROVIDER=... ATTEMPTS=... REPEATS=... CONFIG=...]"
 	@echo "settings come from $(PROFILE); variables override them"
-	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-9s %s\n", $$1, $$2}'
+	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-11s %s\n", $$1, $$2}'
 
 run: ## start a run in the background (one at a time; checks for leaks first)
 	@$(BENCH) run --bg $(LEAKS)
@@ -47,6 +47,14 @@ summary: ## archived runs with results and total cost (PREFIX=run29 filters, KEY
 
 leaks: ## look for the answer within the model's reach (built copies, reference fixes)
 	@$(BENCH) leaks
+
+check-case: ## check that case CASE=<name> is ready to run (files, environment, log, test, leaks)
+	@test -n "$(CASE)" || { echo "usage: make check-case CASE=<name>"; exit 2; }
+	@$(BENCH) check-case $(CASE)
+
+new-case: ## start build-recipe case CASE=<name> from a template (ENV=<environment> optional)
+	@test -n "$(CASE)" || { echo "usage: make new-case CASE=<name> [ENV=<environment>]"; exit 2; }
+	@$(BENCH) new-case $(CASE) --env "$(ENV)"
 
 archive: ## move the files an interrupted run left into NAME=<run>_stopped
 	@test -n "$(NAME)" || { echo "usage: make archive NAME=<run>_stopped"; exit 2; }

@@ -269,6 +269,27 @@ with _tempfile.TemporaryDirectory() as tmp:
         shutil.rmtree(ref_dir, ignore_errors=True)
 print("leak check: OK (installed copies, built packages, reference fixes by content, hidden paths skipped)")
 
+# a new case from the template, and what check_case says about it
+sys.path.insert(0, os.path.join(ROOT, "dataset"))
+from new_case import new_case  # noqa: E402
+from check_case import check_case  # noqa: E402
+with _tempfile.TemporaryDirectory() as tmp:
+    data_dir = os.path.join(tmp, "testsrc_to_testdst")
+    test_dir = os.path.join(ROOT, "acceptance", "testsrc_to_testdst")
+    try:
+        created = new_case(data_dir, "demo", "jax-power9")
+        assert len(created) == 3 and os.access(created[0], os.X_OK), created
+        failures = [m for level, m in check_case(os.path.join(data_dir, "demo"), {"script": {}}) if level == "FAIL"]
+        assert len(failures) == 2 and "no sources" in failures[0] and "log_failed.txt" in failures[1], failures
+        os.makedirs(os.path.join(data_dir, "demo", "src"))
+        open(os.path.join(data_dir, "demo", "log_failed.txt"), "w").write("error: x\n" * 100)
+        results = check_case(os.path.join(data_dir, "demo"), {"script": {}})
+        assert not [m for level, m in results if level == "FAIL"], results
+        assert sum(level == "WARN" for level, _ in results) == 2, results   # TODOs left in build.sh and test
+    finally:
+        shutil.rmtree(test_dir, ignore_errors=True)
+print("cases: OK (new case from the template, check_case finds what is missing)")
+
 # experiments run sandboxed (needs root and unshare, as on the Power9 build host)
 import shutil  # noqa: E402
 import subprocess  # noqa: E402

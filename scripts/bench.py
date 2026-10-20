@@ -332,6 +332,24 @@ def cmd_leaks(profile: dict) -> None:
     sys.exit(1 if any(findings.values()) else 0)
 
 
+def cmd_check_case(profile: dict, name: str) -> None:
+    sys.path.insert(0, os.path.join(ROOT, "dataset"))
+    from check_case import check_case
+    paths = bench_paths(profile["config"])
+    results = check_case(os.path.join(paths["base_dir"], name), obs_config(profile["config"]))
+    for level, message in results:
+        print(f"{level:<4}  {message}")
+    failed = sum(level == "FAIL" for level, _ in results)
+    print(f"\n{'FAILED: ' + str(failed) + ' check(s)' if failed else 'ready to run'}")
+    sys.exit(1 if failed else 0)
+
+
+def cmd_new_case(profile: dict, name: str, environment: str) -> None:
+    paths = bench_paths(profile["config"])
+    subprocess.call([sys.executable, os.path.join(ROOT, "dataset", "new_case.py"), paths["base_dir"], name,
+                     environment or ""])
+
+
 def cmd_archive(profile: dict, name: str) -> None:
     run = active_run()
     if run and run["alive"]:
@@ -363,6 +381,11 @@ def main() -> None:
     resume.add_argument("--bg", action="store_true")
     resume.add_argument("--allow-leaks", action="store_true")
     sub.add_parser("leaks")
+    check = sub.add_parser("check-case")
+    check.add_argument("name")
+    new = sub.add_parser("new-case")
+    new.add_argument("name")
+    new.add_argument("--env", default="")
     sub.add_parser("stop")
     sub.add_parser("status")
     watch = sub.add_parser("watch")
@@ -383,6 +406,10 @@ def main() -> None:
         cmd_resume(profile, args.source, args.workspace, args.bg, args.attempts, args.allow_leaks)
     elif args.command == "leaks":
         cmd_leaks(profile)
+    elif args.command == "check-case":
+        cmd_check_case(profile, args.name)
+    elif args.command == "new-case":
+        cmd_new_case(profile, args.name, args.env)
     elif args.command == "stop":
         cmd_stop(profile)
     elif args.command == "status":
