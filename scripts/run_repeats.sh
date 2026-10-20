@@ -24,14 +24,15 @@ EOF
 for i in $(seq 1 "$n"); do
   run="${label}_${i}"
   echo "=== $run ($(date '+%F %T'))"
-  BENCH_CONFIG=$config "$PY" client.py > "pilot_${run}.log" 2>&1 || echo "client.py exited with an error, see pilot_${run}.log"
+  mkdir -p logs
+  BENCH_CONFIG=$config "$PY" client.py > "logs/pilot_${run}.log" 2>&1 || echo "client.py exited with an error, see logs/pilot_${run}.log"
   mkdir -p "$result_dir/$run" "$log_dir/$run"
   find "$result_dir" -maxdepth 1 -type f -exec mv {} "$result_dir/$run/" \;
   find "$log_dir" -maxdepth 1 -type f -exec mv {} "$log_dir/$run/" \;
   for pkg in $(ls "$data_dir"); do
     [ -f "data/case_study/${pkg}_diff.log" ] && mv "data/case_study/${pkg}_diff.log" "$log_dir/$run/"
   done
-  mv "pilot_${run}.log" "$log_dir/$run/"
+  mv "logs/pilot_${run}.log" "$log_dir/$run/"
 done
 
 "$PY" scripts/summarize_runs.py "$result_dir" "$label"

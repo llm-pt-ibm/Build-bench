@@ -1,6 +1,8 @@
-import asyncio, json, sys
+import asyncio, json, os, sys
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
+
+os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # the repository root
 
 async def main():
     params = StdioServerParameters(command=sys.executable, args=["server.py"])

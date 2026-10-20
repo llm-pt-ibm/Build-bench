@@ -107,7 +107,8 @@ def archive(paths: dict, packages: list, name: str) -> list:
         os.makedirs(os.path.join(target, name), exist_ok=True)
         os.replace(path, os.path.join(target, name, os.path.basename(path)))
         moved.append(os.path.relpath(path, ROOT))
-    for path in glob.glob(os.path.join(ROOT, f"pilot_{name.removesuffix('_stopped')}.log")):
+    pilot = f"pilot_{name.removesuffix('_stopped')}.log"
+    for path in glob.glob(os.path.join(LOGS_DIR, pilot)) + glob.glob(os.path.join(ROOT, pilot)):
         os.makedirs(os.path.join(paths["log_dir"], name), exist_ok=True)
         os.replace(path, os.path.join(paths["log_dir"], name, os.path.basename(path)))
         moved.append(os.path.relpath(path, ROOT))
@@ -256,7 +257,7 @@ def cmd_stop(profile: dict) -> None:
     packages = case_names(paths, run["packages"])
     stop_builds(run["config"], packages)
     # the run of run_repeats.sh that was interrupted is the one whose log is still at the top
-    current = sorted(glob.glob(os.path.join(ROOT, f"pilot_{run['label']}_*.log")))
+    current = sorted(glob.glob(os.path.join(LOGS_DIR, f"pilot_{run['label']}_*.log")))
     name = (os.path.basename(current[-1])[len("pilot_"):-len(".log")] if current else run["label"]) + "_stopped"
     moved = archive(paths, packages, name)
     if os.path.exists(ACTIVE):

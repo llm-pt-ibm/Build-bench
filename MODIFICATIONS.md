@@ -378,7 +378,7 @@ improvements` shows them file by file.
   `disabled`).
 
 ### Tooling (new)
-- `run_pilot.sh`, `smoke_test.py`, `tests/test_offline.py`,
+- `scripts/run_pilot.sh`, `scripts/smoke_test.py`, `tests/test_offline.py`,
   `requirements-ppc64le.txt`.
 - `.gitignore` ignores `*.orig`; the committed `__pycache__/*.pyc` files were
   removed.
