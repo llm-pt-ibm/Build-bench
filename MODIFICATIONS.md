@@ -281,6 +281,18 @@ improvements` shows them file by file.
   ATTEMPTS=<n>` continues an archived run; `make status`/`watch` show the
   active run; `make summary` lists the archived runs with the total cost,
   stopped ones included.
+- Local models: the run profile's `base_url` points a run to a model server
+  of its own with an OpenAI-compatible API (Ollama, vLLM, llama.cpp);
+  `bench.local.yaml` is an example. The API key of `.env` is never sent to
+  that server: `api_key_env` names a variable with its own key, and a server
+  on this machine or the local network needs none (`client.py` then sends
+  "none"). `context_chars` (`BENCH_MAX_CONTEXT_CHARS`) overrides
+  `llm.max_context_chars` to fit the server's context window, `LLM_TIMEOUT`
+  or `llm.request_timeout` the time allowed per reply (600 s). `make run`
+  first checks that the server answers and serves the model. Results record
+  `run.api_base` (scheme, host and port) and `run.local_model`. The
+  OpenRouter-only parts (provider pinning, cost) stay off for other servers,
+  and the reasoning is read from `reasoning` or `reasoning_content` (vLLM).
 - `make watch`/`make status` show a dashboard of the benchmark
   (`scripts/dashboard.py`): the run, its packages (done, running, waiting),
   the current package's attempt and round as progress bars, how each attempt

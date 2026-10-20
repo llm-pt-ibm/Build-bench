@@ -61,14 +61,41 @@ class LLMConfig:
             self.api_key = os.getenv("API_KEY")
             self.base_url = os.getenv("API_BASE_URL")
 
+        if not self.api_key and is_local_url(self.base_url):
+            self.api_key = "none"   # local model servers (Ollama, vLLM, llama.cpp) need no key
         if not self.api_key:
             raise RuntimeError(
                 f"Missing API key for provider={self.provider}. Check your environment.")
 
     def make_client(self) -> OpenAI:
+        # local models can take long for a reply: LLM_TIMEOUT or llm.request_timeout (seconds)
+        timeout = float(os.getenv("LLM_TIMEOUT") or LLM_CFG.get("request_timeout", 600))
         if self.base_url:
-            return OpenAI(api_key=self.api_key, base_url=self.base_url)
-        return OpenAI(api_key=self.api_key)
+            return OpenAI(api_key=self.api_key, base_url=self.base_url, timeout=timeout)
+        return OpenAI(api_key=self.api_key, timeout=timeout)
+
+
+def is_local_url(url: Optional[str]) -> bool:
+    """A model server on this machine or the local network."""
+    import ipaddress
+    from urllib.parse import urlparse
+    host = (urlparse(url or "").hostname or "").lower()
+    if host in ("localhost",) or host.endswith(".local"):
+        return True
+    try:
+        address = ipaddress.ip_address(host)
+        return address.is_loopback or address.is_private
+    except ValueError:
+        return False
+
+
+def api_base(url: Optional[str]) -> Optional[str]:
+    """scheme://host[:port] of the model API, without path or credentials."""
+    from urllib.parse import urlparse
+    if not url:
+        return None
+    parts = urlparse(url)
+    return f"{parts.scheme}://{parts.hostname}" + (f":{parts.port}" if parts.port else "")
 
 
 # No tool result is cached: the files change while the agent works, so a cached
@@ -96,7 +123,9 @@ PROMPTS = {"rpm": "prompts/full_file_generation.txt", "recipe": "prompts/build_r
            **(info.get("prompts") or {})}
 # When the conversation grows past this many characters, the oldest tool
 # results are shortened (0: never). The last ones are always kept whole.
-MAX_CONTEXT_CHARS = int(LLM_CFG.get("max_context_chars", 0))
+# BENCH_MAX_CONTEXT_CHARS overrides it for a run, e.g. to fit the context
+# window of a local model server.
+MAX_CONTEXT_CHARS = int(os.getenv("BENCH_MAX_CONTEXT_CHARS") or LLM_CFG.get("max_context_chars", 0))
 # With repeat_guard_per_build, identical calls are counted per build: each
 # build result starts a new count, so upload, check and reading the new log
 # can be repeated in every repair cycle, while loops without a new build are
@@ -155,6 +184,9 @@ def run_metadata(max_build_attempts: int, max_tool_rounds: int) -> Dict:
         "empty_reply_retries": EMPTY_REPLY_RETRIES,
         "model_retry_waits": list(MODEL_RETRY_WAITS),
         "build_backend": (os.getenv("BENCH_BUILD_BACKEND") or (info.get("build") or {}).get("backend", "obs")).lower(),
+        # where the model ran: an API such as OpenRouter, or a local server
+        "api_base": api_base(os.getenv("API_BASE_URL")),
+        "local_model": is_local_url(os.getenv("API_BASE_URL")),
     }
 
 

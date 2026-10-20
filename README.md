@@ -106,6 +106,26 @@ overrides). Results are written after every attempt, so a stopped run can be
 continued from its last finished attempt. Background runs log to
 `logs/<label>.log`.
 
+### Local models
+Any server with an OpenAI-compatible API works: Ollama, vLLM, llama.cpp's
+`llama-server`. Start it with tool calling and a large context window, then
+run with `bench.local.yaml` or the variables:
+
+```bash
+OLLAMA_CONTEXT_LENGTH=65536 ollama serve &      # Ollama's default window is small and cuts prompts silently
+ollama pull qwen3-coder:30b
+make run PROFILE=bench.local.yaml
+make run BASE_URL=http://127.0.0.1:11434/v1 MODEL=qwen3-coder:30b CONTEXT_CHARS=180000 LABEL=local2
+```
+
+`base_url` points the run to the server; the API key of `.env` is never sent
+there (`api_key_env` names a variable with the server's own key, if it needs
+one). `context_chars` keeps the conversation within the server's window (the
+oldest tool results are shortened beyond it). `make run` checks that the
+server answers and serves the model before starting; `LLM_TIMEOUT` (or
+`llm.request_timeout`) gives slow models more time per reply. Results record
+the server in `run.api_base` and `run.local_model`; their cost is $0.
+
 ### Directly
 ```bash
 BENCH_CONFIG=config/x86_64_to_ppc64le_power9.yaml BENCH_PACKAGES=jaxlib BENCH_MAX_ATTEMPTS=12 python client.py

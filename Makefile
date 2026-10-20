@@ -2,6 +2,7 @@
 # profile); each setting can be overridden here, e.g.
 #   make run LABEL=run31 ATTEMPTS=6 MODEL=deepseek/deepseek-v4.1-flash
 # ALLOW_LEAKS=1 starts a run even if the leak check finds something.
+# A local model: make run PROFILE=bench.local.yaml (or BASE_URL=http://127.0.0.1:11434/v1 MODEL=...)
 # `make` alone lists the commands. They run on the build host (the Power9).
 
 PY ?= $(shell [ -x /root/miniforge3/envs/build_bench/bin/python ] && echo /root/miniforge3/envs/build_bench/bin/python || echo python3)
@@ -11,7 +12,9 @@ PROFILE ?= bench.yaml
 OPTS = $(if $(CONFIG),--config $(CONFIG)) $(if $(LABEL),--label $(LABEL)) \
        $(if $(PACKAGES),--packages "$(PACKAGES)") $(if $(MODEL),--model $(MODEL)) \
        $(if $(PROVIDER),--provider $(PROVIDER)) $(if $(ATTEMPTS),--attempts $(ATTEMPTS)) \
-       $(if $(REPEATS),--repeats $(REPEATS)) $(if $(TEMPERATURE),--temperature $(TEMPERATURE))
+       $(if $(REPEATS),--repeats $(REPEATS)) $(if $(TEMPERATURE),--temperature $(TEMPERATURE)) \
+       $(if $(BASE_URL),--base_url $(BASE_URL)) $(if $(API_KEY_ENV),--api_key_env $(API_KEY_ENV)) \
+       $(if $(CONTEXT_CHARS),--context_chars $(CONTEXT_CHARS))
 BENCH = $(PY) scripts/bench.py --profile $(PROFILE) $(OPTS)
 LEAKS = $(if $(ALLOW_LEAKS),--allow-leaks)
 

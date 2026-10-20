@@ -52,7 +52,8 @@ def run_env(profile: dict, resume: dict = None) -> dict:
     env = dict(os.environ, PY=sys.executable)
     settings = {"BENCH_PACKAGES": ",".join(profile["packages"]), "LLM_MODEL": profile.get("model"),
                 "OPENROUTER_PROVIDER": profile.get("provider"), "BENCH_MAX_ATTEMPTS": profile.get("attempts"),
-                "LLM_TEMPERATURE": profile.get("temperature")}
+                "LLM_TEMPERATURE": profile.get("temperature"),
+                "BENCH_MAX_CONTEXT_CHARS": profile.get("context_chars")}
     if resume:
         settings.update(BENCH_RESUME_FROM=resume["from"], BENCH_RESUME_WORKSPACE=resume.get("workspace"))
     for name, value in settings.items():
@@ -60,7 +61,49 @@ def run_env(profile: dict, resume: dict = None) -> dict:
             env.pop(name, None)
         else:
             env[name] = str(value)
+    if profile.get("base_url"):
+        # a model server of the profile's own (e.g. a local one): its key, if it
+        # needs one, comes from the variable api_key_env names; the API key of
+        # .env, meant for another API, is never sent to it
+        env["API_BASE_URL"] = str(profile["base_url"])
+        key_var = profile.get("api_key_env")
+        env["API_KEY"] = (os.getenv(key_var) or dotenv_value(key_var) or "") if key_var else "none"
     return env
+
+
+def dotenv_value(name: str):
+    try:
+        with open(os.path.join(ROOT, ".env")) as f:
+            for line in f:
+                key, _, value = line.strip().partition("=")
+                if key.strip() == name:
+                    return value.split(" #")[0].strip().strip("'\"")
+    except OSError:
+        pass
+    return None
+
+
+def check_model_server(profile: dict) -> None:
+    """A run on a model server of the profile's own: the server must answer
+    and serve the model (so the run does not spend its first minutes retrying)."""
+    import urllib.request
+    base = str(profile["base_url"]).rstrip("/")
+    env = run_env(profile)
+    headers = {} if env["API_KEY"] in ("", "none") else {"Authorization": f"Bearer {env['API_KEY']}"}
+    try:
+        with urllib.request.urlopen(urllib.request.Request(base + "/models", headers=headers), timeout=10) as r:
+            served = [m.get("id") for m in json.load(r).get("data") or []]
+    except Exception as e:
+        fail(f"no model server answers at {base} ({e.__class__.__name__}: {e}); start it first, e.g. "
+             "`OLLAMA_CONTEXT_LENGTH=65536 ollama serve` or `vllm serve <model> --enable-auto-tool-choice ...`")
+    model = profile.get("model")
+    if not model:
+        fail("no model: set it in the profile or with MODEL=...")
+    if served and model not in served:
+        fail(f"{base} does not serve {model}; it serves: {', '.join(served[:12])} "
+             f"(Ollama: `ollama pull {model}`)")
+    if env["API_KEY"] == "" and profile.get("api_key_env"):
+        fail(f"{profile['api_key_env']} is not set (the key of {base})")
 
 
 def bench_paths(config: str) -> dict:
@@ -182,7 +225,9 @@ def check_can_start(profile: dict, paths: dict, allow_leaks: bool = False) -> No
     for pkg in profile["packages"]:
         if not os.path.isdir(os.path.join(paths["base_dir"], pkg)):
             fail(f"no case {pkg} in {os.path.relpath(paths['base_dir'], ROOT)}")
-    if not os.path.isfile(os.path.join(ROOT, ".env")) and not os.getenv("API_KEY"):
+    if profile.get("base_url"):
+        check_model_server(profile)
+    elif not os.path.isfile(os.path.join(ROOT, ".env")) and not os.getenv("API_KEY"):
         fail("no .env with API_KEY (and no API_KEY in the environment)")
     leaks = {pkg: found for pkg, found in leak_findings(profile["config"], paths, profile["packages"]).items()
              if found}
@@ -217,10 +262,11 @@ def cmd_run(profile: dict, background: bool, resume: dict = None, allow_leaks: b
     check_can_start(profile, paths, allow_leaks)
     spec = {"label": profile["label"], "repeats": profile["repeats"], "config": profile["config"],
             "packages": profile["packages"], "model": profile.get("model"), "provider": profile.get("provider"),
-            "attempts": profile.get("attempts"), "resume": resume, "started": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "base_url": profile.get("base_url"), "attempts": profile.get("attempts"), "resume": resume, "started": time.strftime("%Y-%m-%d %H:%M:%S"),
             "env": run_env(profile, resume)}
     what = (f"{spec['label']}: {', '.join(spec['packages']) or 'all packages'}, {spec['model'] or 'model of .env'}"
-            f"{' on ' + spec['provider'] if spec['provider'] else ''}, {spec['attempts'] or 'default'} attempts"
+            f"{' on ' + spec['provider'] if spec['provider'] else ''}"
+            f"{' at ' + str(spec['base_url']) if spec['base_url'] else ''}, {spec['attempts'] or 'default'} attempts"
             f"{', continuing ' + resume['from'] if resume else ''}")
     if not background:
         print(f"running {what}")
@@ -391,6 +437,8 @@ def cmd_archive(profile: dict, name: str) -> None:
 
 
 PROFILE_PATH = os.path.join(ROOT, "bench.yaml")
+PROFILE_OPTIONS = ("config", "label", "packages", "model", "provider", "base_url", "api_key_env",
+                   "attempts", "repeats", "temperature", "context_chars")
 
 
 def main() -> None:
@@ -400,7 +448,7 @@ def main() -> None:
         sys.exit(runner(json.load(sys.stdin)))
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--profile", default=PROFILE_PATH)
-    for option in ("config", "label", "packages", "model", "provider", "attempts", "repeats", "temperature"):
+    for option in PROFILE_OPTIONS:
         parser.add_argument(f"--{option}")
     sub = parser.add_subparsers(dest="command", required=True)
     run = sub.add_parser("run")
@@ -430,9 +478,7 @@ def main() -> None:
     arch.add_argument("name")
     args = parser.parse_args()
     PROFILE_PATH = os.path.abspath(args.profile)
-    profile = load_profile(PROFILE_PATH, {k: getattr(args, k) for k in
-                                          ("config", "label", "packages", "model", "provider", "attempts",
-                                           "repeats", "temperature")})
+    profile = load_profile(PROFILE_PATH, {k: getattr(args, k) for k in PROFILE_OPTIONS})
     if args.command == "run":
         cmd_run(profile, args.bg, allow_leaks=args.allow_leaks)
     elif args.command == "resume":

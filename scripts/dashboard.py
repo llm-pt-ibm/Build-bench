@@ -180,7 +180,8 @@ def render(config, run):
         state = (cyan(f"running on {run.get('host')}") if run.get("alive") is None
                  else green("running") if run.get("alive") else red("not running"))
         title += (f"{bold(run['label'])} · {state} · {run.get('model') or 'model of .env'}"
-                  + (f" @ {run['provider']}" if run.get("provider") else ""))
+                  + (f" @ {run['base_url']}" if run.get("base_url")
+                     else f" @ {run['provider']}" if run.get("provider") else ""))
     else:
         title += dim("no active run (make run starts one)")
     out.append(f"{title}   {dim(time.strftime('%H:%M:%S'))}")

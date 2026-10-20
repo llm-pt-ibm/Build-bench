@@ -153,6 +153,66 @@ async def main():
         assert "dependency" not in cli._notes(messages)
         print("reasoning: OK (kept in the transcript, not sent to the model)")
 
+        # a local model server (OpenAI-compatible, no key, vLLM-style reasoning)
+        import http.server
+        import threading
+        seen = {}
+
+        class FakeServer(http.server.BaseHTTPRequestHandler):
+            def log_message(self, *a):
+                pass
+
+            def reply(self, body):
+                data = json.dumps(body).encode()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Content-Length", str(len(data)))
+                self.end_headers()
+                self.wfile.write(data)
+
+            def do_GET(self):
+                self.reply({"object": "list", "data": [{"id": "local-coder", "object": "model"}]})
+
+            def do_POST(self):
+                seen["auth"] = self.headers.get("Authorization")
+                seen["body"] = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
+                self.reply({"id": "x", "object": "chat.completion", "created": 0, "model": "local-coder",
+                            "choices": [{"index": 0, "finish_reason": "tool_calls", "message": {
+                                "role": "assistant", "content": None, "reasoning_content": "read the log first",
+                                "tool_calls": [call(30, "get_file_content_tool", file_path=f"{TMP}/log_failed.txt")]}}],
+                            "usage": {"prompt_tokens": 10, "completion_tokens": 5, "total_tokens": 15}})
+
+        server = http.server.HTTPServer(("127.0.0.1", 0), FakeServer)
+        threading.Thread(target=server.serve_forever, daemon=True).start()
+        saved = {k: os.environ.pop(k, None) for k in ("API_KEY", "API_BASE_URL")}
+        try:
+            os.environ["API_BASE_URL"] = f"http://127.0.0.1:{server.server_port}/v1"
+            local = client.LLMConfig(provider="openai", model="local-coder")
+            assert local.api_key == "none", "a local server needs no key"
+            resp = local.make_client().chat.completions.create(
+                model="local-coder", messages=[{"role": "user", "content": "go"}], tools=tools)
+            message = resp.choices[0].message
+            assert message.tool_calls[0].function.name == "get_file_content_tool"
+            assert client.message_reasoning(message) == "read the log first"
+            assert seen["auth"] == "Bearer none" and "provider" not in seen["body"], seen
+            assert client.is_local_url("http://127.0.0.1:11434/v1") and client.is_local_url("http://10.20.21.2:8000/v1")
+            assert not client.is_local_url("https://openrouter.ai/api/v1")
+            assert client.api_base("http://user:pw@127.0.0.1:11434/v1") == "http://127.0.0.1:11434"
+            try:
+                os.environ["API_BASE_URL"] = "https://api.example.com/v1"
+                client.LLMConfig(provider="openai", model="m")
+                raise AssertionError("a remote API without a key must be refused")
+            except RuntimeError:
+                pass
+        finally:
+            server.shutdown()
+            for k, v in saved.items():
+                if v is None:
+                    os.environ.pop(k, None)
+                else:
+                    os.environ[k] = v
+        print("local model server: OK (no key, tool calls, vLLM-style reasoning, local URLs)")
+
         # passing provider errors (e.g. rate limits reported as 413) are retried
         import httpx
         import openai

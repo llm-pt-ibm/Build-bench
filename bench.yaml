@@ -14,7 +14,8 @@ repeats: 1
 # cases of the config's data directory to run; empty: all of them
 packages: [jaxlib]
 
-# model on OpenRouter, and the provider to pin (empty: OpenRouter's routing)
+# model on OpenRouter, and the provider to pin (empty: OpenRouter's routing);
+# for a model served locally see bench.local.yaml (base_url, api_key_env)
 model: deepseek/deepseek-v4.1-flash
 provider: streamlake/fp8
 

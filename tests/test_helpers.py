@@ -241,6 +241,50 @@ with _tempfile.TemporaryDirectory() as tmp:
     assert bench.active_run()["alive"] is False, "a dead runner is not an active run"
 print("run profile: OK (overrides, environment, leftovers archived, stale lock)")
 
+# a profile with a model server of its own: the .env key is not sent there
+import http.server  # noqa: E402
+import threading  # noqa: E402
+
+
+class _Models(http.server.BaseHTTPRequestHandler):
+    def log_message(self, *a):
+        pass
+
+    def do_GET(self):
+        data = json.dumps({"data": [{"id": "local-coder"}]}).encode()
+        self.send_response(200)
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
+
+
+_server = http.server.HTTPServer(("127.0.0.1", 0), _Models)
+threading.Thread(target=_server.serve_forever, daemon=True).start()
+_saved = os.environ.get("API_KEY")
+os.environ["API_KEY"] = "secret-of-another-api"
+try:
+    local = {"packages": [], "model": "local-coder", "base_url": f"http://127.0.0.1:{_server.server_port}/v1"}
+    env = bench.run_env(local)
+    assert env["API_BASE_URL"] == local["base_url"] and env["API_KEY"] == "none", "the .env key is never sent"
+    os.environ["LOCAL_KEY_FOR_TEST"] = "k1"
+    assert bench.run_env(dict(local, api_key_env="LOCAL_KEY_FOR_TEST"))["API_KEY"] == "k1"
+    bench.check_model_server(local)   # answers and serves the model
+    for broken in (dict(local, model="other-model"), dict(local, base_url="http://127.0.0.1:9/v1")):
+        try:
+            bench.check_model_server(broken)
+            raise AssertionError(f"accepted {broken}")
+        except SystemExit:
+            pass
+    assert bench.run_env({"packages": [], "context_chars": 180000})["BENCH_MAX_CONTEXT_CHARS"] == "180000"
+finally:
+    _server.shutdown()
+    os.environ.pop("LOCAL_KEY_FOR_TEST", None)
+    if _saved is None:
+        os.environ.pop("API_KEY", None)
+    else:
+        os.environ["API_KEY"] = _saved
+print("local model profile: OK (own server and key, server and model checked, context size)")
+
 # leak check: built copies and reference-fix files within the model's reach
 import shutil  # noqa: E402
 from tools.auto_repair.leak_check import leak_report  # noqa: E402
