@@ -3,9 +3,17 @@
 This repository implements the **Build-bench** framework — an end-to-end evaluation pipeline for large language models (LLMs) to repair software build failures across instruction set architectures (ISA), such as **x86_64 → aarch64** and **aarch64 → x86_64**.
 
 The system enables **autonomous reasoning**, **tool-augmented repair**, and **executable verification** through iterative interactions based on the Model Context Protocol (MCP).
-An interactive visualization of all model results (success/failure cases, tool calls, repair iterations) is available at:  
-👉 **[https://aiops-lab-nku.github.io/Build-bench/](https://aiops-lab-nku.github.io/Build-bench/)**  
+An interactive visualization of all model results (success/failure cases, tool calls, repair iterations) is available at:
+👉 **[https://aiops-lab-nku.github.io/Build-bench/](https://aiops-lab-nku.github.io/Build-bench/)**
 
+**This fork** ports the framework to **x86_64 ↔ ppc64le** and runs it on an IBM
+Power9 build host. On top of the original it adds a local build backend,
+build-recipe cases for packages that are not RPM packages or are too large
+for OBS (e.g. jaxlib with Bazel), acceptance tests that check that the built
+software works, a sandboxed experiment tool for the model, a leak check, and
+`make` commands to run and inspect the benchmark. `MODIFICATIONS.md` lists
+every change and why; the original framework is kept in the `original`
+branch.
 
 ---
 
@@ -15,12 +23,157 @@ An interactive visualization of all model results (success/failure cases, tool c
   <img src="images/framework.png" alt="Build-bench Framework" width="85%">
 </p>
 
-Build-bench automatically:
-1. Collects failed software packages and contextual artifacts (source archives, specs, logs);
-2. Guides the LLM to diagnose the failure cause;
-3. Applies `Full File Generation` or `Patch Generation`;
-4. Uploads the repaired package to the open build service (OBS) for validation;
-5. Iteratively refines the repair based on build logs until success or reaching the iteration limit.
+For every case, Build-bench:
+1. Copies the failed package (sources, spec or build recipe, failure log) into a workspace;
+2. Lets the LLM diagnose the failure and change the package with its tools;
+3. Builds the package on the target architecture: on OBS, locally with `osc build`, or with the case's `build.sh`;
+4. Runs the case's acceptance test on a successful build (did the built software work?);
+5. Repeats with the new log until it succeeds or the attempts run out.
+
+---
+
+## ⚙️ Installation
+
+```bash
+git clone https://github.com/yallerocha/build-bench.git
+cd build-bench
+uv sync                                   # x86_64/aarch64
+# ppc64le (no uv wheels): a Python 3.11 environment, then
+pip install -r requirements-ppc64le.txt   # on the Power9: conda env build_bench
+```
+
+`.env` (never committed) holds the credentials and defaults:
+
+| Variable | Meaning |
+|---|---|
+| `API_KEY`, `API_BASE_URL` | LLM API (e.g. OpenRouter: `https://openrouter.ai/api/v1`) |
+| `LLM_MODEL` | default model, e.g. `deepseek/deepseek-v4.1-flash` |
+| `OPENROUTER_PROVIDER` | provider to pin on OpenRouter (optional) |
+| `LLM_TEMPERATURE` | sampling temperature (optional; provider default otherwise) |
+| `OBS_USER`, `OBS_PASSWORD` | OBS account (OBS backend and local worker) |
+
+Build backends, per config (`build.backend`):
+- **OBS** (`config/x86_64_to_ppc64le.yaml`): the OBS account above; `dataset/setup_obs.py` creates the packages in your OBS project.
+- **local** (`config/x86_64_to_ppc64le_local.yaml`, `_power9.yaml`): RPM packages with `osc build` in a local openSUSE chroot, created by `scripts/local_worker/setup.sh`.
+- **build recipes** (`_power9.yaml`): cases with a `build.sh`, built on the host in the environment of `envs/<name>.sh`.
+
+---
+
+## 🚀 Running the Framework
+
+### With make
+What to run is set in `bench.yaml`, the run profile; each setting can be
+overridden on the command line. The commands run on the build host.
+
+| `bench.yaml` | make variable | |
+|---|---|---|
+| `config` | `CONFIG` | benchmark config (direction, paths, backend, model options) |
+| `label`, `repeats` | `LABEL`, `REPEATS` | runs are archived as `<label>_1` … `<label>_<repeats>` |
+| `packages` | `PACKAGES` | cases to run (empty: all of the config's data directory) |
+| `model`, `provider` | `MODEL`, `PROVIDER` | model and pinned OpenRouter provider |
+| `attempts` | `ATTEMPTS` | build attempts per package |
+| `temperature` | `TEMPERATURE` | sampling temperature |
+
+```bash
+make                      # list the commands
+make run                  # start the profile's run in the background
+make run LABEL=run31 ATTEMPTS=6 MODEL=deepseek/deepseek-v4.1-flash
+make status               # the active run: attempt, round, edits, builds, cost
+make watch                # the same, refreshed (Ctrl-C stops watching only)
+make stop                 # stop the run, its builds and experiments; archive it as <run>_stopped
+make resume FROM=run29_v41flash_scratch_12att_1 ATTEMPTS=3
+make summary              # archived runs, results and total cost (KEY=1: API key usage)
+make transcript RUN=run29_v41flash_scratch_12att_1 [ATTEMPT=6 REASONING=1 TOOL=... GREP=...]
+make leaks                # look for the answer within the model's reach
+make new-case CASE=<name> [ENV=<environment>]
+make check-case CASE=<name>
+make test
+```
+
+Only one run can be active (`.bench/active.json`). A run does not start over
+the files an interrupted one left (`make archive NAME=<run>_stopped`), nor
+when the leak check finds the answer within the model's reach (ALLOW_LEAKS=1
+overrides). Results are written after every attempt, so a stopped run can be
+continued from its last finished attempt. Background runs log to
+`logs/<label>.log`.
+
+### Directly
+```bash
+BENCH_CONFIG=config/x86_64_to_ppc64le_power9.yaml BENCH_PACKAGES=jaxlib BENCH_MAX_ATTEMPTS=12 python client.py
+scripts/run_repeats.sh <label> <n> [config]   # n runs, each archived in its own directory
+```
+`client.py` reads its settings from the environment: `BENCH_CONFIG`,
+`BENCH_PACKAGES` (comma-separated), `BENCH_MAX_ATTEMPTS`, `LLM_MODEL`,
+`OPENROUTER_PROVIDER`, `LLM_TEMPERATURE`, `BENCH_RESUME_FROM` and
+`BENCH_RESUME_WORKSPACE` (continue a run), `BENCH_BUILD_BACKEND`,
+`BENCH_FINAL_NEWLINE`. The Patch Generation strategy of the original
+(`client_patch.py`) has not been ported to the new configs.
+
+---
+
+## 🗂️ Configs
+
+| File | Direction | Build |
+|---|---|---|
+| `config/x86_64_to_ppc64le.yaml` | x86_64 → ppc64le | OBS |
+| `config/ppc64le_to_x86_64.yaml` | ppc64le → x86_64 | OBS |
+| `config/x86_64_to_ppc64le_local.yaml` | x86_64 → ppc64le | local `osc build` |
+| `config/x86_64_to_ppc64le_power9.yaml` | x86_64 → ppc64le | local `osc build` and build recipes on the Power9, with the large-package options (60 rounds per attempt, extra tools, notes between attempts, acceptance tests) |
+| `config/x86_64_to_ppc64le_power9_nonotes.yaml` | x86_64 → ppc64le | the same without notes between attempts (an ablation) |
+| `config/info.yaml` | x86_64 → aarch64 | the original's config |
+
+---
+
+## 📦 Cases
+
+A case is a directory `data/<direction>/<package>/` that is copied into the
+model's workspace at the start of a run:
+
+- **RPM package** (a `.spec`): sources and patches from openSUSE, `log_failed.txt` from OBS and `manifest.json` with their origin. `python dataset/fetch_package.py <package> x86_64_to_ppc64le` fetches one; `dataset/find_candidates.py` lists packages that build on x86_64 and fail on ppc64le.
+- **Build recipe** (a `build.sh`, no `.spec`): the sources (large trees are fetched by a `dataset/fetch_<package>.sh` and ignored by git), `build.sh`, `manifest.json` naming its build environment (`envs/<environment>.sh`, which the model cannot change) and `log_failed.txt`, saved by `dataset/recipe_baseline.py`. `make new-case` starts one from a template.
+
+**Acceptance tests** (`acceptance/<direction>/<package>.sh`) run after every
+successful build; a build only counts when its test passes. The model can
+read them, not change them. jaxlib's installs the wheel in a clean Python and
+runs numerical checks and 1528 tests of JAX's own suite.
+
+**Reference fixes** go to `dataset/reference/<package>/`, outside the case:
+the leak check refuses a run when a file with their content is within the
+model's reach. `make check-case` checks a case before its first run.
+
+---
+
+## 🧰 Model tools
+
+File structure and content, `search_files_tool`, `replace_in_file_tool` and
+`modify_file_tool` (patch files are checked, and the history of every edit is
+kept for the next attempts), archive extraction and compression, upload and
+build check. With build recipes the model can also read the dependency
+sources the build downloaded (its build cache), and run short commands with
+`run_command_tool` (e.g. a single failing test, or a small C program that
+reproduces a compiler bug). Each command runs in a sandbox: /root, /tmp and
+the other builds are hidden, the package and the build cache are read-only,
+there is no network and no capability left.
+
+---
+
+## 📈 Results
+
+For every run, `result_text_res/<config>/<run>/` holds `<package>_result.json`
+(success, attempt, cost, tokens, timing, one summary per attempt, the run's
+git commit and settings, leak check findings) and `result_log_res/<config>/<run>/`
+the log, the conversation of every attempt (`<package>_attempt<N>_messages.json`,
+with the model's reasoning) and the diff log of its edits. `make summary` and
+`make transcript` read them.
+
+---
+
+## 🧪 Tests
+
+`make test` runs `tests/test_helpers.py` (patch check, log excerpt, build
+backends, resume, run profile, leak check, cases, sandbox) and
+`tests/test_offline.py` (the tools through MCP with a scripted model). They
+write only to temporary directories.
 
 ---
 
@@ -28,103 +181,21 @@ Build-bench automatically:
 
 ```
 .
-├── config/
-│ └── info.yaml # Configuration file for dataset paths and model setup
-│
-├── data/
-│ └── case_study/
-│ └── x86_succeed_pro/ # Example successful build results for reference
-│ └── texmath_diff.log # Diff log used for case study visualization
-│
-├── prompts/
-│ ├── full_file_generation.txt # Prompt for Full File Generation repair strategy
-│ └── patch_generation.txt # Prompt for Patch Generation repair strategy
-│
-├── tools/
-│ └── auto_repair/
-│ ├── get_repo_structure.py # Tool: Structure Extraction
-│ ├── upload_files.py # Tool: Upload to Build Service
-│ ├── check_build_res.py # Tool: Check Build Result (success/failure)
-│
-│── result_log_res/
-│ └── texmath.log # Log file for texmath package repair process
-│
-│── result_text_res/
-│ └── texmath_result.txt # Text file for texmath package repair result
-│
-├── client.py # MCP client: executes repair loop (Full File Generation)
-├── client_patch.py # MCP client: executes repair loop (Patch Generation)
-├── server.py # MCP server coordinating LLM and tools (Full File Generation)
-├── server_patch.py # MCP server coordinating LLM and tools (Patch Generation)
-├── uv.lock # Environment lock file for reproducibility
-└── pyproject.toml # Dependencies and environment configuration
+├── bench.yaml, Makefile          # run profile and commands
+├── client.py, server.py          # MCP client (repair loop) and server (tools)
+├── config/                       # benchmark configs
+├── prompts/                      # system prompts (RPM cases, build recipes)
+├── tools/auto_repair/            # build backends, acceptance tests, sandbox, leak check, log excerpt
+├── data/<direction>/<package>/   # cases
+├── acceptance/<direction>/       # acceptance tests
+├── envs/                         # build environments of build-recipe cases
+├── dataset/                      # fetching, baselines, case tools, reference fixes
+├── scripts/                      # bench.py, run_repeats.sh, watch_run.py, transcript.py, workers
+├── tests/
+├── result_text_res/, result_log_res/   # archived runs
+└── MODIFICATIONS.md              # every change relative to the original
 ```
-
----
-
-## ⚙️ Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/zcyyc/Build-bench.git
-cd Build-bench
-
-# Recreate the virtual environment
-uv sync
-
-```
-
-Ensure that your .env file includes the llm api key as well as api_base_url:
-
-```bash
-API_KEY="xxx"
-API_BASE_URL="xxx"
-```
-
-## 🚀 Running the Framework
-
-### With make (this fork)
-What to run is set in `bench.yaml` (the run profile: benchmark config,
-packages, model, provider, attempts, run label); each setting can be
-overridden on the command line. Commands run on the build host:
-
-```bash
-make                      # list the commands
-make run                  # start the profile's run in the background
-make run LABEL=run31 ATTEMPTS=6 MODEL=deepseek/deepseek-v4.1-flash
-make status               # the active run: attempt, round, builds, cost
-make watch                # the same, refreshed (Ctrl-C stops watching only)
-make stop                 # stop the run and its builds, archive it as <run>_stopped
-make resume FROM=run29_v41flash_scratch_12att_1 ATTEMPTS=3
-make summary              # archived runs, results and total cost (KEY=1: API key usage)
-make leaks                # look for the answer within the model's reach
-make test
-```
-
-Only one run can be active (`.bench/active.json`), and a run does not start
-over the files an interrupted one left (`make archive NAME=<run>_stopped`).
-A run does not start either when the leak check finds a built copy of a
-package or a file of its reference fix (`dataset/reference/`) within the
-model's reach (ALLOW_LEAKS=1 overrides). Results are written after every
-attempt, so a stopped run can be continued too.
-Background runs log to `logs/<label>.log`; results are archived per run in the
-config's `result_dir` and `log_dir`. `MODIFICATIONS.md` describes the configs,
-backends and options.
-
-### Directly
-Full-File Generation Strategy
-```bash
-# Launch the client for iterative repair
-python client.py
-```
-Patch Generation Strategy
-```bash
-# Launch the client for iterative repair using patch strategy
-python client_patch.py
-```
-
 
 ## 📊 Data and Case Study
 
 The folder data/case_study/ provides example build results (e.g., x86→ARM full repair) used in Section 5 of the paper for qualitative analysis.
-
