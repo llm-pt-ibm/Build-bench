@@ -31,6 +31,8 @@ server_state = {
 # Directory that holds the per-package working copies; file tools refuse paths
 # outside it. The client passes it through the environment.
 TEMP_ROOT = os.path.realpath(os.getenv("BENCH_TEMP_DIR", "temp_workspace"))
+# where the diff log of every edit goes (<package>_diff.log); the tests move it
+DIFF_LOG_DIR = os.getenv("BENCH_DIFF_LOG_DIR", "data/case_study")
 FILE_MAX_CHARS = 60000
 # Some models (DeepSeek, Qwen3-Coder) cannot end a tool-call string argument
 # with a newline: their tool-call format trims it. With "add", modify_file_tool
@@ -473,7 +475,7 @@ def _write_file(file_path: str, new_content: str, action: str) -> str:
     if created and not os.path.isdir(parent):
         return f"Error: Directory does not exist - {parent}"
 
-    diff_log_path = f"data/case_study/{package_name}_diff.log"
+    diff_log_path = os.path.join(DIFF_LOG_DIR, f"{package_name}_diff.log")
 
     old_lines = []
     if not created:

@@ -103,10 +103,29 @@ def sync_tree(src: str, dst: str) -> str:
 def reset_cache(package_name: str, cfg: dict) -> None:
     """Clear the package's per-run build cache (not the shared one), after
     stopping its build and every process that still uses the cache (e.g. a
-    Bazel server) with everything it started."""
+    Bazel server) or the scratch directory of run_command_tool, with
+    everything they started."""
     dirs = _dirs(cfg, package_name)
     _stop(os.path.join(dirs["run"], "state.json"))
-    cache = dirs["cache"]
+    cache, scratch = dirs["cache"], os.path.join(dirs["base"], "scratch")
+    kill_users(cache)
+    kill_users(scratch)
+    time.sleep(2)
+    shutil.rmtree(cache, ignore_errors=True)
+    os.makedirs(cache, exist_ok=True)
+    # the scratch directory of run_command_tool belongs to the run as well
+    shutil.rmtree(scratch, ignore_errors=True)
+
+
+def stop_experiments(package_name: str, cfg: dict) -> None:
+    """Stop the commands of run_command_tool still running for the package
+    (each runs in a sandbox and a session of its own)."""
+    kill_users(os.path.join(cfg["script"]["stage_root"], package_name, "scratch"))
+
+
+def kill_users(path: str) -> None:
+    """Kill the processes whose command line mentions path, with everything
+    they started, except this process and the ones that started it."""
     users, children, parent = set(), {}, {}
     for pid in filter(str.isdigit, os.listdir("/proc")):
         try:
@@ -118,15 +137,15 @@ def reset_cache(package_name: str, cfg: dict) -> None:
             continue
         children.setdefault(ppid, []).append(int(pid))
         parent[int(pid)] = ppid
-        if cache in cmdline:
+        if path in cmdline:
             users.add(int(pid))
     # never this process or the ones that started it (whose command line may
-    # mention the cache too)
+    # mention the path too)
     spared, pid = set(), os.getpid()
     while pid > 1 and pid not in spared:
         spared.add(pid)
         pid = parent.get(pid, 1)
-    # the processes that use the cache and everything they started
+    # the processes that use the path and everything they started
     todo, victims = list(users - spared), set()
     while todo:
         pid = todo.pop()
@@ -138,11 +157,6 @@ def reset_cache(package_name: str, cfg: dict) -> None:
             os.kill(pid, signal.SIGKILL)
         except OSError:
             pass
-    time.sleep(2)
-    shutil.rmtree(cache, ignore_errors=True)
-    os.makedirs(cache, exist_ok=True)
-    # the scratch directory of run_command_tool belongs to the run as well
-    shutil.rmtree(os.path.join(dirs["base"], "scratch"), ignore_errors=True)
 
 
 def script_upload(package_name: str, package_dir: str, cfg: dict) -> str:

@@ -1,17 +1,33 @@
 import asyncio
+import atexit
 import json
 import os
+import shutil
 import sys
+import tempfile
+
+import yaml
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, ROOT)
 os.chdir(ROOT)
-os.environ.setdefault("BENCH_CONFIG", "config/x86_64_to_ppc64le.yaml")
+# everything the test writes (workspace, results, logs, diff logs) goes to a
+# temporary directory, never to the benchmark's own
+SCRATCH = tempfile.mkdtemp(prefix="bench_test_offline_")
+atexit.register(shutil.rmtree, SCRATCH, ignore_errors=True)
+with open(os.environ.get("BENCH_CONFIG", "config/x86_64_to_ppc64le.yaml")) as f:
+    config = yaml.safe_load(f)
+config["paths"].update({k: os.path.join(SCRATCH, k) for k in ("result_dir", "log_dir", "temp_work_dir")})
+config["paths"]["base_dir"] = os.path.join(ROOT, config["paths"]["base_dir"])
+with open(os.path.join(SCRATCH, "config.yaml"), "w") as f:
+    yaml.safe_dump(config, f)
+os.environ["BENCH_CONFIG"] = os.path.join(SCRATCH, "config.yaml")
+os.environ["BENCH_DIFF_LOG_DIR"] = os.path.join(SCRATCH, "diff_logs")
 os.environ["API_KEY"] = "offline-test"
 os.environ["API_BASE_URL"] = "http://127.0.0.1:9/v1"
 os.environ["OBS_USER"] = os.environ["OBS_PASSWORD"] = ""
 # a read-only build directory (dependency sources of build-recipe cases)
-READONLY = os.path.join(ROOT, ".test_readonly")
+READONLY = os.path.join(SCRATCH, "readonly")
 os.makedirs(READONLY, exist_ok=True)
 with open(os.path.join(READONLY, "dep.bzl"), "w") as f:
     f.write("cpu = select({'x86': 1})\n")
@@ -21,7 +37,7 @@ from openai.types.chat.chat_completion import Choice  # noqa: E402
 import client  # noqa: E402
 
 PKG = "zita-resampler"
-TMP = f"temp_workspace/{PKG}"
+TMP = os.path.join(SCRATCH, "temp_work_dir", PKG)
 
 
 def call(i, name, **args):
@@ -219,8 +235,8 @@ async def main():
         assert (await tool("get_file_content_tool", file_path=f"{READONLY}/dep.bzl")).startswith("cpu = ")
         assert (await tool("modify_file_tool", file_path=f"{READONLY}/dep.bzl", new_content="x")).startswith("Error")
         assert (await tool("search_files_tool", path="/etc", pattern="root")).startswith("Error")
-        shallow = json.loads(await tool("get_structure_of_files", package_path="temp_workspace", max_depth=1))
-        assert shallow["structure"]["temp_workspace"][PKG].startswith("<"), shallow
+        shallow = json.loads(await tool("get_structure_of_files", package_path=os.path.dirname(TMP), max_depth=1))
+        assert shallow["structure"][os.path.basename(os.path.dirname(TMP))][PKG].startswith("<"), shallow
         part = await tool("get_file_content_tool", file_path=f"{TMP}/log_failed.txt", start_line=2, max_lines=3)
         assert part.startswith("[lines 2-4 of "), part[:80]
         print("file tools: OK (workspace guard, new files, patch check, final newline, line ranges,"
@@ -240,8 +256,6 @@ async def main():
         print("upload without credentials: OK (explicit error, no OBS call)")
     finally:
         await cli.cleanup()
-        import shutil
-        shutil.rmtree(READONLY, ignore_errors=True)
 
 
 asyncio.run(main())

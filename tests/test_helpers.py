@@ -308,6 +308,18 @@ if os.geteuid() == 0 and shutil.which("unshare") and \
         assert open(os.path.join(tmp, "stage", "demo", "scratch", "note.txt")).read() == "hello\n"
         assert not os.path.exists(os.path.join(workspace, "x"))
         assert "timed out after 2 s" in run_experiment("demo", workspace, "sleep 30", 2, cfg)
+        # stopping a run stops its experiments too
+        import threading  # noqa: E402
+        from tools.auto_repair.script_build import stop_experiments  # noqa: E402
+        outcome, started = {}, time.time()
+        worker = threading.Thread(target=lambda: outcome.update(
+            out=run_experiment("demo", workspace, "sleep 60", 120, cfg)))
+        worker.start()
+        time.sleep(3)
+        stop_experiments("demo", cfg)
+        worker.join(30)
+        assert not worker.is_alive() and time.time() - started < 30, "experiment not stopped"
+        assert "exit status -9" in outcome["out"] or "exit status 137" in outcome["out"], outcome["out"][:200]
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
     print("experiments: OK (sandbox hides /root, read-only package and cache, no network)")

@@ -226,12 +226,15 @@ def cmd_resume(profile: dict, source: str, workspace: str, background: bool, att
 
 
 def stop_builds(config: str, packages: list) -> None:
-    """Builds and their tests run in sessions of their own: stop them too."""
+    """Builds, their tests and run_command_tool's commands run in sessions of
+    their own: stop them too."""
     from tools.auto_repair.local_build import _stop
+    from tools.auto_repair.script_build import stop_experiments
     cfg = obs_config(config)
     for pkg in packages:
         _stop(os.path.join(cfg["script"]["stage_root"], pkg, "run", "state.json"))
         _stop(os.path.join(cfg["local"]["worker_root"], "runs", pkg, "state.json"))
+        stop_experiments(pkg, cfg)
 
 
 def cmd_stop(profile: dict) -> None:
