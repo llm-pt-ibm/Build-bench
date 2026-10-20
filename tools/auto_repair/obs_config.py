@@ -2,6 +2,8 @@ import os
 import yaml
 from dotenv import load_dotenv
 
+from tools.auto_repair.paths import build_dirs, expand
+
 load_dotenv(".env")
 
 
@@ -22,6 +24,7 @@ def load_obs_config() -> dict:
     build = info.get("build") or {}
     local = build.get("local") or {}
     script = build.get("script") or {}
+    dirs = build_dirs(build)   # BENCH_HOME based unless the config says otherwise
     name = os.getenv("OBS_USER") or user.get("user_name")
     return {
         "api": user["obs_api_url"].rstrip("/"),
@@ -38,7 +41,7 @@ def load_obs_config() -> dict:
         # (scripts/local_worker), see tools/auto_repair/local_build.py
         "backend": (os.getenv("BENCH_BUILD_BACKEND") or build.get("backend", "obs")).lower(),
         "local": {
-            "worker_root": os.getenv("OBS_WORKER_ROOT") or local.get("worker_root", "/root/obs-worker"),
+            "worker_root": dirs["worker_root"],
             "project": local.get("project", "openSUSE:Factory:PowerPC"),
             "repository": local.get("repository", "standard"),
             "arch": local.get("arch", user["architecture_name"]),
@@ -46,12 +49,12 @@ def load_obs_config() -> dict:
         },
         # build-recipe cases (build.sh), see tools/auto_repair/script_build.py
         "script": {
-            "stage_root": os.getenv("BENCH_STAGE_ROOT") or script.get("stage_root", "/root/obs-worker/script"),
+            "stage_root": dirs["stage_root"],
             "jobs": int(script.get("jobs", 0)) or _auto_jobs(),
             # paths the build environment needs, shown read-only to the
             # sandbox of run_command_tool (tools/auto_repair/experiment.py)
-            "experiment_paths": list(script.get("experiment_paths") or []),
+            "experiment_paths": [expand(p) for p in script.get("experiment_paths") or []],
             # directories inside them that stay hidden there
-            "experiment_hide": list(script.get("experiment_hide") or []),
+            "experiment_hide": [expand(p) for p in script.get("experiment_hide") or []],
         },
     }

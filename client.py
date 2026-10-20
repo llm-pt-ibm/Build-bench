@@ -14,12 +14,13 @@ from openai import OpenAI
 from mcp.client.stdio import stdio_client
 from mcp import ClientSession, StdioServerParameters
 from tools.auto_repair.acceptance import ACCEPTANCE_DIR, acceptance_test
-from tools.auto_repair.case_type import case_type
+from tools.auto_repair.case_type import case_environment, case_type
 from tools.auto_repair.leak_check import leak_report
 from tools.auto_repair.log_excerpt import same_failure
 from tools.auto_repair.script_build import reset_cache
 from tools.auto_repair.resume import workspace_changes
 from tools.auto_repair.obs_config import load_obs_config
+from tools.auto_repair.paths import env_dir
 
 load_dotenv(".env")
 CONFIG_PATH = os.getenv("BENCH_CONFIG", "config/info.yaml")
@@ -424,6 +425,15 @@ class AutoRepairClient:
         run_info = run_metadata(self.max_build_attempts, self.max_tool_rounds)
         # the answer within the model's reach (scripts/bench.py refuses to start then)
         leaks = leak_report(load_obs_config(), package_name, os.path.join(self.base_dir, package_name))
+        # the build environment of a build-recipe case: name and id (make setup-env writes env.json)
+        environment = None
+        if kind == "recipe" and case_environment(package_path):
+            name = case_environment(package_path)
+            try:
+                with open(os.path.join(env_dir(name), "env.json")) as f:
+                    environment = {"name": name, "id": json.load(f).get("id"), "dir": env_dir(name)}
+            except (OSError, ValueError):
+                environment = {"name": name, "id": None, "dir": env_dir(name)}
         for leak in leaks:
             self._log(package_name, f"[leak check] warning: {leak}")
 
@@ -508,6 +518,7 @@ class AutoRepairClient:
                            "previous_attempts": resumed["attempts"] if resumed else 0,
                            "success_verified_by": verified_by,
                            "leak_check": leaks,
+                           "environment": environment,
                            "minutes": round((time.time() - t0) / 60, 2), **self.usage,
                            "timing": {k: round(v, 1) for k, v in self.timing.items()},
                            "attempts": attempts,

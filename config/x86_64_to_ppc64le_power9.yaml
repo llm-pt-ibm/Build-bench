@@ -33,17 +33,14 @@ build:
     # start each run from a clean per-run build cache and build the original
     # package before the first attempt (the shared caches are kept)
     build_original_on_init: true
-    # what envs/jax-power9.sh uses, read-only in run_command_tool's sandbox
-    # (the rest of /root is hidden there). Only these two conda environments:
-    # the others, the conda package cache and conda-bld hold the team's
-    # manual port of jax (jaxlib 0.10.2 builds and the jax-power9 recipe).
-    experiment_paths: ["/root/miniforge3/envs/jax_build", "/root/miniforge3/envs/bench_jax_test",
-                       "/root/jax/dist", "/root/bazel_source/bazel-7.7.0/bazel-bin/src"]
-    # jax_build has the manual port's jax and jaxlib installed
-    experiment_hide: ["/root/miniforge3/envs/jax_build/lib/python3.12/site-packages/jax",
-                      "/root/miniforge3/envs/jax_build/lib/python3.12/site-packages/jaxlib",
-                      "/root/miniforge3/envs/jax_build/lib/python3.12/site-packages/jax-0.10.2.dist-info",
-                      "/root/miniforge3/envs/jax_build/lib/python3.12/site-packages/jaxlib-0.10.2.dist-info"]
+    # run_command_tool's sandbox shows the case's build environment
+    # (BENCH_HOME/envs/<name>, made by make setup-env) by itself; paths of the
+    # host an environment needs besides go here, read-only, and directories
+    # inside them to keep hidden in experiment_hide. Until the user-space
+    # environments, the old jax-power9 lived in /root/miniforge3, whose
+    # jax_build environment had the team's manual jaxlib installed.
+    experiment_paths: []
+    experiment_hide: []
 
 # Extensions for large code bases
 llm:

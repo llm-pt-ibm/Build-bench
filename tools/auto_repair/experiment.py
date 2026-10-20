@@ -25,6 +25,7 @@ import subprocess
 import time
 
 from tools.auto_repair.case_type import case_environment
+from tools.auto_repair.paths import env_dir
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 ENVS_DIR = os.path.join(ROOT, "envs")
@@ -71,12 +72,15 @@ def run_experiment(package_name: str, workspace: str, command: str, timeout: int
         f.write(command + "\n")
     read_only = [workspace, src, cache, ENVS_DIR, os.path.join(ROOT, "acceptance"),
                  os.path.join(ROOT, "scripts", "script_worker")]
+    env_name = case_environment(workspace)
+    if env_name and os.path.isdir(env_dir(env_name)):
+        read_only.append(env_dir(env_name))   # the build environment (make setup-env)
     read_only += [p for p in cfg["script"].get("experiment_paths") or [] if os.path.exists(p)]
     mounts = [(os.path.realpath(p), False) for p in read_only] + [(scratch, True)]
     env = {"BENCH_PACKAGE": package_name, "BENCH_WORKSPACE": workspace, "BENCH_SRC_DIR": src,
            "BENCH_CACHE_DIR": cache, "BENCH_SCRATCH_DIR": scratch, "BENCH_JOBS": str(cfg["script"]["jobs"]),
-           "HOME": scratch, "TMPDIR": scratch, "PYTHONDONTWRITEBYTECODE": "1"}
-    env_name = case_environment(workspace)
+           "HOME": scratch, "TMPDIR": scratch, "PYTHONDONTWRITEBYTECODE": "1",
+           "BENCH_ENV_DIR": env_dir(env_name) if env_name else ""}
     env_script = os.path.join(ENVS_DIR, f"{env_name}.sh") if env_name else ""
     hide = [os.path.realpath(p) for p in cfg["script"].get("experiment_hide") or [] if os.path.isdir(p)]
     script = _sandbox_script(mounts, hide, scratch, command_file, env_script, env)

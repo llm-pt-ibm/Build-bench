@@ -1,0 +1,5 @@
+# ppc64le wheels that PyPI lacks, at the versions jax 0.10.2's requirements
+# pin; build.sh copies them where jax's WORKSPACE looks for local wheels
+numpy==2.0.2
+ml-dtypes==0.5.4
+zstandard==0.25.0

@@ -191,15 +191,20 @@ def leak_findings(config: str, paths: dict, packages: list) -> dict:
 def check_build_host(config: str, paths: dict, packages: list) -> None:
     """Local and build-recipe builds run on this host: it must be the build host
     (and not, say, a laptop that sees the repository through a mount)."""
-    from tools.auto_repair.case_type import case_type
+    from tools.auto_repair.case_type import case_environment, case_type
+    from tools.auto_repair.paths import build_dirs, env_dir
     with open(os.path.join(ROOT, config)) as f:
         build = yaml.safe_load(f).get("build") or {}
-    needs = []
+    dirs, needs = build_dirs(build), []
     if (os.getenv("BENCH_BUILD_BACKEND") or build.get("backend") or "obs").lower() == "local":
-        needs.append((build.get("local") or {}).get("worker_root", "/root/obs-worker"))
-    stage_root = os.getenv("BENCH_STAGE_ROOT") or (build.get("script") or {}).get("stage_root", "/root/obs-worker/script")
-    if any(case_type(os.path.join(paths["base_dir"], pkg)) == "recipe" for pkg in case_names(paths, packages)):
-        needs.append(os.path.dirname(stage_root))
+        needs.append(dirs["worker_root"])
+    for pkg in case_names(paths, packages):
+        case = os.path.join(paths["base_dir"], pkg)
+        if case_type(case) == "recipe":
+            env = case_environment(case)
+            if env and not os.path.isfile(os.path.join(env_dir(env), ".complete")):
+                fail(f"build environment {env} of {pkg} is not set up in {env_dir(env)}: "
+                     f"run make setup-env ENV={env}")
     missing = sorted({p for p in needs if not os.path.isdir(p)})
     if missing:
         fail(f"this host ({socket.gethostname()}) is not the build host of {config}: "
@@ -426,6 +431,29 @@ def cmd_transcript(profile: dict, extra: list) -> None:
                              + extra))
 
 
+def cmd_setup_env(name: str) -> None:
+    """Make build environment `name` with envs/<name>/setup.sh, in the user's
+    own directory ($BENCH_HOME/envs/<name>)."""
+    from tools.auto_repair.paths import env_dir
+    setup = os.path.join(ROOT, "envs", name, "setup.sh")
+    if not os.path.isfile(setup):
+        fail(f"no recipe {os.path.relpath(setup, ROOT)} for environment {name}")
+    print(f"setting up environment {name} in {env_dir(name)}")
+    sys.exit(subprocess.call(["bash", setup], env=dict(os.environ, BENCH_ENV_DIR=env_dir(name))))
+
+
+def cmd_check_env(name: str) -> None:
+    """Load build environment `name` as a build does, and show what it provides."""
+    from tools.auto_repair.paths import env_dir
+    script = os.path.join(ROOT, "envs", f"{name}.sh")
+    if not os.path.isfile(script):
+        fail(f"no environment {os.path.relpath(script, ROOT)}")
+    code = subprocess.call(["bash", "-c", 'source "$1" || exit 2', "check-env", script],
+                           env=dict(os.environ, BENCH_ENV_DIR=env_dir(name)))
+    print("environment ready" if code == 0 else f"environment {name} is not usable (status {code})")
+    sys.exit(code)
+
+
 def cmd_archive(profile: dict, name: str) -> None:
     run = active_run()
     elsewhere(run)
@@ -465,6 +493,10 @@ def main() -> None:
     new = sub.add_parser("new-case")
     new.add_argument("name")
     new.add_argument("--env", default="")
+    setup_env = sub.add_parser("setup-env")
+    setup_env.add_argument("name")
+    check_env = sub.add_parser("check-env")
+    check_env.add_argument("name")
     transcript = sub.add_parser("transcript", help="see scripts/transcript.py")
     transcript.add_argument("extra", nargs=argparse.REMAINDER)
     sub.add_parser("stop")
@@ -489,6 +521,10 @@ def main() -> None:
         cmd_check_case(profile, args.name)
     elif args.command == "new-case":
         cmd_new_case(profile, args.name, args.env)
+    elif args.command == "setup-env":
+        cmd_setup_env(args.name)
+    elif args.command == "check-env":
+        cmd_check_env(args.name)
     elif args.command == "transcript":
         cmd_transcript(profile, args.extra)
     elif args.command == "stop":

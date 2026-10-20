@@ -313,6 +313,39 @@ with _tempfile.TemporaryDirectory() as tmp:
         shutil.rmtree(ref_dir, ignore_errors=True)
 print("leak check: OK (installed copies, built packages, reference fixes by content, hidden paths skipped)")
 
+# where the benchmark keeps its state: BENCH_HOME, not /root
+from tools.auto_repair import paths as bench_paths_mod  # noqa: E402
+_home = os.environ.pop("BENCH_HOME", None)
+try:
+    assert bench_paths_mod.bench_home() == os.path.expanduser("~/.local/share/build-bench")
+    os.environ["BENCH_HOME"] = "/srv/bench"
+    assert bench_paths_mod.env_dir("x") == "/srv/bench/envs/x"
+    dirs = bench_paths_mod.build_dirs({})
+    assert dirs == {"worker_root": "/srv/bench/obs-worker", "stage_root": "/srv/bench/stage"}, dirs
+    dirs = bench_paths_mod.build_dirs({"script": {"stage_root": "${BENCH_HOME}/s"}, "local": {"worker_root": "~/w"}})
+    assert dirs["stage_root"] == "/srv/bench/s" and dirs["worker_root"] == os.path.expanduser("~/w"), dirs
+finally:
+    os.environ.pop("BENCH_HOME", None)
+    if _home is not None:
+        os.environ["BENCH_HOME"] = _home
+print("paths: OK (BENCH_HOME, ~ and ${VARIABLES} in configs)")
+
+# the build environment of a case is checked for leaks too
+with _tempfile.TemporaryDirectory() as tmp:
+    os.environ["BENCH_HOME"] = tmp
+    try:
+        case = os.path.join(tmp, "demo-leaktest")
+        os.makedirs(case)
+        open(os.path.join(case, "build.sh"), "w").write("true\n")
+        json.dump({"environment": "demo-env"}, open(os.path.join(case, "manifest.json"), "w"))
+        os.makedirs(os.path.join(tmp, "envs", "demo-env", "build", "lib", "python3.12", "site-packages",
+                                 "demo_leaktest"))
+        found = leak_report({"script": {}}, "demo-leaktest", case)
+        assert len(found) == 1 and "envs/demo-env/build" in found[0], found
+    finally:
+        os.environ.pop("BENCH_HOME", None)
+print("leak check: OK (the case's build environment)")
+
 # a new case from the template, and what check_case says about it
 sys.path.insert(0, os.path.join(ROOT, "dataset"))
 from new_case import new_case  # noqa: E402
@@ -385,9 +418,24 @@ if os.geteuid() == 0 and shutil.which("unshare") and \
         worker.join(30)
         assert not worker.is_alive() and time.time() - started < 30, "experiment not stopped"
         assert "exit status -9" in outcome["out"] or "exit status 137" in outcome["out"], outcome["out"][:200]
+        # the case's build environment (make setup-env) is there, read-only, with BENCH_ENV_DIR
+        env_script = os.path.join(ROOT, "envs", "demo-test-env.sh")
+        os.environ["BENCH_HOME"] = os.path.join(tmp, "home")
+        try:
+            os.makedirs(os.path.join(tmp, "home", "envs", "demo-test-env"))
+            open(os.path.join(tmp, "home", "envs", "demo-test-env", "tool"), "w").write("env tool\n")
+            open(env_script, "w").write('export DEMO_TOOL="$BENCH_ENV_DIR/tool"\n')
+            json.dump({"environment": "demo-test-env"}, open(os.path.join(workspace, "manifest.json"), "w"))
+            out = run_experiment("demo", workspace,
+                                 'cat "$DEMO_TOOL"; touch "$BENCH_ENV_DIR/x" 2>&1 | grep -o "Read-only"', 60, cfg)
+            assert "env tool" in out and "Read-only" in out, out
+        finally:
+            os.environ.pop("BENCH_HOME", None)
+            if os.path.exists(env_script):
+                os.remove(env_script)
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
-    print("experiments: OK (sandbox hides /root, read-only package and cache, no network)")
+    print("experiments: OK (sandbox hides /root, read-only package, cache and build environment, no network)")
 else:
     print("experiments: skipped (needs root and unshare)")
 

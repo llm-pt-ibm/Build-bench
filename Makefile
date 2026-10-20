@@ -5,7 +5,10 @@
 # A local model: make run PROFILE=bench.local.yaml (or BASE_URL=http://127.0.0.1:11434/v1 MODEL=...)
 # `make` alone lists the commands. They run on the build host (the Power9).
 
-PY ?= $(shell [ -x /root/miniforge3/envs/build_bench/bin/python ] && echo /root/miniforge3/envs/build_bench/bin/python || echo python3)
+# settings of this machine (e.g. PY=/path/to/python, BENCH_HOME=...), not in git
+-include local.mk
+PY ?= python3
+export BENCH_HOME
 PROFILE ?= bench.yaml
 
 # profile overrides, passed only when set
@@ -19,7 +22,7 @@ BENCH = $(PY) scripts/bench.py --profile $(PROFILE) $(OPTS)
 LEAKS = $(if $(ALLOW_LEAKS),--allow-leaks)
 
 .DEFAULT_GOAL := help
-.PHONY: help run run-fg resume stop status watch summary leaks check-case new-case transcript archive test
+.PHONY: help run run-fg resume stop status watch summary leaks check-case new-case transcript setup-env check-env archive test
 
 help: ## list the commands
 	@echo "usage: make <command> [LABEL=... PACKAGES=... MODEL=... PROVIDER=... ATTEMPTS=... REPEATS=... CONFIG=...]"
@@ -63,6 +66,14 @@ transcript: ## what the model did in RUN=<run|current>: overview, or ATTEMPT=n (
 	@test -n "$(RUN)" || { echo "usage: make transcript RUN=<archived run|current> [PACKAGE=...] [ATTEMPT=n] [REASONING=1] [FULL=1] [TOOL=name] [GREP=regex]"; exit 2; }
 	@$(BENCH) transcript $(RUN) $(if $(PACKAGE),--package $(PACKAGE)) $(if $(ATTEMPT),--attempt $(ATTEMPT)) \
 	    $(if $(REASONING),--reasoning) $(if $(FULL),--full) $(if $(TOOL),--tool $(TOOL)) $(if $(GREP),--grep '$(GREP)')
+
+setup-env: ## make build environment ENV=<name> once, in BENCH_HOME/envs (BAZEL_BINARY=, WHEELS_FROM= reuse builds)
+	@test -n "$(ENV)" || { echo "usage: make setup-env ENV=<name> [BAZEL_BINARY=<file>] [WHEELS_FROM=<dir>]"; exit 2; }
+	@BAZEL_BINARY="$(BAZEL_BINARY)" WHEELS_FROM="$(WHEELS_FROM)" $(BENCH) setup-env $(ENV)
+
+check-env: ## load build environment ENV=<name> as a build does and show what it provides
+	@test -n "$(ENV)" || { echo "usage: make check-env ENV=<name>"; exit 2; }
+	@$(BENCH) check-env $(ENV)
 
 archive: ## move the files an interrupted run left into NAME=<run>_stopped
 	@test -n "$(NAME)" || { echo "usage: make archive NAME=<run>_stopped"; exit 2; }

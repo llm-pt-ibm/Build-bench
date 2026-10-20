@@ -281,6 +281,41 @@ improvements` shows them file by file.
   ATTEMPTS=<n>` continues an archived run; `make status`/`watch` show the
   active run; `make summary` lists the archived runs with the total cost,
   stopped ones included.
+- Installation on a normal host, as a normal user: nothing in the code
+  assumes /root or changes the system any more.
+  - `BENCH_HOME` (default `~/.local/share/build-bench`,
+    `tools/auto_repair/paths.py`) holds the build environments, the build
+    directories of build-recipe cases and the local osc worker when a config
+    does not place them; config paths take `~` and `${VARIABLES}`. The
+    Python of make comes from `local.mk` (ignored by git) or `python3`.
+  - Build environments live in the user's directory and are made once:
+    `make setup-env ENV=<name>` runs the recipe `envs/<name>/setup.sh`
+    into `BENCH_HOME/envs/<name>`, and `envs/<name>.sh` only exports from it
+    (`BENCH_ENV_DIR`, set by the framework for builds, acceptance tests and
+    run_command_tool). jax-power9's recipe makes three conda environments
+    from lock files (exact packages and checksums, no solving): build
+    (Python 3.12, clang/lld 17, numpy, scipy: the conda packages of the
+    environment the case was set up with; solved from the package list
+    alone, conda chose GCC 16's libstdc++ headers, which clang 17 cannot
+    compile), tools (Java 21, zip, patch, git, in an environment of their own
+    because current openjdk builds and LLVM 17 need conflicting icu versions)
+    and test (no jax). It compiles Bazel 7.7.0 from its sources (conda-forge
+    stops at 6.x for ppc64le) in two steps, as the team's manual port did:
+    7.7.0's own bootstrap fails (bazelbuild/bazel#27349), so Bazel 7.1.0 is
+    bootstrapped and builds 7.7.0. It also builds the numpy, ml-dtypes and
+    zstandard wheels. The C++ runtime of the conda
+    compilers comes through LD_LIBRARY_PATH from a directory with only
+    libstdc++ and libgcc_s. Before, the environment script installed
+    packages with dnf, linked compilers into /usr/bin and /usr/local/bin and
+    added the conda libraries to /etc/ld.so.conf.d, which on a shared host
+    needs root and changes every user's C++ runtime and "gcc"; and it used
+    the conda environments of the team's manual port, one of which had its
+    jaxlib installed (the leak of run28c). `env.json` records the
+    environment's versions and checksums, and each result its id
+    (`environment`). `make check-env` loads an environment as a build does.
+  - run_command_tool's sandbox and the leak check include the case's build
+    environment by themselves; `make run` refuses to start when it is not
+    set up.
 - Local models: the run profile's `base_url` points a run to a model server
   of its own with an OpenAI-compatible API (Ollama, vLLM, llama.cpp);
   `bench.local.yaml` is an example. The API key of `.env` is never sent to

@@ -29,6 +29,7 @@ from tools.auto_repair.case_type import case_environment
 from tools.auto_repair.infra import infra_failure, retry_or_give_up
 from tools.auto_repair.local_build import _stop
 from tools.auto_repair.log_excerpt import error_excerpt
+from tools.auto_repair.paths import env_dir
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 RUNNER = os.path.join(ROOT, "scripts", "script_worker", "run.sh")
@@ -176,7 +177,8 @@ def script_upload(package_name: str, package_dir: str, cfg: dict) -> str:
         if os.path.exists(path):
             os.remove(path)
     env = dict(os.environ, BENCH_CACHE_DIR=dirs["cache"], BENCH_SHARED_CACHE_DIR=dirs["shared"],
-               BENCH_JOBS=str(cfg["script"]["jobs"]), BENCH_PACKAGE=package_name)
+               BENCH_JOBS=str(cfg["script"]["jobs"]), BENCH_PACKAGE=package_name,
+               BENCH_ENV_DIR=env_dir(env_name) if env_name else "")
     proc = subprocess.Popen(
         ["bash", "-c", '"$0" "$1" "$2" > "$3" 2>&1; echo $? > "$4"',
          RUNNER, dirs["src"], env_script, log, status],
@@ -231,7 +233,8 @@ def script_check(temp_dir: str, package_name: str, cfg: dict, _retry: int = 0) -
         passed, output = run_acceptance(
             test, os.path.join(ENVS_DIR, f"{env_name}.sh") if env_name else "", dirs["src"],
             {"BENCH_PACKAGE": package_name, "BENCH_SRC_DIR": dirs["src"], "BENCH_CACHE_DIR": dirs["cache"],
-             "BENCH_JOBS": str(cfg["script"]["jobs"])}, cfg["acceptance_timeout"])
+             "BENCH_JOBS": str(cfg["script"]["jobs"]), "BENCH_ENV_DIR": env_dir(env_name) if env_name else ""},
+            cfg["acceptance_timeout"])
         with open(os.path.join(dirs["run"], "acceptance.log"), "w", encoding="utf-8") as f:
             f.write(output)
         if passed:

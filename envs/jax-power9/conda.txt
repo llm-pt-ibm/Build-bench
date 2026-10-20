@@ -1,0 +1,13 @@
+# conda-forge packages of the jax-power9 build and test environments
+# (versions of the environment the jaxlib case was set up with)
+python=3.12.13
+numpy=2.5.1
+scipy=1.18.0
+pip
+setuptools
+wheel
+packaging
+# compilers (the host's gcc 8.5 is too old for these packages)
+clang=17.0.6
+clangxx=17.0.6
+lld=17.0.6

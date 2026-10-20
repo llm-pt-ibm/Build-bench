@@ -33,3 +33,6 @@ temp_workspace/
 # run profile tooling: active run record and background run logs
 .bench/
 logs/
+
+# settings of this machine for make (PY, BENCH_HOME)
+local.mk

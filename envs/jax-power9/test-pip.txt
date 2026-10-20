@@ -1,0 +1,6 @@
+# test tools of the acceptance test (JAX's test suite runs with pytest)
+pytest==9.1.1
+pytest-xdist==3.8.0
+absl-py==2.5.1
+hypothesis==6.169.1
+opt-einsum==3.4.0

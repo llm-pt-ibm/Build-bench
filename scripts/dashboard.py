@@ -5,7 +5,7 @@ and the cost so far.
 
 Usage: python scripts/dashboard.py [config] [seconds]
   (make watch, refreshed every 10 s; make status, printed once with 0 s)
-From another machine:  ssh -t <build host> 'cd /root/build-bench && make watch'
+From another machine:  ssh -t <build host> 'cd <repository> && make watch'
 Ctrl-C stops watching, not the run. NO_COLOR=1 turns the colors off."""
 import datetime
 import glob
@@ -21,6 +21,7 @@ import yaml
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from watch_run import CALL, PROGRESS, host_path, short, tail_text  # noqa: E402
+from tools.auto_repair import paths  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 ATTEMPT = re.compile(r"--- Build attempt (\d+)/(\d+) ---")
@@ -75,11 +76,9 @@ def outcome(line):
 
 
 def build_dirs(cfg, package):
-    build = cfg.get("build") or {}
-    return [host_path(os.path.join((build.get("script") or {}).get("stage_root", "/root/obs-worker/script"),
-                                   package, "run")),
-            host_path(os.path.join((build.get("local") or {}).get("worker_root", "/root/obs-worker"),
-                                   "runs", package))]
+    dirs = paths.build_dirs(cfg.get("build") or {})
+    return [host_path(os.path.join(dirs["stage_root"], package, "run")),
+            host_path(os.path.join(dirs["worker_root"], "runs", package))]
 
 
 def build_lines(cfg, package, run_started):

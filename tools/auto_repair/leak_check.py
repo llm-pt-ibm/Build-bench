@@ -17,7 +17,8 @@ import hashlib
 import os
 import re
 
-from tools.auto_repair.case_type import case_type
+from tools.auto_repair.case_type import case_environment, case_type
+from tools.auto_repair.paths import env_dir
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 PACKAGE_FILES = (".whl", ".conda", ".rpm")
@@ -73,6 +74,9 @@ def readable_roots(cfg: dict, package: str, case_dir: str) -> tuple:
     hidden = []
     if case_type(case_dir) == "recipe":
         script = cfg.get("script") or {}
+        env_name = case_environment(case_dir)
+        if env_name:
+            roots.append(env_dir(env_name))   # the build environment (make setup-env)
         roots += [p for p in script.get("experiment_paths") or [] if os.path.exists(p)]
         hidden = [os.path.realpath(p) for p in script.get("experiment_hide") or [] if os.path.exists(p)]
     return [os.path.realpath(r) for r in roots if os.path.isdir(r)], hidden

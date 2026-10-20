@@ -52,6 +52,28 @@ pip install -r requirements-ppc64le.txt   # on the Power9: conda env build_bench
 | `LLM_TEMPERATURE` | sampling temperature (optional; provider default otherwise) |
 | `OBS_USER`, `OBS_PASSWORD` | OBS account (OBS backend and local worker) |
 
+The framework runs as a normal user and changes nothing on the host. What it
+keeps outside the repository goes to `BENCH_HOME` (default
+`~/.local/share/build-bench`): the build environments (`envs/`), the build
+directories of build-recipe cases (`stage/`) and the local osc worker
+(`obs-worker/`); a config can place them elsewhere, with `~` and
+`${VARIABLES}` in its paths. Settings of one machine for make (e.g.
+`PY = /path/to/python`, `BENCH_HOME = /data/bench`) go to `local.mk`, which
+git ignores.
+
+Build-recipe cases name a build environment (`envs/<name>.sh`), made once
+from the recipe in `envs/<name>/` (conda environments from lock files, tools
+compiled from their sources, wheels PyPI lacks), in `BENCH_HOME/envs/<name>`:
+
+```bash
+make setup-env ENV=jax-power9   # conda (Miniforge) needed; compiles Bazel 7.7.0 (BAZEL_BINARY=<file> reuses one)
+make check-env ENV=jax-power9   # load it as a build does and show what it provides
+```
+
+The environment script only exports variables (PATH, the C++ runtime of its
+compilers through LD_LIBRARY_PATH, the tools' paths); `env.json` records its
+versions and checksums, and every result records its id.
+
 Build backends, per config (`build.backend`):
 - **OBS** (`config/x86_64_to_ppc64le.yaml`): the OBS account above; `dataset/setup_obs.py` creates the packages in your OBS project.
 - **local** (`config/x86_64_to_ppc64le_local.yaml`, `_power9.yaml`): RPM packages with `osc build` in a local openSUSE chroot, created by `scripts/local_worker/setup.sh`.
@@ -95,7 +117,7 @@ done and to do, the current package's attempt and round, how each attempt
 ended, the build (with Bazel's progress) and the acceptance test in progress,
 what the model is doing and its latest reasoning, the recent tool calls and
 the cost so far. Watch it from another machine with
-`ssh -t <build host> 'cd /root/build-bench && make watch'`, or through a
+`ssh -t <build host> 'cd <repository> && make watch'`, or through a
 mount of the repository (it only reads files; commands that act on a run
 refuse to work away from its host).
 

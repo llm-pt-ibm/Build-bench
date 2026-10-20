@@ -5,14 +5,14 @@
 #   n       number of runs
 #   config  benchmark config (default: config/x86_64_to_ppc64le.yaml)
 # The environment (OPENROUTER_PROVIDER, LLM_TEMPERATURE, LLM_MODEL, ...) is passed
-# to client.py unchanged. Set PY to choose the Python interpreter.
+# to client.py unchanged. PY chooses the Python interpreter (default: python3).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
 label=${1:?label}
 n=${2:?number of runs}
 config=${3:-config/x86_64_to_ppc64le.yaml}
-PY=${PY:-/root/miniforge3/envs/build_bench/bin/python}
+PY=${PY:-python3}
 
 read -r data_dir result_dir log_dir < <("$PY" - "$config" <<'EOF'
 import sys, yaml

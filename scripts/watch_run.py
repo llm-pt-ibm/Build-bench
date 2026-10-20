@@ -19,6 +19,8 @@ import urllib.request
 import yaml
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, ROOT)
+from tools.auto_repair.paths import build_dirs  # noqa: E402
 CALL = re.compile(r"^\[(.{19})\] Tool call: (\w+)\((.*)\)$")
 
 
@@ -73,9 +75,9 @@ def build_status(cfg, package):
 
 def _build_status(cfg, package):
     """State of the package's current build: running (with progress) or finished."""
-    build = cfg.get("build") or {}
-    candidates = [os.path.join((build.get("script") or {}).get("stage_root", "/root/obs-worker/script"), package, "run"),
-                  os.path.join((build.get("local") or {}).get("worker_root", "/root/obs-worker"), "runs", package)]
+    dirs = build_dirs(cfg.get("build") or {})
+    candidates = [os.path.join(dirs["stage_root"], package, "run"),
+                  os.path.join(dirs["worker_root"], "runs", package)]
     for run in map(host_path, candidates):
         log = os.path.join(run, "build.log")
         if not os.path.exists(log):
@@ -103,7 +105,7 @@ def _build_status(cfg, package):
 
 
 def short(text, n):
-    text = re.sub(r"/root/obs-worker/script/[^/]+/cache/bazel/[0-9a-f]+/external", "<cache>", text)
+    text = re.sub(r"/\S*?/cache/bazel/[0-9a-f]+/external", "<cache>", text)
     return text if len(text) <= n else text[:n - 1] + "…"
 
 
