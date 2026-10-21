@@ -17,7 +17,7 @@ from tools.auto_repair import container
 from tools.auto_repair.acceptance import ACCEPTANCE_DIR, acceptance_test
 from tools.auto_repair.case_type import case_environment, case_type
 from tools.auto_repair.leak_check import leak_report
-from tools.auto_repair.log_excerpt import same_failure
+from tools.auto_repair.log_excerpt import failure_signature, same_failure
 from tools.auto_repair.script_build import reset_cache
 from tools.auto_repair.resume import workspace_changes
 from tools.auto_repair.text_tool_calls import parse as parse_text_tool_calls
@@ -142,6 +142,16 @@ ROUND_NOTICE_AT = sorted({int(n) for n in (_notice if isinstance(_notice, list) 
 # own notes (its text replies) from the previous attempt (0: none), so that
 # what it found out is not lost when it made no edit.
 CARRY_NOTES_CHARS = int(LLM_CFG.get("carry_notes_chars", 0))
+# After this many rounds in a row without a change to the package or a build
+# (0: never), the framework tells the model to test its hypothesis with a
+# change and a build, and an attempt that follows one without any change
+# starts with that advice: a model can spend whole attempts reading and
+# running experiments (run30: three attempts without a build).
+BUILD_DROUGHT_ROUNDS = int(LLM_CFG.get("build_drought_rounds", 0))
+# Tell the model when a build failed the same way as the previous one (same
+# errors, or same failing checks and tests): the change made since then did
+# not affect the failure (run30: two builds with the same 20 failing tests).
+REPEATED_FAILURE_NOTE = bool(LLM_CFG.get("repeated_failure_note", False))
 # A reply with neither text nor tool calls is a glitch of the model or the
 # provider, not a decision to stop: ask the model to continue, at most this
 # many times per attempt (0: such a reply ends the attempt, as in the paper).
@@ -195,6 +205,8 @@ def run_metadata(max_build_attempts: int, max_tool_rounds: int) -> Dict:
         "repeat_guard_per_build": REPEAT_GUARD_PER_BUILD,
         "round_notice_at": ROUND_NOTICE_AT,
         "carry_notes_chars": CARRY_NOTES_CHARS,
+        "build_drought_rounds": BUILD_DROUGHT_ROUNDS,
+        "repeated_failure_note": REPEATED_FAILURE_NOTE,
         "empty_reply_retries": EMPTY_REPLY_RETRIES,
         "model_retry_waits": list(MODEL_RETRY_WAITS),
         "build_backend": (os.getenv("BENCH_BUILD_BACKEND") or (info.get("build") or {}).get("backend", "obs")).lower(),
@@ -424,6 +436,16 @@ class AutoRepairClient:
 
         package_path = init_data["package_path"]
         result_file = init_data["result_file"]
+        # the failure the next build is compared with: the original package's
+        self.package_path = package_path
+        self.changes = 0
+        self.last_failure_note = ""
+        try:
+            with open(os.path.join(package_path, "log_failed_original.txt"), encoding="utf-8",
+                      errors="replace") as f:
+                self.last_failure = (failure_signature(f.read()), "the original package")
+        except OSError:
+            self.last_failure = None
 
         # Load the system prompt template for this kind of case
         kind = case_type(package_path)
@@ -546,6 +568,13 @@ class AutoRepairClient:
                     f"\n\n## Earlier attempts\nThis run continues an earlier one: {resumed['attempts']} attempts "
                     "were already made and the package already contains their changes, shown here "
                     "against the original package:\n\n" + (resumed["changes"] or "(no changes)"))
+            if BUILD_DROUGHT_ROUNDS and attempts and not attempts[-1].get("builds") \
+                    and len(messages) > 1 and messages[1].get("role") == "user":
+                messages[1]["content"] += (
+                    "\n\n## Note from the framework\nThe previous attempt ended without any change to the "
+                    "package or build: all its rounds went to reading and experiments. In this attempt, apply "
+                    "the change your findings point to early and build it; the build result tells you more "
+                    "than further reading.")
             if notes and len(messages) > 1 and messages[1].get("role") == "user":
                 messages[1]["content"] += (
                     "\n\n## Your notes from the previous attempt\n"
@@ -842,24 +871,52 @@ class AutoRepairClient:
         if tool_name == "upload_file_to_obs_tool" and tool_ret.startswith("Upload successful"):
             self.upload_status[package_name] = True
             self._log(package_name, "✓ Upload marked as successful")
+        if tool_name == "check_build_result" and getattr(self, "last_failure_note", ""):
+            self._log(package_name, "[framework note] the build failed the same way as the previous one")
+            tool_ret += self.last_failure_note
+            self.last_failure_note = ""
         return tool_name, tool_ret
 
     def _track_package_state(self, tool_name: str, tool_ret: str, by_framework: bool = False):
         if tool_name in ("modify_file_tool", "replace_in_file_tool") and tool_ret.startswith("Success"):
             self.dirty = True
+            self.changes = getattr(self, "changes", 0) + 1
         elif tool_name == "compress_to_archive_tool" and tool_ret.startswith("Success: Compressed"):
             self.dirty = True
+            self.changes = getattr(self, "changes", 0) + 1
         elif tool_name == "upload_file_to_obs_tool" and tool_ret.startswith("Upload successful"):
             self.dirty = False
             self.unchecked_upload = True
+            self.changes = getattr(self, "changes", 0) + 1
         elif tool_name == "check_build_result" and tool_ret.startswith("Build result:"):
             self.unchecked_upload = False
+            self.changes = getattr(self, "changes", 0) + 1
             line = tool_ret.splitlines()[0]
             self.builds.append(f"{line} (framework)" if by_framework else line)
+            self.last_failure_note = self._compare_failure(line)
             if hasattr(self, "network"):
                 net = container.network_log(os.path.join(self.stage_root, self.package, "run"))
                 for key in self.network:
                     self.network[key].update(net[key])
+
+    def _compare_failure(self, result_line: str) -> str:
+        """Remember a failed build's failure; the note for the model when it
+        is the same as the previous failure (REPEATED_FAILURE_NOTE)."""
+        if "Build failed" not in result_line:
+            self.last_failure = None
+            return ""
+        try:
+            with open(os.path.join(self.package_path, "log_failed.txt"), encoding="utf-8", errors="replace") as f:
+                signature = failure_signature(f.read())
+        except (OSError, AttributeError, TypeError):
+            return ""
+        previous = getattr(self, "last_failure", None)
+        self.last_failure = (signature, f"the previous build (attempt {self.attempt})")
+        if not (REPEATED_FAILURE_NOTE and signature and previous and previous[0] == signature):
+            return ""
+        return (f"\n\n[framework note] This build failed in the same way as {previous[1]}: the same errors "
+                "(or the same failing checks and tests), so the changes made since then did not affect this "
+                "failure. Reconsider its cause, or take a different approach, before building again.")
 
     def _save_transcript(self, package_name: str, attempt: int, messages: List[Dict]):
         path = os.path.join(self.log_dir, f"{package_name}_attempt{attempt}_messages.json")
@@ -938,7 +995,7 @@ class AutoRepairClient:
             return f"Model call failed: {e}", ok, summary
         latest_text = choice.message.content or ""
 
-        rounds = 0
+        rounds = quiet = 0
         while choice.message.tool_calls:
             rounds += 1
             self.round = rounds
@@ -954,6 +1011,7 @@ class AutoRepairClient:
                 reply["reasoning"] = message_reasoning(choice.message)
             messages.append(reply)
             succeeded = False
+            changes_before = getattr(self, "changes", 0)
             for tc in choice.message.tool_calls:
                 tool_name, tool_ret = await self._run_one_tool(package_name, tc)
                 messages.append({"role": "tool", "tool_call_id": tc.id, "content": tool_ret})
@@ -974,6 +1032,15 @@ class AutoRepairClient:
                 summary["ended_by"] = "round_limit"
                 break
             self._save_transcript(package_name, self.attempt, messages)
+            quiet = 0 if getattr(self, "changes", 0) != changes_before else quiet + 1
+            if BUILD_DROUGHT_ROUNDS and quiet and quiet % BUILD_DROUGHT_ROUNDS == 0 \
+                    and messages[-1].get("role") == "tool":
+                summary["drought_notes"] = summary.get("drought_notes", 0) + 1
+                self._log(package_name, f"[framework note] {quiet} rounds without a change or a build")
+                messages[-1]["content"] += (
+                    f"\n\n[framework note] {quiet} rounds without a change to the package or a build. Reading "
+                    "and experiments only go so far: apply the change your findings point to and build it, to "
+                    "test your hypothesis on the real build; you can go on investigating after the result.")
             left = self.max_tool_rounds - rounds
             if left in ROUND_NOTICE_AT and messages[-1].get("role") == "tool":
                 messages[-1]["content"] += (

@@ -57,6 +57,8 @@ llm:
   repeat_guard_per_build: true   # repair cycles per attempt are not capped at 3
   round_notice_at: [30, 10, 5]   # tell the model when 30, 10 and 5 rounds are left
   carry_notes_chars: 4000        # the next attempt gets the model's notes
+  build_drought_rounds: 15       # every 15 rounds without a change or build, tell the model to build
+  repeated_failure_note: true    # tell the model when a build failed the same way as the previous one
   empty_reply_retries: 2         # an empty model reply is retried, not taken as "done"
 
 obs:

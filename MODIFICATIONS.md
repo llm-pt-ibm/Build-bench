@@ -419,6 +419,24 @@ improvements` shows them file by file.
   JSON in prose or calls of unknown tools are left alone. They become real
   tool calls in the conversation, and results count them
   (`usage.text_tool_calls`).
+- Attempts that do not move (run30, DeepSeek V4.1 Flash as in run29, which
+  succeeded in attempt 6): attempts 6, 8 and 9 ended without a single change
+  or build, their 60 rounds spent reading LLVM and running experiments, and
+  attempt 7's build failed with the same 20 tests as attempt 5's, without the
+  model noticing; the round notices (30, 10, 5 left) did not change this.
+  Two generic notes, which do not hint at a fix:
+  - `llm.build_drought_rounds` (15 in the Power9 config, 0 by default): after
+    that many rounds in a row without a change to the package or a build,
+    the last tool result says to apply the change the findings point to and
+    build it; an attempt that follows one without any change starts with the
+    same advice. Results count the notes (`drought_notes` per attempt).
+  - `llm.repeated_failure_note` (on in the Power9 config): when a build fails
+    the same way as the previous one (or as the original package), its result
+    says that the changes since then did not affect the failure. The
+    comparison (`log_excerpt.failure_signature`) takes the error lines, or
+    for a failed acceptance test the lines that name failing checks and
+    tests, without times, hashes, addresses and paths; unlike the
+    root-cause comparison it keeps counts, so 20 and 18 failing tests differ.
 - Local models: the run profile's `base_url` points a run to a model server
   of its own with an OpenAI-compatible API (Ollama, vLLM, llama.cpp);
   `bench.local.yaml` is an example. The API key of `.env` is never sent to

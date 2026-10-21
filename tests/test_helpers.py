@@ -65,6 +65,15 @@ indented = "".join(f"FAIL check{i} (exit status 134, aborted)\n    F1015 20:18:0
 ex = error_excerpt(indented)
 assert "Unsupported CPU type" in ex and "[x9]" in ex, ex
 from tools.auto_repair.log_excerpt import same_failure  # noqa: E402
+from tools.auto_repair.log_excerpt import ACCEPTANCE_MARK, failure_signature  # noqa: E402
+_acc = (ACCEPTANCE_MARK + "\nPASS int8\nFAIL jax_test_suite (exit status 1): 20 failed, 1508 passed, 70 skipped "
+        "in 164.03s (0:02:44)\nacceptance: 1 check(s) failed\n")
+assert failure_signature(_acc) == failure_signature(_acc.replace("164.03s (0:02:44)", "159.71s (0:02:39)"))
+assert failure_signature(_acc) != failure_signature(_acc.replace("20 failed, 1508", "18 failed, 1510"))
+_blog = "ERROR: /x/cache/bazel/4ebb03ef3cb1bd62/external/llvm/a.cpp:12:3: error: no member 'f'\nINFO: 12.3s\n"
+assert failure_signature(_blog) == failure_signature(_blog.replace("4ebb03ef3cb1bd62", "99aa03ef3cb1bd6f"))
+assert failure_signature(_blog) != failure_signature(_blog.replace("'f'", "'g'"))
+assert failure_signature("") == ()
 original = open("data/x86_64_to_ppc64le/jaxlib/log_failed.txt", errors="replace").read()
 moved = original.replace("4ebb03ef3cb1bd622034ef725e8576a1", "0123456789abcdef0123456789abcdef")
 corrupted = ("ERROR: /root/obs-worker/script/jaxlib/cache/bazel/4ebb03ef3cb1bd622034ef725e8576a1/external/rules_python/"

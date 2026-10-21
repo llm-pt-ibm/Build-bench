@@ -139,6 +139,43 @@ def key_lines(log_text: str) -> list:
     return out
 
 
+# script_build.py starts a failed acceptance test's log with this line
+ACCEPTANCE_MARK = "=== the build succeeded; output of the acceptance test:"
+# what changes from one run of the same failure to the next
+_VOLATILE = [
+    (re.compile(r"^(\[\s*\d+s\]\s*)"), ""),                                   # OBS timestamps
+    (re.compile(r"\S*/external/"), "<ext>/"),
+    (re.compile(r"\S*temp_workspace/[^/\s]+/"), ""),
+    (re.compile(r"\b0x[0-9a-f]+\b", re.IGNORECASE), "<addr>"),
+    (re.compile(r"\b[0-9a-f]{12,}\b"), "<hash>"),
+    (re.compile(r"\(\d+:\d\d:\d\d\)"), "<time>"),
+    (re.compile(r"\b\d\d:\d\d:\d\d(\.\d+)?\b"), "<time>"),
+    (re.compile(r"\b\d+(\.\d+)?\s*(s|ms|sec|secs|seconds|min|minutes)\b"), "<time>"),
+]
+
+
+def failure_signature(log_text: str) -> tuple:
+    """What a failed build reports as failing (its error lines; for a failed
+    acceptance test, the lines that name failing checks and tests), without
+    what changes between runs (times, hashes, addresses, paths). Unlike
+    key_lines, counts are kept: 20 failed tests and 18 are not the same."""
+    lines = [l.rstrip() for l in (log_text or "").splitlines()]
+    if lines and lines[0].startswith(ACCEPTANCE_MARK):
+        picked = [l for l in lines[1:] if re.search(r"fail|error", l, re.IGNORECASE)]
+    else:
+        start = next((i for i, l in enumerate(lines) if BUILD_START.search(l)), 0)
+        picked = [l for l in lines[start:]
+                  if not NOISE.search(l) and (PATCH_ERROR.search(l) or KEY_LINE.search(l))]
+    out = []
+    for line in picked:
+        for pattern, replacement in _VOLATILE:
+            line = pattern.sub(replacement, line)
+        line = line.strip()
+        if line and line not in out:
+            out.append(line)
+    return tuple(out)
+
+
 def same_failure(original_log: str, new_log: str) -> bool:
     """Whether a build failed for the same root cause as the original failure:
     the first error of the new log is one of the errors of the original."""

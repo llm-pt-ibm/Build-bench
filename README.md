@@ -259,6 +259,12 @@ environment's image (with `runtime: none`, a sandbox of namespaces): only the
 package and the build cache (read-only), the build environment and a scratch
 directory are there, with no network and no capability left.
 
+The framework also keeps attempts moving, with notes that do not hint at a
+fix: after `llm.build_drought_rounds` rounds without a change or a build it
+tells the model to build its hypothesis, and when a build fails the same way
+as the previous one (`llm.repeated_failure_note`) it says that the changes
+since then did not affect the failure.
+
 ---
 
 ## 📈 Results

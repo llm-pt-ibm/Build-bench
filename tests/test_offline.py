@@ -142,6 +142,38 @@ async def main():
         client.EMPTY_REPLY_RETRIES = 0
         print("empty replies: OK (retried, the attempt goes on)")
 
+        # rounds without a change or a build: the framework tells the model to build
+        client.BUILD_DROUGHT_ROUNDS = 2
+        cli.script, cli.step = [[call(23, "get_file_content_tool", file_path=f"{TMP}/log_failed.txt")],
+                                [call(24, "get_file_content_tool", file_path=f"{TMP}/zita-resampler.spec")],
+                                [call(25, "get_structure_of_files", package_path=TMP)], None], 0
+        messages = [{"role": "system", "content": "test"}, {"role": "user", "content": "go"}]
+        _, _, summary = await cli._llm_tools_loop(PKG, init["package_path"], messages, tools)
+        noted = [m["tool_call_id"] for m in messages
+                 if m.get("role") == "tool" and "2 rounds without a change to the package" in m["content"]]
+        assert noted == ["call_24"] and summary["drought_notes"] == 1, (noted, summary)
+        client.BUILD_DROUGHT_ROUNDS = 0
+        # a build that failed the same way as the previous one is pointed out
+        client.REPEATED_FAILURE_NOTE = True
+        cli.package_path, cli.attempt, cli.builds, cli.last_failure = TMP, 3, [], None
+        log_path = os.path.join(TMP, "log_failed.txt")
+        saved_log = open(log_path).read()
+        try:
+            cli._track_package_state("check_build_result", "Build result: Build failed! x")
+            assert cli.last_failure_note == ""
+            cli._track_package_state("check_build_result", "Build result: Build failed! x")
+            assert "failed in the same way as the previous build (attempt 3)" in cli.last_failure_note
+            open(log_path, "w").write(saved_log + "\nother.c:1:1: error: something else\n")
+            cli._track_package_state("check_build_result", "Build result: Build failed! x")
+            assert cli.last_failure_note == ""
+            cli._track_package_state("check_build_result", "Build result: Build succeeded! x")
+            assert cli.last_failure is None and cli.last_failure_note == ""
+        finally:
+            open(log_path, "w").write(saved_log)
+            client.REPEATED_FAILURE_NOTE = False
+            cli.last_failure_note = ""
+        print("stuck attempts: OK (rounds without a change or build, a failure the same as the previous one)")
+
         # the model's reasoning is saved with its replies but never sent back
         cli.script, cli.step = [[call(22, "get_file_content_tool", file_path=f"{TMP}/log_failed.txt")], None], 0
         cli.reasoning = "the error is in the dependency"
