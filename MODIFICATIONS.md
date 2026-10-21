@@ -352,6 +352,73 @@ improvements` shows them file by file.
   root. run29's jaxlib built in a container (37 minutes after a cache
   reset) and passed its acceptance test in another, with no network (11
   checks, 1528 tests of JAX's suite).
+- The build's network (`build.container.build_network`, default `proxy`):
+  the network was the last way an answer could reach a build, since
+  build.sh, which the model writes, ran with the host's network and could
+  download anything, say a ready-made fix or a jaxlib wheel built by
+  someone else. A build container now has no network of its own; it reaches
+  only the hosts its environment may download from
+  (`envs/<env>/allowed_hosts.txt`, plus `allowed_hosts` in the config)
+  through a proxy of the framework (`tools/auto_repair/net_proxy.py`),
+  which runs for the length of the build on a Unix socket mounted into the
+  container. Inside it, `scripts/script_worker/proxy_forward.py` (system
+  Python of the image) makes the socket a proxy on 127.0.0.1, which run.sh
+  exports as `http_proxy`/`https_proxy`. Every connection is logged to the
+  run directory's `network.log`, and a failed build's message names the
+  hosts the proxy refused and those it allows. HTTPS is tunnelled, so the
+  proxy sees hosts, not paths: an allowed github.com serves everything on
+  it. `audit` allows and logs every host, to make an environment's list;
+  `host` and `none` remain. jax-power9's list comes from two audit builds
+  with an empty Bazel repository cache: Bazel's mirrors
+  (storage.googleapis.com, mirror.bazel.build), JAX's PyPI mirror and PyPI's
+  files, the Go SDK (go.dev, golang.org, dl.google.com), and github.com with
+  release-assets.githubusercontent.com, which only one of the audits needed
+  (dependencies a mirror lacked). The first audit build failed in
+  rules_python's pip: its hermetic Python looks for CA certificates in
+  /etc/ssl/cert.pem, which RHEL does not have, and that pip found them only
+  without a proxy; the image now links /etc/ssl/cert.pem to RHEL's bundle.
+  With only these hosts and an empty repository cache, run29's jaxlib built
+  and passed its acceptance test (1528 tests; 9 minutes, Bazel's disk cache
+  warm); nothing was refused. Results record the hosts a package's builds
+  reached and were refused (`network`), and the recipe prompt tells the model
+  in one sentence that builds download only from the allowed hosts.
+- jaxlib's acceptance test removes setuptools' `jax/build/lib` and
+  `jax/build/bdist.*` before building the jax wheel in the source tree: the
+  case's sources came with both (left by a pip install when the case was
+  set up; pure Python, no jaxlib), and a second test of the same build copy
+  on the same day failed with "File exists" for the wheel's dist-info.
+- Images are reproducible and recorded: the base image is pinned by the
+  digest of its multi-architecture index, `make setup-env` writes the
+  packages of the image to `BENCH_HOME/envs/<env>/image-packages.txt` and
+  records the image (id, base, number and checksum of its packages) in
+  env.json, and each result records under `environment.container` the
+  runtime, the id of the image the builds ran in, its base and package
+  checksum, the build network and the allowed hosts. The client warns when
+  the image is not the one make setup-env built.
+- Prompt caching for Claude models (`llm.prompt_cache`, `BENCH_PROMPT_CACHE`:
+  auto, on, off): Anthropic models read a cached prefix only up to the
+  breakpoints a request marks with `cache_control`, so without them every
+  round paid the whole conversation at the full input price. The client
+  marks the system prompt, the last user or tool message, and the last one
+  before the latest reply (the previous request's end, which it reads back),
+  for `anthropic/` and `claude` models by default; the other providers
+  cache by themselves. With caching on, context compaction shortens down to
+  80% of `max_context_chars` at once, since every shortening changes the
+  cached prefix. Results count `cache_write_tokens` beside `cached_tokens`.
+  Checked through OpenRouter with Claude Haiku 5.5: from the second call on
+  the conversation came from the cache, and a call cost $0.0003 instead of
+  $0.0020.
+- Tool calls written as text (`tools/auto_repair/text_tool_calls.py`,
+  `llm.text_tool_calls`, `BENCH_TEXT_TOOL_CALLS`, on by default): a model
+  server turns a model's calls into tool_calls only when its parser knows the
+  model's format; otherwise they arrive as text and the attempt ended with
+  "no tool calls". A reply without tool calls is now searched for calls of
+  the model's tools in the formats of Hermes/Qwen 2.5–3, Qwen3-Coder, GLM
+  4.5, Mistral, Llama 3, DeepSeek V3/R1/V3.1 and gpt-oss, or a reply that is
+  only JSON calls; XML-style values get the types of the tool's schema, and
+  JSON in prose or calls of unknown tools are left alone. They become real
+  tool calls in the conversation, and results count them
+  (`usage.text_tool_calls`).
 - Local models: the run profile's `base_url` points a run to a model server
   of its own with an OpenAI-compatible API (Ollama, vLLM, llama.cpp);
   `bench.local.yaml` is an example. The API key of `.env` is never sent to

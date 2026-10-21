@@ -46,7 +46,7 @@ build:
   # built by make setup-env): podman (default), docker, or none (on the host)
   container:
     runtime: podman
-    build_network: host       # builds download their dependencies; tests and commands get none
+    build_network: proxy      # builds reach only envs/<env>/allowed_hosts.txt; tests and commands get none
 
 # Extensions for large code bases
 llm:

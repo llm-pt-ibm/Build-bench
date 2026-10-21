@@ -111,8 +111,8 @@ async def main():
             "temp_work_dir": cli.temp_work_dir, "result_dir": cli.result_dir})).content[0].text)
         assert init["success"], init
         assert os.path.exists(f"{TMP}/log_failed_original.txt"), "original log not kept"
-        cli.usage = {k: 0 for k in ("llm_calls", "tool_calls", "prompt_tokens",
-                                    "completion_tokens", "cached_tokens", "cost_usd")}
+        cli.usage = {k: 0 for k in ("llm_calls", "tool_calls", "prompt_tokens", "completion_tokens",
+                                    "cached_tokens", "cache_write_tokens", "text_tool_calls", "cost_usd")}
         cli.timing = {k: 0.0 for k in ("llm_seconds", "upload_seconds",
                                        "build_check_seconds", "other_tool_seconds")}
         cli.dirty = cli.unchecked_upload = False
@@ -212,6 +212,52 @@ async def main():
                 else:
                     os.environ[k] = v
         print("local model server: OK (no key, tool calls, vLLM-style reasoning, local URLs)")
+
+        # tool calls written as text become tool calls; prompt cache breakpoints
+        class TextServer(FakeServer):
+            def do_POST(self):
+                seen["body"] = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
+                self.reply({"id": "x", "object": "chat.completion", "created": 0, "model": "m",
+                            "choices": [{"index": 0, "finish_reason": "stop", "message": {
+                                "role": "assistant", "content": (
+                                    'Reading the log.\n<tool_call>\n{"name": "get_file_content_tool", '
+                                    f'"arguments": {{"file_path": "{TMP}/log_failed.txt"}}}}\n</tool_call>')}}],
+                            "usage": {"prompt_tokens": 10, "completion_tokens": 5, "total_tokens": 15,
+                                      "prompt_tokens_details": {"cached_tokens": 7, "cache_write_tokens": 3}}})
+
+        import openai
+        server = http.server.HTTPServer(("127.0.0.1", 0), TextServer)
+        threading.Thread(target=server.serve_forever, daemon=True).start()
+        saved_client = cli.client
+        try:
+            cli.client = openai.OpenAI(api_key="none", base_url=f"http://127.0.0.1:{server.server_port}/v1")
+            conversation = [{"role": "system", "content": "sys"}, {"role": "user", "content": "go"},
+                            {"role": "assistant", "content": None, "tool_calls": [call(40, "get_structure_of_files")]},
+                            {"role": "tool", "tool_call_id": "call_40", "content": "first"},
+                            {"role": "tool", "tool_call_id": "call_41", "content": "second"}]
+            cli.prompt_cache = True
+            choice = client.AutoRepairClient._chat(cli, conversation, tools)
+            assert [t.function.name for t in choice.message.tool_calls] == ["get_file_content_tool"], choice
+            assert json.loads(choice.message.tool_calls[0].function.arguments) == {"file_path": f"{TMP}/log_failed.txt"}
+            assert choice.message.content == "Reading the log." and cli.usage["text_tool_calls"] == 1
+            assert cli.usage["cached_tokens"] >= 7 and cli.usage["cache_write_tokens"] >= 3, cli.usage
+            sent = seen["body"]["messages"]
+            marked = [i for i, m in enumerate(sent) if isinstance(m["content"], list)
+                      and m["content"][-1].get("cache_control") == {"type": "ephemeral"}]
+            assert marked == [0, 1, 4], sent     # system, the input before the latest reply, the last input
+            assert "cache_control" not in json.dumps(conversation)
+            cli.prompt_cache = False
+            client.AutoRepairClient._chat(cli, conversation, tools)
+            assert "cache_control" not in json.dumps(seen["body"]), seen["body"]
+            assert client.prompt_cache_on("anthropic/claude-haiku-5.5") and not client.prompt_cache_on("deepseek/x")
+            client.TEXT_TOOL_CALLS = False
+            assert not client.AutoRepairClient._chat(cli, conversation, tools).message.tool_calls
+        finally:
+            client.TEXT_TOOL_CALLS = True
+            cli.client = saved_client
+            server.shutdown()
+        print("text tool calls and prompt cache: OK (calls taken from the text, breakpoints for Claude, "
+              "cache tokens counted)")
 
         # passing provider errors (e.g. rate limits reported as 413) are retried
         import httpx

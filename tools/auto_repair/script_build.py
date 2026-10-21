@@ -189,11 +189,14 @@ def script_upload(package_name: str, package_dir: str, cfg: dict) -> str:
                  "BENCH_ENV_DIR": env_dir(env_name) if env_name else ""}
     argv = ["bash", RUNNER, dirs["src"], env_script]
     if container.runtime(cfg):
-        # only the build copy, its caches and the build environment are there
-        argv = container.command(
+        # only the build copy, its caches and the build environment are there,
+        # and the network through the proxy (or as build_network says)
+        net = container.build_network(cfg, env_name, dirs["run"])
+        argv = net["wrapper"] + container.command(
             cfg, name, env_name,
-            [(dirs["src"], True), (dirs["cache"], True), (dirs["shared"], True)] + container.framework_mounts(env_name),
-            bench_env, dirs["src"], argv, network=cfg["container"]["build_network"])
+            [(dirs["src"], True), (dirs["cache"], True), (dirs["shared"], True)]
+            + container.framework_mounts(env_name) + net["mounts"],
+            dict(bench_env, **net["env"]), dirs["src"], argv, network=net["network"])
         env = container.runtime_env()
     else:
         env = dict(os.environ, **bench_env)
@@ -280,4 +283,15 @@ def script_check(temp_dir: str, package_name: str, cfg: dict, _retry: int = 0) -
     with open(path, "w", encoding="utf-8") as f:
         f.write(text)
     return (f"Build failed! The failed log has been updated to: {path}\n"
-            f"Key lines of the log:\n{error_excerpt(text)}")
+            f"Key lines of the log:\n{error_excerpt(text)}" + _refused_note(cfg, temp_dir, dirs["run"]))
+
+
+def _refused_note(cfg: dict, workspace: str, run_dir: str) -> str:
+    """Tell the model when the build was refused a host (build_network proxy)."""
+    refused = container.network_log(run_dir)["refused"]
+    if not refused:
+        return ""
+    allowed = container.allowed_hosts(cfg, case_environment(workspace))
+    return (f"\nNetwork: builds reach the network only through the build host's proxy, which refused "
+            f"{', '.join(refused)}; it allows {', '.join(allowed) or 'no host'}. Use what these hosts "
+            "provide (or the build cache) instead.")

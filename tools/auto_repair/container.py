@@ -9,8 +9,15 @@ build.sh runs on the host with everything the user can read.
 
 Config (build.container), BENCH_CONTAINER_RUNTIME overriding the runtime:
   runtime        podman (default), docker, or none
-  build_network  network of build.sh: host (default; builds download their
-                 dependencies) or none; tests and commands run with none
+  build_network  network of build.sh (tests and commands have none):
+                 proxy (default): only the hosts its build environment may
+                   download from (envs/<env>/allowed_hosts.txt, and
+                   allowed_hosts here), through the framework's proxy
+                   (tools/auto_repair/net_proxy.py), which logs every
+                   connection to the run directory's network.log
+                 audit: through the proxy to every host, to make that list
+                 host: the host's network; none: no network at all
+  allowed_hosts  more hosts for proxy, e.g. a local mirror
   cpus, memory   optional limits (with rootless runtimes they need cgroups v2)
   pids_limit     processes and threads of a container: -1 (default) none
                  beyond the host's, as with Docker (Podman's own default,
@@ -24,16 +31,19 @@ as the user (--user uid:gid), and its daemon makes its group root-equivalent."""
 import os
 import shutil
 import subprocess
+import sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 ENVS_DIR = os.path.join(ROOT, "envs")
+NET_PROXY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "net_proxy.py")
 
 
 def settings(build_cfg: dict) -> dict:
     """The container section of a config's `build`."""
     c = (build_cfg or {}).get("container") or {}
     return {"runtime": (os.getenv("BENCH_CONTAINER_RUNTIME") or c.get("runtime") or "podman").lower(),
-            "build_network": c.get("build_network", "host"),
+            "build_network": (os.getenv("BENCH_BUILD_NETWORK") or c.get("build_network") or "proxy").lower(),
+            "allowed_hosts": list(c.get("allowed_hosts") or []),
             "cpus": c.get("cpus"), "memory": c.get("memory"), "pids_limit": c.get("pids_limit", -1)}
 
 
@@ -83,6 +93,55 @@ def command(cfg: dict, name: str, env_name: str, mounts: list, env: dict, workdi
     return cmd + [image(env_name)] + list(argv)
 
 
+def allowed_hosts_file(env_name: str) -> str:
+    return os.path.join(ENVS_DIR, env_name or "", "allowed_hosts.txt")
+
+
+def allowed_hosts(cfg: dict, env_name: str) -> list:
+    """The hosts builds in env_name may download from (build_network proxy)."""
+    rules = list((cfg.get("container") or {}).get("allowed_hosts") or [])
+    path = allowed_hosts_file(env_name)
+    if os.path.isfile(path):
+        with open(path) as f:
+            rules += [r for r in (line.split("#", 1)[0].strip() for line in f) if r]
+    return rules
+
+
+def build_network(cfg: dict, env_name: str, run_dir: str) -> dict:
+    """How build.sh reaches the network: the container's network, and for
+    proxy and audit the proxy that wraps the container command (it serves on
+    a socket mounted in; run.sh makes it the build's http(s)_proxy)."""
+    mode = (cfg.get("container") or {}).get("build_network", "proxy")
+    if mode not in ("proxy", "audit"):
+        return {"network": mode, "mounts": [], "env": {}, "wrapper": []}
+    net_dir = os.path.join(run_dir, "net")
+    os.makedirs(net_dir, exist_ok=True)
+    sock, log = os.path.join(net_dir, "proxy.sock"), os.path.join(run_dir, "network.log")
+    if os.path.exists(log):
+        os.remove(log)
+    rules = ["*"] if mode == "audit" else allowed_hosts(cfg, env_name)
+    wrapper = [sys.executable, NET_PROXY, "--socket", sock, "--log", log]
+    for rule in rules:
+        wrapper += ["--allow", rule]
+    return {"network": "none", "mounts": [(net_dir, False)], "env": {"BENCH_PROXY_SOCKET": sock},
+            "wrapper": wrapper + ["--"]}
+
+
+def network_log(run_dir: str) -> dict:
+    """Hosts the last build reached and was refused (build_network proxy/audit)."""
+    reached, refused = set(), set()
+    try:
+        with open(os.path.join(run_dir, "network.log"), encoding="utf-8") as f:
+            for line in f:
+                parts = line.split()
+                if len(parts) >= 4:
+                    host = parts[3].split("/", 1)[0]
+                    (refused if parts[1] == "blocked" else reached).add(host)
+    except OSError:
+        pass
+    return {"reached": sorted(reached), "refused": sorted(refused)}
+
+
 def framework_mounts(env_name: str) -> list:
     """What every container of the framework needs: the runner, the
     environment scripts and the build environment, read-only."""
@@ -113,14 +172,18 @@ def remove_matching(cfg: dict, prefix: str) -> None:
         remove(cfg, *names)
 
 
-def check(cfg: dict, env_name: str):
-    """Why containers cannot run for env_name (None when they can)."""
+def check(cfg: dict, env_name: str, build: bool = True):
+    """Why containers cannot run for env_name (None when they can); build:
+    for build.sh, whose network may need the environment's allowed hosts."""
     rt = runtime(cfg)
     if not rt:
         return None
     if not available(rt):
         return (f"{rt} not found: install it, or set build.container.runtime to "
                 f"{'docker' if rt == 'podman' else 'podman'} or none in the config")
+    mode = (cfg.get("container") or {}).get("build_network", "proxy")
+    if mode not in ("proxy", "audit", "host", "none"):
+        return f"build_network {mode}: use proxy, audit, host or none"
     if not env_name:
         return ("the case has no build environment (\"environment\" in manifest.json), whose image its "
                 "containers run in: give it one (README, Cases), or set build.container.runtime none")
@@ -128,15 +191,43 @@ def check(cfg: dict, env_name: str):
                          capture_output=True, env=runtime_env())
     if out.returncode != 0:
         return f"no image {image(env_name)}: run make setup-env ENV={env_name}"
+    if build and mode == "proxy" and not allowed_hosts(cfg, env_name):
+        return (f"build_network proxy needs the hosts builds may download from: make "
+                f"{os.path.relpath(allowed_hosts_file(env_name), ROOT)} from the network.log of a build "
+                "with build_network audit")
     return None
 
 
-def build_image(cfg: dict, env_name: str) -> str:
-    """Build env_name's image from envs/<env_name>/Containerfile; returns its id."""
+def image_id(cfg: dict, env_name: str):
+    """The id of env_name's image as the runtime has it now (None without one)."""
+    rt = runtime(cfg)
+    if not rt or not env_name or not available(rt):
+        return None
+    out = subprocess.run([rt, "image", "inspect", "--format", "{{.Id}}", image(env_name)],
+                         capture_output=True, text=True, env=runtime_env())
+    return out.stdout.strip().removeprefix("sha256:") or None if out.returncode == 0 else None
+
+
+def build_image(cfg: dict, env_name: str, packages_file: str) -> dict:
+    """Build env_name's image from envs/<env_name>/Containerfile, write the
+    packages it has (rpm or dpkg) to packages_file; returns what env.json
+    records of it."""
+    import hashlib
     rt = runtime(cfg)
     context = os.path.join(ENVS_DIR, env_name)
-    subprocess.run([rt, "build", "--network", "host", "-t", image(env_name), "-f",
-                    os.path.join(context, "Containerfile"), context], check=True, env=runtime_env())
-    out = subprocess.run([rt, "image", "inspect", "--format", "{{.Id}}", image(env_name)],
-                         capture_output=True, text=True, check=True, env=runtime_env())
-    return out.stdout.strip()
+    containerfile = os.path.join(context, "Containerfile")
+    subprocess.run([rt, "build", "--network", "host", "-t", image(env_name), "-f", containerfile, context],
+                   check=True, env=runtime_env())
+    listing = subprocess.run(
+        [rt, "run", "--rm", "--network", "none", image(env_name), "sh", "-c",
+         "rpm -qa --qf '%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}\\n' 2>/dev/null || "
+         "dpkg-query -W -f '${Package}=${Version}\\n'"],
+        capture_output=True, text=True, check=True, env=runtime_env()).stdout
+    packages = "".join(sorted(listing.splitlines(keepends=True)))
+    with open(packages_file, "w") as f:
+        f.write(packages)
+    with open(containerfile) as f:
+        base = next((line.split()[1] for line in f if line.upper().startswith("FROM ")), None)
+    return {"name": image(env_name), "id": image_id(cfg, env_name), "runtime": rt, "base": base,
+            "packages": len(packages.splitlines()),
+            "packages_sha256": hashlib.sha256(packages.encode()).hexdigest()}

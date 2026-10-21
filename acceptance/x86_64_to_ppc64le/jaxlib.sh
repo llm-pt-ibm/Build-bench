@@ -15,6 +15,10 @@ echo "testing $(basename "$wheel")"
 venv=$BENCH_CACHE_DIR/acceptance-venv
 rm -rf "$venv"
 "$TEST_PYTHON" -m venv --system-site-packages "$venv" || exit 1
+# pip builds jax in its source tree, in setuptools' jax/build/lib and
+# jax/build/bdist.*: start from none (what an earlier test, or the case's
+# own copy, left there made the build of the jax wheel fail)
+rm -rf "$BENCH_SRC_DIR"/jax/build/lib "$BENCH_SRC_DIR"/jax/build/bdist.*
 "$venv/bin/pip" install -q --no-deps --no-build-isolation "$wheel" "$BENCH_SRC_DIR/jax" \
   || { echo "error: installing the wheel failed"; exit 1; }
 cd "$BENCH_CACHE_DIR"   # not the source tree, so that jax is imported from the venv

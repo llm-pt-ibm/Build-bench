@@ -87,14 +87,29 @@ another runtime (`build.container`, or `BENCH_CONTAINER_RUNTIME`):
 build:
   container:
     runtime: podman        # podman (default), docker, or none (on the host)
-    build_network: host    # builds download their dependencies; tests and commands get none
+    build_network: proxy   # proxy (default), audit, host or none; tests and commands get none
+    # allowed_hosts: [pypi.mirror.local]        more hosts for proxy
     # cpus: 32, memory: 64g, pids_limit: 4096   (default -1: no limit beyond the host's)
 ```
 
 With Docker the containers run as the user, but its group is
 root-equivalent; with `none` build.sh runs on the host with everything the
 user can read, and `run_command_tool` uses a sandbox of Linux namespaces that
-needs root.
+needs root. The image's base is pinned by digest; `env.json` records the
+image and its packages (`image-packages.txt`), and every result the id of
+the image it ran with.
+
+**The build's network.** A build container has no network of its own: with
+`build_network: proxy` it reaches only the hosts its environment may download
+from (`envs/<name>/allowed_hosts.txt`), through a proxy of the framework on
+a socket mounted into it (`tools/auto_repair/net_proxy.py`; the build sees
+it as `http_proxy`/`https_proxy`, which Bazel, pip, git and curl use). The
+proxy logs every connection to `<stage>/<package>/run/network.log`, and when
+a build fails the model is told which hosts were refused. For HTTPS it sees
+the host, not the path, so an allowed host such as github.com serves all of
+its content. To make the list for a new environment, build once with
+`BENCH_BUILD_NETWORK=audit` (every host allowed and logged) and an empty
+dependency cache, and copy the hosts of `network.log`.
 
 Build backends, per config (`build.backend`):
 - **OBS** (`config/x86_64_to_ppc64le.yaml`): the OBS account above; `dataset/setup_obs.py` creates the packages in your OBS project.
@@ -169,6 +184,21 @@ oldest tool results are shortened beyond it). `make run` checks that the
 server answers and serves the model before starting; `LLM_TIMEOUT` (or
 `llm.request_timeout`) gives slow models more time per reply. Results record
 the server in `run.api_base` and `run.local_model`; their cost is $0.
+
+When the server's tool parser does not know the model's format, the tool
+calls arrive as text; the client takes them from the text (Hermes/Qwen,
+Qwen3-Coder, GLM, Mistral, Llama, DeepSeek and gpt-oss formats, or a reply
+that is only JSON calls) and counts them in `usage.text_tool_calls`
+(`llm.text_tool_calls: false` or `BENCH_TEXT_TOOL_CALLS=0` turns this off).
+
+### Prompt caching
+Claude models cache a conversation's prefix only up to the breakpoints a
+request marks; the client marks them (the system prompt and the latest
+inputs) for `anthropic/` and `claude` models, so each round reads the
+conversation so far from the cache at a tenth of the price. DeepSeek, OpenAI
+and Gemini models cache by themselves. `llm.prompt_cache` (or
+`BENCH_PROMPT_CACHE`): `auto` (default), `on` (every model), `off`. Results
+count `cached_tokens` and `cache_write_tokens`.
 
 ### Directly
 ```bash
@@ -246,7 +276,8 @@ with the model's reasoning) and the diff log of its edits. `make summary` and
 
 `make test` runs `tests/test_helpers.py` (patch check, log excerpt, build
 backends, resume, run profile, leak check, cases, sandbox, containers with
-Podman or Docker when one is installed with the base image) and
+Podman or Docker when one is installed with the base image, the build's
+network proxy, tool calls written as text) and
 `tests/test_offline.py` (the tools through MCP with a scripted model). They
 write only to temporary directories.
 

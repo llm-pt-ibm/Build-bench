@@ -143,8 +143,13 @@ open(os.path.join(pkg_dir, "build.sh"), "w").write(
     'grep -q broken src/main.c && { echo "$(pwd)/src/main.c:1:1: error: boom"; exit 1; }\nexit 0\n')
 res = script_build.script_upload("r", pkg_dir, cfg)
 assert res.startswith("Success: sources snapshotted"), res
+# a host the build's proxy refused is named in the failure message
+with open(os.path.join(work, "stage", "r", "run", "network.log"), "w") as f:
+    f.write("12:00:00 allowed CONNECT mirror.example:443\n12:00:01 blocked CONNECT answers.example:443\n")
 res = script_build.script_check(pkg_dir, "r", cfg)
 assert res.startswith("Build failed!") and f"{pkg_dir}/src/main.c:1:1: error: boom" in res, res
+assert "proxy, which refused answers.example:443" in res, res
+os.remove(os.path.join(work, "stage", "r", "run", "network.log"))
 assert "jobs=2" in open(os.path.join(pkg_dir, "log_failed.txt")).read()
 assert "/r/shared" in open(os.path.join(pkg_dir, "log_failed.txt")).read()
 open(os.path.join(pkg_dir, "src", "main.c"), "w").write("fixed\n")
@@ -460,6 +465,9 @@ if _runtime:
         # no limit of processes beyond the host's (Podman's 2048 broke jaxlib's test suite)
         argv = container_mod.command(cfg, "x", "demo-ctr-env", [], {}, "/", ["true"])
         assert argv[argv.index("--pids-limit") + 1] == "-1", argv
+        # builds need the environment's allowed hosts (build_network proxy); commands have no network
+        assert "allowed_hosts.txt" in (container_mod.check(cfg, "demo-ctr-env") or "")
+        assert container_mod.check(cfg, "demo-ctr-env", build=False) is None
         json.dump({"environment": "demo-ctr-env"}, open(os.path.join(workspace, "manifest.json"), "w"))
         os.makedirs(os.path.join(tmp, "home", "envs", "demo-ctr-env"))
         open(os.path.join(tmp, "home", "envs", "demo-ctr-env", "tool"), "w").write("env tool\n")
@@ -492,6 +500,47 @@ if _runtime:
         left = subprocess.run([_runtime, "ps", "-a", "--format", "{{.Names}}"], capture_output=True, text=True,
                               env=container_mod.runtime_env()).stdout
         assert "bench-demo-exp" not in left, left
+        # a build reaches only the allowed hosts, through the framework's proxy
+        # (needs a Python in the image for the forwarder)
+        if subprocess.run([_runtime, "run", "--rm", "--network", "none", "build-bench-demo-ctr-env", "sh", "-c",
+                           "command -v python3 || test -x /usr/libexec/platform-python"],
+                          capture_output=True, env=container_mod.runtime_env()).returncode == 0:
+            import http.server as _hs
+            import socket as _socket
+            import threading as _threading
+
+            class _Served(_hs.BaseHTTPRequestHandler):
+                def log_message(self, *a):
+                    pass
+
+                def do_GET(self):
+                    self.send_response(200)
+                    self.send_header("Content-Length", "7")
+                    self.end_headers()
+                    self.wfile.write(b"allowed")
+
+            with _socket.socket(_socket.AF_INET, _socket.SOCK_DGRAM) as _s:
+                _s.connect(("10.255.255.255", 1))           # the host's address, as the proxy reaches it
+                _ip = _s.getsockname()[0]
+            _origin = _hs.HTTPServer((_ip, 0), _Served)
+            _threading.Thread(target=_origin.serve_forever, daemon=True).start()
+            _get = ('exec 3<>/dev/tcp/127.0.0.1/3128 && printf "GET http://%s/ HTTP/1.0\\r\\n\\r\\n" >&3 '
+                    '&& cat <&3; exec 3<&-')
+            open(os.path.join(workspace, "build.sh"), "w").write(
+                f"{_get % f'{_ip}:{_origin.server_port}'}\necho\n{_get % 'answers.example'}\n"
+                "(exec 4<>/dev/tcp/1.1.1.1/53) 2>/dev/null || echo no-direct-network\nexit 1\n")
+            bcfg = dict(cfg, max_wait_seconds=120, check_interval=1, local={"arch": "ppc64le"},
+                        container={"runtime": _runtime, "allowed_hosts": [f"{_ip}:{_origin.server_port}"]})
+            try:
+                res = script_build.script_upload("demo", workspace, bcfg)
+                assert res.startswith("Success"), res
+                res = script_build.script_check(workspace, "demo", bcfg)
+            finally:
+                _origin.shutdown()
+            log = open(os.path.join(workspace, "log_failed.txt")).read()
+            assert "allowed" in log and "403 Forbidden" in log and "no-direct-network" in log, log
+            assert "refused answers.example:80" in res, res
+            print("  builds in a container: only the allowed hosts, through the proxy, refusals reported")
     finally:
         subprocess.run([_runtime, "rmi", "build-bench-demo-ctr-env"], capture_output=True,
                        env=container_mod.runtime_env())
@@ -503,5 +552,108 @@ if _runtime:
           "no network, timeout)")
 else:
     print("experiments in a container: skipped (needs podman or docker with the base image)")
+
+# tool calls a model wrote as text (tools/auto_repair/text_tool_calls.py)
+from tools.auto_repair.text_tool_calls import parse as parse_text_calls  # noqa: E402
+_tools = [{"type": "function", "function": {"name": "run_command_tool", "parameters": {"properties": {
+    "command": {"type": "string"}, "timeout_seconds": {"type": "integer"}}}}}]
+_cmd = {"name": "run_command_tool", "arguments": {"command": "ls"}}
+for _text, _rest in [
+        ('Look.\n<tool_call>\n{"name": "run_command_tool", "arguments": {"command": "ls"}}\n</tool_call>', "Look."),
+        ("<tool_call>\n<function=run_command_tool>\n<parameter=command>\nls\n</parameter>\n</function>\n</tool_call>",
+         ""),
+        ("<tool_call>run_command_tool\n<arg_key>command</arg_key>\n<arg_value>ls</arg_value>\n</tool_call>", ""),
+        ('[TOOL_CALLS][{"name": "run_command_tool", "arguments": {"command": "ls"}}]', ""),
+        ('[TOOL_CALLS]run_command_tool[ARGS]{"command": "ls"}', ""),
+        ('<|python_tag|>{"name": "run_command_tool", "parameters": {"command": "ls"}}', ""),
+        ("<｜tool▁calls▁begin｜><｜tool▁call▁begin｜>function<｜tool▁sep｜>run_command_tool\n```json\n"
+         '{"command": "ls"}\n```<｜tool▁call▁end｜><｜tool▁calls▁end｜>', ""),
+        ('<｜tool▁call▁begin｜>run_command_tool<｜tool▁sep｜>{"command": "ls"}<｜tool▁call▁end｜>', ""),
+        ('<|channel|>commentary to=functions.run_command_tool <|constrain|>json<|message|>{"command": "ls"}<|call|>',
+         ""),
+        ('```json\n{"name": "run_command_tool", "arguments": {"command": "ls"}}\n```', "")]:
+    assert parse_text_calls(_text, _tools) == ([_cmd], _rest), (_text, parse_text_calls(_text, _tools))
+assert parse_text_calls("<function=run_command_tool><parameter=timeout_seconds>60</parameter></function>",
+                        _tools)[0][0]["arguments"] == {"timeout_seconds": 60}
+for _text in ('The call would be {"name": "run_command_tool", "arguments": {"command": "ls"}} but I stop.',
+              '<tool_call>{"name": "other_tool", "arguments": {}}</tool_call>', "Done: the build passed.", ""):
+    assert parse_text_calls(_text, _tools)[0] == [], _text
+print("text tool calls: OK (Hermes/Qwen, Qwen3-Coder, GLM, Mistral, Llama, DeepSeek, gpt-oss, bare JSON; "
+      "prose and unknown tools left alone)")
+
+# the build's network: the proxy lets only the allowed hosts through and logs
+# every connection; proxy_forward.py makes its socket a TCP proxy
+import http.server  # noqa: E402
+import socket  # noqa: E402
+import threading  # noqa: E402
+from tools.auto_repair import net_proxy  # noqa: E402
+assert net_proxy.allowed("github.com", 443, ["github.com"]) and not net_proxy.allowed("evil.com", 443, ["github.com"])
+assert not net_proxy.allowed("gist.github.com", 443, ["github.com"])
+assert net_proxy.allowed("a.b.googleapis.com", 443, [".googleapis.com"])
+assert net_proxy.allowed("googleapis.com", 80, ["*.googleapis.com"])
+assert not net_proxy.allowed("github.com", 22, ["github.com"]) and net_proxy.allowed("github.com", 22, ["github.com:22"])
+assert net_proxy.allowed("anything.org", 8080, ["*"])
+
+
+class _Origin(http.server.BaseHTTPRequestHandler):
+    def log_message(self, *a):
+        pass
+
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("Content-Length", "6")
+        self.end_headers()
+        self.wfile.write(b"origin")
+
+
+_origin = http.server.HTTPServer(("127.0.0.1", 0), _Origin)
+threading.Thread(target=_origin.serve_forever, daemon=True).start()
+_port = _origin.server_port
+_tmp = tempfile.mkdtemp(prefix="bench_net_")
+_sock, _log, _fport = os.path.join(_tmp, "p.sock"), os.path.join(_tmp, "network.log"), 0
+with socket.socket() as _s:
+    _s.bind(("127.0.0.1", 0))
+    _fport = _s.getsockname()[1]
+_proxy = subprocess.Popen([sys.executable, os.path.join(ROOT, "tools", "auto_repair", "net_proxy.py"),
+                           "--socket", _sock, "--log", _log, "--allow", f"127.0.0.1:{_port}"])
+try:
+    for _ in range(50):
+        if os.path.exists(_sock):
+            break
+        time.sleep(0.1)
+    _forward = subprocess.Popen([sys.executable, os.path.join(ROOT, "scripts", "script_worker", "proxy_forward.py"),
+                                 _sock, str(_fport)], stdout=subprocess.PIPE, text=True)
+    assert _forward.stdout.readline().strip() == "ready"
+
+    def _ask(request: bytes) -> bytes:
+        with socket.create_connection(("127.0.0.1", _fport), timeout=10) as c:
+            c.sendall(request)
+            data = b""
+            while True:
+                chunk = c.recv(65536)
+                if not chunk:
+                    return data
+                data += chunk
+                if request.startswith(b"CONNECT") and b"\r\n\r\n" in data and b"origin" not in data:
+                    c.sendall(b"GET / HTTP/1.0\r\n\r\n")
+                    request = b""
+
+    assert _ask(f"GET http://127.0.0.1:{_port}/x HTTP/1.1\r\nHost: x\r\n\r\n".encode()).endswith(b"origin")
+    assert b" 403 " in _ask(f"GET http://localhost:{_port}/ HTTP/1.1\r\nHost: x\r\n\r\n".encode())
+    _tunnel = _ask(f"CONNECT 127.0.0.1:{_port} HTTP/1.1\r\n\r\n".encode())
+    assert _tunnel.startswith(b"HTTP/1.1 200 Connection established") and _tunnel.endswith(b"origin"), _tunnel
+    assert b" 403 " in _ask(b"CONNECT example.com:443 HTTP/1.1\r\n\r\n")
+    _forward.kill()
+finally:
+    _proxy.kill()
+    _proxy.wait()
+    _origin.shutdown()
+_lines = [line.split(maxsplit=1)[1].strip() for line in open(_log)]
+assert _lines == [f"allowed GET 127.0.0.1:{_port}/x", f"blocked GET localhost:{_port}/",
+                  f"allowed CONNECT 127.0.0.1:{_port}", "blocked CONNECT example.com:443"], _lines
+from tools.auto_repair.container import network_log  # noqa: E402
+assert network_log(_tmp) == {"reached": [f"127.0.0.1:{_port}"], "refused": ["example.com:443", f"localhost:{_port}"]}
+shutil.rmtree(_tmp, ignore_errors=True)
+print("build network: OK (allowed hosts only, through the socket and the forwarder, every connection logged)")
 
 print("\nALL TESTS PASSED")

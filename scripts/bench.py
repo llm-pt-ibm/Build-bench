@@ -460,14 +460,14 @@ def cmd_setup_env(profile: dict, name: str) -> None:
             fail(f"{container.runtime(cfg)} not found: install it to build the image, or set "
                  "build.container.runtime in the config")
         print(f"\n=== image {container.image(name)} ({container.runtime(cfg)})")
-        image_id = container.build_image(cfg, name)
+        image = container.build_image(cfg, name, os.path.join(env_dir(name), "image-packages.txt"))
         info_path = os.path.join(env_dir(name), "env.json")
         with open(info_path) as f:
             info = json.load(f)
-        info["image"] = {"name": container.image(name), "id": image_id, "runtime": container.runtime(cfg)}
+        info["image"] = image
         with open(info_path, "w") as f:
             json.dump(info, f, indent=1)
-        print(f"image {container.image(name)} {image_id[:12]}")
+        print(f"image {image['name']} {image['id'][:12]}: {image['base']}, {image['packages']} packages")
     sys.exit(code)
 
 
@@ -482,10 +482,13 @@ def cmd_check_env(profile: dict, name: str) -> None:
     cfg = container_cfg(profile)
     argv, env = ["bash", "-c", 'source "$1" || exit 2', "check-env", script], {"BENCH_ENV_DIR": env_dir(name)}
     if container.runtime(cfg):
-        problem = container.check(cfg, name)
+        problem = container.check(cfg, name, build=False)
         if problem:
             fail(problem)
         print(f"in a {container.runtime(cfg)} container of {container.image(name)}")
+        mode = cfg["container"]["build_network"]
+        hosts = container.allowed_hosts(cfg, name) if mode == "proxy" else []
+        print(f"network of builds: {mode}" + (f" ({', '.join(hosts)})" if hosts else ""), flush=True)
         argv = container.command(cfg, f"bench-check-env-{os.getpid()}", name, container.framework_mounts(name),
                                  env, env_dir(name), argv)
         code = subprocess.call(argv, env=container.runtime_env())

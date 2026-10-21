@@ -90,7 +90,7 @@ def run_experiment(package_name: str, workspace: str, command: str, timeout: int
     if container.runtime(cfg):
         # a container of the build environment's image: only the mounts are
         # there, no network, no capabilities (needs no root with Podman)
-        problem = container.check(cfg, env_name)
+        problem = container.check(cfg, env_name, build=False)
         if problem:
             return f"Error: commands cannot run: {problem}"
         name = f"bench-{package_name}-exp-{os.getpid()}-{int(time.time() * 1000) % 1000000}"

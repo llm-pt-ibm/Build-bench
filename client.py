@@ -13,12 +13,14 @@ import openai
 from openai import OpenAI
 from mcp.client.stdio import stdio_client
 from mcp import ClientSession, StdioServerParameters
+from tools.auto_repair import container
 from tools.auto_repair.acceptance import ACCEPTANCE_DIR, acceptance_test
 from tools.auto_repair.case_type import case_environment, case_type
 from tools.auto_repair.leak_check import leak_report
 from tools.auto_repair.log_excerpt import same_failure
 from tools.auto_repair.script_build import reset_cache
 from tools.auto_repair.resume import workspace_changes
+from tools.auto_repair.text_tool_calls import parse as parse_text_tool_calls
 from tools.auto_repair.obs_config import load_obs_config
 from tools.auto_repair.paths import env_dir
 
@@ -156,6 +158,17 @@ RESUME_WORKSPACE = os.getenv("BENCH_RESUME_WORKSPACE")
 # are retried after these waits, in seconds; if the provider still fails, the
 # package's run stops as an infrastructure failure instead of using up attempts.
 MODEL_RETRY_WAITS = tuple(LLM_CFG.get("retry_waits", (20, 60, 120, 300, 600)))
+# Prompt caching (llm.prompt_cache, BENCH_PROMPT_CACHE): Claude models read a
+# cached prefix of the conversation only up to the breakpoints a request marks
+# (cache_control), while DeepSeek, OpenAI and Gemini models cache by
+# themselves. auto: mark them for Claude models; on: for every model; off.
+PROMPT_CACHE = (os.getenv("BENCH_PROMPT_CACHE") or str(LLM_CFG.get("prompt_cache", "auto"))).lower()
+# Tool calls a model wrote as text, as models do when the server's tool parser
+# does not know their format (llm.text_tool_calls, BENCH_TEXT_TOOL_CALLS):
+# a reply without tool calls is searched for them
+# (tools/auto_repair/text_tool_calls.py).
+TEXT_TOOL_CALLS = (os.getenv("BENCH_TEXT_TOOL_CALLS") or str(LLM_CFG.get("text_tool_calls", True))).lower() \
+    not in ("0", "false", "off", "no")
 RETRYABLE_STATUS = {408, 409, 413, 429, 500, 502, 503, 504}
 KEEP_RECENT_TOOL_RESULTS = int(LLM_CFG.get("keep_recent_tool_results", 8))
 
@@ -188,7 +201,40 @@ def run_metadata(max_build_attempts: int, max_tool_rounds: int) -> Dict:
         # where the model ran: an API such as OpenRouter, or a local server
         "api_base": api_base(os.getenv("API_BASE_URL")),
         "local_model": is_local_url(os.getenv("API_BASE_URL")),
+        "prompt_cache": PROMPT_CACHE,
+        "text_tool_calls": TEXT_TOOL_CALLS,
     }
+
+
+def prompt_cache_on(model: str) -> bool:
+    if PROMPT_CACHE in ("on", "true", "1", "yes"):
+        return True
+    if PROMPT_CACHE in ("off", "false", "0", "no"):
+        return False
+    model = (model or "").lower()
+    return model.startswith(("anthropic/", "claude"))
+
+
+def with_cache_breakpoints(messages: List[Dict]) -> List[Dict]:
+    """Mark cache breakpoints (Anthropic allows four): the system prompt, the
+    last user or tool message, and the last one before the latest reply. The
+    next request then reads the conversation up to its previous end from the
+    cache, and writes the new part."""
+    out = [dict(m) for m in messages]
+    last_reply = max((i for i, m in enumerate(out) if m.get("role") == "assistant"), default=-1)
+    inputs = [i for i, m in enumerate(out) if m.get("role") in ("user", "tool")]
+    before_reply = [i for i in inputs if i < last_reply]
+    marks = {i for i, m in enumerate(out[:1]) if m.get("role") == "system"}
+    marks |= set(inputs[-1:]) | set(before_reply[-1:])
+    for i in marks:
+        content = out[i].get("content")
+        if isinstance(content, str) and content:
+            out[i]["content"] = [{"type": "text", "text": content, "cache_control": {"type": "ephemeral"}}]
+        elif isinstance(content, list) and content:
+            parts = [dict(p) for p in content]
+            parts[-1]["cache_control"] = {"type": "ephemeral"}
+            out[i]["content"] = parts
+    return out
 
 
 def message_reasoning(message) -> str:
@@ -236,6 +282,7 @@ class AutoRepairClient:
         # LLM adapter
         self.llm_cfg = llm
         self.client = self.llm_cfg.make_client()
+        self.prompt_cache = prompt_cache_on(self.llm_cfg.model)
 
         # Paths (choose sensible default if not given)
         
@@ -251,7 +298,7 @@ class AutoRepairClient:
         # model read the build caches of the packages of this run (not the
         # whole stage root, which may hold other builds, e.g. a reference fix)
         os.environ["BENCH_TEMP_DIR"] = self.temp_work_dir
-        stage_root = load_obs_config()["script"]["stage_root"]
+        stage_root = self.stage_root = load_obs_config()["script"]["stage_root"]
         packages = sorted(BENCH_PACKAGES or (os.listdir(self.base_dir) if os.path.isdir(self.base_dir) else []))
         os.environ.setdefault("BENCH_READONLY_DIRS", os.pathsep.join(
             [os.path.join(stage_root, p, "cache") for p in packages] + [ACCEPTANCE_DIR]))
@@ -407,7 +454,10 @@ class AutoRepairClient:
         final_text = ""
         success_attempt = None
         self.usage = {"llm_calls": 0, "tool_calls": 0, "prompt_tokens": 0,
-                      "completion_tokens": 0, "cached_tokens": 0, "cost_usd": 0.0}
+                      "completion_tokens": 0, "cached_tokens": 0, "cache_write_tokens": 0,
+                      "text_tool_calls": 0, "cost_usd": 0.0}
+        # hosts the package's builds reached and were refused (build_network proxy)
+        self.network = {"reached": set(), "refused": set()}
         self.timing = {"llm_seconds": 0.0, "upload_seconds": 0.0,
                        "build_check_seconds": 0.0, "other_tool_seconds": 0.0}
         self.dirty = False            # files changed since the last upload
@@ -425,15 +475,32 @@ class AutoRepairClient:
         run_info = run_metadata(self.max_build_attempts, self.max_tool_rounds)
         # the answer within the model's reach (scripts/bench.py refuses to start then)
         leaks = leak_report(load_obs_config(), package_name, os.path.join(self.base_dir, package_name))
-        # the build environment of a build-recipe case: name and id (make setup-env writes env.json)
+        # the build environment of a build-recipe case: name and id (make setup-env
+        # writes env.json), and the container its builds run in
         environment = None
         if kind == "recipe" and case_environment(package_path):
             name = case_environment(package_path)
             try:
                 with open(os.path.join(env_dir(name), "env.json")) as f:
-                    environment = {"name": name, "id": json.load(f).get("id"), "dir": env_dir(name)}
+                    env_info = json.load(f)
             except (OSError, ValueError):
-                environment = {"name": name, "id": None, "dir": env_dir(name)}
+                env_info = {}
+            environment = {"name": name, "id": env_info.get("id"), "dir": env_dir(name)}
+            build_cfg = load_obs_config()
+            if container.runtime(build_cfg):
+                c = build_cfg["container"]
+                environment["container"] = {
+                    "runtime": c["runtime"], "image": container.image(name),
+                    "image_id": container.image_id(build_cfg, name),
+                    "image_base": (env_info.get("image") or {}).get("base"),
+                    "image_packages_sha256": (env_info.get("image") or {}).get("packages_sha256"),
+                    "build_network": c["build_network"],
+                    "allowed_hosts": container.allowed_hosts(build_cfg, name) if c["build_network"] == "proxy"
+                    else None}
+                recorded = ((env_info.get("image") or {}).get("id") or "").removeprefix("sha256:")
+                if recorded and environment["container"]["image_id"] != recorded:
+                    self._log(package_name, f"[environment] warning: image {container.image(name)} is not the "
+                                            "one make setup-env built (env.json); run make setup-env again")
         for leak in leaks:
             self._log(package_name, f"[leak check] warning: {leak}")
 
@@ -519,6 +586,8 @@ class AutoRepairClient:
                            "success_verified_by": verified_by,
                            "leak_check": leaks,
                            "environment": environment,
+                           "network": {k: sorted(v) for k, v in self.network.items()} if self.network["reached"]
+                           or self.network["refused"] else None,
                            "minutes": round((time.time() - t0) / 60, 2), **self.usage,
                            "timing": {k: round(v, 1) for k, v in self.timing.items()},
                            "attempts": attempts,
@@ -605,16 +674,19 @@ class AutoRepairClient:
         return "\n".join(f"- {t}" for t in kept)
 
     @staticmethod
-    def _compact(messages: List[Dict]) -> None:
-        """Shorten the oldest tool results while the conversation is longer than
-        MAX_CONTEXT_CHARS; the last KEEP_RECENT_TOOL_RESULTS stay whole."""
+    def _compact(messages: List[Dict], target: int = 0) -> None:
+        """Shorten the oldest tool results when the conversation is longer than
+        MAX_CONTEXT_CHARS, down to target characters (MAX_CONTEXT_CHARS when
+        0); the last KEEP_RECENT_TOOL_RESULTS stay whole."""
         if MAX_CONTEXT_CHARS <= 0:
             return
         size = sum(len(str(m.get("content") or "")) + len(json.dumps(m.get("tool_calls") or ""))
                    for m in messages)
+        if size <= MAX_CONTEXT_CHARS:
+            return
         tools_idx = [i for i, m in enumerate(messages) if m.get("role") == "tool"]
         for i in tools_idx[:-KEEP_RECENT_TOOL_RESULTS] if KEEP_RECENT_TOOL_RESULTS else tools_idx:
-            if size <= MAX_CONTEXT_CHARS:
+            if size <= (target or MAX_CONTEXT_CHARS):
                 break
             content = str(messages[i].get("content") or "")
             if content.startswith("[older tool result shortened") or len(content) < 600:
@@ -625,7 +697,9 @@ class AutoRepairClient:
             size -= len(content) - len(short)
 
     def _chat(self, messages: List[Dict], tools: List[Dict]):
-        self._compact(messages)
+        # with a prompt cache, shorten well below the limit at once: each
+        # shortening changes the conversation's prefix, which the cache holds
+        self._compact(messages, int(MAX_CONTEXT_CHARS * 0.8) if self.prompt_cache else 0)
         kwargs = {}
         if LLM_TEMPERATURE is not None:
             kwargs["temperature"] = LLM_TEMPERATURE
@@ -635,7 +709,10 @@ class AutoRepairClient:
                 kwargs["extra_body"]["provider"] = {"order": [OPENROUTER_PROVIDER], "allow_fallbacks": False}
         started = time.time()
         try:
-            resp = self._create_with_retries(model=self.llm_cfg.model, messages=api_messages(messages), tools=tools,
+            sent = api_messages(messages)
+            if self.prompt_cache:
+                sent = with_cache_breakpoints(sent)
+            resp = self._create_with_retries(model=self.llm_cfg.model, messages=sent, tools=tools,
                                              tool_choice="auto", **kwargs)
         finally:
             self.timing["llm_seconds"] += time.time() - started
@@ -646,12 +723,36 @@ class AutoRepairClient:
             self.usage["completion_tokens"] += u.completion_tokens or 0
             details = getattr(u, "prompt_tokens_details", None)
             self.usage["cached_tokens"] += (getattr(details, "cached_tokens", 0) or 0) if details else 0
+            # OpenRouter: prompt_tokens_details.cache_write_tokens
+            self.usage["cache_write_tokens"] += (
+                (getattr(details, "cache_write_tokens", None) or (details.model_extra or {}).get("cache_write_tokens")
+                 or 0) if details else 0)
             self.usage["cost_usd"] += float((u.model_extra or {}).get("cost") or 0)
         served = (resp.model_extra or {}).get("provider") or "unknown"
         providers = self.usage.setdefault("providers", {})
         providers[served] = providers.get(served, 0) + 1
         self._write_status(messages)
-        return resp.choices[0]
+        choice = resp.choices[0]
+        if TEXT_TOOL_CALLS and not choice.message.tool_calls:
+            self._take_text_tool_calls(choice, tools)
+        return choice
+
+    def _take_text_tool_calls(self, choice, tools: List[Dict]) -> None:
+        """Make the tool calls the model wrote in its text real tool calls."""
+        calls, rest = parse_text_tool_calls(choice.message.content or "", tools)
+        if not calls:
+            return
+        data = choice.message.model_dump()
+        data["content"] = rest or None
+        data["tool_calls"] = [{"id": f"call_text_{self.usage['llm_calls']}_{i}", "type": "function",
+                               "function": {"name": c["name"],
+                                            "arguments": json.dumps(c["arguments"], ensure_ascii=False)}}
+                              for i, c in enumerate(calls)]
+        choice.message = type(choice.message).model_validate(data)
+        self.usage["text_tool_calls"] += len(calls)
+        self._log(getattr(self, "package", None) or "global",
+                  f"[text tool calls] {len(calls)} tool call(s) taken from the reply's text: "
+                  + ", ".join(c["name"] for c in calls))
 
     def _create_with_retries(self, **kwargs):
         for attempt in range(len(MODEL_RETRY_WAITS) + 1):
@@ -755,6 +856,10 @@ class AutoRepairClient:
             self.unchecked_upload = False
             line = tool_ret.splitlines()[0]
             self.builds.append(f"{line} (framework)" if by_framework else line)
+            if hasattr(self, "network"):
+                net = container.network_log(os.path.join(self.stage_root, self.package, "run"))
+                for key in self.network:
+                    self.network[key].update(net[key])
 
     def _save_transcript(self, package_name: str, attempt: int, messages: List[Dict]):
         path = os.path.join(self.log_dir, f"{package_name}_attempt{attempt}_messages.json")
