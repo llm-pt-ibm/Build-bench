@@ -238,6 +238,8 @@ with _tempfile.TemporaryDirectory() as tmp:
     assert env["OPENROUTER_PROVIDER"] == "p" and env["BENCH_RESUME_FROM"] == "r0_1"
     assert "LLM_TEMPERATURE" not in env and "BENCH_RESUME_WORKSPACE" not in env, "unset settings are removed"
     del os.environ["LLM_TEMPERATURE"]
+    p = bench.load_profile(profile_path, {"provider": "none", "model": "anthropic/x"})
+    assert p["provider"] is None and "OPENROUTER_PROVIDER" not in bench.run_env(p), p
     paths = {k: os.path.join(tmp, k) for k in ("base_dir", "result_dir", "log_dir", "temp_work_dir")}
     for d in paths.values():
         os.makedirs(d)

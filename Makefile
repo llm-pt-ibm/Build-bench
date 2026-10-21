@@ -1,6 +1,7 @@
 # Commands of the benchmark. What to run is set in bench.yaml (the run
 # profile); each setting can be overridden here, e.g.
 #   make run LABEL=run31 ATTEMPTS=6 MODEL=deepseek/deepseek-v4.1-flash
+# A variable set to none clears that setting of the profile, e.g. PROVIDER=none.
 # ALLOW_LEAKS=1 starts a run even if the leak check finds something.
 # A local model: make run PROFILE=bench.local.yaml (or BASE_URL=http://127.0.0.1:11434/v1 MODEL=...)
 # `make` alone lists the commands. They run on the build host (the Power9).

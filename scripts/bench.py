@@ -38,7 +38,8 @@ LOGS_DIR = os.path.join(ROOT, "logs")
 def load_profile(path: str, overrides: dict) -> dict:
     with open(path) as f:
         profile = yaml.safe_load(f) or {}
-    profile.update({k: v for k, v in overrides.items() if v not in (None, "")})
+    # "none" clears a setting of the profile (e.g. PROVIDER=none for a model its provider does not serve)
+    profile.update({k: None if str(v).lower() == "none" else v for k, v in overrides.items() if v not in (None, "")})
     packages = profile.get("packages") or []
     if isinstance(packages, str):
         packages = [p for p in packages.replace(",", " ").split() if p]
