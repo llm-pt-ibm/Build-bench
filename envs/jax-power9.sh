@@ -33,7 +33,7 @@ export PYTHON=$_env/build/bin/python
 export TEST_PYTHON=$_env/test/bin/python
 export LOCAL_WHEELS=$_env/wheels
 
-echo "environment jax-power9 $(sed -n 's/.*"id": "\([0-9a-f]*\)".*/\1/p' "$_env/env.json") in $_env"
+echo "environment jax-power9 $(sed -n 's/^ "id": "\([0-9a-f]*\)".*/\1/p' "$_env/env.json") in $_env"
 echo "BAZEL=$BAZEL ($($BAZEL --version 2>/dev/null))"
 echo "CLANG=$CLANG ($($CLANG --version | head -1))"
 echo "PYTHON=$PYTHON ($($PYTHON --version 2>&1)); TEST_PYTHON=$TEST_PYTHON (no jax installed; pytest)"

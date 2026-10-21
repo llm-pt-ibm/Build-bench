@@ -391,7 +391,7 @@ if os.geteuid() == 0 and shutil.which("unshare") and \
         out = run_experiment("demo", workspace, " ; ".join([
             "echo hello > note.txt && cat note.txt",
             "cat $BENCH_CACHE_DIR/dep.txt",
-            f"cat {tool_dir}/tool.txt; cat {tool_dir}/secret/answer.txt 2>&1 | grep -o 'No such file'",
+            f"cat {tool_dir}/tool.txt; cat {tool_dir}/secret/answer.txt 2>/dev/null || echo hidden",
             "touch $BENCH_WORKSPACE/x 2>&1 | grep -o 'Read-only file system'",
             "touch $BENCH_CACHE_DIR/x 2>&1 | grep -o 'Read-only file system'",
             f"ls {ROOT}/MODIFICATIONS.md 2>&1 | grep -o 'No such file'",
@@ -400,7 +400,7 @@ if os.geteuid() == 0 and shutil.which("unshare") and \
             "exit 3"]), 60, cfg)
         assert out.startswith("Command exit status 3"), out
         assert "solution" not in out, out
-        for expected in ("hello", "dependency", "toolchain\nNo such file", "Read-only file system\nRead-only file system",
+        for expected in ("hello", "dependency", "toolchain\nhidden", "Read-only file system\nRead-only file system",
                          "No such file", "must be superuser", "Network is unreachable"):
             assert expected in out, (expected, out)
         assert open(os.path.join(tmp, "stage", "demo", "scratch", "note.txt")).read() == "hello\n"
@@ -438,5 +438,70 @@ if os.geteuid() == 0 and shutil.which("unshare") and \
     print("experiments: OK (sandbox hides /root, read-only package, cache and build environment, no network)")
 else:
     print("experiments: skipped (needs root and unshare)")
+
+# experiments in a container (Podman, else Docker), with the base image of the
+# environments' images (BENCH_TEST_IMAGE: another one with bash)
+from tools.auto_repair import container as container_mod  # noqa: E402
+_image = os.getenv("BENCH_TEST_IMAGE", "registry.access.redhat.com/ubi8/ubi:8.9")
+_runtime = next((rt for rt in ("podman", "docker") if shutil.which(rt) and subprocess.run(
+    [rt, "image", "inspect", _image], capture_output=True, env=container_mod.runtime_env()).returncode == 0), None)
+if _runtime:
+    tmp = tempfile.mkdtemp(dir=ROOT, prefix=".test_container_")
+    env_script = os.path.join(ROOT, "envs", "demo-ctr-env.sh")
+    os.environ["BENCH_HOME"] = os.path.join(tmp, "home")
+    subprocess.run([_runtime, "tag", _image, "build-bench-demo-ctr-env"], check=True, env=container_mod.runtime_env())
+    try:
+        workspace = os.path.join(tmp, "work", "demo")
+        os.makedirs(workspace)
+        open(os.path.join(workspace, "build.sh"), "w").write("true\n")
+        cfg = {"container": {"runtime": _runtime},
+               "script": {"stage_root": os.path.join(tmp, "stage"), "jobs": 2}}
+        assert "no build environment" in run_experiment("demo", workspace, "true", 60, cfg)
+        # no limit of processes beyond the host's (Podman's 2048 broke jaxlib's test suite)
+        argv = container_mod.command(cfg, "x", "demo-ctr-env", [], {}, "/", ["true"])
+        assert argv[argv.index("--pids-limit") + 1] == "-1", argv
+        json.dump({"environment": "demo-ctr-env"}, open(os.path.join(workspace, "manifest.json"), "w"))
+        os.makedirs(os.path.join(tmp, "home", "envs", "demo-ctr-env"))
+        open(os.path.join(tmp, "home", "envs", "demo-ctr-env", "tool"), "w").write("env tool\n")
+        open(env_script, "w").write('export DEMO_TOOL="$BENCH_ENV_DIR/tool"\n')
+        tool_dir = os.path.join(tmp, "toolchain")
+        os.makedirs(os.path.join(tool_dir, "secret"))
+        open(os.path.join(tool_dir, "tool.txt"), "w").write("toolchain\n")
+        open(os.path.join(tool_dir, "secret", "answer.txt"), "w").write("solution\n")
+        cfg["script"].update(experiment_paths=[tool_dir], experiment_hide=[os.path.join(tool_dir, "secret")])
+        os.makedirs(os.path.join(tmp, "stage", "demo", "cache"), exist_ok=True)
+        open(os.path.join(tmp, "stage", "demo", "cache", "dep.txt"), "w").write("dependency\n")
+        os.chmod(tmp, 0o755)   # Docker runs the container as the user, its daemon as root
+        out = run_experiment("demo", workspace, " ; ".join([
+            "echo hello > note.txt && cat note.txt",
+            "cat $BENCH_CACHE_DIR/dep.txt",
+            'cat "$DEMO_TOOL"',
+            f"cat {tool_dir}/tool.txt",
+            f"cat {tool_dir}/secret/answer.txt 2>/dev/null || echo hidden",
+            "touch $BENCH_WORKSPACE/x 2>/dev/null || echo read-only",
+            'touch "$BENCH_ENV_DIR/x" 2>/dev/null || echo read-only',
+            f"ls {ROOT}/MODIFICATIONS.md 2>/dev/null || echo no-framework",
+            "mount -t tmpfs none /mnt 2>/dev/null || echo no-mount",
+            "(exec 3<>/dev/tcp/1.1.1.1/53) 2>/dev/null || echo no-network",
+            "exit 3"]), 120, cfg)
+        assert out.startswith("Command exit status 3"), out
+        assert "hello\ndependency\nenv tool\ntoolchain\nhidden\nread-only\nread-only\nno-framework\n" \
+               "no-mount\nno-network\n" in out, out
+        assert open(os.path.join(tmp, "stage", "demo", "scratch", "note.txt")).read() == "hello\n"
+        assert "timed out after 3 s" in run_experiment("demo", workspace, "sleep 60", 3, cfg)
+        left = subprocess.run([_runtime, "ps", "-a", "--format", "{{.Names}}"], capture_output=True, text=True,
+                              env=container_mod.runtime_env()).stdout
+        assert "bench-demo-exp" not in left, left
+    finally:
+        subprocess.run([_runtime, "rmi", "build-bench-demo-ctr-env"], capture_output=True,
+                       env=container_mod.runtime_env())
+        os.environ.pop("BENCH_HOME", None)
+        if os.path.exists(env_script):
+            os.remove(env_script)
+        shutil.rmtree(tmp, ignore_errors=True)
+    print(f"experiments in a container: OK ({_runtime}: only the mounts, hidden paths, no capabilities, "
+          "no network, timeout)")
+else:
+    print("experiments in a container: skipped (needs podman or docker with the base image)")
 
 print("\nALL TESTS PASSED")

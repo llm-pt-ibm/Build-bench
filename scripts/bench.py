@@ -191,6 +191,7 @@ def leak_findings(config: str, paths: dict, packages: list) -> dict:
 def check_build_host(config: str, paths: dict, packages: list) -> None:
     """Local and build-recipe builds run on this host: it must be the build host
     (and not, say, a laptop that sees the repository through a mount)."""
+    from tools.auto_repair import container
     from tools.auto_repair.case_type import case_environment, case_type
     from tools.auto_repair.paths import build_dirs, env_dir
     with open(os.path.join(ROOT, config)) as f:
@@ -205,6 +206,9 @@ def check_build_host(config: str, paths: dict, packages: list) -> None:
             if env and not os.path.isfile(os.path.join(env_dir(env), ".complete")):
                 fail(f"build environment {env} of {pkg} is not set up in {env_dir(env)}: "
                      f"run make setup-env ENV={env}")
+            problem = container.check({"container": container.settings(build)}, env)
+            if problem:
+                fail(f"{pkg}: {problem}")
     missing = sorted({p for p in needs if not os.path.isdir(p)})
     if missing:
         fail(f"this host ({socket.gethostname()}) is not the build host of {config}: "
@@ -311,11 +315,13 @@ def cmd_resume(profile: dict, source: str, workspace: str, background: bool, att
 def stop_builds(config: str, packages: list) -> None:
     """Builds, their tests and run_command_tool's commands run in sessions of
     their own: stop them too."""
+    from tools.auto_repair import container
     from tools.auto_repair.local_build import _stop
     from tools.auto_repair.script_build import stop_experiments
     cfg = obs_config(config)
     for pkg in packages:
         _stop(os.path.join(cfg["script"]["stage_root"], pkg, "run", "state.json"))
+        container.remove_matching(cfg, f"bench-{pkg}-")
         _stop(os.path.join(cfg["local"]["worker_root"], "runs", pkg, "state.json"))
         stop_experiments(pkg, cfg)
 
@@ -431,25 +437,60 @@ def cmd_transcript(profile: dict, extra: list) -> None:
                              + extra))
 
 
-def cmd_setup_env(name: str) -> None:
+def container_cfg(profile: dict) -> dict:
+    """The container settings of the profile's config (no .env needed)."""
+    from tools.auto_repair import container
+    with open(os.path.join(ROOT, profile["config"])) as f:
+        return {"container": container.settings(yaml.safe_load(f).get("build") or {})}
+
+
+def cmd_setup_env(profile: dict, name: str) -> None:
     """Make build environment `name` with envs/<name>/setup.sh, in the user's
-    own directory ($BENCH_HOME/envs/<name>)."""
+    own directory ($BENCH_HOME/envs/<name>), and its container image."""
+    from tools.auto_repair import container
     from tools.auto_repair.paths import env_dir
     setup = os.path.join(ROOT, "envs", name, "setup.sh")
     if not os.path.isfile(setup):
         fail(f"no recipe {os.path.relpath(setup, ROOT)} for environment {name}")
     print(f"setting up environment {name} in {env_dir(name)}")
-    sys.exit(subprocess.call(["bash", setup], env=dict(os.environ, BENCH_ENV_DIR=env_dir(name))))
+    code = subprocess.call(["bash", setup], env=dict(os.environ, BENCH_ENV_DIR=env_dir(name)))
+    cfg = container_cfg(profile)
+    if code == 0 and container.runtime(cfg):
+        if not container.available(container.runtime(cfg)):
+            fail(f"{container.runtime(cfg)} not found: install it to build the image, or set "
+                 "build.container.runtime in the config")
+        print(f"\n=== image {container.image(name)} ({container.runtime(cfg)})")
+        image_id = container.build_image(cfg, name)
+        info_path = os.path.join(env_dir(name), "env.json")
+        with open(info_path) as f:
+            info = json.load(f)
+        info["image"] = {"name": container.image(name), "id": image_id, "runtime": container.runtime(cfg)}
+        with open(info_path, "w") as f:
+            json.dump(info, f, indent=1)
+        print(f"image {container.image(name)} {image_id[:12]}")
+    sys.exit(code)
 
 
-def cmd_check_env(name: str) -> None:
-    """Load build environment `name` as a build does, and show what it provides."""
+def cmd_check_env(profile: dict, name: str) -> None:
+    """Load build environment `name` as a build does (in its container, with
+    a container runtime), and show what it provides."""
+    from tools.auto_repair import container
     from tools.auto_repair.paths import env_dir
     script = os.path.join(ROOT, "envs", f"{name}.sh")
     if not os.path.isfile(script):
         fail(f"no environment {os.path.relpath(script, ROOT)}")
-    code = subprocess.call(["bash", "-c", 'source "$1" || exit 2', "check-env", script],
-                           env=dict(os.environ, BENCH_ENV_DIR=env_dir(name)))
+    cfg = container_cfg(profile)
+    argv, env = ["bash", "-c", 'source "$1" || exit 2', "check-env", script], {"BENCH_ENV_DIR": env_dir(name)}
+    if container.runtime(cfg):
+        problem = container.check(cfg, name)
+        if problem:
+            fail(problem)
+        print(f"in a {container.runtime(cfg)} container of {container.image(name)}")
+        argv = container.command(cfg, f"bench-check-env-{os.getpid()}", name, container.framework_mounts(name),
+                                 env, env_dir(name), argv)
+        code = subprocess.call(argv, env=container.runtime_env())
+    else:
+        code = subprocess.call(argv, env=dict(os.environ, **env))
     print("environment ready" if code == 0 else f"environment {name} is not usable (status {code})")
     sys.exit(code)
 
@@ -522,9 +563,9 @@ def main() -> None:
     elif args.command == "new-case":
         cmd_new_case(profile, args.name, args.env)
     elif args.command == "setup-env":
-        cmd_setup_env(args.name)
+        cmd_setup_env(profile, args.name)
     elif args.command == "check-env":
-        cmd_check_env(args.name)
+        cmd_check_env(profile, args.name)
     elif args.command == "transcript":
         cmd_transcript(profile, args.extra)
     elif args.command == "stop":

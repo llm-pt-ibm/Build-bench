@@ -2,9 +2,10 @@
 case's build environment, to test a hypothesis without a full build (run one
 test of the built software, compile a small program, inspect an artifact).
 
-Only for build-recipe cases. Each command runs in its own sandbox (Linux
-namespaces, so the build host must allow unshare and mounts, as the Power9
-container does):
+Only for build-recipe cases. Each command runs in a container of the build
+environment's image (build.container.runtime, Podman by default: see
+tools/auto_repair/container.py), or, with runtime none, in a sandbox of Linux
+namespaces made as root (unshare and mounts). Either way:
   - /root, /tmp, /var/tmp and /dev/shm are hidden: other builds, earlier runs
     and the framework's own files cannot be read;
   - visible again, read-only: the package workspace, the last build's copy
@@ -24,6 +25,7 @@ import signal
 import subprocess
 import time
 
+from tools.auto_repair import container
 from tools.auto_repair.case_type import case_environment
 from tools.auto_repair.paths import env_dir
 
@@ -83,16 +85,32 @@ def run_experiment(package_name: str, workspace: str, command: str, timeout: int
            "BENCH_ENV_DIR": env_dir(env_name) if env_name else ""}
     env_script = os.path.join(ENVS_DIR, f"{env_name}.sh") if env_name else ""
     hide = [os.path.realpath(p) for p in cfg["script"].get("experiment_hide") or [] if os.path.isdir(p)]
-    script = _sandbox_script(mounts, hide, scratch, command_file, env_script, env)
+    runner = os.path.join(ROOT, "scripts", "script_worker", "run.sh")
+    name = None
+    if container.runtime(cfg):
+        # a container of the build environment's image: only the mounts are
+        # there, no network, no capabilities (needs no root with Podman)
+        problem = container.check(cfg, env_name)
+        if problem:
+            return f"Error: commands cannot run: {problem}"
+        name = f"bench-{package_name}-exp-{os.getpid()}-{int(time.time() * 1000) % 1000000}"
+        argv = container.command(cfg, name, env_name, mounts, env, scratch,
+                                 ["bash", runner, scratch, env_script, command_file],
+                                 network="none", drop_capabilities=True, tmpfs=hide)
+        run_env = container.runtime_env()
+    else:
+        argv = ["unshare", "--mount", "--net", "--pid", "--fork", "--mount-proc", "--propagation", "private",
+                "bash", "-c", _sandbox_script(mounts, hide, scratch, command_file, env_script, env)]
+        run_env = None
     started = time.time()
-    proc = subprocess.Popen(["unshare", "--mount", "--net", "--pid", "--fork", "--mount-proc",
-                             "--propagation", "private", "bash", "-c", script],
-                            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                            start_new_session=True)
+    proc = subprocess.Popen(argv, env=run_env, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT, start_new_session=True)
     try:
         out, _ = proc.communicate(timeout=timeout)
         status = f"exit status {proc.returncode}"
     except subprocess.TimeoutExpired:
+        if name:
+            container.remove(cfg, name)
         os.killpg(proc.pid, signal.SIGKILL)
         out, _ = proc.communicate()
         status = f"timed out after {timeout} s (killed)"

@@ -2,6 +2,7 @@ import os
 import yaml
 from dotenv import load_dotenv
 
+from tools.auto_repair import container
 from tools.auto_repair.paths import build_dirs, expand
 
 load_dotenv(".env")
@@ -47,6 +48,8 @@ def load_obs_config() -> dict:
             "arch": local.get("arch", user["architecture_name"]),
             "jobs": int(local.get("jobs", 0)),
         },
+        # build-recipe cases run in containers (tools/auto_repair/container.py)
+        "container": container.settings(build),
         # build-recipe cases (build.sh), see tools/auto_repair/script_build.py
         "script": {
             "stage_root": dirs["stage_root"],

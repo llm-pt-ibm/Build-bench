@@ -28,17 +28,29 @@ def acceptance_test(cfg: dict, package: str):
     return path if os.path.isfile(path) else None
 
 
-def run_acceptance(test: str, env_script: str, workdir: str, env: dict, timeout: int):
-    """Run the test; returns (passed, output)."""
+def run_acceptance(test: str, env_script: str, workdir: str, env: dict, timeout: int, in_container=None):
+    """Run the test, on the host or in a container (in_container: cfg, name,
+    env_name and mounts for tools/auto_repair/container.py); returns
+    (passed, output)."""
+    from tools.auto_repair import container
+    argv = ["bash", RUNNER, workdir, env_script or "", test]
+    if in_container:
+        c = in_container
+        argv = container.command(c["cfg"], c["name"], c["env_name"], c["mounts"], env, workdir, argv)
+        container.remove(c["cfg"], c["name"])
+        run_env = container.runtime_env()
+    else:
+        run_env = dict(os.environ, **env)
     try:
-        proc = subprocess.run(["bash", RUNNER, workdir, env_script or "", test],
-                              env=dict(os.environ, **env), stdin=subprocess.DEVNULL,
+        proc = subprocess.run(argv, env=run_env, stdin=subprocess.DEVNULL,
                               stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=timeout)
         output = proc.stdout.decode("utf-8", errors="replace")
         passed = proc.returncode == 0
     except subprocess.TimeoutExpired as e:
         output = (e.stdout or b"").decode("utf-8", errors="replace") + f"\nacceptance test timed out after {timeout} s"
         passed = False
+        if in_container:
+            container.remove(in_container["cfg"], in_container["name"])
     if len(output) > OUTPUT_KEPT:
         output = output[:OUTPUT_KEPT // 4] + "\n...\n" + output[-3 * OUTPUT_KEPT // 4:]
     return passed, output

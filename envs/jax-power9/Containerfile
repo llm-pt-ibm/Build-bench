@@ -1,0 +1,11 @@
+# Image of the jax-power9 build environment: the system its builds, acceptance
+# tests and run_command_tool's commands run on (glibc, the C headers clang 17
+# compiles against, binutils, basic tools), as on a RHEL 8 build host. The environment
+# itself (BENCH_HOME/envs/jax-power9, made by make setup-env) is mounted in
+# read-only; nothing of the package or its solution is in the image.
+# Built by make setup-env as build-bench-jax-power9.
+FROM registry.access.redhat.com/ubi8/ubi:8.9
+RUN dnf install -y --setopt=install_weak_deps=False --nodocs \
+        glibc-devel kernel-headers binutils tar gzip xz bzip2 findutils which diffutils \
+        procps-ng hostname file \
+    && dnf clean all

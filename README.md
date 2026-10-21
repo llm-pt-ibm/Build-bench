@@ -74,10 +74,32 @@ The environment script only exports variables (PATH, the C++ runtime of its
 compilers through LD_LIBRARY_PATH, the tools' paths); `env.json` records its
 versions and checksums, and every result records its id.
 
+The builds, acceptance tests and `run_command_tool` commands of build-recipe
+cases run in containers of the environment's image, which `make setup-env`
+builds from `envs/<name>/Containerfile` (the system part of the build host:
+glibc, headers, binutils) as `build-bench-<name>`. Only what is mounted is
+there, at the same paths as on the host: the build copy, its caches and the
+build environment. Podman is the default (rootless, no daemon: `dnf install
+podman` or `apt install podman` on the build host); the config chooses
+another runtime (`build.container`, or `BENCH_CONTAINER_RUNTIME`):
+
+```yaml
+build:
+  container:
+    runtime: podman        # podman (default), docker, or none (on the host)
+    build_network: host    # builds download their dependencies; tests and commands get none
+    # cpus: 32, memory: 64g, pids_limit: 4096   (default -1: no limit beyond the host's)
+```
+
+With Docker the containers run as the user, but its group is
+root-equivalent; with `none` build.sh runs on the host with everything the
+user can read, and `run_command_tool` uses a sandbox of Linux namespaces that
+needs root.
+
 Build backends, per config (`build.backend`):
 - **OBS** (`config/x86_64_to_ppc64le.yaml`): the OBS account above; `dataset/setup_obs.py` creates the packages in your OBS project.
 - **local** (`config/x86_64_to_ppc64le_local.yaml`, `_power9.yaml`): RPM packages with `osc build` in a local openSUSE chroot, created by `scripts/local_worker/setup.sh`.
-- **build recipes** (`_power9.yaml`): cases with a `build.sh`, built on the host in the environment of `envs/<name>.sh`.
+- **build recipes** (`_power9.yaml`): cases with a `build.sh`, built in a container of their environment's image, in the environment of `envs/<name>.sh`.
 
 ---
 
@@ -202,9 +224,10 @@ kept for the next attempts), archive extraction and compression, upload and
 build check. With build recipes the model can also read the dependency
 sources the build downloaded (its build cache), and run short commands with
 `run_command_tool` (e.g. a single failing test, or a small C program that
-reproduces a compiler bug). Each command runs in a sandbox: /root, /tmp and
-the other builds are hidden, the package and the build cache are read-only,
-there is no network and no capability left.
+reproduces a compiler bug). Each command runs in a container of the build
+environment's image (with `runtime: none`, a sandbox of namespaces): only the
+package and the build cache (read-only), the build environment and a scratch
+directory are there, with no network and no capability left.
 
 ---
 
@@ -222,7 +245,8 @@ with the model's reasoning) and the diff log of its edits. `make summary` and
 ## 🧪 Tests
 
 `make test` runs `tests/test_helpers.py` (patch check, log excerpt, build
-backends, resume, run profile, leak check, cases, sandbox) and
+backends, resume, run profile, leak check, cases, sandbox, containers with
+Podman or Docker when one is installed with the base image) and
 `tests/test_offline.py` (the tools through MCP with a scripted model). They
 write only to temporary directories.
 

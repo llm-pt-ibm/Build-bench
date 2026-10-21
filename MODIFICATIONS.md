@@ -110,7 +110,8 @@ improvements` shows them file by file.
   cases, enabled with `llm.extra_tools`): runs short shell commands on the
   build host, in the build environment, so the model can test a hypothesis
   in seconds instead of a full build (`tools/auto_repair/experiment.py`).
-  Each command runs in a sandbox of Linux namespaces: /root, /tmp, /var/tmp
+  Each command runs in a sandbox of Linux namespaces (a container now, see
+  Containers below): /root, /tmp, /var/tmp
   and /dev/shm are hidden (other builds, earlier runs and the framework's
   files cannot be read), the workspace, the last build's copy and the build
   cache come back read-only, the scratch directory (cleared with the cache)
@@ -316,6 +317,41 @@ improvements` shows them file by file.
   - run_command_tool's sandbox and the leak check include the case's build
     environment by themselves; `make run` refuses to start when it is not
     set up.
+- Containers (`tools/auto_repair/container.py`, `build.container`): the
+  build.sh, acceptance test and run_command_tool commands of build-recipe
+  cases run in a container of the case's environment image. Podman is the
+  default (rootless, no daemon; what a build writes in its mounts belongs to
+  the user), Docker the alternative (`runtime: docker` or
+  `BENCH_CONTAINER_RUNTIME=docker`; the container runs as the user, but
+  membership in Docker's group is root-equivalent), and `none` runs them on
+  the host as before. Only what is mounted is there, at the same paths as on
+  the host: the build copy and its caches (writable for the build), the
+  environment scripts, the runner and the build environment (read-only), and
+  the acceptance tests for the test. build.sh therefore no longer runs with
+  everything the user can read (other users' files, earlier runs, the
+  framework, the team's manual port), which the leak check could not cover.
+  The build has the host's network (`build_network`; build.sh downloads its
+  dependencies), the test and the commands none; the commands also run with
+  no capability, and `experiment_hide` puts empty directories over hidden
+  paths (Podman copies a directory's contents into a tmpfs mounted over it
+  unless told `notmpcopyup`; the test found this). `cpus` and `memory` limit
+  a container; `pids_limit` is -1 (none beyond the host's, as with Docker)
+  because Podman's default of 2048 processes and threads stopped jaxlib's
+  test suite (48 pytest workers, each starting OpenBLAS's threads). The image (`envs/<env>/Containerfile`, `build-bench-<env>`)
+  is the system part of the build host: jax-power9's is UBI 8.9 with
+  glibc-devel, kernel headers, binutils and basic tools (the first build in
+  a container failed because numpy, built from source by rules_python, needs
+  `ar`). `make setup-env` builds it and records its id in env.json, `make
+  check-env` loads the environment in it, `make run` refuses to start
+  without the runtime or the image, and stopping a build, a cache reset and
+  `make stop` remove the package's containers. The runtime is called with
+  `GODEBUG=netdns=cgo` (Go's own resolver fails with Docker's embedded DNS,
+  as in the Power9 container). The namespace sandbox stays for `runtime:
+  none` (it needs root). On the Power9, itself a Docker container, Podman
+  4.9 was installed from the UBI repositories and runs nested containers as
+  root. run29's jaxlib built in a container (37 minutes after a cache
+  reset) and passed its acceptance test in another, with no network (11
+  checks, 1528 tests of JAX's suite).
 - Local models: the run profile's `base_url` points a run to a model server
   of its own with an OpenAI-compatible API (Ollama, vLLM, llama.cpp);
   `bench.local.yaml` is an example. The API key of `.env` is never sent to
@@ -364,8 +400,9 @@ improvements` shows them file by file.
   (without `script.experiment_hide`). `make run` and `make resume` refuse to
   start when something is found (ALLOW_LEAKS=1 overrides), and client.py logs
   the findings and records them as `leak_check` in the result. It finds the
-  two leaks of run28 and run28c when the protections are taken out. It cannot
-  cover build.sh, which runs outside the sandbox with the whole host.
+  two leaks of run28 and run28c when the protections are taken out. Without
+  containers (`runtime: none`) it cannot cover build.sh, which then runs on
+  the host with everything the user can read.
 - `tests/test_helpers.py` (no dependencies) covers the patch check and the log
   excerpt; `tests/test_offline.py` covers the new file and archive behaviour.
 

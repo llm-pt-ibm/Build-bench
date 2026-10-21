@@ -24,6 +24,7 @@ import signal
 import subprocess
 import time
 
+from tools.auto_repair import container
 from tools.auto_repair.acceptance import acceptance_test, failure_message, run_acceptance
 from tools.auto_repair.case_type import case_environment
 from tools.auto_repair.infra import infra_failure, retry_or_give_up
@@ -108,6 +109,7 @@ def reset_cache(package_name: str, cfg: dict) -> None:
     everything they started."""
     dirs = _dirs(cfg, package_name)
     _stop(os.path.join(dirs["run"], "state.json"))
+    container.remove_matching(cfg, f"bench-{package_name}-")
     cache, scratch = dirs["cache"], os.path.join(dirs["base"], "scratch")
     kill_users(cache)
     kill_users(scratch)
@@ -120,7 +122,8 @@ def reset_cache(package_name: str, cfg: dict) -> None:
 
 def stop_experiments(package_name: str, cfg: dict) -> None:
     """Stop the commands of run_command_tool still running for the package
-    (each runs in a sandbox and a session of its own)."""
+    (each runs in a container, or a sandbox, and a session of its own)."""
+    container.remove_matching(cfg, f"bench-{package_name}-exp")
     kill_users(os.path.join(cfg["script"]["stage_root"], package_name, "scratch"))
 
 
@@ -167,24 +170,40 @@ def script_upload(package_name: str, package_dir: str, cfg: dict) -> str:
     env_script = os.path.join(ENVS_DIR, f"{env_name}.sh") if env_name else ""
     if env_script and not os.path.isfile(env_script):
         return f"Error: build environment '{env_name}' not found ({env_script})"
+    problem = container.check(cfg, env_name)
+    if problem:
+        return f"Error: the build host cannot run the build: {problem}"
     dirs = _dirs(cfg, package_name)
     state_path = os.path.join(dirs["run"], "state.json")
     _stop(state_path)
+    name = f"bench-{package_name}-build"
+    container.remove(cfg, name)
     srcmd5 = sync_tree(package_dir, dirs["src"])
 
     log, status = os.path.join(dirs["run"], "build.log"), os.path.join(dirs["run"], "status")
     for path in (log, status):
         if os.path.exists(path):
             os.remove(path)
-    env = dict(os.environ, BENCH_CACHE_DIR=dirs["cache"], BENCH_SHARED_CACHE_DIR=dirs["shared"],
-               BENCH_JOBS=str(cfg["script"]["jobs"]), BENCH_PACKAGE=package_name,
-               BENCH_ENV_DIR=env_dir(env_name) if env_name else "")
+    bench_env = {"BENCH_CACHE_DIR": dirs["cache"], "BENCH_SHARED_CACHE_DIR": dirs["shared"],
+                 "BENCH_JOBS": str(cfg["script"]["jobs"]), "BENCH_PACKAGE": package_name,
+                 "BENCH_ENV_DIR": env_dir(env_name) if env_name else ""}
+    argv = ["bash", RUNNER, dirs["src"], env_script]
+    if container.runtime(cfg):
+        # only the build copy, its caches and the build environment are there
+        argv = container.command(
+            cfg, name, env_name,
+            [(dirs["src"], True), (dirs["cache"], True), (dirs["shared"], True)] + container.framework_mounts(env_name),
+            bench_env, dirs["src"], argv, network=cfg["container"]["build_network"])
+        env = container.runtime_env()
+    else:
+        env = dict(os.environ, **bench_env)
     proc = subprocess.Popen(
-        ["bash", "-c", '"$0" "$1" "$2" > "$3" 2>&1; echo $? > "$4"',
-         RUNNER, dirs["src"], env_script, log, status],
+        ["bash", "-c", 'log=$1 status=$2; shift 2; "$@" > "$log" 2>&1; echo $? > "$status"', "build",
+         log, status, *argv],
         env=env, start_new_session=True, stdin=subprocess.DEVNULL)
     with open(state_path, "w") as f:
-        json.dump({"pgid": proc.pid, "srcmd5": srcmd5, "time": time.time()}, f)
+        json.dump({"pgid": proc.pid, "srcmd5": srcmd5, "time": time.time(),
+                   "container": name if container.runtime(cfg) else None}, f)
     with open(os.path.join(package_dir, ".last_upload.json"), "w") as f:
         json.dump({"srcmd5": srcmd5, "time": time.time(), "backend": "script"}, f)
     return (f"Success: sources snapshotted for a build on the {cfg['local']['arch']} build host"
@@ -213,6 +232,7 @@ def script_check(temp_dir: str, package_name: str, cfg: dict, _retry: int = 0) -
         time.sleep(min(cfg["check_interval"], 10))
     if not os.path.exists(status_path):
         _stop(state_path)
+        container.remove(cfg, f"bench-{package_name}-build")
         return (f"Build timeout! The build has not been completed within {cfg['max_wait_seconds']} seconds. "
                 "Default build failed.")
     time.sleep(1)
@@ -230,11 +250,19 @@ def script_check(temp_dir: str, package_name: str, cfg: dict, _retry: int = 0) -
         if not test:
             return "Build succeeded! The build has been successfully completed."
         env_name = case_environment(temp_dir)
+        # in a container: the build copy (the test may build in it), the
+        # cache, the acceptance tests and the build environment, no network
+        in_container = None
+        if container.runtime(cfg):
+            in_container = {"cfg": cfg, "name": f"bench-{package_name}-test", "env_name": env_name,
+                            "mounts": [(dirs["src"], True), (dirs["cache"], True),
+                                       (os.path.join(ROOT, "acceptance"), False)]
+                                      + container.framework_mounts(env_name)}
         passed, output = run_acceptance(
             test, os.path.join(ENVS_DIR, f"{env_name}.sh") if env_name else "", dirs["src"],
             {"BENCH_PACKAGE": package_name, "BENCH_SRC_DIR": dirs["src"], "BENCH_CACHE_DIR": dirs["cache"],
              "BENCH_JOBS": str(cfg["script"]["jobs"]), "BENCH_ENV_DIR": env_dir(env_name) if env_name else ""},
-            cfg["acceptance_timeout"])
+            cfg["acceptance_timeout"], in_container)
         with open(os.path.join(dirs["run"], "acceptance.log"), "w", encoding="utf-8") as f:
             f.write(output)
         if passed:
