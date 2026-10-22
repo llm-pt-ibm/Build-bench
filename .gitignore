@@ -36,3 +36,8 @@ logs/
 
 # settings of this machine for make (PY, BENCH_HOME)
 local.mk
+
+# run results (result_text_res/, result_log_res/) stay on the machine that ran
+# them, out of this public repository; only upstream's texmath samples are tracked
+result_log_res/
+result_text_res/

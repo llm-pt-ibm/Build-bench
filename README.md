@@ -12,8 +12,12 @@ build-recipe cases for packages that are not RPM packages or are too large
 for OBS (e.g. jaxlib with Bazel), acceptance tests that check that the built
 software works, a sandboxed experiment tool for the model, a leak check, and
 `make` commands to run and inspect the benchmark. `MODIFICATIONS.md` lists
-every change and why; the original framework is kept in the `original`
-branch.
+every change and why. This repository,
+[llm-pt-ibm/Build-bench](https://github.com/llm-pt-ibm/Build-bench), is a
+GitHub fork of [zcyyc/Build-bench](https://github.com/zcyyc/Build-bench): the
+original framework is its history up to `ccd324d`, the port to ppc64le is on
+`main`, and the work since is on `improvements`. Run results are not part of
+the repository.
 
 ---
 
@@ -35,7 +39,7 @@ For every case, Build-bench:
 ## ⚙️ Installation
 
 ```bash
-git clone https://github.com/yallerocha/build-bench.git
+git clone -b improvements https://github.com/llm-pt-ibm/Build-bench.git build-bench
 cd build-bench
 uv sync                                   # x86_64/aarch64
 # ppc64le (no uv wheels): a Python 3.11 environment, then
@@ -274,7 +278,8 @@ For every run, `result_text_res/<config>/<run>/` holds `<package>_result.json`
 git commit and settings, leak check findings) and `result_log_res/<config>/<run>/`
 the log, the conversation of every attempt (`<package>_attempt<N>_messages.json`,
 with the model's reasoning) and the diff log of its edits. `make summary` and
-`make transcript` read them.
+`make transcript` read them. They stay on the machine that ran the benchmark:
+git ignores both directories.
 
 ---
 

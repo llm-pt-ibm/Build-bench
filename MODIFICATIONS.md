@@ -1,14 +1,17 @@
 # Modifications relative to the original Build-bench
 
-The original framework (x86_64 → aarch64) is kept in the `original` branch, a
-snapshot of [zcyyc/Build-bench](https://github.com/zcyyc/Build-bench) at
-`ccd324d` with the upstream OBS credentials in `config/info.yaml` replaced by
-placeholders.
+This repository is a GitHub fork of
+[zcyyc/Build-bench](https://github.com/zcyyc/Build-bench): the original
+framework (x86_64 → aarch64) is its history up to `ccd324d`, and the first
+commit after it starts the port (it also removes the upstream OBS credentials
+from `config/info.yaml`). The run results of this work are kept out of the
+repository; the commits are those of the development repository, rewritten
+onto `ccd324d` without them.
 
 To list every changed file of a branch:
 
 ```bash
-git diff --stat original <branch>
+git diff --stat ccd324d <branch>
 ```
 
 ## improvements: changes on top of main
