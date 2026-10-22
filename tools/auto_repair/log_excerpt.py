@@ -161,7 +161,9 @@ def failure_signature(log_text: str) -> tuple:
     key_lines, counts are kept: 20 failed tests and 18 are not the same."""
     lines = [l.rstrip() for l in (log_text or "").splitlines()]
     if lines and lines[0].startswith(ACCEPTANCE_MARK):
-        picked = [l for l in lines[1:] if re.search(r"fail|error", l, re.IGNORECASE)]
+        # the test's own verdict lines; the indented output under them (the tail of
+        # a parallel test suite) lists failures in an order that changes between runs
+        picked = [l for l in lines[1:] if l[:1] not in (" ", "\t") and re.search(r"fail|error", l, re.IGNORECASE)]
     else:
         start = next((i for i, l in enumerate(lines) if BUILD_START.search(l)), 0)
         picked = [l for l in lines[start:]

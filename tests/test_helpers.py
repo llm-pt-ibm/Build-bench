@@ -70,6 +70,9 @@ _acc = (ACCEPTANCE_MARK + "\nPASS int8\nFAIL jax_test_suite (exit status 1): 20 
         "in 164.03s (0:02:44)\nacceptance: 1 check(s) failed\n")
 assert failure_signature(_acc) == failure_signature(_acc.replace("164.03s (0:02:44)", "159.71s (0:02:39)"))
 assert failure_signature(_acc) != failure_signature(_acc.replace("20 failed, 1508", "18 failed, 1510"))
+_tail = "    FAILED tests/nn_test.py::NNFunctionsTest::test{} - worker 'gw{}' crashed\n"
+assert failure_signature(_acc.replace("acceptance:", _tail.format(3, 5) + "acceptance:")) == \
+    failure_signature(_acc.replace("acceptance:", _tail.format(11, 2) + "acceptance:")), "parallel test order"
 _blog = "ERROR: /x/cache/bazel/4ebb03ef3cb1bd62/external/llvm/a.cpp:12:3: error: no member 'f'\nINFO: 12.3s\n"
 assert failure_signature(_blog) == failure_signature(_blog.replace("4ebb03ef3cb1bd62", "99aa03ef3cb1bd6f"))
 assert failure_signature(_blog) != failure_signature(_blog.replace("'f'", "'g'"))
