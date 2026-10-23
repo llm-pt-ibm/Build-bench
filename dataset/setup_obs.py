@@ -17,7 +17,6 @@ DIRECTIONS = ["x86_64_to_ppc64le", "ppc64le_to_x86_64"]
 REPOS = {"x86_64": ("openSUSE:Factory", "standard"), "ppc64le": ("openSUSE:Factory:PowerPC", "standard")}
 FINAL = {"succeeded", "failed", "unresolvable", "broken", "excluded", "disabled"}
 
-os.environ.setdefault("BENCH_CONFIG", "config/x86_64_to_ppc64le.yaml")
 cfg = load_obs_config()
 auth = HTTPBasicAuth(cfg["user"], cfg["password"])
 API, PRJ = cfg["api"], cfg["project"]

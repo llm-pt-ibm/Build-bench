@@ -1,25 +1,26 @@
-# Commands of the benchmark. What to run is set in bench.yaml (the run
-# profile); each setting can be overridden here, e.g.
+# Commands of the benchmark. Everything a run uses is set in bench.yaml (the
+# config); the settings of the run can be overridden here, e.g.
 #   make run LABEL=run31 ATTEMPTS=6 MODEL=deepseek/deepseek-v4.1-flash
-# A variable set to none clears that setting of the profile, e.g. PROVIDER=none.
+# A variable set to none clears that setting of the config, e.g. PROVIDER=none.
 # ALLOW_LEAKS=1 starts a run even if the leak check finds something.
-# A local model: make run PROFILE=bench.local.yaml (or BASE_URL=http://127.0.0.1:11434/v1 MODEL=...)
+# A local model: make run BASE_URL=http://127.0.0.1:11434/v1 MODEL=... (or set them in the config)
+# CONFIG=<file> uses another config file (e.g. a copy of bench.yaml).
 # `make` alone lists the commands. They run on the build host (the Power9).
 
 # settings of this machine (e.g. PY=/path/to/python, BENCH_HOME=...), not in git
 -include local.mk
 PY ?= python3
 export BENCH_HOME
-PROFILE ?= bench.yaml
+CONFIG ?= bench.yaml
 
-# profile overrides, passed only when set
-OPTS = $(if $(CONFIG),--config $(CONFIG)) $(if $(LABEL),--label $(LABEL)) \
+# overrides of the config, passed only when set
+OPTS = $(if $(LABEL),--label $(LABEL)) \
        $(if $(PACKAGES),--packages "$(PACKAGES)") $(if $(MODEL),--model $(MODEL)) \
        $(if $(PROVIDER),--provider $(PROVIDER)) $(if $(ATTEMPTS),--attempts $(ATTEMPTS)) \
        $(if $(REPEATS),--repeats $(REPEATS)) $(if $(TEMPERATURE),--temperature $(TEMPERATURE)) \
        $(if $(BASE_URL),--base_url $(BASE_URL)) $(if $(API_KEY_ENV),--api_key_env $(API_KEY_ENV)) \
        $(if $(CONTEXT_CHARS),--context_chars $(CONTEXT_CHARS))
-BENCH = $(PY) scripts/bench.py --profile $(PROFILE) $(OPTS)
+BENCH = $(PY) scripts/bench.py --config $(CONFIG) $(OPTS)
 LEAKS = $(if $(ALLOW_LEAKS),--allow-leaks)
 
 .DEFAULT_GOAL := help
@@ -27,7 +28,7 @@ LEAKS = $(if $(ALLOW_LEAKS),--allow-leaks)
 
 help: ## list the commands
 	@echo "usage: make <command> [LABEL=... PACKAGES=... MODEL=... PROVIDER=... ATTEMPTS=... REPEATS=... CONFIG=...]"
-	@echo "settings come from $(PROFILE); variables override them"
+	@echo "settings come from $(CONFIG); variables override them"
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-11s %s\n", $$1, $$2}'
 
 run: ## start a run in the background (one at a time; checks for leaks first)

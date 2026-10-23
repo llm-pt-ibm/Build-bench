@@ -6,15 +6,14 @@ import time
 import traceback
 from typing import Dict, List, Optional, Tuple
 from contextlib import AsyncExitStack
-import yaml
 from dotenv import load_dotenv
 from openai import OpenAI
 from mcp.client.stdio import stdio_client
 from mcp import ClientSession, StdioServerParameters
+from tools.auto_repair import bench_config
 
 load_dotenv(".env")
-with open("config/info.yaml", "r") as f:
-    info = yaml.safe_load(f)
+info = bench_config.load()
 
 
 class LLMConfig:
@@ -88,10 +87,11 @@ class AutoRepairClientPatch:
         self.client = self.llm_cfg.make_client()
 
         # Paths (choose sensible default if not given)
-        self.base_dir = base_dir or info["paths"]["base_dir"]
-        self.result_dir = info["paths"]["result_dir"]
-        self.log_dir = info["paths"]["log_dir"]
-        self.temp_work_dir = info["paths"]["temp_work_dir"]
+        paths = bench_config.run_paths(info)
+        self.base_dir = base_dir or paths["base_dir"]
+        self.result_dir = paths["result_dir"]
+        self.log_dir = paths["log_dir"]
+        self.temp_work_dir = paths["temp_work_dir"]
 
         os.makedirs(self.result_dir, exist_ok=True)
         os.makedirs(self.temp_work_dir, exist_ok=True)

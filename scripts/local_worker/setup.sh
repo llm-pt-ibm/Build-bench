@@ -33,7 +33,6 @@ mkdir -p "$W/rootfs/root/.config/osc"
 "$PY" - "$W/rootfs/root/.config/osc/oscrc" <<'PYEOF'
 import os, sys
 sys.path.insert(0, os.getcwd())
-os.environ.setdefault("BENCH_CONFIG", "config/x86_64_to_ppc64le.yaml")
 from tools.auto_repair.obs_config import load_obs_config
 c = load_obs_config()
 path = sys.argv[1]

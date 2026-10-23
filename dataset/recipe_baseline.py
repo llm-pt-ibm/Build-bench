@@ -2,7 +2,7 @@
 it is, in the same workspace path the benchmark uses, and save the failing log
 as the case's log_failed.txt (the original failure). It also fills the
 persistent build cache, which later builds reuse.
-Usage: BENCH_CONFIG=<config> python dataset/recipe_baseline.py <case_dir>"""
+Usage: [BENCH_CONFIG=<config>] python dataset/recipe_baseline.py <case_dir>"""
 import os
 import shutil
 import sys
@@ -11,7 +11,7 @@ import time
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, ROOT)
 os.chdir(ROOT)
-import yaml  # noqa: E402
+from tools.auto_repair import bench_config  # noqa: E402
 from tools.auto_repair.obs_config import load_obs_config  # noqa: E402
 from tools.auto_repair.script_build import script_upload, script_check  # noqa: E402
 
@@ -19,8 +19,7 @@ from tools.auto_repair.script_build import script_upload, script_check  # noqa: 
 def main(case_dir: str) -> int:
     case_dir = os.path.normpath(case_dir)
     package = os.path.basename(case_dir)
-    with open(os.getenv("BENCH_CONFIG", "config/info.yaml")) as f:
-        work = os.path.join(yaml.safe_load(f)["paths"]["temp_work_dir"], package)
+    work = os.path.join(bench_config.run_paths(bench_config.load())["temp_work_dir"], package)
     shutil.rmtree(work, ignore_errors=True)
     shutil.copytree(case_dir, work, symlinks=True)
     cfg = load_obs_config()

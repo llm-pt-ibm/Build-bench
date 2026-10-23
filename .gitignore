@@ -27,10 +27,10 @@ data/x86_64_to_ppc64le/jaxlib/xla/
 data/x86_64_to_ppc64le/jaxlib/dist/
 .test_readonly/
 
-# working copies of the packages the model repairs (paths.temp_work_dir)
+# working copies of the packages the model repairs
 temp_workspace/
 
-# run profile tooling: active run record and background run logs
+# make run: active run record, its frozen config and background run logs
 .bench/
 logs/
 

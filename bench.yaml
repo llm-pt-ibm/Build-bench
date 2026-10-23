@@ -1,26 +1,61 @@
-# Run profile: what `make run` (scripts/bench.py) runs. Every setting can be
-# overridden on the command line, e.g.  make run LABEL=run31 ATTEMPTS=6
-# The benchmark itself (direction, paths, build backend, model options such as
-# max_tool_rounds) is set in the config file named here.
+# Build-bench config: everything a run uses. `make run` reads this file; a
+# variable changes a setting for one run, e.g.  make run LABEL=run32 ATTEMPTS=6
+# (`make` lists them). Each run keeps a copy of it with its logs.
+#
+# Fixed by the framework, from the two architectures:
+#   cases             data/<source_arch>_to_<target_arch>/<package>/
+#   acceptance tests  acceptance/<source_arch>_to_<target_arch>/<package>.sh
+#   results           result_text_res/<source_arch>_to_<target_arch>/<run>/
+#   logs              result_log_res/<source_arch>_to_<target_arch>/<run>/
 
-# benchmark config
-config: config/x86_64_to_ppc64le_power9.yaml
-
-# runs are archived as <label>_1 ... <label>_<repeats> in the config's
-# result and log directories
-label: run30
+# --- what to run ---
+source_arch: x86_64           # the cases build on this architecture
+target_arch: ppc64le          # and fail on this one: the model repairs them for it
+packages: [jaxlib]            # cases to run; empty: all of them
+label: run30                  # runs are archived as <label>_1 ... <label>_<repeats>
 repeats: 1
 
-# cases of the config's data directory to run; empty: all of them
-packages: [jaxlib]
+# --- the model ---
+model: deepseek/deepseek-v4.1-flash   # on OpenRouter (API_KEY in .env)
+provider: streamlake/fp8      # OpenRouter provider to pin; empty: OpenRouter's routing
+temperature:                  # empty: the provider's default
+base_url:                     # a model server of your own instead, e.g. http://127.0.0.1:11434/v1 (Ollama)
+api_key_env:                  # the variable of .env with that server's key; empty: it needs none
 
-# model on OpenRouter, and the provider to pin (empty: OpenRouter's routing);
-# for a model served locally see bench.local.yaml (base_url, api_key_env)
-model: deepseek/deepseek-v4.1-flash
-provider: streamlake/fp8
+# --- the repair loop ---
+llm:
+  max_build_attempts: 12      # attempts per package (3 in the paper)
+  max_tool_rounds: 60         # model turns per attempt (20 in the paper)
+  extra_tools: [search_files_tool, replace_in_file_tool, run_command_tool]   # besides the paper's tools
+  max_context_chars: 600000   # beyond it the oldest tool results are shortened (0: never)
+  keep_recent_tool_results: 8 # the latest tool results are never shortened
+  repeat_guard_per_build: true   # identical tool calls are counted per build, not per attempt
+  empty_reply_retries: 2      # an empty reply is retried, not taken as "done" (0: as in the paper)
+  prompt_cache: auto          # cache marks for Claude models (auto), every model (on) or none (off)
+  text_tool_calls: true       # read tool calls a model wrote as text
+  # what the framework tells the model during a repair (0 or false: nothing)
+  carry_notes_chars: 4000     # the next attempt starts with the model's notes from the previous one
+  round_notice_at: [30, 10, 5]   # when 30, 10 and 5 rounds are left in the attempt
+  build_drought_rounds: 15    # after 15 rounds without a change or a build: to build
+  repeated_failure_note: true # when a build failed the same way as the previous one
 
-# build attempts per package (empty: the config's llm.max_build_attempts)
-attempts: 12
+# --- builds ---
+build:
+  backend: obs                # RPM packages (.spec): obs (OBS_USER, OBS_PASSWORD in .env), or local
+  local:                      # osc build on this machine (scripts/local_worker/setup.sh)
+    jobs: 0                   # 0: one job per 5 GB of free memory, at most one per CPU
+  script:                     # build-recipe cases (build.sh)
+    jobs: 0
+    build_original_on_init: true   # build the original package once before the first attempt
+    experiment_paths: []      # host paths run_command_tool's sandbox shows read-only
+    experiment_hide: []       # and directories inside them it keeps hidden
+  container:                  # build.sh, acceptance tests and run_command_tool's commands
+    runtime: auto             # podman if installed, else docker; none: on the host
+    build_network: proxy      # builds reach only envs/<env>/allowed_hosts.txt; tests and commands get none
 
-# sampling temperature (empty: the provider's default)
-temperature:
+obs:
+  max_wait_seconds: 14400     # large packages take hours from a cold cache
+  check_interval: 30
+
+acceptance:
+  timeout_seconds: 3600

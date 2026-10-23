@@ -15,13 +15,11 @@ os.chdir(ROOT)
 # temporary directory, never to the benchmark's own
 SCRATCH = tempfile.mkdtemp(prefix="bench_test_offline_")
 atexit.register(shutil.rmtree, SCRATCH, ignore_errors=True)
-with open(os.environ.get("BENCH_CONFIG", "config/x86_64_to_ppc64le.yaml")) as f:
-    config = yaml.safe_load(f)
-config["paths"].update({k: os.path.join(SCRATCH, k) for k in ("result_dir", "log_dir", "temp_work_dir")})
-config["paths"]["base_dir"] = os.path.join(ROOT, config["paths"]["base_dir"])
+# the paper's settings: what the test needs besides them it sets itself
 with open(os.path.join(SCRATCH, "config.yaml"), "w") as f:
-    yaml.safe_dump(config, f)
+    yaml.safe_dump({"source_arch": "x86_64", "target_arch": "ppc64le"}, f)
 os.environ["BENCH_CONFIG"] = os.path.join(SCRATCH, "config.yaml")
+os.environ["BENCH_OUTPUT_ROOT"] = SCRATCH
 os.environ["BENCH_DIFF_LOG_DIR"] = os.path.join(SCRATCH, "diff_logs")
 os.environ["API_KEY"] = "offline-test"
 os.environ["API_BASE_URL"] = "http://127.0.0.1:9/v1"
@@ -37,7 +35,7 @@ from openai.types.chat.chat_completion import Choice  # noqa: E402
 import client  # noqa: E402
 
 PKG = "zita-resampler"
-TMP = os.path.join(SCRATCH, "temp_work_dir", PKG)
+TMP = os.path.join(SCRATCH, "temp_workspace", PKG)
 
 
 def call(i, name, **args):

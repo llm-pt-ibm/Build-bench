@@ -1,7 +1,7 @@
 """Live view of a benchmark run: attempt, round, edits, builds, context size
 and cost, refreshed every few seconds.
 Usage: python scripts/watch_run.py [config] [package] [seconds]
-  (defaults: config/x86_64_to_ppc64le_power9.yaml, the package of the newest
+  (defaults: bench.yaml, the package of the newest
   log, 10 s; 0 s prints the view once). Works through the sshfs mount too;
   Ctrl-C stops it.
 The cost comes from <package>_status.json, written by client.py after every
@@ -16,10 +16,9 @@ import sys
 import time
 import urllib.request
 
-import yaml
-
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, ROOT)
+from tools.auto_repair import bench_config  # noqa: E402
 from tools.auto_repair.paths import build_dirs  # noqa: E402
 CALL = re.compile(r"^\[(.{19})\] Tool call: (\w+)\((.*)\)$")
 
@@ -110,10 +109,9 @@ def short(text, n):
 
 
 def main():
-    config = sys.argv[1] if len(sys.argv) > 1 else "config/x86_64_to_ppc64le_power9.yaml"
-    with open(os.path.join(ROOT, config)) as f:
-        cfg = yaml.safe_load(f)
-    log_dir = os.path.join(ROOT, cfg["paths"]["log_dir"])
+    config = sys.argv[1] if len(sys.argv) > 1 else "bench.yaml"
+    cfg = bench_config.load(os.path.join(ROOT, config))
+    log_dir = bench_config.run_paths(cfg)["log_dir"]
     package = sys.argv[2] if len(sys.argv) > 2 else None
     every = int(sys.argv[3]) if len(sys.argv) > 3 else 10
     while True:

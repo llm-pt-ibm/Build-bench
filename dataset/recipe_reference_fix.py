@@ -3,7 +3,7 @@ reference fix (known patches) to a copy of the case and build it with the
 same backend the model uses (upload_file_to_obs_tool/check_build_result).
 Success shows that the environment, recipe and check work end to end and that
 the fix only needs changes inside the package, which the model's tools can do.
-Usage: BENCH_CONFIG=<config> python dataset/recipe_reference_fix.py \\
+Usage: [BENCH_CONFIG=<config>] python dataset/recipe_reference_fix.py \\
            <case_dir> <name> <subdir>:<patch> [<subdir>:<patch> ...]
   name           package name of the copy (its own build directory and cache)
   subdir:patch   apply patch with `patch -p1` inside <copy>/<subdir>"""
@@ -16,14 +16,13 @@ import time
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, ROOT)
 os.chdir(ROOT)
-import yaml  # noqa: E402
+from tools.auto_repair import bench_config  # noqa: E402
 from tools.auto_repair.obs_config import load_obs_config  # noqa: E402
 from tools.auto_repair.script_build import script_upload, script_check  # noqa: E402
 
 
 def main(case_dir: str, name: str, patches: list) -> int:
-    with open(os.getenv("BENCH_CONFIG", "config/info.yaml")) as f:
-        work = os.path.join(yaml.safe_load(f)["paths"]["temp_work_dir"], name)
+    work = os.path.join(bench_config.run_paths(bench_config.load())["temp_work_dir"], name)
     shutil.rmtree(work, ignore_errors=True)
     shutil.copytree(os.path.normpath(case_dir), work, symlinks=True)
     for spec in patches:

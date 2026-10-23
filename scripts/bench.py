@@ -1,8 +1,8 @@
 """Single entry point to run and inspect the benchmark (the Makefile calls it).
 
-What to run comes from the run profile (bench.yaml); every setting can be
-overridden on the command line (--label, --model, --attempts, ...):
-  run [--bg]        start a run of the profile's packages
+What to run comes from the config (bench.yaml); the settings of the run can
+be overridden on the command line (--label, --model, --attempts, ...):
+  run [--bg]        start a run of the config's packages
   resume FROM       continue the archived run FROM with more attempts
   stop              stop the active run and its builds, and archive what it left
   status            the dashboard of the benchmark (scripts/dashboard.py), once
@@ -18,6 +18,7 @@ import argparse
 import glob
 import json
 import os
+import shutil
 import signal
 import socket
 import subprocess
@@ -36,9 +37,12 @@ LOGS_DIR = os.path.join(ROOT, "logs")
 # --- settings ----------------------------------------------------------------
 
 def load_profile(path: str, overrides: dict) -> dict:
+    """The settings of a run: the config's, with the command line's overrides.
+    `config` is the config file itself."""
     with open(path) as f:
         profile = yaml.safe_load(f) or {}
-    # "none" clears a setting of the profile (e.g. PROVIDER=none for a model its provider does not serve)
+    profile["config"] = os.path.relpath(path, ROOT) if path.startswith(ROOT + os.sep) else path
+    # "none" clears a setting of the config (e.g. PROVIDER=none for a model its provider does not serve)
     profile.update({k: None if str(v).lower() == "none" else v for k, v in overrides.items() if v not in (None, "")})
     packages = profile.get("packages") or []
     if isinstance(packages, str):
@@ -99,7 +103,7 @@ def check_model_server(profile: dict) -> None:
              "`OLLAMA_CONTEXT_LENGTH=65536 ollama serve` or `vllm serve <model> --enable-auto-tool-choice ...`")
     model = profile.get("model")
     if not model:
-        fail("no model: set it in the profile or with MODEL=...")
+        fail("no model: set it in the config or with MODEL=...")
     if served and model not in served:
         fail(f"{base} does not serve {model}; it serves: {', '.join(served[:12])} "
              f"(Ollama: `ollama pull {model}`)")
@@ -108,9 +112,19 @@ def check_model_server(profile: dict) -> None:
 
 
 def bench_paths(config: str) -> dict:
-    with open(os.path.join(ROOT, config)) as f:
-        paths = yaml.safe_load(f)["paths"]
-    return {k: os.path.join(ROOT, paths[k]) for k in ("base_dir", "result_dir", "log_dir", "temp_work_dir")}
+    """Cases, workspaces, results and logs of config: they follow from its
+    source_arch and target_arch (tools/auto_repair/bench_config.py)."""
+    from tools.auto_repair import bench_config
+    return bench_config.run_paths(bench_config.load(os.path.join(ROOT, config)))
+
+
+def frozen_config(config: str) -> str:
+    """A copy of the config for the run that starts: bench.yaml can then be
+    edited for the next run, and run_repeats.sh keeps the copy with the run's logs."""
+    os.makedirs(STATE_DIR, exist_ok=True)
+    copy = os.path.join(STATE_DIR, "run.yaml")
+    shutil.copyfile(os.path.join(ROOT, config), copy)
+    return os.path.relpath(copy, ROOT)
 
 
 def case_names(paths: dict, packages: list) -> list:
@@ -267,12 +281,13 @@ def runner(spec: dict) -> int:
 
 def cmd_run(profile: dict, background: bool, resume: dict = None, allow_leaks: bool = False) -> None:
     if not profile.get("label"):
-        fail("no label: set it in the profile or with LABEL=...")
+        fail("no label: set it in the config or with LABEL=...")
     paths = bench_paths(profile["config"])
     check_can_start(profile, paths, allow_leaks)
-    spec = {"label": profile["label"], "repeats": profile["repeats"], "config": profile["config"],
+    attempts = profile.get("attempts") or (profile.get("llm") or {}).get("max_build_attempts")
+    spec = {"label": profile["label"], "repeats": profile["repeats"], "config": frozen_config(profile["config"]),
             "packages": profile["packages"], "model": profile.get("model"), "provider": profile.get("provider"),
-            "base_url": profile.get("base_url"), "attempts": profile.get("attempts"), "resume": resume, "started": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "base_url": profile.get("base_url"), "attempts": attempts, "resume": resume, "started": time.strftime("%Y-%m-%d %H:%M:%S"),
             "env": run_env(profile, resume)}
     what = (f"{spec['label']}: {', '.join(spec['packages']) or 'all packages'}, {spec['model'] or 'model of .env'}"
             f"{' on ' + spec['provider'] if spec['provider'] else ''}"
@@ -300,14 +315,14 @@ def cmd_run(profile: dict, background: bool, resume: dict = None, allow_leaks: b
 def cmd_resume(profile: dict, source: str, workspace: str, background: bool, attempts,
                allow_leaks: bool = False) -> None:
     if not attempts:
-        fail("say how many more attempts: ATTEMPTS=<n> (the profile's value is not used for a continuation)")
+        fail("say how many more attempts: ATTEMPTS=<n> (the config's llm.max_build_attempts is not used for a continuation)")
     profile["attempts"] = attempts
     paths = bench_paths(profile["config"])
     for pkg in case_names(paths, profile["packages"]):
         if not os.path.isfile(os.path.join(paths["result_dir"], source, f"{pkg}_result.json")):
             fail(f"{source} has no result for {pkg}: it was stopped before its first attempt ended "
                  f"(see {os.path.relpath(paths['result_dir'], ROOT)}/)")
-    if not profile.get("label") or profile["label"] == load_profile(PROFILE_PATH, {}).get("label"):
+    if not profile.get("label") or profile["label"] == load_profile(CONFIG_PATH, {}).get("label"):
         profile["label"] = f"{source}_cont"
     profile["repeats"] = 1
     cmd_run(profile, background, resume={"from": source, "workspace": workspace}, allow_leaks=allow_leaks)
@@ -509,18 +524,20 @@ def cmd_archive(profile: dict, name: str) -> None:
     print("\n".join(f"  {p}" for p in moved) if moved else "nothing to archive")
 
 
-PROFILE_PATH = os.path.join(ROOT, "bench.yaml")
-PROFILE_OPTIONS = ("config", "label", "packages", "model", "provider", "base_url", "api_key_env",
+CONFIG_PATH = os.path.join(ROOT, "bench.yaml")
+# settings of the config the command line can override; attempts and
+# context_chars override llm.max_build_attempts and llm.max_context_chars
+PROFILE_OPTIONS = ("label", "packages", "model", "provider", "base_url", "api_key_env",
                    "attempts", "repeats", "temperature", "context_chars")
 
 
 def main() -> None:
-    global PROFILE_PATH
+    global CONFIG_PATH
     os.chdir(ROOT)
     if sys.argv[1:2] == ["_runner"]:
         sys.exit(runner(json.load(sys.stdin)))
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--profile", default=PROFILE_PATH)
+    parser.add_argument("--config", default=CONFIG_PATH)
     for option in PROFILE_OPTIONS:
         parser.add_argument(f"--{option}")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -554,8 +571,8 @@ def main() -> None:
     arch = sub.add_parser("archive")
     arch.add_argument("name")
     args = parser.parse_args()
-    PROFILE_PATH = os.path.abspath(args.profile)
-    profile = load_profile(PROFILE_PATH, {k: getattr(args, k) for k in PROFILE_OPTIONS})
+    CONFIG_PATH = os.path.abspath(args.config)
+    profile = load_profile(CONFIG_PATH, {k: getattr(args, k) for k in PROFILE_OPTIONS})
     if args.command == "run":
         cmd_run(profile, args.bg, allow_leaks=args.allow_leaks)
     elif args.command == "resume":

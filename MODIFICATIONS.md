@@ -257,7 +257,7 @@ improvements` shows them file by file.
   `compress_to_archive_tool` repacks the archive that was extracted, and keeps
   it untouched when nothing inside `extracted/` changed.
 - File tools refuse paths outside the working directory (`BENCH_TEMP_DIR`, set
-  by the client from `paths.temp_work_dir`).
+  by the client to the workspace directory, `temp_workspace/`).
 - No tool result is cached any more: the only cached tool,
   `get_structure_of_files`, returned stale listings after an extraction.
 - OBS requests are retried on timeouts and transient errors (408, 429, 5xx)
@@ -274,9 +274,9 @@ improvements` shows them file by file.
   archives each run in its own directory; `scripts/summarize_runs.py` prints a
   table and the success rate per label.
 - `make` and `bench.yaml`: the commands of the benchmark in one place
-  (`scripts/bench.py`). The run profile `bench.yaml` says what to run
-  (config, packages, model, provider, attempts, label, repeats), and make
-  variables override it (`make run LABEL=... ATTEMPTS=...`). `make run`
+  (`scripts/bench.py`). `bench.yaml` says what to run (packages, model,
+  provider, attempts, label, repeats; since the single config, everything
+  else too), and make variables override it (`make run LABEL=... ATTEMPTS=...`). `make run`
   starts run_repeats.sh in the background and records it in
   `.bench/active.json`: one run at a time, and no start over the files an
   interrupted run left, which run_repeats.sh would archive with the new run.
@@ -440,12 +440,12 @@ improvements` shows them file by file.
     for a failed acceptance test the lines that name failing checks and
     tests, without times, hashes, addresses and paths; unlike the
     root-cause comparison it keeps counts, so 20 and 18 failing tests differ.
-- Local models: the run profile's `base_url` points a run to a model server
-  of its own with an OpenAI-compatible API (Ollama, vLLM, llama.cpp);
-  `bench.local.yaml` is an example. The API key of `.env` is never sent to
+- Local models: `base_url` in `bench.yaml` (or `BASE_URL`) points a run to a
+  model server of its own with an OpenAI-compatible API (Ollama, vLLM,
+  llama.cpp). The API key of `.env` is never sent to
   that server: `api_key_env` names a variable with its own key, and a server
   on this machine or the local network needs none (`client.py` then sends
-  "none"). `context_chars` (`BENCH_MAX_CONTEXT_CHARS`) overrides
+  "none"). `CONTEXT_CHARS` (`BENCH_MAX_CONTEXT_CHARS`) overrides
   `llm.max_context_chars` to fit the server's context window, `LLM_TIMEOUT`
   or `llm.request_timeout` the time allowed per reply (600 s). `make run`
   first checks that the server answers and serves the model. Results record
@@ -493,6 +493,28 @@ improvements` shows them file by file.
   the host with everything the user can read.
 - `tests/test_helpers.py` (no dependencies) covers the patch check and the log
   excerpt; `tests/test_offline.py` covers the new file and archive behaviour.
+- One config, `bench.yaml`, in place of the six files of `config/` and the
+  run profile: the source and target architectures, the cases to run, the
+  model, the options of the repair loop and the builds, each with a comment.
+  What it does not choose follows from `source_arch` and `target_arch`
+  (`tools/auto_repair/bench_config.py`): the cases (`data/<direction>/`,
+  moved by `cases_dir`), the results and logs
+  (`result_text_res/<direction>/<run>/`, `result_log_res/<direction>/<run>/`;
+  no config sets them any more), the workspaces (`temp_workspace/`), the OBS
+  repository and architecture, and the openSUSE:Factory port local builds
+  resolve against (`obs.repository`, `obs.project`, `obs.api_url` and
+  `build.local.project` override them). The copies had drifted: the ablation
+  without notes also lacked the container, `run_command_tool` and the two
+  notes for stuck attempts, and wrote into the Power9 config's result
+  directories. `make run` freezes a copy of the file for the run
+  (`.bench/run.yaml`), which each run keeps with its logs as `config.yaml`;
+  `CONFIG=<file>` runs another config file, and `BENCH_OUTPUT_ROOT` moves the
+  workspaces, results and logs (the tests use it). `config/info.yaml`,
+  `bench.local.yaml` and `scripts/run_pilot.sh` were removed; the archived
+  runs of the Power9 and local configs belong in
+  `result_*_res/x86_64_to_ppc64le/`.
+- `build.container.runtime: auto`, the default: Podman when it is installed,
+  Docker otherwise (the Power9 host has only Docker).
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source
@@ -502,7 +524,8 @@ improvements` shows them file by file.
 - Classify candidate failures during dataset triage (skip infrastructure
   failures such as "no compliant workers") and filter by source size and
   build time.
-- Port the Patch strategy (`client_patch.py`) to the per-direction configs.
+- Port the Patch strategy (`client_patch.py`): it takes its paths from
+  `bench.yaml`, but has none of the other changes.
 - Update `README.md`.
 
 ## main: port to x86_64 ↔ ppc64le

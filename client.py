@@ -7,13 +7,12 @@ import time
 import traceback
 from typing import Dict, List, Optional, Tuple
 from contextlib import AsyncExitStack
-import yaml
 from dotenv import load_dotenv
 import openai
 from openai import OpenAI
 from mcp.client.stdio import stdio_client
 from mcp import ClientSession, StdioServerParameters
-from tools.auto_repair import container
+from tools.auto_repair import bench_config, container
 from tools.auto_repair.acceptance import ACCEPTANCE_DIR, acceptance_test
 from tools.auto_repair.case_type import case_environment, case_type
 from tools.auto_repair.leak_check import leak_report
@@ -25,9 +24,8 @@ from tools.auto_repair.obs_config import load_obs_config
 from tools.auto_repair.paths import env_dir
 
 load_dotenv(".env")
-CONFIG_PATH = os.getenv("BENCH_CONFIG", "config/info.yaml")
-with open(CONFIG_PATH, "r") as f:
-    info = yaml.safe_load(f)
+CONFIG_PATH = bench_config.path()
+info = bench_config.load(CONFIG_PATH)
 TOOL_TIMEOUT = int(info.get("obs", {}).get("max_wait_seconds", 3600)) + 300
 OPENROUTER_PROVIDER = os.getenv("OPENROUTER_PROVIDER")
 # Optional comma-separated list of packages to run (default: every package)
@@ -298,10 +296,11 @@ class AutoRepairClient:
 
         # Paths (choose sensible default if not given)
         
-        self.base_dir = base_dir or info["paths"]["base_dir"]
-        self.result_dir = info["paths"]["result_dir"]
-        self.log_dir = info["paths"]["log_dir"]
-        self.temp_work_dir = info["paths"]["temp_work_dir"]
+        paths = bench_config.run_paths(info)
+        self.base_dir = base_dir or paths["base_dir"]
+        self.result_dir = paths["result_dir"]
+        self.log_dir = paths["log_dir"]
+        self.temp_work_dir = paths["temp_work_dir"]
 
         os.makedirs(self.result_dir, exist_ok=True)
         os.makedirs(self.temp_work_dir, exist_ok=True)
@@ -1082,7 +1081,7 @@ class AutoRepairClient:
 
 async def main():
     # Choose provider + model here.
-    provider = info["LLM_PROVIDER"].lower()
+    provider = str(info.get("LLM_PROVIDER") or "openai").lower()
     default_model = os.getenv("LLM_MODEL") or {
         "openai": "gpt-5",
         "qwen": "qwen3-max",

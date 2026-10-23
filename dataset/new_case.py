@@ -76,7 +76,7 @@ next steps:
      downloads them, and the directories in .gitignore)
   2. write build.sh and set "environment" in manifest.json (envs/<environment>.sh;
      the paths it uses go in script.experiment_paths of the config)
-  3. save the original failure: BENCH_CONFIG=<config> python dataset/recipe_baseline.py {os.path.relpath(os.path.join(data_dir, name), ROOT)}
+  3. save the original failure: python dataset/recipe_baseline.py {os.path.relpath(os.path.join(data_dir, name), ROOT)}
   4. write the acceptance test
   5. make check-case CASE={name}""")
 

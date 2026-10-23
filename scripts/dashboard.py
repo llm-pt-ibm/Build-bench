@@ -17,11 +17,9 @@ import socket
 import sys
 import time
 
-import yaml
-
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from watch_run import CALL, PROGRESS, host_path, short, tail_text  # noqa: E402
-from tools.auto_repair import paths  # noqa: E402
+from tools.auto_repair import bench_config, paths  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 ATTEMPT = re.compile(r"--- Build attempt (\d+)/(\d+) ---")
@@ -159,10 +157,9 @@ def last_run_lines(result_dir):
 
 
 def render(config, run):
-    with open(os.path.join(ROOT, config)) as f:
-        cfg = yaml.safe_load(f)
-    log_dir = os.path.join(ROOT, cfg["paths"]["log_dir"])
-    result_dir = os.path.join(ROOT, cfg["paths"]["result_dir"])
+    cfg = bench_config.load(os.path.join(ROOT, config))
+    dirs = bench_config.run_paths(cfg)
+    log_dir, result_dir = dirs["log_dir"], dirs["result_dir"]
     width = min(shutil.get_terminal_size((110, 40)).columns, 130)
     out = []
     run_started = None
@@ -258,7 +255,7 @@ def render(config, run):
 
 
 def main():
-    config = sys.argv[1] if len(sys.argv) > 1 else "config/x86_64_to_ppc64le_power9.yaml"
+    config = sys.argv[1] if len(sys.argv) > 1 else "bench.yaml"
     every = int(sys.argv[2]) if len(sys.argv) > 2 else 10
     while True:
         run = read_json(os.path.join(ROOT, ".bench", "active.json")) or None

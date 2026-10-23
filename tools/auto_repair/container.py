@@ -8,7 +8,7 @@ other builds) is out of their reach; without a container (runtime: none)
 build.sh runs on the host with everything the user can read.
 
 Config (build.container), BENCH_CONTAINER_RUNTIME overriding the runtime:
-  runtime        podman (default), docker, or none
+  runtime        auto (default: podman if installed, else docker), podman, docker, or none
   build_network  network of build.sh (tests and commands have none):
                  proxy (default): only the hosts its build environment may
                    download from (envs/<env>/allowed_hosts.txt, and
@@ -41,7 +41,10 @@ NET_PROXY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "net_proxy.
 def settings(build_cfg: dict) -> dict:
     """The container section of a config's `build`."""
     c = (build_cfg or {}).get("container") or {}
-    return {"runtime": (os.getenv("BENCH_CONTAINER_RUNTIME") or c.get("runtime") or "podman").lower(),
+    name = (os.getenv("BENCH_CONTAINER_RUNTIME") or c.get("runtime") or "auto").lower()
+    if name == "auto":   # podman if it is installed, else docker
+        name = "docker" if not available("podman") and available("docker") else "podman"
+    return {"runtime": name,
             "build_network": (os.getenv("BENCH_BUILD_NETWORK") or c.get("build_network") or "proxy").lower(),
             "allowed_hosts": list(c.get("allowed_hosts") or []),
             "cpus": c.get("cpus"), "memory": c.get("memory"), "pids_limit": c.get("pids_limit", -1)}

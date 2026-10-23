@@ -60,7 +60,8 @@ The framework runs as a normal user and changes nothing on the host. What it
 keeps outside the repository goes to `BENCH_HOME` (default
 `~/.local/share/build-bench`): the build environments (`envs/`), the build
 directories of build-recipe cases (`stage/`) and the local osc worker
-(`obs-worker/`); a config can place them elsewhere, with `~` and
+(`obs-worker/`); the config can place them elsewhere
+(`build.script.stage_root`, `build.local.worker_root`), with `~` and
 `${VARIABLES}` in its paths. Settings of one machine for make (e.g.
 `PY = /path/to/python`, `BENCH_HOME = /data/bench`) go to `local.mk`, which
 git ignores.
@@ -83,14 +84,15 @@ cases run in containers of the environment's image, which `make setup-env`
 builds from `envs/<name>/Containerfile` (the system part of the build host:
 glibc, headers, binutils) as `build-bench-<name>`. Only what is mounted is
 there, at the same paths as on the host: the build copy, its caches and the
-build environment. Podman is the default (rootless, no daemon: `dnf install
-podman` or `apt install podman` on the build host); the config chooses
-another runtime (`build.container`, or `BENCH_CONTAINER_RUNTIME`):
+build environment. The default runtime, `auto`, is Podman when it is
+installed (rootless, no daemon: `dnf install podman` or `apt install podman`
+on the build host) and Docker otherwise; the config can name one
+(`build.container`, or `BENCH_CONTAINER_RUNTIME`):
 
 ```yaml
 build:
   container:
-    runtime: podman        # podman (default), docker, or none (on the host)
+    runtime: auto          # auto (default), podman, docker, or none (on the host)
     build_network: proxy   # proxy (default), audit, host or none; tests and commands get none
     # allowed_hosts: [pypi.mirror.local]        more hosts for proxy
     # cpus: 32, memory: 64g, pids_limit: 4096   (default -1: no limit beyond the host's)
@@ -115,31 +117,35 @@ its content. To make the list for a new environment, build once with
 `BENCH_BUILD_NETWORK=audit` (every host allowed and logged) and an empty
 dependency cache, and copy the hosts of `network.log`.
 
-Build backends, per config (`build.backend`):
-- **OBS** (`config/x86_64_to_ppc64le.yaml`): the OBS account above; `dataset/setup_obs.py` creates the packages in your OBS project.
-- **local** (`config/x86_64_to_ppc64le_local.yaml`, `_power9.yaml`): RPM packages with `osc build` in a local openSUSE chroot, created by `scripts/local_worker/setup.sh`.
-- **build recipes** (`_power9.yaml`): cases with a `build.sh`, built in a container of their environment's image, in the environment of `envs/<name>.sh`.
+Build backends of RPM packages (`build.backend` in `bench.yaml`):
+- **OBS** (`obs`): the OBS account above; `dataset/setup_obs.py` creates the packages in your OBS project.
+- **local** (`local`): `osc build` in a local openSUSE chroot, created by `scripts/local_worker/setup.sh`, against the openSUSE:Factory port of the target architecture (`build.local.project` names another).
+
+Cases with a `build.sh` (build recipes) are built with either: in a container
+of their environment's image, in the environment of `envs/<name>.sh`.
 
 ---
 
 ## 🚀 Running the Framework
 
 ### With make
-What to run is set in `bench.yaml`, the run profile; each setting can be
-overridden on the command line. The commands run on the build host.
+Everything a run uses is set in `bench.yaml`, the config (see Config
+below); the settings of the run can be overridden on the command line. The
+commands run on the build host.
 
 | `bench.yaml` | make variable | |
 |---|---|---|
-| `config` | `CONFIG` | benchmark config (direction, paths, backend, model options) |
 | `label`, `repeats` | `LABEL`, `REPEATS` | runs are archived as `<label>_1` … `<label>_<repeats>` |
-| `packages` | `PACKAGES` | cases to run (empty: all of the config's data directory) |
+| `packages` | `PACKAGES` | cases to run (empty: all of `data/<source>_to_<target>/`) |
 | `model`, `provider` | `MODEL`, `PROVIDER` | model and pinned OpenRouter provider |
-| `attempts` | `ATTEMPTS` | build attempts per package |
+| `llm.max_build_attempts` | `ATTEMPTS` | build attempts per package |
 | `temperature` | `TEMPERATURE` | sampling temperature |
+| `base_url`, `api_key_env`, `llm.max_context_chars` | `BASE_URL`, `API_KEY_ENV`, `CONTEXT_CHARS` | a model server of your own (see Local models) |
+| | `CONFIG` | another config file, e.g. a copy of `bench.yaml` |
 
 ```bash
 make                      # list the commands
-make run                  # start the profile's run in the background
+make run                  # start the config's run in the background
 make run LABEL=run31 ATTEMPTS=6 MODEL=deepseek/deepseek-v4.1-flash
 make status               # the dashboard, once
 make watch                # the live dashboard (Ctrl-C stops watching only)
@@ -167,24 +173,30 @@ the files an interrupted one left (`make archive NAME=<run>_stopped`), nor
 when the leak check finds the answer within the model's reach (ALLOW_LEAKS=1
 overrides). Results are written after every attempt, so a stopped run can be
 continued from its last finished attempt. Background runs log to
-`logs/<label>.log`.
+`logs/<label>.log`. A run reads a copy of `bench.yaml` taken when it starts
+(kept with its logs as `config.yaml`): the file can be edited for the next
+run in the meantime.
 
 ### Local models
 Any server with an OpenAI-compatible API works: Ollama, vLLM, llama.cpp's
 `llama-server`. Start it with tool calling and a large context window, then
-run with `bench.local.yaml` or the variables:
+set `base_url`, `model` and `llm.max_context_chars` in `bench.yaml`, or run
+with the variables:
 
 ```bash
 OLLAMA_CONTEXT_LENGTH=65536 ollama serve &      # Ollama's default window is small and cuts prompts silently
 ollama pull qwen3-coder:30b
-make run PROFILE=bench.local.yaml
-make run BASE_URL=http://127.0.0.1:11434/v1 MODEL=qwen3-coder:30b CONTEXT_CHARS=180000 LABEL=local2
+make run BASE_URL=http://127.0.0.1:11434/v1 MODEL=qwen3-coder:30b PROVIDER=none CONTEXT_CHARS=180000 LABEL=local1
 ```
 
-`base_url` points the run to the server; the API key of `.env` is never sent
-there (`api_key_env` names a variable with the server's own key, if it needs
-one). `context_chars` keeps the conversation within the server's window (the
-oldest tool results are shortened beyond it). `make run` checks that the
+vLLM: `vllm serve <model> --max-model-len 65536 --enable-auto-tool-choice
+--tool-call-parser <parser>`; llama.cpp: `llama-server -m <model.gguf> --jinja
+-c 65536`. `base_url` points the run to the server; the API key of `.env` is
+never sent there (`api_key_env` names a variable with the server's own key,
+if it needs one). `llm.max_context_chars` (`CONTEXT_CHARS`) keeps the
+conversation within the server's window, at about 3.5 characters per token
+(65,536 tokens: about 180,000 characters, leaving room for the system prompt
+and the reply); the oldest tool results are shortened beyond it. `make run` checks that the
 server answers and serves the model before starting; `LLM_TIMEOUT` (or
 `llm.request_timeout`) gives slow models more time per reply. Results record
 the server in `run.api_base` and `run.local_model`; their cost is $0.
@@ -206,28 +218,52 @@ count `cached_tokens` and `cache_write_tokens`.
 
 ### Directly
 ```bash
-BENCH_CONFIG=config/x86_64_to_ppc64le_power9.yaml BENCH_PACKAGES=jaxlib BENCH_MAX_ATTEMPTS=12 python client.py
+BENCH_PACKAGES=jaxlib BENCH_MAX_ATTEMPTS=12 python client.py
 scripts/run_repeats.sh <label> <n> [config]   # n runs, each archived in its own directory
 ```
-`client.py` reads its settings from the environment: `BENCH_CONFIG`,
-`BENCH_PACKAGES` (comma-separated), `BENCH_MAX_ATTEMPTS`, `LLM_MODEL`,
-`OPENROUTER_PROVIDER`, `LLM_TEMPERATURE`, `BENCH_RESUME_FROM` and
-`BENCH_RESUME_WORKSPACE` (continue a run), `BENCH_BUILD_BACKEND`,
-`BENCH_FINAL_NEWLINE`. The Patch Generation strategy of the original
-(`client_patch.py`) has not been ported to the new configs.
+`client.py` reads `bench.yaml` (`BENCH_CONFIG` names another file) and
+these settings of the environment: `BENCH_PACKAGES` (comma-separated),
+`BENCH_MAX_ATTEMPTS`, `LLM_MODEL`, `OPENROUTER_PROVIDER`, `LLM_TEMPERATURE`,
+`BENCH_RESUME_FROM` and `BENCH_RESUME_WORKSPACE` (continue a run),
+`BENCH_BUILD_BACKEND`, `BENCH_FINAL_NEWLINE`. The Patch Generation strategy
+of the original (`client_patch.py`) takes its paths from `bench.yaml` but has
+none of the other changes.
 
 ---
 
-## 🗂️ Configs
+## 🗂️ Config
 
-| File | Direction | Build |
-|---|---|---|
-| `config/x86_64_to_ppc64le.yaml` | x86_64 → ppc64le | OBS |
-| `config/ppc64le_to_x86_64.yaml` | ppc64le → x86_64 | OBS |
-| `config/x86_64_to_ppc64le_local.yaml` | x86_64 → ppc64le | local `osc build` |
-| `config/x86_64_to_ppc64le_power9.yaml` | x86_64 → ppc64le | local `osc build` and build recipes on the Power9, with the large-package options (60 rounds per attempt, extra tools, notes between attempts, acceptance tests) |
-| `config/x86_64_to_ppc64le_power9_nonotes.yaml` | x86_64 → ppc64le | the same without notes between attempts (an ablation) |
-| `config/info.yaml` | x86_64 → aarch64 | the original's config |
+One file, `bench.yaml`, holds everything a run uses: the source and target
+architectures, the cases to run, the model, the options of the repair loop
+and the builds. Each setting has a comment there. What the file does not
+choose follows from the two architectures:
+
+| | |
+|---|---|
+| cases | `data/<source_arch>_to_<target_arch>/<package>/` (`cases_dir` moves them) |
+| acceptance tests | `acceptance/<source_arch>_to_<target_arch>/<package>.sh` |
+| results and logs | `result_text_res/<source_arch>_to_<target_arch>/<run>/`, `result_log_res/…/<run>/` |
+| workspaces | `temp_workspace/<package>/` |
+| OBS repository and architecture | the target architecture (`obs.repository`, `obs.project` and `obs.api_url` override them) |
+| local builds | against the openSUSE:Factory port of the target architecture (`build.local.project`) |
+
+The other direction is `source_arch: ppc64le` and `target_arch: x86_64`; the
+original's case study is `target_arch: aarch64` with
+`cases_dir: data/case_study/x86_succeed_pro` and `obs: {repository: arm}`.
+
+**What the framework tells the model** during a repair, besides the build
+results (none of it hints at a fix; 0 or `false` turns it off):
+
+| `llm.` | |
+|---|---|
+| `carry_notes_chars` | the next attempt starts with what the model wrote in the previous one (its notes), up to this many characters: what it found out is not lost when it made no edit |
+| `round_notice_at` | when these many rounds are left in an attempt, so it applies its fix in time |
+| `build_drought_rounds` | after this many rounds without a change or a build, to build its hypothesis |
+| `repeated_failure_note` | when a build failed the same way as the previous one: the change since then did not affect the failure |
+
+The paper's setup is `max_build_attempts: 3`, `max_tool_rounds: 20`, no
+`extra_tools`, and all four off; a run without the notes (an ablation) is
+`carry_notes_chars: 0`.
 
 ---
 
@@ -273,11 +309,13 @@ since then did not affect the failure.
 
 ## 📈 Results
 
-For every run, `result_text_res/<config>/<run>/` holds `<package>_result.json`
-(success, attempt, cost, tokens, timing, one summary per attempt, the run's
-git commit and settings, leak check findings) and `result_log_res/<config>/<run>/`
-the log, the conversation of every attempt (`<package>_attempt<N>_messages.json`,
-with the model's reasoning) and the diff log of its edits. `make summary` and
+For every run, `result_text_res/<source>_to_<target>/<run>/` holds
+`<package>_result.json` (success, attempt, cost, tokens, timing, one summary
+per attempt, the run's git commit and settings, leak check findings) and
+`result_log_res/<source>_to_<target>/<run>/` the log, the conversation of
+every attempt (`<package>_attempt<N>_messages.json`, with the model's
+reasoning), the diff log of its edits and `config.yaml`, the copy of
+`bench.yaml` the run used. `make summary` and
 `make transcript` read them. They stay on the machine that ran the benchmark:
 git ignores both directories.
 
@@ -286,7 +324,7 @@ git ignores both directories.
 ## 🧪 Tests
 
 `make test` runs `tests/test_helpers.py` (patch check, log excerpt, build
-backends, resume, run profile, leak check, cases, sandbox, containers with
+backends, resume, run settings, config, leak check, cases, sandbox, containers with
 Podman or Docker when one is installed with the base image, the build's
 network proxy, tool calls written as text) and
 `tests/test_offline.py` (the tools through MCP with a scripted model). They
@@ -298,9 +336,8 @@ write only to temporary directories.
 
 ```
 .
-├── bench.yaml, Makefile          # run profile and commands
+├── bench.yaml, Makefile          # the config and the commands
 ├── client.py, server.py          # MCP client (repair loop) and server (tools)
-├── config/                       # benchmark configs
 ├── prompts/                      # system prompts (RPM cases, build recipes)
 ├── tools/auto_repair/            # build backends, acceptance tests, sandbox, leak check, log excerpt
 ├── data/<direction>/<package>/   # cases
@@ -309,7 +346,7 @@ write only to temporary directories.
 ├── dataset/                      # fetching, baselines, case tools, reference fixes
 ├── scripts/                      # bench.py, run_repeats.sh, watch_run.py, transcript.py, workers
 ├── tests/
-├── result_text_res/, result_log_res/   # archived runs
+├── result_text_res/, result_log_res/   # runs, per direction (<source>_to_<target>/<run>/)
 └── MODIFICATIONS.md              # every change relative to the original
 ```
 

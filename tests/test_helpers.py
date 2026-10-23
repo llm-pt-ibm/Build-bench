@@ -223,7 +223,7 @@ assert "same.c" not in changes and "link.c" not in changes and "log_failed" not 
 shutil.rmtree(work)
 print("resume: OK (changes against the original package)")
 
-# run profile tooling (scripts/bench.py)
+# run settings (scripts/bench.py)
 import importlib.util  # noqa: E402
 import tempfile as _tempfile  # noqa: E402
 spec = importlib.util.spec_from_file_location("bench", os.path.join(ROOT, "scripts", "bench.py"))
@@ -231,10 +231,11 @@ bench = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(bench)
 with _tempfile.TemporaryDirectory() as tmp:
     profile_path = os.path.join(tmp, "bench.yaml")
-    open(profile_path, "w").write("config: c.yaml\nlabel: r1\npackages: [a, b]\nmodel: m\nprovider: p\n"
-                                  "attempts: 12\ntemperature:\n")
+    open(profile_path, "w").write("source_arch: x86_64\ntarget_arch: ppc64le\nlabel: r1\npackages: [a, b]\n"
+                                  "model: m\nprovider: p\ntemperature:\nllm:\n  max_build_attempts: 12\n")
     p = bench.load_profile(profile_path, {"attempts": "3", "packages": "x,y", "model": None})
     assert p["attempts"] == "3" and p["packages"] == ["x", "y"] and p["model"] == "m" and p["repeats"] == 1, p
+    assert p["config"] == profile_path and p["llm"] == {"max_build_attempts": 12}, "the config is the profile"
     os.environ["LLM_TEMPERATURE"] = "0.5"
     env = bench.run_env(p, resume={"from": "r0_1", "workspace": None})
     assert env["BENCH_PACKAGES"] == "x,y" and env["BENCH_MAX_ATTEMPTS"] == "3" and env["LLM_MODEL"] == "m"
@@ -258,7 +259,10 @@ with _tempfile.TemporaryDirectory() as tmp:
     bench.STATE_DIR, bench.ACTIVE = tmp, os.path.join(tmp, "active.json")
     open(bench.ACTIVE, "w").write('{"label": "r1", "pid": 999999999}')
     assert bench.active_run()["alive"] is False, "a dead runner is not an active run"
-print("run profile: OK (overrides, environment, leftovers archived, stale lock)")
+    frozen = os.path.join(ROOT, bench.frozen_config(profile_path))
+    open(profile_path, "a").write("label: r2\n")   # edited for the next run while this one runs
+    assert "r2" not in open(frozen).read() and "label: r1" in open(frozen).read()
+print("run settings: OK (overrides, environment, leftovers archived, stale lock, config frozen per run)")
 
 # a profile with a model server of its own: the .env key is not sent there
 import http.server  # noqa: E402
@@ -348,6 +352,45 @@ finally:
     if _home is not None:
         os.environ["BENCH_HOME"] = _home
 print("paths: OK (BENCH_HOME, ~ and ${VARIABLES} in configs)")
+
+# one config: what it does not choose follows from the two architectures
+import yaml  # noqa: E402
+from tools.auto_repair import bench_config  # noqa: E402
+_saved = {k: os.environ.pop(k, None) for k in ("BENCH_OUTPUT_ROOT", "BENCH_CONFIG")}
+try:
+    assert bench_config.run_paths({"source_arch": "x86_64", "target_arch": "ppc64le"}) == {
+        "base_dir": os.path.join(ROOT, "data", "x86_64_to_ppc64le"),
+        "temp_work_dir": os.path.join(ROOT, "temp_workspace"),
+        "result_dir": os.path.join(ROOT, "result_text_res", "x86_64_to_ppc64le"),
+        "log_dir": os.path.join(ROOT, "result_log_res", "x86_64_to_ppc64le")}
+    os.environ["BENCH_OUTPUT_ROOT"] = "/srv/out"
+    p = bench_config.run_paths({"source_arch": "x86_64", "target_arch": "aarch64", "cases_dir": "data/case_study/x"})
+    assert p["base_dir"] == os.path.join(ROOT, "data", "case_study", "x"), p
+    assert p["result_dir"] == "/srv/out/result_text_res/x86_64_to_aarch64", p
+    assert p["temp_work_dir"] == "/srv/out/temp_workspace", p
+    with _tempfile.TemporaryDirectory() as tmp:
+        os.environ["BENCH_CONFIG"] = os.path.join(tmp, "c.yaml")
+        open(os.environ["BENCH_CONFIG"], "w").write("source_arch: ppc64le\ntarget_arch: x86_64\n")
+        from tools.auto_repair.obs_config import load_obs_config
+        c = load_obs_config()
+        assert (c["direction"], c["repository"], c["arch"], c["local"]["project"]) == \
+            ("ppc64le_to_x86_64", "x86_64", "x86_64", "openSUSE:Factory"), c["direction"]
+        assert c["project"] == f"home:{c['user']}:build-bench" and c["api"] == "https://api.opensuse.org"
+        open(os.environ["BENCH_CONFIG"], "w").write("source_arch: x86_64\ntarget_arch: aarch64\n"
+                                                    "obs: {repository: arm, project: 'p:{user}'}\n")
+        c = load_obs_config()
+        assert (c["repository"], c["local"]["project"], c["project"]) == \
+            ("arm", "openSUSE:Factory:ARM", f"p:{c['user']}"), "obs settings override the derived ones"
+finally:
+    for k, v in _saved.items():
+        os.environ.pop(k, None)
+        if v is not None:
+            os.environ[k] = v
+# the repository has one config, bench.yaml, and its cases exist
+repo_cfg = bench_config.load(os.path.join(ROOT, "bench.yaml"))
+assert os.path.isdir(bench_config.run_paths(repo_cfg)["base_dir"]), repo_cfg["source_arch"]
+assert not glob.glob(os.path.join(ROOT, "config", "*.yaml")), "one config: bench.yaml"
+print("config: OK (one file; cases, workspace, results and OBS settings follow from the architectures)")
 
 # the build environment of a case is checked for leaks too
 with _tempfile.TemporaryDirectory() as tmp:
@@ -461,6 +504,18 @@ else:
 # experiments in a container (Podman, else Docker), with the base image of the
 # environments' images (BENCH_TEST_IMAGE: another one with bash)
 from tools.auto_repair import container as container_mod  # noqa: E402
+# runtime auto: podman if it is installed, else docker
+_available, _rt = container_mod.available, os.environ.pop("BENCH_CONTAINER_RUNTIME", None)
+try:
+    container_mod.available = lambda name: name == "docker"
+    assert container_mod.settings({})["runtime"] == "docker"
+    container_mod.available = lambda name: True
+    assert container_mod.settings({"container": {"runtime": "auto"}})["runtime"] == "podman"
+    assert container_mod.settings({"container": {"runtime": "docker"}})["runtime"] == "docker"
+finally:
+    container_mod.available = _available
+    if _rt is not None:
+        os.environ["BENCH_CONTAINER_RUNTIME"] = _rt
 _image = os.getenv("BENCH_TEST_IMAGE", "registry.access.redhat.com/ubi8/ubi:8.9")
 _runtime = next((rt for rt in ("podman", "docker") if shutil.which(rt) and subprocess.run(
     [rt, "image", "inspect", _image], capture_output=True, env=container_mod.runtime_env()).returncode == 0), None)

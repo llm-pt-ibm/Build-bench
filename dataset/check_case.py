@@ -1,7 +1,7 @@
 """Check a benchmark case before running it: that it has what the framework
 needs for its type and nothing that gives the answer away.
 
-Usage: BENCH_CONFIG=<config> python dataset/check_case.py <case_dir>
+Usage: [BENCH_CONFIG=<config>] python dataset/check_case.py <case_dir>
        (or: make check-case CASE=<name>)
 Prints one line per check (OK, WARN, FAIL) and exits with 1 when one fails."""
 import json
