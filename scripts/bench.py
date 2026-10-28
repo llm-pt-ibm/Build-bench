@@ -50,10 +50,9 @@ def run_env(profile: dict, resume: dict = None) -> dict:
     if resume:
         settings.update(BENCH_RESUME_FROM=resume["from"], BENCH_RESUME_WORKSPACE=resume.get("workspace"))
     for name, value in settings.items():
-        if value in (None, ""):
-            env.pop(name, None)
-        else:
-            env[name] = str(value)
+        # empty rather than unset: client.py loads .env, which must not fill in
+        # a setting that bench.yaml leaves empty
+        env[name] = "" if value in (None, "") else str(value)
     if profile.get("base_url"):
         # the API key of .env is never sent to a model server of the profile's own
         env["API_BASE_URL"] = str(profile["base_url"])

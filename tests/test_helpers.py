@@ -235,10 +235,22 @@ with _tempfile.TemporaryDirectory() as tmp:
     env = bench.run_env(p, resume={"from": "r0_1", "workspace": None})
     assert env["BENCH_PACKAGES"] == "x,y" and env["BENCH_MAX_ATTEMPTS"] == "3" and env["LLM_MODEL"] == "m"
     assert env["OPENROUTER_PROVIDER"] == "p" and env["BENCH_RESUME_FROM"] == "r0_1"
-    assert "LLM_TEMPERATURE" not in env and "BENCH_RESUME_WORKSPACE" not in env, "unset settings are removed"
+    assert env["LLM_TEMPERATURE"] == "" and env["BENCH_RESUME_WORKSPACE"] == "", "unset settings are empty"
     del os.environ["LLM_TEMPERATURE"]
     p = bench.load_profile(profile_path, {"provider": "none", "model": "anthropic/x"})
-    assert p["provider"] is None and "OPENROUTER_PROVIDER" not in bench.run_env(p), p
+    assert p["provider"] is None and bench.run_env(p)["OPENROUTER_PROVIDER"] == "", p
+    # .env does not fill in what the config leaves empty (load_dotenv keeps what is set)
+    from dotenv import load_dotenv as _load_dotenv
+    open(os.path.join(tmp, "dotenv"), "w").write("OPENROUTER_PROVIDER=from-dotenv\n")
+    _saved = dict(os.environ)
+    try:
+        os.environ.clear()
+        os.environ.update(bench.run_env(p))
+        _load_dotenv(os.path.join(tmp, "dotenv"))
+        assert os.environ["OPENROUTER_PROVIDER"] == "", "PROVIDER=none stays cleared"
+    finally:
+        os.environ.clear()
+        os.environ.update(_saved)
     paths = {k: os.path.join(tmp, k) for k in ("base_dir", "result_dir", "log_dir", "temp_work_dir")}
     for d in paths.values():
         os.makedirs(d)

@@ -276,7 +276,10 @@ improvements` shows them file by file.
 - `make` and `bench.yaml`: the commands of the benchmark in one place
   (`scripts/bench.py`). `bench.yaml` says what to run (packages, model,
   provider, attempts, label, repeats; since the single config, everything
-  else too), and make variables override it (`make run LABEL=... ATTEMPTS=...`). `make run`
+  else too), and make variables override it (`make run LABEL=... ATTEMPTS=...`).
+  `.env` holds only credentials: a setting that `bench.yaml` leaves empty, or
+  that a make variable clears (`PROVIDER=none`), reaches client.py empty, so a
+  value in `.env` cannot fill it in. `make run`
   starts run_repeats.sh in the background and records it in
   `.bench/active.json`: one run at a time, and no start over the files an
   interrupted run left, which run_repeats.sh would archive with the new run.
