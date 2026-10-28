@@ -1,6 +1,5 @@
-# conda-forge packages of the jax-power9 build and test environments, exactly (the
-# environment the jaxlib case was set up with). Regenerate after changing conda.txt:
-#   conda list -p <environment> --explicit --md5 > envs/jax-power9/build.lock
+# the packages of the build environment of jax-power9 (and of its test environment)
+# exactly, which make setup-env installs; delete this file to solve env.yaml again
 # This file may be used to create an environment using:
 # $ conda create --name <env> --file <this file>
 # platform: linux-ppc64le

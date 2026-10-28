@@ -155,13 +155,8 @@ open(os.path.join(pkg_dir, "build.sh"), "w").write(
     'grep -q broken src/main.c && { echo "$(pwd)/src/main.c:1:1: error: boom"; exit 1; }\nexit 0\n')
 res = script_build.script_upload("r", pkg_dir, cfg)
 assert res.startswith("Success: sources snapshotted"), res
-# a host the build's proxy refused is named in the failure message
-with open(os.path.join(work, "stage", "r", "run", "network.log"), "w") as f:
-    f.write("12:00:00 allowed CONNECT mirror.example:443\n12:00:01 blocked CONNECT answers.example:443\n")
 res = script_build.script_check(pkg_dir, "r", cfg)
 assert res.startswith("Build failed!") and f"{pkg_dir}/src/main.c:1:1: error: boom" in res, res
-assert "proxy, which refused answers.example:443" in res, res
-os.remove(os.path.join(work, "stage", "r", "run", "network.log"))
 assert "jobs=2" in open(os.path.join(pkg_dir, "log_failed.txt")).read()
 assert "/r/shared" in open(os.path.join(pkg_dir, "log_failed.txt")).read()
 open(os.path.join(pkg_dir, "src", "main.c"), "w").write("fixed\n")
@@ -308,33 +303,26 @@ finally:
         os.environ["API_KEY"] = _saved
 print("local model profile: OK (own server and key, server and model checked, context size)")
 
-# leak check: built copies and reference-fix files within the model's reach
+# leak check: built copies of the package within the model's reach
 import shutil  # noqa: E402
 from tools.auto_repair.leak_check import leak_report  # noqa: E402
-ref_dir = os.path.join(ROOT, "dataset", "reference", "demo-leaktest")
 with _tempfile.TemporaryDirectory() as tmp:
-    try:
-        os.makedirs(ref_dir)
-        open(os.path.join(ref_dir, "fix.patch"), "w").write("--- a/x\n+++ b/x\n@@ -1 +1 @@\n-a\n+the fix\n")
-        case = os.path.join(tmp, "demo-leaktest")
-        os.makedirs(case)
-        open(os.path.join(case, "build.sh"), "w").write("true\n")
-        env = os.path.join(tmp, "env")
-        for d in ("lib/python3.12/site-packages/demo_leaktest", "hidden/site-packages/demo_leaktest", "pkgs"):
-            os.makedirs(os.path.join(env, d))
-        open(os.path.join(env, "pkgs", "demo_leaktest-1.0-py3-none-any.whl"), "w").write("x")
-        open(os.path.join(env, "copy-of-fix.diff"), "w").write(open(os.path.join(ref_dir, "fix.patch")).read())
-        cfg = {"script": {"experiment_paths": [env], "experiment_hide": [os.path.join(env, "hidden")]}}
-        found = leak_report(cfg, "demo-leaktest", case)
-        assert len(found) == 3, found
-        assert any("installed copy" in f and "lib/python3.12" in f for f in found), found
-        assert any("built copy" in f and f.endswith(".whl") for f in found), found
-        assert any("reference fix" in f and f.endswith("copy-of-fix.diff") for f in found), found
-        assert not any("/hidden/" in f for f in found), "hidden paths are not reported"
-        assert leak_report({"script": {}}, "demo-leaktest", case) == [], "only what the model can read"
-    finally:
-        shutil.rmtree(ref_dir, ignore_errors=True)
-print("leak check: OK (installed copies, built packages, reference fixes by content, hidden paths skipped)")
+    case = os.path.join(tmp, "demo-leaktest")
+    os.makedirs(case)
+    open(os.path.join(case, "build.sh"), "w").write("true\n")
+    env = os.path.join(tmp, "env")
+    for d in ("lib/python3.12/site-packages/demo_leaktest", "hidden/site-packages/demo_leaktest", "pkgs"):
+        os.makedirs(os.path.join(env, d))
+    open(os.path.join(env, "pkgs", "demo_leaktest-1.0-py3-none-any.whl"), "w").write("x")
+    open(os.path.join(env, "notes.diff"), "w").write("--- a/x\n+++ b/x\n")
+    cfg = {"script": {"experiment_paths": [env], "experiment_hide": [os.path.join(env, "hidden")]}}
+    found = leak_report(cfg, "demo-leaktest", case)
+    assert len(found) == 2, found
+    assert any("installed copy" in f and "lib/python3.12" in f for f in found), found
+    assert any("built copy" in f and f.endswith(".whl") for f in found), found
+    assert not any("/hidden/" in f for f in found), "hidden paths are not reported"
+    assert leak_report({"script": {}}, "demo-leaktest", case) == [], "only what the model can read"
+print("leak check: OK (installed copies, built packages, hidden paths skipped)")
 
 # where the benchmark keeps its state: BENCH_HOME, not /root
 from tools.auto_repair import paths as bench_paths_mod  # noqa: E402
@@ -392,6 +380,135 @@ assert os.path.isdir(bench_config.run_paths(repo_cfg)["base_dir"]), repo_cfg["so
 assert not glob.glob(os.path.join(ROOT, "config", "*.yaml")), "one config: bench.yaml"
 print("config: OK (one file; cases, workspace, results and OBS settings follow from the architectures)")
 
+# build environments: one env.yaml of lists; make setup-env does the rest
+import platform  # noqa: E402
+from tools.auto_repair import build_env  # noqa: E402
+for _name in os.listdir(os.path.join(ROOT, "envs")):
+    if os.path.isfile(build_env.spec_file(_name)):
+        build_env.load(_name)                     # the repository's environments are valid
+_example = build_env.load_file(build_env.EXAMPLE)
+_keys = set(_example) | {line.lstrip("# ").split(":")[0] for line in open(build_env.EXAMPLE) if ":" in line}
+assert set(build_env.KEYS) <= _keys, set(build_env.KEYS) - _keys   # the example shows every key
+with _tempfile.TemporaryDirectory() as tmp:
+    _saved_env = {k: os.environ.pop(k, None) for k in ("BENCH_HOME", "CONDA", "BAZEL_BINARY", "WHEELS_FROM")}
+    _envs_dir = build_env.ENVS_DIR
+    try:
+        build_env.ENVS_DIR = os.path.join(tmp, "envs")
+        os.makedirs(os.path.join(tmp, "envs", "demo"))
+        os.environ["BENCH_HOME"] = os.path.join(tmp, "home")
+        open(build_env.spec_file("demo"), "w").write("conda: [python=3.12, clang]\ntools: [openjdk]\n")
+        assert build_env.load("demo")["wheels"] == [] and build_env.exists("demo")
+        made = build_env.new("demo2")                       # make new-env: the example, to edit
+        assert open(made).read() == open(build_env.EXAMPLE).read()
+        try:
+            build_env.new("demo2")
+            raise AssertionError("new-env overwrote an environment")
+        except SystemExit as e:
+            assert "exists already" in str(e), e
+        assert build_env.env_script("demo") == build_env.GENERIC_SCRIPT
+        open(build_env.spec_file("demo"), "w").write("system: [zlib-devel]\n")    # any package: no conda needed
+        assert build_env.load("demo")["system"] == ["zlib-devel"]
+        for bad, why in (("conda: [x]\nwheel: [y]\n", "unknown keys"), ("conda: x\n", "is a list"),
+                         ("system: [a]\nwheels: [b]\n", "need a Python"), ("env: [CC]\n", "env maps"),
+                         ("channels: []\n", "nothing to set up")):
+            open(build_env.spec_file("demo"), "w").write(bad)
+            try:
+                build_env.load("demo")
+                raise AssertionError(bad)
+            except SystemExit as e:
+                assert why in str(e), e
+        # a conda that makes environments with a python, clang, javac and the C++ runtime
+        log = os.path.join(tmp, "conda.log")
+        conda = os.path.join(tmp, "conda")
+        open(conda, "w").write(f"""#!/bin/sh
+echo "$*" >> {log}
+prefix=; prev=
+for a in "$@"; do [ "$prev" = -p ] && prefix=$a; prev=$a; done
+case "$1" in
+  create) mkdir -p "$prefix/bin" "$prefix/lib"; ln -sf {sys.executable} "$prefix/bin/python"
+          printf '#!/bin/sh\\necho "clang version 17.0.6"\\n' > "$prefix/bin/clang"; chmod +x "$prefix/bin/clang"
+          touch "$prefix/bin/javac" "$prefix/lib/libstdc++.so.6" "$prefix/lib/libgcc_s.so.1";;
+  list) case "$*" in *--json*) echo '[{{"name": "python", "version": "3.12.0"}}]';;
+                    *) printf '@EXPLICIT\\nhttps://conda.example/python-3.12.0.conda#0\\n';; esac;;
+esac
+""")
+        os.chmod(conda, 0o755)
+        bazel = os.path.join(tmp, "bazel-bin")
+        open(bazel, "w").write('#!/bin/sh\necho "bazel 7.7.0"\n')
+        os.environ.update(CONDA=conda, BAZEL_BINARY=bazel)
+        open(build_env.spec_file("demo"), "w").write(
+            "conda: [python=3.12, clang]\ntools: [openjdk]\nbazel: 7.7.0\nenv: {DEMO_VAR: $BENCH_ENV_DIR/x}\n"
+            'setup: ["echo run >> setup.log && ln -sf /bin/true bin/demo-tool"]\n')
+        d = build_env.setup("demo")
+        for f in ("build.lock", "tools.lock"):              # the solution is written, to be committed
+            assert "@EXPLICIT" in open(os.path.join(tmp, "envs", "demo", f)).read(), f
+        assert os.path.isfile(os.path.join(tmp, "home", "bazel", "7.7.0", "bazel")), "Bazel is shared"
+        assert os.access(os.path.join(d, "bin", "bazel-7.7.0"), os.X_OK), "and copied into the environment"
+        assert os.path.islink(os.path.join(d, "runtime-lib", "libstdc++.so.6"))
+        if platform.machine() in build_env.TRIPLETS:
+            assert os.path.islink(os.path.join(d, "bin", build_env.TRIPLETS[platform.machine()] + "-gcc"))
+        info = json.load(open(os.path.join(d, "env.json")))
+        assert info["name"] == "demo" and info["bazel"]["version"] == "7.7.0" and len(info["id"]) == 12, info
+        assert os.path.isfile(os.path.join(d, ".complete")) and os.path.isdir(os.path.join(d, "test"))
+        creates = open(log).read().count("create ")
+        assert creates == 3, open(log).read()               # build, tools, test
+        build_env.setup("demo")
+        assert open(log).read().count("create ") == creates, "a second setup skips what is done"
+        assert open(os.path.join(d, "setup.log")).read() == "run\n", "setup commands run once"
+        # a changed conda list is solved again, and its environments made again
+        spec_text = open(build_env.spec_file("demo")).read()
+        open(build_env.spec_file("demo"), "w").write(spec_text.replace("[python=3.12, clang]", "[python=3.12, clang, hdf5]"))
+        build_env.setup("demo")
+        assert open(log).read().count("create ") == creates + 2, "build and test again, tools kept"
+        assert "hdf5" in open(os.path.join(tmp, "envs", "demo", "build.lock")).read()
+        assert "hdf5" not in open(os.path.join(tmp, "envs", "demo", "tools.lock")).read()
+        assert build_env._tool_env(d, {"HDF5_DIR": "$BENCH_ENV_DIR/build"})["HDF5_DIR"] == f"{d}/build"
+        # mamba's listing has no @EXPLICIT and names the environment: the lock has only the URLs
+        assert build_env._explicit('List of packages in environment: "/x/tools"\n\nhttps://c/a.conda#1\n') == \
+            "@EXPLICIT\nhttps://c/a.conda#1\n"
+        assert "@EXPLICIT" in open(os.path.join(tmp, "envs", "demo", "build.lock")).read()
+        assert 'export DEMO_VAR="$BENCH_ENV_DIR/x"' in open(os.path.join(d, "exports.sh")).read()
+        # the generic script exports what the environment has
+        out = subprocess.run(["bash", "-c", 'set -u; source "$0" >/dev/null && echo "${PYTHON:-}|${TEST_PYTHON:-}|'
+                              '${CLANG:-}|${BAZEL:-}|${JAVA_HOME:-}|${LOCAL_WHEELS:-}|${DEMO_VAR:-}|'
+                              '$(command -v demo-tool)"', build_env.GENERIC_SCRIPT],
+                             env=dict(os.environ, BENCH_ENV_DIR=d), capture_output=True, text=True)
+        assert out.stdout.strip() == "|".join([f"{d}/build/bin/python", f"{d}/test/bin/python",
+                                               f"{d}/build/bin/clang", f"{d}/bin/bazel-7.7.0", f"{d}/tools",
+                                               "", f"{d}/x", f"{d}/bin/demo-tool"]), (out.stdout, out.stderr)
+        # the image: the default Containerfile, with the RHEL packages of system
+        from tools.auto_repair import container as _ctr
+        _default = open(os.path.join(ROOT, "envs", "Containerfile")).read()
+        assert _ctr.containerfile("demo") == _default
+        _text = _ctr.containerfile("demo", ["zlib-devel", "openssl-devel"])
+        assert _text.startswith(_default) and "--nodocs zlib-devel openssl-devel" in _text, _text
+        os.remove(os.path.join(d, ".complete"))
+        out = subprocess.run(["bash", "-c", 'source "$0"', build_env.GENERIC_SCRIPT],
+                             env=dict(os.environ, BENCH_ENV_DIR=d), capture_output=True, text=True)
+        assert out.returncode == 1 and "make setup-env ENV=demo" in out.stdout, out.stdout
+        # wheels: one at a time, the built ones kept, a failure's errors shown
+        wd = os.path.join(tmp, "wheels")
+        os.makedirs(wd)
+        open(os.path.join(wd, "ml_dtypes-0.5.1-cp312-cp312-linux_ppc64le.whl"), "w").close()
+        assert build_env._built_wheel(wd, "ml-dtypes==0.5.1") and not build_env._built_wheel(wd, "ml-dtypes==0.5.4")
+        assert build_env._built_wheel(wd, "ml_dtypes") and not build_env._built_wheel(wd, "numpy==2.1.3")
+        open(os.path.join(tmp, "w.log"), "w").write(
+            "Collecting x\n  aes_gcm.cc:12:5: error: unknown type name 'foo'\n  aes_gcm.cc:12:5: error: unknown "
+            "type name 'foo'\nnote: This error originates from a subprocess\nERROR: Failed building wheel for x\n")
+        assert build_env._error_lines(os.path.join(tmp, "w.log")) == [
+            "aes_gcm.cc:12:5: error: unknown type name 'foo'", "ERROR: Failed building wheel for x"]
+        # an environment script of its own replaces the generic one
+        open(os.path.join(tmp, "envs", "demo.sh"), "w").write("true\n")
+        assert build_env.env_script("demo") == os.path.join(tmp, "envs", "demo.sh")
+    finally:
+        build_env.ENVS_DIR = _envs_dir
+        for k, v in _saved_env.items():
+            os.environ.pop(k, None)
+            if v is not None:
+                os.environ[k] = v
+print("build environments: OK (env.yaml from the example, any package: system, env, setup; locks written, "
+      "Bazel shared, setup skips what is done, generic script)")
+
 # the build environment of a case is checked for leaks too
 with _tempfile.TemporaryDirectory() as tmp:
     os.environ["BENCH_HOME"] = tmp
@@ -410,14 +527,21 @@ print("leak check: OK (the case's build environment)")
 
 # a new case from the template, and what check_case says about it
 sys.path.insert(0, os.path.join(ROOT, "dataset"))
-from new_case import new_case  # noqa: E402
+from new_case import new_case, fetch_case, source_dir_name, version_of  # noqa: E402
 from check_case import check_case  # noqa: E402
+assert source_dir_name("https://github.com/tensorflow/tensorflow/archive/refs/tags/v2.20.0.tar.gz") == "tensorflow"
+assert source_dir_name("https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.bz2") == "eigen"
+assert source_dir_name("https://www.zlib.net/zlib-1.3.1.tar.xz") == "zlib"
+assert version_of("https://github.com/tensorflow/tensorflow/archive/refs/tags/v2.20.0.tar.gz") == "2.20.0"
+assert version_of("https://github.com/openxla/xla/archive/5a9e73cbd925.tar.gz") == ""
 with _tempfile.TemporaryDirectory() as tmp:
-    data_dir = os.path.join(tmp, "testsrc_to_testdst")
-    test_dir = os.path.join(ROOT, "acceptance", "testsrc_to_testdst")
+    data_dir = os.path.join(tmp, "testsrc_to_ppc64le")
+    test_dir = os.path.join(ROOT, "acceptance", "testsrc_to_ppc64le")
+    _envs_dir = build_env.ENVS_DIR
     try:
-        created = new_case(data_dir, "demo", "jax-power9")
-        assert len(created) == 3 and os.access(created[0], os.X_OK), created
+        made = new_case(data_dir, "demo", "jax-power9")       # no sources, an environment that exists
+        created = made["created"]
+        assert len(created) == 3 and os.access(created[0], os.X_OK) and not made["env_created"], made
         failures = [m for level, m in check_case(os.path.join(data_dir, "demo"), {"script": {}}) if level == "FAIL"]
         assert len(failures) == 2 and "no sources" in failures[0] and "log_failed.txt" in failures[1], failures
         os.makedirs(os.path.join(data_dir, "demo", "src"))
@@ -425,9 +549,31 @@ with _tempfile.TemporaryDirectory() as tmp:
         results = check_case(os.path.join(data_dir, "demo"), {"script": {}})
         assert not [m for level, m in results if level == "FAIL"], results
         assert sum(level == "WARN" for level, _ in results) == 2, results   # TODOs left in build.sh and test
+        # SOURCE: the archive unpacked, its build system's build.sh, test and new environment
+        build_env.ENVS_DIR = os.path.join(tmp, "envs")
+        os.makedirs(os.path.join(tmp, "src", "lib-1.2"))
+        open(os.path.join(tmp, "src", "lib-1.2", "CMakeLists.txt"), "w").write("project(lib)\n")
+        subprocess.run(["tar", "czf", "lib-1.2.tar.gz", "lib-1.2"], cwd=os.path.join(tmp, "src"), check=True)
+        url = "file://" + os.path.join(tmp, "src", "lib-1.2.tar.gz")
+        made = new_case(data_dir, "lib", "", [url])
+        case_dir = os.path.join(data_dir, "lib")
+        assert made["system"] == "CMake" and made["env_created"] and made["environment"] == "lib", made
+        assert os.path.isfile(os.path.join(case_dir, "lib", "CMakeLists.txt"))
+        assert "cd lib\ncmake -S . -B build" in open(os.path.join(case_dir, "build.sh")).read()
+        assert "ctest --test-dir" in open(os.path.join(test_dir, "lib.sh")).read()
+        assert open(os.path.join(case_dir, ".gitignore")).read().splitlines()[-1] == "/lib/"
+        manifest = json.load(open(os.path.join(case_dir, "manifest.json")))
+        assert manifest["task"]["sources"] == {"lib": url} and manifest["task"]["version"] == "1.2", manifest
+        assert build_env.load("lib")["conda"] == ["cxx-compiler", "cmake", "make"]
+        shutil.rmtree(os.path.join(case_dir, "lib"))                  # make fetch: the sources again
+        fetch_case(case_dir)
+        assert os.path.isfile(os.path.join(case_dir, "lib", "CMakeLists.txt"))
+        ok = [m for level, m in check_case(case_dir, {"script": {}}) if level == "OK"]
+        assert any(m == "sources: lib" for m in ok), ok                 # .gitignore is not a source
     finally:
+        build_env.ENVS_DIR = _envs_dir
         shutil.rmtree(test_dir, ignore_errors=True)
-print("cases: OK (new case from the template, check_case finds what is missing)")
+print("cases: OK (new case from an archive and its build system, check_case finds what is missing)")
 
 # experiments run sandboxed (needs root and unshare, as on the Power9 build host)
 import shutil  # noqa: E402
@@ -516,6 +662,11 @@ finally:
     container_mod.available = _available
     if _rt is not None:
         os.environ["BENCH_CONTAINER_RUNTIME"] = _rt
+# the user, unknown to the image's /etc/passwd under docker run --user, is
+# named by USER (Bazel stops without it) and gets a HOME it can write
+_argv = container_mod.command({"container": {"runtime": "docker"}}, "x", "demo", [], {"HOME": "/s"}, "/", ["true"])
+assert f"USER={container_mod.user_name()}" in _argv and "HOME=/s" in _argv and "HOME=/tmp" not in _argv, _argv
+assert "HOME=/tmp" in container_mod.command({"container": {"runtime": "docker"}}, "x", "demo", [], {}, "/", ["true"])
 _image = os.getenv("BENCH_TEST_IMAGE", "registry.access.redhat.com/ubi8/ubi:8.9")
 _runtime = next((rt for rt in ("podman", "docker") if shutil.which(rt) and subprocess.run(
     [rt, "image", "inspect", _image], capture_output=True, env=container_mod.runtime_env()).returncode == 0), None)
@@ -534,9 +685,8 @@ if _runtime:
         # no limit of processes beyond the host's (Podman's 2048 broke jaxlib's test suite)
         argv = container_mod.command(cfg, "x", "demo-ctr-env", [], {}, "/", ["true"])
         assert argv[argv.index("--pids-limit") + 1] == "-1", argv
-        # builds need the environment's allowed hosts (build_network proxy); commands have no network
-        assert "allowed_hosts.txt" in (container_mod.check(cfg, "demo-ctr-env") or "")
-        assert container_mod.check(cfg, "demo-ctr-env", build=False) is None
+        # builds need no list of hosts (any host, logged); commands have no network
+        assert container_mod.check(cfg, "demo-ctr-env") is None
         json.dump({"environment": "demo-ctr-env"}, open(os.path.join(workspace, "manifest.json"), "w"))
         os.makedirs(os.path.join(tmp, "home", "envs", "demo-ctr-env"))
         open(os.path.join(tmp, "home", "envs", "demo-ctr-env", "tool"), "w").write("env tool\n")
@@ -569,8 +719,8 @@ if _runtime:
         left = subprocess.run([_runtime, "ps", "-a", "--format", "{{.Names}}"], capture_output=True, text=True,
                               env=container_mod.runtime_env()).stdout
         assert "bench-demo-exp" not in left, left
-        # a build reaches only the allowed hosts, through the framework's proxy
-        # (needs a Python in the image for the forwarder)
+        # a build reaches any host, through the framework's proxy, which logs
+        # every connection (needs a Python in the image for the forwarder)
         if subprocess.run([_runtime, "run", "--rm", "--network", "none", "build-bench-demo-ctr-env", "sh", "-c",
                            "command -v python3 || test -x /usr/libexec/platform-python"],
                           capture_output=True, env=container_mod.runtime_env()).returncode == 0:
@@ -584,9 +734,9 @@ if _runtime:
 
                 def do_GET(self):
                     self.send_response(200)
-                    self.send_header("Content-Length", "7")
+                    self.send_header("Content-Length", "6")
                     self.end_headers()
-                    self.wfile.write(b"allowed")
+                    self.wfile.write(b"served")
 
             with _socket.socket(_socket.AF_INET, _socket.SOCK_DGRAM) as _s:
                 _s.connect(("10.255.255.255", 1))           # the host's address, as the proxy reaches it
@@ -595,21 +745,26 @@ if _runtime:
             _threading.Thread(target=_origin.serve_forever, daemon=True).start()
             _get = ('exec 3<>/dev/tcp/127.0.0.1/3128 && printf "GET http://%s/ HTTP/1.0\\r\\n\\r\\n" >&3 '
                     '&& cat <&3; exec 3<&-')
+            # (the proxy's answer for a host it cannot reach names the DNS
+            # failure, which counts as a failure of the network, not of the
+            # package: it stays out of the log, the network log records it)
             open(os.path.join(workspace, "build.sh"), "w").write(
-                f"{_get % f'{_ip}:{_origin.server_port}'}\necho\n{_get % 'answers.example'}\n"
+                f"{_get % f'{_ip}:{_origin.server_port}'}\necho\n{{ {_get % 'answers.example'}; }} >/dev/null\n"
                 "(exec 4<>/dev/tcp/1.1.1.1/53) 2>/dev/null || echo no-direct-network\nexit 1\n")
             bcfg = dict(cfg, max_wait_seconds=120, check_interval=1, local={"arch": "ppc64le"},
-                        container={"runtime": _runtime, "allowed_hosts": [f"{_ip}:{_origin.server_port}"]})
+                        container={"runtime": _runtime, "build_network": "log"})
             try:
                 res = script_build.script_upload("demo", workspace, bcfg)
                 assert res.startswith("Success"), res
                 res = script_build.script_check(workspace, "demo", bcfg)
             finally:
                 _origin.shutdown()
+            assert res.startswith("Build failed!"), res
             log = open(os.path.join(workspace, "log_failed.txt")).read()
-            assert "allowed" in log and "403 Forbidden" in log and "no-direct-network" in log, log
-            assert "refused answers.example:80" in res, res
-            print("  builds in a container: only the allowed hosts, through the proxy, refusals reported")
+            assert "served" in log and "no-direct-network" in log, log
+            net = container_mod.network_log(os.path.join(tmp, "stage", "demo", "run"))
+            assert net == {"reached": [f"{_ip}:{_origin.server_port}"], "failed": ["answers.example:80"]}, net
+            print("  builds in a container: any host through the proxy, every connection logged, no direct network")
     finally:
         subprocess.run([_runtime, "rmi", "build-bench-demo-ctr-env"], capture_output=True,
                        env=container_mod.runtime_env())
@@ -650,18 +805,11 @@ for _text in ('The call would be {"name": "run_command_tool", "arguments": {"com
 print("text tool calls: OK (Hermes/Qwen, Qwen3-Coder, GLM, Mistral, Llama, DeepSeek, gpt-oss, bare JSON; "
       "prose and unknown tools left alone)")
 
-# the build's network: the proxy lets only the allowed hosts through and logs
-# every connection; proxy_forward.py makes its socket a TCP proxy
+# the build's network: the proxy lets a build reach any host and logs every
+# connection; proxy_forward.py makes its socket a TCP proxy
 import http.server  # noqa: E402
 import socket  # noqa: E402
 import threading  # noqa: E402
-from tools.auto_repair import net_proxy  # noqa: E402
-assert net_proxy.allowed("github.com", 443, ["github.com"]) and not net_proxy.allowed("evil.com", 443, ["github.com"])
-assert not net_proxy.allowed("gist.github.com", 443, ["github.com"])
-assert net_proxy.allowed("a.b.googleapis.com", 443, [".googleapis.com"])
-assert net_proxy.allowed("googleapis.com", 80, ["*.googleapis.com"])
-assert not net_proxy.allowed("github.com", 22, ["github.com"]) and net_proxy.allowed("github.com", 22, ["github.com:22"])
-assert net_proxy.allowed("anything.org", 8080, ["*"])
 
 
 class _Origin(http.server.BaseHTTPRequestHandler):
@@ -684,7 +832,7 @@ with socket.socket() as _s:
     _s.bind(("127.0.0.1", 0))
     _fport = _s.getsockname()[1]
 _proxy = subprocess.Popen([sys.executable, os.path.join(ROOT, "tools", "auto_repair", "net_proxy.py"),
-                           "--socket", _sock, "--log", _log, "--allow", f"127.0.0.1:{_port}"])
+                           "--socket", _sock, "--log", _log])
 try:
     for _ in range(50):
         if os.path.exists(_sock):
@@ -708,21 +856,21 @@ try:
                     request = b""
 
     assert _ask(f"GET http://127.0.0.1:{_port}/x HTTP/1.1\r\nHost: x\r\n\r\n".encode()).endswith(b"origin")
-    assert b" 403 " in _ask(f"GET http://localhost:{_port}/ HTTP/1.1\r\nHost: x\r\n\r\n".encode())
+    assert _ask(f"GET http://localhost:{_port}/ HTTP/1.1\r\nHost: x\r\n\r\n".encode()).endswith(b"origin")
     _tunnel = _ask(f"CONNECT 127.0.0.1:{_port} HTTP/1.1\r\n\r\n".encode())
     assert _tunnel.startswith(b"HTTP/1.1 200 Connection established") and _tunnel.endswith(b"origin"), _tunnel
-    assert b" 403 " in _ask(b"CONNECT example.com:443 HTTP/1.1\r\n\r\n")
+    assert b" 502 " in _ask(b"CONNECT 127.0.0.1:1 HTTP/1.1\r\n\r\n")    # nothing listens there
     _forward.kill()
 finally:
     _proxy.kill()
     _proxy.wait()
     _origin.shutdown()
 _lines = [line.split(maxsplit=1)[1].strip() for line in open(_log)]
-assert _lines == [f"allowed GET 127.0.0.1:{_port}/x", f"blocked GET localhost:{_port}/",
-                  f"allowed CONNECT 127.0.0.1:{_port}", "blocked CONNECT example.com:443"], _lines
+assert _lines == [f"reached GET 127.0.0.1:{_port}/x", f"reached GET localhost:{_port}/",
+                  f"reached CONNECT 127.0.0.1:{_port}", "failed CONNECT 127.0.0.1:1"], _lines
 from tools.auto_repair.container import network_log  # noqa: E402
-assert network_log(_tmp) == {"reached": [f"127.0.0.1:{_port}"], "refused": ["example.com:443", f"localhost:{_port}"]}
+assert network_log(_tmp) == {"reached": [f"127.0.0.1:{_port}", f"localhost:{_port}"], "failed": ["127.0.0.1:1"]}
 shutil.rmtree(_tmp, ignore_errors=True)
-print("build network: OK (allowed hosts only, through the socket and the forwarder, every connection logged)")
+print("build network: OK (any host, through the socket and the forwarder, every connection logged)")
 
 print("\nALL TESTS PASSED")

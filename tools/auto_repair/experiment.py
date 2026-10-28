@@ -25,7 +25,7 @@ import signal
 import subprocess
 import time
 
-from tools.auto_repair import container
+from tools.auto_repair import build_env, container
 from tools.auto_repair.case_type import case_environment
 from tools.auto_repair.paths import env_dir
 
@@ -83,14 +83,14 @@ def run_experiment(package_name: str, workspace: str, command: str, timeout: int
            "BENCH_CACHE_DIR": cache, "BENCH_SCRATCH_DIR": scratch, "BENCH_JOBS": str(cfg["script"]["jobs"]),
            "HOME": scratch, "TMPDIR": scratch, "PYTHONDONTWRITEBYTECODE": "1",
            "BENCH_ENV_DIR": env_dir(env_name) if env_name else ""}
-    env_script = os.path.join(ENVS_DIR, f"{env_name}.sh") if env_name else ""
+    env_script = build_env.env_script(env_name) if env_name else ""
     hide = [os.path.realpath(p) for p in cfg["script"].get("experiment_hide") or [] if os.path.isdir(p)]
     runner = os.path.join(ROOT, "scripts", "script_worker", "run.sh")
     name = None
     if container.runtime(cfg):
         # a container of the build environment's image: only the mounts are
         # there, no network, no capabilities (needs no root with Podman)
-        problem = container.check(cfg, env_name, build=False)
+        problem = container.check(cfg, env_name)
         if problem:
             return f"Error: commands cannot run: {problem}"
         name = f"bench-{package_name}-exp-{os.getpid()}-{int(time.time() * 1000) % 1000000}"

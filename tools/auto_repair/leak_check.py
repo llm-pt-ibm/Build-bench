@@ -1,7 +1,7 @@
 """Leak check: before a package runs, look for the answer in what the model can
 read: a built copy of the package (an installed Python package, a wheel, a
-conda package, an RPM) or a file of its reference fix (dataset/reference/<pkg>,
-compared by content).
+conda package, an RPM). It needs no known fix of the package, so it works for
+any package.
 
 Checked: the case (copied into the workspace when a run starts), the
 acceptance tests, the build environments and the runner, and, for build-recipe
@@ -13,7 +13,6 @@ what build.sh can reach: it runs outside the sandbox, with the whole host.
 Found in runs 28 and 28c: a reference build in the stage root (the file tools
 could read all of it) and the team's jaxlib installed in two conda
 environments of the build host."""
-import hashlib
 import os
 import re
 
@@ -29,27 +28,6 @@ MAX_FINDINGS = 20
 def _names(package: str) -> set:
     name = package.lower()
     return {name, name.replace("-", "_"), name.replace("_", "-")}
-
-
-def _sha256(path: str) -> str:
-    h = hashlib.sha256()
-    with open(path, "rb") as f:
-        for block in iter(lambda: f.read(1 << 20), b""):
-            h.update(block)
-    return h.hexdigest()
-
-
-def _reference_files(package: str) -> dict:
-    """size -> {sha256: reference path} of the package's reference fix."""
-    refs = {}
-    for root, _, files in os.walk(os.path.join(ROOT, "dataset", "reference", package)):
-        for name in files:
-            path = os.path.join(root, name)
-            try:
-                refs.setdefault(os.path.getsize(path), {})[_sha256(path)] = os.path.relpath(path, ROOT)
-            except OSError:
-                pass
-    return refs
 
 
 def _is_built_copy(path: str, names: set, is_dir: bool) -> bool:
@@ -84,7 +62,7 @@ def readable_roots(cfg: dict, package: str, case_dir: str) -> tuple:
 
 def leak_report(cfg: dict, package: str, case_dir: str) -> list:
     """What the model could read that gives the answer away, one line each."""
-    names, refs = _names(package), _reference_files(package)
+    names = _names(package)
     roots, hidden = readable_roots(cfg, package, case_dir)
     found, seen = [], set()
 
@@ -109,13 +87,4 @@ def leak_report(cfg: dict, package: str, case_dir: str) -> list:
                 path = os.path.join(root, name)
                 if _is_built_copy(path, names, False):
                     report(f"built copy of {package}", path)
-                    continue
-                try:
-                    candidates = refs.get(os.path.getsize(path)) if refs else None
-                    if candidates:
-                        ref = candidates.get(_sha256(path))
-                        if ref:
-                            report(f"file of the reference fix ({ref})", path)
-                except OSError:
-                    pass
     return found

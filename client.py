@@ -477,8 +477,8 @@ class AutoRepairClient:
         self.usage = {"llm_calls": 0, "tool_calls": 0, "prompt_tokens": 0,
                       "completion_tokens": 0, "cached_tokens": 0, "cache_write_tokens": 0,
                       "text_tool_calls": 0, "cost_usd": 0.0}
-        # hosts the package's builds reached and were refused (build_network proxy)
-        self.network = {"reached": set(), "refused": set()}
+        # hosts the package's builds reached, and those they could not reach (build_network log)
+        self.network = {"reached": set(), "failed": set()}
         self.timing = {"llm_seconds": 0.0, "upload_seconds": 0.0,
                        "build_check_seconds": 0.0, "other_tool_seconds": 0.0}
         self.dirty = False            # files changed since the last upload
@@ -515,9 +515,7 @@ class AutoRepairClient:
                     "image_id": container.image_id(build_cfg, name),
                     "image_base": (env_info.get("image") or {}).get("base"),
                     "image_packages_sha256": (env_info.get("image") or {}).get("packages_sha256"),
-                    "build_network": c["build_network"],
-                    "allowed_hosts": container.allowed_hosts(build_cfg, name) if c["build_network"] == "proxy"
-                    else None}
+                    "build_network": c["build_network"]}
                 recorded = ((env_info.get("image") or {}).get("id") or "").removeprefix("sha256:")
                 if recorded and environment["container"]["image_id"] != recorded:
                     self._log(package_name, f"[environment] warning: image {container.image(name)} is not the "
@@ -615,7 +613,7 @@ class AutoRepairClient:
                            "leak_check": leaks,
                            "environment": environment,
                            "network": {k: sorted(v) for k, v in self.network.items()} if self.network["reached"]
-                           or self.network["refused"] else None,
+                           or self.network["failed"] else None,
                            "minutes": round((time.time() - t0) / 60, 2), **self.usage,
                            "timing": {k: round(v, 1) for k, v in self.timing.items()},
                            "attempts": attempts,

@@ -24,12 +24,12 @@ BENCH = $(PY) scripts/bench.py --config $(CONFIG) $(OPTS)
 LEAKS = $(if $(ALLOW_LEAKS),--allow-leaks)
 
 .DEFAULT_GOAL := help
-.PHONY: help run run-fg resume stop status watch summary leaks check-case new-case transcript setup-env check-env archive test
+.PHONY: help run run-fg resume stop status watch summary leaks check-case new-case fetch baseline transcript new-env setup-env check-env archive test
 
 help: ## list the commands
 	@echo "usage: make <command> [LABEL=... PACKAGES=... MODEL=... PROVIDER=... ATTEMPTS=... REPEATS=... CONFIG=...]"
 	@echo "settings come from $(CONFIG); variables override them"
-	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-11s %s\n", $$1, $$2}'
+	@grep -hE '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-11s %s\n", $$1, $$2}'
 
 run: ## start a run in the background (one at a time; checks for leaks first)
 	@$(BENCH) run --bg $(LEAKS)
@@ -53,21 +53,33 @@ watch: ## the same view, refreshed (Ctrl-C stops watching, not the run)
 summary: ## archived runs with results and total cost (PREFIX=run29 filters, KEY=1 adds the API key's usage)
 	@$(BENCH) summary $(PREFIX) $(if $(KEY),--key)
 
-leaks: ## look for the answer within the model's reach (built copies, reference fixes)
+leaks: ## look for the answer within the model's reach (built or installed copies of the package)
 	@$(BENCH) leaks
 
 check-case: ## check that case CASE=<name> is ready to run (files, environment, log, test, leaks)
 	@test -n "$(CASE)" || { echo "usage: make check-case CASE=<name>"; exit 2; }
 	@$(BENCH) check-case $(CASE)
 
-new-case: ## start build-recipe case CASE=<name> from a template (ENV=<environment> optional)
-	@test -n "$(CASE)" || { echo "usage: make new-case CASE=<name> [ENV=<environment>]"; exit 2; }
-	@$(BENCH) new-case $(CASE) --env "$(ENV)"
+new-case: ## start build-recipe case CASE=<name>: SOURCE="<url> ..." downloads its sources, ENV=<environment> (default: a new one)
+	@test -n "$(CASE)" || { echo "usage: make new-case CASE=<name> [SOURCE=\"<url of an archive> ...\"] [ENV=<environment>]"; exit 2; }
+	@$(BENCH) new-case $(CASE) --env "$(ENV)" $(foreach s,$(SOURCE),--source '$(s)')
+
+fetch: ## download the sources of case CASE=<name> again (manifest.json), e.g. after a clone
+	@test -n "$(CASE)" || { echo "usage: make fetch CASE=<name>"; exit 2; }
+	@$(BENCH) fetch $(CASE)
+
+baseline: ## build case CASE=<name> as it is, without the model, and save the failure as its log_failed.txt
+	@test -n "$(CASE)" || { echo "usage: make baseline CASE=<name>"; exit 2; }
+	@$(BENCH) baseline $(CASE)
 
 transcript: ## what the model did in RUN=<run|current>: overview, or ATTEMPT=n (REASONING=1 FULL=1 TOOL=... GREP=...)
 	@test -n "$(RUN)" || { echo "usage: make transcript RUN=<archived run|current> [PACKAGE=...] [ATTEMPT=n] [REASONING=1] [FULL=1] [TOOL=name] [GREP=regex]"; exit 2; }
 	@$(BENCH) transcript $(RUN) $(if $(PACKAGE),--package $(PACKAGE)) $(if $(ATTEMPT),--attempt $(ATTEMPT)) \
 	    $(if $(REASONING),--reasoning) $(if $(FULL),--full) $(if $(TOOL),--tool $(TOOL)) $(if $(GREP),--grep '$(GREP)')
+
+new-env: ## start build environment ENV=<name> from the example (envs/env.example.yaml)
+	@test -n "$(ENV)" || { echo "usage: make new-env ENV=<name>"; exit 2; }
+	@$(BENCH) new-env $(ENV)
 
 setup-env: ## make build environment ENV=<name> once, in BENCH_HOME/envs (BAZEL_BINARY=, WHEELS_FROM= reuse builds)
 	@test -n "$(ENV)" || { echo "usage: make setup-env ENV=<name> [BAZEL_BINARY=<file>] [WHEELS_FROM=<dir>]"; exit 2; }

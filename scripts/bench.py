@@ -441,10 +441,33 @@ def cmd_check_case(profile: dict, name: str) -> None:
     sys.exit(1 if failed else 0)
 
 
-def cmd_new_case(profile: dict, name: str, environment: str) -> None:
+def cmd_new_case(profile: dict, name: str, environment: str, sources: list) -> None:
     paths = bench_paths(profile["config"])
-    subprocess.call([sys.executable, os.path.join(ROOT, "dataset", "new_case.py"), paths["base_dir"], name,
-                     environment or ""])
+    sys.exit(subprocess.call([sys.executable, os.path.join(ROOT, "dataset", "new_case.py"), paths["base_dir"], name,
+                              "--env", environment or ""] + [a for s in sources for a in ("--source", s)]))
+
+
+def cmd_fetch(profile: dict, name: str) -> None:
+    """The sources of case `name` again (its manifest.json), e.g. after a clone."""
+    case_dir = os.path.join(bench_paths(profile["config"])["base_dir"], name)
+    sys.exit(subprocess.call([sys.executable, os.path.join(ROOT, "dataset", "new_case.py"), "--fetch", case_dir]))
+
+
+def cmd_baseline(profile: dict, name: str) -> None:
+    """Build case `name` as it is, without the model, and save its failure as log_failed.txt."""
+    case_dir = os.path.join(bench_paths(profile["config"])["base_dir"], name)
+    if not os.path.isdir(case_dir):
+        sys.exit(f"error: no case {os.path.relpath(case_dir, ROOT)}")
+    env = dict(os.environ, BENCH_CONFIG=os.path.join(ROOT, profile["config"]))
+    sys.exit(subprocess.call([sys.executable, os.path.join(ROOT, "dataset", "recipe_baseline.py"), case_dir],
+                             env=env))
+
+
+def cmd_new_env(name: str) -> None:
+    from tools.auto_repair import build_env
+    path = build_env.new(name)
+    print(f"created {os.path.relpath(path, ROOT)} from envs/env.example.yaml: keep the keys the environment "
+          f"needs, then make setup-env ENV={name}")
 
 
 def cmd_transcript(profile: dict, extra: list) -> None:
@@ -461,22 +484,26 @@ def container_cfg(profile: dict) -> dict:
 
 
 def cmd_setup_env(profile: dict, name: str) -> None:
-    """Make build environment `name` with envs/<name>/setup.sh, in the user's
+    """Make build environment `name` from envs/<name>/env.yaml, in the user's
     own directory ($BENCH_HOME/envs/<name>), and its container image."""
-    from tools.auto_repair import container
+    from tools.auto_repair import build_env, container
     from tools.auto_repair.paths import env_dir
-    setup = os.path.join(ROOT, "envs", name, "setup.sh")
-    if not os.path.isfile(setup):
-        fail(f"no recipe {os.path.relpath(setup, ROOT)} for environment {name}")
     print(f"setting up environment {name} in {env_dir(name)}")
-    code = subprocess.call(["bash", setup], env=dict(os.environ, BENCH_ENV_DIR=env_dir(name)))
+    try:
+        build_env.setup(name)
+        code = 0
+    except subprocess.CalledProcessError as e:
+        print(f"error: {' '.join(map(str, e.cmd))[:300]} failed (status {e.returncode}); fix it and run "
+              "make setup-env again: what is done is kept", file=sys.stderr)
+        code = 1
     cfg = container_cfg(profile)
     if code == 0 and container.runtime(cfg):
         if not container.available(container.runtime(cfg)):
             fail(f"{container.runtime(cfg)} not found: install it to build the image, or set "
                  "build.container.runtime in the config")
         print(f"\n=== image {container.image(name)} ({container.runtime(cfg)})")
-        image = container.build_image(cfg, name, os.path.join(env_dir(name), "image-packages.txt"))
+        image = container.build_image(cfg, name, os.path.join(env_dir(name), "image-packages.txt"),
+                                      build_env.load(name)["system"])
         info_path = os.path.join(env_dir(name), "env.json")
         with open(info_path) as f:
             info = json.load(f)
@@ -490,21 +517,21 @@ def cmd_setup_env(profile: dict, name: str) -> None:
 def cmd_check_env(profile: dict, name: str) -> None:
     """Load build environment `name` as a build does (in its container, with
     a container runtime), and show what it provides."""
-    from tools.auto_repair import container
+    from tools.auto_repair import build_env, container
     from tools.auto_repair.paths import env_dir
-    script = os.path.join(ROOT, "envs", f"{name}.sh")
-    if not os.path.isfile(script):
-        fail(f"no environment {os.path.relpath(script, ROOT)}")
+    if not build_env.exists(name):
+        fail(f"no environment {os.path.relpath(build_env.spec_file(name), ROOT)}")
+    script = build_env.env_script(name)
     cfg = container_cfg(profile)
     argv, env = ["bash", "-c", 'source "$1" || exit 2', "check-env", script], {"BENCH_ENV_DIR": env_dir(name)}
     if container.runtime(cfg):
-        problem = container.check(cfg, name, build=False)
+        problem = container.check(cfg, name)
         if problem:
             fail(problem)
         print(f"in a {container.runtime(cfg)} container of {container.image(name)}")
         mode = cfg["container"]["build_network"]
-        hosts = container.allowed_hosts(cfg, name) if mode == "proxy" else []
-        print(f"network of builds: {mode}" + (f" ({', '.join(hosts)})" if hosts else ""), flush=True)
+        print(f"network of builds: {mode}" + (" (any host, every connection logged)" if mode == "log" else ""),
+              flush=True)
         argv = container.command(cfg, f"bench-check-env-{os.getpid()}", name, container.framework_mounts(name),
                                  env, env_dir(name), argv)
         code = subprocess.call(argv, env=container.runtime_env())
@@ -555,6 +582,13 @@ def main() -> None:
     new = sub.add_parser("new-case")
     new.add_argument("name")
     new.add_argument("--env", default="")
+    new.add_argument("--source", action="append", default=[])
+    fetch = sub.add_parser("fetch")
+    fetch.add_argument("name")
+    baseline = sub.add_parser("baseline")
+    baseline.add_argument("name")
+    new_env = sub.add_parser("new-env")
+    new_env.add_argument("name")
     setup_env = sub.add_parser("setup-env")
     setup_env.add_argument("name")
     check_env = sub.add_parser("check-env")
@@ -582,7 +616,13 @@ def main() -> None:
     elif args.command == "check-case":
         cmd_check_case(profile, args.name)
     elif args.command == "new-case":
-        cmd_new_case(profile, args.name, args.env)
+        cmd_new_case(profile, args.name, args.env, args.source)
+    elif args.command == "fetch":
+        cmd_fetch(profile, args.name)
+    elif args.command == "baseline":
+        cmd_baseline(profile, args.name)
+    elif args.command == "new-env":
+        cmd_new_env(args.name)
     elif args.command == "setup-env":
         cmd_setup_env(profile, args.name)
     elif args.command == "check-env":

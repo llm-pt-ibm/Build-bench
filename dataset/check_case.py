@@ -11,10 +11,12 @@ import sys
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, ROOT)
 
+from tools.auto_repair import build_env  # noqa: E402
 from tools.auto_repair.case_type import case_type  # noqa: E402
 from tools.auto_repair.leak_check import leak_report  # noqa: E402
 
-METADATA = {"build.sh", "manifest.json", "log_failed.txt", "log_failed_original.txt", ".last_upload.json"}
+METADATA = {"build.sh", "manifest.json", "log_failed.txt", "log_failed_original.txt", ".last_upload.json",
+            ".gitignore"}
 # what an OBS log shows when the build never ran for reasons of its own
 NOT_A_BUILD_FAILURE = ("unresolvable", "nothing provides", "no compliant workers")
 
@@ -54,19 +56,19 @@ def check_case(case_dir: str, cfg: dict) -> list:
         env = manifest.get("environment")
         if not env:
             add("WARN", "manifest.json has no environment: build.sh runs without a build environment (envs/)")
-        elif not os.path.isfile(os.path.join(ROOT, "envs", f"{env}.sh")):
-            add("FAIL", f"build environment envs/{env}.sh not found")
+        elif not build_env.exists(env):
+            add("FAIL", f"build environment envs/{env}/env.yaml not found")
         else:
-            add("OK", f"build environment envs/{env}.sh")
+            add("OK", f"build environment {env}")
         sources = sorted(entries - METADATA - {"extracted"})
         if sources:
             add("OK", f"sources: {', '.join(sources[:6])}{' ...' if len(sources) > 6 else ''}")
         else:
-            fetch = manifest.get("fetch")
-            add("FAIL", "no sources next to build.sh" + (f": run {fetch}" if fetch else ""))
+            fetchable = manifest.get("fetch") or (manifest.get("task") or {}).get("sources")
+            add("FAIL", "no sources next to build.sh" + (f": make fetch CASE={name} downloads them" if fetchable else ""))
         with open(os.path.join(case_dir, "build.sh"), errors="replace") as f:
             if "TODO" in f.read():
-                add("WARN", "build.sh still has TODOs (template of make new-case)")
+                add("WARN", "build.sh still has TODOs (from make new-case)")
     else:
         specs = [e for e in entries if e.endswith(".spec")]
         add("OK" if len(specs) == 1 else "WARN", f"spec file(s): {', '.join(specs)}")
@@ -76,7 +78,7 @@ def check_case(case_dir: str, cfg: dict) -> list:
 
     log = os.path.join(case_dir, "log_failed.txt")
     if not os.path.isfile(log) or os.path.getsize(log) == 0:
-        hint = ("dataset/recipe_baseline.py builds the case and saves it" if kind == "recipe"
+        hint = (f"make baseline CASE={name} builds the case and saves it" if kind == "recipe"
                 else "dataset/fetch_package.py downloads it from OBS")
         add("FAIL", f"no log_failed.txt (the original failure): {hint}")
     else:
@@ -88,7 +90,10 @@ def check_case(case_dir: str, cfg: dict) -> list:
             add("WARN", "log_failed.txt may not be a build failure"
                 + (f" ({', '.join(reasons)})" if reasons else f" (only {len(text)} characters)"))
         else:
-            add("OK", f"log_failed.txt ({len(text) // 1024} KiB)")
+            # its last line, which is often the failure: one of the package on
+            # the target, or of the recipe or the build host (then fix them first)
+            last = next((line.strip() for line in reversed(text.splitlines()) if line.strip()), "")
+            add("OK", f"log_failed.txt ({len(text) // 1024} KiB), ending: {last[:160]}")
 
     left = sorted(entries & {"log_failed_original.txt", ".last_upload.json", "extracted"})
     if left:
@@ -106,7 +111,7 @@ def check_case(case_dir: str, cfg: dict) -> list:
     for line in leak_report(cfg, name, case_dir):
         add("FAIL", f"leak: {line}")
     if not any(m.startswith("leak:") for _, m in results):
-        add("OK", "leak check: no built copy and no reference fix within the model's reach")
+        add("OK", "leak check: no built copy of the package within the model's reach")
     return results
 
 

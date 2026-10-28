@@ -24,7 +24,7 @@ import signal
 import subprocess
 import time
 
-from tools.auto_repair import container
+from tools.auto_repair import build_env, container
 from tools.auto_repair.acceptance import acceptance_test, failure_message, run_acceptance
 from tools.auto_repair.case_type import case_environment
 from tools.auto_repair.infra import infra_failure, retry_or_give_up
@@ -34,7 +34,6 @@ from tools.auto_repair.paths import env_dir
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 RUNNER = os.path.join(ROOT, "scripts", "script_worker", "run.sh")
-ENVS_DIR = os.path.join(ROOT, "envs")
 NOT_SOURCES = {"log_failed.txt", "log_failed_original.txt", "manifest.json", "extracted"}
 
 
@@ -167,9 +166,9 @@ def script_upload(package_name: str, package_dir: str, cfg: dict) -> str:
     if not os.path.isfile(os.path.join(package_dir, "build.sh")):
         return f"Error: no build.sh in {package_dir}"
     env_name = case_environment(package_dir)
-    env_script = os.path.join(ENVS_DIR, f"{env_name}.sh") if env_name else ""
-    if env_script and not os.path.isfile(env_script):
-        return f"Error: build environment '{env_name}' not found ({env_script})"
+    if env_name and not build_env.exists(env_name):
+        return f"Error: build environment '{env_name}' not found ({os.path.relpath(build_env.spec_file(env_name), ROOT)})"
+    env_script = build_env.env_script(env_name) if env_name else ""
     problem = container.check(cfg, env_name)
     if problem:
         return f"Error: the build host cannot run the build: {problem}"
@@ -262,7 +261,7 @@ def script_check(temp_dir: str, package_name: str, cfg: dict, _retry: int = 0) -
                                        (os.path.join(ROOT, "acceptance"), False)]
                                       + container.framework_mounts(env_name)}
         passed, output = run_acceptance(
-            test, os.path.join(ENVS_DIR, f"{env_name}.sh") if env_name else "", dirs["src"],
+            test, build_env.env_script(env_name) if env_name else "", dirs["src"],
             {"BENCH_PACKAGE": package_name, "BENCH_SRC_DIR": dirs["src"], "BENCH_CACHE_DIR": dirs["cache"],
              "BENCH_JOBS": str(cfg["script"]["jobs"]), "BENCH_ENV_DIR": env_dir(env_name) if env_name else ""},
             cfg["acceptance_timeout"], in_container)
@@ -283,15 +282,4 @@ def script_check(temp_dir: str, package_name: str, cfg: dict, _retry: int = 0) -
     with open(path, "w", encoding="utf-8") as f:
         f.write(text)
     return (f"Build failed! The failed log has been updated to: {path}\n"
-            f"Key lines of the log:\n{error_excerpt(text)}" + _refused_note(cfg, temp_dir, dirs["run"]))
-
-
-def _refused_note(cfg: dict, workspace: str, run_dir: str) -> str:
-    """Tell the model when the build was refused a host (build_network proxy)."""
-    refused = container.network_log(run_dir)["refused"]
-    if not refused:
-        return ""
-    allowed = container.allowed_hosts(cfg, case_environment(workspace))
-    return (f"\nNetwork: builds reach the network only through the build host's proxy, which refused "
-            f"{', '.join(refused)}; it allows {', '.join(allowed) or 'no host'}. Use what these hosts "
-            "provide (or the build cache) instead.")
+            f"Key lines of the log:\n{error_excerpt(text)}")

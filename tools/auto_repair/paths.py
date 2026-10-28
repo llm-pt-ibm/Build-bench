@@ -24,7 +24,7 @@ def expand(path: str) -> str:
 
 
 def env_dir(name: str) -> str:
-    """The prefix of build environment `name` (envs/<name>.sh exports from it)."""
+    """The prefix of build environment `name` (made from envs/<name>/env.yaml)."""
     return os.path.join(bench_home(), "envs", name)
 
 

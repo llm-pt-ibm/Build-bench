@@ -1,6 +1,5 @@
-# conda-forge packages of the jax-power9 tools environment, exactly (resolved from tools.txt).
-# Regenerate after changing tools.txt:
-#   conda list -p <environment> --explicit --md5 > envs/jax-power9/tools.lock
+# the packages of the tools environment of jax-power9
+# exactly, which make setup-env installs; delete this file to solve env.yaml again
 # This file may be used to create an environment using:
 # $ conda create --name <env> --file <this file>
 # platform: linux-ppc64le

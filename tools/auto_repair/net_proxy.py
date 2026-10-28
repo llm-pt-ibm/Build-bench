@@ -1,17 +1,16 @@
 """The network of a build: an HTTP(S) proxy on a Unix socket that lets a
-build reach only the hosts it may download from, and logs every connection.
+build reach any host and logs every connection, so that each run records
+what its builds downloaded from.
 
 The build's container has no network of its own (--network none); the socket
 is mounted into it, and scripts/script_worker/proxy_forward.py makes it a
 proxy on 127.0.0.1 there (http_proxy/https_proxy), which Bazel, pip, git and
 curl use. HTTPS goes through CONNECT, so only the host and port are seen,
-not the path. Rules: a host ("github.com"), a domain with its subdomains
-(".googleapis.com"), "host:port" for a port other than 80 and 443, or "*"
-for every host (audit: log what a build reaches, to make the list).
+not the path.
 
-Log: one line per connection, "<time> <allowed|blocked> <METHOD> <host:port>[<path>]".
+Log: one line per connection, "<time> <reached|failed> <METHOD> <host:port>[<path>]".
 
-Usage: net_proxy.py --socket S --log L [--allow RULE]... [--allow-file F] -- command...
+Usage: net_proxy.py --socket S --log L -- command...
 serves while the command runs, and exits with its status. Standalone (no
 imports from the framework), so it runs with any Python 3."""
 import argparse
@@ -24,33 +23,7 @@ import sys
 import threading
 import time
 
-PORTS = (80, 443)
 TIMEOUT = 600          # seconds without traffic before a tunnel is closed
-
-
-def read_rules(path: str) -> list:
-    rules = []
-    with open(path) as f:
-        for line in f:
-            line = line.split("#", 1)[0].strip()
-            if line:
-                rules.append(line.lower())
-    return rules
-
-
-def allowed(host: str, port: int, rules: list) -> bool:
-    host = host.lower().rstrip(".")
-    for rule in rules:
-        if rule == "*":
-            return True
-        name, _, rule_port = rule.partition(":")
-        if rule_port and str(port) != rule_port or not rule_port and port not in PORTS:
-            continue
-        if name.startswith("*."):
-            name = name[1:]
-        if host == name.lstrip(".") or name.startswith(".") and host.endswith(name):
-            return True
-    return False
 
 
 def split_host(hostport: str, default_port: int):
@@ -77,13 +50,12 @@ def pipe(a: socket.socket, b: socket.socket) -> None:
 
 class Handler(socketserver.StreamRequestHandler):
     rbufsize = 0       # unbuffered: what follows the headers stays in the socket for pipe()
-    rules: list = []
     log = None
     lock = threading.Lock()
 
-    def record(self, verdict: str, method: str, target: str) -> None:
+    def record(self, outcome: str, method: str, target: str) -> None:
         with self.lock:
-            self.log.write(f"{time.strftime('%H:%M:%S')} {verdict} {method} {target}\n")
+            self.log.write(f"{time.strftime('%H:%M:%S')} {outcome} {method} {target}\n")
             self.log.flush()
 
     def refuse(self, code: int, reason: str, text: str) -> None:
@@ -114,16 +86,12 @@ class Handler(socketserver.StreamRequestHandler):
             host, port = split_host(hostport, 80)
             path = slash + path
         where = f"{host}:{port}"
-        if not allowed(host, port, self.rules):
-            self.record("blocked", method, where + path)
-            return self.refuse(403, "Forbidden", f"build-bench: builds may not download from {host} "
-                                                  "(not among the allowed hosts of the build environment)")
         try:
             upstream = socket.create_connection((host, port), timeout=60)
         except OSError as e:
             self.record("failed", method, where + path)
             return self.refuse(502, "Bad Gateway", f"build-bench: cannot reach {where}: {e}")
-        self.record("allowed", method, where + path)
+        self.record("reached", method, where + path)
         with upstream:
             upstream.settimeout(None)
             if method.upper() == "CONNECT":
@@ -144,12 +112,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("--socket", required=True)
     parser.add_argument("--log", required=True)
-    parser.add_argument("--allow", action="append", default=[])
-    parser.add_argument("--allow-file")
     parser.add_argument("command", nargs=argparse.REMAINDER)
     args = parser.parse_args()
     command = args.command[1:] if args.command[:1] == ["--"] else args.command
-    Handler.rules = [r.lower() for r in args.allow] + (read_rules(args.allow_file) if args.allow_file else [])
     Handler.log = open(args.log, "a", encoding="utf-8")
     if os.path.exists(args.socket):
         os.remove(args.socket)

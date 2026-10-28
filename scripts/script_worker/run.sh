@@ -9,7 +9,7 @@ src=$1
 env_script=${2:-}
 if [ -n "${BENCH_PROXY_SOCKET:-}" ]; then
   # no network but the framework's proxy (tools/auto_repair/net_proxy.py),
-  # which lets the build reach only the hosts it may download from
+  # which lets the build reach any host and logs every connection
   py=$(command -v python3 || echo /usr/libexec/platform-python)
   coproc forward { exec "$py" "$(dirname "$0")/proxy_forward.py" "$BENCH_PROXY_SOCKET" 3128; }
   read -r -t 10 ready <&"${forward[0]}" || ready=
@@ -17,7 +17,7 @@ if [ -n "${BENCH_PROXY_SOCKET:-}" ]; then
   proxy=http://127.0.0.1:3128
   export http_proxy=$proxy https_proxy=$proxy HTTP_PROXY=$proxy HTTPS_PROXY=$proxy
   export no_proxy=localhost,127.0.0.1,::1 NO_PROXY=localhost,127.0.0.1,::1
-  echo "=== network: only through the build host's proxy (allowed hosts of the build environment)"
+  echo "=== network: through the build host's proxy, which logs every connection"
 fi
 if [ -n "$env_script" ]; then
   echo "=== build environment: $(basename "$env_script" .sh)"

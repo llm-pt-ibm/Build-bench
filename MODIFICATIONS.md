@@ -466,8 +466,12 @@ improvements` shows them file by file.
 - More commands: `make transcript` (`scripts/transcript.py`) shows the
   attempts of a run or one attempt round by round, with the reasoning, tool
   calls and results, filtered by tool or text; `make new-case`
-  (`dataset/new_case.py`) starts a build-recipe case from a template and
-  `make check-case` (`dataset/check_case.py`) checks a case before a run.
+  (`dataset/new_case.py`) starts a build-recipe case: with `SOURCE=<url>` it
+  downloads and unpacks the sources (recorded in manifest.json and the case's
+  .gitignore; `make fetch` downloads them again) and writes the build.sh, the
+  acceptance test and the build environment of the build system it finds;
+  `make baseline` (`dataset/recipe_baseline.py`) saves the original failure
+  and `make check-case` (`dataset/check_case.py`) checks a case before a run.
   `make stop` also stops the commands of run_command_tool still running.
   Run logs go to `logs/` (also the client output of run_repeats.sh until the
   run is archived), and `run_pilot.sh` and `smoke_test.py` moved to
@@ -515,6 +519,44 @@ improvements` shows them file by file.
   `result_*_res/x86_64_to_ppc64le/`.
 - `build.container.runtime: auto`, the default: Podman when it is installed,
   Docker otherwise (the Power9 host has only Docker).
+- The framework tries any package, with no known fix:
+  - The allow-list of the build's network was removed. Builds reach any host
+    through the proxy, which logs every connection (`build_network: log`,
+    the default; `proxy` and `audit` of older configs mean it). A list could
+    only be made from a build that gets to the end, that is from a case
+    whose fix is known, and a host missing from it failed the model's builds
+    for a reason it could not change. `envs/jax-power9/allowed_hosts.txt`,
+    `build.container.allowed_hosts` and the note on refused hosts are gone;
+    results record the hosts the builds reached and those they could not
+    reach (`network.reached`, `network.failed`), and the recipe prompt no
+    longer mentions a list.
+  - Reference fixes were removed: `dataset/reference/` (jaxlib's two
+    patches, which stay in the history), `dataset/recipe_reference_fix.py`
+    and the leak check's comparison of files with them. The leak check looks
+    for built and installed copies of the package, which needs no fix.
+- A build environment is one file, `envs/<name>/env.yaml`, for any package and
+  build system, every key optional: conda packages of the build and tools
+  environments (compilers, CMake, Rust, Go, Java, Python...) and their
+  channels, RHEL packages added to the image (`system`), variables exported
+  to builds, tests and commands (`env`), commands run once for what no key
+  covers (`setup`), a Bazel version, and for Python wheels PyPI lacks and pip
+  packages of the build and test environments. `make setup-env` makes it
+  with one recipe for every environment (`tools/auto_repair/build_env.py`). Before, each environment had a
+  `setup.sh` of its own (about 125 lines), a script exporting it, a
+  Containerfile and four lists, most of it the same from one environment to
+  the next. Now the framework does that part: the first setup writes the
+  lock files (build.lock, tools.lock) the later ones install; Bazel is
+  compiled once per version in `BENCH_HOME/bazel/` and copied into each
+  environment; the C++ runtime of the conda compilers and the compiler names
+  of rules_python's hermetic Python are linked by themselves;
+  `scripts/script_worker/env.sh` exports every environment the same way
+  (`envs/<name>.sh` replaces it for one that needs more), and
+  `envs/Containerfile` is the image of every environment without one of its
+  own. jax-power9 is an `env.yaml` with its earlier lists and lock files; its
+  `setup.sh`, lists, Containerfile and `envs/jax-power9.sh` are gone.
+  `envs/env.example.yaml` shows every key, and `make new-env ENV=<name>`
+  starts an environment from it. `make help` listed every command as
+  "Makefile" when `local.mk` existed (grep printed the file names).
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source

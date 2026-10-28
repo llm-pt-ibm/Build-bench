@@ -2,7 +2,8 @@
 it is, in the same workspace path the benchmark uses, and save the failing log
 as the case's log_failed.txt (the original failure). It also fills the
 persistent build cache, which later builds reuse.
-Usage: [BENCH_CONFIG=<config>] python dataset/recipe_baseline.py <case_dir>"""
+Usage: [BENCH_CONFIG=<config>] python dataset/recipe_baseline.py <case_dir>
+       (or: make baseline CASE=<name>)"""
 import os
 import shutil
 import sys
