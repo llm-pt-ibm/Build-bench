@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "tensorflow",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "tensorflow": "https://github.com/tensorflow/tensorflow/archive/refs/tags/v2.21.0.tar.gz"
+    },
+    "version": "2.21.0"
+  },
+  "environment": "tf-power9",
+  "version": 1
+}

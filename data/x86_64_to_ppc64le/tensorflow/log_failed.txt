@@ -1,0 +1,75 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment tf-power9 e20bf0c5f755 in /home/multiarq/.local/share/build-bench/envs/tf-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/tf-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/tf-power9/test/bin/python
+CLANG=/home/multiarq/.local/share/build-bench/envs/tf-power9/build/bin/clang (clang version 17.0.6 (https://github.com/conda-forge/clangdev-feedstock 8d7a58135ca9bf5ee26df8d4df19e052c3446255))
+BAZEL=/home/multiarq/.local/share/build-bench/envs/tf-power9/bin/bazel-7.7.0 (bazel 7.7.0)
+JAVA_HOME=/home/multiarq/.local/share/build-bench/envs/tf-power9/tools/lib/jvm
+LOCAL_WHEELS=/home/multiarq/.local/share/build-bench/envs/tf-power9/wheels: grpcio-1.71.0-cp312-cp312-linux_ppc64le.whl h5py-3.13.0-cp312-cp312-linux_ppc64le.whl ml_dtypes-0.5.1-cp312-cp312-linux_ppc64le.whl numpy-2.1.3-cp312-cp312-linux_ppc64le.whl optree-0.16.0-cp312-cp312-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl psutil-7.0.0-cp36-abi3-linux_ppc64le.whl wrapt-1.16.0-py3-none-any.whl zstandard-0.23.0-cp312-cp312-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl 
+HDF5_DIR=/home/multiarq/.local/share/build-bench/envs/tf-power9/build
+GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1
+BENCH_CACHE_DIR=/home/multiarq/.local/share/build-bench/stage/tensorflow/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/.local/share/build-bench/stage/tensorflow/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 97 jobs
+=== running ./build.sh
+You have bazel 7.7.0 installed.
+Found possible Python library paths:
+  /home/multiarq/.local/share/build-bench/envs/tf-power9/build/lib/python3.12/site-packages
+Please input the desired Python library path to use.  Default is [/home/multiarq/.local/share/build-bench/envs/tf-power9/build/lib/python3.12/site-packages]
+You have Clang 17.0.6 installed.
+
+Preconfigured Bazel build configs. You can use any of the below by adding "--config=<>" to your build command. See .bazelrc for more details.
+	--config=mkl         	# Build with MKL support.
+	--config=mkl_aarch64 	# Build with oneDNN and Compute Library for the Arm Architecture (ACL).
+	--config=monolithic  	# Config for mostly static monolithic build.
+	--config=numa        	# Build with NUMA support.
+	--config=dynamic_kernels	# (Experimental) Build kernels into separate shared objects.
+	--config=v1          	# Build with TensorFlow 1 API instead of TF 2 API.
+Preconfigured Bazel build configs to DISABLE default on features:
+	--config=nogcp       	# Disable GCP support.
+	--config=nonccl      	# Disable NVIDIA NCCL support.
+Configuration finished
+Starting local Bazel server and connecting to it...
+INFO: Invocation ID: 75a42f15-e94c-444c-a735-d3c2b3e1b415
+INFO: Reading 'startup' options from /home/multiarq/build-bench/temp_workspace/tensorflow/tensorflow/.bazelrc: --windows_enable_symlinks
+INFO: Options provided by the client:
+  Inherited 'common' options: --isatty=0 --terminal_columns=80
+INFO: Reading rc options for 'build' from /home/multiarq/build-bench/temp_workspace/tensorflow/tensorflow/.bazelrc:
+  Inherited 'common' options: --repo_env=ML_WHEEL_TYPE=release --repo_env=ML_WHEEL_BUILD_DATE= --repo_env=ML_WHEEL_VERSION_SUFFIX= --incompatible_default_to_explicit_init_py --define framework_shared_object=true --define tsl_protobuf_header_only=true --define=allow_oversize_protos=true --spawn_strategy=standalone -c opt --repo_env=USE_PYWRAP_RULES=True --copt=-DGRPC_BAZEL_BUILD --host_copt=-DGRPC_BAZEL_BUILD --action_env=GRPC_BAZEL_RUNTIME=1 --repo_env=PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=upb --action_env=PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=upb --@rules_python//python/config_settings:precompile=force_disabled --announce_rc --define=grpc_no_ares=true --noincompatible_remove_legacy_whole_archive --features=-force_no_whole_archive --host_features=-force_no_whole_archive --enable_platform_specific_config --define=with_xla_support=true --config=short_logs --config=v2 --@rules_python//python/config_settings:precompile=force_disabled --experimental_cc_shared_library --experimental_link_static_libraries_once=false --incompatible_enforce_config_setting_visibility --noenable_bzlmod --enable_workspace --incompatible_enable_cc_toolchain_resolution --repo_env USE_HERMETIC_CC_TOOLCHAIN=1 --experimental_repo_remote_exec --java_runtime_version=remotejdk_21
+INFO: Reading rc options for 'build' from /home/multiarq/build-bench/temp_workspace/tensorflow/tensorflow/.tf_configure.bazelrc:
+  'build' options: --action_env PYTHON_BIN_PATH=/home/multiarq/.local/share/build-bench/envs/tf-power9/build/bin/python --action_env PYTHON_LIB_PATH=/home/multiarq/.local/share/build-bench/envs/tf-power9/build/lib/python3.12/site-packages --python_path=/home/multiarq/.local/share/build-bench/envs/tf-power9/build/bin/python --action_env CLANG_COMPILER_PATH=/home/multiarq/.local/share/build-bench/envs/tf-power9/build/bin/clang-17 --repo_env=CC=/home/multiarq/.local/share/build-bench/envs/tf-power9/build/bin/clang-17 --repo_env=BAZEL_COMPILER=/home/multiarq/.local/share/build-bench/envs/tf-power9/build/bin/clang-17 --copt=-Wno-gnu-offsetof-extensions
+INFO: Found applicable config definition common:short_logs in file /home/multiarq/build-bench/temp_workspace/tensorflow/tensorflow/.bazelrc: --output_filter=DONT_MATCH_ANYTHING
+INFO: Found applicable config definition common:v2 in file /home/multiarq/build-bench/temp_workspace/tensorflow/tensorflow/.bazelrc: --define=tf_api_version=2 --action_env=TF2_BEHAVIOR=1
+INFO: Found applicable config definition build:opt in file /home/multiarq/build-bench/temp_workspace/tensorflow/tensorflow/.tf_configure.bazelrc: --copt=-Wno-sign-compare --host_copt=-Wno-sign-compare
+INFO: Found applicable config definition common:linux in file /home/multiarq/build-bench/temp_workspace/tensorflow/tensorflow/.bazelrc: --host_copt=-w --copt=-Wno-all --copt=-Wno-extra --copt=-Wno-deprecated --copt=-Wno-deprecated-declarations --copt=-Wno-ignored-attributes --copt=-Wno-array-bounds --copt=-Wunused-result --copt=-Werror=unused-result --copt=-Wswitch --copt=-Werror=switch --define=PREFIX=/usr --define=PROTOBUF_INCLUDE_PATH=$(PREFIX)/include --cxxopt=-std=c++17 --host_cxxopt=-std=c++17 --config=dynamic_kernels --experimental_guard_against_concurrent_changes
+INFO: Found applicable config definition common:dynamic_kernels in file /home/multiarq/build-bench/temp_workspace/tensorflow/tensorflow/.bazelrc: --define=dynamic_loaded_kernels=true --copt=-DAUTOLOAD_DYNAMIC_KERNELS
+Computing main repo mapping: 
+DEBUG: /home/multiarq/.local/share/build-bench/stage/tensorflow/cache/bazel/aa31fdeeceaa0ef0bf167ec8774334a3/external/xla/third_party/py/python_repo.bzl:84:14: !!!Using pywrap rules instead of directly creating .so objects!!!
+DEBUG: /home/multiarq/.local/share/build-bench/stage/tensorflow/cache/bazel/aa31fdeeceaa0ef0bf167ec8774334a3/external/xla/third_party/py/python_repo.bzl:89:10: 
+=============================
+Hermetic Python configuration:
+Version: "3.12"
+Kind: ""
+Interpreter: "default" (provided by rules_python)
+Requirements_lock label: "@python_version_repo//:requirements_lock_3_12.txt"
+=====================================
+Computing main repo mapping: 
+INFO: Repository python_3_12_host instantiated at:
+  /home/multiarq/build-bench/temp_workspace/tensorflow/tensorflow/WORKSPACE:87:23: in <toplevel>
+  /home/multiarq/.local/share/build-bench/stage/tensorflow/cache/bazel/aa31fdeeceaa0ef0bf167ec8774334a3/external/xla/third_party/py/python_init_toolchains.bzl:66:35: in python_init_toolchains
+  /home/multiarq/.local/share/build-bench/stage/tensorflow/cache/bazel/aa31fdeeceaa0ef0bf167ec8774334a3/external/rules_python/python/private/python_register_toolchains.bzl:189:32: in python_register_toolchains
+Repository rule host_compatible_python_repo defined at:
+  /home/multiarq/.local/share/build-bench/stage/tensorflow/cache/bazel/aa31fdeeceaa0ef0bf167ec8774334a3/external/rules_python/python/private/toolchains_repo.bzl:383:46: in <toplevel>
+ERROR: /home/multiarq/.local/share/build-bench/stage/tensorflow/cache/bazel/aa31fdeeceaa0ef0bf167ec8774334a3/external/rules_python/python/private/repo_utils.bzl:83:16: An error occurred during the fetch of repository 'python_3_12_host':
+   Traceback (most recent call last):
+	File "/home/multiarq/.local/share/build-bench/stage/tensorflow/cache/bazel/aa31fdeeceaa0ef0bf167ec8774334a3/external/rules_python/python/private/toolchains_repo.bzl", line 316, column 46, in _host_compatible_python_repo_impl
+		impl_repo_name = _get_host_impl_repo_name(
+	File "/home/multiarq/.local/share/build-bench/stage/tensorflow/cache/bazel/aa31fdeeceaa0ef0bf167ec8774334a3/external/rules_python/python/private/toolchains_repo.bzl", line 620, column 23, in _get_host_impl_repo_name
+		return logger.fail("Could not find a compatible 'host' python for '{os_name}', '{cpu_name}' from the loaded platforms: {platforms}".format(
+	File "/home/multiarq/.local/share/build-bench/stage/tensorflow/cache/bazel/aa31fdeeceaa0ef0bf167ec8774334a3/external/rules_python/python/private/repo_utils.bzl", line 93, column 39, in lambda
+		fail = lambda message_cb: _log(-1, "FAIL", message_cb, fail),
+	File "/home/multiarq/.local/share/build-bench/stage/tensorflow/cache/bazel/aa31fdeeceaa0ef0bf167ec8774334a3/external/rules_python/python/private/repo_utils.bzl", line 83, column 16, in _log
+		printer("\nrules_python:{} {}:".format(
+Error in fail: 
+rules_python:host_compatible_python_repo(@@python_3_12_host) FAIL: Could not find a compatible 'host' python for 'linux', 'ppc64le' from the loaded platforms: ["aarch64-apple-darwin", "aarch64-pc-windows-msvc", "aarch64-unknown-linux-gnu", "ppc64le-unknown-linux-gnu", "riscv64-unknown-linux-gnu", "s390x-unknown-linux-gnu", "x86_64-apple-darwin", "x86_64-pc-windows-msvc", "x86_64-unknown-linux-gnu", "x86_64-unknown-linux-musl"]
+ERROR: Error computing the main repository mapping: Encountered error while reading extension file 'requirements.bzl': no such package '@@pypi//': no such package '@@python_3_12_host//': 
+rules_python:host_compatible_python_repo(@@python_3_12_host) FAIL: Could not find a compatible 'host' python for 'linux', 'ppc64le' from the loaded platforms: ["aarch64-apple-darwin", "aarch64-pc-windows-msvc", "aarch64-unknown-linux-gnu", "ppc64le-unknown-linux-gnu", "riscv64-unknown-linux-gnu", "s390x-unknown-linux-gnu", "x86_64-apple-darwin", "x86_64-pc-windows-msvc", "x86_64-unknown-linux-gnu", "x86_64-unknown-linux-musl"]
