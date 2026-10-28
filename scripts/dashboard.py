@@ -1,12 +1,6 @@
-"""Live dashboard of the benchmark in the terminal: the active run and its
-packages, the current package's attempt and round, how the earlier attempts
-ended, the build and acceptance test in progress, what the model is doing
-and the cost so far.
-
-Usage: python scripts/dashboard.py [config] [seconds]
-  (make watch, refreshed every 10 s; make status, printed once with 0 s)
-From another machine:  ssh -t <build host> 'cd <repository> && make watch'
-Ctrl-C stops watching, not the run. NO_COLOR=1 turns the colors off."""
+"""Live dashboard of the benchmark in the terminal (make watch, make status).
+Usage: python scripts/dashboard.py [config] [seconds]   (0 s: print it once)
+NO_COLOR=1 turns the colors off."""
 import datetime
 import glob
 import json

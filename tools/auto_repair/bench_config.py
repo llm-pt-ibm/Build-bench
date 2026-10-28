@@ -1,13 +1,6 @@
-"""The benchmark's config: one file, bench.yaml in the repository (or the file
-BENCH_CONFIG names), with everything a run uses.
-
-What a config does not choose follows from source_arch and target_arch:
-the cases are in data/<source>_to_<target>/ (cases_dir moves them), the
-acceptance tests in acceptance/<source>_to_<target>/, the package workspaces
-in temp_workspace/, the results in result_text_res/<source>_to_<target>/ and
-the logs in result_log_res/<source>_to_<target>/. BENCH_OUTPUT_ROOT puts
-temp_workspace/, result_text_res/ and result_log_res/ elsewhere (the tests
-use it)."""
+"""The benchmark's config: bench.yaml (or the file BENCH_CONFIG names). The cases,
+acceptance tests, results and logs follow from source_arch and target_arch;
+BENCH_OUTPUT_ROOT moves the workspaces, results and logs (the tests use it)."""
 import os
 import sys
 
@@ -17,7 +10,6 @@ from tools.auto_repair.paths import expand
 
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 DEFAULT = os.path.join(REPO, "bench.yaml")
-# sections of the old per-direction configs that are no longer read
 OLD_SECTIONS = {"paths": "cases come from data/<source>_to_<target>/ (or cases_dir), results go to "
                          "result_text_res/<source>_to_<target>/",
                 "user": "the OBS project and repository are in obs (project, repository), the account in .env"}

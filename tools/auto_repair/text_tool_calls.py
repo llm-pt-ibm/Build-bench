@@ -1,9 +1,6 @@
-"""Tool calls a model wrote as text. Model servers turn a model's tool calls
-into the API's tool_calls only when their parser knows the model's format
-(vLLM's --tool-call-parser, llama.cpp's --jinja, Ollama's templates); when
-it does not, the calls arrive as text in the reply and the attempt would end
-with "no tool calls". parse() finds them in the formats of the common open
-models:
+"""Tool calls a model wrote as text, which happens when the model server's tool
+parser does not know the model's format. parse() takes the calls of the given
+tools in these formats, with values converted to the types of their schema:
 
   Hermes, Qwen 2.5/3:   <tool_call>{"name": ..., "arguments": {...}}</tool_call>
   Qwen3-Coder:          <tool_call><function=NAME><parameter=KEY>VALUE</parameter></function></tool_call>
@@ -12,10 +9,7 @@ models:
   Llama 3.x:            <|python_tag|>{"name": ..., "parameters": {...}}
   DeepSeek V3/R1:       <｜tool▁call▁begin｜>function<｜tool▁sep｜>NAME ```json {...}``` <｜tool▁call▁end｜>
   gpt-oss (harmony):    to=functions.NAME ... <|message|>{...}<|call|>
-  a reply that is only JSON calls (bare or in ```json fences)
-
-Only calls of the given tools are taken; XML-style values are converted to
-the type the tool's schema gives (integers, booleans, objects)."""
+  a reply that is only JSON calls (bare or in ```json fences)"""
 import json
 import re
 

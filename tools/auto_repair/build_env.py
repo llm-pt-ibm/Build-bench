@@ -1,43 +1,7 @@
-"""Build environments of build-recipe cases: what a case's build.sh, its
-acceptance test and run_command_tool's commands run with, as the build hosts of
-OBS are for RPM packages. An environment is one file, envs/<name>/env.yaml,
-for any package and build system; `make setup-env ENV=<name>` makes it once
-in BENCH_HOME/envs/<name>, in the user's own directory (no root).
-envs/env.example.yaml shows every key, and `make new-env ENV=<name>` copies it.
-
-env.yaml (every key is optional, at least one is needed):
-  conda      conda packages of the build environment: the compilers, build
-             tools, libraries and interpreters build.sh uses (CMake, Rust, Go,
-             Java, Python...)
-  channels   conda channels, in order (default: conda-forge)
-  tools      conda packages of a separate tools environment, for tools whose
-             dependencies conflict with the build's (e.g. Java for Bazel)
-  system     RHEL 8 packages (dnf) added to the image builds run in
-  env        variables exported to builds, tests and commands, and set while
-             setup builds the wheels and runs setup; $BENCH_ENV_DIR is the
-             environment's directory
-  setup      commands run once at the end of setup, in the environment's
-             directory with its tools in PATH, for what no other key covers
-             (e.g. a tool compiled from its sources into $BENCH_ENV_DIR/bin)
-  bazel      a Bazel version, compiled from its sources (none is published for
-             ppc64le); compiled once per version and shared by the environments
-  wheels     Python wheels PyPI lacks for this architecture, built with the
-             environment's compilers ($LOCAL_WHEELS)
-  build_pip  pip packages of the build environment
-  test_pip   pip packages of the test environment, a copy of the build
-             environment without the package the case builds: what the
-             acceptance test imports, since it runs without network
-In build_pip and test_pip, a name among wheels is installed from the wheel the
-environment built; the three Python keys need a Python in conda.
-
-The first setup writes envs/<name>/build.lock (and tools.lock): the exact
-packages conda chose, which later setups install, so the environment can be
-made again; commit them with env.yaml. Setup skips what is done, and ends with
-env.json (versions and checksums, recorded in every result) and .complete.
-At run time scripts/script_worker/env.sh exports the environment (PATH,
-PYTHON, TEST_PYTHON, CLANG, BAZEL, JAVA_HOME, LOCAL_WHEELS, and env); an
-envs/<name>.sh replaces it for an environment that needs more. The image is
-envs/<name>/Containerfile, or envs/Containerfile, with the system packages."""
+"""Build environments of build-recipe cases: envs/<name>/env.yaml (every key
+is shown in envs/env.example.yaml), made once by `make setup-env ENV=<name>` in
+BENCH_HOME/envs/<name>. The first setup writes build.lock and tools.lock, which
+later setups install; env.json records what was made."""
 import hashlib
 import json
 import os
@@ -58,12 +22,10 @@ GENERIC_SCRIPT = os.path.join(ROOT, "scripts", "script_worker", "env.sh")
 EXAMPLE = os.path.join(ROOT, "envs", "env.example.yaml")
 LISTS = ("conda", "channels", "tools", "system", "setup", "wheels", "build_pip", "test_pip")
 KEYS = LISTS + ("env", "bazel", "bazel_bootstrap")
-# Bazel versions whose own bootstrap (compile.sh) fails: an older version is
-# bootstrapped from its sources and builds them (7.7.0: "name 'macro' is not
-# defined", bazelbuild/bazel#27349); env.yaml's bazel_bootstrap overrides it
+# Bazel versions whose own bootstrap fails (bazelbuild/bazel#27349): an older
+# version builds them (env.yaml's bazel_bootstrap overrides it)
 BAZEL_BOOTSTRAP = {"7.7.0": "7.1.0"}
-# the compiler names the sysconfig of python-build-standalone (rules_python's
-# hermetic Python) expects, per machine
+# the compiler names rules_python's hermetic Python expects
 TRIPLETS = {"ppc64le": "powerpc64le-linux-gnu", "x86_64": "x86_64-linux-gnu", "aarch64": "aarch64-linux-gnu",
             "s390x": "s390x-linux-gnu"}
 

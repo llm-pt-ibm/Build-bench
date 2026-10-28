@@ -1,18 +1,12 @@
-"""Start a build-recipe case in one command: its sources, a build.sh for the
-build system they use, a manifest.json, the skeleton of its acceptance test
-and, unless the case uses an environment that exists, a build environment
-(envs/<environment>/env.yaml) with that build system's packages.
+"""Start a build-recipe case: download its sources, write a build.sh and an
+acceptance test for the build system they use, a manifest.json and, unless the
+case uses an environment that exists, an env.yaml with that system's packages.
 
 Usage: python dataset/new_case.py <data_dir> <name> [--env <environment>] [--source [<dir>=]<url>]...
        python dataset/new_case.py --fetch <case_dir>     the sources again, e.g. after a clone
        (or: make new-case CASE=<name> [ENV=<environment>] [SOURCE="<url> ..."], make fetch CASE=<name>)
-<url> is an archive of the sources (.tar.gz, .tar.xz, .tar.bz2, .tgz, .zip),
-e.g. GitHub's https://github.com/<owner>/<repo>/archive/refs/tags/<tag>.tar.gz
-or .../archive/<commit>.tar.gz. It is unpacked as <dir>/ in the case (default:
-the project's name), recorded in manifest.json and ignored by git (the case's
-.gitignore). The first source is the one build.sh builds; others (e.g. a
-dependency the build takes from a local tree) are unpacked next to it.
-RPM packages of openSUSE are fetched instead: dataset/fetch_package.py."""
+<url> is an archive (.tar.gz, .tar.xz, .tar.bz2, .tgz, .zip), unpacked as <dir>/
+(default: the project's name) and ignored by git; build.sh builds the first."""
 import argparse
 import json
 import os
@@ -34,34 +28,23 @@ ARCHIVES = (".tar.gz", ".tgz", ".tar.xz", ".txz", ".tar.bz2", ".tbz2", ".tar.zst
 CONDA_SUBDIR = {"ppc64le": "linux-ppc64le", "x86_64": "linux-64", "aarch64": "linux-aarch64", "s390x": "linux-s390x"}
 
 BUILD_HEAD = """#!/bin/bash
-# Build recipe for @NAME@: the build as it runs on @SOURCE_ARCH@. It runs from
-# the case directory on the build host, in the build environment of
-# manifest.json (envs/@ENV@/env.yaml, its tools in PATH), and the build succeeds
-# when it exits with status 0.
-#   $BENCH_CACHE_DIR         build state of this run (e.g. a Bazel output root)
-#   $BENCH_SHARED_CACHE_DIR  caches later runs can reuse (downloads)
-#   $BENCH_JOBS              number of parallel jobs
-# make new-case wrote it for @SYSTEM@; adjust it to the package's build docs.
-# Leave the artifacts where the acceptance test looks for them.
+# Build recipe for @NAME@, as it builds on @SOURCE_ARCH@ (make new-case wrote it
+# for @SYSTEM@). It runs from the case directory in the environment envs/@ENV@,
+# with $BENCH_CACHE_DIR (this run's build state), $BENCH_SHARED_CACHE_DIR
+# (caches kept across runs) and $BENCH_JOBS.
 set -euo pipefail
 """
 
 TEST_HEAD = """#!/bin/bash
-# Acceptance test of @NAME@: does what build.sh built work? The framework runs
-# it after every successful build, without network, on the build host in the
-# case's build environment, with
-#   $BENCH_SRC_DIR    the build copy of the case, with what build.sh left in it
-#   $BENCH_CACHE_DIR  scratch space of the run
-#   $BENCH_JOBS       number of parallel jobs
-#   $TEST_PYTHON      the test environment's Python (with test_pip of env.yaml)
-# It passes when it exits with status 0; the model can read it, not change it.
+# Acceptance test of @NAME@: checks, without network, that what build.sh left in
+# $BENCH_SRC_DIR works ($BENCH_CACHE_DIR: scratch space, $TEST_PYTHON: the test
+# environment's Python). It passes with exit status 0.
 set -euo pipefail
 src=$BENCH_SRC_DIR@SUBDIR@
 """
 
-# build system: the files at the top of the sources that mark it, the conda
-# packages of an environment for it, build.sh's commands (from the top of the
-# sources) and the acceptance test's. In this order: the first that matches.
+# per build system, the first whose files are at the top of the sources: the
+# packages of its environment, and the commands of build.sh and of the test
 SYSTEMS = [
     {"name": "Bazel", "files": ["MODULE.bazel", "WORKSPACE", "WORKSPACE.bazel"],
      "conda": ["python=3.12", "pip", "clang=17.0.6", "clangxx=17.0.6", "lld=17.0.6",

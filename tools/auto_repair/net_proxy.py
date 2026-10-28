@@ -1,18 +1,10 @@
-"""The network of a build: an HTTP(S) proxy on a Unix socket that lets a
-build reach any host and logs every connection, so that each run records
-what its builds downloaded from.
+"""The network of a build: an HTTP(S) proxy on a Unix socket that lets the build
+reach any host and logs each connection to --log as "<time> <reached|failed>
+<METHOD> <host:port>[<path>]".
 
-The build's container has no network of its own (--network none); the socket
-is mounted into it, and scripts/script_worker/proxy_forward.py makes it a
-proxy on 127.0.0.1 there (http_proxy/https_proxy), which Bazel, pip, git and
-curl use. HTTPS goes through CONNECT, so only the host and port are seen,
-not the path.
-
-Log: one line per connection, "<time> <reached|failed> <METHOD> <host:port>[<path>]".
-
-Usage: net_proxy.py --socket S --log L -- command...
-serves while the command runs, and exits with its status. Standalone (no
-imports from the framework), so it runs with any Python 3."""
+The build's container has no network; the socket is mounted in, and
+scripts/script_worker/proxy_forward.py serves it on 127.0.0.1 there.
+Usage: net_proxy.py --socket S --log L -- command... (standalone: any Python 3)"""
 import argparse
 import os
 import select

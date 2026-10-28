@@ -7,7 +7,7 @@ Usage: python scripts/transcript.py <log_dir> <run> [options]
                active run
   --package    package of the run (default: its only, or first, package)
   --attempt N  show attempt N round by round; without it, an overview
-  --reasoning  include the model's reasoning (saved since run26d)
+  --reasoning  include the model's reasoning
   --full       do not shorten anything
   --tool NAME  only the calls of this tool (e.g. run_command_tool) and their results
   --grep RE    only the rounds whose text matches the regular expression"""

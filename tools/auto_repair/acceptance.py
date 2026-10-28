@@ -1,17 +1,8 @@
-"""Acceptance tests: after a successful build the framework checks that the
-built software works, with a test the case defines outside the package, in
-acceptance/<source>_to_<target>/<package>.sh. The model can read the test
-(read-only) but not change it, and a build only counts as successful when its
-acceptance test passes.
-
-The test runs on the build host, in the case's build environment, with:
-  BENCH_PACKAGE      package name
-  BENCH_SRC_DIR      build copy of the package (build-recipe cases; artifacts
-                     such as wheels are where build.sh left them)
-  BENCH_BUILD_ROOT   build root of an osc build (RPM cases); the built RPMs
-                     are in $BENCH_BUILD_ROOT/home/abuild/rpmbuild/RPMS
-  BENCH_CACHE_DIR    persistent scratch directory for the test
-It passes when it exits with status 0."""
+"""Acceptance tests: acceptance/<source>_to_<target>/<package>.sh runs after
+every successful build, in the case's build environment, and the build counts
+only when it exits with 0; the model can read it, not change it. It gets
+BENCH_PACKAGE, BENCH_SRC_DIR (the build copy, recipe cases), BENCH_BUILD_ROOT
+(the osc build root, RPM cases) and BENCH_CACHE_DIR."""
 import os
 import subprocess
 

@@ -1,29 +1,8 @@
 """Containers for build-recipe cases: build.sh, the acceptance test and
-run_command_tool's commands run in a container of the case's build
-environment image (Podman by default, Docker as an alternative), so that they
-see only what is mounted in, at the same paths as on the host: the package's
-build copy, its caches, the build environment (read-only) and the framework's
-runner. The host itself (other users' files, earlier runs, the framework,
-other builds) is out of their reach; without a container (runtime: none)
-build.sh runs on the host with everything the user can read.
-
-Config (build.container), BENCH_CONTAINER_RUNTIME overriding the runtime:
-  runtime        auto (default: podman if installed, else docker), podman, docker, or none
-  build_network  network of build.sh (tests and commands have none):
-                 log (default): any host, through the framework's proxy
-                   (tools/auto_repair/net_proxy.py), which logs every
-                   connection to the run directory's network.log
-                 host: the host's network, nothing logged; none: no network
-  cpus, memory   optional limits (with rootless runtimes they need cgroups v2)
-  pids_limit     processes and threads of a container: -1 (default) none
-                 beyond the host's, as with Docker (Podman's own default,
-                 2048, is too few for parallel test suites: 48 pytest
-                 workers with OpenBLAS's threads each)
-
-Images: envs/<environment>/Containerfile, or envs/Containerfile for an
-environment without one, built by make setup-env as build-bench-<environment>. Rootless Podman maps the user into the container
-(files written in the mounts belong to the user); Docker runs the container
-as the user (--user uid:gid), and its daemon makes its group root-equivalent."""
+run_command_tool's commands run in an image of the case's build environment
+(build-bench-<environment>, made by make setup-env), with only what is mounted
+in, at the same paths as on the host. The settings are build.container of
+bench.yaml."""
 import os
 import shlex
 import shutil
@@ -41,6 +20,8 @@ def settings(build_cfg: dict) -> dict:
     name = (os.getenv("BENCH_CONTAINER_RUNTIME") or c.get("runtime") or "auto").lower()
     if name == "auto":   # podman if it is installed, else docker
         name = "docker" if not available("podman") and available("docker") else "podman"
+    # optional: cpus, memory; pids_limit -1, since Podman's default (2048) is
+    # too few for parallel test suites
     return {"runtime": name,
             "build_network": _network(os.getenv("BENCH_BUILD_NETWORK") or c.get("build_network") or "log"),
             "cpus": c.get("cpus"), "memory": c.get("memory"), "pids_limit": c.get("pids_limit", -1)}
@@ -87,9 +68,8 @@ def command(cfg: dict, name: str, env_name: str, mounts: list, env: dict, workdi
     for path in tmpfs:
         # an empty directory over a hidden path (Podman would copy its contents in)
         cmd += ["--mount", f"type=tmpfs,destination={path},ro=true" + (",notmpcopyup" if rt == "podman" else "")]
-    # the user has no /etc/passwd entry in the image (docker run --user):
-    # USER and LOGNAME name it to the tools that look it up (Bazel stops with
-    # "$USER is not set"), and HOME is one it can write (Docker leaves it /)
+    # docker run --user gives a user unknown to the image: Bazel needs USER,
+    # and Docker leaves HOME at /
     user = user_name()
     for key, value in dict({"USER": user, "LOGNAME": user, "HOME": "/tmp"}, **env).items():
         cmd += ["-e", f"{key}={value}"]
@@ -105,8 +85,6 @@ def user_name() -> str:
 
 
 def _network(name: str) -> str:
-    # proxy (an allow-list of hosts) and audit, of older configs, are log:
-    # builds may reach any host, and every connection is logged
     name = name.lower()
     return "log" if name in ("proxy", "audit") else name
 
@@ -225,8 +203,7 @@ def build_image(cfg: dict, env_name: str, packages_file: str, system: list = ())
     import hashlib
     rt = runtime(cfg)
     text = containerfile(env_name, system)
-    # the file next to the environment (BENCH_HOME), the context in the
-    # repository: the base Containerfile's directory, small (not the environment)
+    # the file next to the environment; the context is the base Containerfile's directory
     containerfile_path = os.path.join(os.path.dirname(packages_file), "Containerfile")
     with open(containerfile_path, "w") as f:
         f.write(text)

@@ -1,24 +1,8 @@
-"""Experiments: short shell commands the model runs on the build host, in the
-case's build environment, to test a hypothesis without a full build (run one
-test of the built software, compile a small program, inspect an artifact).
-
-Only for build-recipe cases. Each command runs in a container of the build
-environment's image (build.container.runtime, Podman by default: see
-tools/auto_repair/container.py), or, with runtime none, in a sandbox of Linux
-namespaces made as root (unshare and mounts). Either way:
-  - /root, /tmp, /var/tmp and /dev/shm are hidden: other builds, earlier runs
-    and the framework's own files cannot be read;
-  - visible again, read-only: the package workspace, the last build's copy
-    (BENCH_SRC_DIR), the package's build cache (BENCH_CACHE_DIR), the
-    acceptance tests, the build environments and the paths the build host
-    needs (script.experiment_paths in the config), except what
-    script.experiment_hide lists inside them (e.g. a jaxlib installed in the
-    build environment by an earlier, manual port);
-  - writable: a scratch directory kept for the run (BENCH_SCRATCH_DIR, the
-    working directory), so that files are only changed with the edit tools;
-  - no network, no other processes, no capabilities (the sandbox cannot be
-    undone from inside).
-"""
+"""Experiments: short shell commands the model runs (run_command_tool) to test
+a hypothesis without a full build, in a container of the case's build
+environment, or without one in a namespace sandbox made as root. They see the
+workspace, the last build's copy, the caches and the build environment
+read-only, write only to a scratch directory, and have no network."""
 import os
 import shlex
 import signal
@@ -88,8 +72,6 @@ def run_experiment(package_name: str, workspace: str, command: str, timeout: int
     runner = os.path.join(ROOT, "scripts", "script_worker", "run.sh")
     name = None
     if container.runtime(cfg):
-        # a container of the build environment's image: only the mounts are
-        # there, no network, no capabilities (needs no root with Podman)
         problem = container.check(cfg, env_name)
         if problem:
             return f"Error: commands cannot run: {problem}"

@@ -1,13 +1,7 @@
-"""Where the benchmark keeps its state on the build host.
-
-BENCH_HOME (default ~/.local/share/build-bench) holds what is not in the
-repository: the build environments of build-recipe cases (envs/<name>, made
-by `make setup-env`), the build directories of build-recipe cases (stage/)
-and the local osc worker (obs-worker/). A config can place any of them
-elsewhere (build.script.stage_root, build.local.worker_root); paths in a
-config may use ~ and ${VARIABLES}, BENCH_HOME included.
-
-Nothing here needs root: the default is in the user's home."""
+"""Where the benchmark keeps its state on the build host: BENCH_HOME (default
+~/.local/share/build-bench) holds the build environments (envs/), the build
+directories of recipe cases (stage/) and the local osc worker (obs-worker/).
+Paths in a config may use ~ and ${VARIABLES}."""
 import os
 
 

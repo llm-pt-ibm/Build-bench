@@ -1,19 +1,7 @@
-"""Single entry point to run and inspect the benchmark (the Makefile calls it).
-
-What to run comes from the config (bench.yaml); the settings of the run can
-be overridden on the command line (--label, --model, --attempts, ...):
-  run [--bg]        start a run of the config's packages
-  resume FROM       continue the archived run FROM with more attempts
-  stop              stop the active run and its builds, and archive what it left
-  status            the dashboard of the benchmark (scripts/dashboard.py), once
-  watch             the dashboard, refreshed every few seconds
-  summary [PREFIX]  results of the archived runs, with the total cost
-  archive NAME      move the files an interrupted run left into run directory NAME
-
-A run is scripts/run_repeats.sh. This script adds what it lacks: one run at a
-time (the active run is recorded in .bench/active.json), no start over the
-files an interrupted run left (they would be archived with the new run), and
-stopping a run with its builds, which run in sessions of their own."""
+"""Single entry point of the benchmark, called by the Makefile (`make` lists
+the commands). A run is scripts/run_repeats.sh; this script keeps one run at a
+time (.bench/active.json), refuses to start over the files an interrupted run
+left, and stops a run together with its builds."""
 import argparse
 import glob
 import json
@@ -67,9 +55,7 @@ def run_env(profile: dict, resume: dict = None) -> dict:
         else:
             env[name] = str(value)
     if profile.get("base_url"):
-        # a model server of the profile's own (e.g. a local one): its key, if it
-        # needs one, comes from the variable api_key_env names; the API key of
-        # .env, meant for another API, is never sent to it
+        # the API key of .env is never sent to a model server of the profile's own
         env["API_BASE_URL"] = str(profile["base_url"])
         key_var = profile.get("api_key_env")
         env["API_KEY"] = (os.getenv(key_var) or dotenv_value(key_var) or "") if key_var else "none"

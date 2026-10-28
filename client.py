@@ -99,12 +99,10 @@ def api_base(url: Optional[str]) -> Optional[str]:
     return f"{parts.scheme}://{parts.hostname}" + (f":{parts.port}" if parts.port else "")
 
 
-# No tool result is cached: the files change while the agent works, so a cached
-# structure listing would go stale after an extraction or an edit.
+# no tool result is cached: the files change while the agent works
 CACHEABLE_TOOLS = set()
 
-# Repair tools the LLM may call (the agent tools described in the Build-bench
-# paper). The other server tools are bookkeeping used only by this client.
+# the tools of the Build-bench paper; llm.extra_tools adds others
 LLM_TOOLS = (
     "get_structure_of_files",
     "get_file_content_tool",
@@ -114,67 +112,29 @@ LLM_TOOLS = (
     "upload_file_to_obs_tool",
     "check_build_result",
 )
-# Extensions for large code bases, enabled in the config (llm.extra_tools):
-# search_files_tool and replace_in_file_tool.
 LLM_CFG = info.get("llm") or {}
 SCRIPT_CFG = (info.get("build") or {}).get("script") or {}
 LLM_TOOLS = LLM_TOOLS + tuple(LLM_CFG.get("extra_tools") or ())
-# Prompt template per case type (tools/auto_repair/case_type.py)
 PROMPTS = {"rpm": "prompts/full_file_generation.txt", "recipe": "prompts/build_recipe_generation.txt",
            **(info.get("prompts") or {})}
-# When the conversation grows past this many characters, the oldest tool
-# results are shortened (0: never). The last ones are always kept whole.
-# BENCH_MAX_CONTEXT_CHARS overrides it for a run, e.g. to fit the context
-# window of a local model server.
 MAX_CONTEXT_CHARS = int(os.getenv("BENCH_MAX_CONTEXT_CHARS") or LLM_CFG.get("max_context_chars", 0))
-# With repeat_guard_per_build, identical calls are counted per build: each
-# build result starts a new count, so upload, check and reading the new log
-# can be repeated in every repair cycle, while loops without a new build are
-# still blocked. Without it, identical calls are counted per attempt.
 REPEAT_GUARD_PER_BUILD = bool(LLM_CFG.get("repeat_guard_per_build", False))
-# When this many rounds are left in an attempt (0: never), the framework tells
-# the model, so that it applies its fix before the attempt ends.
 _notice = LLM_CFG.get("round_notice_at", 0)
 ROUND_NOTICE_AT = sorted({int(n) for n in (_notice if isinstance(_notice, list) else [_notice]) if int(n) > 0})
-# The next attempt's prompt carries up to this many characters of the model's
-# own notes (its text replies) from the previous attempt (0: none), so that
-# what it found out is not lost when it made no edit.
 CARRY_NOTES_CHARS = int(LLM_CFG.get("carry_notes_chars", 0))
-# After this many rounds in a row without a change to the package or a build
-# (0: never), the framework tells the model to test its hypothesis with a
-# change and a build, and an attempt that follows one without any change
-# starts with that advice: a model can spend whole attempts reading and
-# running experiments (run30: three attempts without a build).
 BUILD_DROUGHT_ROUNDS = int(LLM_CFG.get("build_drought_rounds", 0))
-# Tell the model when a build failed the same way as the previous one (same
-# errors, or same failing checks and tests): the change made since then did
-# not affect the failure (run30: two builds with the same 20 failing tests).
 REPEATED_FAILURE_NOTE = bool(LLM_CFG.get("repeated_failure_note", False))
-# A reply with neither text nor tool calls is a glitch of the model or the
-# provider, not a decision to stop: ask the model to continue, at most this
-# many times per attempt (0: such a reply ends the attempt, as in the paper).
 EMPTY_REPLY_RETRIES = int(LLM_CFG.get("empty_reply_retries", 0))
 INFRA_ERROR = "Build result: Build infrastructure error!"
-# Continue an earlier run (its label, e.g. run26_flash_6att_1): keep the
-# package workspace (optionally copied from BENCH_RESUME_WORKSPACE) and the
-# build cache, number the attempts after the earlier ones, and tell the model
-# what the earlier attempts changed. BENCH_MAX_ATTEMPTS sets how many more.
+# make resume: the archived run to continue, and a copy of its workspace
 RESUME_FROM = os.getenv("BENCH_RESUME_FROM")
 RESUME_WORKSPACE = os.getenv("BENCH_RESUME_WORKSPACE")
-# Model calls that fail for a passing reason (rate limits, which some
-# providers report as 413, unavailable servers, timeouts, dropped connections)
-# are retried after these waits, in seconds; if the provider still fails, the
-# package's run stops as an infrastructure failure instead of using up attempts.
+# waits (s) before retrying a model call that failed for a passing reason;
+# then the package stops as an infrastructure failure, without using attempts
 MODEL_RETRY_WAITS = tuple(LLM_CFG.get("retry_waits", (20, 60, 120, 300, 600)))
-# Prompt caching (llm.prompt_cache, BENCH_PROMPT_CACHE): Claude models read a
-# cached prefix of the conversation only up to the breakpoints a request marks
-# (cache_control), while DeepSeek, OpenAI and Gemini models cache by
-# themselves. auto: mark them for Claude models; on: for every model; off.
+# Claude models cache only up to the cache_control marks of a request; other
+# models cache by themselves
 PROMPT_CACHE = (os.getenv("BENCH_PROMPT_CACHE") or str(LLM_CFG.get("prompt_cache", "auto"))).lower()
-# Tool calls a model wrote as text, as models do when the server's tool parser
-# does not know their format (llm.text_tool_calls, BENCH_TEXT_TOOL_CALLS):
-# a reply without tool calls is searched for them
-# (tools/auto_repair/text_tool_calls.py).
 TEXT_TOOL_CALLS = (os.getenv("BENCH_TEXT_TOOL_CALLS") or str(LLM_CFG.get("text_tool_calls", True))).lower() \
     not in ("0", "false", "off", "no")
 RETRYABLE_STATUS = {408, 409, 413, 429, 500, 502, 503, 504}
@@ -305,9 +265,7 @@ class AutoRepairClient:
         os.makedirs(self.result_dir, exist_ok=True)
         os.makedirs(self.temp_work_dir, exist_ok=True)
         os.makedirs(self.log_dir, exist_ok=True)
-        # the MCP server limits its file tools to this directory, and lets the
-        # model read the build caches of the packages of this run (not the
-        # whole stage root, which may hold other builds, e.g. a reference fix)
+        # the file tools reach this directory and the build caches of this run's packages
         os.environ["BENCH_TEMP_DIR"] = self.temp_work_dir
         stage_root = self.stage_root = load_obs_config()["script"]["stage_root"]
         packages = sorted(BENCH_PACKAGES or (os.listdir(self.base_dir) if os.path.isdir(self.base_dir) else []))
@@ -1088,8 +1046,6 @@ async def main():
     }.get(provider)
 
     llm_cfg = LLMConfig(provider=provider, model=default_model)
-    # attempts per package (3 in the paper; BENCH_MAX_ATTEMPTS overrides the
-    # config for a single run) and rounds of tool calls per attempt (20)
     attempts = int(os.getenv("BENCH_MAX_ATTEMPTS") or LLM_CFG.get("max_build_attempts", 3))
     cli = AutoRepairClient(llm=llm_cfg, max_build_attempts=attempts,
                            max_tool_rounds=int(LLM_CFG.get("max_tool_rounds", 20)))

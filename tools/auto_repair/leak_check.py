@@ -1,18 +1,8 @@
-"""Leak check: before a package runs, look for the answer in what the model can
-read: a built copy of the package (an installed Python package, a wheel, a
-conda package, an RPM). It needs no known fix of the package, so it works for
-any package.
-
-Checked: the case (copied into the workspace when a run starts), the
-acceptance tests, the build environments and the runner, and, for build-recipe
-cases, the paths run_command_tool's sandbox shows (script.experiment_paths,
-except script.experiment_hide). Not checked: the build cache, which is cleared
-when a run starts and on a continued run holds the model's own builds, and
-what build.sh can reach: it runs outside the sandbox, with the whole host.
-
-Found in runs 28 and 28c: a reference build in the stage root (the file tools
-could read all of it) and the team's jaxlib installed in two conda
-environments of the build host."""
+"""Leak check: before a package runs, look for a built copy of it (an installed
+Python package, a wheel, a conda package, an RPM) in what the model can read:
+the case, the acceptance tests, the build environments, the runner and the
+paths run_command_tool shows. The build cache is not checked: it is cleared
+when a run starts."""
 import os
 import re
 

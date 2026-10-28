@@ -1,13 +1,7 @@
-# The build environment of a build-recipe case (envs/<name>/env.yaml, made by
-# make setup-env in $BENCH_ENV_DIR, tools/auto_repair/build_env.py), sourced by
-# run.sh before build.sh, the acceptance test and run_command_tool's commands.
-# It only exports what the environment has; the model cannot change it, as
-# with the build hosts of OBS.
-#   PATH             the environment's bin/ (Bazel, compiler names), the build
-#                    environment's and the tools'
-#   LD_LIBRARY_PATH  the C++ runtime of its compilers (a host's can be older)
-#   PYTHON, TEST_PYTHON, CLANG, BAZEL, JAVA_HOME, LOCAL_WHEELS
-#   and the variables of env.yaml's env (exports.sh, written by make setup-env)
+# Exports the build environment of a recipe case ($BENCH_ENV_DIR, made by make
+# setup-env): PATH, LD_LIBRARY_PATH, PYTHON, TEST_PYTHON, CLANG, BAZEL,
+# JAVA_HOME, LOCAL_WHEELS and the variables of env.yaml's env. run.sh sources
+# it before build.sh, the acceptance test and run_command_tool's commands.
 _env=${BENCH_ENV_DIR:-}
 _name=$(basename "${_env:-environment}")
 if [ -z "$_env" ] || [ ! -f "$_env/.complete" ]; then

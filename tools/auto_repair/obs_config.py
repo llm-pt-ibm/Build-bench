@@ -36,15 +36,13 @@ def load_obs_config() -> dict:
         "user": name,
         "password": os.getenv("OBS_PASSWORD"),
         "project": str(obs.get("project") or "home:{user}:build-bench").format(user=name),
-        # the repository of the OBS project that builds for the target (dataset/setup_obs.py names it after it)
+        # dataset/setup_obs.py names the repository after the target
         "repository": obs.get("repository") or target,
         "arch": target,
         "max_wait_seconds": int(obs.get("max_wait_seconds", 3600)),
         "check_interval": int(obs.get("check_interval", 30)),
         "direction": bench_config.direction(info),
         "acceptance_timeout": int((info.get("acceptance") or {}).get("timeout_seconds", 3600)),
-        # "obs" builds on OBS; "local" builds with osc in the local worker
-        # (scripts/local_worker), see tools/auto_repair/local_build.py
         "backend": (os.getenv("BENCH_BUILD_BACKEND") or build.get("backend", "obs")).lower(),
         "local": {
             "worker_root": dirs["worker_root"],
@@ -53,16 +51,11 @@ def load_obs_config() -> dict:
             "arch": local.get("arch", target),
             "jobs": int(local.get("jobs", 0)),
         },
-        # build-recipe cases run in containers (tools/auto_repair/container.py)
         "container": container.settings(build),
-        # build-recipe cases (build.sh), see tools/auto_repair/script_build.py
         "script": {
             "stage_root": dirs["stage_root"],
             "jobs": int(script.get("jobs", 0)) or _auto_jobs(),
-            # paths the build environment needs, shown read-only to the
-            # sandbox of run_command_tool (tools/auto_repair/experiment.py)
             "experiment_paths": [expand(p) for p in script.get("experiment_paths") or []],
-            # directories inside them that stay hidden there
             "experiment_hide": [expand(p) for p in script.get("experiment_hide") or []],
         },
     }

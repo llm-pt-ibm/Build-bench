@@ -1,11 +1,7 @@
-# Commands of the benchmark. Everything a run uses is set in bench.yaml (the
-# config); the settings of the run can be overridden here, e.g.
+# Commands of the benchmark (`make` lists them), run on the build host. A run
+# reads bench.yaml; variables override it, e.g.
 #   make run LABEL=run31 ATTEMPTS=6 MODEL=deepseek/deepseek-v4.1-flash
-# A variable set to none clears that setting of the config, e.g. PROVIDER=none.
-# ALLOW_LEAKS=1 starts a run even if the leak check finds something.
-# A local model: make run BASE_URL=http://127.0.0.1:11434/v1 MODEL=... (or set them in the config)
-# CONFIG=<file> uses another config file (e.g. a copy of bench.yaml).
-# `make` alone lists the commands. They run on the build host (the Power9).
+# and none clears a setting (PROVIDER=none). CONFIG=<file> reads another config.
 
 # settings of this machine (e.g. PY=/path/to/python, BENCH_HOME=...), not in git
 -include local.mk
@@ -31,7 +27,7 @@ help: ## list the commands
 	@echo "settings come from $(CONFIG); variables override them"
 	@grep -hE '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-11s %s\n", $$1, $$2}'
 
-run: ## start a run in the background (one at a time; checks for leaks first)
+run: ## start a run in the background (one at a time; checks for leaks first, ALLOW_LEAKS=1 skips that)
 	@$(BENCH) run --bg $(LEAKS)
 
 run-fg: ## run in the foreground (Ctrl-C stops it)

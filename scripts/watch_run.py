@@ -1,13 +1,7 @@
 """Live view of a benchmark run: attempt, round, edits, builds, context size
 and cost, refreshed every few seconds.
 Usage: python scripts/watch_run.py [config] [package] [seconds]
-  (defaults: bench.yaml, the package of the newest
-  log, 10 s; 0 s prints the view once). Works through the sshfs mount too;
-  Ctrl-C stops it.
-The cost comes from <package>_status.json, written by client.py after every
-model call; for runs started before that existed it falls back to the
-OpenRouter key's spend today (usage_daily), which includes any other use of
-the key."""
+  (defaults: bench.yaml, the package of the newest log, 10 s; 0 s prints it once)"""
 import glob
 import json
 import os

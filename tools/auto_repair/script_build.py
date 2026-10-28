@@ -1,21 +1,9 @@
-"""Build-recipe backend: builds cases that ship a build.sh (any build system:
-Bazel, CMake, Cargo, pip...) on this host, with the same contract as the OBS
-functions: the upload snapshots the sources and starts the recipe, the check
-waits for it and returns the same messages.
-
-Each package gets a stable directory <stage_root>/<package>:
-  src/    mirror of the package sources (only changed files are copied, so
-          incremental build systems and their caches keep working)
-  cache/  build state kept across the builds of a run (BENCH_CACHE_DIR), e.g.
-          a Bazel output root; it is cleared when a run starts, so that what
-          one run breaks (say, a build.sh that deletes part of it) does not
-          reach the next
-  shared/ content-addressed caches kept across runs (BENCH_SHARED_CACHE_DIR),
-          e.g. Bazel's --disk_cache and --repository_cache or ccache: losing
-          an entry only costs time, so they are safe to share
-Paths of src/ in the log are rewritten to the package workspace, so the model
-can open the files the errors point to; cache/ is readable by the file tools
-(dependency sources downloaded by the build live there)."""
+"""Build-recipe backend: builds cases that ship a build.sh on this host, with
+the contract of the OBS functions (the upload starts the build, the check waits
+for it). Each package has <stage_root>/<package>/ with src/ (a mirror of the
+sources), cache/ (BENCH_CACHE_DIR: build state kept across the builds of a run,
+cleared when a run starts) and shared/ (BENCH_SHARED_CACHE_DIR:
+content-addressed caches kept across runs)."""
 import hashlib
 import json
 import os
@@ -188,8 +176,6 @@ def script_upload(package_name: str, package_dir: str, cfg: dict) -> str:
                  "BENCH_ENV_DIR": env_dir(env_name) if env_name else ""}
     argv = ["bash", RUNNER, dirs["src"], env_script]
     if container.runtime(cfg):
-        # only the build copy, its caches and the build environment are there,
-        # and the network through the proxy (or as build_network says)
         net = container.build_network(cfg, env_name, dirs["run"])
         argv = net["wrapper"] + container.command(
             cfg, name, env_name,
@@ -252,8 +238,6 @@ def script_check(temp_dir: str, package_name: str, cfg: dict, _retry: int = 0) -
         if not test:
             return "Build succeeded! The build has been successfully completed."
         env_name = case_environment(temp_dir)
-        # in a container: the build copy (the test may build in it), the
-        # cache, the acceptance tests and the build environment, no network
         in_container = None
         if container.runtime(cfg):
             in_container = {"cfg": cfg, "name": f"bench-{package_name}-test", "env_name": env_name,
