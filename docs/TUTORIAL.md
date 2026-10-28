@@ -178,8 +178,7 @@ The dashboard of `status` and `watch` shows:
 - whether the model is thinking or waiting for a build, the latest excerpt of its reasoning and the recent tool calls.
 
 The dashboard only reads files, so it also works from another machine that
-sees the repository (e.g. through an sshfs mount). There it shows "running on
-<host>", and `stop`, `run` and `archive` refuse to act.
+sees the repository (e.g. through an sshfs mount). There it shows "running on `<host>`", and `stop`, `run` and `archive` refuse to act.
 
 A stopped run is archived as `<label>_1_stopped`. `resume` continues from the
 last finished attempt: the workspace keeps the edits made, and the model gets

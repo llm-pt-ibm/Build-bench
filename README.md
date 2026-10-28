@@ -37,6 +37,62 @@ For every case, Build-bench:
 
 ---
 
+## ⚡ Quick start
+
+The build host needs:
+- Python 3.11 or newer, with the framework's packages (see Installation);
+- Podman (rootless) or Docker: builds, acceptance tests and the model's commands run in containers;
+- conda (Miniforge), with which `make setup-env` makes the build environments;
+- the key of an OpenAI-compatible API (e.g. OpenRouter), or a model server of your own (see Local models);
+- for RPM cases only, an OBS account or a local osc worker.
+
+A first run, of the jaxlib case on the Power9:
+
+```bash
+git clone -b improvements https://github.com/llm-pt-ibm/Build-bench.git build-bench
+cd build-bench
+pip install -r requirements-ppc64le.txt   # in a Python 3.11 environment
+cat > .env <<'EOF'
+API_KEY=<your OpenRouter key>
+API_BASE_URL=https://openrouter.ai/api/v1
+EOF
+make setup-env ENV=jax-power9   # the build environment, once per machine (it compiles Bazel: slow)
+make check-env ENV=jax-power9   # ends with "environment ready"
+make fetch CASE=jaxlib          # the sources of jax and XLA, too large for git
+make check-case CASE=jaxlib     # ends with "ready to run"
+make run PACKAGES=jaxlib LABEL=first   # in the background, with the model of bench.yaml
+make watch                      # the live dashboard (Ctrl-C stops watching, not the run)
+make summary                    # the result and its cost, once the run ends
+```
+
+The [tutorial](docs/TUTORIAL.md) explains each step; the sections below are
+the reference.
+
+---
+
+## ✍️ Files you write
+
+Everything the framework knows about a machine, a run or a case comes from
+these files:
+
+| File | What it holds | Who makes it |
+|---|---|---|
+| `.env` | `API_KEY`, `API_BASE_URL`; `OBS_USER`, `OBS_PASSWORD` for RPM cases | you, on every machine (git ignores it) |
+| `local.mk` (optional) | `PY`, the framework's Python, and `BENCH_HOME` | you, when `python3` on the PATH is not that Python |
+| `bench.yaml` | the run: architectures, cases, model, repair loop, builds | in git: edit it, or override it with make variables |
+| `envs/<environment>/env.yaml` | a build environment: conda, system and pip packages, Bazel, wheels | `make new-env` or `make new-case` start it; you complete it |
+| `data/<direction>/<case>/build.sh` | the build as upstream runs it on the source architecture, with no fix for the target | `make new-case` starts it; you complete it |
+| `acceptance/<direction>/<case>.sh` | the check that what the build made works | `make new-case` starts it; you complete it |
+
+The rest is generated: `manifest.json` and the case's `.gitignore` by
+`make new-case`, the sources by `make new-case` and `make fetch`,
+`log_failed.txt` (the original failure) by `make baseline`, and
+`envs/<environment>/build.lock` and `tools.lock` by `make setup-env` (commit
+them). jaxlib and TensorFlow have all their files in the repository but the
+sources.
+
+---
+
 ## ⚙️ Installation
 
 ```bash
@@ -57,13 +113,26 @@ in `bench.yaml`, which `.env` never overrides:
 
 The framework runs as a normal user and changes nothing on the host. What it
 keeps outside the repository goes to `BENCH_HOME` (default
-`~/.local/share/build-bench`): the build environments (`envs/`), the build
-directories of build-recipe cases (`stage/`) and the local osc worker
-(`obs-worker/`); the config can place them elsewhere
+`~/.local/share/build-bench`): the build environments (`envs/`), Bazel
+compiled from its sources (`bazel/<version>/`), the build directories of
+build-recipe cases (`stage/`, with the caches that later builds reuse) and the
+local osc worker (`obs-worker/`); the config can place them elsewhere
 (`build.script.stage_root`, `build.local.worker_root`), with `~` and
-`${VARIABLES}` in its paths. Settings of one machine for make (e.g.
-`PY = /path/to/python`, `BENCH_HOME = /data/bench`) go to `local.mk`, which
-git ignores.
+`${VARIABLES}` in its paths. The container images are in Podman's or
+Docker's storage.
+
+Settings of one machine for make go to `local.mk`, which git ignores and make
+reads only when it exists:
+
+```make
+PY = /root/miniforge3/envs/build_bench/bin/python   # the framework's Python
+BENCH_HOME = /data/bench                            # instead of ~/.local/share/build-bench
+export CONDA = /opt/miniforge3/bin/conda            # conda for make setup-env, if not on the PATH or in ~/miniforge3
+```
+
+With `PY` set, the make commands need no `conda activate`: a run's processes
+use the Python that started it. Commands run without make (`python
+dataset/...`, `pip`) still use the PATH's.
 
 ---
 
@@ -328,6 +397,21 @@ runs numerical checks and 1528 tests of JAX's own suite; TensorFlow's checks
 float32, float64, float16, bfloat16 and int8 (also XLA-compiled), gradients
 and a Keras training against NumPy.
 
+**What `build.sh` and the test get.** `build.sh` runs from the case's
+directory, in a container of its environment, and the build passes when it
+exits with 0. Besides the environment's variables (`PYTHON`, `CLANG`,
+`BAZEL`, `JAVA_HOME`, `LOCAL_WHEELS`, ...), it gets `BENCH_CACHE_DIR` (build
+state kept across the builds of a run, cleared when a run starts),
+`BENCH_SHARED_CACHE_DIR` (caches kept across runs, e.g. Bazel's disk and
+repository caches) and `BENCH_JOBS` (parallel jobs). The acceptance test runs
+with no network after every build that passes, and passes when it exits with
+0 within `acceptance.timeout_seconds` (3600 by default); it gets
+`BENCH_SRC_DIR` (the build copy, as the build left it), `BENCH_CACHE_DIR`
+(scratch space), `TEST_PYTHON` (the test environment's Python) and
+`BENCH_PACKAGE`. Without a test, any build that finishes counts as a success
+(`make check-case` warns). `jaxlib.sh` and `tensorflow.sh` are complete
+examples.
+
 A case needs no known fix: the framework tries any package. `make
 check-case` checks a case before its first run, and the leak check refuses a
 run when a built or installed copy of the package is within the model's
@@ -364,6 +448,31 @@ git ignores both directories.
 
 ---
 
+## 🩺 When `make run` refuses
+
+`make run` checks the machine before it starts and stops with a message that
+says what is missing:
+
+| Message | What to do |
+|---|---|
+| `run <label> is active` | one run at a time: wait, or `make stop` |
+| `run directories <label>_1 exist already` | choose another `LABEL` |
+| `an interrupted run left these files` | `make archive NAME=<label>_1_stopped` |
+| `build environment <env> of <case> is not set up`, `no image build-bench-<env>` | `make setup-env ENV=<env>` |
+| `podman not found` | install Podman or Docker, or set `build.container.runtime` |
+| `no .env with API_KEY` | create `.env` (see Files you write) |
+| `no model server answers at <url>`, `<url> does not serve <model>` | start the server, or pull the model on it |
+| `the model could read the answer` | move the built copy out of the model's reach or hide it (`build.script.experiment_hide`); `ALLOW_LEAKS=1` starts anyway |
+| `this host (...) is not the build host`, `run <label> runs on <host>` | run the command on the build host |
+
+`make check-case` lists what a case still lacks the same way (OK, WARN, FAIL,
+with what to do), and `make setup-env` says when it cannot find conda
+(`CONDA=` in `local.mk`). The tutorial's
+[Common problems](docs/TUTORIAL.md#common-problems) has more, from installing
+Podman next to Docker to Docker's DNS.
+
+---
+
 ## 🧪 Tests
 
 `make test` runs `tests/test_helpers.py` (patch check, log excerpt, build
@@ -380,6 +489,7 @@ write only to temporary directories.
 ```
 .
 ├── bench.yaml, Makefile          # the config and the commands
+├── .env, local.mk                # credentials and this machine's settings (not in git)
 ├── client.py, server.py          # MCP client (repair loop) and server (tools)
 ├── prompts/                      # system prompts (RPM cases, build recipes)
 ├── tools/auto_repair/            # build backends, acceptance tests, sandbox, leak check, log excerpt
@@ -390,7 +500,8 @@ write only to temporary directories.
 ├── scripts/                      # bench.py, run_repeats.sh, watch_run.py, transcript.py, workers
 ├── tests/
 ├── docs/TUTORIAL.md              # installing, running a benchmark, adding a case
-├── result_text_res/, result_log_res/   # runs, per direction (<source>_to_<target>/<run>/)
+├── result_text_res/, result_log_res/   # runs, per direction (<source>_to_<target>/<run>/), not in git
+├── temp_workspace/, .bench/, logs/     # the model's workspaces, the active run, background logs (not in git)
 └── MODIFICATIONS.md              # every change relative to the original
 ```
 
