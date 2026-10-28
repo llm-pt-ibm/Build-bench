@@ -9,10 +9,11 @@ An interactive visualization of all model results (success/failure cases, tool c
 **This fork** ports the framework to **x86_64 ↔ ppc64le** and runs it on an IBM
 Power9 build host. On top of the original it adds a local build backend,
 build-recipe cases for packages that are not RPM packages or are too large
-for OBS (e.g. jaxlib with Bazel), acceptance tests that check that the built
+for OBS (jaxlib and TensorFlow, built with Bazel), acceptance tests that check that the built
 software works, a sandboxed experiment tool for the model, a leak check, and
-`make` commands to run and inspect the benchmark. `MODIFICATIONS.md` lists
-every change and why. This repository,
+`make` commands to run and inspect the benchmark. The
+[tutorial](docs/TUTORIAL.md) walks through installing it, running a benchmark
+and adding a case; `MODIFICATIONS.md` lists every change and why. This repository,
 [llm-pt-ibm/Build-bench](https://github.com/llm-pt-ibm/Build-bench), is a
 GitHub fork of [zcyyc/Build-bench](https://github.com/zcyyc/Build-bench): the
 original framework is its history up to `ccd324d`, the port to ppc64le is on
@@ -46,14 +47,12 @@ uv sync                                   # x86_64/aarch64
 pip install -r requirements-ppc64le.txt   # on the Power9: conda env build_bench
 ```
 
-`.env` (never committed) holds the credentials and defaults:
+`.env` (never committed) holds only the credentials; everything else is set
+in `bench.yaml`, which `.env` never overrides:
 
 | Variable | Meaning |
 |---|---|
-| `API_KEY`, `API_BASE_URL` | LLM API (e.g. OpenRouter: `https://openrouter.ai/api/v1`) |
-| `LLM_MODEL` | default model, e.g. `deepseek/deepseek-v4.1-flash` |
-| `OPENROUTER_PROVIDER` | provider to pin on OpenRouter (optional) |
-| `LLM_TEMPERATURE` | sampling temperature (optional; provider default otherwise) |
+| `API_KEY`, `API_BASE_URL` | LLM API, e.g. OpenRouter: `https://openrouter.ai/api/v1` |
 | `OBS_USER`, `OBS_PASSWORD` | OBS account (OBS backend and local worker) |
 
 The framework runs as a normal user and changes nothing on the host. What it
@@ -66,53 +65,55 @@ directories of build-recipe cases (`stage/`) and the local osc worker
 `PY = /path/to/python`, `BENCH_HOME = /data/bench`) go to `local.mk`, which
 git ignores.
 
-Build-recipe cases name a build environment: what an x86_64 build host gets
+---
+
+## 🧱 Build environments
+
+A build-recipe case names a build environment: what an x86_64 build host gets
 from upstream binaries and a ppc64le one lacks. An environment is one file,
-`envs/<name>/env.yaml`, for any package and build system; every key is
-optional:
+`envs/<name>/env.yaml`, for any package and build system, e.g.
 
 ```yaml
-conda: [cxx-compiler, cmake, ninja, python=3.12]  # the build environment (CMake, Rust, Go, Java...)
-channels: [conda-forge]                       # conda channels (the default)
-tools: [openjdk=21, zip, unzip, patch, git]   # a separate one, for tools whose dependencies conflict
-system: [zlib-devel]                          # RHEL 8 packages (dnf) added to the image
-env: {CC: clang, PREFIX: $BENCH_ENV_DIR/build}   # variables exported to builds, tests and commands
-setup: ["make -C src install PREFIX=$BENCH_ENV_DIR"]  # commands run once, for what no key covers
-bazel: 7.7.0                                  # compiled from its sources, once, shared by the environments
-wheels: [numpy==2.1.3, ml-dtypes==0.5.1]      # Python wheels PyPI lacks, built with the environment's clang
-build_pip: [ml-dtypes]                        # pip packages of the build environment
-test_pip: [ml-dtypes, pytest==9.1.1]          # what the acceptance test imports (it has no network)
+conda: [python=3.12, clang=17.0.6, clangxx=17.0.6]   # the build environment
+tools: [openjdk=21, zip, unzip, patch, git]          # a separate one, for tools whose dependencies conflict
+bazel: 7.7.0                                         # compiled from its sources once, shared by the environments
+wheels: [numpy==2.1.3]                               # Python wheels PyPI lacks for this architecture
+test_pip: [numpy, pytest==9.1.1]                     # what the acceptance test imports (it has no network)
 ```
 
-A name of `build_pip` or `test_pip` among `wheels` is installed from the
-built wheel. `envs/env.example.yaml` has every key, explained, with the
-conda packages of other build systems, and `make new-env ENV=<name>` copies
-it to `envs/<name>/env.yaml`. `make setup-env` makes the environment once, in
-`BENCH_HOME/envs/<name>` (`tools/auto_repair/build_env.py`); the first setup
-writes `envs/<name>/build.lock` and `tools.lock`, the exact packages conda
-chose, which later setups install: commit them with `env.yaml`.
+`envs/env.example.yaml` explains every key (also `channels`, `system`, `env`,
+`setup`, `build_pip`), with the conda packages of other build systems, and
+`make new-env ENV=<name>` copies it to `envs/<name>/env.yaml`; `make
+new-case` writes one for the build system of a case.
 
 ```bash
-make setup-env ENV=jax-power9   # conda (Miniforge) needed; BAZEL_BINARY=<file> uses a Bazel already compiled
-make check-env ENV=jax-power9   # load it as a build does and show what it provides
+make setup-env ENV=tf-power9   # conda (Miniforge) needed; BAZEL_BINARY=, WHEELS_FROM= reuse builds
+make check-env ENV=tf-power9   # load it as a build does and show what it provides
 ```
 
-Builds load the environment with `scripts/script_worker/env.sh`, which only
-exports variables: PATH, the C++ runtime of its compilers (LD_LIBRARY_PATH),
-`PYTHON`, `TEST_PYTHON`, `CLANG`, `BAZEL`, `JAVA_HOME`, `LOCAL_WHEELS`
-(`envs/<name>.sh` replaces it for an environment that needs more).
-`env.json` records its versions and checksums, and every result its id.
+`make setup-env` makes the environment once, in `BENCH_HOME/envs/<name>`
+(`tools/auto_repair/build_env.py`), and builds its container image. The
+first setup writes `envs/<name>/build.lock` and `tools.lock`, the exact
+packages conda chose, which later setups install: commit them with
+`env.yaml`. Builds load the environment with `scripts/script_worker/env.sh`,
+which exports `PATH`, `LD_LIBRARY_PATH`, `PYTHON`, `TEST_PYTHON`, `CLANG`,
+`BAZEL`, `JAVA_HOME`, `LOCAL_WHEELS` and the variables of `env` (an
+`envs/<name>.sh` replaces it for an environment that needs more).
+`env.json` records the environment's versions and checksums, and every
+result its id.
+
+---
+
+## 🐳 Containers and network
 
 The builds, acceptance tests and `run_command_tool` commands of build-recipe
-cases run in containers of the environment's image, which `make setup-env`
-builds from `envs/Containerfile` (the system part of the build host: glibc,
-headers, binutils; `envs/<name>/Containerfile` replaces it) as
-`build-bench-<name>`. Only what is mounted is
-there, at the same paths as on the host: the build copy, its caches and the
-build environment. The default runtime, `auto`, is Podman when it is
-installed (rootless, no daemon: `dnf install podman` or `apt install podman`
-on the build host) and Docker otherwise; the config can name one
-(`build.container`, or `BENCH_CONTAINER_RUNTIME`):
+cases run in containers of the environment's image, `build-bench-<name>`,
+built from `envs/Containerfile` (the system part of the build host: glibc,
+headers, binutils, plus env.yaml's `system`; `envs/<name>/Containerfile`
+replaces it). Only what is mounted is there, at the same paths as on the
+host: the build copy, its caches and the build environment. The default
+runtime, `auto`, is Podman when it is installed (rootless, no daemon) and
+Docker otherwise:
 
 ```yaml
 build:
@@ -125,27 +126,23 @@ build:
 With Docker the containers run as the user, but its group is
 root-equivalent; with `none` build.sh runs on the host with everything the
 user can read, and `run_command_tool` uses a sandbox of Linux namespaces that
-needs root. The image's base is pinned by digest; `env.json` records the
-image and its packages (`image-packages.txt`), and every result the id of
+needs root. The image's base is pinned by digest, and every result records
 the image it ran with.
 
-**The build's network.** A build container has no network of its own: with
-`build_network: log` (the default) it reaches any host through a proxy of
-the framework on a socket mounted into it (`tools/auto_repair/net_proxy.py`;
-the build sees it as `http_proxy`/`https_proxy`, which Bazel, pip, git and
-curl use). Nothing is blocked, so a case needs no list of hosts and any
-package can run; the proxy logs every connection to
-`<stage>/<package>/run/network.log`, and each result records the hosts its
-builds reached (`network`). For HTTPS it sees the host, not the path.
-`host` gives builds the host's network directly (nothing logged), `none` no
-network.
+**The build's network.** A build container has no network of its own: it
+reaches any host through a proxy of the framework on a socket mounted into it
+(`tools/auto_repair/net_proxy.py`), which Bazel, pip, git and curl use as
+`http_proxy`/`https_proxy`. Nothing is blocked, so a case needs no list of
+hosts; the proxy logs every connection to `<stage>/<package>/run/network.log`
+(for HTTPS the host, not the path), and each result records the hosts its
+builds reached. Acceptance tests and `run_command_tool` have no network.
 
-Build backends of RPM packages (`build.backend` in `bench.yaml`):
+**Build backends of RPM packages** (`build.backend` in `bench.yaml`):
 - **OBS** (`obs`): the OBS account above; `dataset/setup_obs.py` creates the packages in your OBS project.
 - **local** (`local`): `osc build` in a local openSUSE chroot, created by `scripts/local_worker/setup.sh`, against the openSUSE:Factory port of the target architecture (`build.local.project` names another).
 
-Cases with a `build.sh` (build recipes) are built with either: in a container
-of their environment's image, in their build environment.
+Cases with a `build.sh` always build on the build host, in their
+environment's container, whatever `build.backend` says.
 
 ---
 
@@ -301,30 +298,33 @@ model's workspace at the start of a run:
 - **RPM package** (a `.spec`): sources and patches from openSUSE, `log_failed.txt` from OBS and `manifest.json` with their origin. `python dataset/fetch_package.py <package> x86_64_to_ppc64le` fetches one; `dataset/find_candidates.py` lists packages that build on x86_64 and fail on ppc64le.
 - **Build recipe** (a `build.sh`, no `.spec`): the sources, `build.sh`, `manifest.json` naming its build environment (`envs/<environment>/env.yaml`, which the model cannot change) and `log_failed.txt`, the original failure.
 
-A build-recipe case takes four commands:
+A build-recipe case takes a few commands; the TensorFlow case was made with:
 
 ```bash
-make new-case CASE=zlib SOURCE=https://www.zlib.net/zlib-1.3.1.tar.xz
-make setup-env ENV=zlib        # once per environment
-make baseline CASE=zlib        # builds it as it is: log_failed.txt
-make check-case CASE=zlib
+make new-case CASE=tensorflow ENV=tf-power9 SOURCE=https://github.com/tensorflow/tensorflow/archive/refs/tags/v2.21.0.tar.gz
+make baseline CASE=tensorflow     # builds it as it is: log_failed.txt
+make check-case CASE=tensorflow
 ```
 
-`make new-case` downloads and unpacks the sources (archives: `.tar.gz`,
-`.tar.xz`, `.tar.bz2`, `.zip`; on GitHub `.../archive/refs/tags/<tag>.tar.gz`
-or `.../archive/<commit>.tar.gz`), records them in `manifest.json` and in the
+`make new-case` downloads and unpacks the sources (`.tar.gz`, `.tar.xz`,
+`.tar.bz2` or `.zip`; on GitHub `.../archive/refs/tags/<tag>.tar.gz` or
+`.../archive/<commit>.tar.gz`), records them in `manifest.json` and in the
 case's `.gitignore` (`make fetch` downloads them again), and writes for the
 build system it finds (Bazel, Python, CMake, Meson, autotools, Cargo, Go,
 make) a `build.sh`, an acceptance test and, unless `ENV=` names an environment
-that exists, an `envs/<case>/env.yaml` with that build system's packages.
-Adjust `build.sh` to the build as upstream runs it on the source architecture,
-and the test to what the package must do. More than one source:
-`SOURCE="<url> <dir>=<url>"`; the first is the one `build.sh` builds.
+that exists, `envs/<case>/env.yaml` (then `make setup-env`). Adjust `build.sh`
+to the build as upstream runs it on the source architecture, without fixes
+for the target, and the test to what the package must do. More than one
+source: `SOURCE="<url> <dir>=<url>"`; `build.sh` builds the first. The
+original failure must be one of the target architecture: `make check-case`
+shows the last line of `log_failed.txt`.
 
 **Acceptance tests** (`acceptance/<direction>/<package>.sh`) run after every
 successful build; a build only counts when its test passes. The model can
 read them, not change them. jaxlib's installs the wheel in a clean Python and
-runs numerical checks and 1528 tests of JAX's own suite.
+runs numerical checks and 1528 tests of JAX's own suite; TensorFlow's checks
+float32, float64, float16, bfloat16 and int8 (also XLA-compiled), gradients
+and a Keras training against NumPy.
 
 A case needs no known fix: the framework tries any package. `make
 check-case` checks a case before its first run, and the leak check refuses a
@@ -345,12 +345,6 @@ reproduces a compiler bug). Each command runs in a container of the build
 environment's image (with `runtime: none`, a sandbox of namespaces): only the
 package and the build cache (read-only), the build environment and a scratch
 directory are there, with no network and no capability left.
-
-The framework also keeps attempts moving, with notes that do not hint at a
-fix: after `llm.build_drought_rounds` rounds without a change or a build it
-tells the model to build its hypothesis, and when a build fails the same way
-as the previous one (`llm.repeated_failure_note`) it says that the changes
-since then did not affect the failure.
 
 ---
 
@@ -389,10 +383,11 @@ write only to temporary directories.
 ├── tools/auto_repair/            # build backends, acceptance tests, sandbox, leak check, log excerpt
 ├── data/<direction>/<package>/   # cases
 ├── acceptance/<direction>/       # acceptance tests
-├── envs/                         # build environments of build-recipe cases
+├── envs/                         # build environments (env.yaml, locks) and the default Containerfile
 ├── dataset/                      # fetching, baselines, case tools
 ├── scripts/                      # bench.py, run_repeats.sh, watch_run.py, transcript.py, workers
 ├── tests/
+├── docs/TUTORIAL.md              # installing, running a benchmark, adding a case
 ├── result_text_res/, result_log_res/   # runs, per direction (<source>_to_<target>/<run>/)
 └── MODIFICATIONS.md              # every change relative to the original
 ```
