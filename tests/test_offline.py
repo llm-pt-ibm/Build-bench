@@ -225,6 +225,18 @@ async def main():
             assert message.tool_calls[0].function.name == "get_file_content_tool"
             assert client.message_reasoning(message) == "read the log first"
             assert seen["auth"] == "Bearer none" and "provider" not in seen["body"], seen
+            made = local.make_client()
+            assert made.max_retries == 0, "only the framework retries, and it logs each retry"
+            saved_timeout = os.environ.pop("LLM_TIMEOUT", None)
+            try:
+                assert made.timeout == 1800 == client.request_timeout(os.environ["API_BASE_URL"]), made.timeout
+                assert client.request_timeout("https://openrouter.ai/api/v1") == 600
+                os.environ["LLM_TIMEOUT"] = "90"
+                assert client.request_timeout(os.environ["API_BASE_URL"]) == 90
+            finally:
+                os.environ.pop("LLM_TIMEOUT", None)
+                if saved_timeout is not None:
+                    os.environ["LLM_TIMEOUT"] = saved_timeout
             assert client.is_local_url("http://127.0.0.1:11434/v1") and client.is_local_url("http://10.20.21.2:8000/v1")
             assert not client.is_local_url("https://openrouter.ai/api/v1")
             assert client.api_base("http://user:pw@127.0.0.1:11434/v1") == "http://127.0.0.1:11434"

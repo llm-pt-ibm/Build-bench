@@ -69,11 +69,19 @@ class LLMConfig:
                 f"Missing API key for provider={self.provider}. Check your environment.")
 
     def make_client(self) -> OpenAI:
-        # local models can take long for a reply: LLM_TIMEOUT or llm.request_timeout (seconds)
-        timeout = float(os.getenv("LLM_TIMEOUT") or LLM_CFG.get("request_timeout", 600))
+        # no retries of the library's own: they are silent, and a timed-out call
+        # was sent again at once; _create_with_retries logs and waits
+        timeout = request_timeout(self.base_url)
         if self.base_url:
-            return OpenAI(api_key=self.api_key, base_url=self.base_url, timeout=timeout)
-        return OpenAI(api_key=self.api_key, timeout=timeout)
+            return OpenAI(api_key=self.api_key, base_url=self.base_url, timeout=timeout, max_retries=0)
+        return OpenAI(api_key=self.api_key, timeout=timeout, max_retries=0)
+
+
+def request_timeout(base_url: Optional[str]) -> float:
+    """Seconds a reply may take (LLM_TIMEOUT, llm.request_timeout): 600 for an
+    API, 1800 for a local server, where a slow GPU costs nothing."""
+    default = 1800 if is_local_url(base_url) else 600
+    return float(os.getenv("LLM_TIMEOUT") or LLM_CFG.get("request_timeout", default))
 
 
 def is_local_url(url: Optional[str]) -> bool:
@@ -171,6 +179,7 @@ def run_metadata(max_build_attempts: int, max_tool_rounds: int) -> Dict:
         # where the model ran: an API such as OpenRouter, or a local server
         "api_base": api_base(os.getenv("API_BASE_URL")),
         "local_model": is_local_url(os.getenv("API_BASE_URL")),
+        "request_timeout": request_timeout(os.getenv("API_BASE_URL")),
         "prompt_cache": PROMPT_CACHE,
         "text_tool_calls": TEXT_TOOL_CALLS,
     }

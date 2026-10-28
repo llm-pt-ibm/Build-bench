@@ -455,6 +455,10 @@ improvements` shows them file by file.
   `run.api_base` (scheme, host and port) and `run.local_model`. The
   OpenRouter-only parts (provider pinning, cost) stay off for other servers,
   and the reasoning is read from `reasoning` or `reasoning_content` (vLLM).
+  A reply may take 1800 s on a local server (600 s on an API; `LLM_TIMEOUT`,
+  `llm.request_timeout`), and the OpenAI library no longer retries by itself:
+  with a local Gemma 4 a reply was cut at 600 s and sent again at once,
+  without a line in the log; every retry is now the framework's, logged.
 - `make watch`/`make status` show a dashboard of the benchmark
   (`scripts/dashboard.py`): the run, its packages (done, running, waiting),
   the current package's attempt and round as progress bars, how each attempt

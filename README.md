@@ -221,7 +221,9 @@ conversation within the server's window, at about 3.5 characters per token
 (65,536 tokens: about 180,000 characters, leaving room for the system prompt
 and the reply); the oldest tool results are shortened beyond it. `make run` checks that the
 server answers and serves the model before starting; `LLM_TIMEOUT` (or
-`llm.request_timeout`) gives slow models more time per reply. Results record
+`llm.request_timeout`) sets how long a reply may take: 600 s for an API, 1800 s
+for a local server by default. A call that fails is retried after a wait,
+and the log says so. Results record
 the server in `run.api_base` and `run.local_model`; their cost is $0.
 
 When the server's tool parser does not know the model's format, the tool

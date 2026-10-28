@@ -252,7 +252,8 @@ make run BASE_URL=http://127.0.0.1:11434/v1 MODEL=qwen3-coder:30b PROVIDER=none 
 
 The key of `.env` is never sent to that server; if it needs a key,
 `api_key_env` names the variable that holds it. `LLM_TIMEOUT` gives slow
-models more time per reply (the default is 600 s). When the server does not
+models more time per reply (the default is 1800 s for a local server, 600 s
+for an API). When the server does not
 convert the model's tool calls, they arrive as text; the client recognizes
 them in the formats of Hermes/Qwen, Qwen3-Coder, GLM, Mistral, Llama,
 DeepSeek and gpt-oss.
