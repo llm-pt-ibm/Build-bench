@@ -1,0 +1,97 @@
+time="2026-10-29T16:49:11-03:00" level=warning msg="Using cgroups-v1 which is deprecated in favor of cgroups-v2 with Podman v5 and will be removed in a future version. Set environment variable `PODMAN_IGNORE_CGROUPSV1_WARNING` to hide this warning."
+Resource limits are not supported and ignored on cgroups V1 rootless systems
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment lpm-power9 580e381c17bf in /home/multiarq/.local/share/build-bench/envs/lpm-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/lpm-power9/build/bin/python (Python 3.15.2); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/lpm-power9/test/bin/python
+CC=gcc
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/lpm-power9/build/lib/pkgconfig
+LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/lpm-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/lite-xl-plugin-manager/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/lite-xl-plugin-manager/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 107 jobs
+=== running ./build.sh
+The Meson build system
+Version: 1.12.1
+Source dir: /home/multiarq/yalle/build-bench/temp_workspace/lite-xl-plugin-manager/lite-xl-plugin-manager
+Build dir: /home/multiarq/yalle/build-bench/temp_workspace/lite-xl-plugin-manager/lite-xl-plugin-manager/build
+Build type: native build
+Project name: lpm
+Project version: undefined
+C compiler for the host machine: gcc (gcc 15.2.0 "gcc (conda-forge gcc 15.2.0-20) 15.2.0")
+C linker for the host machine: gcc ld.bfd 2.46.1
+Host machine cpu family: ppc64
+Host machine cpu: ppc64le
+Found pkg-config: YES (/home/multiarq/.local/share/build-bench/envs/lpm-power9/build/bin/pkg-config) 0.29.2
+Run-time dependency zlib found: YES 1.3.2
+Run-time dependency liblzma found: YES 5.8.3
+Run-time dependency libgit2 found: YES 1.9.7
+Run-time dependency libzip found: YES 1.12.1
+Run-time dependency lua found: YES 5.4.8
+Run-time dependency mbedtls found: YES 3.6.3
+Run-time dependency mbedx509 found: YES 3.6.3
+Run-time dependency mbedcrypto found: YES 3.6.3
+Program lua found: YES (/home/multiarq/.local/share/build-bench/envs/lpm-power9/build/bin/lua)
+Configuring lpm.lua.c with command
+Build targets in project: 2
+
+lpm undefined
+
+  User defined options
+    static: true
+
+Found ninja-1.13.2 at /home/multiarq/.local/share/build-bench/envs/lpm-power9/build/bin/ninja
+ninja: Entering directory `/home/multiarq/yalle/build-bench/temp_workspace/lite-xl-plugin-manager/lite-xl-plugin-manager/build'
+[1/5] Compiling C object lpm.p/meson-generated_.._lpm.lua.c.o
+[2/5] Compiling C object libmicrotar.a.p/lib_microtar_src_microtar.c.o
+[3/5] Linking static target libmicrotar.a
+[4/5] Compiling C object lpm.p/src_lpm.c.o
+FAILED: [code=1] lpm.p/src_lpm.c.o 
+gcc -Ilpm.p -I. -I.. -I../lib/microtar/src -I/home/multiarq/.local/share/build-bench/envs/lpm-power9/build/include -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -O0 -g -DLPM_STATIC -MD -MQ lpm.p/src_lpm.c.o -MF lpm.p/src_lpm.c.o.d -o lpm.p/src_lpm.c.o -c ../src/lpm.c
+../src/lpm.c:2121:6: error: #error "Please define -DLPM_ARCH_PROCESSOR."
+ 2121 |     #error "Please define -DLPM_ARCH_PROCESSOR."
+      |      ^~~~~
+In file included from ../src/lpm.c:32:
+../src/lpm.c: In function 'main':
+../src/lpm.c:2138:26: error: expected ')' before 'LPM_ARCH_PROCESSOR'
+ 2138 |   #define LPM_ARCH_TUPLE LPM_ARCH_PROCESSOR "-" LPM_ARCH_PLATFORM
+      |                          ^~~~~~~~~~~~~~~~~~
+../src/lpm.c:2274:22: note: in expansion of macro 'LPM_ARCH_TUPLE'
+ 2274 |   lua_pushliteral(L, LPM_ARCH_TUPLE);
+      |                      ^~~~~~~~~~~~~~
+../src/lpm.c:2274:3: note: to match this '('
+ 2274 |   lua_pushliteral(L, LPM_ARCH_TUPLE);
+      |   ^~~~~~~~~~~~~~~
+../src/lpm.c:2138:26: error: expected ')' before 'LPM_ARCH_PROCESSOR'
+ 2138 |   #define LPM_ARCH_TUPLE LPM_ARCH_PROCESSOR "-" LPM_ARCH_PLATFORM
+      |                          ^~~~~~~~~~~~~~~~~~
+../src/lpm.c:2153:111: note: in expansion of macro 'LPM_ARCH_TUPLE'
+ 2153 |     #define LPM_DEFAULT_RELEASE "https://github.com/lite-xl/lite-xl-plugin-manager/releases/download/%r/lpm." LPM_ARCH_TUPLE
+      |                                                                                                               ^~~~~~~~~~~~~~
+../src/lpm.c:2278:22: note: in expansion of macro 'LPM_DEFAULT_RELEASE'
+ 2278 |   lua_pushliteral(L, LPM_DEFAULT_RELEASE);
+      |                      ^~~~~~~~~~~~~~~~~~~
+../src/lpm.c:2278:3: note: to match this '('
+ 2278 |   lua_pushliteral(L, LPM_DEFAULT_RELEASE);
+      |   ^~~~~~~~~~~~~~~
+../src/lpm.c: At top level:
+../src/lpm.c:1288:30: warning: 'ssl_context' defined but not used [-Wunused-variable]
+ 1288 |   static mbedtls_ssl_context ssl_context;
+      |                              ^~~~~~~~~~~
+../src/lpm.c:128:13: warning: 'unlock_mutex' defined but not used [-Wunused-function]
+  128 | static void unlock_mutex(lpm_mutex_t* mutex) {
+      |             ^~~~~~~~~~~~
+../src/lpm.c:118:13: warning: 'lock_mutex' defined but not used [-Wunused-function]
+  118 | static void lock_mutex(lpm_mutex_t* mutex) {
+      |             ^~~~~~~~~~
+../src/lpm.c:107:13: warning: 'free_mutex' defined but not used [-Wunused-function]
+  107 | static void free_mutex(lpm_mutex_t* mutex) {
+      |             ^~~~~~~~~~
+../src/lpm.c:95:21: warning: 'new_mutex' defined but not used [-Wunused-function]
+   95 | static lpm_mutex_t* new_mutex() {
+      |                     ^~~~~~~~~
+../src/lpm.c:75:12: warning: 'imax' defined but not used [-Wunused-function]
+   75 | static int imax(int a, int b) { return a > b ? a : b; }
+      |            ^~~~
+ninja: build stopped: subcommand failed.
+INFO: autodetecting backend as ninja
+INFO: calculating backend command to run: /home/multiarq/.local/share/build-bench/envs/lpm-power9/build/bin/ninja -C /home/multiarq/yalle/build-bench/temp_workspace/lite-xl-plugin-manager/lite-xl-plugin-manager/build -j 107

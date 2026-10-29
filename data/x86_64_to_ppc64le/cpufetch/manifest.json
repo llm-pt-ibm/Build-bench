@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "cpufetch",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "cpufetch": "https://github.com/Dr-Noob/cpufetch/archive/refs/tags/v1.07.tar.gz"
+    },
+    "version": "1.07"
+  },
+  "environment": "tools-power9",
+  "version": 1
+}

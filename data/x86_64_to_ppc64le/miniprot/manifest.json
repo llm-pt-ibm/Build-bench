@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "miniprot",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "miniprot": "https://github.com/lh3/miniprot/archive/refs/tags/v0.18.tar.gz"
+    },
+    "version": "0.18"
+  },
+  "environment": "tools-power9",
+  "version": 1
+}

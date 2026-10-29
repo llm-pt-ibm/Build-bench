@@ -1,0 +1,12 @@
+{
+  "task": {
+    "package": "asl",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "asl": "http://john.ccac.rwth-aachen.de:8000/ftp/as/source/c_version/asl-current-142-bld314.tar.bz2"
+    }
+  },
+  "environment": "tools-power9",
+  "version": 1
+}

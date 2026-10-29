@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "libzita-resampler",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "zita-resampler": "https://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-resampler-1.11.2.tar.xz"
+    },
+    "version": "1.11.2"
+  },
+  "environment": "tools-power9",
+  "version": 1
+}

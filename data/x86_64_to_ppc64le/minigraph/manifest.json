@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "minigraph",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "minigraph": "https://github.com/lh3/minigraph/archive/refs/tags/v0.21.tar.gz"
+    },
+    "version": "0.21"
+  },
+  "environment": "tools-power9",
+  "version": 1
+}

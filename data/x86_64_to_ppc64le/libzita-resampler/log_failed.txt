@@ -1,0 +1,26 @@
+time="2026-10-29T15:58:24-03:00" level=warning msg="Using cgroups-v1 which is deprecated in favor of cgroups-v2 with Podman v5 and will be removed in a future version. Set environment variable `PODMAN_IGNORE_CGROUPSV1_WARNING` to hide this warning."
+Resource limits are not supported and ignored on cgroups V1 rootless systems
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment tools-power9 cce318f90590 in /home/multiarq/.local/share/build-bench/envs/tools-power9
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/tools-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/tools-power9/build/lib
+LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/tools-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/libzita-resampler/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/libzita-resampler/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 107 jobs
+=== running ./build.sh
+g++ -Wall -fPIC -O2 -ffast-math -march=native -I. -D_REENTRANT -D_POSIX_PTHREAD_SEMANTICS -DENABLE_SSE2  -c -o resampler.o resampler.cc
+g++ -Wall -fPIC -O2 -ffast-math -march=native -I. -D_REENTRANT -D_POSIX_PTHREAD_SEMANTICS -DENABLE_SSE2  -c -o vresampler.o vresampler.cc
+g++ -Wall -fPIC -O2 -ffast-math -march=native -I. -D_REENTRANT -D_POSIX_PTHREAD_SEMANTICS -DENABLE_SSE2  -c -o resampler-table.o resampler-table.cc
+g++ -Wall -fPIC -O2 -ffast-math -march=native -I. -D_REENTRANT -D_POSIX_PTHREAD_SEMANTICS -DENABLE_SSE2  -c -o cresampler.o cresampler.cc
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+make: *** [<builtin>: resampler.o] Error 1
+make: *** Waiting for unfinished jobs....
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+make: *** [<builtin>: vresampler.o] Error 1
+make: *** [<builtin>: resampler-table.o] Error 1
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+make: *** [<builtin>: cresampler.o] Error 1

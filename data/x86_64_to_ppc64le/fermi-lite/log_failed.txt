@@ -1,0 +1,53 @@
+time="2026-10-29T15:59:00-03:00" level=warning msg="Using cgroups-v1 which is deprecated in favor of cgroups-v2 with Podman v5 and will be removed in a future version. Set environment variable `PODMAN_IGNORE_CGROUPSV1_WARNING` to hide this warning."
+Resource limits are not supported and ignored on cgroups V1 rootless systems
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment tools-power9 cce318f90590 in /home/multiarq/.local/share/build-bench/envs/tools-power9
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/tools-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/tools-power9/build/lib
+LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/tools-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/fermi-lite/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/fermi-lite/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 107 jobs
+=== running ./build.sh
+gcc -c -g -Wall -O2 -Wno-unused-function    kthread.c -o kthread.o
+gcc -c -g -Wall -O2 -Wno-unused-function    misc.c -o misc.o
+gcc -c -g -Wall -O2 -Wno-unused-function    bseq.c -o bseq.o
+gcc -c -g -Wall -O2 -Wno-unused-function    htab.c -o htab.o
+gcc -c -g -Wall -O2 -Wno-unused-function    bfc.c -o bfc.o
+gcc -c -g -Wall -O2 -Wno-unused-function    rle.c -o rle.o
+gcc -c -g -Wall -O2 -Wno-unused-function    rope.c -o rope.o
+gcc -c -g -Wall -O2 -Wno-unused-function    mrope.c -o mrope.o
+gcc -c -g -Wall -O2 -Wno-unused-function    rld0.c -o rld0.o
+gcc -c -g -Wall -O2 -Wno-unused-function    unitig.c -o unitig.o
+gcc -c -g -Wall -O2 -Wno-unused-function    mag.c -o mag.o
+gcc -c -g -Wall -O2 -Wno-unused-function    bubble.c -o bubble.o
+gcc -c -g -Wall -O2 -Wno-unused-function    ksw.c -o ksw.o
+gcc -c -g -Wall -O2 -Wno-unused-function    example.c -o example.o
+In file included from ksw.c:28:
+/home/multiarq/.local/share/build-bench/envs/tools-power9/build/lib/gcc/powerpc64le-conda-linux-gnu/15.2.0/include/emmintrin.h:56:2: error: #error "Please read comment above.  Use -DNO_WARN_X86_INTRINSICS to disable this error."
+   56 | #error "Please read comment above.  Use -DNO_WARN_X86_INTRINSICS to disable this error."
+      |  ^~~~~
+In file included from /home/multiarq/.local/share/build-bench/envs/tools-power9/build/lib/gcc/powerpc64le-conda-linux-gnu/15.2.0/include/emmintrin.h:66:
+/home/multiarq/.local/share/build-bench/envs/tools-power9/build/lib/gcc/powerpc64le-conda-linux-gnu/15.2.0/include/xmmintrin.h:54:2: error: #error "Please read comment above.  Use -DNO_WARN_X86_INTRINSICS to disable this error."
+   54 | #error "Please read comment above.  Use -DNO_WARN_X86_INTRINSICS to disable this error."
+      |  ^~~~~
+In file included from /home/multiarq/.local/share/build-bench/envs/tools-power9/build/lib/gcc/powerpc64le-conda-linux-gnu/15.2.0/include/xmmintrin.h:79:
+/home/multiarq/.local/share/build-bench/envs/tools-power9/build/lib/gcc/powerpc64le-conda-linux-gnu/15.2.0/include/mmintrin.h:52:2: error: #error "Please read comment above.  Use -DNO_WARN_X86_INTRINSICS to disable this error."
+   52 | #error "Please read comment above.  Use -DNO_WARN_X86_INTRINSICS to disable this error."
+      |  ^~~~~
+misc.c: In function 'fml_utg_print':
+misc.c:217:19: warning: variable 'l' set but not used [-Wunused-but-set-variable]
+  217 |         int i, j, l;
+      |                   ^
+bfc.c: In function 'bfc_kmer_insert':
+bfc.c:86:24: warning: variable 'hash' set but not used [-Wunused-but-set-variable]
+   86 |         uint64_t y[2], hash;
+      |                        ^~~~
+unitig.c: In function 'unitig1':
+unitig.c:325:23: warning: variable 'ret' set but not used [-Wunused-but-set-variable]
+  325 |         int seed_len, ret, is_loop, contained;
+      |                       ^~~
+make: *** [Makefile:15: ksw.o] Error 1
+make: *** Waiting for unfinished jobs....

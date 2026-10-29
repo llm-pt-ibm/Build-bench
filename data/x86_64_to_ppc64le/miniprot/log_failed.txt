@@ -1,0 +1,255 @@
+time="2026-10-29T15:59:46-03:00" level=warning msg="Using cgroups-v1 which is deprecated in favor of cgroups-v2 with Podman v5 and will be removed in a future version. Set environment variable `PODMAN_IGNORE_CGROUPSV1_WARNING` to hide this warning."
+Resource limits are not supported and ignored on cgroups V1 rootless systems
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment tools-power9 cce318f90590 in /home/multiarq/.local/share/build-bench/envs/tools-power9
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/tools-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/tools-power9/build/lib
+LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/tools-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/miniprot/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/miniprot/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 107 jobs
+=== running ./build.sh
+gcc -c -std=c99 -g -Wall -O3   kalloc.c -o kalloc.o
+gcc -c -std=c99 -g -Wall -O3   kthread.c -o kthread.o
+gcc -c -std=c99 -g -Wall -O3   nasw-sse.c -o nasw-sse.o
+gcc -c -std=c99 -g -Wall -O3   nasw-tab.c -o nasw-tab.o
+gcc -c -std=c99 -g -Wall -O3   sys.c -o sys.o
+gcc -c -std=c99 -g -Wall -O3   misc.c -o misc.o
+gcc -c -std=c99 -g -Wall -O3   options.c -o options.o
+gcc -c -std=c99 -g -Wall -O3   ntseq.c -o ntseq.o
+gcc -c -std=c99 -g -Wall -O3   sketch.c -o sketch.o
+gcc -c -std=c99 -g -Wall -O3   index.c -o index.o
+gcc -c -std=c99 -g -Wall -O3   bseq.c -o bseq.o
+gcc -c -std=c99 -g -Wall -O3   chain.c -o chain.o
+gcc -c -std=c99 -g -Wall -O3   hit.c -o hit.o
+gcc -c -std=c99 -g -Wall -O3   format.c -o format.o
+gcc -c -std=c99 -g -Wall -O3   map.c -o map.o
+gcc -c -std=c99 -g -Wall -O3   align.c -o align.o
+gcc -c -std=c99 -g -Wall -O3   main.c -o main.o
+nasw-sse.c:24:8: error: unknown type name '__m128i'
+   24 | static __m128i *ns_alloc16(void *km, size_t n, uint8_t **mem)
+      |        ^~~~~~~
+nasw-sse.c: In function 'ns_alloc16':
+nasw-sse.c:27:17: error: '__m128i' undeclared (first use in this function)
+   27 |         return (__m128i*)(((size_t)(*mem) + 15) / 16 * 16);
+      |                 ^~~~~~~
+nasw-sse.c:27:17: note: each undeclared identifier is reported only once for each function it appears in
+nasw-sse.c:27:25: error: expected expression before ')' token
+   27 |         return (__m128i*)(((size_t)(*mem) + 15) / 16 * 16);
+      |                         ^
+nasw-sse.c: At top level:
+nasw-sse.c:40:54: error: unknown type name '__m128i'
+   40 | static void ns_backtrack(void *km, int32_t vs, const __m128i *tb, int32_t nl, int32_t al, uint32_t **cigar_, int32_t *n_cigar, int32_t *m_cigar)
+      |                                                      ^~~~~~~
+nasw-sse.c: In function 'ns_backtrack':
+nasw-sse.c:46:23: error: unknown type name '__m128i'
+   46 |                 const __m128i *tbi = &tb[i * slen];
+      |                       ^~~~~~~
+nasw-sse.c: At top level:
+nasw-sse.c:273:31: error: unknown type name '__m128i'
+  273 | static inline int ns_le_epi16(__m128i a, __m128i b)
+      |                               ^~~~~~~
+nasw-sse.c:273:42: error: unknown type name '__m128i'
+  273 | static inline int ns_le_epi16(__m128i a, __m128i b)
+      |                                          ^~~~~~~
+nasw-sse.c:282:31: error: unknown type name '__m128i'
+  282 | static inline int ns_le_epi32(__m128i a, __m128i b)
+      |                               ^~~~~~~
+nasw-sse.c:282:42: error: unknown type name '__m128i'
+  282 | static inline int ns_le_epi32(__m128i a, __m128i b)
+      |                                          ^~~~~~~
+nasw-sse.c:291:15: error: unknown type name '__m128i'
+  291 | static inline __m128i ns_select(__m128i cond, __m128i a, __m128i b)
+      |               ^~~~~~~
+nasw-sse.c:291:33: error: unknown type name '__m128i'
+  291 | static inline __m128i ns_select(__m128i cond, __m128i a, __m128i b)
+      |                                 ^~~~~~~
+nasw-sse.c:291:47: error: unknown type name '__m128i'
+  291 | static inline __m128i ns_select(__m128i cond, __m128i a, __m128i b)
+      |                                               ^~~~~~~
+nasw-sse.c:291:58: error: unknown type name '__m128i'
+  291 | static inline __m128i ns_select(__m128i cond, __m128i a, __m128i b)
+      |                                                          ^~~~~~~
+nasw-sse.c:300:28: error: unknown type name '__m128i'
+  300 | static inline int ns_max_8(__m128i a)
+      |                            ^~~~~~~
+nasw-sse.c: In function 'ns_global_gs16b':
+nasw-sse.c:232:9: error: unknown type name '__m128i'
+  232 |         __m128i *ap, *tb = 0, *H0, *H, *H1, *H2, *H3, *D, *D1, *D2, *D3, *A, *B, *C, *Hmax; \
+      |         ^~~~~~~
+nasw-sse.c:345:9: note: in expansion of macro 'NS_GEN_VAR'
+  345 |         NS_GEN_VAR(epi16)
+      |         ^~~~~~~~~~
+nasw-sse.c:233:9: error: unknown type name '__m128i'
+  233 |         __m128i go, ge, goe, io, fs; \
+      |         ^~~~~~~
+nasw-sse.c:345:9: note: in expansion of macro 'NS_GEN_VAR'
+  345 |         NS_GEN_VAR(epi16)
+      |         ^~~~~~~~~~
+nasw-sse.c:226:28: error: implicit declaration of function '_mm_set1_epi16' [-Wimplicit-function-declaration]
+  226 | #define sse_gen(func, suf) _mm_##func##_##suf
+      |                            ^~~~
+nasw-sse.c:240:14: note: in expansion of macro 'sse_gen'
+  240 |         go = sse_gen(set1, _suf)(opt->go); \
+      |              ^~~~~~~
+nasw-sse.c:346:9: note: in expansion of macro 'NS_GEN_PREPARE'
+  346 |         NS_GEN_PREPARE(epi16)
+      |         ^~~~~~~~~~~~~~
+nasw-sse.c:226:28: error: implicit declaration of function '_mm_insert_epi16' [-Wimplicit-function-declaration]
+  226 | #define sse_gen(func, suf) _mm_##func##_##suf
+      |                            ^~~~
+nasw-sse.c:256:18: note: in expansion of macro 'sse_gen'
+  256 |         H3[-1] = sse_gen(insert, _suf)(H3[-1], 0, 0); \
+      |                  ^~~~~~~
+nasw-sse.c:347:9: note: in expansion of macro 'NS_GEN_INIT1'
+  347 |         NS_GEN_INIT1(epi16)
+      |         ^~~~~~~~~~~~
+nasw-sse.c:352:25: error: unknown type name '__m128i'
+  352 |                         __m128i max;
+      |                         ^~~~~~~
+nasw-sse.c:262:17: error: unknown type name '__m128i'
+  262 |                 __m128i *tmp, I, *S = ap + nas[i] * slen, dim1, di, dip1, ai, aim1, aim2, last_h, gei; \
+      |                 ^~~~~~~
+nasw-sse.c:353:25: note: in expansion of macro 'NS_GEN_INIT2'
+  353 |                         NS_GEN_INIT2(epi16)
+      |                         ^~~~~~~~~~~~
+nasw-sse.c:268:56: error: implicit declaration of function '_mm_slli_si128' [-Wimplicit-function-declaration]
+  268 |                         H3[-1] = sse_gen(insert, _suf)(_mm_slli_si128(H3[slen - 1], sizeof(ns_int_t)), neg_inf, 0); \
+      |                                                        ^~~~~~~~~~~~~~
+nasw-sse.c:353:25: note: in expansion of macro 'NS_GEN_INIT2'
+  353 |                         NS_GEN_INIT2(epi16)
+      |                         ^~~~~~~~~~~~
+nasw-sse.c:356:33: error: unknown type name '__m128i'
+  356 |                                 __m128i h, t, u, v;
+      |                                 ^~~~~~~
+nasw-sse.c:358:37: error: implicit declaration of function '_mm_load_si128' [-Wimplicit-function-declaration]
+  358 |                                 u = _mm_load_si128(H3 + j - 1);
+      |                                     ^~~~~~~~~~~~~~
+nasw-sse.c:360:37: error: implicit declaration of function '_mm_adds_epi16' [-Wimplicit-function-declaration]
+  360 |                                 h = _mm_adds_epi16(u, v);
+      |                                     ^~~~~~~~~~~~~~
+nasw-sse.c:362:37: error: implicit declaration of function '_mm_subs_epi16' [-Wimplicit-function-declaration]
+  362 |                                 t = _mm_subs_epi16(last_h, go);
+      |                                     ^~~~~~~~~~~~~~
+nasw-sse.c:363:37: error: implicit declaration of function '_mm_max_epi16' [-Wimplicit-function-declaration]
+  363 |                                 t = _mm_max_epi16(t, I);
+      |                                     ^~~~~~~~~~~~~
+nasw-sse.c:371:33: error: implicit declaration of function '_mm_store_si128' [-Wimplicit-function-declaration]
+  371 |                                 _mm_store_si128(D + j, t);
+      |                                 ^~~~~~~~~~~~~~~
+nasw-sse.c:412:41: error: unknown type name '__m128i'
+  412 |                                         __m128i h;
+      |                                         ^~~~~~~
+nasw-sse.c:419:45: error: implicit declaration of function 'ns_le_epi16' [-Wimplicit-function-declaration]
+  419 |                                         if (ns_le_epi16(I, h)) break;
+      |                                             ^~~~~~~~~~~
+nasw-sse.c:423:34: error: implicit declaration of function 'ns_max_8' [-Wimplicit-function-declaration]
+  423 |                         tmp_sc = ns_max_8(max);
+      |                                  ^~~~~~~~
+nasw-sse.c:446:25: error: unknown type name '__m128i'
+  446 |                         __m128i *tbi = tb + i * slen;
+      |                         ^~~~~~~
+nasw-sse.c:262:17: error: unknown type name '__m128i'
+  262 |                 __m128i *tmp, I, *S = ap + nas[i] * slen, dim1, di, dip1, ai, aim1, aim2, last_h, gei; \
+      |                 ^~~~~~~
+nasw-sse.c:447:25: note: in expansion of macro 'NS_GEN_INIT2'
+  447 |                         NS_GEN_INIT2(epi16)
+      |                         ^~~~~~~~~~~~
+nasw-sse.c:449:33: error: unknown type name '__m128i'
+  449 |                                 __m128i h, t, u, v, y, z;
+      |                                 ^~~~~~~
+nasw-sse.c:451:37: error: implicit declaration of function '_mm_setzero_si128' [-Wimplicit-function-declaration]
+  451 |                                 y = _mm_setzero_si128();
+      |                                     ^~~~~~~~~~~~~~~~~
+nasw-sse.c:458:37: error: implicit declaration of function '_mm_or_si128' [-Wimplicit-function-declaration]
+  458 |                                 z = _mm_or_si128(z, _mm_and_si128(_mm_cmpgt_epi16(I, t), _mm_set1_epi16(1<<4)));
+      |                                     ^~~~~~~~~~~~
+nasw-sse.c:458:53: error: implicit declaration of function '_mm_and_si128' [-Wimplicit-function-declaration]
+  458 |                                 z = _mm_or_si128(z, _mm_and_si128(_mm_cmpgt_epi16(I, t), _mm_set1_epi16(1<<4)));
+      |                                                     ^~~~~~~~~~~~~
+nasw-sse.c:458:67: error: implicit declaration of function '_mm_cmpgt_epi16' [-Wimplicit-function-declaration]
+  458 |                                 z = _mm_or_si128(z, _mm_and_si128(_mm_cmpgt_epi16(I, t), _mm_set1_epi16(1<<4)));
+      |                                                                   ^~~~~~~~~~~~~~~
+nasw-sse.c:461:37: error: implicit declaration of function 'ns_select' [-Wimplicit-function-declaration]
+  461 |                                 y = ns_select(_mm_cmpgt_epi16(I, h), _mm_set1_epi16(1), y);
+      |                                     ^~~~~~~~~
+nasw-sse.c:525:41: error: unknown type name '__m128i'
+  525 |                                         __m128i h, z;
+      |                                         ^~~~~~~
+nasw-sse.c: In function 'ns_global_gs32b':
+nasw-sse.c:232:9: error: unknown type name '__m128i'
+  232 |         __m128i *ap, *tb = 0, *H0, *H, *H1, *H2, *H3, *D, *D1, *D2, *D3, *A, *B, *C, *Hmax; \
+      |         ^~~~~~~
+nasw-sse.c:563:9: note: in expansion of macro 'NS_GEN_VAR'
+  563 |         NS_GEN_VAR(epi32)
+      |         ^~~~~~~~~~
+nasw-sse.c:233:9: error: unknown type name '__m128i'
+  233 |         __m128i go, ge, goe, io, fs; \
+      |         ^~~~~~~
+nasw-sse.c:563:9: note: in expansion of macro 'NS_GEN_VAR'
+  563 |         NS_GEN_VAR(epi32)
+      |         ^~~~~~~~~~
+nasw-sse.c:226:28: error: implicit declaration of function '_mm_set1_epi32' [-Wimplicit-function-declaration]
+  226 | #define sse_gen(func, suf) _mm_##func##_##suf
+      |                            ^~~~
+nasw-sse.c:240:14: note: in expansion of macro 'sse_gen'
+  240 |         go = sse_gen(set1, _suf)(opt->go); \
+      |              ^~~~~~~
+nasw-sse.c:564:9: note: in expansion of macro 'NS_GEN_PREPARE'
+  564 |         NS_GEN_PREPARE(epi32)
+      |         ^~~~~~~~~~~~~~
+nasw-sse.c:226:28: error: implicit declaration of function '_mm_insert_epi32' [-Wimplicit-function-declaration]
+  226 | #define sse_gen(func, suf) _mm_##func##_##suf
+      |                            ^~~~
+nasw-sse.c:256:18: note: in expansion of macro 'sse_gen'
+  256 |         H3[-1] = sse_gen(insert, _suf)(H3[-1], 0, 0); \
+      |                  ^~~~~~~
+nasw-sse.c:565:9: note: in expansion of macro 'NS_GEN_INIT1'
+  565 |         NS_GEN_INIT1(epi32)
+      |         ^~~~~~~~~~~~
+nasw-sse.c:262:17: error: unknown type name '__m128i'
+  262 |                 __m128i *tmp, I, *S = ap + nas[i] * slen, dim1, di, dip1, ai, aim1, aim2, last_h, gei; \
+      |                 ^~~~~~~
+nasw-sse.c:569:25: note: in expansion of macro 'NS_GEN_INIT2'
+  569 |                         NS_GEN_INIT2(epi32)
+      |                         ^~~~~~~~~~~~
+nasw-sse.c:571:33: error: unknown type name '__m128i'
+  571 |                                 __m128i h, t, u, v;
+      |                                 ^~~~~~~
+nasw-sse.c:575:37: error: implicit declaration of function '_mm_add_epi32' [-Wimplicit-function-declaration]
+  575 |                                 h = _mm_add_epi32(u, v);
+      |                                     ^~~~~~~~~~~~~
+nasw-sse.c:577:37: error: implicit declaration of function '_mm_sub_epi32' [-Wimplicit-function-declaration]
+  577 |                                 t = _mm_sub_epi32(last_h, go);
+      |                                     ^~~~~~~~~~~~~
+nasw-sse.c:578:37: error: implicit declaration of function '_mm_max_epi32' [-Wimplicit-function-declaration]
+  578 |                                 t = _mm_max_epi32(t, I);
+      |                                     ^~~~~~~~~~~~~
+nasw-sse.c:626:41: error: unknown type name '__m128i'
+  626 |                                         __m128i h;
+      |                                         ^~~~~~~
+nasw-sse.c:632:45: error: implicit declaration of function 'ns_le_epi32' [-Wimplicit-function-declaration]
+  632 |                                         if (ns_le_epi32(I, h)) break;
+      |                                             ^~~~~~~~~~~
+nasw-sse.c:641:25: error: unknown type name '__m128i'
+  641 |                         __m128i *tbi = tb + i * slen;
+      |                         ^~~~~~~
+nasw-sse.c:262:17: error: unknown type name '__m128i'
+  262 |                 __m128i *tmp, I, *S = ap + nas[i] * slen, dim1, di, dip1, ai, aim1, aim2, last_h, gei; \
+      |                 ^~~~~~~
+nasw-sse.c:642:25: note: in expansion of macro 'NS_GEN_INIT2'
+  642 |                         NS_GEN_INIT2(epi32)
+      |                         ^~~~~~~~~~~~
+nasw-sse.c:644:33: error: unknown type name '__m128i'
+  644 |                                 __m128i h, t, u, v, y, z;
+      |                                 ^~~~~~~
+nasw-sse.c:653:67: error: implicit declaration of function '_mm_cmpgt_epi32' [-Wimplicit-function-declaration]
+  653 |                                 z = _mm_or_si128(z, _mm_and_si128(_mm_cmpgt_epi32(I, t), _mm_set1_epi32(1<<4)));
+      |                                                                   ^~~~~~~~~~~~~~~
+nasw-sse.c:720:41: error: unknown type name '__m128i'
+  720 |                                         __m128i h, z;
+      |                                         ^~~~~~~
+make: *** [Makefile:21: nasw-sse.o] Error 1
+make: *** Waiting for unfinished jobs....

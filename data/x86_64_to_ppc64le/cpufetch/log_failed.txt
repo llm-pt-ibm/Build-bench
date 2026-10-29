@@ -1,0 +1,29 @@
+time="2026-10-29T15:58:00-03:00" level=warning msg="Using cgroups-v1 which is deprecated in favor of cgroups-v2 with Podman v5 and will be removed in a future version. Set environment variable `PODMAN_IGNORE_CGROUPSV1_WARNING` to hide this warning."
+Resource limits are not supported and ignored on cgroups V1 rootless systems
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment tools-power9 cce318f90590 in /home/multiarq/.local/share/build-bench/envs/tools-power9
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/tools-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/tools-power9/build/lib
+LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/tools-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/cpufetch/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/cpufetch/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 107 jobs
+=== running ./build.sh
+make: git: No such file or directory
+gcc -Wall -Wextra -pedantic -DARCH_PPC -std=gnu99 -fstack-protector-all -Wno-language-extension-token -O2 -Wfloat-equal -Wshadow -Wpointer-arith -Wstrict-prototypes src/common/main.c src/common/cpu.c src/common/udev.c src/common/printer.c src/common/args.c src/common/global.c src/common/freq.c src/ppc/ppc.c src/ppc/uarch.c src/ppc/udev.c -o cpufetch
+src/ppc/ppc.c: In function 'get_topology_info':
+src/ppc/ppc.c:87:23: warning: comparison of integer expressions of different signedness: 'uint32_t' {aka 'unsigned int'} and 'int' [-Wsign-compare]
+   87 |     if (topo->sockets == UNKNOWN_DATA) {
+      |                       ^~
+At top level:
+cc1: note: unrecognized command-line option '-Wno-language-extension-token' may have been intended to silence earlier diagnostics
+src/ppc/udev.c: In function 'fill_array_from_sys':
+src/ppc/udev.c:16:10: error: 'name' undeclared (first use in this function)
+   16 |   memset(name, 0, sizeof(char) * 128);
+      |          ^~~~
+src/ppc/udev.c:16:10: note: each undeclared identifier is reported only once for each function it appears in
+At top level:
+cc1: note: unrecognized command-line option '-Wno-language-extension-token' may have been intended to silence earlier diagnostics
+make: *** [Makefile:124: cpufetch] Error 1

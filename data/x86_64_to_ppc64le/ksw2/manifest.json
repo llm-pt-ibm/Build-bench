@@ -1,0 +1,12 @@
+{
+  "task": {
+    "package": "ksw2",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "ksw2": "https://github.com/lh3/ksw2/archive/289609bd9e5381a13b16239d0a7703f1ff03f9ca.tar.gz"
+    }
+  },
+  "environment": "tools-power9",
+  "version": 1
+}

@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "lite-xl-plugin-manager",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "lite-xl-plugin-manager": "https://github.com/lite-xl/lite-xl-plugin-manager/archive/refs/tags/v1.5.1.tar.gz"
+    },
+    "version": "1.5.1"
+  },
+  "environment": "lpm-power9",
+  "version": 1
+}

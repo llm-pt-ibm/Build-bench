@@ -1,0 +1,12 @@
+{
+  "task": {
+    "package": "fermi-lite",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "fermi-lite": "https://github.com/lh3/fermi-lite/archive/85f159e5a2e15a4c4fb41cdfce91ba0c9b68d2e1.tar.gz"
+    }
+  },
+  "environment": "tools-power9",
+  "version": 1
+}

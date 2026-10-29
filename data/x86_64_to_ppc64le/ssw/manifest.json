@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "ssw",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "ssw": "https://github.com/mengyao/Complete-Striped-Smith-Waterman-Library/archive/refs/tags/v1.2.5.tar.gz"
+    },
+    "version": "1.2.5"
+  },
+  "environment": "tools-power9",
+  "version": 1
+}
