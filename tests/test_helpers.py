@@ -266,10 +266,23 @@ with _tempfile.TemporaryDirectory() as tmp:
     bench.STATE_DIR, bench.ACTIVE = tmp, os.path.join(tmp, "active.json")
     open(bench.ACTIVE, "w").write('{"label": "r1", "pid": 999999999}')
     assert bench.active_run()["alive"] is False, "a dead runner is not an active run"
-    frozen = os.path.join(ROOT, bench.frozen_config(profile_path))
+    frozen = os.path.join(ROOT, bench.frozen_config(bench.load_profile(profile_path, {})))
+    assert open(frozen).read() == open(profile_path).read(), "without overrides the copy is the config"
     open(profile_path, "a").write("label: r2\n")   # edited for the next run while this one runs
     assert "r2" not in open(frozen).read() and "label: r1" in open(frozen).read()
-print("run settings: OK (overrides, environment, leftovers archived, stale lock, config frozen per run)")
+    # the copy has the values the run used (command line, continuation), with the config's comments
+    open(profile_path, "w").write("label: r1  # the name\npackages: [a, b]\nprovider: p\nllm:\n"
+                                  "  max_build_attempts: 12   # per package\n  max_tool_rounds: 60\n")
+    p = bench.load_profile(profile_path, {"label": "t10", "packages": "x y", "attempts": "4",
+                                          "provider": "none", "context_chars": "180000"})
+    text = open(os.path.join(ROOT, bench.frozen_config(p))).read()
+    assert bench.yaml.safe_load(text) == {"label": "t10", "packages": ["x", "y"], "provider": None, "llm": {
+        "max_build_attempts": 4, "max_tool_rounds": 60, "max_context_chars": 180000}}, text
+    assert "label: t10 # the name\n" in text and "  max_build_attempts: 4    # per package\n" in text, text
+    assert text.endswith("  max_tool_rounds: 60\n  max_context_chars: 180000\n"), "a new key joins its section"
+    assert text.startswith("# this run's settings: ") and "llm.max_build_attempts" in text.split("\n")[0]
+print("run settings: OK (overrides, environment, leftovers archived, stale lock, config frozen per run "
+      "with the run's values)")
 
 # a profile with a model server of its own: the .env key is not sent there
 import http.server  # noqa: E402

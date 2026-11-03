@@ -6,6 +6,7 @@ import argparse
 import glob
 import json
 import os
+import re
 import shutil
 import signal
 import socket
@@ -32,12 +33,16 @@ def load_profile(path: str, overrides: dict) -> dict:
     profile["config"] = os.path.relpath(path, ROOT) if path.startswith(ROOT + os.sep) else path
     # "none" clears a setting of the config (e.g. PROVIDER=none for a model its provider does not serve)
     profile.update({k: None if str(v).lower() == "none" else v for k, v in overrides.items() if v not in (None, "")})
-    packages = profile.get("packages") or []
-    if isinstance(packages, str):
-        packages = [p for p in packages.replace(",", " ").split() if p]
-    profile["packages"] = list(packages)
+    profile["packages"] = load_profile_packages(profile.get("packages"))
     profile["repeats"] = int(profile.get("repeats") or 1)
     return profile
+
+
+def load_profile_packages(packages) -> list:
+    """The packages of a config or of the command line ("a,b" or "a b") as a list."""
+    if isinstance(packages, str):
+        packages = [p for p in packages.replace(",", " ").split() if p]
+    return list(packages or [])
 
 
 def run_env(profile: dict, resume: dict = None) -> dict:
@@ -103,12 +108,81 @@ def bench_paths(config: str) -> dict:
     return bench_config.run_paths(bench_config.load(os.path.join(ROOT, config)))
 
 
-def frozen_config(config: str) -> str:
-    """A copy of the config for the run that starts: bench.yaml can then be
-    edited for the next run, and run_repeats.sh keeps the copy with the run's logs."""
+# the key of the config each setting of the command line sets
+OPTION_KEYS = {"label": "label", "packages": "packages", "model": "model", "provider": "provider",
+               "base_url": "base_url", "api_key_env": "api_key_env", "repeats": "repeats",
+               "temperature": "temperature", "attempts": "llm.max_build_attempts",
+               "context_chars": "llm.max_context_chars"}
+
+
+def yaml_value(value) -> str:
+    """value as the config writes it after `key:` (nothing for None)."""
+    if value is None:
+        return ""
+    if isinstance(value, str) and re.fullmatch(r"-?\d+(\.\d+)?", value):
+        return value   # a number given on the command line
+    text = yaml.safe_dump(value, default_flow_style=True, width=1 << 16).strip()
+    return text[:-len("\n...")] if text.endswith("\n...") else text
+
+
+def set_config_value(text: str, key: str, value) -> str:
+    """text of a config with key (a top-level one, or one of a section: llm.<name>)
+    set to value on its own line, keeping the line's comment where it was; a key
+    the config lacks is added."""
+    section, _, name = key.rpartition(".")
+    lines = text.split("\n")
+    first, last, indent = 0, len(lines), ""
+    if section:
+        head = next((i for i, line in enumerate(lines) if re.match(rf"{section}:\s*(#.*)?$", line)), None)
+        if head is None:
+            return text.rstrip("\n") + f"\n{section}:\n  {name}: {yaml_value(value)}\n"
+        first = last = head + 1
+        while last < len(lines) and (lines[last].startswith((" ", "\t")) or not lines[last].strip()):
+            last += 1
+        indent = next((re.match(r"\s*", line).group() for line in lines[first:last] if line.strip()), "  ")
+    for i in range(first, last):
+        m = re.match(rf"({re.escape(indent)}{re.escape(name)}:)([^#]*)(#.*)?$", lines[i])
+        if m and (section or not lines[i][:1].isspace()):
+            new = f"{m.group(1)} {yaml_value(value)}".rstrip()
+            if m.group(3):   # the comment stays in its column
+                column = len(m.group(1)) + len(m.group(2))
+                new = new.ljust(column - 1) + " " + m.group(3)
+            lines[i] = new
+            return "\n".join(lines)
+    while last > first and not lines[last - 1].strip():
+        last -= 1   # after the section's last line, not after blank lines
+    lines.insert(last, f"{indent}{name}: {yaml_value(value)}")
+    return "\n".join(lines)
+
+
+def frozen_config(profile: dict) -> str:
+    """A copy of the config for the run that starts, with the values the run
+    uses where the command line (or a continuation) changed them, so that the
+    copy run_repeats.sh keeps with the run's logs says what the run did;
+    bench.yaml can be edited for the next run in the meantime."""
+    text = open(os.path.join(ROOT, profile["config"])).read()
+    raw = yaml.safe_load(text) or {}
+    changed = []
+    for option, key in OPTION_KEYS.items():
+        section, _, name = key.rpartition(".")
+        in_file = (raw.get(section) or {}).get(name) if section else raw.get(name)
+        value = profile.get(option)
+        if section and value in (None, ""):
+            continue   # not set on the command line: the config's value applies
+        if option == "packages":
+            in_file = load_profile_packages(in_file)
+        elif option == "repeats":
+            in_file = int(in_file or 1)
+        if str(in_file if in_file is not None else "") != str(value if value is not None else ""):
+            text = set_config_value(text, key, value)
+            changed.append(key)
+    if changed:
+        text = (f"# this run's settings: {profile['config']}, with {', '.join(changed)} as the run set them "
+                "(make variables, or a continuation)\n" + text)
     os.makedirs(STATE_DIR, exist_ok=True)
     copy = os.path.join(STATE_DIR, "run.yaml")
-    shutil.copyfile(os.path.join(ROOT, config), copy)
+    with open(copy, "w") as f:
+        f.write(text)
     return os.path.relpath(copy, ROOT)
 
 
@@ -270,7 +344,7 @@ def cmd_run(profile: dict, background: bool, resume: dict = None, allow_leaks: b
     paths = bench_paths(profile["config"])
     check_can_start(profile, paths, allow_leaks)
     attempts = profile.get("attempts") or (profile.get("llm") or {}).get("max_build_attempts")
-    spec = {"label": profile["label"], "repeats": profile["repeats"], "config": frozen_config(profile["config"]),
+    spec = {"label": profile["label"], "repeats": profile["repeats"], "config": frozen_config(profile),
             "packages": profile["packages"], "model": profile.get("model"), "provider": profile.get("provider"),
             "base_url": profile.get("base_url"), "attempts": attempts, "resume": resume, "started": time.strftime("%Y-%m-%d %H:%M:%S"),
             "env": run_env(profile, resume)}
