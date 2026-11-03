@@ -281,11 +281,11 @@ x86_64 and fail on ppc64le. Then check it with `make check-case CASE=<package>`.
 
 ## Most used config options
 
-`bench.yaml` is the only config, and each of its lines has a comment. What it
-does not choose follows from the two architectures: the cases
-(`data/<source>_to_<target>/`), the acceptance tests, the result directories
-and the OBS repository. For the other direction, swap `source_arch` and
-`target_arch`. Values in the repository's `bench.yaml`:
+`bench.yaml` is the only config. What it does not choose follows from the
+two architectures: the cases (`data/<source>_to_<target>/`), the acceptance
+tests, the result directories and the OBS repository. For the other
+direction, swap `source_arch` and `target_arch`. Values in the repository's
+`bench.yaml`:
 
 | Option | In `bench.yaml` | What it does |
 |---|---|---|

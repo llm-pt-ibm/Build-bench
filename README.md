@@ -328,8 +328,9 @@ none of the other changes.
 
 One file, `bench.yaml`, holds everything a run uses: the source and target
 architectures, the cases to run, the model, the options of the repair loop
-and the builds. Each setting has a comment there. What the file does not
-choose follows from the two architectures:
+and the builds ([Most used config options](docs/TUTORIAL.md#most-used-config-options)
+says what they do). What the file does not choose follows from the two
+architectures:
 
 | | |
 |---|---|

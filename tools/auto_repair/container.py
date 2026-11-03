@@ -18,11 +18,8 @@ RUNTIME = "docker"
 def settings(build_cfg: dict) -> dict:
     """The container section of a config's `build`."""
     c = (build_cfg or {}).get("container") or {}
-    # runtime: set by configs of when Podman, or no container, were options
-    # too (auto, their default, is Docker); runtime_problem refuses the others
-    name = str(c.get("runtime") or RUNTIME).lower()
-    # optional: cpus, memory; pids_limit -1: no limit of processes beyond the
-    # host's (a limit of 2048 stopped jaxlib's parallel test suite)
+    name = str(c.get("runtime") or RUNTIME).lower()   # of older configs; auto is Docker
+    # pids_limit -1: no limit (2048 stopped jaxlib's test suite)
     return {"runtime": RUNTIME if name == "auto" else name,
             "build_network": _network(os.getenv("BENCH_BUILD_NETWORK") or c.get("build_network") or "log"),
             "cpus": c.get("cpus"), "memory": c.get("memory"), "pids_limit": c.get("pids_limit", -1)}
