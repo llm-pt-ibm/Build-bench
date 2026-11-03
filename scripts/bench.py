@@ -556,11 +556,11 @@ def cmd_setup_env(profile: dict, name: str) -> None:
               "make setup-env again: what is done is kept", file=sys.stderr)
         code = 1
     cfg = container_cfg(profile)
-    if code == 0 and container.runtime(cfg):
-        if not container.available(container.runtime(cfg)):
-            fail(f"{container.runtime(cfg)} not found: install it to build the image, or set "
-                 "build.container.runtime in the config")
-        print(f"\n=== image {container.image(name)} ({container.runtime(cfg)})")
+    if code == 0:
+        problem = container.runtime_problem(cfg)
+        if problem:
+            fail(f"{problem}; the environment is set up, its image is not")
+        print(f"\n=== image {container.image(name)} ({container.RUNTIME})")
         image = container.build_image(cfg, name, os.path.join(env_dir(name), "image-packages.txt"),
                                       build_env.load(name)["system"])
         info_path = os.path.join(env_dir(name), "env.json")
@@ -574,28 +574,25 @@ def cmd_setup_env(profile: dict, name: str) -> None:
 
 
 def cmd_check_env(profile: dict, name: str) -> None:
-    """Load build environment `name` as a build does (in its container, with
-    a container runtime), and show what it provides."""
+    """Load build environment `name` as a build does, in its container, and
+    show what it provides."""
     from tools.auto_repair import build_env, container
     from tools.auto_repair.paths import env_dir
     if not build_env.exists(name):
         fail(f"no environment {os.path.relpath(build_env.spec_file(name), ROOT)}")
     script = build_env.env_script(name)
     cfg = container_cfg(profile)
-    argv, env = ["bash", "-c", 'source "$1" || exit 2', "check-env", script], {"BENCH_ENV_DIR": env_dir(name)}
-    if container.runtime(cfg):
-        problem = container.check(cfg, name)
-        if problem:
-            fail(problem)
-        print(f"in a {container.runtime(cfg)} container of {container.image(name)}")
-        mode = cfg["container"]["build_network"]
-        print(f"network of builds: {mode}" + (" (any host, every connection logged)" if mode == "log" else ""),
-              flush=True)
-        argv = container.command(cfg, f"bench-check-env-{os.getpid()}", name, container.framework_mounts(name),
-                                 env, env_dir(name), argv)
-        code = subprocess.call(argv, env=container.runtime_env())
-    else:
-        code = subprocess.call(argv, env=dict(os.environ, **env))
+    problem = container.check(cfg, name)
+    if problem:
+        fail(problem)
+    print(f"in a {container.RUNTIME} container of {container.image(name)}")
+    mode = cfg["container"]["build_network"]
+    print(f"network of builds: {mode}" + (" (any host, every connection logged)" if mode == "log" else ""),
+          flush=True)
+    argv = container.command(cfg, f"bench-check-env-{os.getpid()}", name, container.framework_mounts(name),
+                             {"BENCH_ENV_DIR": env_dir(name)}, env_dir(name),
+                             ["bash", "-c", 'source "$1" || exit 2', "check-env", script])
+    code = subprocess.call(argv, env=container.runtime_env())
     print("environment ready" if code == 0 else f"environment {name} is not usable (status {code})")
     sys.exit(code)
 

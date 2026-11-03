@@ -564,6 +564,24 @@ improvements` shows them file by file.
   `envs/env.example.yaml` shows every key, and `make new-env ENV=<name>`
   starts an environment from it. `make help` listed every command as
   "Makefile" when `local.mk` existed (grep printed the file names).
+- Docker is required, and the only container runtime: the builds,
+  acceptance tests and `run_command_tool` commands of build-recipe cases
+  always run in its containers. `build.container.runtime` is gone: Podman
+  (`podman`, or `auto` with Podman installed) and the host (`none`, where
+  build.sh ran with everything the user can read and commands ran in a
+  sandbox of Linux namespaces made as root) are no longer options. Three ways
+  to run meant three code paths (user namespaces or `--user`, `image exists`
+  or `image inspect`, `notmpcopyup`, a stop timeout, the namespace sandbox),
+  images that one runtime built and the other could not see, and results
+  that depended on which one ran, while the build host runs Docker. A config
+  with `runtime: auto` or `docker` still works; another value stops the run
+  with a message (the variable `BENCH_CONTAINER_RUNTIME` is gone too).
+  Before a build, the framework checks that Docker's daemon answers the user
+  (`docker version`), so a user outside the `docker` group gets that message
+  instead of a missing image. Images built with Podman are not Docker's:
+  `make setup-env` builds each environment's image again (the environment
+  itself is kept). The tests of builds and acceptance tests moved to the
+  container tests, which need Docker with the base image.
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source

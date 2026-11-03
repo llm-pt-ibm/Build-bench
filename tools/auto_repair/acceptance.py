@@ -20,9 +20,9 @@ def acceptance_test(cfg: dict, package: str):
 
 
 def run_acceptance(test: str, env_script: str, workdir: str, env: dict, timeout: int, in_container=None):
-    """Run the test, on the host or in a container (in_container: cfg, name,
-    env_name and mounts for tools/auto_repair/container.py); returns
-    (passed, output)."""
+    """Run the test: in a Docker container for build-recipe cases (in_container:
+    cfg, name, env_name and mounts for tools/auto_repair/container.py), on the
+    host for RPM cases, in osc's build root; returns (passed, output)."""
     from tools.auto_repair import container
     argv = ["bash", RUNNER, workdir, env_script or "", test]
     if in_container:

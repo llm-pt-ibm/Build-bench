@@ -1,5 +1,5 @@
-"""Build-recipe backend: builds cases that ship a build.sh on this host, with
-the contract of the OBS functions (the upload starts the build, the check waits
+"""Build-recipe backend: builds cases that ship a build.sh on this host, in a
+Docker container of the case's build environment, with the contract of the OBS functions (the upload starts the build, the check waits
 for it). Each package has <stage_root>/<package>/ with src/ (a mirror of the
 sources), cache/ (BENCH_CACHE_DIR: build state kept across the builds of a run,
 cleared when a run starts) and shared/ (BENCH_SHARED_CACHE_DIR:
@@ -12,7 +12,7 @@ import signal
 import subprocess
 import time
 
-from tools.auto_repair import build_env, container
+from tools.auto_repair import acceptance, build_env, container
 from tools.auto_repair.acceptance import acceptance_test, failure_message, run_acceptance
 from tools.auto_repair.case_type import case_environment
 from tools.auto_repair.infra import infra_failure, retry_or_give_up
@@ -109,7 +109,7 @@ def reset_cache(package_name: str, cfg: dict) -> None:
 
 def stop_experiments(package_name: str, cfg: dict) -> None:
     """Stop the commands of run_command_tool still running for the package
-    (each runs in a container, or a sandbox, and a session of its own)."""
+    (each runs in a container, and a session of its own)."""
     container.remove_matching(cfg, f"bench-{package_name}-exp")
     kill_users(os.path.join(cfg["script"]["stage_root"], package_name, "scratch"))
 
@@ -174,24 +174,19 @@ def script_upload(package_name: str, package_dir: str, cfg: dict) -> str:
     bench_env = {"BENCH_CACHE_DIR": dirs["cache"], "BENCH_SHARED_CACHE_DIR": dirs["shared"],
                  "BENCH_JOBS": str(cfg["script"]["jobs"]), "BENCH_PACKAGE": package_name,
                  "BENCH_ENV_DIR": env_dir(env_name) if env_name else ""}
-    argv = ["bash", RUNNER, dirs["src"], env_script]
-    if container.runtime(cfg):
-        net = container.build_network(cfg, env_name, dirs["run"])
-        argv = net["wrapper"] + container.command(
-            cfg, name, env_name,
-            [(dirs["src"], True), (dirs["cache"], True), (dirs["shared"], True)]
-            + container.framework_mounts(env_name) + net["mounts"],
-            dict(bench_env, **net["env"]), dirs["src"], argv, network=net["network"])
-        env = container.runtime_env()
-    else:
-        env = dict(os.environ, **bench_env)
+    net = container.build_network(cfg, env_name, dirs["run"])
+    argv = net["wrapper"] + container.command(
+        cfg, name, env_name,
+        [(dirs["src"], True), (dirs["cache"], True), (dirs["shared"], True)]
+        + container.framework_mounts(env_name) + net["mounts"],
+        dict(bench_env, **net["env"]), dirs["src"], ["bash", RUNNER, dirs["src"], env_script],
+        network=net["network"])
     proc = subprocess.Popen(
         ["bash", "-c", 'log=$1 status=$2; shift 2; "$@" > "$log" 2>&1; echo $? > "$status"', "build",
          log, status, *argv],
-        env=env, start_new_session=True, stdin=subprocess.DEVNULL)
+        env=container.runtime_env(), start_new_session=True, stdin=subprocess.DEVNULL)
     with open(state_path, "w") as f:
-        json.dump({"pgid": proc.pid, "srcmd5": srcmd5, "time": time.time(),
-                   "container": name if container.runtime(cfg) else None}, f)
+        json.dump({"pgid": proc.pid, "srcmd5": srcmd5, "time": time.time(), "container": name}, f)
     with open(os.path.join(package_dir, ".last_upload.json"), "w") as f:
         json.dump({"srcmd5": srcmd5, "time": time.time(), "backend": "script"}, f)
     return (f"Success: sources snapshotted for a build on the {cfg['local']['arch']} build host"
@@ -238,12 +233,9 @@ def script_check(temp_dir: str, package_name: str, cfg: dict, _retry: int = 0) -
         if not test:
             return "Build succeeded! The build has been successfully completed."
         env_name = case_environment(temp_dir)
-        in_container = None
-        if container.runtime(cfg):
-            in_container = {"cfg": cfg, "name": f"bench-{package_name}-test", "env_name": env_name,
-                            "mounts": [(dirs["src"], True), (dirs["cache"], True),
-                                       (os.path.join(ROOT, "acceptance"), False)]
-                                      + container.framework_mounts(env_name)}
+        in_container = {"cfg": cfg, "name": f"bench-{package_name}-test", "env_name": env_name,
+                        "mounts": [(dirs["src"], True), (dirs["cache"], True), (acceptance.ACCEPTANCE_DIR, False)]
+                                  + container.framework_mounts(env_name)}
         passed, output = run_acceptance(
             test, build_env.env_script(env_name) if env_name else "", dirs["src"],
             {"BENCH_PACKAGE": package_name, "BENCH_SRC_DIR": dirs["src"], "BENCH_CACHE_DIR": dirs["cache"],

@@ -47,10 +47,9 @@ build:
   script:                     # build-recipe cases (build.sh)
     jobs: 0
     build_original_on_init: true   # build the original package once before the first attempt
-    experiment_paths: []      # host paths run_command_tool's sandbox shows read-only
+    experiment_paths: []      # host paths run_command_tool's container shows read-only
     experiment_hide: []       # and directories inside them it keeps hidden
-  container:                  # build.sh, acceptance tests and run_command_tool's commands
-    runtime: auto             # podman if installed, else docker; none: on the host
+  container:                  # build.sh, acceptance tests and run_command_tool's commands, in Docker
     build_network: log        # builds reach any host, every connection logged; tests and commands get none
 
 obs:

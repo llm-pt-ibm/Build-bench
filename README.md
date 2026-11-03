@@ -41,7 +41,7 @@ For every case, Build-bench:
 
 The build host needs:
 - Python 3.11 or newer, with the framework's packages (see Installation);
-- Podman (rootless) or Docker: builds, acceptance tests and the model's commands run in containers;
+- Docker, with the user in the `docker` group (required): builds, acceptance tests and the model's commands of build-recipe cases always run in its containers;
 - conda (Miniforge), with which `make setup-env` makes the build environments;
 - the key of an OpenAI-compatible API (e.g. OpenRouter), or a model server of your own (see Local models);
 - for RPM cases only, an OBS account or a local osc worker.
@@ -118,8 +118,8 @@ compiled from its sources (`bazel/<version>/`), the build directories of
 build-recipe cases (`stage/`, with the caches that later builds reuse) and the
 local osc worker (`obs-worker/`); the config can place them elsewhere
 (`build.script.stage_root`, `build.local.worker_root`), with `~` and
-`${VARIABLES}` in its paths. The container images are in Podman's or
-Docker's storage.
+`${VARIABLES}` in its paths. The container images are in Docker's
+storage.
 
 Settings of one machine for make go to `local.mk`, which git ignores and make
 reads only when it exists:
@@ -180,23 +180,22 @@ cases run in containers of the environment's image, `build-bench-<name>`,
 built from `envs/Containerfile` (the system part of the build host: glibc,
 headers, binutils, plus env.yaml's `system`; `envs/<name>/Containerfile`
 replaces it). Only what is mounted is there, at the same paths as on the
-host: the build copy, its caches and the build environment. The default
-runtime, `auto`, is Podman when it is installed (rootless, no daemon) and
-Docker otherwise:
+host: the build copy, its caches and the build environment. The containers
+are Docker's, the only runtime: nothing of a build-recipe case runs on the
+host itself.
 
 ```yaml
 build:
   container:
-    runtime: auto          # auto (default), podman, docker, or none (on the host)
     build_network: log     # log (default): any host, every connection logged; host or none
     # cpus: 32, memory: 64g, pids_limit: 4096   (default -1: no limit beyond the host's)
 ```
 
-With Docker the containers run as the user, but its group is
-root-equivalent; with `none` build.sh runs on the host with everything the
-user can read, and `run_command_tool` uses a sandbox of Linux namespaces that
-needs root. The image's base is pinned by digest, and every result records
-the image it ran with.
+The containers run as the user (`--user`), so what they write in the mounts
+is the user's; the `docker` group the user needs is root-equivalent. The
+image's base is pinned by digest, and every result records the image it ran
+with. A config of an older version with `runtime: auto` or `docker` still
+works; `runtime: none` or `podman` stops the run with a message.
 
 **The build's network.** A build container has no network of its own: it
 reaches any host through a proxy of the framework on a socket mounted into it
@@ -428,7 +427,7 @@ build check. With build recipes the model can also read the dependency
 sources the build downloaded (its build cache), and run short commands with
 `run_command_tool` (e.g. a single failing test, or a small C program that
 reproduces a compiler bug). Each command runs in a container of the build
-environment's image (with `runtime: none`, a sandbox of namespaces): only the
+environment's image: only the
 package and the build cache (read-only), the build environment and a scratch
 directory are there, with no network and no capability left.
 
@@ -459,7 +458,8 @@ says what is missing:
 | `run directories <label>_1 exist already` | choose another `LABEL` |
 | `an interrupted run left these files` | `make archive NAME=<label>_1_stopped` |
 | `build environment <env> of <case> is not set up`, `no image build-bench-<env>` | `make setup-env ENV=<env>` |
-| `podman not found` | install Podman or Docker, or set `build.container.runtime` |
+| `docker not found`, `docker cannot be used` | install Docker and add the user to the `docker` group (log in again): build-recipe cases need it |
+| `build.container.runtime ...: ... always run in Docker` | remove `runtime` from the config's `build.container` |
 | `no .env with API_KEY` | create `.env` (see Files you write) |
 | `no model server answers at <url>`, `<url> does not serve <model>` | start the server, or pull the model on it |
 | `the model could read the answer` | move the built copy out of the model's reach or hide it (`build.script.experiment_hide`); `ALLOW_LEAKS=1` starts anyway |
@@ -468,17 +468,19 @@ says what is missing:
 `make check-case` lists what a case still lacks the same way (OK, WARN, FAIL,
 with what to do), and `make setup-env` says when it cannot find conda
 (`CONDA=` in `local.mk`). The tutorial's
-[Common problems](docs/TUTORIAL.md#common-problems) has more, from installing
-Podman next to Docker to Docker's DNS.
+[Common problems](docs/TUTORIAL.md#common-problems) has more, such as Docker's
+DNS.
 
 ---
 
 ## 🧪 Tests
 
 `make test` runs `tests/test_helpers.py` (patch check, log excerpt, build
-backends, resume, run settings, config, leak check, cases, sandbox, containers with
-Podman or Docker when one is installed with the base image, the build's
-network proxy, tool calls written as text) and
+backends, resume, run settings, config, leak check, cases, the network proxy,
+tool calls written as text; builds, acceptance tests and `run_command_tool`
+in Docker containers when Docker has the base image, e.g. after
+`docker pull registry.access.redhat.com/ubi8/ubi:8.9`, or `BENCH_TEST_IMAGE`
+names another image with bash) and
 `tests/test_offline.py` (the tools through MCP with a scripted model). They
 write only to temporary directories.
 

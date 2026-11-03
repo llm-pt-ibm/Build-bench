@@ -475,18 +475,16 @@ class AutoRepairClient:
                 env_info = {}
             environment = {"name": name, "id": env_info.get("id"), "dir": env_dir(name)}
             build_cfg = load_obs_config()
-            if container.runtime(build_cfg):
-                c = build_cfg["container"]
-                environment["container"] = {
-                    "runtime": c["runtime"], "image": container.image(name),
-                    "image_id": container.image_id(build_cfg, name),
-                    "image_base": (env_info.get("image") or {}).get("base"),
-                    "image_packages_sha256": (env_info.get("image") or {}).get("packages_sha256"),
-                    "build_network": c["build_network"]}
-                recorded = ((env_info.get("image") or {}).get("id") or "").removeprefix("sha256:")
-                if recorded and environment["container"]["image_id"] != recorded:
-                    self._log(package_name, f"[environment] warning: image {container.image(name)} is not the "
-                                            "one make setup-env built (env.json); run make setup-env again")
+            environment["container"] = {
+                "runtime": container.RUNTIME, "image": container.image(name),
+                "image_id": container.image_id(build_cfg, name),
+                "image_base": (env_info.get("image") or {}).get("base"),
+                "image_packages_sha256": (env_info.get("image") or {}).get("packages_sha256"),
+                "build_network": build_cfg["container"]["build_network"]}
+            recorded = ((env_info.get("image") or {}).get("id") or "").removeprefix("sha256:")
+            if recorded and environment["container"]["image_id"] != recorded:
+                self._log(package_name, f"[environment] warning: image {container.image(name)} is not the "
+                                        "one make setup-env built (env.json); run make setup-env again")
         for leak in leaks:
             self._log(package_name, f"[leak check] warning: {leak}")
 

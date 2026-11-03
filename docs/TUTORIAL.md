@@ -26,7 +26,7 @@ as a success only when its acceptance test passes too.
 
 ## Installation
 
-Set up Python, the credentials and Podman once per machine. The framework runs
+Set up Python, the credentials and Docker once per machine. The framework runs
 as a normal user and changes nothing on the system. The repository is the
 public fork [llm-pt-ibm/Build-bench](https://github.com/llm-pt-ibm/Build-bench)
 of [zcyyc/Build-bench](https://github.com/zcyyc/Build-bench); the work is on
@@ -35,14 +35,14 @@ the `improvements` branch.
 1. Clone the repository and install the Python dependencies.
 2. Create `.env` at the root of the repository, with the variables of the table below. It never goes to git.
 3. If the machine uses another Python or another data directory, create `local.mk` (also out of git).
-4. Install Podman: builds, acceptance tests and the model's commands run in its containers.
+4. Install Docker and add your user to the `docker` group. It is required: builds, acceptance tests and the model's commands always run in its containers.
 
 ```bash
 git clone -b improvements https://github.com/llm-pt-ibm/Build-bench.git build-bench
 cd build-bench
 uv sync                                   # x86_64 and aarch64
 pip install -r requirements-ppc64le.txt   # ppc64le, in a Python 3.11 environment
-sudo dnf install podman                   # or: sudo apt install podman
+sudo usermod -aG docker $USER             # Docker installed; log in again afterwards
 ```
 
 | `.env` variable | What for |
@@ -64,8 +64,8 @@ BENCH_HOME = /data/bench   # optional; the default is ~/.local/share/build-bench
 
 `BENCH_HOME` holds what lives outside the repository: the build environments
 (`envs/`), the build directories of the cases (`stage/`) and the local osc
-worker. Without Podman, `runtime: auto` in `bench.yaml` uses Docker; whoever is
-in Docker's group has root power.
+worker. The `docker` group gives root power: whoever is in it can run any
+container as root.
 
 ## Build environment
 
@@ -292,7 +292,6 @@ and the OBS repository. For the other direction, swap `source_arch` and
 | `source_arch`, `target_arch` | `x86_64`, `ppc64le` | the direction of the migration: the cases, the tests, the result directories and the OBS repository follow from it |
 | `build.backend` | `obs` | backend of the RPM packages: `obs` (the OBS service) or `local` (`osc build` on the machine); cases with a `build.sh` always use the recipe backend |
 | `build.script.stage_root` | not set | where the build directories of recipe cases go (default: `BENCH_HOME/stage`) |
-| `build.container.runtime` | `auto` | `auto` (Podman if installed, else Docker), `podman`, `docker` or `none` (no container, on the host) |
 | `build.container.build_network` | `log` | the build's network: `log` (any host, every connection logged), `host` or `none` |
 | `build.container.cpus`, `memory`, `pids_limit` | not set | limits of the container; `pids_limit` is -1 (no limit) by default |
 | `llm.max_build_attempts` | 12 | build attempts per package (3 in the original paper) |
@@ -314,7 +313,7 @@ tells the model during a repair, without ever suggesting the fix; with 0 or
 without the notes between attempts is `carry_notes_chars: 0`.
 
 Several options also have an environment variable for a single run, such as
-`BENCH_CONTAINER_RUNTIME`, `BENCH_BUILD_NETWORK` and `BENCH_PROMPT_CACHE`.
+`BENCH_BUILD_NETWORK` and `BENCH_PROMPT_CACHE`.
 
 ## Common problems
 
@@ -329,12 +328,11 @@ most common ones and what to do:
 | `run directories <label>_1 exist already` | the name was used already: change `LABEL` |
 | `build environment <env> of <package> is not set up` | `make setup-env ENV=<env>` |
 | `no image build-bench-<env>` | `make setup-env ENV=<env>` (redoes only what is missing, and the image) |
-| `podman not found` | install Podman or Docker; `runtime: auto` uses whichever is installed |
+| `docker not found`, `docker cannot be used` | install Docker and add the user to the `docker` group (`sudo usermod -aG docker $USER`, then log in again) |
 | `the model could read the answer` | move the file out of the model's reach or hide it with `script.experiment_hide`; `ALLOW_LEAKS=1` only if you know what you are doing |
 | `no model server answers at <url>` | start the local server or fix `BASE_URL` |
 | `<url> does not serve <model>` | pull the model on the server or fix `MODEL` |
 | `no .env with API_KEY` | create `.env` (see Installation) |
-| `dnf install podman`: `containerd.io ... conflicts with runc` | the host has Docker CE already: use Docker, which `runtime: auto` picks by itself; never `--allowerasing`, which removes Docker and the containers running on it |
 | `lookup ... on 127.0.0.1:53: server misbehaving` | Docker's daemon cannot resolve names through the local DNS: set `GODEBUG=netdns=cgo` in the Docker service's environment, with `live-restore` on before the restart so running containers survive it |
 | `make test`: `cannot import name 'eval_type_backport'` | the installed pydantic does not suit mcp 1.20.0: `pip install pydantic==2.13.5 pydantic_core==2.46.5` in the framework's environment (`requirements-ppc64le.txt` pins these versions) |
 | `make baseline`: `FATAL: $USER is not set` | an older framework under Docker: update it, since containers now get `USER` and `HOME` |

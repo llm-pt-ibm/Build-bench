@@ -143,47 +143,17 @@ assert res.startswith("Build infrastructure error!") and "Failed to resolve" in 
 shutil.rmtree(work)
 print("local build backend: OK (with infrastructure retries)")
 
-import tools.auto_repair.script_build as script_build  # noqa: E402
-work = tempfile.mkdtemp()
-cfg = {"max_wait_seconds": 60, "check_interval": 1, "local": {"arch": "ppc64le"},
-       "script": {"stage_root": os.path.join(work, "stage"), "jobs": 2}}
-pkg_dir = os.path.join(work, "r")
-os.makedirs(os.path.join(pkg_dir, "src"))
-open(os.path.join(pkg_dir, "src", "main.c"), "w").write("broken\n")
-open(os.path.join(pkg_dir, "build.sh"), "w").write(
-    'echo "jobs=$BENCH_JOBS cache=$BENCH_CACHE_DIR shared=$BENCH_SHARED_CACHE_DIR"; touch out.o\n'
-    'grep -q broken src/main.c && { echo "$(pwd)/src/main.c:1:1: error: boom"; exit 1; }\nexit 0\n')
-res = script_build.script_upload("r", pkg_dir, cfg)
-assert res.startswith("Success: sources snapshotted"), res
-res = script_build.script_check(pkg_dir, "r", cfg)
-assert res.startswith("Build failed!") and f"{pkg_dir}/src/main.c:1:1: error: boom" in res, res
-assert "jobs=2" in open(os.path.join(pkg_dir, "log_failed.txt")).read()
-assert "/r/shared" in open(os.path.join(pkg_dir, "log_failed.txt")).read()
-open(os.path.join(pkg_dir, "src", "main.c"), "w").write("fixed\n")
-script_build.script_upload("r", pkg_dir, cfg)
-assert script_build.script_check(pkg_dir, "r", cfg).startswith("Build succeeded!")
-assert not os.path.exists(os.path.join(pkg_dir, "out.o")), "the build runs on a copy"
-# acceptance test of the framework (outside the package): run after a successful build
-import tools.auto_repair.acceptance as acceptance  # noqa: E402
-acceptance.ACCEPTANCE_DIR = os.path.join(work, "acceptance")
-os.makedirs(os.path.join(acceptance.ACCEPTANCE_DIR, "a_to_b"))
-with open(os.path.join(acceptance.ACCEPTANCE_DIR, "a_to_b", "r.sh"), "w") as f:
-    f.write('grep -q works "$BENCH_SRC_DIR/src/main.c" || { echo "Check failed: the program does not work"; exit 1; }\n')
-cfg.update(direction="a_to_b", acceptance_timeout=60)
-script_build.script_upload("r", pkg_dir, cfg)
-res = script_build.script_check(pkg_dir, "r", cfg)
-assert res.startswith("Build failed! The package was built, but its acceptance test failed"), res
-assert "Check failed: the program does not work" in res, res
-assert "the build succeeded" in open(os.path.join(pkg_dir, "log_failed.txt")).read()
-open(os.path.join(pkg_dir, "src", "main.c"), "w").write("fixed, works\n")
-script_build.script_upload("r", pkg_dir, cfg)
-res = script_build.script_check(pkg_dir, "r", cfg)
-assert res == "Build succeeded! The build has been successfully completed and its acceptance test passed.", res
-# a cache left inconsistent is removed, with the processes that still use it
+# a build-recipe cache left inconsistent is removed, with the processes that
+# still use it (the builds themselves run in Docker: tested with the containers)
 import subprocess  # noqa: E402
 import time  # noqa: E402
+import tools.auto_repair.script_build as script_build  # noqa: E402
+work = tempfile.mkdtemp()
+cfg = {"script": {"stage_root": os.path.join(work, "stage"), "jobs": 2}}
 cache = os.path.join(cfg["script"]["stage_root"], "r", "cache")
 shared = os.path.join(cfg["script"]["stage_root"], "r", "shared")
+os.makedirs(cache)
+os.makedirs(shared)
 open(os.path.join(cache, "stale"), "w").write("x")
 open(os.path.join(shared, "content-addressed"), "w").write("x")
 child_pid = os.path.join(work, "child.pid")
@@ -197,7 +167,7 @@ assert user.wait(timeout=10) != 0 and os.listdir(cache) == [], os.listdir(cache)
 assert not os.path.exists(f"/proc/{open(child_pid).read()}/cmdline"), "a child of a cache user survived"
 assert os.listdir(shared) == ["content-addressed"], "the shared cache is kept"
 shutil.rmtree(work)
-print("build-recipe backend: OK (with acceptance test and cache reset)")
+print("build-recipe cache reset: OK (with the processes that use it)")
 
 # changes made by earlier attempts, for continued runs
 from tools.auto_repair.resume import workspace_changes  # noqa: E402
@@ -351,7 +321,8 @@ print("leak check: OK (installed copies, built packages, hidden paths skipped)")
 
 # where the benchmark keeps its state: BENCH_HOME, not /root
 from tools.auto_repair import paths as bench_paths_mod  # noqa: E402
-_home = os.environ.pop("BENCH_HOME", None)
+# the machine's own settings (e.g. BENCH_STAGE_ROOT exported by local.mk) are set aside
+_path_vars = {k: os.environ.pop(k, None) for k in ("BENCH_HOME", "BENCH_STAGE_ROOT", "OBS_WORKER_ROOT")}
 try:
     assert bench_paths_mod.bench_home() == os.path.expanduser("~/.local/share/build-bench")
     os.environ["BENCH_HOME"] = "/srv/bench"
@@ -360,11 +331,14 @@ try:
     assert dirs == {"worker_root": "/srv/bench/obs-worker", "stage_root": "/srv/bench/stage"}, dirs
     dirs = bench_paths_mod.build_dirs({"script": {"stage_root": "${BENCH_HOME}/s"}, "local": {"worker_root": "~/w"}})
     assert dirs["stage_root"] == "/srv/bench/s" and dirs["worker_root"] == os.path.expanduser("~/w"), dirs
+    os.environ["BENCH_STAGE_ROOT"] = "/srv/mine/stage"   # e.g. a second clone's own build directories
+    assert bench_paths_mod.build_dirs({"script": {"stage_root": "/x"}})["stage_root"] == "/srv/mine/stage"
 finally:
-    os.environ.pop("BENCH_HOME", None)
-    if _home is not None:
-        os.environ["BENCH_HOME"] = _home
-print("paths: OK (BENCH_HOME, ~ and ${VARIABLES} in configs)")
+    for _k, _v in _path_vars.items():
+        os.environ.pop(_k, None)
+        if _v is not None:
+            os.environ[_k] = _v
+print("paths: OK (BENCH_HOME, BENCH_STAGE_ROOT, ~ and ${VARIABLES} in configs)")
 
 # one config: what it does not choose follows from the two architectures
 import yaml  # noqa: E402
@@ -600,101 +574,37 @@ with _tempfile.TemporaryDirectory() as tmp:
         shutil.rmtree(test_dir, ignore_errors=True)
 print("cases: OK (new case from an archive and its build system, check_case finds what is missing)")
 
-# experiments run sandboxed (needs root and unshare, as on the Power9 build host)
+# builds, acceptance tests and experiments in Docker containers, with the base
+# image of the environments' images (BENCH_TEST_IMAGE: another one with bash)
 import shutil  # noqa: E402
 import subprocess  # noqa: E402
 import tempfile  # noqa: E402
-from tools.auto_repair.experiment import run_experiment  # noqa: E402
-
-if os.geteuid() == 0 and shutil.which("unshare") and \
-        subprocess.run(["unshare", "--mount", "true"], capture_output=True).returncode == 0:
-    tmp = tempfile.mkdtemp(dir=ROOT, prefix=".test_experiment_")
-    try:
-        workspace = os.path.join(tmp, "work", "demo")
-        os.makedirs(workspace)
-        open(os.path.join(workspace, "build.sh"), "w").write("true\n")
-        tool_dir = os.path.join(tmp, "toolchain")
-        os.makedirs(os.path.join(tool_dir, "secret"))
-        open(os.path.join(tool_dir, "tool.txt"), "w").write("toolchain\n")
-        open(os.path.join(tool_dir, "secret", "answer.txt"), "w").write("solution\n")
-        cfg = {"script": {"stage_root": os.path.join(tmp, "stage"), "jobs": 2, "experiment_paths": [tool_dir],
-                          "experiment_hide": [os.path.join(tool_dir, "secret")]}}
-        os.makedirs(os.path.join(tmp, "stage", "demo", "cache"))
-        open(os.path.join(tmp, "stage", "demo", "cache", "dep.txt"), "w").write("dependency\n")
-        out = run_experiment("demo", workspace, " ; ".join([
-            "echo hello > note.txt && cat note.txt",
-            "cat $BENCH_CACHE_DIR/dep.txt",
-            f"cat {tool_dir}/tool.txt; cat {tool_dir}/secret/answer.txt 2>/dev/null || echo hidden",
-            "touch $BENCH_WORKSPACE/x 2>&1 | grep -o 'Read-only file system'",
-            "touch $BENCH_CACHE_DIR/x 2>&1 | grep -o 'Read-only file system'",
-            f"ls {ROOT}/MODIFICATIONS.md 2>&1 | grep -o 'No such file'",
-            "umount /root 2>&1 | grep -o 'must be superuser'",
-            "(exec 3<>/dev/tcp/1.1.1.1/53) 2>&1 | grep -o 'Network is unreachable'",
-            "exit 3"]), 60, cfg)
-        assert out.startswith("Command exit status 3"), out
-        assert "solution" not in out, out
-        for expected in ("hello", "dependency", "toolchain\nhidden", "Read-only file system\nRead-only file system",
-                         "No such file", "must be superuser", "Network is unreachable"):
-            assert expected in out, (expected, out)
-        assert open(os.path.join(tmp, "stage", "demo", "scratch", "note.txt")).read() == "hello\n"
-        assert not os.path.exists(os.path.join(workspace, "x"))
-        assert "timed out after 2 s" in run_experiment("demo", workspace, "sleep 30", 2, cfg)
-        # stopping a run stops its experiments too
-        import threading  # noqa: E402
-        from tools.auto_repair.script_build import stop_experiments  # noqa: E402
-        outcome, started = {}, time.time()
-        worker = threading.Thread(target=lambda: outcome.update(
-            out=run_experiment("demo", workspace, "sleep 60", 120, cfg)))
-        worker.start()
-        time.sleep(3)
-        stop_experiments("demo", cfg)
-        worker.join(30)
-        assert not worker.is_alive() and time.time() - started < 30, "experiment not stopped"
-        assert "exit status -9" in outcome["out"] or "exit status 137" in outcome["out"], outcome["out"][:200]
-        # the case's build environment (make setup-env) is there, read-only, with BENCH_ENV_DIR
-        env_script = os.path.join(ROOT, "envs", "demo-test-env.sh")
-        os.environ["BENCH_HOME"] = os.path.join(tmp, "home")
-        try:
-            os.makedirs(os.path.join(tmp, "home", "envs", "demo-test-env"))
-            open(os.path.join(tmp, "home", "envs", "demo-test-env", "tool"), "w").write("env tool\n")
-            open(env_script, "w").write('export DEMO_TOOL="$BENCH_ENV_DIR/tool"\n')
-            json.dump({"environment": "demo-test-env"}, open(os.path.join(workspace, "manifest.json"), "w"))
-            out = run_experiment("demo", workspace,
-                                 'cat "$DEMO_TOOL"; touch "$BENCH_ENV_DIR/x" 2>&1 | grep -o "Read-only"', 60, cfg)
-            assert "env tool" in out and "Read-only" in out, out
-        finally:
-            os.environ.pop("BENCH_HOME", None)
-            if os.path.exists(env_script):
-                os.remove(env_script)
-    finally:
-        shutil.rmtree(tmp, ignore_errors=True)
-    print("experiments: OK (sandbox hides /root, read-only package, cache and build environment, no network)")
-else:
-    print("experiments: skipped (needs root and unshare)")
-
-# experiments in a container (Podman, else Docker), with the base image of the
-# environments' images (BENCH_TEST_IMAGE: another one with bash)
 from tools.auto_repair import container as container_mod  # noqa: E402
-# runtime auto: podman if it is installed, else docker
-_available, _rt = container_mod.available, os.environ.pop("BENCH_CONTAINER_RUNTIME", None)
+from tools.auto_repair.experiment import run_experiment  # noqa: E402
+# Docker is the runtime: a config that asks for another one (none, podman) is
+# refused; auto, the default of older configs, is Docker
+_available = container_mod.available
 try:
-    container_mod.available = lambda name: name == "docker"
     assert container_mod.settings({})["runtime"] == "docker"
-    container_mod.available = lambda name: True
-    assert container_mod.settings({"container": {"runtime": "auto"}})["runtime"] == "podman"
-    assert container_mod.settings({"container": {"runtime": "docker"}})["runtime"] == "docker"
+    assert container_mod.settings({"container": {"runtime": "auto"}})["runtime"] == "docker"
+    for _other in ("none", "podman"):
+        _cfg = {"container": container_mod.settings({"container": {"runtime": _other}})}
+        assert "always run in Docker" in container_mod.runtime_problem(_cfg), _other
+        assert "always run in Docker" in container_mod.check(_cfg, "demo"), _other
+    container_mod.available = lambda: False
+    assert "docker not found" in container_mod.runtime_problem({"container": container_mod.settings({})})
+    assert "docker not found" in container_mod.check({}, "demo"), "a config without a container section"
 finally:
     container_mod.available = _available
-    if _rt is not None:
-        os.environ["BENCH_CONTAINER_RUNTIME"] = _rt
 # the user, unknown to the image's /etc/passwd under docker run --user, is
 # named by USER (Bazel stops without it) and gets a HOME it can write
 _argv = container_mod.command({"container": {"runtime": "docker"}}, "x", "demo", [], {"HOME": "/s"}, "/", ["true"])
 assert f"USER={container_mod.user_name()}" in _argv and "HOME=/s" in _argv and "HOME=/tmp" not in _argv, _argv
 assert "HOME=/tmp" in container_mod.command({"container": {"runtime": "docker"}}, "x", "demo", [], {}, "/", ["true"])
 _image = os.getenv("BENCH_TEST_IMAGE", "registry.access.redhat.com/ubi8/ubi:8.9")
-_runtime = next((rt for rt in ("podman", "docker") if shutil.which(rt) and subprocess.run(
-    [rt, "image", "inspect", _image], capture_output=True, env=container_mod.runtime_env()).returncode == 0), None)
+_runtime = "docker" if shutil.which("docker") and subprocess.run(
+    ["docker", "image", "inspect", _image], capture_output=True, env=container_mod.runtime_env()).returncode == 0 \
+    else None
 if _runtime:
     tmp = tempfile.mkdtemp(dir=ROOT, prefix=".test_container_")
     env_script = os.path.join(ROOT, "envs", "demo-ctr-env.sh")
@@ -707,7 +617,7 @@ if _runtime:
         cfg = {"container": {"runtime": _runtime},
                "script": {"stage_root": os.path.join(tmp, "stage"), "jobs": 2}}
         assert "no build environment" in run_experiment("demo", workspace, "true", 60, cfg)
-        # no limit of processes beyond the host's (Podman's 2048 broke jaxlib's test suite)
+        # no limit of processes beyond the host's (a limit of 2048 broke jaxlib's test suite)
         argv = container_mod.command(cfg, "x", "demo-ctr-env", [], {}, "/", ["true"])
         assert argv[argv.index("--pids-limit") + 1] == "-1", argv
         # builds need no list of hosts (any host, logged); commands have no network
@@ -744,6 +654,59 @@ if _runtime:
         left = subprocess.run([_runtime, "ps", "-a", "--format", "{{.Names}}"], capture_output=True, text=True,
                               env=container_mod.runtime_env()).stdout
         assert "bench-demo-exp" not in left, left
+        # stopping a run stops its experiments too
+        import threading  # noqa: E402
+        import time  # noqa: E402
+        from tools.auto_repair.script_build import stop_experiments  # noqa: E402
+        outcome, started = {}, time.time()
+        worker = threading.Thread(target=lambda: outcome.update(
+            out=run_experiment("demo", workspace, "sleep 60", 120, cfg)))
+        worker.start()
+        time.sleep(3)
+        stop_experiments("demo", cfg)
+        worker.join(30)
+        assert not worker.is_alive() and time.time() - started < 30, "experiment not stopped"
+        assert "exit status -9" in outcome["out"] or "exit status 137" in outcome["out"], outcome["out"][:200]
+        # builds of build-recipe cases: build.sh on a copy of the sources, the
+        # log with the workspace's paths, then the framework's acceptance test
+        rcfg = dict(cfg, max_wait_seconds=120, check_interval=1, local={"arch": "ppc64le"},
+                    container={"runtime": _runtime, "build_network": "none"})
+        pkg_dir = os.path.join(tmp, "work", "r")
+        os.makedirs(os.path.join(pkg_dir, "src"))
+        json.dump({"environment": "demo-ctr-env"}, open(os.path.join(pkg_dir, "manifest.json"), "w"))
+        open(os.path.join(pkg_dir, "src", "main.c"), "w").write("broken\n")
+        open(os.path.join(pkg_dir, "build.sh"), "w").write(
+            'echo "jobs=$BENCH_JOBS cache=$BENCH_CACHE_DIR shared=$BENCH_SHARED_CACHE_DIR"; touch out.o\n'
+            'grep -q broken src/main.c && { echo "$(pwd)/src/main.c:1:1: error: boom"; exit 1; }\nexit 0\n')
+        res = script_build.script_upload("r", pkg_dir, rcfg)
+        assert res.startswith("Success: sources snapshotted"), res
+        res = script_build.script_check(pkg_dir, "r", rcfg)
+        assert res.startswith("Build failed!") and f"{pkg_dir}/src/main.c:1:1: error: boom" in res, res
+        assert "jobs=2" in open(os.path.join(pkg_dir, "log_failed.txt")).read()
+        assert "/r/shared" in open(os.path.join(pkg_dir, "log_failed.txt")).read()
+        open(os.path.join(pkg_dir, "src", "main.c"), "w").write("fixed\n")
+        script_build.script_upload("r", pkg_dir, rcfg)
+        assert script_build.script_check(pkg_dir, "r", rcfg).startswith("Build succeeded!")
+        assert not os.path.exists(os.path.join(pkg_dir, "out.o")), "the build runs on a copy"
+        # acceptance test of the framework (outside the package): run after a successful build
+        import tools.auto_repair.acceptance as acceptance  # noqa: E402
+        _acceptance_dir, acceptance.ACCEPTANCE_DIR = acceptance.ACCEPTANCE_DIR, os.path.join(tmp, "acceptance")
+        os.makedirs(os.path.join(acceptance.ACCEPTANCE_DIR, "a_to_b"))
+        with open(os.path.join(acceptance.ACCEPTANCE_DIR, "a_to_b", "r.sh"), "w") as f:
+            f.write('grep -q works "$BENCH_SRC_DIR/src/main.c" || { echo "Check failed: the program does not work"; exit 1; }\n')
+        rcfg.update(direction="a_to_b", acceptance_timeout=60)
+        script_build.script_upload("r", pkg_dir, rcfg)
+        res = script_build.script_check(pkg_dir, "r", rcfg)
+        assert res.startswith("Build failed! The package was built, but its acceptance test failed"), res
+        assert "Check failed: the program does not work" in res, res
+        assert "the build succeeded" in open(os.path.join(pkg_dir, "log_failed.txt")).read()
+        open(os.path.join(pkg_dir, "src", "main.c"), "w").write("fixed, works\n")
+        script_build.script_upload("r", pkg_dir, rcfg)
+        res = script_build.script_check(pkg_dir, "r", rcfg)
+        assert res == "Build succeeded! The build has been successfully completed and its acceptance test passed.", res
+        acceptance.ACCEPTANCE_DIR = _acceptance_dir
+        print("  builds in a container: build.sh on a copy of the sources, its log in the workspace's paths, "
+              "acceptance test")
         # a build reaches any host, through the framework's proxy, which logs
         # every connection (needs a Python in the image for the forwarder)
         if subprocess.run([_runtime, "run", "--rm", "--network", "none", "build-bench-demo-ctr-env", "sh", "-c",
@@ -800,7 +763,8 @@ if _runtime:
     print(f"experiments in a container: OK ({_runtime}: only the mounts, hidden paths, no capabilities, "
           "no network, timeout)")
 else:
-    print("experiments in a container: skipped (needs podman or docker with the base image)")
+    print(f"builds, acceptance tests and experiments in a container: skipped (needs docker with {_image}: "
+          "docker pull it, or set BENCH_TEST_IMAGE to an image with bash)")
 
 # tool calls a model wrote as text (tools/auto_repair/text_tool_calls.py)
 from tools.auto_repair.text_tool_calls import parse as parse_text_calls  # noqa: E402
