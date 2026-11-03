@@ -251,8 +251,40 @@ with _tempfile.TemporaryDirectory() as tmp:
     assert "label: t10 # the name\n" in text and "  max_build_attempts: 4    # per package\n" in text, text
     assert text.endswith("  max_tool_rounds: 60\n  max_context_chars: 180000\n"), "a new key joins its section"
     assert text.startswith("# this run's settings: ") and "llm.max_build_attempts" in text.split("\n")[0]
-print("run settings: OK (overrides, environment, leftovers archived, stale lock, config frozen per run "
-      "with the run's values)")
+    # suites: sets of packages of the config, chosen by suite or SUITE; PACKAGES replaces the config's suite
+    open(profile_path, "w").write("source_arch: x86_64\ntarget_arch: ppc64le\nlabel: r1\npackages: [a]\n"
+                                  "suite:\nsuites:\n  easy: [b, c]\n  hard: [d]\n  empty: []\n")
+    p = bench.load_profile(profile_path, {"suite": "easy"})
+    assert p["packages"] == ["b", "c"] and p["suite"] == "easy", p
+    assert bench.load_profile(profile_path, {})["packages"] == ["a"]
+    assert bench.load_profile(profile_path, {"suite": "none"})["packages"] == ["a"], "SUITE=none clears it"
+    frozen = os.path.join(ROOT, bench.frozen_config(p))
+    text = open(frozen).read()
+    assert "suite: easy\n" in text and "packages: []\n" in text, text
+    assert bench.load_profile(frozen, {})["packages"] == ["b", "c"], "the copy names the suite"
+    _text = open(profile_path).read()
+    open(profile_path, "w").write(_text.replace("packages: [a]\nsuite:", "packages:\nsuite: hard"))
+    assert bench.load_profile(profile_path, {})["packages"] == ["d"]
+    p = bench.load_profile(profile_path, {"packages": "x"})
+    assert p["packages"] == ["x"] and p["suite"] is None, p
+    import contextlib as _contextlib  # noqa: E402
+    import io as _io  # noqa: E402
+    for overrides, edit, error in (({"packages": "x", "suite": "easy"}, None, "choose one"),
+                                   ({"suite": "medium"}, None, "no suite medium in "),
+                                   ({"suite": "empty"}, None, "has no packages"),
+                                   ({}, ("packages:\n", "packages: [a]\n"), "packages and suite are both set")):
+        if edit:
+            _text = open(profile_path).read()
+            open(profile_path, "w").write(_text.replace(*edit))
+        _err = _io.StringIO()
+        try:
+            with _contextlib.redirect_stderr(_err):
+                bench.load_profile(profile_path, overrides)
+            raise AssertionError(f"accepted {overrides}")
+        except SystemExit:
+            assert error in _err.getvalue(), _err.getvalue()
+print("run settings: OK (overrides, suites, environment, leftovers archived, stale lock, config frozen per "
+      "run with the run's values)")
 
 # a profile with a model server of its own: the .env key is not sent there
 import http.server  # noqa: E402
@@ -376,6 +408,9 @@ finally:
 # the repository has one config, bench.yaml, and its cases exist
 repo_cfg = bench_config.load(os.path.join(ROOT, "bench.yaml"))
 assert os.path.isdir(bench_config.run_paths(repo_cfg)["base_dir"]), repo_cfg["source_arch"]
+for _suite, _cases in (repo_cfg.get("suites") or {}).items():
+    _missing = [c for c in _cases if not os.path.isdir(os.path.join(bench_config.run_paths(repo_cfg)["base_dir"], c))]
+    assert _cases and not _missing, f"suite {_suite}: no case {_missing}"
 assert not glob.glob(os.path.join(ROOT, "config", "*.yaml")), "one config: bench.yaml"
 print("config: OK (one file; cases, workspace, results and OBS settings follow from the architectures)")
 
@@ -533,18 +568,27 @@ assert source_dir_name("https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-
 assert source_dir_name("https://www.zlib.net/zlib-1.3.1.tar.xz") == "zlib"
 assert version_of("https://github.com/tensorflow/tensorflow/archive/refs/tags/v2.20.0.tar.gz") == "2.20.0"
 assert version_of("https://github.com/openxla/xla/archive/5a9e73cbd925.tar.gz") == ""
+import tools.auto_repair.container as _container  # noqa: E402
 with _tempfile.TemporaryDirectory() as tmp:
     data_dir = os.path.join(tmp, "testsrc_to_ppc64le")
     test_dir = os.path.join(ROOT, "acceptance", "testsrc_to_ppc64le")
-    _envs_dir = build_env.ENVS_DIR
+    _envs_dir, _home, _check = build_env.ENVS_DIR, os.environ.get("BENCH_HOME"), _container.check
+    os.environ["BENCH_HOME"] = os.path.join(tmp, "home")
     try:
         made = new_case(data_dir, "demo", "jax-power9")       # no sources, an environment that exists
         created = made["created"]
         assert len(created) == 3 and os.access(created[0], os.X_OK) and not made["env_created"], made
         failures = [m for level, m in check_case(os.path.join(data_dir, "demo"), {"script": {}}) if level == "FAIL"]
-        assert len(failures) == 2 and "no sources" in failures[0] and "log_failed.txt" in failures[1], failures
+        assert len(failures) == 3 and "make setup-env ENV=jax-power9" in failures[0], failures
+        assert "no sources" in failures[1] and "log_failed.txt" in failures[2], failures
         os.makedirs(os.path.join(data_dir, "demo", "src"))
         open(os.path.join(data_dir, "demo", "log_failed.txt"), "w").write("error: x\n" * 100)
+        os.makedirs(os.path.join(tmp, "home", "envs", "jax-power9"))
+        open(os.path.join(tmp, "home", "envs", "jax-power9", ".complete"), "w").close()
+        _container.check = lambda cfg, env: f"no image {_container.image(env)}: run make setup-env ENV={env}"
+        failures = [m for level, m in check_case(os.path.join(data_dir, "demo"), {"script": {}}) if level == "FAIL"]
+        assert failures == ["no image build-bench-jax-power9: run make setup-env ENV=jax-power9"], failures
+        _container.check = lambda cfg, env: None
         results = check_case(os.path.join(data_dir, "demo"), {"script": {}})
         assert not [m for level, m in results if level == "FAIL"], results
         assert sum(level == "WARN" for level, _ in results) == 2, results   # TODOs left in build.sh and test
@@ -570,9 +614,13 @@ with _tempfile.TemporaryDirectory() as tmp:
         ok = [m for level, m in check_case(case_dir, {"script": {}}) if level == "OK"]
         assert any(m == "sources: lib" for m in ok), ok                 # .gitignore is not a source
     finally:
-        build_env.ENVS_DIR = _envs_dir
+        build_env.ENVS_DIR, _container.check = _envs_dir, _check
+        os.environ.pop("BENCH_HOME", None)
+        if _home is not None:
+            os.environ["BENCH_HOME"] = _home
         shutil.rmtree(test_dir, ignore_errors=True)
-print("cases: OK (new case from an archive and its build system, check_case finds what is missing)")
+print("cases: OK (new case from an archive and its build system, check_case finds what is missing, "
+      "an environment not set up or without its image)")
 
 # builds, acceptance tests and experiments in Docker containers, with the base
 # image of the environments' images (BENCH_TEST_IMAGE: another one with bash)

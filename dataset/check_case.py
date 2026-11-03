@@ -11,9 +11,10 @@ import sys
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, ROOT)
 
-from tools.auto_repair import build_env  # noqa: E402
+from tools.auto_repair import build_env, container  # noqa: E402
 from tools.auto_repair.case_type import case_type  # noqa: E402
 from tools.auto_repair.leak_check import leak_report  # noqa: E402
+from tools.auto_repair.paths import env_dir  # noqa: E402
 
 METADATA = {"build.sh", "manifest.json", "log_failed.txt", "log_failed_original.txt", ".last_upload.json",
             ".gitignore"}
@@ -58,8 +59,11 @@ def check_case(case_dir: str, cfg: dict) -> list:
             add("WARN", "manifest.json has no environment: build.sh runs without a build environment (envs/)")
         elif not build_env.exists(env):
             add("FAIL", f"build environment envs/{env}/env.yaml not found")
+        elif not os.path.isfile(os.path.join(env_dir(env), ".complete")):
+            add("FAIL", f"build environment {env} is not set up in {env_dir(env)}: make setup-env ENV={env}")
         else:
-            add("OK", f"build environment {env}")
+            problem = container.check(cfg, env)
+            add("FAIL" if problem else "OK", problem or f"build environment {env}, image {container.image(env)}")
         sources = sorted(entries - METADATA - {"extracted"})
         if sources:
             add("OK", f"sources: {', '.join(sources[:6])}{' ...' if len(sources) > 6 else ''}")

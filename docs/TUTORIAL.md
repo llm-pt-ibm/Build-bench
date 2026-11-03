@@ -125,6 +125,7 @@ fields that change most from one run to the next:
 source_arch: x86_64                   # the cases build on this architecture
 target_arch: ppc64le                  # and fail on this one: the model repairs them for it
 packages: [jaxlib]                    # cases to run; empty = all of data/x86_64_to_ppc64le/
+suite:                                # or a suite of the list below, instead of packages
 label: run31                          # name of the run; archived as run31_1
 repeats: 1                            # how many times to repeat the run
 model: deepseek/deepseek-v4.1-flash   # model on OpenRouter
@@ -132,7 +133,17 @@ provider: streamlake/fp8              # pinned provider (empty = OpenRouter's ro
 temperature:                          # empty = the provider's default
 llm:
   max_build_attempts: 12              # build attempts per package
+suites:                               # sets of cases, by difficulty
+  easy: [cpufetch, fermi-lite, libzita-resampler, lite-xl-plugin-manager, minigraph, ssw]
+  medium: [asl, ksw2, minimap2, miniprot]
+  hard: [jaxlib, tensorflow]
 ```
+
+A suite is a list of cases with a name: edit the lists, or add a suite, in
+`bench.yaml`. `suite: easy` (or `SUITE=easy` on the command line) runs the
+cases of `suites.easy`. On the command line, `PACKAGES` replaces the
+config's suite and `SUITE` its packages; the run's copy of the config
+records the suite.
 
 The fields of the run can also be changed on the command line, without
 editing the file:
@@ -141,6 +152,7 @@ editing the file:
 make run                                      # uses bench.yaml as it is
 make run LABEL=run31 ATTEMPTS=6               # another name and number of attempts
 make run PACKAGES=zita-resampler MODEL=anthropic/claude-haiku-5.5
+make run SUITE=medium LABEL=medium1          # the cases of the medium suite
 make run-fg                                   # in the foreground (Ctrl-C stops it)
 ```
 
@@ -343,7 +355,7 @@ build directory, and the run's result keeps the hosts reached
 
 ## Command reference
 
-`make` alone lists the commands. The variables `LABEL`, `PACKAGES`, `MODEL`,
+`make` alone lists the commands. The variables `LABEL`, `PACKAGES`, `SUITE`, `MODEL`,
 `PROVIDER`, `ATTEMPTS`, `REPEATS`, `TEMPERATURE`, `BASE_URL`, `API_KEY_ENV`
 and `CONTEXT_CHARS` change the matching field of `bench.yaml` for one run
 (`ATTEMPTS` and `CONTEXT_CHARS` change `llm.max_build_attempts` and

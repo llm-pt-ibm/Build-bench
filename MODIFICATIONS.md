@@ -582,6 +582,20 @@ improvements` shows them file by file.
   `make setup-env` builds each environment's image again (the environment
   itself is kept). The tests of builds and acceptance tests moved to the
   container tests, which need Docker with the base image.
+- Suites: `bench.yaml` names sets of cases in `suites` (`easy`, `medium`,
+  `hard`), and `suite: <name>` or `make run SUITE=<name>` runs one of them
+  instead of `packages`. On the command line `PACKAGES` replaces the config's
+  suite and `SUITE` its packages; both at once, both in the config, an
+  unknown suite or an empty one stop the run with a message. The run's copy
+  of the config records the suite (with `packages: []`), and the repository's
+  suites must name existing cases (tests). The first split follows tools10_1
+  (DeepSeek V4.1 Flash, every case repaired at attempt 1): easy took 14 to 21
+  tool calls and up to 2 minutes, medium 26 to 36 calls and 2 to 11 minutes;
+  hard has the Bazel cases, jaxlib and tensorflow.
+- `make check-case` checks that the case's build environment is set up
+  and that Docker has its image, as `make run` does; it only checked that
+  `envs/<environment>/env.yaml` existed, and said OK for an environment the
+  run would refuse.
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source

@@ -225,6 +225,7 @@ commands run on the build host.
 |---|---|---|
 | `label`, `repeats` | `LABEL`, `REPEATS` | runs are archived as `<label>_1` … `<label>_<repeats>` |
 | `packages` | `PACKAGES` | cases to run (empty: all of `data/<source>_to_<target>/`) |
+| `suite` | `SUITE` | runs the cases of one of the config's `suites` instead (`easy`, `medium`, `hard`); set `packages` or `suite`, not both |
 | `model`, `provider` | `MODEL`, `PROVIDER` | model and pinned OpenRouter provider |
 | `llm.max_build_attempts` | `ATTEMPTS` | build attempts per package |
 | `temperature` | `TEMPERATURE` | sampling temperature |
@@ -235,6 +236,7 @@ commands run on the build host.
 make                      # list the commands
 make run                  # start the config's run in the background
 make run LABEL=run31 ATTEMPTS=6 MODEL=deepseek/deepseek-v4.1-flash
+make run SUITE=easy LABEL=easy1   # the cases of suites.easy
 make status               # the dashboard, once
 make watch                # the live dashboard (Ctrl-C stops watching only)
 make stop                 # stop the run, its builds and experiments; archive it as <run>_stopped
@@ -462,6 +464,7 @@ says what is missing:
 | `docker not found`, `docker cannot be used` | install Docker and add the user to the `docker` group (log in again): build-recipe cases need it |
 | `build.container.runtime ...: ... always run in Docker` | remove `runtime` from the config's `build.container` |
 | `no .env with API_KEY` | create `.env` (see Files you write) |
+| `no suite <name>`, `packages and suite are both set`, `PACKAGES and SUITE: choose one` | name one of the config's `suites`; set `packages` or `suite`, not both |
 | `no model server answers at <url>`, `<url> does not serve <model>` | start the server, or pull the model on it |
 | `the model could read the answer` | move the built copy out of the model's reach or hide it (`build.script.experiment_hide`); `ALLOW_LEAKS=1` starts anyway |
 | `this host (...) is not the build host`, `run <label> runs on <host>` | run the command on the build host |

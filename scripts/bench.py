@@ -32,10 +32,34 @@ def load_profile(path: str, overrides: dict) -> dict:
         profile = yaml.safe_load(f) or {}
     profile["config"] = os.path.relpath(path, ROOT) if path.startswith(ROOT + os.sep) else path
     # "none" clears a setting of the config (e.g. PROVIDER=none for a model its provider does not serve)
-    profile.update({k: None if str(v).lower() == "none" else v for k, v in overrides.items() if v not in (None, "")})
+    given = {k: None if str(v).lower() == "none" else v for k, v in overrides.items() if v not in (None, "")}
+    if given.get("packages") and given.get("suite"):
+        fail("PACKAGES and SUITE: choose one")
+    if given.get("packages"):
+        profile["suite"] = None
+    if given.get("suite"):
+        profile["packages"] = None
+    profile.update(given)
     profile["packages"] = load_profile_packages(profile.get("packages"))
+    profile["suite"] = profile.get("suite") or None
+    if profile["suite"]:
+        profile["packages"] = suite_packages(profile)
     profile["repeats"] = int(profile.get("repeats") or 1)
     return profile
+
+
+def suite_packages(profile: dict) -> list:
+    """The packages of the profile's suite, one of the config's suites."""
+    name, suites = str(profile["suite"]), profile.get("suites") or {}
+    if profile["packages"]:
+        fail(f"{profile['config']}: packages and suite are both set; keep one")
+    if name not in suites:
+        listed = f"; its suites: {', '.join(map(str, suites))}" if suites else ""
+        fail(f"no suite {name} in {profile['config']}{listed}")
+    packages = load_profile_packages(suites[name])
+    if not packages:
+        fail(f"suite {name} of {profile['config']} has no packages")
+    return packages
 
 
 def load_profile_packages(packages) -> list:
@@ -109,7 +133,7 @@ def bench_paths(config: str) -> dict:
 
 
 # the key of the config each setting of the command line sets
-OPTION_KEYS = {"label": "label", "packages": "packages", "model": "model", "provider": "provider",
+OPTION_KEYS = {"label": "label", "packages": "packages", "suite": "suite", "model": "model", "provider": "provider",
                "base_url": "base_url", "api_key_env": "api_key_env", "repeats": "repeats",
                "temperature": "temperature", "attempts": "llm.max_build_attempts",
                "context_chars": "llm.max_context_chars"}
@@ -171,6 +195,8 @@ def frozen_config(profile: dict) -> str:
             continue   # not set on the command line: the config's value applies
         if option == "packages":
             in_file = load_profile_packages(in_file)
+            if profile.get("suite"):
+                value = []   # the suite's packages, in the copy's suites
         elif option == "repeats":
             in_file = int(in_file or 1)
         if str(in_file if in_file is not None else "") != str(value if value is not None else ""):
@@ -345,10 +371,12 @@ def cmd_run(profile: dict, background: bool, resume: dict = None, allow_leaks: b
     check_can_start(profile, paths, allow_leaks)
     attempts = profile.get("attempts") or (profile.get("llm") or {}).get("max_build_attempts")
     spec = {"label": profile["label"], "repeats": profile["repeats"], "config": frozen_config(profile),
-            "packages": profile["packages"], "model": profile.get("model"), "provider": profile.get("provider"),
+            "suite": profile.get("suite"), "packages": profile["packages"], "model": profile.get("model"), "provider": profile.get("provider"),
             "base_url": profile.get("base_url"), "attempts": attempts, "resume": resume, "started": time.strftime("%Y-%m-%d %H:%M:%S"),
             "env": run_env(profile, resume)}
-    what = (f"{spec['label']}: {', '.join(spec['packages']) or 'all packages'}, {spec['model'] or 'model of .env'}"
+    what = (f"{spec['label']}: {'suite ' + str(spec['suite']) + ' (' if spec['suite'] else ''}"
+            f"{', '.join(spec['packages']) or 'all packages'}{')' if spec['suite'] else ''}, "
+            f"{spec['model'] or 'model of .env'}"
             f"{' on ' + spec['provider'] if spec['provider'] else ''}"
             f"{' at ' + str(spec['base_url']) if spec['base_url'] else ''}, {spec['attempts'] or 'default'} attempts"
             f"{', continuing ' + resume['from'] if resume else ''}")
@@ -610,7 +638,7 @@ def cmd_archive(profile: dict, name: str) -> None:
 CONFIG_PATH = os.path.join(ROOT, "bench.yaml")
 # settings of the config the command line can override; attempts and
 # context_chars override llm.max_build_attempts and llm.max_context_chars
-PROFILE_OPTIONS = ("label", "packages", "model", "provider", "base_url", "api_key_env",
+PROFILE_OPTIONS = ("label", "packages", "suite", "model", "provider", "base_url", "api_key_env",
                    "attempts", "repeats", "temperature", "context_chars")
 
 
