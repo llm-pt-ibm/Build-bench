@@ -54,7 +54,6 @@ cd build-bench
 pip install -r requirements-ppc64le.txt   # in a Python 3.11 environment
 cat > .env <<'EOF'
 API_KEY=<your OpenRouter key>
-API_BASE_URL=https://openrouter.ai/api/v1
 EOF
 make setup-env ENV=jax-power9   # the build environment, once per machine (it compiles Bazel: slow)
 make check-env ENV=jax-power9   # ends with "environment ready"
@@ -77,7 +76,7 @@ these files:
 
 | File | What it holds | Who makes it |
 |---|---|---|
-| `.env` | `API_KEY`, `API_BASE_URL`; `OBS_USER`, `OBS_PASSWORD` for RPM cases | you, on every machine (git ignores it) |
+| `.env` | `API_KEY`; `OBS_USER`, `OBS_PASSWORD` for RPM cases | you, on every machine (git ignores it) |
 | `local.mk` (optional) | `PY`, the framework's Python, and `BENCH_HOME` | you, when `python3` on the PATH is not that Python |
 | `bench.yaml` | the run: architectures, cases, model, repair loop, builds | in git: edit it, or override it with make variables |
 | `envs/<environment>/env.yaml` | a build environment: conda, system and pip packages, Bazel, wheels | `make new-env` or `make new-case` start it; you complete it |
@@ -108,7 +107,7 @@ in `bench.yaml`, which `.env` never overrides:
 
 | Variable | Meaning |
 |---|---|
-| `API_KEY`, `API_BASE_URL` | LLM API, e.g. OpenRouter: `https://openrouter.ai/api/v1` |
+| `API_KEY` | key of OpenRouter, the API the runs use unless `model_server` in `bench.yaml` names another |
 | `OBS_USER`, `OBS_PASSWORD` | OBS account (OBS backend and local worker) |
 
 The framework runs as a normal user and changes nothing on the host. What it
@@ -229,7 +228,7 @@ commands run on the build host.
 | `model`, `provider` | `MODEL`, `PROVIDER` | model and pinned OpenRouter provider |
 | `llm.max_build_attempts` | `ATTEMPTS` | build attempts per package |
 | `temperature` | `TEMPERATURE` | sampling temperature |
-| `base_url`, `api_key_env`, `llm.max_context_chars` | `BASE_URL`, `API_KEY_ENV`, `CONTEXT_CHARS` | a model server of your own (see Local models) |
+| `model_server`, `model_server_key_env`, `llm.max_context_chars` | `MODEL_SERVER`, `MODEL_SERVER_KEY_ENV`, `CONTEXT_CHARS` | a model server of your own instead of OpenRouter, the variable of `.env` with its key (see Local models) |
 | | `CONFIG` | another config file, e.g. a copy of `bench.yaml` |
 
 ```bash
@@ -273,20 +272,20 @@ run in the meantime.
 ### Local models
 Any server with an OpenAI-compatible API works: Ollama, vLLM, llama.cpp's
 `llama-server`. Start it with tool calling and a large context window, then
-set `base_url`, `model` and `llm.max_context_chars` in `bench.yaml`, or run
+set `model_server`, `model` and `llm.max_context_chars` in `bench.yaml`, or run
 with the variables:
 
 ```bash
 OLLAMA_CONTEXT_LENGTH=65536 ollama serve &      # Ollama's default window is small and cuts prompts silently
 ollama pull qwen3-coder:30b
-make run BASE_URL=http://127.0.0.1:11434/v1 MODEL=qwen3-coder:30b PROVIDER=none CONTEXT_CHARS=180000 LABEL=local1
+make run MODEL_SERVER=http://127.0.0.1:11434/v1 MODEL=qwen3-coder:30b PROVIDER=none CONTEXT_CHARS=180000 LABEL=local1
 ```
 
 vLLM: `vllm serve <model> --max-model-len 65536 --enable-auto-tool-choice
 --tool-call-parser <parser>`; llama.cpp: `llama-server -m <model.gguf> --jinja
--c 65536`. `base_url` points the run to the server; the API key of `.env` is
-never sent there (`api_key_env` names a variable with the server's own key,
-if it needs one). `llm.max_context_chars` (`CONTEXT_CHARS`) keeps the
+-c 65536`. `model_server` points the run to the server; the API key of `.env`
+is never sent there (`model_server_key_env` names a variable of `.env` with
+the server's own key, if it needs one). `llm.max_context_chars` (`CONTEXT_CHARS`) keeps the
 conversation within the server's window, at about 3.5 characters per token
 (65,536 tokens: about 180,000 characters, leaving room for the system prompt
 and the reply); the oldest tool results are shortened beyond it. `make run` checks that the

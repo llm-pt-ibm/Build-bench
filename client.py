@@ -24,6 +24,7 @@ from tools.auto_repair.obs_config import load_obs_config
 from tools.auto_repair.paths import env_dir
 
 load_dotenv(".env")
+OPENROUTER_URL = "https://openrouter.ai/api/v1"
 CONFIG_PATH = bench_config.path()
 info = bench_config.load(CONFIG_PATH)
 TOOL_TIMEOUT = int(info.get("obs", {}).get("max_wait_seconds", 3600)) + 300
@@ -60,7 +61,7 @@ class LLMConfig:
             self.base_url = base_url
         else:
             self.api_key = os.getenv("API_KEY")
-            self.base_url = os.getenv("API_BASE_URL")
+            self.base_url = model_server_url()
 
         if not self.api_key and is_local_url(self.base_url):
             self.api_key = "none"   # local model servers (Ollama, vLLM, llama.cpp) need no key
@@ -75,6 +76,11 @@ class LLMConfig:
         if self.base_url:
             return OpenAI(api_key=self.api_key, base_url=self.base_url, timeout=timeout, max_retries=0)
         return OpenAI(api_key=self.api_key, timeout=timeout, max_retries=0)
+
+
+def model_server_url() -> str:
+    """bench.yaml's model_server (scripts/bench.py passes it as API_BASE_URL), or OpenRouter."""
+    return os.getenv("API_BASE_URL") or OPENROUTER_URL
 
 
 def request_timeout(base_url: Optional[str]) -> float:
@@ -177,9 +183,9 @@ def run_metadata(max_build_attempts: int, max_tool_rounds: int) -> Dict:
         "model_retry_waits": list(MODEL_RETRY_WAITS),
         "build_backend": (os.getenv("BENCH_BUILD_BACKEND") or (info.get("build") or {}).get("backend", "obs")).lower(),
         # where the model ran: an API such as OpenRouter, or a local server
-        "api_base": api_base(os.getenv("API_BASE_URL")),
-        "local_model": is_local_url(os.getenv("API_BASE_URL")),
-        "request_timeout": request_timeout(os.getenv("API_BASE_URL")),
+        "api_base": api_base(model_server_url()),
+        "local_model": is_local_url(model_server_url()),
+        "request_timeout": request_timeout(model_server_url()),
         "prompt_cache": PROMPT_CACHE,
         "text_tool_calls": TEXT_TOOL_CALLS,
     }

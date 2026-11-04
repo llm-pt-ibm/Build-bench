@@ -31,6 +31,12 @@ def load_profile(path: str, overrides: dict) -> dict:
     with open(path) as f:
         profile = yaml.safe_load(f) or {}
     profile["config"] = os.path.relpath(path, ROOT) if path.startswith(ROOT + os.sep) else path
+    for old, new in RENAMED_KEYS.items():
+        if old in profile:
+            value = profile.pop(old)
+            if value not in (None, "") and profile.get(new) in (None, ""):
+                print(f"warning: {profile['config']}: {old} is now {new}", file=sys.stderr)
+                profile[new] = value
     # "none" clears a setting of the config (e.g. PROVIDER=none for a model its provider does not serve)
     given = {k: None if str(v).lower() == "none" else v for k, v in overrides.items() if v not in (None, "")}
     if given.get("packages") and given.get("suite"):
@@ -62,6 +68,9 @@ def suite_packages(profile: dict) -> list:
     return packages
 
 
+RENAMED_KEYS = {"base_url": "model_server", "api_key_env": "model_server_key_env"}
+
+
 def load_profile_packages(packages) -> list:
     """The packages of a config or of the command line ("a,b" or "a b") as a list."""
     if isinstance(packages, str):
@@ -82,10 +91,10 @@ def run_env(profile: dict, resume: dict = None) -> dict:
         # empty rather than unset: client.py loads .env, which must not fill in
         # a setting that bench.yaml leaves empty
         env[name] = "" if value in (None, "") else str(value)
-    if profile.get("base_url"):
+    if profile.get("model_server"):
         # the API key of .env is never sent to a model server of the profile's own
-        env["API_BASE_URL"] = str(profile["base_url"])
-        key_var = profile.get("api_key_env")
+        env["API_BASE_URL"] = str(profile["model_server"])
+        key_var = profile.get("model_server_key_env")
         env["API_KEY"] = (os.getenv(key_var) or dotenv_value(key_var) or "") if key_var else "none"
     return env
 
@@ -106,7 +115,7 @@ def check_model_server(profile: dict) -> None:
     """A run on a model server of the profile's own: the server must answer
     and serve the model (so the run does not spend its first minutes retrying)."""
     import urllib.request
-    base = str(profile["base_url"]).rstrip("/")
+    base = str(profile["model_server"]).rstrip("/")
     env = run_env(profile)
     headers = {} if env["API_KEY"] in ("", "none") else {"Authorization": f"Bearer {env['API_KEY']}"}
     try:
@@ -121,8 +130,8 @@ def check_model_server(profile: dict) -> None:
     if served and model not in served:
         fail(f"{base} does not serve {model}; it serves: {', '.join(served[:12])} "
              f"(Ollama: `ollama pull {model}`)")
-    if env["API_KEY"] == "" and profile.get("api_key_env"):
-        fail(f"{profile['api_key_env']} is not set (the key of {base})")
+    if env["API_KEY"] == "" and profile.get("model_server_key_env"):
+        fail(f"{profile['model_server_key_env']} is not set (the key of {base})")
 
 
 def bench_paths(config: str) -> dict:
@@ -134,7 +143,7 @@ def bench_paths(config: str) -> dict:
 
 # the key of the config each setting of the command line sets
 OPTION_KEYS = {"label": "label", "packages": "packages", "suite": "suite", "model": "model", "provider": "provider",
-               "base_url": "base_url", "api_key_env": "api_key_env", "repeats": "repeats",
+               "model_server": "model_server", "model_server_key_env": "model_server_key_env", "repeats": "repeats",
                "temperature": "temperature", "attempts": "llm.max_build_attempts",
                "context_chars": "llm.max_context_chars"}
 
@@ -334,10 +343,13 @@ def check_can_start(profile: dict, paths: dict, allow_leaks: bool = False) -> No
     for pkg in profile["packages"]:
         if not os.path.isdir(os.path.join(paths["base_dir"], pkg)):
             fail(f"no case {pkg} in {os.path.relpath(paths['base_dir'], ROOT)}")
-    if profile.get("base_url"):
+    if profile.get("model_server"):
         check_model_server(profile)
     elif not os.path.isfile(os.path.join(ROOT, ".env")) and not os.getenv("API_KEY"):
         fail("no .env with API_KEY (and no API_KEY in the environment)")
+    if dotenv_value("API_BASE_URL"):
+        print("warning: API_BASE_URL in .env is no longer needed: OpenRouter is the default, and a model "
+              "server of your own goes in model_server of the config", file=sys.stderr)
     leaks = {pkg: found for pkg, found in leak_findings(profile["config"], paths, profile["packages"]).items()
              if found}
     if leaks and not allow_leaks:
@@ -372,13 +384,13 @@ def cmd_run(profile: dict, background: bool, resume: dict = None, allow_leaks: b
     attempts = profile.get("attempts") or (profile.get("llm") or {}).get("max_build_attempts")
     spec = {"label": profile["label"], "repeats": profile["repeats"], "config": frozen_config(profile),
             "suite": profile.get("suite"), "packages": profile["packages"], "model": profile.get("model"), "provider": profile.get("provider"),
-            "base_url": profile.get("base_url"), "attempts": attempts, "resume": resume, "started": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "model_server": profile.get("model_server"), "attempts": attempts, "resume": resume, "started": time.strftime("%Y-%m-%d %H:%M:%S"),
             "env": run_env(profile, resume)}
     what = (f"{spec['label']}: {'suite ' + str(spec['suite']) + ' (' if spec['suite'] else ''}"
             f"{', '.join(spec['packages']) or 'all packages'}{')' if spec['suite'] else ''}, "
             f"{spec['model'] or 'model of .env'}"
             f"{' on ' + spec['provider'] if spec['provider'] else ''}"
-            f"{' at ' + str(spec['base_url']) if spec['base_url'] else ''}, {spec['attempts'] or 'default'} attempts"
+            f"{' at ' + str(spec['model_server']) if spec['model_server'] else ''}, {spec['attempts'] or 'default'} attempts"
             f"{', continuing ' + resume['from'] if resume else ''}")
     if not background:
         print(f"running {what}")
@@ -638,7 +650,7 @@ def cmd_archive(profile: dict, name: str) -> None:
 CONFIG_PATH = os.path.join(ROOT, "bench.yaml")
 # settings of the config the command line can override; attempts and
 # context_chars override llm.max_build_attempts and llm.max_context_chars
-PROFILE_OPTIONS = ("label", "packages", "suite", "model", "provider", "base_url", "api_key_env",
+PROFILE_OPTIONS = ("label", "packages", "suite", "model", "provider", "model_server", "model_server_key_env",
                    "attempts", "repeats", "temperature", "context_chars")
 
 

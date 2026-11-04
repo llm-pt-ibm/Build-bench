@@ -8,13 +8,16 @@
 PY ?= python3
 export BENCH_HOME
 CONFIG ?= bench.yaml
+MODEL_SERVER ?= $(BASE_URL)
+MODEL_SERVER_KEY_ENV ?= $(API_KEY_ENV)
 
 # overrides of the config, passed only when set
 OPTS = $(if $(LABEL),--label $(LABEL)) \
        $(if $(PACKAGES),--packages "$(PACKAGES)") $(if $(SUITE),--suite $(SUITE)) $(if $(MODEL),--model $(MODEL)) \
        $(if $(PROVIDER),--provider $(PROVIDER)) $(if $(ATTEMPTS),--attempts $(ATTEMPTS)) \
        $(if $(REPEATS),--repeats $(REPEATS)) $(if $(TEMPERATURE),--temperature $(TEMPERATURE)) \
-       $(if $(BASE_URL),--base_url $(BASE_URL)) $(if $(API_KEY_ENV),--api_key_env $(API_KEY_ENV)) \
+       $(if $(MODEL_SERVER),--model_server $(MODEL_SERVER)) \
+       $(if $(MODEL_SERVER_KEY_ENV),--model_server_key_env $(MODEL_SERVER_KEY_ENV)) \
        $(if $(CONTEXT_CHARS),--context_chars $(CONTEXT_CHARS))
 BENCH = $(PY) scripts/bench.py --config $(CONFIG) $(OPTS)
 LEAKS = $(if $(ALLOW_LEAKS),--allow-leaks)

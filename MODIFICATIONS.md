@@ -596,6 +596,14 @@ improvements` shows them file by file.
   and that Docker has its image, as `make run` does; it only checked that
   `envs/<environment>/env.yaml` existed, and said OK for an environment the
   run would refuse.
+- The model server: `.env` holds only credentials, and OpenRouter is the
+  default address, so `API_BASE_URL` left `.env` (one still there works, with
+  a warning: a server's address in it would get the OpenRouter key and skip
+  the check that the server answers). A server of one's own is
+  `model_server` in `bench.yaml` (`MODEL_SERVER`), with
+  `model_server_key_env` (`MODEL_SERVER_KEY_ENV`) naming the variable of
+  `.env` with its key: `base_url` and `api_key_env`, the old names, read like
+  an address and a key of `.env` and still work, with a warning.
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source

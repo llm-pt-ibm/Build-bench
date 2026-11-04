@@ -47,8 +47,7 @@ sudo usermod -aG docker $USER             # Docker installed; log in again after
 
 | `.env` variable | What for |
 |---|---|
-| `API_KEY` | key of the model's API (e.g. OpenRouter's) |
-| `API_BASE_URL` | address of the API, e.g. `https://openrouter.ai/api/v1` |
+| `API_KEY` | key of OpenRouter, the API the runs use |
 | `OBS_USER`, `OBS_PASSWORD` | OBS account, only for the OBS backend |
 
 `.env` holds only credentials. The model, the provider, the temperature and
@@ -234,7 +233,7 @@ useful fields of the JSON:
 ## Other models
 
 Any OpenRouter model runs by changing `MODEL`; local models run by pointing
-the run at their server (`base_url`).
+the run at their server (`model_server`).
 
 **OpenRouter.** Change `MODEL` and, to pin the provider, `PROVIDER`. The cost
 of each call comes from OpenRouter and goes into the result.
@@ -252,17 +251,18 @@ without these marks.
 **Local models** (Ollama, vLLM, llama.cpp):
 
 1. Start the server with tool calling and a large context window.
-2. Set `base_url`, `model` and `llm.max_context_chars` in `bench.yaml` (about 3.5 characters per token, leaving room for the prompt and the reply), or pass `BASE_URL`, `MODEL` and `CONTEXT_CHARS` on the command line.
+2. Set `model_server`, `model` and `llm.max_context_chars` in `bench.yaml` (about 3.5 characters per token, leaving room for the prompt and the reply), or pass `MODEL_SERVER`, `MODEL` and `CONTEXT_CHARS` on the command line.
 3. Run. `make run` first checks that the server answers and has the model.
 
 ```bash
 OLLAMA_CONTEXT_LENGTH=65536 ollama serve &     # Ollama's default window is small and cuts prompts silently
 ollama pull qwen3-coder:30b
-make run BASE_URL=http://127.0.0.1:11434/v1 MODEL=qwen3-coder:30b PROVIDER=none CONTEXT_CHARS=180000 LABEL=local1
+make run MODEL_SERVER=http://127.0.0.1:11434/v1 MODEL=qwen3-coder:30b PROVIDER=none CONTEXT_CHARS=180000 LABEL=local1
 ```
 
-The key of `.env` is never sent to that server; if it needs a key,
-`api_key_env` names the variable that holds it. `LLM_TIMEOUT` gives slow
+The key of `.env` is never sent to that server; if it needs a key, put it
+in `.env` under a name of your own and set `model_server_key_env` to that
+name. `LLM_TIMEOUT` gives slow
 models more time per reply (the default is 1800 s for a local server, 600 s
 for an API). When the server does not
 convert the model's tool calls, they arrive as text; the client recognizes
@@ -342,7 +342,7 @@ most common ones and what to do:
 | `no image build-bench-<env>` | `make setup-env ENV=<env>` (redoes only what is missing, and the image) |
 | `docker not found`, `docker cannot be used` | install Docker and add the user to the `docker` group (`sudo usermod -aG docker $USER`, then log in again) |
 | `the model could read the answer` | move the file out of the model's reach or hide it with `script.experiment_hide`; `ALLOW_LEAKS=1` only if you know what you are doing |
-| `no model server answers at <url>` | start the local server or fix `BASE_URL` |
+| `no model server answers at <url>` | start the local server or fix `model_server` |
 | `<url> does not serve <model>` | pull the model on the server or fix `MODEL` |
 | `no .env with API_KEY` | create `.env` (see Installation) |
 | `lookup ... on 127.0.0.1:53: server misbehaving` | Docker's daemon cannot resolve names through the local DNS: set `GODEBUG=netdns=cgo` in the Docker service's environment, with `live-restore` on before the restart so running containers survive it |
@@ -356,7 +356,7 @@ build directory, and the run's result keeps the hosts reached
 ## Command reference
 
 `make` alone lists the commands. The variables `LABEL`, `PACKAGES`, `SUITE`, `MODEL`,
-`PROVIDER`, `ATTEMPTS`, `REPEATS`, `TEMPERATURE`, `BASE_URL`, `API_KEY_ENV`
+`PROVIDER`, `ATTEMPTS`, `REPEATS`, `TEMPERATURE`, `MODEL_SERVER`, `MODEL_SERVER_KEY_ENV`
 and `CONTEXT_CHARS` change the matching field of `bench.yaml` for one run
 (`ATTEMPTS` and `CONTEXT_CHARS` change `llm.max_build_attempts` and
 `llm.max_context_chars`). `none` clears a field (e.g. `PROVIDER=none`), and

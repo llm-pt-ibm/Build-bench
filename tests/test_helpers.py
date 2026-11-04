@@ -308,13 +308,21 @@ threading.Thread(target=_server.serve_forever, daemon=True).start()
 _saved = os.environ.get("API_KEY")
 os.environ["API_KEY"] = "secret-of-another-api"
 try:
-    local = {"packages": [], "model": "local-coder", "base_url": f"http://127.0.0.1:{_server.server_port}/v1"}
+    local = {"packages": [], "model": "local-coder", "model_server": f"http://127.0.0.1:{_server.server_port}/v1"}
     env = bench.run_env(local)
-    assert env["API_BASE_URL"] == local["base_url"] and env["API_KEY"] == "none", "the .env key is never sent"
+    assert env["API_BASE_URL"] == local["model_server"] and env["API_KEY"] == "none", "the .env key is never sent"
     os.environ["LOCAL_KEY_FOR_TEST"] = "k1"
-    assert bench.run_env(dict(local, api_key_env="LOCAL_KEY_FOR_TEST"))["API_KEY"] == "k1"
+    assert bench.run_env(dict(local, model_server_key_env="LOCAL_KEY_FOR_TEST"))["API_KEY"] == "k1"
+    assert "API_BASE_URL" not in bench.run_env({"packages": []}), "without model_server: OpenRouter"
+    # base_url and api_key_env, the old names, still work
+    with _tempfile.TemporaryDirectory() as tmp:
+        open(os.path.join(tmp, "bench.yaml"), "w").write(
+            f"source_arch: x86_64\ntarget_arch: ppc64le\nbase_url: {local['model_server']}\napi_key_env: K\n")
+        p = bench.load_profile(os.path.join(tmp, "bench.yaml"), {})
+        assert p["model_server"] == local["model_server"] and p["model_server_key_env"] == "K", p
+        assert "base_url" not in p and "api_key_env" not in p, p
     bench.check_model_server(local)   # answers and serves the model
-    for broken in (dict(local, model="other-model"), dict(local, base_url="http://127.0.0.1:9/v1")):
+    for broken in (dict(local, model="other-model"), dict(local, model_server="http://127.0.0.1:9/v1")):
         try:
             bench.check_model_server(broken)
             raise AssertionError(f"accepted {broken}")

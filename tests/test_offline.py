@@ -239,6 +239,10 @@ async def main():
                     os.environ["LLM_TIMEOUT"] = saved_timeout
             assert client.is_local_url("http://127.0.0.1:11434/v1") and client.is_local_url("http://10.20.21.2:8000/v1")
             assert not client.is_local_url("https://openrouter.ai/api/v1")
+            _base = os.environ.pop("API_BASE_URL", None)
+            assert client.model_server_url() == "https://openrouter.ai/api/v1", "OpenRouter by default"
+            if _base is not None:
+                os.environ["API_BASE_URL"] = _base
             assert client.api_base("http://user:pw@127.0.0.1:11434/v1") == "http://127.0.0.1:11434"
             try:
                 os.environ["API_BASE_URL"] = "https://api.example.com/v1"

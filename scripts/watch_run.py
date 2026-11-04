@@ -29,7 +29,7 @@ def env_value(name):
 
 
 def key_spend_today():
-    key, base = env_value("API_KEY"), env_value("API_BASE_URL") or ""
+    key, base = env_value("API_KEY"), env_value("API_BASE_URL") or "https://openrouter.ai/api/v1"
     if not key or "openrouter" not in base:
         return None
     try:

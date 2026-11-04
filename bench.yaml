@@ -8,8 +8,8 @@ repeats: 1
 model: deepseek/deepseek-v4.1-flash
 provider: streamlake/fp8
 temperature:
-base_url:
-api_key_env:
+model_server:
+model_server_key_env:
 
 llm:
   max_build_attempts: 12
