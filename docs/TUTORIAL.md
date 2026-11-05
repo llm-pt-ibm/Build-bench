@@ -124,8 +124,7 @@ fields that change most from one run to the next:
 # bench.yaml (excerpt)
 source_arch: x86_64                   # the cases build on this architecture
 target_arch: ppc64le                  # and fail on this one: the model repairs them for it
-packages: [jaxlib]                    # cases to run; empty = all of data/x86_64_to_ppc64le/
-suite:                                # or a suite of the list below, instead of packages
+suite: easy                           # the cases to run: one of the suites below
 label: run31                          # name of the run; archived as run31_1
 repeats: 1                            # how many times to repeat the run
 model: deepseek/deepseek-v4.1-flash   # model on OpenRouter
@@ -139,11 +138,10 @@ suites:                               # sets of cases, by difficulty
   hard: [jaxlib, tensorflow]
 ```
 
-A suite is a list of cases with a name: edit the lists, or add a suite, in
-`bench.yaml`. `suite: easy` (or `SUITE=easy` on the command line) runs the
-cases of `suites.easy`. On the command line, `PACKAGES` replaces the
-config's suite and `SUITE` its packages; the run's copy of the config
-records the suite.
+A suite is a list of cases with a name, and a run runs one: `suite: easy`
+(or `SUITE=easy` on the command line) runs the cases of `suites.easy`. Edit
+the lists, or add a suite, in `bench.yaml`; a single case is a suite of its
+own, e.g. `ksw2: [ksw2]`. The run's copy of the config records the suite.
 
 The fields of the run can also be changed on the command line, without
 editing the file:
@@ -151,13 +149,14 @@ editing the file:
 ```bash
 make run                                      # uses bench.yaml as it is
 make run LABEL=run31 ATTEMPTS=6               # another name and number of attempts
-make run PACKAGES=zita-resampler MODEL=anthropic/claude-haiku-5.5
+make run SUITE=easy MODEL=anthropic/claude-haiku-5.5
 make run SUITE=medium LABEL=medium1          # the cases of the medium suite
 make run-fg                                   # in the foreground (Ctrl-C stops it)
 ```
 
 Before starting, `make run` checks:
 
+- that the config names a suite, whose cases exist;
 - that this machine is the config's build host and that no other run is active;
 - that the build environment is ready and the container image exists;
 - that the model cannot reach the answer (the leak check looks for built or installed copies of the package). `ALLOW_LEAKS=1` skips this check.
@@ -349,7 +348,8 @@ most common ones and what to do:
 | `<url> does not serve <model>` | pull the model on the server or fix `MODEL` |
 | `no API_BASE_URL in .env`, `no API_KEY in .env` | create `.env` (see Installation) |
 | `API_KEY in .env is an OpenRouter key` | `API_BASE_URL` names another server: set `API_KEY` to its key, or leave it empty |
-| `base_url`, `BASE_URL`: `the model's address and key are API_BASE_URL and API_KEY in .env` | a config or a command of an older version: move the server's address and key to `.env` |
+| `no suite`, `no suite <name>` | set `suite` in `bench.yaml` (or `SUITE`) to one of its `suites` |
+| `packages`, `PACKAGES`, `base_url`, `BASE_URL`: `no longer read` | settings of an older version: put the cases in a suite, and the model's address and key in `.env` |
 | `lookup ... on 127.0.0.1:53: server misbehaving` | Docker's daemon cannot resolve names through the local DNS: set `GODEBUG=netdns=cgo` in the Docker service's environment, with `live-restore` on before the restart so running containers survive it |
 | `make test`: `cannot import name 'eval_type_backport'` | the installed pydantic does not suit mcp 1.20.0: `pip install pydantic==2.13.5 pydantic_core==2.46.5` in the framework's environment (`requirements-ppc64le.txt` pins these versions) |
 | `make baseline`: `FATAL: $USER is not set` | an older framework under Docker: update it, since containers now get `USER` and `HOME` |
@@ -360,7 +360,7 @@ build directory, and the run's result keeps the hosts reached
 
 ## Command reference
 
-`make` alone lists the commands. The variables `LABEL`, `PACKAGES`, `SUITE`, `MODEL`,
+`make` alone lists the commands. The variables `LABEL`, `SUITE`, `MODEL`,
 `PROVIDER`, `ATTEMPTS`, `REPEATS`, `TEMPERATURE` and `CONTEXT_CHARS` change the matching field of `bench.yaml` for one run
 (`ATTEMPTS` and `CONTEXT_CHARS` change `llm.max_build_attempts` and
 `llm.max_context_chars`). `none` clears a field (e.g. `PROVIDER=none`), and
@@ -377,7 +377,7 @@ build directory, and the run's result keeps the hosts reached
 | `make archive NAME=<run>_stopped` | archives what an interrupted run left |
 | `make summary` | archived runs with the result and the total cost (`PREFIX=`, `KEY=1`) |
 | `make transcript RUN=<run\|current>` | what the model did (`ATTEMPT=`, `REASONING=1`, `FULL=1`, `TOOL=`, `GREP=`) |
-| `make leaks` | looks for the answer within the model's reach (the packages of `bench.yaml`) |
+| `make leaks` | looks for the answer within the model's reach (the cases of the suite) |
 | `make new-case CASE=<name> SOURCE=<url>` | creates a build-recipe case from its sources: `build.sh`, the test and, without `ENV=`, the environment, for the build system it finds |
 | `make fetch CASE=<name>` | downloads a case's sources again, from `manifest.json` (e.g. after cloning the repository) |
 | `make baseline CASE=<name>` | builds the case as it is, without the model, and saves the failure as `log_failed.txt` |

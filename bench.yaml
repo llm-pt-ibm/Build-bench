@@ -1,6 +1,5 @@
 source_arch: x86_64
 target_arch: ppc64le
-packages:
 suite: easy
 label: run30
 repeats: 1

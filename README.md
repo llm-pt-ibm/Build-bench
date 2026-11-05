@@ -46,7 +46,7 @@ The build host needs:
 - the key of an OpenAI-compatible API (e.g. OpenRouter), or a model server of your own (see Local models);
 - for RPM cases only, an OBS account or a local osc worker.
 
-A first run, of the jaxlib case on the Power9:
+A first run, of the easy suite on the Power9:
 
 ```bash
 git clone -b improvements https://github.com/llm-pt-ibm/Build-bench.git build-bench
@@ -56,13 +56,14 @@ cat > .env <<'EOF'
 API_KEY=<your OpenRouter key>
 API_BASE_URL=https://openrouter.ai/api/v1
 EOF
-make setup-env ENV=jax-power9   # the build environment, once per machine (it compiles Bazel: slow)
-make check-env ENV=jax-power9   # ends with "environment ready"
-make fetch CASE=jaxlib          # the sources of jax and XLA, too large for git
-make check-case CASE=jaxlib     # ends with "ready to run"
-make run PACKAGES=jaxlib LABEL=first   # in the background, with the model of bench.yaml
-make watch                      # the live dashboard (Ctrl-C stops watching, not the run)
-make summary                    # the result and its cost, once the run ends
+make setup-env ENV=tools-power9   # the build environments of the easy suite, once per machine
+make setup-env ENV=lpm-power9
+for c in cpufetch fermi-lite libzita-resampler lite-xl-plugin-manager minigraph ssw; do
+  make fetch CASE=$c && make check-case CASE=$c   # the sources (not in git); ends with "ready to run"
+done
+make run SUITE=easy LABEL=first   # in the background, with the model of bench.yaml
+make watch                        # the live dashboard (Ctrl-C stops watching, not the run)
+make summary                      # the results and their cost, once the run ends
 ```
 
 The [tutorial](docs/TUTORIAL.md) explains each step; the sections below are
@@ -224,8 +225,7 @@ commands run on the build host.
 | `bench.yaml` | make variable | |
 |---|---|---|
 | `label`, `repeats` | `LABEL`, `REPEATS` | runs are archived as `<label>_1` … `<label>_<repeats>` |
-| `packages` | `PACKAGES` | cases to run (empty: all of `data/<source>_to_<target>/`) |
-| `suite` | `SUITE` | runs the cases of one of the config's `suites` instead (`easy`, `medium`, `hard`); set `packages` or `suite`, not both |
+| `suite`, `suites` | `SUITE` | the cases to run: `suite` names one of the lists of `suites` (`easy`, `medium`, `hard`), which you can edit or add to |
 | `model`, `provider` | `MODEL`, `PROVIDER` | model and pinned OpenRouter provider |
 | `llm.max_build_attempts` | `ATTEMPTS` | build attempts per package |
 | `temperature` | `TEMPERATURE` | sampling temperature |
@@ -466,8 +466,8 @@ says what is missing:
 | `build.container.runtime ...: ... always run in Docker` | remove `runtime` from the config's `build.container` |
 | `no API_BASE_URL in .env`, `no API_KEY in .env` | create `.env` (see Files you write) |
 | `API_KEY in .env is an OpenRouter key` | `API_BASE_URL` names another server: set `API_KEY` to its key, or leave it empty |
-| `base_url`, `BASE_URL`: `... are API_BASE_URL and API_KEY in .env` | a config or command of an older version: move the server's address and key to `.env` |
-| `no suite <name>`, `packages and suite are both set`, `PACKAGES and SUITE: choose one` | name one of the config's `suites`; set `packages` or `suite`, not both |
+| `no suite`, `no suite <name>` | set `suite` (or `SUITE`) to one of the config's `suites` |
+| `packages`, `PACKAGES`, `base_url`, `BASE_URL`: `no longer read` | settings of an older version: put the cases in a suite, and the model's address and key in `.env` |
 | `no model server answers at <url>`, `<url> does not serve <model>` | start the server, or pull the model on it |
 | `the model could read the answer` | move the built copy out of the model's reach or hide it (`build.script.experiment_hide`); `ALLOW_LEAKS=1` starts anyway |
 | `this host (...) is not the build host`, `run <label> runs on <host>` | run the command on the build host |

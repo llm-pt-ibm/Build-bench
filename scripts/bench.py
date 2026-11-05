@@ -27,45 +27,50 @@ DOTENV = os.path.join(ROOT, ".env")
 
 # --- settings ----------------------------------------------------------------
 
+# settings of older versions, refused rather than ignored (also as make variables)
+REMOVED_SETTINGS = ("packages", "base_url", "api_key_env")
+
+
 def load_profile(path: str, overrides: dict) -> dict:
     """The settings of a run: the config's, with the command line's overrides.
-    `config` is the config file itself."""
+    `config` is the config file itself, `packages` the cases of its suite."""
     with open(path) as f:
         profile = yaml.safe_load(f) or {}
     profile["config"] = os.path.relpath(path, ROOT) if path.startswith(ROOT + os.sep) else path
+    profile["removed"] = [k for k in REMOVED_SETTINGS if profile.pop(k, None) not in (None, "", [])]
     # "none" clears a setting of the config (e.g. PROVIDER=none for a model its provider does not serve)
-    given = {k: None if str(v).lower() == "none" else v for k, v in overrides.items() if v not in (None, "")}
-    if given.get("packages") and given.get("suite"):
-        fail("PACKAGES and SUITE: choose one")
-    if given.get("packages"):
-        profile["suite"] = None
-    if given.get("suite"):
-        profile["packages"] = None
-    profile.update(given)
-    profile["packages"] = load_profile_packages(profile.get("packages"))
+    profile.update({k: None if str(v).lower() == "none" else v for k, v in overrides.items() if v not in (None, "")})
     profile["suite"] = profile.get("suite") or None
-    if profile["suite"]:
-        profile["packages"] = suite_packages(profile)
+    profile["packages"] = suite_packages(profile) if profile["suite"] else []
     profile["repeats"] = int(profile.get("repeats") or 1)
     return profile
 
 
 def suite_packages(profile: dict) -> list:
-    """The packages of the profile's suite, one of the config's suites."""
+    """The cases of the profile's suite, one of the config's suites."""
     name, suites = str(profile["suite"]), profile.get("suites") or {}
-    if profile["packages"]:
-        fail(f"{profile['config']}: packages and suite are both set; keep one")
     if name not in suites:
         listed = f"; its suites: {', '.join(map(str, suites))}" if suites else ""
         fail(f"no suite {name} in {profile['config']}{listed}")
     packages = load_profile_packages(suites[name])
     if not packages:
-        fail(f"suite {name} of {profile['config']} has no packages")
+        fail(f"suite {name} of {profile['config']} has no cases")
     return packages
 
 
+def check_settings(profile: dict) -> None:
+    """A run has a suite, and none of the settings of older versions."""
+    removed = profile.get("removed", []) + [k.upper() for k in REMOVED_SETTINGS if os.getenv(k.upper())]
+    if removed:
+        fail(f"{', '.join(removed)}: no longer read. A run's cases are a suite of the config (suite, or SUITE), "
+             "and the model's address and key are API_BASE_URL and API_KEY in .env")
+    if not profile["suite"]:
+        suites = ", ".join(map(str, profile.get("suites") or {})) or "it has none"
+        fail(f"no suite: set suite in {profile['config']} (or SUITE) to one of its suites ({suites})")
+
+
 def load_profile_packages(packages) -> list:
-    """The packages of a config or of the command line ("a,b" or "a b") as a list."""
+    """The cases of a suite ("a b", "a,b" or a list) as a list."""
     if isinstance(packages, str):
         packages = [p for p in packages.replace(",", " ").split() if p]
     return list(packages or [])
@@ -109,11 +114,6 @@ def check_model_api(profile: dict) -> None:
     """The run's model API is that of .env; a server other than OpenRouter
     must answer and serve the model (so the run does not spend its first
     minutes retrying), and never gets the OpenRouter key."""
-    moved = [k for k in ("base_url", "api_key_env") if profile.get(k)] + \
-            [k for k in ("BASE_URL", "API_KEY_ENV") if os.getenv(k)]
-    if moved:
-        fail(f"{', '.join(moved)}: the model's address and key are API_BASE_URL and API_KEY in .env, "
-             "for OpenRouter and for a server of your own")
     base, key = model_api()
     if not base:
         fail("no API_BASE_URL in .env: https://openrouter.ai/api/v1, or the address of a server of your own, "
@@ -153,7 +153,7 @@ def bench_paths(config: str) -> dict:
 
 
 # the key of the config each setting of the command line sets
-OPTION_KEYS = {"label": "label", "packages": "packages", "suite": "suite", "model": "model", "provider": "provider",
+OPTION_KEYS = {"label": "label", "suite": "suite", "model": "model", "provider": "provider",
                "repeats": "repeats",
                "temperature": "temperature", "attempts": "llm.max_build_attempts",
                "context_chars": "llm.max_context_chars"}
@@ -213,11 +213,7 @@ def frozen_config(profile: dict) -> str:
         value = profile.get(option)
         if section and value in (None, ""):
             continue   # not set on the command line: the config's value applies
-        if option == "packages":
-            in_file = load_profile_packages(in_file)
-            if profile.get("suite"):
-                value = []   # the suite's packages, in the copy's suites
-        elif option == "repeats":
+        if option == "repeats":
             in_file = int(in_file or 1)
         if str(in_file if in_file is not None else "") != str(value if value is not None else ""):
             text = set_config_value(text, key, value)
@@ -382,6 +378,7 @@ def runner(spec: dict) -> int:
 # --- commands ----------------------------------------------------------------
 
 def cmd_run(profile: dict, background: bool, resume: dict = None, allow_leaks: bool = False) -> None:
+    check_settings(profile)
     if not profile.get("label"):
         fail("no label: set it in the config or with LABEL=...")
     paths = bench_paths(profile["config"])
@@ -392,8 +389,7 @@ def cmd_run(profile: dict, background: bool, resume: dict = None, allow_leaks: b
             "suite": profile.get("suite"), "packages": profile["packages"], "model": profile.get("model"), "provider": profile.get("provider"),
             "api_base": None if "openrouter.ai" in base else api_base(base), "attempts": attempts, "resume": resume, "started": time.strftime("%Y-%m-%d %H:%M:%S"),
             "env": run_env(profile, resume)}
-    what = (f"{spec['label']}: {'suite ' + str(spec['suite']) + ' (' if spec['suite'] else ''}"
-            f"{', '.join(spec['packages']) or 'all packages'}{')' if spec['suite'] else ''}, "
+    what = (f"{spec['label']}: suite {spec['suite']} ({', '.join(spec['packages'])}), "
             f"{spec['model'] or 'model of .env'}"
             f"{' on ' + spec['provider'] if spec['provider'] else ''}"
             f"{' at ' + spec['api_base'] if spec['api_base'] else ''}, {spec['attempts'] or 'default'} attempts"
@@ -421,6 +417,7 @@ def cmd_resume(profile: dict, source: str, workspace: str, background: bool, att
                allow_leaks: bool = False) -> None:
     if not attempts:
         fail("say how many more attempts: ATTEMPTS=<n> (the config's llm.max_build_attempts is not used for a continuation)")
+    check_settings(profile)
     profile["attempts"] = attempts
     paths = bench_paths(profile["config"])
     for pkg in case_names(paths, profile["packages"]):
@@ -656,7 +653,7 @@ def cmd_archive(profile: dict, name: str) -> None:
 CONFIG_PATH = os.path.join(ROOT, "bench.yaml")
 # settings of the config the command line can override; attempts and
 # context_chars override llm.max_build_attempts and llm.max_context_chars
-PROFILE_OPTIONS = ("label", "packages", "suite", "model", "provider",
+PROFILE_OPTIONS = ("label", "suite", "model", "provider",
                    "attempts", "repeats", "temperature", "context_chars")
 
 

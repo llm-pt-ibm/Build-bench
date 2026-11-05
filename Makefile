@@ -11,7 +11,7 @@ CONFIG ?= bench.yaml
 
 # overrides of the config, passed only when set
 OPTS = $(if $(LABEL),--label $(LABEL)) \
-       $(if $(PACKAGES),--packages "$(PACKAGES)") $(if $(SUITE),--suite $(SUITE)) $(if $(MODEL),--model $(MODEL)) \
+       $(if $(SUITE),--suite $(SUITE)) $(if $(MODEL),--model $(MODEL)) \
        $(if $(PROVIDER),--provider $(PROVIDER)) $(if $(ATTEMPTS),--attempts $(ATTEMPTS)) \
        $(if $(REPEATS),--repeats $(REPEATS)) $(if $(TEMPERATURE),--temperature $(TEMPERATURE)) \
        $(if $(CONTEXT_CHARS),--context_chars $(CONTEXT_CHARS))
@@ -22,7 +22,7 @@ LEAKS = $(if $(ALLOW_LEAKS),--allow-leaks)
 .PHONY: help run run-fg resume stop status watch summary leaks check-case new-case fetch baseline transcript new-env setup-env check-env archive test
 
 help: ## list the commands
-	@echo "usage: make <command> [LABEL=... PACKAGES=... SUITE=... MODEL=... PROVIDER=... ATTEMPTS=... REPEATS=... CONFIG=...]"
+	@echo "usage: make <command> [LABEL=... SUITE=... MODEL=... PROVIDER=... ATTEMPTS=... REPEATS=... CONFIG=...]"
 	@echo "settings come from $(CONFIG); variables override them"
 	@grep -hE '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-11s %s\n", $$1, $$2}'
 

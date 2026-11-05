@@ -194,11 +194,27 @@ import tempfile as _tempfile  # noqa: E402
 spec = importlib.util.spec_from_file_location("bench", os.path.join(ROOT, "scripts", "bench.py"))
 bench = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(bench)
+import contextlib  # noqa: E402
+import io  # noqa: E402
+
+
+def _refusal(call) -> str:
+    """What a check of scripts/bench.py says when it stops a command ("" when it does not)."""
+    err = io.StringIO()
+    try:
+        with contextlib.redirect_stderr(err):
+            call()
+    except SystemExit:
+        return err.getvalue()
+    return ""
+
+
 with _tempfile.TemporaryDirectory() as tmp:
     profile_path = os.path.join(tmp, "bench.yaml")
-    open(profile_path, "w").write("source_arch: x86_64\ntarget_arch: ppc64le\nlabel: r1\npackages: [a, b]\n"
-                                  "model: m\nprovider: p\ntemperature:\nllm:\n  max_build_attempts: 12\n")
-    p = bench.load_profile(profile_path, {"attempts": "3", "packages": "x,y", "model": None})
+    open(profile_path, "w").write("source_arch: x86_64\ntarget_arch: ppc64le\nlabel: r1\nsuite: s\n"
+                                  "model: m\nprovider: p\ntemperature:\nllm:\n  max_build_attempts: 12\n"
+                                  "suites:\n  s: [a, b]\n  t: [x, y]\n")
+    p = bench.load_profile(profile_path, {"attempts": "3", "suite": "t", "model": None})
     assert p["attempts"] == "3" and p["packages"] == ["x", "y"] and p["model"] == "m" and p["repeats"] == 1, p
     assert p["config"] == profile_path and p["llm"] == {"max_build_attempts": 12}, "the config is the profile"
     os.environ["LLM_TEMPERATURE"] = "0.5"
@@ -241,56 +257,49 @@ with _tempfile.TemporaryDirectory() as tmp:
     open(profile_path, "a").write("label: r2\n")   # edited for the next run while this one runs
     assert "r2" not in open(frozen).read() and "label: r1" in open(frozen).read()
     # the copy has the values the run used (command line, continuation), with the config's comments
-    open(profile_path, "w").write("label: r1  # the name\npackages: [a, b]\nprovider: p\nllm:\n"
-                                  "  max_build_attempts: 12   # per package\n  max_tool_rounds: 60\n")
-    p = bench.load_profile(profile_path, {"label": "t10", "packages": "x y", "attempts": "4",
+    open(profile_path, "w").write("label: r1  # the name\nsuite: s\nprovider: p\nsuites:\n  s: [a]\n  t: [x, y]\n"
+                                  "llm:\n  max_build_attempts: 12   # per package\n  max_tool_rounds: 60\n")
+    p = bench.load_profile(profile_path, {"label": "t10", "suite": "t", "attempts": "4",
                                           "provider": "none", "context_chars": "180000"})
     text = open(os.path.join(ROOT, bench.frozen_config(p))).read()
-    assert bench.yaml.safe_load(text) == {"label": "t10", "packages": ["x", "y"], "provider": None, "llm": {
+    assert bench.yaml.safe_load(text) == {"label": "t10", "suite": "t", "provider": None,
+                                          "suites": {"s": ["a"], "t": ["x", "y"]}, "llm": {
         "max_build_attempts": 4, "max_tool_rounds": 60, "max_context_chars": 180000}}, text
     assert "label: t10 # the name\n" in text and "  max_build_attempts: 4    # per package\n" in text, text
     assert text.endswith("  max_tool_rounds: 60\n  max_context_chars: 180000\n"), "a new key joins its section"
     assert text.startswith("# this run's settings: ") and "llm.max_build_attempts" in text.split("\n")[0]
-    # suites: sets of packages of the config, chosen by suite or SUITE; PACKAGES replaces the config's suite
-    open(profile_path, "w").write("source_arch: x86_64\ntarget_arch: ppc64le\nlabel: r1\npackages: [a]\n"
-                                  "suite:\nsuites:\n  easy: [b, c]\n  hard: [d]\n  empty: []\n")
-    p = bench.load_profile(profile_path, {"suite": "easy"})
-    assert p["packages"] == ["b", "c"] and p["suite"] == "easy", p
-    assert bench.load_profile(profile_path, {})["packages"] == ["a"]
-    assert bench.load_profile(profile_path, {"suite": "none"})["packages"] == ["a"], "SUITE=none clears it"
-    frozen = os.path.join(ROOT, bench.frozen_config(p))
-    text = open(frozen).read()
-    assert "suite: easy\n" in text and "packages: []\n" in text, text
-    assert bench.load_profile(frozen, {})["packages"] == ["b", "c"], "the copy names the suite"
-    _text = open(profile_path).read()
-    open(profile_path, "w").write(_text.replace("packages: [a]\nsuite:", "packages:\nsuite: hard"))
-    assert bench.load_profile(profile_path, {})["packages"] == ["d"]
-    p = bench.load_profile(profile_path, {"packages": "x"})
-    assert p["packages"] == ["x"] and p["suite"] is None, p
-    import contextlib as _contextlib  # noqa: E402
-    import io as _io  # noqa: E402
-    for overrides, edit, error in (({"packages": "x", "suite": "easy"}, None, "choose one"),
-                                   ({"suite": "medium"}, None, "no suite medium in "),
-                                   ({"suite": "empty"}, None, "has no packages"),
-                                   ({}, ("packages:\n", "packages: [a]\n"), "packages and suite are both set")):
-        if edit:
-            _text = open(profile_path).read()
-            open(profile_path, "w").write(_text.replace(*edit))
-        _err = _io.StringIO()
-        try:
-            with _contextlib.redirect_stderr(_err):
-                bench.load_profile(profile_path, overrides)
-            raise AssertionError(f"accepted {overrides}")
-        except SystemExit:
-            assert error in _err.getvalue(), _err.getvalue()
+    # a run's cases are a suite of the config; settings of older versions are refused, not ignored
+    open(profile_path, "w").write("source_arch: x86_64\ntarget_arch: ppc64le\nlabel: r1\nsuite: easy\n"
+                                  "packages: [a]\nbase_url: http://x/v1\nsuites:\n  easy: [b, c]\n  hard: [d]\n"
+                                  "  empty: []\n")
+    p = bench.load_profile(profile_path, {})
+    assert p["packages"] == ["b", "c"] and p["removed"] == ["packages", "base_url"] and "base_url" not in p, p
+    assert "packages, base_url: no longer read" in _refusal(lambda: bench.check_settings(p))
+    p = bench.load_profile(profile_path, {"suite": "hard"})
+    p["removed"] = []
+    assert p["packages"] == ["d"] and _refusal(lambda: bench.check_settings(p)) == "", p
+    assert "suite: hard\n" in open(os.path.join(ROOT, bench.frozen_config(p))).read(), "the copy names the suite"
+    _saved_packages = os.environ.pop("PACKAGES", None)
+    try:
+        os.environ["PACKAGES"] = "x"
+        assert "PACKAGES: no longer read" in _refusal(lambda: bench.check_settings(p)), "make run PACKAGES=..."
+    finally:
+        os.environ.pop("PACKAGES", None)
+        if _saved_packages is not None:
+            os.environ["PACKAGES"] = _saved_packages
+    p = bench.load_profile(profile_path, {"suite": "none"})
+    assert p["suite"] is None and p["packages"] == [], p
+    p["removed"] = []
+    assert "no suite: set suite in " in _refusal(lambda: bench.check_settings(p))
+    assert "easy, hard, empty" in _refusal(lambda: bench.check_settings(p))
+    assert "no suite medium in " in _refusal(lambda: bench.load_profile(profile_path, {"suite": "medium"}))
+    assert "has no cases" in _refusal(lambda: bench.load_profile(profile_path, {"suite": "empty"}))
 print("run settings: OK (overrides, suites, environment, leftovers archived, stale lock, config frozen per "
       "run with the run's values)")
 
 # the model's API is that of .env (API_BASE_URL, API_KEY): OpenRouter, or a
 # server of one's own, which must answer and serve the model
-import contextlib  # noqa: E402
 import http.server  # noqa: E402
-import io  # noqa: E402
 import threading  # noqa: E402
 
 
@@ -306,14 +315,8 @@ class _Models(http.server.BaseHTTPRequestHandler):
         self.wfile.write(data)
 
 
-def _refusal(profile: dict) -> str:
-    err = io.StringIO()
-    try:
-        with contextlib.redirect_stderr(err):
-            bench.check_model_api(profile)
-    except SystemExit:
-        return err.getvalue()
-    return ""
+def _api_refusal(profile: dict) -> str:
+    return _refusal(lambda: bench.check_model_api(profile))
 
 
 _server = http.server.HTTPServer(("127.0.0.1", 0), _Models)
@@ -322,23 +325,22 @@ _saved = {k: os.environ.pop(k, None) for k in ("API_BASE_URL", "API_KEY", "BASE_
 _dotenv, bench.DOTENV = bench.DOTENV, os.path.join(ROOT, ".no-such-dotenv")
 try:
     local, profile = f"http://127.0.0.1:{_server.server_port}/v1", {"packages": [], "model": "local-coder"}
-    assert "no API_BASE_URL in .env" in _refusal(profile)
+    assert "no API_BASE_URL in .env" in _api_refusal(profile)
     os.environ["API_BASE_URL"] = local
-    assert _refusal(profile) == "", "a server of one's own, without a key"
-    assert "does not serve other-model" in _refusal(dict(profile, model="other-model"))
+    assert _api_refusal(profile) == "", "a server of one's own, without a key"
+    assert "does not serve other-model" in _api_refusal(dict(profile, model="other-model"))
     os.environ["API_KEY"] = "sk-or-v1-test"
-    assert "an OpenRouter key" in _refusal(profile), "the OpenRouter key never goes to another server"
+    assert "an OpenRouter key" in _api_refusal(profile), "the OpenRouter key never goes to another server"
     os.environ["API_KEY"] = "key-of-the-server"
-    assert _refusal(profile) == ""
+    assert _api_refusal(profile) == ""
     os.environ["API_BASE_URL"] = "http://127.0.0.1:9/v1"
-    assert "no model server answers at http://127.0.0.1:9 " in _refusal(profile)
+    assert "no model server answers at http://127.0.0.1:9 " in _api_refusal(profile)
     os.environ["API_BASE_URL"], os.environ["API_KEY"] = "https://openrouter.ai/api/v1", ""
-    assert "no API_KEY in .env" in _refusal(profile)
+    assert "no API_KEY in .env" in _api_refusal(profile)
     os.environ["API_KEY"] = "sk-or-v1-test"
-    assert _refusal(profile) == "", "OpenRouter is not asked for its models"
-    assert "API_BASE_URL and API_KEY in .env" in _refusal(dict(profile, base_url=local)), "a config of before"
+    assert _api_refusal(profile) == "", "OpenRouter is not asked for its models"
     os.environ["BASE_URL"] = local
-    assert "BASE_URL" in _refusal(profile), "make run BASE_URL=... of before"
+    assert "BASE_URL: no longer read" in _refusal(lambda: bench.check_settings({"suite": "s"})), "BASE_URL=..."
     assert bench.run_env({"packages": [], "context_chars": 180000})["BENCH_MAX_CONTEXT_CHARS"] == "180000"
 finally:
     _server.shutdown()
@@ -348,7 +350,7 @@ finally:
         if _v is not None:
             os.environ[_k] = _v
 print("model API: OK (address and key of .env, a server of one's own checked and never given the OpenRouter "
-      "key, settings of before refused, context size)")
+      "key, BASE_URL refused, context size)")
 
 # leak check: built copies of the package within the model's reach
 import shutil  # noqa: E402
@@ -428,6 +430,7 @@ finally:
 # the repository has one config, bench.yaml, and its cases exist
 repo_cfg = bench_config.load(os.path.join(ROOT, "bench.yaml"))
 assert os.path.isdir(bench_config.run_paths(repo_cfg)["base_dir"]), repo_cfg["source_arch"]
+assert "packages" not in repo_cfg and repo_cfg.get("suite") in (repo_cfg.get("suites") or {}), "cases by suite"
 for _suite, _cases in (repo_cfg.get("suites") or {}).items():
     _missing = [c for c in _cases if not os.path.isdir(os.path.join(bench_config.run_paths(repo_cfg)["base_dir"], c))]
     assert _cases and not _missing, f"suite {_suite}: no case {_missing}"

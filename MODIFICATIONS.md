@@ -607,6 +607,13 @@ improvements` shows them file by file.
   other than OpenRouter must still answer and serve the model before the run
   starts. `is_local_url` and `api_base` moved from `client.py` to
   `tools/auto_repair/model_api.py`, which `scripts/bench.py` uses as well.
+- A run's cases are a suite: `packages` (`PACKAGES`) is gone, and `suite`
+  (`SUITE`) names one of the config's `suites`; a run without a suite does
+  not start (it ran every case of the direction, RPM cases included). A
+  single case is a suite of its own. `packages`, `base_url` and
+  `api_key_env` of an older config, or `PACKAGES`, `BASE_URL` and
+  `API_KEY_ENV` on the command line, stop the run with a message instead of
+  being ignored, which would run other cases or another server than asked.
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source
