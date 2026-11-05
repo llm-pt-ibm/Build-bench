@@ -11,7 +11,7 @@ temperature:
 llm:
   max_build_attempts: 12
   max_tool_rounds: 60
-  extra_tools: [search_files_tool, replace_in_file_tool, run_command_tool]
+  extra_tools: true
   max_context_chars: 600000
   keep_recent_tool_results: 8
   repeat_guard_per_build: true

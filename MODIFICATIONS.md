@@ -621,6 +621,12 @@ improvements` shows them file by file.
   down to the limit only, so every later turn shortened one more result and
   changed the conversation's start, which the cache holds: in a simulation of
   10 turns past the limit, the start changed in all 10, now in 2.
+- `llm.extra_tools` is `true` or `false`: `true` gives the model the three
+  tools this framework adds to the paper's seven (`search_files_tool`,
+  `replace_in_file_tool`, `run_command_tool`), `false` the paper's only. It
+  listed the tools to add, and runs used all three or none. A list, of older
+  configs, stops the run with a message, so that a subset is not taken for
+  all three.
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source

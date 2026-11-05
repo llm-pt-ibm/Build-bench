@@ -310,7 +310,7 @@ direction, swap `source_arch` and `target_arch`. Values in the repository's
 | `build.container.cpus`, `memory`, `pids_limit` | not set | limits of the container; `pids_limit` is -1 (no limit) by default |
 | `llm.max_build_attempts` | 12 | build attempts per package (3 in the original paper) |
 | `llm.max_tool_rounds` | 60 | tool rounds per attempt (20 in the original paper) |
-| `llm.extra_tools` | search, replace and `run_command_tool` | tools besides the paper's |
+| `llm.extra_tools` | `true` | gives the model `search_files_tool`, `replace_in_file_tool` and `run_command_tool` besides the paper's tools (`false`: the paper's only) |
 | `llm.max_context_chars` | 600000 | beyond this, the oldest tool results are shortened, at once down to 80% of it (the prompt cache keeps working) |
 | `llm.round_notice_at` | 30, 10, 5 | tells how many rounds are left in the attempt |
 | `llm.carry_notes_chars` | 4000 | how much of the model's notes goes to the next attempt |
@@ -349,6 +349,7 @@ most common ones and what to do:
 | `no API_BASE_URL in .env`, `no API_KEY in .env` | create `.env` (see Installation) |
 | `API_KEY in .env is an OpenRouter key` | `API_BASE_URL` names another server: set `API_KEY` to its key, or leave it empty |
 | `no suite`, `no suite <name>` | set `suite` in `bench.yaml` (or `SUITE`) to one of its `suites` |
+| `llm.extra_tools is true or false now` | replace the list with `true` (the three extra tools) or `false` |
 | `packages`, `PACKAGES`, `base_url`, `BASE_URL`: `no longer read` | settings of an older version: put the cases in a suite, and the model's address and key in `.env` |
 | `lookup ... on 127.0.0.1:53: server misbehaving` | Docker's daemon cannot resolve names through the local DNS: set `GODEBUG=netdns=cgo` in the Docker service's environment, with `live-restore` on before the restart so running containers survive it |
 | `make test`: `cannot import name 'eval_type_backport'` | the installed pydantic does not suit mcp 1.20.0: `pip install pydantic==2.13.5 pydantic_core==2.46.5` in the framework's environment (`requirements-ppc64le.txt` pins these versions) |

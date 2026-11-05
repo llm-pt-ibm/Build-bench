@@ -294,6 +294,10 @@ with _tempfile.TemporaryDirectory() as tmp:
     assert "easy, hard, empty" in _refusal(lambda: bench.check_settings(p))
     assert "no suite medium in " in _refusal(lambda: bench.load_profile(profile_path, {"suite": "medium"}))
     assert "has no cases" in _refusal(lambda: bench.load_profile(profile_path, {"suite": "empty"}))
+    p = dict(bench.load_profile(profile_path, {}), removed=[], llm={"extra_tools": ["run_command_tool"]})
+    assert "llm.extra_tools is true or false" in _refusal(lambda: bench.check_settings(p)), "a list of before"
+    p["llm"] = {"extra_tools": True}
+    assert _refusal(lambda: bench.check_settings(p)) == ""
 print("run settings: OK (overrides, suites, environment, leftovers archived, stale lock, config frozen per "
       "run with the run's values)")
 
@@ -431,6 +435,7 @@ finally:
 repo_cfg = bench_config.load(os.path.join(ROOT, "bench.yaml"))
 assert os.path.isdir(bench_config.run_paths(repo_cfg)["base_dir"]), repo_cfg["source_arch"]
 assert "packages" not in repo_cfg and repo_cfg.get("suite") in (repo_cfg.get("suites") or {}), "cases by suite"
+assert isinstance((repo_cfg.get("llm") or {}).get("extra_tools", False), bool), "extra_tools: true or false"
 for _suite, _cases in (repo_cfg.get("suites") or {}).items():
     _missing = [c for c in _cases if not os.path.isdir(os.path.join(bench_config.run_paths(repo_cfg)["base_dir"], c))]
     assert _cases and not _missing, f"suite {_suite}: no case {_missing}"

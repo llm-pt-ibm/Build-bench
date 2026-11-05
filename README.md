@@ -360,8 +360,8 @@ results (none of it hints at a fix; 0 or `false` turns it off):
 | `build_drought_rounds` | after this many rounds without a change or a build, to build its hypothesis |
 | `repeated_failure_note` | when a build failed the same way as the previous one: the change since then did not affect the failure |
 
-The paper's setup is `max_build_attempts: 3`, `max_tool_rounds: 20`, no
-`extra_tools`, and all four off; a run without the notes (an ablation) is
+The paper's setup is `max_build_attempts: 3`, `max_tool_rounds: 20`,
+`extra_tools: false`, and all four off; a run without the notes (an ablation) is
 `carry_notes_chars: 0`.
 
 ---
@@ -437,6 +437,10 @@ environment's image: only the
 package and the build cache (read-only), the build environment and a scratch
 directory are there, with no network and no capability left.
 
+`search_files_tool`, `replace_in_file_tool` and `run_command_tool` are this
+framework's additions to the paper's seven tools: `llm.extra_tools: true`
+gives them to the model, `false` leaves it the paper's tools only.
+
 ---
 
 ## 📈 Results
@@ -469,6 +473,7 @@ says what is missing:
 | `no API_BASE_URL in .env`, `no API_KEY in .env` | create `.env` (see Files you write) |
 | `API_KEY in .env is an OpenRouter key` | `API_BASE_URL` names another server: set `API_KEY` to its key, or leave it empty |
 | `no suite`, `no suite <name>` | set `suite` (or `SUITE`) to one of the config's `suites` |
+| `llm.extra_tools is true or false now` | replace the list with `true` (the three extra tools) or `false` |
 | `packages`, `PACKAGES`, `base_url`, `BASE_URL`: `no longer read` | settings of an older version: put the cases in a suite, and the model's address and key in `.env` |
 | `no model server answers at <url>`, `<url> does not serve <model>` | start the server, or pull the model on it |
 | `the model could read the answer` | move the built copy out of the model's reach or hide it (`build.script.experiment_hide`); `ALLOW_LEAKS=1` starts anyway |

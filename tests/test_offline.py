@@ -408,6 +408,17 @@ async def main():
 
 asyncio.run(main())
 
+# llm.extra_tools: true adds the three extra tools to the paper's; a list (of
+# older versions) is refused, so that a subset is not taken for all three
+assert client.llm_tools({}) == client.PAPER_TOOLS and client.llm_tools({"extra_tools": False}) == client.PAPER_TOOLS
+assert client.llm_tools({"extra_tools": True}) == client.PAPER_TOOLS + client.EXTRA_TOOLS
+try:
+    client.llm_tools({"extra_tools": ["search_files_tool"]})
+    raise AssertionError("a list of extra tools was taken")
+except SystemExit as e:
+    assert "true or false" in str(e), e
+print("extra tools: OK (true or false; a list of before refused)")
+
 # beyond max_context_chars the oldest tool results are shortened at once to
 # 80% of it, so that the next turns keep the conversation's start (and the
 # prompt cache) as it is

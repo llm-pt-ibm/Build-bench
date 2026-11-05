@@ -64,6 +64,9 @@ def check_settings(profile: dict) -> None:
     if removed:
         fail(f"{', '.join(removed)}: no longer read. A run's cases are a suite of the config (suite, or SUITE), "
              "and the model's address and key are API_BASE_URL and API_KEY in .env")
+    if not isinstance((profile.get("llm") or {}).get("extra_tools", False), bool):
+        fail(f"{profile['config']}: llm.extra_tools is true or false now (true: search_files_tool, "
+             "replace_in_file_tool and run_command_tool; false: only the paper's tools)")
     if not profile["suite"]:
         suites = ", ".join(map(str, profile.get("suites") or {})) or "it has none"
         fail(f"no suite: set suite in {profile['config']} (or SUITE) to one of its suites ({suites})")

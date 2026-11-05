@@ -88,8 +88,8 @@ def request_timeout(base_url: Optional[str]) -> float:
 # no tool result is cached: the files change while the agent works
 CACHEABLE_TOOLS = set()
 
-# the tools of the Build-bench paper; llm.extra_tools adds others
-LLM_TOOLS = (
+# the tools of the Build-bench paper, and those llm.extra_tools: true adds
+PAPER_TOOLS = (
     "get_structure_of_files",
     "get_file_content_tool",
     "extract_archive_tool",
@@ -98,9 +98,19 @@ LLM_TOOLS = (
     "upload_file_to_obs_tool",
     "check_build_result",
 )
+EXTRA_TOOLS = ("search_files_tool", "replace_in_file_tool", "run_command_tool")
+
+
+def llm_tools(llm_cfg: dict) -> tuple:
+    extra = llm_cfg.get("extra_tools", False)
+    if not isinstance(extra, bool):
+        sys.exit(f"error: llm.extra_tools is true or false (true: {', '.join(EXTRA_TOOLS)})")
+    return PAPER_TOOLS + (EXTRA_TOOLS if extra else ())
+
+
 LLM_CFG = info.get("llm") or {}
 SCRIPT_CFG = (info.get("build") or {}).get("script") or {}
-LLM_TOOLS = LLM_TOOLS + tuple(LLM_CFG.get("extra_tools") or ())
+LLM_TOOLS = llm_tools(LLM_CFG)
 PROMPTS = {"rpm": "prompts/full_file_generation.txt", "recipe": "prompts/build_recipe_generation.txt",
            **(info.get("prompts") or {})}
 MAX_CONTEXT_CHARS = int(os.getenv("BENCH_MAX_CONTEXT_CHARS") or LLM_CFG.get("max_context_chars", 0))
