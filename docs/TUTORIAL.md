@@ -311,7 +311,7 @@ direction, swap `source_arch` and `target_arch`. Values in the repository's
 | `llm.max_build_attempts` | 12 | build attempts per package (3 in the original paper) |
 | `llm.max_tool_rounds` | 60 | tool rounds per attempt (20 in the original paper) |
 | `llm.extra_tools` | search, replace and `run_command_tool` | tools besides the paper's |
-| `llm.max_context_chars` | 600000 | beyond this, the oldest tool results are shortened |
+| `llm.max_context_chars` | 600000 | beyond this, the oldest tool results are shortened, at once down to 80% of it (the prompt cache keeps working) |
 | `llm.round_notice_at` | 30, 10, 5 | tells how many rounds are left in the attempt |
 | `llm.carry_notes_chars` | 4000 | how much of the model's notes goes to the next attempt |
 | `llm.build_drought_rounds` | 15 | after 15 rounds without a change or a build, reminds the model to build |

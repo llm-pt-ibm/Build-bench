@@ -614,6 +614,13 @@ improvements` shows them file by file.
   `api_key_env` of an older config, or `PACKAGES`, `BASE_URL` and
   `API_KEY_ENV` on the command line, stop the run with a message instead of
   being ignored, which would run other cases or another server than asked.
+- Beyond `llm.max_context_chars`, the oldest tool results are shortened at
+  once down to 80% of it, whatever the model. Only Claude models (with cache
+  marks) did that; with the caches that need no marks (DeepSeek, OpenAI,
+  vLLM and llama.cpp/Ollama on a local server) the conversation was shortened
+  down to the limit only, so every later turn shortened one more result and
+  changed the conversation's start, which the cache holds: in a simulation of
+  10 turns past the limit, the start changed in all 10, now in 2.
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source

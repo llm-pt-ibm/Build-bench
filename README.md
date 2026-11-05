@@ -290,7 +290,9 @@ vLLM: `vllm serve <model> --max-model-len 65536 --enable-auto-tool-choice
 that the key never reaches it. `llm.max_context_chars` (`CONTEXT_CHARS`) keeps the
 conversation within the server's window, at about 3.5 characters per token
 (65,536 tokens: about 180,000 characters, leaving room for the system prompt
-and the reply); the oldest tool results are shortened beyond it. `make run` checks that a
+and the reply); beyond it the oldest tool results are shortened, at once down to
+80% of it, so that the conversation's start, which the prompt cache of the API
+or of a local server holds, changes only now and then. `make run` checks that a
 server other than OpenRouter answers and serves the model before starting; `LLM_TIMEOUT` (or
 `llm.request_timeout`) sets how long a reply may take: 600 s for an API, 1800 s
 for a local server by default. A call that fails is retried after a wait,

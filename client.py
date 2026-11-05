@@ -643,19 +643,22 @@ class AutoRepairClient:
         return "\n".join(f"- {t}" for t in kept)
 
     @staticmethod
-    def _compact(messages: List[Dict], target: int = 0) -> None:
+    def _compact(messages: List[Dict]) -> None:
         """Shorten the oldest tool results when the conversation is longer than
-        MAX_CONTEXT_CHARS, down to target characters (MAX_CONTEXT_CHARS when
-        0); the last KEEP_RECENT_TOOL_RESULTS stay whole."""
+        MAX_CONTEXT_CHARS, at once down to 80% of it: each shortening changes the
+        conversation's start, which a prompt cache holds (the API's, with or
+        without cache marks, or a local server's). The last
+        KEEP_RECENT_TOOL_RESULTS stay whole."""
         if MAX_CONTEXT_CHARS <= 0:
             return
         size = sum(len(str(m.get("content") or "")) + len(json.dumps(m.get("tool_calls") or ""))
                    for m in messages)
         if size <= MAX_CONTEXT_CHARS:
             return
+        target = int(MAX_CONTEXT_CHARS * 0.8)
         tools_idx = [i for i, m in enumerate(messages) if m.get("role") == "tool"]
         for i in tools_idx[:-KEEP_RECENT_TOOL_RESULTS] if KEEP_RECENT_TOOL_RESULTS else tools_idx:
-            if size <= (target or MAX_CONTEXT_CHARS):
+            if size <= target:
                 break
             content = str(messages[i].get("content") or "")
             if content.startswith("[older tool result shortened") or len(content) < 600:
@@ -666,9 +669,7 @@ class AutoRepairClient:
             size -= len(content) - len(short)
 
     def _chat(self, messages: List[Dict], tools: List[Dict]):
-        # with a prompt cache, shorten well below the limit at once: each
-        # shortening changes the conversation's prefix, which the cache holds
-        self._compact(messages, int(MAX_CONTEXT_CHARS * 0.8) if self.prompt_cache else 0)
+        self._compact(messages)
         kwargs = {}
         if LLM_TEMPERATURE is not None:
             kwargs["temperature"] = LLM_TEMPERATURE

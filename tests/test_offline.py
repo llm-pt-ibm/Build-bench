@@ -407,4 +407,31 @@ async def main():
 
 
 asyncio.run(main())
+
+# beyond max_context_chars the oldest tool results are shortened at once to
+# 80% of it, so that the next turns keep the conversation's start (and the
+# prompt cache) as it is
+_limit, client.MAX_CONTEXT_CHARS = client.MAX_CONTEXT_CHARS, 100000
+try:
+    conversation = [{"role": "system", "content": "s" * 2000}, {"role": "user", "content": "u" * 2000}]
+    for n in range(20):
+        conversation += [{"role": "assistant", "content": "", "tool_calls": [{"id": str(n)}]},
+                         {"role": "tool", "content": f"{n}:" + "r" * 6000}]
+    conversation[3]["content"] = "small"
+    client.AutoRepairClient._compact(conversation)
+    size = sum(len(str(m.get("content") or "")) + len(json.dumps(m.get("tool_calls") or "")) for m in conversation)
+    results = [m["content"] for m in conversation if m["role"] == "tool"]
+    k = sum(r.startswith("[older tool result shortened") for r in results)
+    assert 74000 < size <= 80000, size
+    assert results[0] == "small" and all(r.startswith("[older") for r in results[1:k + 1]), "the oldest first"
+    assert all(len(r) > 6000 for r in results[k + 1:]) and k + 1 <= 12, "the latest 8 stay whole"
+    assert conversation[0]["content"] == "s" * 2000 and conversation[1]["content"] == "u" * 2000
+    before = json.dumps(conversation)
+    conversation += [{"role": "assistant", "content": "", "tool_calls": [{"id": "x"}]},
+                     {"role": "tool", "content": "r" * 6000}]
+    client.AutoRepairClient._compact(conversation)
+    assert json.dumps(conversation).startswith(before[:-1]), "the next turn leaves the conversation's start alone"
+finally:
+    client.MAX_CONTEXT_CHARS = _limit
+print("context: OK (oldest tool results shortened at once to 80% of the limit, the latest and the prompts whole)")
 print("\nALL TESTS PASSED")
