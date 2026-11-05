@@ -17,6 +17,7 @@ from tools.auto_repair.acceptance import ACCEPTANCE_DIR, acceptance_test
 from tools.auto_repair.case_type import case_environment, case_type
 from tools.auto_repair.leak_check import leak_report
 from tools.auto_repair.log_excerpt import failure_signature, same_failure
+from tools.auto_repair.model_api import api_base, is_local_url
 from tools.auto_repair.script_build import reset_cache
 from tools.auto_repair.resume import workspace_changes
 from tools.auto_repair.text_tool_calls import parse as parse_text_tool_calls
@@ -24,7 +25,6 @@ from tools.auto_repair.obs_config import load_obs_config
 from tools.auto_repair.paths import env_dir
 
 load_dotenv(".env")
-OPENROUTER_URL = "https://openrouter.ai/api/v1"
 CONFIG_PATH = bench_config.path()
 info = bench_config.load(CONFIG_PATH)
 TOOL_TIMEOUT = int(info.get("obs", {}).get("max_wait_seconds", 3600)) + 300
@@ -61,7 +61,7 @@ class LLMConfig:
             self.base_url = base_url
         else:
             self.api_key = os.getenv("API_KEY")
-            self.base_url = model_server_url()
+            self.base_url = os.getenv("API_BASE_URL")
 
         if not self.api_key and is_local_url(self.base_url):
             self.api_key = "none"   # local model servers (Ollama, vLLM, llama.cpp) need no key
@@ -78,39 +78,11 @@ class LLMConfig:
         return OpenAI(api_key=self.api_key, timeout=timeout, max_retries=0)
 
 
-def model_server_url() -> str:
-    """bench.yaml's model_server (scripts/bench.py passes it as API_BASE_URL), or OpenRouter."""
-    return os.getenv("API_BASE_URL") or OPENROUTER_URL
-
-
 def request_timeout(base_url: Optional[str]) -> float:
     """Seconds a reply may take (LLM_TIMEOUT, llm.request_timeout): 600 for an
     API, 1800 for a local server, where a slow GPU costs nothing."""
     default = 1800 if is_local_url(base_url) else 600
     return float(os.getenv("LLM_TIMEOUT") or LLM_CFG.get("request_timeout", default))
-
-
-def is_local_url(url: Optional[str]) -> bool:
-    """A model server on this machine or the local network."""
-    import ipaddress
-    from urllib.parse import urlparse
-    host = (urlparse(url or "").hostname or "").lower()
-    if host in ("localhost",) or host.endswith(".local"):
-        return True
-    try:
-        address = ipaddress.ip_address(host)
-        return address.is_loopback or address.is_private
-    except ValueError:
-        return False
-
-
-def api_base(url: Optional[str]) -> Optional[str]:
-    """scheme://host[:port] of the model API, without path or credentials."""
-    from urllib.parse import urlparse
-    if not url:
-        return None
-    parts = urlparse(url)
-    return f"{parts.scheme}://{parts.hostname}" + (f":{parts.port}" if parts.port else "")
 
 
 # no tool result is cached: the files change while the agent works
@@ -183,9 +155,9 @@ def run_metadata(max_build_attempts: int, max_tool_rounds: int) -> Dict:
         "model_retry_waits": list(MODEL_RETRY_WAITS),
         "build_backend": (os.getenv("BENCH_BUILD_BACKEND") or (info.get("build") or {}).get("backend", "obs")).lower(),
         # where the model ran: an API such as OpenRouter, or a local server
-        "api_base": api_base(model_server_url()),
-        "local_model": is_local_url(model_server_url()),
-        "request_timeout": request_timeout(model_server_url()),
+        "api_base": api_base(os.getenv("API_BASE_URL")),
+        "local_model": is_local_url(os.getenv("API_BASE_URL")),
+        "request_timeout": request_timeout(os.getenv("API_BASE_URL")),
         "prompt_cache": PROMPT_CACHE,
         "text_tool_calls": TEXT_TOOL_CALLS,
     }

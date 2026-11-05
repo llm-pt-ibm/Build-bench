@@ -18,9 +18,11 @@ import yaml
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, ROOT)
+from tools.auto_repair.model_api import api_base  # noqa: E402
 STATE_DIR = os.path.join(ROOT, ".bench")
 ACTIVE = os.path.join(STATE_DIR, "active.json")
 LOGS_DIR = os.path.join(ROOT, "logs")
+DOTENV = os.path.join(ROOT, ".env")
 
 
 # --- settings ----------------------------------------------------------------
@@ -31,12 +33,6 @@ def load_profile(path: str, overrides: dict) -> dict:
     with open(path) as f:
         profile = yaml.safe_load(f) or {}
     profile["config"] = os.path.relpath(path, ROOT) if path.startswith(ROOT + os.sep) else path
-    for old, new in RENAMED_KEYS.items():
-        if old in profile:
-            value = profile.pop(old)
-            if value not in (None, "") and profile.get(new) in (None, ""):
-                print(f"warning: {profile['config']}: {old} is now {new}", file=sys.stderr)
-                profile[new] = value
     # "none" clears a setting of the config (e.g. PROVIDER=none for a model its provider does not serve)
     given = {k: None if str(v).lower() == "none" else v for k, v in overrides.items() if v not in (None, "")}
     if given.get("packages") and given.get("suite"):
@@ -68,9 +64,6 @@ def suite_packages(profile: dict) -> list:
     return packages
 
 
-RENAMED_KEYS = {"base_url": "model_server", "api_key_env": "model_server_key_env"}
-
-
 def load_profile_packages(packages) -> list:
     """The packages of a config or of the command line ("a,b" or "a b") as a list."""
     if isinstance(packages, str):
@@ -91,17 +84,12 @@ def run_env(profile: dict, resume: dict = None) -> dict:
         # empty rather than unset: client.py loads .env, which must not fill in
         # a setting that bench.yaml leaves empty
         env[name] = "" if value in (None, "") else str(value)
-    if profile.get("model_server"):
-        # the API key of .env is never sent to a model server of the profile's own
-        env["API_BASE_URL"] = str(profile["model_server"])
-        key_var = profile.get("model_server_key_env")
-        env["API_KEY"] = (os.getenv(key_var) or dotenv_value(key_var) or "") if key_var else "none"
     return env
 
 
 def dotenv_value(name: str):
     try:
-        with open(os.path.join(ROOT, ".env")) as f:
+        with open(DOTENV) as f:
             for line in f:
                 key, _, value = line.strip().partition("=")
                 if key.strip() == name:
@@ -111,27 +99,50 @@ def dotenv_value(name: str):
     return None
 
 
-def check_model_server(profile: dict) -> None:
-    """A run on a model server of the profile's own: the server must answer
-    and serve the model (so the run does not spend its first minutes retrying)."""
+def model_api() -> tuple:
+    """API_BASE_URL and API_KEY, of the environment or of .env: OpenRouter's,
+    or those of a server of one's own."""
+    return tuple(os.getenv(k) or dotenv_value(k) or "" for k in ("API_BASE_URL", "API_KEY"))
+
+
+def check_model_api(profile: dict) -> None:
+    """The run's model API is that of .env; a server other than OpenRouter
+    must answer and serve the model (so the run does not spend its first
+    minutes retrying), and never gets the OpenRouter key."""
+    moved = [k for k in ("base_url", "api_key_env") if profile.get(k)] + \
+            [k for k in ("BASE_URL", "API_KEY_ENV") if os.getenv(k)]
+    if moved:
+        fail(f"{', '.join(moved)}: the model's address and key are API_BASE_URL and API_KEY in .env, "
+             "for OpenRouter and for a server of your own")
+    base, key = model_api()
+    if not base:
+        fail("no API_BASE_URL in .env: https://openrouter.ai/api/v1, or the address of a server of your own, "
+             "e.g. http://127.0.0.1:11434/v1 (Ollama)")
+    if "openrouter.ai" in base:
+        if not key:
+            fail("no API_KEY in .env: the key of OpenRouter")
+        return
+    if key.startswith("sk-or-"):
+        fail(f"API_KEY in .env is an OpenRouter key, and API_BASE_URL is another server ({api_base(base)}): "
+             "set API_KEY to that server's key, or leave it empty")
+    check_model_server(profile.get("model"), base, key)
+
+
+def check_model_server(model, base: str, key: str) -> None:
     import urllib.request
-    base = str(profile["model_server"]).rstrip("/")
-    env = run_env(profile)
-    headers = {} if env["API_KEY"] in ("", "none") else {"Authorization": f"Bearer {env['API_KEY']}"}
+    headers = {} if key in ("", "none") else {"Authorization": f"Bearer {key}"}
     try:
-        with urllib.request.urlopen(urllib.request.Request(base + "/models", headers=headers), timeout=10) as r:
+        request = urllib.request.Request(base.rstrip("/") + "/models", headers=headers)
+        with urllib.request.urlopen(request, timeout=10) as r:
             served = [m.get("id") for m in json.load(r).get("data") or []]
     except Exception as e:
-        fail(f"no model server answers at {base} ({e.__class__.__name__}: {e}); start it first, e.g. "
+        fail(f"no model server answers at {api_base(base)} ({e.__class__.__name__}: {e}); start it first, e.g. "
              "`OLLAMA_CONTEXT_LENGTH=65536 ollama serve` or `vllm serve <model> --enable-auto-tool-choice ...`")
-    model = profile.get("model")
     if not model:
         fail("no model: set it in the config or with MODEL=...")
     if served and model not in served:
-        fail(f"{base} does not serve {model}; it serves: {', '.join(served[:12])} "
+        fail(f"{api_base(base)} does not serve {model}; it serves: {', '.join(served[:12])} "
              f"(Ollama: `ollama pull {model}`)")
-    if env["API_KEY"] == "" and profile.get("model_server_key_env"):
-        fail(f"{profile['model_server_key_env']} is not set (the key of {base})")
 
 
 def bench_paths(config: str) -> dict:
@@ -143,7 +154,7 @@ def bench_paths(config: str) -> dict:
 
 # the key of the config each setting of the command line sets
 OPTION_KEYS = {"label": "label", "packages": "packages", "suite": "suite", "model": "model", "provider": "provider",
-               "model_server": "model_server", "model_server_key_env": "model_server_key_env", "repeats": "repeats",
+               "repeats": "repeats",
                "temperature": "temperature", "attempts": "llm.max_build_attempts",
                "context_chars": "llm.max_context_chars"}
 
@@ -343,13 +354,7 @@ def check_can_start(profile: dict, paths: dict, allow_leaks: bool = False) -> No
     for pkg in profile["packages"]:
         if not os.path.isdir(os.path.join(paths["base_dir"], pkg)):
             fail(f"no case {pkg} in {os.path.relpath(paths['base_dir'], ROOT)}")
-    if profile.get("model_server"):
-        check_model_server(profile)
-    elif not os.path.isfile(os.path.join(ROOT, ".env")) and not os.getenv("API_KEY"):
-        fail("no .env with API_KEY (and no API_KEY in the environment)")
-    if dotenv_value("API_BASE_URL"):
-        print("warning: API_BASE_URL in .env is no longer needed: OpenRouter is the default, and a model "
-              "server of your own goes in model_server of the config", file=sys.stderr)
+    check_model_api(profile)
     leaks = {pkg: found for pkg, found in leak_findings(profile["config"], paths, profile["packages"]).items()
              if found}
     if leaks and not allow_leaks:
@@ -382,15 +387,16 @@ def cmd_run(profile: dict, background: bool, resume: dict = None, allow_leaks: b
     paths = bench_paths(profile["config"])
     check_can_start(profile, paths, allow_leaks)
     attempts = profile.get("attempts") or (profile.get("llm") or {}).get("max_build_attempts")
+    base = model_api()[0]
     spec = {"label": profile["label"], "repeats": profile["repeats"], "config": frozen_config(profile),
             "suite": profile.get("suite"), "packages": profile["packages"], "model": profile.get("model"), "provider": profile.get("provider"),
-            "model_server": profile.get("model_server"), "attempts": attempts, "resume": resume, "started": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "api_base": None if "openrouter.ai" in base else api_base(base), "attempts": attempts, "resume": resume, "started": time.strftime("%Y-%m-%d %H:%M:%S"),
             "env": run_env(profile, resume)}
     what = (f"{spec['label']}: {'suite ' + str(spec['suite']) + ' (' if spec['suite'] else ''}"
             f"{', '.join(spec['packages']) or 'all packages'}{')' if spec['suite'] else ''}, "
             f"{spec['model'] or 'model of .env'}"
             f"{' on ' + spec['provider'] if spec['provider'] else ''}"
-            f"{' at ' + str(spec['model_server']) if spec['model_server'] else ''}, {spec['attempts'] or 'default'} attempts"
+            f"{' at ' + spec['api_base'] if spec['api_base'] else ''}, {spec['attempts'] or 'default'} attempts"
             f"{', continuing ' + resume['from'] if resume else ''}")
     if not background:
         print(f"running {what}")
@@ -650,7 +656,7 @@ def cmd_archive(profile: dict, name: str) -> None:
 CONFIG_PATH = os.path.join(ROOT, "bench.yaml")
 # settings of the config the command line can override; attempts and
 # context_chars override llm.max_build_attempts and llm.max_context_chars
-PROFILE_OPTIONS = ("label", "packages", "suite", "model", "provider", "model_server", "model_server_key_env",
+PROFILE_OPTIONS = ("label", "packages", "suite", "model", "provider",
                    "attempts", "repeats", "temperature", "context_chars")
 
 

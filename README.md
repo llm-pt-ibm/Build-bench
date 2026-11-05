@@ -54,6 +54,7 @@ cd build-bench
 pip install -r requirements-ppc64le.txt   # in a Python 3.11 environment
 cat > .env <<'EOF'
 API_KEY=<your OpenRouter key>
+API_BASE_URL=https://openrouter.ai/api/v1
 EOF
 make setup-env ENV=jax-power9   # the build environment, once per machine (it compiles Bazel: slow)
 make check-env ENV=jax-power9   # ends with "environment ready"
@@ -76,7 +77,7 @@ these files:
 
 | File | What it holds | Who makes it |
 |---|---|---|
-| `.env` | `API_KEY`; `OBS_USER`, `OBS_PASSWORD` for RPM cases | you, on every machine (git ignores it) |
+| `.env` | `API_KEY`, `API_BASE_URL`; `OBS_USER`, `OBS_PASSWORD` for RPM cases | you, on every machine (git ignores it) |
 | `local.mk` (optional) | `PY`, the framework's Python, and `BENCH_HOME` | you, when `python3` on the PATH is not that Python |
 | `bench.yaml` | the run: architectures, cases, model, repair loop, builds | in git: edit it, or override it with make variables |
 | `envs/<environment>/env.yaml` | a build environment: conda, system and pip packages, Bazel, wheels | `make new-env` or `make new-case` start it; you complete it |
@@ -102,12 +103,12 @@ uv sync                                   # x86_64/aarch64
 pip install -r requirements-ppc64le.txt   # on the Power9: conda env build_bench
 ```
 
-`.env` (never committed) holds only the credentials; everything else is set
-in `bench.yaml`, which `.env` never overrides:
+`.env` (never committed) holds the model's API and the OBS account;
+everything else is set in `bench.yaml`, which `.env` never overrides:
 
 | Variable | Meaning |
 |---|---|
-| `API_KEY` | key of OpenRouter, the API the runs use unless `model_server` in `bench.yaml` names another |
+| `API_BASE_URL`, `API_KEY` | the model's API, the same way for OpenRouter (`https://openrouter.ai/api/v1` and its key) and for a server of your own (its address; `API_KEY` empty when it needs no key) |
 | `OBS_USER`, `OBS_PASSWORD` | OBS account (OBS backend and local worker) |
 
 The framework runs as a normal user and changes nothing on the host. What it
@@ -228,7 +229,7 @@ commands run on the build host.
 | `model`, `provider` | `MODEL`, `PROVIDER` | model and pinned OpenRouter provider |
 | `llm.max_build_attempts` | `ATTEMPTS` | build attempts per package |
 | `temperature` | `TEMPERATURE` | sampling temperature |
-| `model_server`, `model_server_key_env`, `llm.max_context_chars` | `MODEL_SERVER`, `MODEL_SERVER_KEY_ENV`, `CONTEXT_CHARS` | a model server of your own instead of OpenRouter, the variable of `.env` with its key (see Local models) |
+| `llm.max_context_chars` | `CONTEXT_CHARS` | size of the conversation the model gets, e.g. a local model's window (see Local models) |
 | | `CONFIG` | another config file, e.g. a copy of `bench.yaml` |
 
 ```bash
@@ -271,25 +272,26 @@ run in the meantime.
 
 ### Local models
 Any server with an OpenAI-compatible API works: Ollama, vLLM, llama.cpp's
-`llama-server`. Start it with tool calling and a large context window, then
-set `model_server`, `model` and `llm.max_context_chars` in `bench.yaml`, or run
-with the variables:
+`llama-server`. Start it with tool calling and a large context window, point
+`.env` at it as for OpenRouter, and set `model` and `llm.max_context_chars`
+in `bench.yaml` (or `MODEL` and `CONTEXT_CHARS`):
 
 ```bash
 OLLAMA_CONTEXT_LENGTH=65536 ollama serve &      # Ollama's default window is small and cuts prompts silently
 ollama pull qwen3-coder:30b
-make run MODEL_SERVER=http://127.0.0.1:11434/v1 MODEL=qwen3-coder:30b PROVIDER=none CONTEXT_CHARS=180000 LABEL=local1
+# .env: API_BASE_URL=http://127.0.0.1:11434/v1, and API_KEY empty (or the server's key)
+make run MODEL=qwen3-coder:30b PROVIDER=none CONTEXT_CHARS=180000 LABEL=local1
 ```
 
 vLLM: `vllm serve <model> --max-model-len 65536 --enable-auto-tool-choice
 --tool-call-parser <parser>`; llama.cpp: `llama-server -m <model.gguf> --jinja
--c 65536`. `model_server` points the run to the server; the API key of `.env`
-is never sent there (`model_server_key_env` names a variable of `.env` with
-the server's own key, if it needs one). `llm.max_context_chars` (`CONTEXT_CHARS`) keeps the
+-c 65536`. To go back to OpenRouter, put its address and key back in `.env`;
+`make run` refuses an OpenRouter key (`sk-or-...`) for another server, so
+that the key never reaches it. `llm.max_context_chars` (`CONTEXT_CHARS`) keeps the
 conversation within the server's window, at about 3.5 characters per token
 (65,536 tokens: about 180,000 characters, leaving room for the system prompt
-and the reply); the oldest tool results are shortened beyond it. `make run` checks that the
-server answers and serves the model before starting; `LLM_TIMEOUT` (or
+and the reply); the oldest tool results are shortened beyond it. `make run` checks that a
+server other than OpenRouter answers and serves the model before starting; `LLM_TIMEOUT` (or
 `llm.request_timeout`) sets how long a reply may take: 600 s for an API, 1800 s
 for a local server by default. A call that fails is retried after a wait,
 and the log says so. Results record
@@ -462,7 +464,9 @@ says what is missing:
 | `build environment <env> of <case> is not set up`, `no image build-bench-<env>` | `make setup-env ENV=<env>` |
 | `docker not found`, `docker cannot be used` | install Docker and add the user to the `docker` group (log in again): build-recipe cases need it |
 | `build.container.runtime ...: ... always run in Docker` | remove `runtime` from the config's `build.container` |
-| `no .env with API_KEY` | create `.env` (see Files you write) |
+| `no API_BASE_URL in .env`, `no API_KEY in .env` | create `.env` (see Files you write) |
+| `API_KEY in .env is an OpenRouter key` | `API_BASE_URL` names another server: set `API_KEY` to its key, or leave it empty |
+| `base_url`, `BASE_URL`: `... are API_BASE_URL and API_KEY in .env` | a config or command of an older version: move the server's address and key to `.env` |
 | `no suite <name>`, `packages and suite are both set`, `PACKAGES and SUITE: choose one` | name one of the config's `suites`; set `packages` or `suite`, not both |
 | `no model server answers at <url>`, `<url> does not serve <model>` | start the server, or pull the model on it |
 | `the model could read the answer` | move the built copy out of the model's reach or hide it (`build.script.experiment_hide`); `ALLOW_LEAKS=1` starts anyway |

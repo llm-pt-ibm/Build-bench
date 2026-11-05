@@ -47,10 +47,11 @@ sudo usermod -aG docker $USER             # Docker installed; log in again after
 
 | `.env` variable | What for |
 |---|---|
-| `API_KEY` | key of OpenRouter, the API the runs use |
+| `API_BASE_URL` | address of the model's API: `https://openrouter.ai/api/v1`, or a server of your own, e.g. `http://127.0.0.1:11434/v1` (Ollama) |
+| `API_KEY` | its key: OpenRouter's, or the server's (empty when it needs none) |
 | `OBS_USER`, `OBS_PASSWORD` | OBS account, only for the OBS backend |
 
-`.env` holds only credentials. The model, the provider, the temperature and
+`.env` holds the model's API and the OBS account. The model, the provider, the temperature and
 everything else are in `bench.yaml`, and `.env` does not override them: a
 setting left empty in `bench.yaml`, or cleared with `none` on the `make`
 command line, stays empty.
@@ -233,7 +234,7 @@ useful fields of the JSON:
 ## Other models
 
 Any OpenRouter model runs by changing `MODEL`; local models run by pointing
-the run at their server (`model_server`).
+`.env` at their server, the same way as at OpenRouter.
 
 **OpenRouter.** Change `MODEL` and, to pin the provider, `PROVIDER`. The cost
 of each call comes from OpenRouter and goes into the result.
@@ -251,18 +252,20 @@ without these marks.
 **Local models** (Ollama, vLLM, llama.cpp):
 
 1. Start the server with tool calling and a large context window.
-2. Set `model_server`, `model` and `llm.max_context_chars` in `bench.yaml` (about 3.5 characters per token, leaving room for the prompt and the reply), or pass `MODEL_SERVER`, `MODEL` and `CONTEXT_CHARS` on the command line.
-3. Run. `make run` first checks that the server answers and has the model.
+2. In `.env`, set `API_BASE_URL` to the server's address and `API_KEY` to its key, or leave `API_KEY` empty.
+3. Set `model` and `llm.max_context_chars` in `bench.yaml` (about 3.5 characters per token, leaving room for the prompt and the reply), or pass `MODEL` and `CONTEXT_CHARS` on the command line.
+4. Run. `make run` first checks that the server answers and has the model.
 
 ```bash
 OLLAMA_CONTEXT_LENGTH=65536 ollama serve &     # Ollama's default window is small and cuts prompts silently
 ollama pull qwen3-coder:30b
-make run MODEL_SERVER=http://127.0.0.1:11434/v1 MODEL=qwen3-coder:30b PROVIDER=none CONTEXT_CHARS=180000 LABEL=local1
+# .env: API_BASE_URL=http://127.0.0.1:11434/v1, and API_KEY empty
+make run MODEL=qwen3-coder:30b PROVIDER=none CONTEXT_CHARS=180000 LABEL=local1
 ```
 
-The key of `.env` is never sent to that server; if it needs a key, put it
-in `.env` under a name of your own and set `model_server_key_env` to that
-name. `LLM_TIMEOUT` gives slow
+To go back to OpenRouter, put its address and key back in `.env`. `make run`
+refuses an OpenRouter key (`sk-or-...`) for another server, so that the key
+never reaches it. `LLM_TIMEOUT` gives slow
 models more time per reply (the default is 1800 s for a local server, 600 s
 for an API). When the server does not
 convert the model's tool calls, they arrive as text; the client recognizes
@@ -342,9 +345,11 @@ most common ones and what to do:
 | `no image build-bench-<env>` | `make setup-env ENV=<env>` (redoes only what is missing, and the image) |
 | `docker not found`, `docker cannot be used` | install Docker and add the user to the `docker` group (`sudo usermod -aG docker $USER`, then log in again) |
 | `the model could read the answer` | move the file out of the model's reach or hide it with `script.experiment_hide`; `ALLOW_LEAKS=1` only if you know what you are doing |
-| `no model server answers at <url>` | start the local server or fix `model_server` |
+| `no model server answers at <url>` | start the local server or fix `API_BASE_URL` in `.env` |
 | `<url> does not serve <model>` | pull the model on the server or fix `MODEL` |
-| `no .env with API_KEY` | create `.env` (see Installation) |
+| `no API_BASE_URL in .env`, `no API_KEY in .env` | create `.env` (see Installation) |
+| `API_KEY in .env is an OpenRouter key` | `API_BASE_URL` names another server: set `API_KEY` to its key, or leave it empty |
+| `base_url`, `BASE_URL`: `the model's address and key are API_BASE_URL and API_KEY in .env` | a config or a command of an older version: move the server's address and key to `.env` |
 | `lookup ... on 127.0.0.1:53: server misbehaving` | Docker's daemon cannot resolve names through the local DNS: set `GODEBUG=netdns=cgo` in the Docker service's environment, with `live-restore` on before the restart so running containers survive it |
 | `make test`: `cannot import name 'eval_type_backport'` | the installed pydantic does not suit mcp 1.20.0: `pip install pydantic==2.13.5 pydantic_core==2.46.5` in the framework's environment (`requirements-ppc64le.txt` pins these versions) |
 | `make baseline`: `FATAL: $USER is not set` | an older framework under Docker: update it, since containers now get `USER` and `HOME` |
@@ -356,8 +361,7 @@ build directory, and the run's result keeps the hosts reached
 ## Command reference
 
 `make` alone lists the commands. The variables `LABEL`, `PACKAGES`, `SUITE`, `MODEL`,
-`PROVIDER`, `ATTEMPTS`, `REPEATS`, `TEMPERATURE`, `MODEL_SERVER`, `MODEL_SERVER_KEY_ENV`
-and `CONTEXT_CHARS` change the matching field of `bench.yaml` for one run
+`PROVIDER`, `ATTEMPTS`, `REPEATS`, `TEMPERATURE` and `CONTEXT_CHARS` change the matching field of `bench.yaml` for one run
 (`ATTEMPTS` and `CONTEXT_CHARS` change `llm.max_build_attempts` and
 `llm.max_context_chars`). `none` clears a field (e.g. `PROVIDER=none`), and
 `CONFIG=<file>` uses another config file.

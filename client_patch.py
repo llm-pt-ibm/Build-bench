@@ -42,7 +42,7 @@ class LLMConfig:
             self.base_url = base_url
         else:
             self.api_key = os.getenv("API_KEY")
-            self.base_url = os.getenv("API_BASE_URL") or "https://openrouter.ai/api/v1"
+            self.base_url = os.getenv("API_BASE_URL")
 
         if not self.api_key:
             raise RuntimeError(f"Missing API key for provider={self.provider}. Check your environment.")

@@ -596,14 +596,17 @@ improvements` shows them file by file.
   and that Docker has its image, as `make run` does; it only checked that
   `envs/<environment>/env.yaml` existed, and said OK for an environment the
   run would refuse.
-- The model server: `.env` holds only credentials, and OpenRouter is the
-  default address, so `API_BASE_URL` left `.env` (one still there works, with
-  a warning: a server's address in it would get the OpenRouter key and skip
-  the check that the server answers). A server of one's own is
-  `model_server` in `bench.yaml` (`MODEL_SERVER`), with
-  `model_server_key_env` (`MODEL_SERVER_KEY_ENV`) naming the variable of
-  `.env` with its key: `base_url` and `api_key_env`, the old names, read like
-  an address and a key of `.env` and still work, with a warning.
+- The model's API is only in `.env`, the same way for OpenRouter and for a
+  server of one's own: `API_BASE_URL` (its address) and `API_KEY` (its key,
+  empty when it needs none). `base_url` and `api_key_env` of `bench.yaml`
+  (`BASE_URL`, `API_KEY_ENV`) are gone: with the address in both places it
+  was unclear which one a run used. A config or a command that still sets
+  them stops the run with a message, as do a missing `API_BASE_URL` (the
+  client would have gone to OpenAI's address) and an OpenRouter key
+  (`sk-or-...`) for another server, which would have received it. A server
+  other than OpenRouter must still answer and serve the model before the run
+  starts. `is_local_url` and `api_base` moved from `client.py` to
+  `tools/auto_repair/model_api.py`, which `scripts/bench.py` uses as well.
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source

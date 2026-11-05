@@ -286,8 +286,11 @@ with _tempfile.TemporaryDirectory() as tmp:
 print("run settings: OK (overrides, suites, environment, leftovers archived, stale lock, config frozen per "
       "run with the run's values)")
 
-# a profile with a model server of its own: the .env key is not sent there
+# the model's API is that of .env (API_BASE_URL, API_KEY): OpenRouter, or a
+# server of one's own, which must answer and serve the model
+import contextlib  # noqa: E402
 import http.server  # noqa: E402
+import io  # noqa: E402
 import threading  # noqa: E402
 
 
@@ -303,40 +306,49 @@ class _Models(http.server.BaseHTTPRequestHandler):
         self.wfile.write(data)
 
 
+def _refusal(profile: dict) -> str:
+    err = io.StringIO()
+    try:
+        with contextlib.redirect_stderr(err):
+            bench.check_model_api(profile)
+    except SystemExit:
+        return err.getvalue()
+    return ""
+
+
 _server = http.server.HTTPServer(("127.0.0.1", 0), _Models)
 threading.Thread(target=_server.serve_forever, daemon=True).start()
-_saved = os.environ.get("API_KEY")
-os.environ["API_KEY"] = "secret-of-another-api"
+_saved = {k: os.environ.pop(k, None) for k in ("API_BASE_URL", "API_KEY", "BASE_URL", "API_KEY_ENV")}
+_dotenv, bench.DOTENV = bench.DOTENV, os.path.join(ROOT, ".no-such-dotenv")
 try:
-    local = {"packages": [], "model": "local-coder", "model_server": f"http://127.0.0.1:{_server.server_port}/v1"}
-    env = bench.run_env(local)
-    assert env["API_BASE_URL"] == local["model_server"] and env["API_KEY"] == "none", "the .env key is never sent"
-    os.environ["LOCAL_KEY_FOR_TEST"] = "k1"
-    assert bench.run_env(dict(local, model_server_key_env="LOCAL_KEY_FOR_TEST"))["API_KEY"] == "k1"
-    assert "API_BASE_URL" not in bench.run_env({"packages": []}), "without model_server: OpenRouter"
-    # base_url and api_key_env, the old names, still work
-    with _tempfile.TemporaryDirectory() as tmp:
-        open(os.path.join(tmp, "bench.yaml"), "w").write(
-            f"source_arch: x86_64\ntarget_arch: ppc64le\nbase_url: {local['model_server']}\napi_key_env: K\n")
-        p = bench.load_profile(os.path.join(tmp, "bench.yaml"), {})
-        assert p["model_server"] == local["model_server"] and p["model_server_key_env"] == "K", p
-        assert "base_url" not in p and "api_key_env" not in p, p
-    bench.check_model_server(local)   # answers and serves the model
-    for broken in (dict(local, model="other-model"), dict(local, model_server="http://127.0.0.1:9/v1")):
-        try:
-            bench.check_model_server(broken)
-            raise AssertionError(f"accepted {broken}")
-        except SystemExit:
-            pass
+    local, profile = f"http://127.0.0.1:{_server.server_port}/v1", {"packages": [], "model": "local-coder"}
+    assert "no API_BASE_URL in .env" in _refusal(profile)
+    os.environ["API_BASE_URL"] = local
+    assert _refusal(profile) == "", "a server of one's own, without a key"
+    assert "does not serve other-model" in _refusal(dict(profile, model="other-model"))
+    os.environ["API_KEY"] = "sk-or-v1-test"
+    assert "an OpenRouter key" in _refusal(profile), "the OpenRouter key never goes to another server"
+    os.environ["API_KEY"] = "key-of-the-server"
+    assert _refusal(profile) == ""
+    os.environ["API_BASE_URL"] = "http://127.0.0.1:9/v1"
+    assert "no model server answers at http://127.0.0.1:9 " in _refusal(profile)
+    os.environ["API_BASE_URL"], os.environ["API_KEY"] = "https://openrouter.ai/api/v1", ""
+    assert "no API_KEY in .env" in _refusal(profile)
+    os.environ["API_KEY"] = "sk-or-v1-test"
+    assert _refusal(profile) == "", "OpenRouter is not asked for its models"
+    assert "API_BASE_URL and API_KEY in .env" in _refusal(dict(profile, base_url=local)), "a config of before"
+    os.environ["BASE_URL"] = local
+    assert "BASE_URL" in _refusal(profile), "make run BASE_URL=... of before"
     assert bench.run_env({"packages": [], "context_chars": 180000})["BENCH_MAX_CONTEXT_CHARS"] == "180000"
 finally:
     _server.shutdown()
-    os.environ.pop("LOCAL_KEY_FOR_TEST", None)
-    if _saved is None:
-        os.environ.pop("API_KEY", None)
-    else:
-        os.environ["API_KEY"] = _saved
-print("local model profile: OK (own server and key, server and model checked, context size)")
+    bench.DOTENV = _dotenv
+    for _k, _v in _saved.items():
+        os.environ.pop(_k, None)
+        if _v is not None:
+            os.environ[_k] = _v
+print("model API: OK (address and key of .env, a server of one's own checked and never given the OpenRouter "
+      "key, settings of before refused, context size)")
 
 # leak check: built copies of the package within the model's reach
 import shutil  # noqa: E402
