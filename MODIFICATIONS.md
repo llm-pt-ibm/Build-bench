@@ -627,6 +627,16 @@ improvements` shows them file by file.
   listed the tools to add, and runs used all three or none. A list, of older
   configs, stops the run with a message, so that a subset is not taken for
   all three.
+- RPM cases on OBS have acceptance tests (`tools/auto_repair/obs_acceptance.py`):
+  `acceptance/<direction>/<package>/<package>-acceptance.spec` is a test package
+  that builds in the benchmark's OBS project after every successful build of the
+  package, installs it and checks that it works; the build counts only when the
+  test package builds too, and its failure goes to `log_failed.txt` as for
+  build recipes. Before, an RPM case counted as repaired as soon as it built,
+  so a repair that only disabled the failing tests or built a broken program
+  counted too. The test gets `expected-disturl`, the DISTURL of the build under
+  test, and compares it with the installed package's, so that an older build
+  of the distribution, which OBS can still resolve, is never the one tested.
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source

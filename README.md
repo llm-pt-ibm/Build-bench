@@ -84,6 +84,7 @@ these files:
 | `envs/<environment>/env.yaml` | a build environment: conda, system and pip packages, Bazel, wheels | `make new-env` or `make new-case` start it; you complete it |
 | `data/<direction>/<case>/build.sh` | the build as upstream runs it on the source architecture, with no fix for the target | `make new-case` starts it; you complete it |
 | `acceptance/<direction>/<case>.sh` | the check that what the build made works | `make new-case` starts it; you complete it |
+| `acceptance/<direction>/<case>/<case>-acceptance.spec` | the same for an RPM case on OBS: a test package | you |
 
 The rest is generated: `manifest.json` and the case's `.gitignore` by
 `make new-case`, the sources by `make new-case` and `make fetch`,
@@ -402,6 +403,16 @@ runs numerical checks and 1528 tests of JAX's own suite; TensorFlow's checks
 float32, float64, float16, bfloat16 and int8 (also XLA-compiled), gradients
 and a Keras training against NumPy.
 
+**Acceptance tests of RPM cases on OBS** are test packages:
+`acceptance/<direction>/<package>/` holds `<package>-acceptance.spec` and its
+sources. After every successful build of the package, the test package builds
+in the same OBS project and repository; it installs the package
+(`BuildRequires`) and checks in `%build` that it works, and the build counts
+only when the test package builds too. The framework gives it
+`expected-disturl`, the DISTURL of the build under test, which the test
+compares with `rpm -q --qf '%{DISTURL}'` of the installed package, so that an
+older build of the distribution is never the one tested.
+
 **What `build.sh` and the test get.** `build.sh` runs from the case's
 directory, in a container of its environment, and the build passes when it
 exits with 0. Besides the environment's variables (`PYTHON`, `CLANG`,
@@ -490,7 +501,7 @@ DNS.
 ## 🧪 Tests
 
 `make test` runs `tests/test_helpers.py` (patch check, log excerpt, build
-backends, resume, run settings, config, leak check, cases, the network proxy,
+backends, acceptance tests on OBS, resume, run settings, config, leak check, cases, the network proxy,
 tool calls written as text; builds, acceptance tests and `run_command_tool`
 in Docker containers when Docker has the base image, e.g. after
 `docker pull registry.access.redhat.com/ubi8/ubi:8.9`, or `BENCH_TEST_IMAGE`

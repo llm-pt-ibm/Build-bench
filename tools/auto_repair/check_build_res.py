@@ -6,6 +6,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 from xml.etree import ElementTree
 
+from tools.auto_repair import obs_acceptance
 from tools.auto_repair.obs_config import load_obs_config
 from tools.auto_repair.obs_http import obs_request
 from tools.auto_repair.log_excerpt import error_excerpt
@@ -59,7 +60,7 @@ def check_main(temp_dir: str, package_name: str) -> str:
                     m = LOG_SRCMD5.search(head)
                     if m is None or m.group(1) == uploaded["srcmd5"]:
                         if code == "succeeded":
-                            return "Build succeeded! The build has been successfully completed."
+                            return obs_acceptance.run(cfg, auth, temp_dir, package_name, uploaded["srcmd5"])
                         log = _get(f"{build_url}/_log", auth).content
                         path = os.path.join(temp_dir, "log_failed.txt")
                         with open(path, "wb") as f:

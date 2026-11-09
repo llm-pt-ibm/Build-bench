@@ -143,6 +143,51 @@ assert res.startswith("Build infrastructure error!") and "Failed to resolve" in 
 shutil.rmtree(work)
 print("local build backend: OK (with infrastructure retries)")
 
+# acceptance tests of RPM cases on OBS: a test package built after the package,
+# which must find installed the build that was just checked
+import time  # noqa: E402
+import types  # noqa: E402
+import tools.auto_repair.obs_acceptance as obs_acceptance  # noqa: E402
+work = tempfile.mkdtemp()
+_saved = (obs_acceptance.ACCEPTANCE_DIR, obs_acceptance.obs_request, obs_acceptance.main_upload, obs_acceptance.time)
+obs_acceptance.ACCEPTANCE_DIR = os.path.join(work, "acceptance")
+cfg = {"direction": "a_to_b", "api": "https://obs", "project": "home:u:p", "repository": "b", "arch": "b",
+       "max_wait_seconds": 60, "check_interval": 0}
+try:
+    assert obs_acceptance.run(cfg, None, work, "pkg", "x") == "Build succeeded! The build has been successfully completed."
+    os.makedirs(os.path.join(obs_acceptance.ACCEPTANCE_DIR, "a_to_b", "pkg"))
+    open(os.path.join(obs_acceptance.ACCEPTANCE_DIR, "a_to_b", "pkg", "pkg-acceptance.spec"), "w").write("Name: x\n")
+    sent, outcome = {}, {"code": "failed"}
+
+    def _upload(name, folder):
+        sent.update(name=name, files=sorted(os.listdir(folder)),
+                    expected=open(os.path.join(folder, "expected-disturl")).read())
+        json.dump({"srcmd5": "t" * 32, "time": 0}, open(os.path.join(folder, ".last_upload.json"), "w"))
+        return "Success: committed"
+
+    def _request(method, url, **kw):
+        if url.endswith("/_result"):
+            text = (f'<resultlist><result repository="b" arch="b"><status package="pkg-acceptance" '
+                    f'code="{outcome["code"]}"/></result></resultlist>')
+        else:
+            text = f"[ 1s] srcmd5 '{'t' * 32}'\n[ 9s] ERROR: the program printed 2, not 1\n"
+        return types.SimpleNamespace(status_code=200, text=text)
+
+    obs_acceptance.main_upload, obs_acceptance.obs_request = _upload, _request
+    obs_acceptance.time = types.SimpleNamespace(time=time.time, sleep=lambda s: None)
+    res = obs_acceptance.run(cfg, None, work, "pkg", "m" * 32)
+    assert sent["name"] == "pkg-acceptance" and "expected-disturl" in sent["files"], sent
+    assert sent["expected"] == f"obs://build.opensuse.org/home:u:p/b/{'m' * 32}-pkg\n", sent["expected"]
+    assert res.startswith("Build failed! The package was built, but its acceptance test failed"), res
+    assert "the program printed 2, not 1" in open(os.path.join(work, "log_failed.txt")).read()
+    outcome["code"] = "succeeded"
+    assert obs_acceptance.run(cfg, None, work, "pkg", "m" * 32).endswith("its acceptance test passed.")
+finally:
+    (obs_acceptance.ACCEPTANCE_DIR, obs_acceptance.obs_request, obs_acceptance.main_upload,
+     obs_acceptance.time) = _saved
+    shutil.rmtree(work)
+print("acceptance tests on OBS: OK (test package with the DISTURL of the build, its failure in log_failed.txt)")
+
 # a build-recipe cache left inconsistent is removed, with the processes that
 # still use it (the builds themselves run in Docker: tested with the containers)
 import subprocess  # noqa: E402
