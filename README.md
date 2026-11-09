@@ -372,8 +372,30 @@ The paper's setup is `max_build_attempts: 3`, `max_tool_rounds: 20`,
 A case is a directory `data/<direction>/<package>/` that is copied into the
 model's workspace at the start of a run:
 
-- **RPM package** (a `.spec`): sources and patches from openSUSE, `log_failed.txt` from OBS and `manifest.json` with their origin. `python dataset/fetch_package.py <package> x86_64_to_ppc64le` fetches one; `dataset/find_candidates.py` lists packages that build on x86_64 and fail on ppc64le.
+- **RPM package** (a `.spec`): sources and patches from openSUSE, `log_failed.txt` from OBS and `manifest.json` with their origin (and the `srcmd5` of the sources). `python dataset/fetch_package.py <package> <direction>` fetches one.
 - **Build recipe** (a `build.sh`, no `.spec`): the sources, `build.sh`, `manifest.json` naming its build environment (`envs/<environment>/env.yaml`, which the model cannot change) and `log_failed.txt`, the original failure.
+
+RPM cases come from openSUSE's own builds, in three steps:
+
+```bash
+python dataset/find_candidates.py x86_64 aarch64                 # candidates of both directions: dataset/candidates.json
+python dataset/fetch_package.py <package> x86_64_to_aarch64      # sources and failing log: data/x86_64_to_aarch64/<package>/
+BENCH_CONFIG=aarch64.yaml python dataset/setup_obs.py            # build them in your OBS project, keep those that fail there
+```
+
+A candidate builds on one architecture and fails on the other from the same
+sources: `openSUSE:Factory` against its port of the other architecture, and
+the Tumbleweed repositories of the devel projects in
+`dataset/devel_projects.txt`. `setup_obs.py` uploads the cases to the
+config's OBS project (repositories that rebuild a package only when its own
+sources change, and stop a build after 15 minutes without output), builds each
+on both architectures, builds the ones that fail on the target once more
+(`--once a,b` skips that for slow builds) and keeps a case only when it builds
+on the source, fails on the target and never built on the target there; it
+can be run again, and keeps what is uploaded already.
+`BENCH_CONFIG=<config> python dataset/validate_acceptance.py` builds the
+acceptance test packages on the source architecture, against a working build
+of each package: a test must pass there.
 
 A build-recipe case takes a few commands; the TensorFlow case was made with:
 

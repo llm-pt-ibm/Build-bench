@@ -187,5 +187,1436 @@
  "ppc64le_to_x86_64": [
   "OpenShadingLanguage",
   "llamacpp"
- ]
+ ],
+ "x86_64_to_aarch64": {
+  "queried": "2026-11-09",
+  "cases": {
+   "BitWizzard": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "CalcMySky": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "JammerNetz": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "OPL": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "OpenVolumeMesh": {
+    "project": "devel:libraries:c_c++",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory"
+    }
+   },
+   "SID": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "StormLib": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "Twonker": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "Vrui": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "WebPhonon-Qt5": {
+    "project": "multimedia:apps",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "ZLEqualizer2": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "anura": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "artoolkitx": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "aws-sdk-cpp": {
+    "project": "Cloud:Tools",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "bash-completion-doc": {
+    "project": "shells",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory"
+    }
+   },
+   "below": {
+    "project": "utilities",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "bigForth": {
+    "project": "devel:languages:misc",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory"
+    }
+   },
+   "bitfighter": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "blender-5.1": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "blender-5.2": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "bmake": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "bombermaaan": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "bpftop": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "ck": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "clusterctl": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "comet": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "covid-sim": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "crrcsim": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "cxref": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "d2x-xl": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "dangerdeep": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "ddsp": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "desmume": {
+    "project": "Emulators",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "devilutionx": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "discimagecreator": {
+    "project": "hardware",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "dm-GrainDelay": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "doomsday": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "eden": {
+    "project": "Emulators",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "enemy-territory": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "f3d": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "fasm": {
+    "project": "devel:tools:compiler",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory"
+    }
+   },
+   "firefox-esr": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "foo-yc20": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "forgejo-runner": {
+    "project": "devel:tools:scm",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "form": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "fpc": {
+    "project": "devel:languages:pascal",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "freeablo": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "freedink": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "fricas": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "frontieres": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "fstl": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "gauche": {
+    "project": "devel:languages:misc",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory"
+    }
+   },
+   "ghc-blake3": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "ghc-config-ini": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "gperftools": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "griefly": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "hdf": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "hdf5:mvapich2": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "helm": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "hercules": {
+    "project": "Emulators",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "hypermail": {
+    "project": "M17N",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "iannix": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "intel-level-zero-gpu-raytracing": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "iptables": {
+    "project": "security:netfilter",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "jaq": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "java-11-openj9": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "java-25-openj9": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "jazz2": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "json-schema-validator": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "kismet": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "knative-cli-operator-plugin": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "kompose": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "leechcraft": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "libglpng": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "libpqcrypto": {
+    "project": "devel:libraries:c_c++",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory"
+    }
+   },
+   "libsbsms": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "lv2-artyfx-plugins": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "lv2-euclidean-rhythms": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "lv2-sorcer": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "lv2-tap": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "megactl": {
+    "project": "hardware",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "melange": {
+    "project": "devel:tools:building",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory"
+    }
+   },
+   "meteor_decoder": {
+    "project": "hardware:sdr",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "mise": {
+    "project": "devel:tools",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "molekel": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "mx44": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "natpos": {
+    "project": "hardware:sdr",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "nceplibs-ip": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "nodejs-electron": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "obs-studio": {
+    "project": "multimedia:apps",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "octave-forge-tisean": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "ollama:test": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "perf": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "perl-Class-Easy": {
+    "project": "devel:languages:perl",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "perl-Data-Undump": {
+    "project": "devel:languages:perl",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "perl-Net-LDAP-SimpleServer": {
+    "project": "devel:languages:perl",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "perl-Sys-Syscall": {
+    "project": "devel:languages:perl",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "perl-Test-MemoryGrowth": {
+    "project": "devel:languages:perl",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "pgrx-0.18": {
+    "project": "server:database:postgresql",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "pgrx-0.19": {
+    "project": "server:database:postgresql",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "pkcs11-provider": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "pluto": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "ppl:testsuite": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "procdump": {
+    "project": "devel:tools",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "psychosynth": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-Flask-Caching": {
+    "project": "devel:languages:python:flask",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-MapProxy": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "python-aiosmtpd": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "python-apeye:test": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-chardet:test": {
+    "project": "security:forensics",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-dbus_fast:test": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "python-devpi-server": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "python-hatch:test": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "python-jupyter-server:test": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "python-langgraph-sdk": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-librosa:test": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "python-limnoria": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-nbdime": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "python-paramiko": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-pymediainfo": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "python-pyshark": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-python-prctl": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "python-quimb:test": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "python-rpm-spec-language-server": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-scikit-image:test": {
+    "project": "devel:languages:python:numeric",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-setuptools:test": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-stripe": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-sunpy": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "python-thriftpy2": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-tox": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-urwid": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-xkbgroup": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "qcoan": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "qgis": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "qm-dsp": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "qmidiarp": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "qore-ncurses-module": {
+    "project": "devel:languages:misc",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory"
+    }
+   },
+   "qsynthi": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "qwinff": {
+    "project": "multimedia:apps",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "reptyr": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "retsnoop": {
+    "project": "utilities",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "rezonateur": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "rioterm": {
+    "project": "X11:terminals",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "rip2": {
+    "project": "utilities",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "rtl8192eu": {
+    "project": "hardware",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "rumdl": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "rust1.85:test": {
+    "project": "devel:languages:rust",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "scx": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "seamonkey": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "sfml": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "smokin-guns": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "soapy-remote": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "solarus-quest-editor": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "sooperlooper": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "squeak-vm": {
+    "project": "Education",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "stargate": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "stepmania": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "string-machine": {
+    "project": "multimedia:proaudio",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "suwidgets": {
+    "project": "hardware:sdr",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "swift-lang": {
+    "project": "devel:tools:compiler",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory"
+    }
+   },
+   "systemshock": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "tail-tray": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "taisei": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "tcl-dbif": {
+    "project": "devel:languages:tcl",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "tcl-dbus": {
+    "project": "devel:languages:tcl",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "tdom": {
+    "project": "devel:languages:tcl",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "tennix": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "tkimg": {
+    "project": "devel:languages:tcl",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "typst": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "ultrastar-deluxe": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "unvanquished": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "urbanterror": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "vamp-plugin-sdk": {
+    "project": "multimedia:libs",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "virtualjaguar": {
+    "project": "Emulators",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "warsow": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "watchexec": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "waylock": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "webkitgtk:gtk4": {
+    "project": "GNOME:Next",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory"
+    }
+   },
+   "wine:staging-wow64": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "wine:wow64": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "wl-screenrec": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "xgalaga": {
+    "project": "games",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "yq": {
+    "project": "utilities",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "zenith": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "zfs:longterm": {
+    "project": "filesystems",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "zhu3d": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "zig0.14": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "aarch64": "standard"
+    }
+   },
+   "zizmor": {
+    "project": "security",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   }
+  }
+ },
+ "aarch64_to_x86_64": {
+  "queried": "2026-11-09",
+  "cases": {
+   "EternalTerminal": {
+    "project": "network",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "croc": {
+    "project": "network",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "glava": {
+    "project": "X11:Utilities",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "go1.17": {
+    "project": "devel:languages:go",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "go1.18": {
+    "project": "devel:languages:go",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "llvm14": {
+    "project": "devel:tools:compiler",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory"
+    }
+   },
+   "llvm15": {
+    "project": "devel:tools:compiler",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory"
+    }
+   },
+   "lucene++": {
+    "project": "devel:libraries:c_c++",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory"
+    }
+   },
+   "openexr": {
+    "project": "graphics",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "perl-Image-Scale": {
+    "project": "devel:languages:perl",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "perl-Verilog-Perl": {
+    "project": "devel:languages:perl",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-syrupy": {
+    "project": "devel:languages:python:pytest",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "rxtx-java": {
+    "project": "Education",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Tumbleweed"
+    }
+   },
+   "slirp": {
+    "project": "network",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "aarch64": "openSUSE_Factory_ARM"
+    }
+   },
+   "yodl": {
+    "project": "Publishing",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "aarch64": "openSUSE_Factory"
+    }
+   }
+  }
+ }
 }

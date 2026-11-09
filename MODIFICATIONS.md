@@ -637,6 +637,24 @@ improvements` shows them file by file.
   counted too. The test gets `expected-disturl`, the DISTURL of the build under
   test, and compares it with the installed package's, so that an older build
   of the distribution, which OBS can still resolve, is never the one tested.
+- The dataset tools work for any pair of architectures, x86_64 and aarch64
+  among them. `dataset/find_candidates.py <arch> <arch>` compares
+  `openSUSE:Factory` with its port of the other architecture and also the
+  Tumbleweed repositories of the devel projects of `dataset/devel_projects.txt`,
+  which build the same sources for both, and records the day of the query and,
+  for each candidate, the project and repositories of the failure
+  (`dataset/candidates.json`); `fetch_package.py` fetches from that project,
+  expanding links. `setup_obs.py` works for the config's direction only: it
+  uploads every case first and waits for all the builds together, rebuilds a
+  package only when its sources change (`rebuild="local"`: OBS rebuilt the
+  cases whenever a dependency of Factory changed, which can turn a failure
+  into a success while it is examined), stops a build after 15 minutes without
+  output (`logidlelimit`: a hanging test took 90), confirms each failure with
+  a second build of the target (`--once` skips it for slow builds) and drops a
+  case that built on the target there even once. It goes on after a moment
+  without the network, and run again it keeps what is uploaded already.
+  `dataset/validate_acceptance.py` builds the acceptance test packages on the
+  source architecture against a working build of each package.
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source
