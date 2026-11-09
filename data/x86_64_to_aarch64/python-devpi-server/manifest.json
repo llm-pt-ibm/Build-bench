@@ -1,0 +1,32 @@
+{
+  "task": {
+    "package": "python-devpi-server",
+    "direction": "x86_64_to_aarch64",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "79d3c1b5b5301fdee77009fffcf6814f"
+    },
+    "target": {
+      "project": "openSUSE:Factory:ARM",
+      "repository": "standard",
+      "arch": "aarch64"
+    }
+  },
+  "files": [
+    {
+      "name": "devpi_server-6.20.3.tar.gz",
+      "size": "310390"
+    },
+    {
+      "name": "python-devpi-server.changes",
+      "size": "21585"
+    },
+    {
+      "name": "python-devpi-server.spec",
+      "size": "5353"
+    }
+  ],
+  "created_at": 1794232107,
+  "version": 1
+}

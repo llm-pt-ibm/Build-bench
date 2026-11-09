@@ -1,0 +1,44 @@
+{
+  "task": {
+    "package": "tail-tray",
+    "direction": "x86_64_to_aarch64",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "2d4c3547ebc3d4c1ab054577d5559a13"
+    },
+    "target": {
+      "project": "openSUSE:Factory:ARM",
+      "repository": "standard",
+      "arch": "aarch64"
+    }
+  },
+  "files": [
+    {
+      "name": "_service",
+      "size": "734"
+    },
+    {
+      "name": "_servicedata",
+      "size": "440"
+    },
+    {
+      "name": "tail-tray-0.2.36.obscpio",
+      "size": "5955597"
+    },
+    {
+      "name": "tail-tray.changes",
+      "size": "26299"
+    },
+    {
+      "name": "tail-tray.obsinfo",
+      "size": "99"
+    },
+    {
+      "name": "tail-tray.spec",
+      "size": "2748"
+    }
+  ],
+  "created_at": 1794232202,
+  "version": 1
+}

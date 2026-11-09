@@ -347,6 +347,14 @@ architectures:
 | OBS repository and architecture | the target architecture (`obs.repository`, `obs.project` and `obs.api_url` override them) |
 | local builds | against the openSUSE:Factory port of the target architecture (`build.local.project`) |
 
+`aarch64.yaml` is the x86_64 → aarch64 experiment on OBS (`make run
+CONFIG=aarch64.yaml`): the paper's budget (3 attempts of 20 rounds) with the
+framework's other settings, and the suite `pilot`, 15 RPM cases of
+openSUSE:Factory with acceptance test packages. They are 20 drawn at random
+(seed 20261109) from the 49 Factory candidates without multibuild flavors or
+sources over 500 MiB, less the 5 whose failure did not hold in the project
+(`dataset/triage_x86_64_to_aarch64.json`).
+
 The other direction is `source_arch: ppc64le` and `target_arch: x86_64`; the
 original's case study is `target_arch: aarch64` with
 `cases_dir: data/case_study/x86_succeed_pro` and `obs: {repository: arm}`.

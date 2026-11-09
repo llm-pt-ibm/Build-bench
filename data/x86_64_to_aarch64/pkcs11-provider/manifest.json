@@ -1,0 +1,44 @@
+{
+  "task": {
+    "package": "pkcs11-provider",
+    "direction": "x86_64_to_aarch64",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "dfea526479233e796f427d2c7d8bc94a"
+    },
+    "target": {
+      "project": "openSUSE:Factory:ARM",
+      "repository": "standard",
+      "arch": "aarch64"
+    }
+  },
+  "files": [
+    {
+      "name": "disable_kryoptic_nss.patch",
+      "size": "2131"
+    },
+    {
+      "name": "pkcs11-provider-1.1.tar.xz",
+      "size": "187792"
+    },
+    {
+      "name": "pkcs11-provider-1.1.tar.xz.asc",
+      "size": "488"
+    },
+    {
+      "name": "pkcs11-provider.changes",
+      "size": "3601"
+    },
+    {
+      "name": "pkcs11-provider.keyring",
+      "size": "2899"
+    },
+    {
+      "name": "pkcs11-provider.spec",
+      "size": "2259"
+    }
+  ],
+  "created_at": 1794232074,
+  "version": 1
+}

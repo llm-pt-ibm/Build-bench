@@ -1,0 +1,565 @@
+[    0s] Using BUILD_ROOT=/var/cache/obs/worker/root_34/.mount
+[    0s] Using BUILD_ARCH=aarch64:aarch64_ilp32:armv8l
+[    0s] Doing kvm build in /var/cache/obs/worker/root_34/root
+[    0s] 
+[    0s] 
+[    0s] i02-armsrv2 started "build ghc-blake3.spec" at Fri Nov  6 19:20:04 UTC 2026.
+[    0s] 
+[    0s] Building ghc-blake3 for project 'openSUSE:Factory:ARM' repository 'standard' arch 'aarch64' srcmd5 '88e410c808cc0a41573b1171c99f88fc'
+[    0s] 
+[    0s] processing recipe /var/cache/obs/worker/root_34/.build-srcdir/ghc-blake3.spec ...
+[    1s] running changelog2spec --target rpm --file /var/cache/obs/worker/root_34/.build-srcdir/ghc-blake3.spec
+[    1s] init_buildsystem --configdir /var/run/obs/worker/34/build/configs --cachedir /var/cache/build --prepare --clean --rpmlist /var/cache/obs/worker/root_34/.build.rpmlist /var/cache/obs/worker/root_34/.build-srcdir/ghc-blake3.spec build ...
+[    1s] unpacking preinstall image openSUSE:Factory:ARM/standard/preinstallimage-base [c45239e4fa4d2e98bff4cd9080f758a7]
+[    4s] 
+[    4s] copying packages...
+[    4s] reordering...cycle: ghc-ghc-bignum -> ghc-base
+[    4s]   breaking dependency ghc-base -> ghc-ghc-bignum
+[    4s] cycle: ghc-ghc-bignum -> ghc-base -> ghc-ghc-internal
+[    4s]   breaking dependency ghc-ghc-internal -> ghc-ghc-bignum
+[    4s] cycle: ghc-base -> ghc-ghc-internal
+[    4s]   breaking dependency ghc-ghc-internal -> ghc-base
+[    4s] cycle: ghc-compiler -> ghc-base-devel
+[    4s]   breaking dependency ghc-compiler -> ghc-base-devel
+[    4s] cycle: ghc-ghc-bignum-devel -> ghc-base-devel
+[    4s]   breaking dependency ghc-base-devel -> ghc-ghc-bignum-devel
+[    4s] cycle: ghc-ghc-bignum-devel -> ghc-base-devel -> ghc-ghc-internal-devel
+[    4s]   breaking dependency ghc-ghc-internal-devel -> ghc-ghc-bignum-devel
+[    4s] cycle: ghc-base-devel -> ghc-ghc-internal-devel
+[    4s]   breaking dependency ghc-ghc-internal-devel -> ghc-base-devel
+[    4s] cycle: ghc-ghc-bignum-prof -> ghc-base-prof
+[    4s]   breaking dependency ghc-base-prof -> ghc-ghc-bignum-prof
+[    4s] cycle: ghc-ghc-bignum-prof -> ghc-base-prof -> ghc-ghc-internal-prof
+[    4s]   breaking dependency ghc-ghc-internal-prof -> ghc-ghc-bignum-prof
+[    4s] cycle: ghc-base-prof -> ghc-ghc-internal-prof
+[    4s]   breaking dependency ghc-ghc-internal-prof -> ghc-base-prof
+[    4s] done
+[    5s] Detected virtio-serial support
+[    7s] booting kvm...
+[    7s] ### VM INTERACTION START ###
+[    7s] Using virtio-serial support
+[    7s] /usr/bin/qemu-system-aarch64 -nodefaults -no-reboot -nographic -vga none -cpu host -enable-kvm -M virt,accel=kvm,usb=off,gic-version=host -sandbox on -object rng-random,filename=/dev/random,id=rng0 -device virtio-rng-device,rng=rng0 -object iothread,id=io0 -run-with user=qemu -net none -kernel /var/cache/obs/worker/root_34/.mount/boot/kernel -initrd /var/cache/obs/worker/root_34/.mount/boot/initrd -append root=/dev/disk/by-id/virtio-0 rootfstype=ext4 rootflags=noatime elevator=noop nmi_watchdog=0 rw ia32_emulation=1 oops=panic panic=1 quiet console=hvc0 init=/.build/build -m 10240 -drive file=/var/cache/obs/worker/root_34/root,format=raw,if=none,id=disk,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=disk,serial=0 -drive file=/var/cache/obs/worker/root_34/swap,format=raw,if=none,id=swap,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=swap,serial=1 -device virtio-serial,max_ports=2 -device virtconsole,chardev=virtiocon0 -chardev stdio,id=virtiocon0 -chardev socket,id=monitor,server=on,wait=off,path=/var/cache/obs/worker/root_34/root.qemu/monitor -mon chardev=monitor,mode=readline -smp 4
+[   13s] P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=5f1840f1360d4457b629fc080fb85411;user=root;hostname=localhost;machineid=1ba8cb3e7c1840edacab81118093161a;bootid=412a230fee39467aa9902d23aeeb77cc;pid=1;pidfdid=1;comm=systemd;type=boot\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J### VM INTERACTION END ###
+[   13s] 2nd stage started in virtual machine
+[   13s] ^[[24;80R^[[24;80Rmachine type: aarch64
+[   13s] Linux version: 7.3.1-1-default #1 SMP PREEMPT_DYNAMIC Sat Oct 31 11:17:21 UTC 2026 (8815021)
+[   13s] Time: Fri Nov  6 19:20:17 UTC 2026
+[   13s] Increasing log level from now on...
+[   13s] [    5.325989][  T458] sysrq: Changing Loglevel
+[   13s] [    5.326036][  T458] sysrq: Loglevel set to 4
+[   13s] Enable sysrq operations
+[   13s] Setting up swapspace version 1, size = 2 GiB (2147479552 bytes)
+[   13s] no label, UUID=c8bb515e-5a2f-4ce1-84e4-c9db226f20bb
+[   13s] logging output to //.build.log...
+[   13s] processing recipe //.build-srcdir/ghc-blake3.spec ...
+[   13s] init_buildsystem --configdir /.build/configs --cachedir /var/cache/build //.build-srcdir/ghc-blake3.spec build ...
+[   13s] initializing rpm db...
+[   13s] querying package ids...
+[   15s] [1/229] preinstalled aaa_base-84.87+git20260924.144354a1-2.1
+[   15s] [2/229] preinstalled aaa_base-malloccheck-84.87+git20260924.144354a1-2.1
+[   15s] [3/229] preinstalled alts-2.0+0.4f22c01-1.1
+[   15s] [4/229] preinstalled bash-5.3.20-10.1
+[   15s] [5/229] preinstalled bash-sh-5.3.20-10.1
+[   15s] [6/229] preinstalled binutils-2.47-2.1
+[   15s] [7/229] preinstalled brp-check-suse-84.87+git20260317.a0eb4ba-1.3
+[   15s] [8/229] preinstalled build-compare-20261001T080039.deb96f7-1.1
+[   15s] [9/229] preinstalled build-mkbaselibs-20260901-1.1
+[   15s] [10/229] preinstalled bzip2-1.0.8-7.1
+[   15s] [11/229] cumulate chrpath-0.18-1.5
+[   15s] [12/229] preinstalled compat-usrmerge-build-84.87-5.29
+[   15s] [13/229] preinstalled compat-usrmerge-tools-84.87-5.29
+[   15s] [14/229] preinstalled coreutils-9.12-1.1
+[   15s] [15/229] preinstalled cpio-2.15-10.1
+[   15s] [16/229] preinstalled cpp-16-1.1
+[   15s] [17/229] preinstalled cpp16-16.2.1+git9713-1.1
+[   15s] [18/229] preinstalled crypto-policies-20250714.cd6043a-6.1
+[   15s] [19/229] preinstalled debugedit-5.1-1.9
+[   15s] [20/229] preinstalled diffutils-3.12-1.6
+[   15s] [21/229] preinstalled dwz-0.17-1.1
+[   15s] [22/229] preinstalled elfutils-0.196-2.1
+[   15s] [23/229] preinstalled envsubst-mini-1.0-5.1
+[   15s] [24/229] preinstalled file-5.48-2.2
+[   15s] [25/229] preinstalled file-magic-5.48-2.2
+[   15s] [26/229] preinstalled filesystem-84.87-21.2
+[   15s] [27/229] preinstalled fillup-1.42-281.9
+[   15s] [28/229] preinstalled findutils-4.11.0-1.2
+[   15s] [29/229] preinstalled gawk-5.4.1-1.2
+[   15s] [30/229] preinstalled gcc-16-1.1
+[   15s] [31/229] preinstalled gcc-PIE-16-1.1
+[   15s] [32/229] preinstalled gcc16-16.2.1+git9713-1.1
+[   15s] [33/229] preinstalled gcc16-PIE-16.2.1+git9713-1.1
+[   15s] [34/229] preinstalled gettext-runtime-mini-1.0-5.1
+[   15s] [35/229] preinstalled gettext-tools-mini-1.0-5.1
+[   15s] [36/229] cumulate ghc-filesystem-9.12.4-1.3
+[   15s] [37/229] preinstalled glibc-2.44-3.1
+[   15s] [38/229] preinstalled glibc-devel-2.44-3.1
+[   15s] [39/229] preinstalled glibc-gconv-modules-extra-2.44-3.1
+[   15s] [40/229] preinstalled glibc-locale-base-2.44-3.1
+[   15s] [41/229] preinstalled grep-3.12-1.5
+[   15s] [42/229] preinstalled gzip-1.15-1.1
+[   15s] [43/229] preinstalled kernel-obs-build-7.3.1-1.1
+[   15s] [44/229] preinstalled libacl1-2.4.0-1.2
+[   15s] [45/229] preinstalled libalternatives1-2.0+0.4f22c01-1.1
+[   15s] [46/229] preinstalled libarchive13-3.8.10-1.1
+[   15s] [47/229] preinstalled libasan8-16.2.1+git9713-1.1
+[   15s] [48/229] preinstalled libasm1-0.196-2.1
+[   15s] [49/229] preinstalled libatomic1-16.2.1+git9713-1.1
+[   15s] [50/229] preinstalled libattr1-2.6.0-1.2
+[   15s] [51/229] preinstalled libaudit1-4.0.2-3.4
+[   15s] [52/229] preinstalled libblkid1-2.42.4-2.1
+[   15s] [53/229] preinstalled libbz2-1-1.0.8-7.1
+[   15s] [54/229] preinstalled libcap-ng0-0.8.5-1.10
+[   15s] [55/229] preinstalled libcap2-2.78-1.4
+[   15s] [56/229] preinstalled libcrypt1-4.5.2-2.4
+[   15s] [57/229] preinstalled libctf-nobfd0-2.47-2.1
+[   15s] [58/229] preinstalled libctf0-2.47-2.1
+[   15s] [59/229] preinstalled libdw1-0.196-2.1
+[   15s] [60/229] preinstalled libeconf0-0.8.6-1.1
+[   15s] [61/229] preinstalled libelf1-0.196-2.1
+[   15s] [62/229] preinstalled libexpat1-2.10.0-1.1
+[   15s] [63/229] preinstalled libfdisk1-2.42.4-2.1
+[   15s] [64/229] cumulate libffi-devel-3.5.2-2.4
+[   15s] [65/229] preinstalled libffi8-3.5.2-2.4
+[   15s] [66/229] preinstalled libgcc_s1-16.2.1+git9713-1.1
+[   15s] [67/229] preinstalled libgcrypt20-1.12.4-1.1
+[   15s] [68/229] preinstalled libgdbm6-1.26-1.6
+[   15s] [69/229] preinstalled libgdbm_compat4-1.26-1.6
+[   15s] [70/229] preinstalled libgmp10-6.3.0-5.6
+[   15s] [71/229] cumulate libgmpxx4-6.3.0-5.6
+[   15s] [72/229] preinstalled libgomp1-16.2.1+git9713-1.1
+[   15s] [73/229] preinstalled libgpg-error0-1.61-2.1
+[   15s] [74/229] preinstalled libhwasan0-16.2.1+git9713-1.1
+[   15s] [75/229] preinstalled libisl23-0.27-1.8
+[   15s] [76/229] preinstalled libitm1-16.2.1+git9713-1.1
+[   15s] [77/229] preinstalled libjitterentropy3-3.6.3-2.1
+[   15s] [78/229] preinstalled liblsan0-16.2.1+git9713-1.1
+[   15s] [79/229] preinstalled liblua5_4-5-5.4.8-4.7
+[   15s] [80/229] preinstalled liblz1-1.16-2.1
+[   15s] [81/229] preinstalled liblz4-1-1.10.0-2.10
+[   15s] [82/229] preinstalled liblzma5-5.8.4-1.1
+[   15s] [83/229] preinstalled libmagic1-5.48-2.2
+[   15s] [84/229] preinstalled libmount1-2.42.4-2.1
+[   15s] [85/229] preinstalled libmpc3-1.4.1-1.3
+[   15s] [86/229] preinstalled libmpdec4-4.0.1-2.6
+[   15s] [87/229] preinstalled libmpfr6-4.2.2-1.5
+[   15s] [88/229] preinstalled libncurses6-6.6.20261017-116.1
+[   15s] [89/229] cumulate libnuma1-2.0.19.27.gc9475de-1.3
+[   15s] [90/229] preinstalled libopenssl3-3.5.3-9.1
+[   15s] [91/229] preinstalled libpcre2-8-0-10.49-2.1
+[   15s] [92/229] preinstalled libpkgconf7-2.5.1-1.5
+[   15s] [93/229] preinstalled libpopt0-1.19-2.3
+[   15s] [94/229] preinstalled libpython3_13-1_0-3.13.16-2.1
+[   15s] [95/229] preinstalled libreadline8-8.3.6-3.1
+[   15s] [96/229] preinstalled librpmbuild10-4.20.1-11.1
+[   15s] [97/229] preinstalled libseccomp2-2.6.1-3.1
+[   15s] [98/229] preinstalled libselinux1-3.11-2.1
+[   15s] [99/229] preinstalled libsframe3-2.47-2.1
+[   15s] [100/229] preinstalled libsmartcols1-2.42.4-2.1
+[   15s] [101/229] preinstalled libstdc++6-16.2.1+git9713-1.1
+[   15s] [102/229] preinstalled libtsan2-16.2.1+git9713-1.1
+[   15s] [103/229] preinstalled libubsan1-16.2.1+git9713-1.1
+[   15s] [104/229] preinstalled libuuid1-2.42.4-2.1
+[   15s] [105/229] preinstalled libxcrypt-devel-4.5.2-2.4
+[   15s] [106/229] preinstalled libxml2-16-2.15.4-1.1
+[   15s] [107/229] preinstalled libz1-1.3.1-3.3
+[   15s] [108/229] cumulate libzstd-devel-1.5.7-6.1
+[   15s] [109/229] preinstalled libzstd1-1.5.7-6.1
+[   15s] [110/229] preinstalled linux-glibc-devel-7.3-1.1
+[   15s] [111/229] preinstalled lua-interpreter-5-3.4
+[   15s] [112/229] preinstalled lua54-5.4.8-4.7
+[   15s] [113/229] preinstalled make-4.4.1-3.10
+[   15s] [114/229] preinstalled ncurses-utils-6.6.20261017-116.1
+[   15s] [115/229] preinstalled pam-1.7.3-1.1
+[   15s] [116/229] preinstalled patch-2.8.1-2.1
+[   15s] [117/229] preinstalled perl-5.44.0-1.2
+[   15s] [118/229] preinstalled perl-base-5.44.0-1.2
+[   15s] [119/229] preinstalled perl-rpm-packaging-1.3-1.3
+[   15s] [120/229] preinstalled permctl-1699_20260917-2.1
+[   15s] [121/229] preinstalled permissions-1699_20260917-2.1
+[   15s] [122/229] preinstalled permissions-config-1699_20260917-2.1
+[   15s] [123/229] preinstalled pkgconf-2.5.1-1.5
+[   15s] [124/229] preinstalled pkgconf-m4-2.5.1-1.5
+[   15s] [125/229] preinstalled pkgconf-pkg-config-2.5.1-1.5
+[   15s] [126/229] preinstalled polkit-default-privs-1550+20261016.b8e1631-1.1
+[   15s] [127/229] preinstalled post-build-checks-84.87+git20260421.8ed5e73-1.1
+[   15s] [128/229] preinstalled python-rpm-macros-20260912.881b918-1.1
+[   15s] [129/229] preinstalled python-rpm-packaging-20210526+a18ca48-2.1
+[   15s] [130/229] preinstalled python313-base-3.13.16-2.1
+[   15s] [131/229] preinstalled python313-packaging-26.3-1.1
+[   15s] [132/229] preinstalled rpm-4.20.1-11.1
+[   15s] [133/229] preinstalled rpm-build-4.20.1-11.1
+[   15s] [134/229] preinstalled rpm-config-SUSE-20250904-1.4
+[   15s] [135/229] preinstalled rpmlint-mini-2.10.0+git20261020.513f17e8-21.57
+[   15s] [136/229] preinstalled rpmlint-strict-2.10.0+git20261020.513f17e8-1.1
+[   15s] [137/229] preinstalled sed-4.10-1.4
+[   15s] [138/229] preinstalled suse-reproducible-builds-1.0-1.2
+[   15s] [139/229] preinstalled system-user-root-20190513-2.23
+[   15s] [140/229] preinstalled systemd-rpm-macros-26-1.4
+[   15s] [141/229] preinstalled tar-1.35-10.1
+[   15s] [142/229] preinstalled terminfo-base-6.6.20261017-116.1
+[   15s] [143/229] preinstalled util-linux-2.42.4-2.1
+[   15s] [144/229] preinstalled which-2.25-1.3
+[   15s] [145/229] preinstalled xz-5.8.4-1.1
+[   15s] [146/229] cumulate xz-devel-5.8.4-1.1
+[   15s] [147/229] cumulate zlib-devel-1.3.1-3.3
+[   15s] [148/229] cumulate ghc-rpm-macros-2.9.2-1.4
+[   15s] [149/229] cumulate gmp-devel-6.3.0-5.6
+[   15s] [150/229] cumulate libnuma-devel-2.0.19.27.gc9475de-1.3
+[   15s] [151/229] cumulate libelf-devel-0.196-2.1
+[   15s] [152/229] cumulate libdw-devel-0.196-2.1
+[   15s] [153/229] cumulate ghc-ghc-internal-9.1204.0-1.3
+[   15s] [154/229] cumulate ghc-base-4.21.2.0-1.3
+[   15s] [155/229] cumulate ghc-ghc-bignum-1.3-1.3
+[   15s] [156/229] cumulate ghc-array-0.5.8.0-1.3
+[   15s] [157/229] cumulate ghc-deepseq-1.5.1.0-1.3
+[   15s] [158/229] cumulate ghc-ghc-platform-0.1.0.0-1.3
+[   15s] [159/229] cumulate ghc-terminfo-0.4.1.7-1.3
+[   15s] [160/229] cumulate ghc-transformers-0.6.3.0-1.3
+[   15s] [161/229] cumulate ghc-xhtml-3000.2.2.1-1.3
+[   15s] [162/229] cumulate ghc-mtl-2.3.2-1.3
+[   15s] [163/229] cumulate ghc-pretty-1.1.3.6-1.3
+[   15s] [164/229] cumulate ghc-stm-2.5.3.1-1.3
+[   15s] [165/229] cumulate ghc-ghc-boot-th-9.12.4-1.3
+[   15s] [166/229] cumulate ghc-template-haskell-2.23.0.0-1.3
+[   15s] [167/229] cumulate ghc-bytestring-0.12.2.0-1.3
+[   15s] [168/229] cumulate ghc-time-1.14-1.3
+[   15s] [169/229] cumulate ghc-containers-0.7-1.3
+[   15s] [170/229] cumulate ghc-exceptions-0.10.12-1.3
+[   15s] [171/229] cumulate ghc-ram-0.22.1-1.1
+[   15s] [172/229] cumulate ghc-ghc-heap-9.12.4-1.3
+[   15s] [173/229] cumulate ghc-binary-0.8.9.3-1.3
+[   15s] [174/229] cumulate ghc-os-string-2.0.10-1.3
+[   15s] [175/229] cumulate ghc-text-2.1.4-1.3
+[   15s] [176/229] cumulate ghc-filepath-1.5.5.0-1.3
+[   15s] [177/229] cumulate ghc-parsec-3.1.18.0-1.3
+[   15s] [178/229] cumulate ghc-unix-2.8.8.0-1.3
+[   15s] [179/229] cumulate ghc-haddock-library-1.11.0-1.3
+[   15s] [180/229] cumulate ghc-file-io-0.1.6-1.3
+[   15s] [181/229] cumulate ghc-semaphore-compat-1.0.0-1.3
+[   15s] [182/229] cumulate ghc-directory-1.3.10.1-1.3
+[   15s] [183/229] cumulate ghc-process-1.6.26.1-1.3
+[   15s] [184/229] cumulate ghc-hpc-0.7.0.2-1.3
+[   15s] [185/229] cumulate ghc-ghc-boot-9.12.4-1.3
+[   15s] [186/229] cumulate ghc-Cabal-syntax-3.14.2.0-1.3
+[   15s] [187/229] cumulate ghc-haskeline-0.8.4.1-1.3
+[   15s] [188/229] cumulate ghc-ghc-toolchain-0.1.0.0-1.3
+[   15s] [189/229] cumulate ghc-ghci-9.12.4-1.3
+[   15s] [190/229] cumulate ghc-Cabal-3.14.2.0-1.3
+[   15s] [191/229] cumulate ghc-ghc-9.12.4-1.3
+[   15s] [192/229] cumulate ghc-haddock-api-2.32.0-1.3
+[   15s] [193/229] cumulate ghc-compiler-9.12.4-1.3
+[   15s] [194/229] cumulate ghc-ghc-internal-devel-9.1204.0-1.3
+[   15s] [195/229] cumulate ghc-ghc-internal-prof-9.1204.0-1.3
+[   15s] [196/229] cumulate ghc-base-devel-4.21.2.0-1.3
+[   15s] [197/229] cumulate ghc-array-devel-0.5.8.0-1.3
+[   15s] [198/229] cumulate ghc-deepseq-devel-1.5.1.0-1.3
+[   15s] [199/229] cumulate ghc-ghc-bignum-devel-1.3-1.3
+[   15s] [200/229] cumulate ghc-transformers-devel-0.6.3.0-1.3
+[   15s] [201/229] cumulate ghc-base-prof-4.21.2.0-1.3
+[   15s] [202/229] cumulate ghc-ghc-bignum-prof-1.3-1.3
+[   15s] [203/229] cumulate ghc-mtl-devel-2.3.2-1.3
+[   15s] [204/229] cumulate ghc-pretty-devel-1.1.3.6-1.3
+[   15s] [205/229] cumulate ghc-stm-devel-2.5.3.1-1.3
+[   15s] [206/229] cumulate ghc-deepseq-prof-1.5.1.0-1.3
+[   15s] [207/229] cumulate ghc-ghc-boot-th-devel-9.12.4-1.3
+[   15s] [208/229] cumulate ghc-pretty-prof-1.1.3.6-1.3
+[   15s] [209/229] cumulate ghc-template-haskell-devel-2.23.0.0-1.3
+[   15s] [210/229] cumulate ghc-bytestring-devel-0.12.2.0-1.3
+[   15s] [211/229] cumulate ghc-time-devel-1.14-1.3
+[   15s] [212/229] cumulate ghc-containers-devel-0.7-1.3
+[   15s] [213/229] cumulate ghc-ghc-boot-th-prof-9.12.4-1.3
+[   15s] [214/229] cumulate ghc-exceptions-devel-0.10.12-1.3
+[   15s] [215/229] cumulate ghc-ram-devel-0.22.1-1.1
+[   15s] [216/229] cumulate ghc-binary-devel-0.8.9.3-1.3
+[   15s] [217/229] cumulate ghc-os-string-devel-2.0.10-1.3
+[   15s] [218/229] cumulate ghc-template-haskell-prof-2.23.0.0-1.3
+[   15s] [219/229] cumulate ghc-bytestring-prof-0.12.2.0-1.3
+[   15s] [220/229] cumulate ghc-filepath-devel-1.5.5.0-1.3
+[   15s] [221/229] cumulate ghc-text-devel-2.1.4-1.3
+[   15s] [222/229] cumulate ghc-ram-prof-0.22.1-1.1
+[   15s] [223/229] cumulate ghc-parsec-devel-3.1.18.0-1.3
+[   15s] [224/229] cumulate ghc-unix-devel-2.8.8.0-1.3
+[   15s] [225/229] cumulate ghc-file-io-devel-0.1.6-1.3
+[   15s] [226/229] cumulate ghc-directory-devel-1.3.10.1-1.3
+[   15s] [227/229] cumulate ghc-process-devel-1.6.26.1-1.3
+[   15s] [228/229] cumulate ghc-Cabal-syntax-devel-3.14.2.0-1.3
+[   15s] [229/229] cumulate ghc-Cabal-devel-3.14.2.0-1.3
+[   15s] now installing cumulated packages
+[   15s] Preparing...                          ########################################
+[   15s] Updating / installing...
+[   15s] libnuma1-2.0.19.27.gc9475de-1.3       ########################################
+[   15s] ghc-ghc-internal-9.1204.0-1.3         ########################################
+[   15s] ghc-ghc-bignum-1.3-1.3                ########################################
+[   15s] ghc-base-4.21.2.0-1.3                 ########################################
+[   15s] ghc-deepseq-1.5.1.0-1.3               ########################################
+[   15s] ghc-pretty-1.1.3.6-1.3                ########################################
+[   15s] ghc-ghc-boot-th-9.12.4-1.3            ########################################
+[   15s] ghc-template-haskell-2.23.0.0-1.3     ########################################
+[   16s] ghc-array-0.5.8.0-1.3                 ########################################
+[   16s] ghc-bytestring-0.12.2.0-1.3           ########################################
+[   16s] ghc-transformers-0.6.3.0-1.3          ########################################
+[   16s] ghc-mtl-2.3.2-1.3                     ########################################
+[   16s] ghc-stm-2.5.3.1-1.3                   ########################################
+[   16s] ghc-exceptions-0.10.12-1.3            ########################################
+[   16s] ghc-os-string-2.0.10-1.3              ########################################
+[   16s] ghc-filepath-1.5.5.0-1.3              ########################################
+[   16s] ghc-containers-0.7-1.3                ########################################
+[   16s] ghc-time-1.14-1.3                     ########################################
+[   16s] ghc-unix-2.8.8.0-1.3                  ########################################
+[   16s] ghc-file-io-0.1.6-1.3                 ########################################
+[   16s] ghc-directory-1.3.10.1-1.3            ########################################
+[   16s] ghc-binary-0.8.9.3-1.3                ########################################
+[   16s] ghc-text-2.1.4-1.3                    ########################################
+[   16s] ghc-process-1.6.26.1-1.3              ########################################
+[   16s] ghc-parsec-3.1.18.0-1.3               ########################################
+[   16s] ghc-ghc-platform-0.1.0.0-1.3          ########################################
+[   16s] ghc-ghc-boot-9.12.4-1.3               ########################################
+[   16s] ghc-ghc-heap-9.12.4-1.3               ########################################
+[   16s] ghc-ghci-9.12.4-1.3                   ########################################
+[   16s] ghc-Cabal-syntax-3.14.2.0-1.3         ########################################
+[   16s] ghc-hpc-0.7.0.2-1.3                   ########################################
+[   16s] ghc-semaphore-compat-1.0.0-1.3        ########################################
+[   17s] ghc-ghc-9.12.4-1.3                    ########################################
+[   17s] ghc-Cabal-3.14.2.0-1.3                ########################################
+[   17s] ghc-haddock-library-1.11.0-1.3        ########################################
+[   17s] ghc-terminfo-0.4.1.7-1.3              ########################################
+[   17s] ghc-xhtml-3000.2.2.1-1.3              ########################################
+[   17s] zlib-devel-1.3.1-3.3                  ########################################
+[   17s] libzstd-devel-1.5.7-6.1               ########################################
+[   17s] libelf-devel-0.196-2.1                ########################################
+[   17s] ghc-haddock-api-2.32.0-1.3            ########################################
+[   17s] ghc-haskeline-0.8.4.1-1.3             ########################################
+[   17s] ghc-ghc-toolchain-0.1.0.0-1.3         ########################################
+[   17s] ghc-ram-0.22.1-1.1                    ########################################
+[   17s] libnuma-devel-2.0.19.27.gc9475de-1.3  ########################################
+[   17s] xz-devel-5.8.4-1.1                    ########################################
+[   17s] libdw-devel-0.196-2.1                 ########################################
+[   17s] libgmpxx4-6.3.0-5.6                   ########################################
+[   17s] gmp-devel-6.3.0-5.6                   ########################################
+[   17s] libffi-devel-3.5.2-2.4                ########################################
+[   17s] ghc-filesystem-9.12.4-1.3             ########################################
+[   18s] ghc-ghc-internal-devel-9.1204.0-1.3   ########################################
+[   18s] ghc-base-devel-4.21.2.0-1.3           ########################################
+[   18s] ghc-compiler-9.12.4-1.3               ########################################
+[   18s] ghc-ghc-bignum-devel-1.3-1.3          ########################################
+[   18s] ghc-deepseq-devel-1.5.1.0-1.3         ########################################
+[   19s] ghc-ghc-internal-prof-9.1204.0-1.3    ########################################
+[   19s] ghc-base-prof-4.21.2.0-1.3            ########################################
+[   19s] ghc-ghc-bignum-prof-1.3-1.3           ########################################
+[   19s] ghc-array-devel-0.5.8.0-1.3           ########################################
+[   20s] ghc-deepseq-prof-1.5.1.0-1.3          ########################################
+[   20s] ghc-pretty-devel-1.1.3.6-1.3          ########################################
+[   20s] ghc-transformers-devel-0.6.3.0-1.3    ########################################
+[   20s] ghc-mtl-devel-2.3.2-1.3               ########################################
+[   20s] ghc-pretty-prof-1.1.3.6-1.3           ########################################
+[   20s] ghc-ghc-boot-th-devel-9.12.4-1.3      ########################################
+[   20s] ghc-template-haskell-devel-2.23.0.0-1.########################################
+[   20s] ghc-bytestring-devel-0.12.2.0-1.3     ########################################
+[   20s] ghc-time-devel-1.14-1.3               ########################################
+[   20s] ghc-containers-devel-0.7-1.3          ########################################
+[   20s] ghc-binary-devel-0.8.9.3-1.3          ########################################
+[   20s] ghc-text-devel-2.1.4-1.3              ########################################
+[   20s] ghc-parsec-devel-3.1.18.0-1.3         ########################################
+[   20s] ghc-ghc-boot-th-prof-9.12.4-1.3       ########################################
+[   20s] ghc-template-haskell-prof-2.23.0.0-1.3########################################
+[   20s] ghc-bytestring-prof-0.12.2.0-1.3      ########################################
+[   20s] ghc-ram-devel-0.22.1-1.1              ########################################
+[   20s] ghc-stm-devel-2.5.3.1-1.3             ########################################
+[   20s] ghc-exceptions-devel-0.10.12-1.3      ########################################
+[   20s] ghc-os-string-devel-2.0.10-1.3        ########################################
+[   20s] ghc-filepath-devel-1.5.5.0-1.3        ########################################
+[   20s] ghc-unix-devel-2.8.8.0-1.3            ########################################
+[   20s] ghc-file-io-devel-0.1.6-1.3           ########################################
+[   20s] ghc-directory-devel-1.3.10.1-1.3      ########################################
+[   20s] ghc-process-devel-1.6.26.1-1.3        ########################################
+[   21s] ghc-Cabal-syntax-devel-3.14.2.0-1.3   ########################################
+[   21s] chrpath-0.18-1.5                      ########################################
+[   21s] ghc-rpm-macros-2.9.2-1.4              ########################################
+[   21s] ghc-Cabal-devel-3.14.2.0-1.3          ########################################
+[   21s] ghc-ram-prof-0.22.1-1.1               ########################################
+[   22s] now finalizing build dir...
+[   22s] ... running 01-add_abuild_user_to_trusted_group
+[   22s] ... running 02-set_timezone_to_utc
+[   22s] ... running 03-set-permissions-secure
+[   22s] ... running 11-hack_uname_version_to_kernel_version
+[   22s] setting SOURCE_DATE_EPOCH_MTIME to 1775749715
+[   24s] -----------------------------------------------------------------
+[   24s] I have the following modifications for ghc-blake3.spec:
+[   24s] 24c24
+[   24s] < Release:        0
+[   24s] ---
+[   24s] > Release:        1.1
+[   24s] -----------------------------------------------------------------
+[   24s] ----- building ghc-blake3.spec (user abuild)
+[   24s] -----------------------------------------------------------------
+[   24s] -----------------------------------------------------------------
+[   25s] setting SOURCE_DATE_EPOCH_MTIME to 1775749715
+[   25s] + exec rpmbuild -ba --define '_srcdefattr (-,root,root)' --nosignature --define '_build_create_debug 1' --define 'disturl obs://build.opensuse.org/openSUSE:Factory:ARM/standard/88e410c808cc0a41573b1171c99f88fc-ghc-blake3' /home/abuild/rpmbuild/SOURCES/ghc-blake3.spec
+[   25s] using SOURCE_DATE_EPOCH with value 1775749714 as build time
+[   25s] Executing(%mkbuilddir): /usr/bin/bash -e /var/tmp/rpm-tmp.9PkHkY
+[   26s] Executing(%prep): /usr/bin/bash -e /var/tmp/rpm-tmp.FA5VRq
+[   26s] + umask 022
+[   26s] + cd /home/abuild/rpmbuild/BUILD/ghc-blake3-0.3.1-build
+[   26s] + cd /home/abuild/rpmbuild/BUILD/ghc-blake3-0.3.1-build
+[   26s] + rm -rf blake3-0.3.1
+[   26s] + /usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/blake3-0.3.1.tar.gz
+[   26s] + STATUS=0
+[   26s] + '[' 0 -ne 0 ']'
+[   26s] + cd blake3-0.3.1
+[   26s] + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+[   26s] + RPM_EC=0
+[   26s] ++ jobs -p
+[   26s] + exit 0
+[   26s] Executing(%build): /usr/bin/bash -e /var/tmp/rpm-tmp.DEmEuO
+[   26s] + umask 022
+[   26s] + cd /home/abuild/rpmbuild/BUILD/ghc-blake3-0.3.1-build
+[   26s] + /usr/bin/rm -rf /home/abuild/rpmbuild/BUILD/ghc-blake3-0.3.1-build/BUILDROOT
+[   26s] ++ dirname /home/abuild/rpmbuild/BUILD/ghc-blake3-0.3.1-build/BUILDROOT
+[   26s] + /usr/bin/mkdir -p /home/abuild/rpmbuild/BUILD/ghc-blake3-0.3.1-build
+[   26s] + /usr/bin/mkdir /home/abuild/rpmbuild/BUILD/ghc-blake3-0.3.1-build/BUILDROOT
+[   26s] + cd blake3-0.3.1
+[   26s] + ref=/usr/lib/rpm
+[   26s] + mints=0
+[   26s] + case $(uname -m) in
+[   26s] ++ uname -m
+[   26s] + mints=20120610
+[   26s] + for s in guess sub
+[   26s] ++ find -maxdepth 8 -name config.guess
+[   26s] + for s in guess sub
+[   26s] ++ find -maxdepth 8 -name config.sub
+[   26s] ++ grep -i -e '^\(ANNOUNCE\|AUTHORS\|CHANGELOG\|CHANGES\|CONTRIBUTORS\|README\|TODO\)'
+[   26s] ++ ls
+[   26s] + for f in $(ls | grep -i -e '^\(ANNOUNCE\|AUTHORS\|CHANGELOG\|CHANGES\|CONTRIBUTORS\|README\|TODO\)')
+[   26s] + '[' -f CHANGELOG.md -a -x CHANGELOG.md ']'
+[   26s] + for f in $(ls | grep -i -e '^\(ANNOUNCE\|AUTHORS\|CHANGELOG\|CHANGES\|CONTRIBUTORS\|README\|TODO\)')
+[   26s] + '[' -f README.md -a -x README.md ']'
+[   26s] + echo
+[   26s] 
+[   26s] + echo '==== Build blake3-0.3.1 ===='
+[   26s] ==== Build blake3-0.3.1 ====
+[   26s] + '[' -f Setup.hs -o -f Setup.lhs ']'
+[   26s] + cp /usr/share/ghc-rpm-macros/Setup.hs .
+[   26s] + '[' -d /usr/lib64/ghc-9.12.4/lib ']'
+[   26s] + subsubdir=/lib
+[   26s] + '[' -x Setup ']'
+[   26s] + ghc --make -package Cabal -no-user-package-db -dynamic Setup
+[   26s] [1 of 2] Compiling Main             ( Setup.hs, Setup.o )
+[   26s] [2 of 2] Linking Setup
+[   28s] + LANG=C.utf8
+[   28s] + ./Setup --version
+[   28s] Cabal library version 3.14.2.0
+[   28s] + '[' -x Setup ']'
+[   28s] + LANG=C.utf8
+[   28s] + ./Setup configure --prefix=/usr --libdir=/usr/lib64 --docdir=/usr/share/licenses/ghc-blake3 '--libsubdir=$compiler/lib/$pkgid' '--datasubdir=$pkgid' '--libexecsubdir=$pkgid' --ghc --dynlibdir=/usr/lib64/ghc-9.12.4/lib --global '--ghc-options=-fobject-determinism -fhide-source-paths  ' -v --enable-library-profiling --enable-shared --htmldir=/usr/share/doc/packages/ghc-9.12.4/html/libraries/blake3-0.3.1 --global
+[   28s] Using Parsec parser
+[   28s] Configuring blake3-0.3.1...
+[   29s] Flags chosen: avx2=True, avx512=True, sse2=True, sse41=True
+[   29s] Dependency base >=4 && <5: using base-4.21.2.0
+[   29s] Dependency ram: using ram-0.22.1
+[   29s] Source component graph: component lib
+[   29s] Configured component graph:
+[   29s]     component blake3-0.3.1-Jth2YZA1W3R438CIOQ9JKG
+[   29s]         include base-4.21.2.0-8844
+[   29s]         include ram-0.22.1-E5mGMwZzgtIINCVyeXz7Uc
+[   29s] Linked component graph:
+[   29s]     unit blake3-0.3.1-Jth2YZA1W3R438CIOQ9JKG
+[   29s]         include base-4.21.2.0-8844
+[   29s]         include ram-0.22.1-E5mGMwZzgtIINCVyeXz7Uc
+[   29s]         BLAKE3=blake3-0.3.1-Jth2YZA1W3R438CIOQ9JKG:BLAKE3,BLAKE3.IO=blake3-0.3.1-Jth2YZA1W3R438CIOQ9JKG:BLAKE3.IO
+[   29s] Ready component graph:
+[   29s]     definite blake3-0.3.1-Jth2YZA1W3R438CIOQ9JKG
+[   29s]         depends base-4.21.2.0-8844
+[   29s]         depends ram-0.22.1-E5mGMwZzgtIINCVyeXz7Uc
+[   29s] Using Cabal-3.14.2.0 compiled by ghc-9.12
+[   29s] Using compiler: ghc-9.12.4
+[   29s] Using install prefix: /usr
+[   29s] Executables installed in: /usr/bin
+[   29s] Libraries installed in: /usr/lib64/ghc-9.12.4/lib/blake3-0.3.1
+[   29s] Dynamic Libraries installed in: /usr/lib64/ghc-9.12.4/lib
+[   29s] Private executables installed in: /usr/libexec/blake3-0.3.1
+[   29s] Data files installed in: /usr/share/blake3-0.3.1
+[   29s] Documentation installed in: /usr/share/licenses/ghc-blake3
+[   29s] Configuration files installed in: /usr/etc
+[   29s] No alex found
+[   29s] Using ar found on system at: /usr/bin/ar
+[   29s] No c2hs found
+[   29s] No cpphs found
+[   29s] No doctest found
+[   29s] Using gcc version 16 found on system at: /usr/bin/gcc
+[   29s] Using ghc version 9.12.4 found on system at: /usr/bin/ghc
+[   29s] Using ghc-pkg version 9.12.4 found on system at: /usr/bin/ghc-pkg
+[   29s] No ghcjs found
+[   29s] No ghcjs-pkg found
+[   29s] No greencard found
+[   29s] Using haddock version 2.32.0 found on system at: /usr/bin/haddock
+[   29s] No happy found
+[   29s] No haskell-suite found
+[   29s] No haskell-suite-pkg found
+[   29s] No hmake found
+[   29s] Using hpc version 0.69 found on system at: /usr/bin/hpc
+[   29s] Using hsc2hs version 0.68.10 found on system at: /usr/bin/hsc2hs
+[   29s] No hscolour found
+[   29s] No jhc found
+[   29s] Using ld found on system at: /usr/bin/ld
+[   29s] Using pkg-config version 2.5.1 found on system at: /usr/bin/pkg-config
+[   29s] Using runghc version 9.12.4 found on system at: /usr/bin/runghc
+[   29s] Using strip version 2.47 found on system at: /usr/bin/strip
+[   29s] Using tar found on system at: /usr/bin/tar
+[   29s] No uhc found
+[   29s] + '[' -x Setup ']'
+[   29s] + LANG=C.utf8
+[   29s] + ./Setup build -j4 -v
+[   29s] Component build order: library
+[   29s] Running: /usr/bin/ghc-pkg init dist/package.conf.inplace
+[   29s] creating dist/build
+[   29s] creating dist/build/autogen
+[   29s] creating dist/build/autogen
+[   29s] creating dist/build/autogen
+[   29s] creating dist/build/autogen
+[   29s] Preprocessing library for blake3-0.3.1...
+[   29s] Building library for blake3-0.3.1...
+[   29s] creating dist/build
+[   29s] creating dist/build
+[   29s] Wanted module build ways(library): [ProfWay,DynWay,StaticWay]
+[   29s] Final module build ways(library): [ProfWay,DynWay,StaticWay]
+[   29s] Running: /usr/bin/ghc --make -fbuilding-cabal-package -O -j4 -static -dynamic-too -dynosuf dyn_o -dynhisuf dyn_hi -outputdir dist/build -odir dist/build -hidir dist/build -hiedir dist/build/extra-compilation-artifacts/hie -stubdir dist/build -i -ilib -idist/build -idist/build/autogen -idist/build/global-autogen -Idist/build/autogen -Idist/build/global-autogen -Idist/build -Icbits/ -Idist/build/cbits/ -optP-include -optPdist/build/autogen/cabal_macros.h -this-unit-id blake3-0.3.1-Jth2YZA1W3R438CIOQ9JKG -hide-all-packages -Wmissing-home-modules -no-user-package-db -package-db dist/package.conf.inplace -package-id base-4.21.2.0-8844 -package-id ram-0.22.1-E5mGMwZzgtIINCVyeXz7Uc -XHaskell2010 BLAKE3 BLAKE3.IO -Wall '-Werror=incomplete-patterns' -fobject-determinism -fhide-source-paths
+[   30s] [1 of 2] Compiling BLAKE3.IO
+[   31s] [2 of 2] Compiling BLAKE3
+[   32s] Running: /usr/bin/ghc --make -fbuilding-cabal-package -O -prof -fprof-auto-exported -j4 -osuf p_o -hisuf p_hi -outputdir dist/build -odir dist/build -hidir dist/build -hiedir dist/build/extra-compilation-artifacts/hie -stubdir dist/build -i -ilib -idist/build -idist/build/autogen -idist/build/global-autogen -Idist/build/autogen -Idist/build/global-autogen -Idist/build -Icbits/ -Idist/build/cbits/ -optP-include -optPdist/build/autogen/cabal_macros.h -this-unit-id blake3-0.3.1-Jth2YZA1W3R438CIOQ9JKG -hide-all-packages -Wmissing-home-modules -no-user-package-db -package-db dist/package.conf.inplace -package-id base-4.21.2.0-8844 -package-id ram-0.22.1-E5mGMwZzgtIINCVyeXz7Uc -XHaskell2010 BLAKE3 BLAKE3.IO -Wall '-Werror=incomplete-patterns' -fobject-determinism -fhide-source-paths
+[   32s] [1 of 2] Compiling BLAKE3.IO
+[   34s] [2 of 2] Compiling BLAKE3
+[   35s] Building C Sources...
+[   35s] creating dist/build
+[   35s] Running: /usr/bin/ghc -c -prof -fPIC -osuf p_o -odir dist/build -Idist/build/autogen -Idist/build/global-autogen -Idist/build -Icbits/ -Idist/build/cbits/ -optc-O2 -optc-O3 -pgmc /usr/bin/gcc -hide-all-packages -no-user-package-db -package-db dist/package.conf.inplace -package-id base-4.21.2.0-8844 -package-id ram-0.22.1-E5mGMwZzgtIINCVyeXz7Uc cbits/blake3.c -Wall '-Werror=incomplete-patterns' -fobject-determinism -fhide-source-paths
+[   36s] Running: /usr/bin/ghc -c -dynamic -fPIC -osuf dyn_o -odir dist/build -Idist/build/autogen -Idist/build/global-autogen -Idist/build -Icbits/ -Idist/build/cbits/ -optc-O2 -optc-O3 -pgmc /usr/bin/gcc -hide-all-packages -no-user-package-db -package-db dist/package.conf.inplace -package-id base-4.21.2.0-8844 -package-id ram-0.22.1-E5mGMwZzgtIINCVyeXz7Uc cbits/blake3.c -Wall '-Werror=incomplete-patterns' -fobject-determinism -fhide-source-paths
+[   37s] Running: /usr/bin/ghc -c -fPIC -odir dist/build -Idist/build/autogen -Idist/build/global-autogen -Idist/build -Icbits/ -Idist/build/cbits/ -optc-O2 -optc-O3 -pgmc /usr/bin/gcc -hide-all-packages -no-user-package-db -package-db dist/package.conf.inplace -package-id base-4.21.2.0-8844 -package-id ram-0.22.1-E5mGMwZzgtIINCVyeXz7Uc cbits/blake3.c -Wall '-Werror=incomplete-patterns' -fobject-determinism -fhide-source-paths
+[   38s] creating dist/build
+[   38s] Running: /usr/bin/ghc -c -prof -fPIC -osuf p_o -odir dist/build -Idist/build/autogen -Idist/build/global-autogen -Idist/build -Icbits/ -Idist/build/cbits/ -optc-O2 -optc-O3 -pgmc /usr/bin/gcc -hide-all-packages -no-user-package-db -package-db dist/package.conf.inplace -package-id base-4.21.2.0-8844 -package-id ram-0.22.1-E5mGMwZzgtIINCVyeXz7Uc cbits/blake3_dispatch.c -Wall '-Werror=incomplete-patterns' -fobject-determinism -fhide-source-paths
+[   38s] Running: /usr/bin/ghc -c -dynamic -fPIC -osuf dyn_o -odir dist/build -Idist/build/autogen -Idist/build/global-autogen -Idist/build -Icbits/ -Idist/build/cbits/ -optc-O2 -optc-O3 -pgmc /usr/bin/gcc -hide-all-packages -no-user-package-db -package-db dist/package.conf.inplace -package-id base-4.21.2.0-8844 -package-id ram-0.22.1-E5mGMwZzgtIINCVyeXz7Uc cbits/blake3_dispatch.c -Wall '-Werror=incomplete-patterns' -fobject-determinism -fhide-source-paths
+[   38s] Running: /usr/bin/ghc -c -fPIC -odir dist/build -Idist/build/autogen -Idist/build/global-autogen -Idist/build -Icbits/ -Idist/build/cbits/ -optc-O2 -optc-O3 -pgmc /usr/bin/gcc -hide-all-packages -no-user-package-db -package-db dist/package.conf.inplace -package-id base-4.21.2.0-8844 -package-id ram-0.22.1-E5mGMwZzgtIINCVyeXz7Uc cbits/blake3_dispatch.c -Wall '-Werror=incomplete-patterns' -fobject-determinism -fhide-source-paths
+[   38s] creating dist/build
+[   38s] Running: /usr/bin/ghc -c -prof -fPIC -osuf p_o -odir dist/build -Idist/build/autogen -Idist/build/global-autogen -Idist/build -Icbits/ -Idist/build/cbits/ -optc-O2 -optc-O3 -pgmc /usr/bin/gcc -hide-all-packages -no-user-package-db -package-db dist/package.conf.inplace -package-id base-4.21.2.0-8844 -package-id ram-0.22.1-E5mGMwZzgtIINCVyeXz7Uc cbits/blake3_portable.c -Wall '-Werror=incomplete-patterns' -fobject-determinism -fhide-source-paths
+[   39s] Running: /usr/bin/ghc -c -dynamic -fPIC -osuf dyn_o -odir dist/build -Idist/build/autogen -Idist/build/global-autogen -Idist/build -Icbits/ -Idist/build/cbits/ -optc-O2 -optc-O3 -pgmc /usr/bin/gcc -hide-all-packages -no-user-package-db -package-db dist/package.conf.inplace -package-id base-4.21.2.0-8844 -package-id ram-0.22.1-E5mGMwZzgtIINCVyeXz7Uc cbits/blake3_portable.c -Wall '-Werror=incomplete-patterns' -fobject-determinism -fhide-source-paths
+[   40s] Running: /usr/bin/ghc -c -fPIC -odir dist/build -Idist/build/autogen -Idist/build/global-autogen -Idist/build -Icbits/ -Idist/build/cbits/ -optc-O2 -optc-O3 -pgmc /usr/bin/gcc -hide-all-packages -no-user-package-db -package-db dist/package.conf.inplace -package-id base-4.21.2.0-8844 -package-id ram-0.22.1-E5mGMwZzgtIINCVyeXz7Uc cbits/blake3_portable.c -Wall '-Werror=incomplete-patterns' -fobject-determinism -fhide-source-paths
+[   40s] creating dist/build
+[   40s] Running: /usr/bin/ghc -c -prof -fPIC -osuf p_o -odir dist/build -Idist/build/autogen -Idist/build/global-autogen -Idist/build -Icbits/ -Idist/build/cbits/ -optc-O2 -optc-O3 -pgmc /usr/bin/gcc -hide-all-packages -no-user-package-db -package-db dist/package.conf.inplace -package-id base-4.21.2.0-8844 -package-id ram-0.22.1-E5mGMwZzgtIINCVyeXz7Uc cbits/blake3_avx512.c -Wall '-Werror=incomplete-patterns' -fobject-determinism -fhide-source-paths
+[   40s] cbits/blake3_avx512.c:3:10: error:
+[   40s]      fatal error: immintrin.h: No such file or directory
+[   40s]         3 | #include <immintrin.h>
+[   40s]           |          ^~~~~~~~~~~~~
+[   40s]   |
+[   40s] 3 | #include <immintrin.h>
+[   40s]   |          ^
+[   40s] 
+[   40s] compilation terminated.
+[   40s] `gcc' failed in phase `C Compiler'. (Exit code: 1)
+[   41s] error: Bad exit status from /var/tmp/rpm-tmp.DEmEuO (%build)
+[   41s] 
+[   41s] RPM build errors:
+[   41s]     Bad exit status from /var/tmp/rpm-tmp.DEmEuO (%build)
+[   41s] ### VM INTERACTION START ###
+[   41s] [   33.232919][    T1] sysrq: Power Off
+[   41s] ### VM INTERACTION END ###
+[   41s] 
+[   41s] i02-armsrv2 failed "build ghc-blake3.spec" at Fri Nov  6 19:20:45 UTC 2026.
+[   41s] 

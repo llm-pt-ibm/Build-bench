@@ -1,0 +1,132 @@
+{
+ "date": "2026-11-09",
+ "candidates": "dataset/candidates.json (openSUSE:Factory, seed 20261109)",
+ "rule": "builds on x86_64 and fails on aarch64 in our OBS project, twice (once for slow builds), and never built on aarch64 there",
+ "cases": {
+  "CalcMySky": {
+   "valid": true,
+   "x86_64": "succeeded",
+   "aarch64": "failed",
+   "confirmed": "twice"
+  },
+  "blender-5.2": {
+   "valid": true,
+   "x86_64": "succeeded",
+   "aarch64": "failed",
+   "confirmed": "twice"
+  },
+  "ck": {
+   "valid": true,
+   "x86_64": "succeeded",
+   "aarch64": "failed",
+   "confirmed": "once"
+  },
+  "comet": {
+   "valid": true,
+   "x86_64": "succeeded",
+   "aarch64": "failed",
+   "confirmed": "twice"
+  },
+  "doomsday": {
+   "valid": true,
+   "x86_64": "succeeded",
+   "aarch64": "failed",
+   "confirmed": "twice"
+  },
+  "f3d": {
+   "valid": true,
+   "x86_64": "succeeded",
+   "aarch64": "failed",
+   "confirmed": "twice"
+  },
+  "ghc-blake3": {
+   "valid": true,
+   "x86_64": "succeeded",
+   "aarch64": "failed",
+   "confirmed": "twice"
+  },
+  "jaq": {
+   "valid": true,
+   "x86_64": "succeeded",
+   "aarch64": "failed",
+   "confirmed": "twice"
+  },
+  "java-25-openj9": {
+   "valid": true,
+   "x86_64": "succeeded",
+   "aarch64": "failed",
+   "confirmed": "once"
+  },
+  "leechcraft": {
+   "valid": false,
+   "x86_64": "succeeded",
+   "aarch64": "failed",
+   "confirmed": null,
+   "why": "built on aarch64 before (76 min, succeeded), failed later"
+  },
+  "pkcs11-provider": {
+   "valid": true,
+   "x86_64": "succeeded",
+   "aarch64": "failed",
+   "confirmed": "twice"
+  },
+  "python-MapProxy": {
+   "valid": false,
+   "x86_64": "succeeded",
+   "aarch64": "succeeded",
+   "confirmed": null,
+   "why": "builds on aarch64"
+  },
+  "python-devpi-server": {
+   "valid": true,
+   "x86_64": "succeeded",
+   "aarch64": "failed",
+   "confirmed": "twice"
+  },
+  "python-pymediainfo": {
+   "valid": false,
+   "x86_64": "failed",
+   "aarch64": "failed",
+   "confirmed": null,
+   "why": "does not build on x86_64"
+  },
+  "reptyr": {
+   "valid": true,
+   "x86_64": "succeeded",
+   "aarch64": "failed",
+   "confirmed": "twice"
+  },
+  "rumdl": {
+   "valid": false,
+   "x86_64": "succeeded",
+   "aarch64": "succeeded",
+   "confirmed": null,
+   "why": "builds on aarch64"
+  },
+  "soapy-remote": {
+   "valid": false,
+   "x86_64": "succeeded",
+   "aarch64": "succeeded",
+   "confirmed": null,
+   "why": "builds on aarch64"
+  },
+  "tail-tray": {
+   "valid": true,
+   "x86_64": "succeeded",
+   "aarch64": "failed",
+   "confirmed": "twice"
+  },
+  "zenith": {
+   "valid": true,
+   "x86_64": "succeeded",
+   "aarch64": "failed",
+   "confirmed": "twice"
+  },
+  "zig0.14": {
+   "valid": true,
+   "x86_64": "succeeded",
+   "aarch64": "failed",
+   "confirmed": "twice"
+  }
+ }
+}

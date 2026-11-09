@@ -1,0 +1,109 @@
+{
+  "task": {
+    "package": "java-25-openj9",
+    "direction": "x86_64_to_aarch64",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "f2cdbd7b90184062c52d37bae1e026f0"
+    },
+    "target": {
+      "project": "openSUSE:Factory:ARM",
+      "repository": "standard",
+      "arch": "aarch64"
+    }
+  },
+  "files": [
+    {
+      "name": "2578b5aeb27ad6966f66bb970dc4f16d8af6ccda.zip",
+      "size": "29634239"
+    },
+    {
+      "name": "3edbf43d7f7b5bd8a7dd24936da867d5ccb5257f.zip",
+      "size": "186389247"
+    },
+    {
+      "name": "TestCryptoLevel.java",
+      "size": "2477"
+    },
+    {
+      "name": "TestECDSA.java",
+      "size": "1785"
+    },
+    {
+      "name": "_constraints",
+      "size": "186"
+    },
+    {
+      "name": "aarch64.patch",
+      "size": "604"
+    },
+    {
+      "name": "c2a3a9ae0f8f70ab32e489e453114f37136aa67e.zip",
+      "size": "11319249"
+    },
+    {
+      "name": "disable-doclint-by-default.patch",
+      "size": "2470"
+    },
+    {
+      "name": "implicit-pointer-decl.patch",
+      "size": "314"
+    },
+    {
+      "name": "java-25-openj9.changes",
+      "size": "6173"
+    },
+    {
+      "name": "java-25-openj9.spec",
+      "size": "33862"
+    },
+    {
+      "name": "jconsole.desktop.in",
+      "size": "332"
+    },
+    {
+      "name": "loadAssistiveTechnologies.patch",
+      "size": "550"
+    },
+    {
+      "name": "multiple-pkcs11-library-init.patch",
+      "size": "3603"
+    },
+    {
+      "name": "openj9-nogit.patch.in",
+      "size": "1962"
+    },
+    {
+      "name": "openj9-openssl.patch",
+      "size": "441"
+    },
+    {
+      "name": "openssl-OSSL_LIB_CTX.patch",
+      "size": "518"
+    },
+    {
+      "name": "reproducible-nls.patch",
+      "size": "1865"
+    },
+    {
+      "name": "reproducible-tracemerge-order.patch",
+      "size": "4798"
+    },
+    {
+      "name": "reproducible-version.patch",
+      "size": "528"
+    },
+    {
+      "name": "system-pcsclite.patch",
+      "size": "6587"
+    }
+  ],
+  "created_at": 1794232039,
+  "version": 1,
+  "log_failed": {
+    "lines": 199526,
+    "kept": "the first 500 and the last 5000 lines",
+    "why": "the size: 155 MiB in full"
+  }
+}

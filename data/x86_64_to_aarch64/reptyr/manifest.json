@@ -1,0 +1,32 @@
+{
+  "task": {
+    "package": "reptyr",
+    "direction": "x86_64_to_aarch64",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "208eef2eaddf9b0f53a34d1a549d72cd"
+    },
+    "target": {
+      "project": "openSUSE:Factory:ARM",
+      "repository": "standard",
+      "arch": "aarch64"
+    }
+  },
+  "files": [
+    {
+      "name": "reptyr-0.10.0.tar.gz",
+      "size": "33216"
+    },
+    {
+      "name": "reptyr.changes",
+      "size": "3372"
+    },
+    {
+      "name": "reptyr.spec",
+      "size": "1885"
+    }
+  ],
+  "created_at": 1794232124,
+  "version": 1
+}

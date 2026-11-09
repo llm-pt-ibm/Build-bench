@@ -1,0 +1,48 @@
+{
+  "task": {
+    "package": "zenith",
+    "direction": "x86_64_to_aarch64",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "b8ca483e3ff08f35038608100251b31a"
+    },
+    "target": {
+      "project": "openSUSE:Factory:ARM",
+      "repository": "standard",
+      "arch": "aarch64"
+    }
+  },
+  "files": [
+    {
+      "name": "_service",
+      "size": "961"
+    },
+    {
+      "name": "_servicedata",
+      "size": "236"
+    },
+    {
+      "name": "vendor.tar.zst",
+      "size": "32924129"
+    },
+    {
+      "name": "zenith-0.15.1.tar.zst",
+      "size": "748309"
+    },
+    {
+      "name": "zenith.changes",
+      "size": "3805"
+    },
+    {
+      "name": "zenith.obsinfo",
+      "size": "96"
+    },
+    {
+      "name": "zenith.spec",
+      "size": "1919"
+    }
+  ],
+  "created_at": 1794232227,
+  "version": 1
+}

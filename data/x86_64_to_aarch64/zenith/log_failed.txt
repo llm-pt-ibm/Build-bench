@@ -1,0 +1,379 @@
+[    0s] Using BUILD_ROOT=/var/cache/obs/worker/root_4/.mount
+[    0s] Using BUILD_ARCH=aarch64:aarch64_ilp32:armv8l
+[    0s] Doing kvm build in /var/cache/obs/worker/root_4/root
+[    0s] 
+[    1s] 
+[    1s] i02-armsrv1 started "build zenith.spec" at Tue Oct 13 12:54:06 UTC 2026.
+[    1s] 
+[    1s] Building zenith for project 'openSUSE:Factory:ARM' repository 'standard' arch 'aarch64' srcmd5 'b8ca483e3ff08f35038608100251b31a'
+[    1s] 
+[    1s] processing recipe /var/cache/obs/worker/root_4/.build-srcdir/zenith.spec ...
+[    1s] running changelog2spec --target rpm --file /var/cache/obs/worker/root_4/.build-srcdir/zenith.spec
+[    1s] init_buildsystem --configdir /var/run/obs/worker/4/build/configs --cachedir /var/cache/build --prepare --clean --rpmlist /var/cache/obs/worker/root_4/.build.rpmlist /var/cache/obs/worker/root_4/.build-srcdir/zenith.spec build ...
+[    1s] unpacking preinstall image openSUSE:Factory:ARM/standard/preinstallimage-base [d9ff8d2211c02194fa7a2b6996071314]
+[    5s] 
+[    5s] copying packages...
+[    5s] reordering...cycle: python313-base -> libpython3_13-1_0
+[    5s]   breaking dependency python313-base -> libpython3_13-1_0
+[    5s] cycle: llvm23-polly-devel -> llvm23-devel
+[    5s]   breaking dependency llvm23-polly-devel -> llvm23-devel
+[    5s] done
+[    6s] Detected virtio-serial support
+[   10s] booting kvm...
+[   10s] ### VM INTERACTION START ###
+[   11s] Using virtio-serial support
+[   11s] /usr/bin/qemu-system-aarch64 -nodefaults -no-reboot -nographic -vga none -cpu host -enable-kvm -M virt,accel=kvm,usb=off,gic-version=host -sandbox on -object rng-random,filename=/dev/random,id=rng0 -device virtio-rng-device,rng=rng0 -object iothread,id=io0 -run-with user=qemu -net none -kernel /var/cache/obs/worker/root_4/.mount/boot/kernel -initrd /var/cache/obs/worker/root_4/.mount/boot/initrd -append root=/dev/disk/by-id/virtio-0 rootfstype=ext4 rootflags=noatime elevator=noop nmi_watchdog=0 rw ia32_emulation=1 oops=panic panic=1 quiet console=hvc0 init=/.build/build -m 10240 -drive file=/var/cache/obs/worker/root_4/root,format=raw,if=none,id=disk,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=disk,serial=0 -drive file=/var/cache/obs/worker/root_4/swap,format=raw,if=none,id=swap,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=swap,serial=1 -device virtio-serial,max_ports=2 -device virtconsole,chardev=virtiocon0 -chardev stdio,id=virtiocon0 -chardev socket,id=monitor,server=on,wait=off,path=/var/cache/obs/worker/root_4/root.qemu/monitor -mon chardev=monitor,mode=readline -smp 4
+[   16s] P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=443463bc14474b739cb9331485f4c1c0;user=root;hostname=localhost;machineid=3c3027aeeb68408bbdc56bd4375a2708;bootid=f0540f5436f64dfb9f1d4974873ccad6;pid=1;pidfdid=1;comm=systemd;type=boot\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J### VM INTERACTION END ###
+[   16s] 2nd stage started in virtual machine
+[   16s] ^[[24;80R^[[24;80Rmachine type: aarch64
+[   16s] Linux version: 7.2.9-1-default #1 SMP PREEMPT_DYNAMIC Sun Oct  4 08:22:02 UTC 2026 (584f686)
+[   16s] Time: Tue Oct 13 12:54:21 UTC 2026
+[   16s] Increasing log level from now on...
+[   16s] [    5.372408][  T400] sysrq: Changing Loglevel
+[   16s] [    5.372476][  T400] sysrq: Loglevel set to 4
+[   16s] Enable sysrq operations
+[   17s] Setting up swapspace version 1, size = 2 GiB (2147479552 bytes)
+[   17s] no label, UUID=a30998e2-ce44-479d-b3b7-7f07384d47d6
+[   17s] logging output to //.build.log...
+[   17s] processing recipe //.build-srcdir/zenith.spec ...
+[   17s] init_buildsystem --configdir /.build/configs --cachedir /var/cache/build //.build-srcdir/zenith.spec build ...
+[   17s] initializing rpm db...
+[   17s] querying package ids...
+[   18s] [1/190] preinstalled aaa_base-84.87+git20260924.144354a1-1.1
+[   18s] [2/190] preinstalled aaa_base-malloccheck-84.87+git20260924.144354a1-1.1
+[   18s] [3/190] preinstalled alts-2.0+0.4f22c01-1.1
+[   18s] [4/190] preinstalled bash-5.3.20-9.1
+[   18s] [5/190] preinstalled bash-sh-5.3.20-9.1
+[   18s] [6/190] preinstalled binutils-2.47-1.1
+[   18s] [7/190] preinstalled brp-check-suse-84.87+git20260317.a0eb4ba-1.3
+[   18s] [8/190] preinstalled build-compare-20261001T080039.deb96f7-1.1
+[   18s] [9/190] preinstalled build-mkbaselibs-20260505-1.3
+[   18s] [10/190] preinstalled bzip2-1.0.8-6.1
+[   18s] [11/190] preinstalled compat-usrmerge-build-84.87-5.29
+[   18s] [12/190] preinstalled compat-usrmerge-tools-84.87-5.29
+[   18s] [13/190] preinstalled coreutils-9.12-1.1
+[   18s] [14/190] preinstalled cpio-2.15-9.1
+[   18s] [15/190] preinstalled cpp-16-1.1
+[   18s] [16/190] preinstalled cpp16-16.2.1+git9713-1.1
+[   18s] [17/190] preinstalled crypto-policies-20250714.cd6043a-6.1
+[   18s] [18/190] preinstalled debugedit-5.1-1.9
+[   18s] [19/190] preinstalled diffutils-3.12-1.6
+[   18s] [20/190] preinstalled dwz-0.17-1.1
+[   18s] [21/190] preinstalled elfutils-0.196-2.1
+[   18s] [22/190] preinstalled envsubst-mini-1.0-4.1
+[   18s] [23/190] preinstalled file-5.48-2.2
+[   18s] [24/190] preinstalled file-magic-5.48-2.2
+[   18s] [25/190] preinstalled filesystem-84.87-21.2
+[   18s] [26/190] preinstalled fillup-1.42-281.9
+[   18s] [27/190] preinstalled findutils-4.11.0-1.2
+[   18s] [28/190] preinstalled gawk-5.4.1-1.2
+[   18s] [29/190] preinstalled gcc-16-1.1
+[   18s] [30/190] preinstalled gcc-PIE-16-1.1
+[   18s] [31/190] preinstalled gcc16-16.2.1+git9713-1.1
+[   18s] [32/190] preinstalled gcc16-PIE-16.2.1+git9713-1.1
+[   18s] [33/190] preinstalled gettext-runtime-mini-1.0-4.1
+[   18s] [34/190] preinstalled gettext-tools-mini-1.0-4.1
+[   18s] [35/190] preinstalled glibc-2.44-3.1
+[   18s] [36/190] preinstalled glibc-devel-2.44-3.1
+[   18s] [37/190] preinstalled glibc-gconv-modules-extra-2.44-3.1
+[   18s] [38/190] preinstalled glibc-locale-base-2.44-3.1
+[   18s] [39/190] preinstalled grep-3.12-1.5
+[   18s] [40/190] preinstalled gzip-1.15-1.1
+[   18s] [41/190] preinstalled kernel-obs-build-7.2.9-1.1
+[   18s] [42/190] preinstalled libacl1-2.4.0-1.2
+[   18s] [43/190] preinstalled libalternatives1-2.0+0.4f22c01-1.1
+[   18s] [44/190] preinstalled libarchive13-3.8.9-1.1
+[   18s] [45/190] preinstalled libasan8-16.2.1+git9713-1.1
+[   18s] [46/190] preinstalled libasm1-0.196-2.1
+[   18s] [47/190] preinstalled libatomic1-16.2.1+git9713-1.1
+[   18s] [48/190] preinstalled libattr1-2.6.0-1.2
+[   18s] [49/190] preinstalled libaudit1-4.0.2-3.4
+[   18s] [50/190] preinstalled libblkid1-2.42.4-1.1
+[   18s] [51/190] cumulate libbrotlicommon1-1.2.0-2.3
+[   18s] [52/190] preinstalled libbz2-1-1.0.8-6.1
+[   18s] [53/190] preinstalled libcap-ng0-0.8.5-1.10
+[   18s] [54/190] preinstalled libcap2-2.78-1.4
+[   18s] [55/190] cumulate libcom_err2-1.47.3-2.2
+[   18s] [56/190] preinstalled libcrypt1-4.5.2-2.4
+[   18s] [57/190] preinstalled libctf-nobfd0-2.47-1.1
+[   18s] [58/190] preinstalled libctf0-2.47-1.1
+[   18s] [59/190] preinstalled libdw1-0.196-2.1
+[   18s] [60/190] preinstalled libeconf0-0.8.5-1.1
+[   18s] [61/190] cumulate libedit0-20250104.3.1-1.5
+[   18s] [62/190] preinstalled libelf1-0.196-2.1
+[   18s] [63/190] cumulate libexpat1-2.9.0-1.1
+[   18s] [64/190] preinstalled libfdisk1-2.42.4-1.1
+[   18s] [65/190] cumulate libffi8-3.5.2-2.4
+[   18s] [66/190] preinstalled libgcc_s1-16.2.1+git9713-1.1
+[   18s] [67/190] preinstalled libgcrypt20-1.12.4-1.1
+[   18s] [68/190] preinstalled libgdbm6-1.26-1.6
+[   18s] [69/190] preinstalled libgdbm_compat4-1.26-1.6
+[   18s] [70/190] preinstalled libgmp10-6.3.0-5.6
+[   18s] [71/190] preinstalled libgomp1-16.2.1+git9713-1.1
+[   18s] [72/190] preinstalled libgpg-error0-1.61-2.1
+[   18s] [73/190] preinstalled libhwasan0-16.2.1+git9713-1.1
+[   18s] [74/190] preinstalled libisl23-0.27-1.8
+[   18s] [75/190] preinstalled libitm1-16.2.1+git9713-1.1
+[   18s] [76/190] preinstalled libjitterentropy3-3.6.3-2.1
+[   18s] [77/190] preinstalled liblsan0-16.2.1+git9713-1.1
+[   18s] [78/190] preinstalled liblua5_4-5-5.4.8-4.7
+[   18s] [79/190] preinstalled liblz1-1.16-2.1
+[   18s] [80/190] preinstalled liblz4-1-1.10.0-2.10
+[   18s] [81/190] preinstalled liblzma5-5.8.4-1.1
+[   18s] [82/190] preinstalled libmagic1-5.48-2.2
+[   18s] [83/190] preinstalled libmount1-2.42.4-1.1
+[   18s] [84/190] preinstalled libmpc3-1.4.1-1.3
+[   18s] [85/190] cumulate libmpdec4-4.0.1-2.6
+[   18s] [86/190] preinstalled libmpfr6-4.2.2-1.5
+[   18s] [87/190] preinstalled libncurses6-6.6.20260926-115.1
+[   18s] [88/190] cumulate libnghttp2-14-1.70.0-1.1
+[   18s] [89/190] cumulate libnghttp3-9-1.18.0-2.1
+[   18s] [90/190] cumulate libngtcp2-16-1.25.0-2.1
+[   18s] [91/190] cumulate libomp23-devel-23.1.3-1.1
+[   18s] [92/190] preinstalled libopenssl3-3.5.3-8.3
+[   18s] [93/190] preinstalled libpcre2-8-0-10.49-1.1
+[   18s] [94/190] preinstalled libpkgconf7-2.5.1-1.5
+[   18s] [95/190] preinstalled libpopt0-1.19-2.3
+[   18s] [96/190] preinstalled libreadline8-8.3.6-3.1
+[   18s] [97/190] preinstalled librpmbuild10-4.20.1-11.1
+[   18s] [98/190] cumulate libsasl2-3-2.1.28-13.1
+[   18s] [99/190] preinstalled libseccomp2-2.6.1-3.1
+[   18s] [100/190] preinstalled libselinux1-3.11-2.1
+[   18s] [101/190] preinstalled libsframe3-2.47-1.1
+[   18s] [102/190] preinstalled libsmartcols1-2.42.4-1.1
+[   18s] [103/190] cumulate libssh-config-0.11.5-3.1
+[   18s] [104/190] preinstalled libstdc++6-16.2.1+git9713-1.1
+[   18s] [105/190] cumulate libstdc++6-devel-gcc16-16.2.1+git9713-1.1
+[   18s] [106/190] preinstalled libtsan2-16.2.1+git9713-1.1
+[   18s] [107/190] preinstalled libubsan1-16.2.1+git9713-1.1
+[   18s] [108/190] cumulate libunistring5-1.4.2-1.3
+[   18s] [109/190] preinstalled libuuid1-2.42.4-1.1
+[   18s] [110/190] cumulate libverto1-0.3.2-3.11
+[   18s] [111/190] preinstalled libxcrypt-devel-4.5.2-2.4
+[   18s] [112/190] preinstalled libxml2-16-2.15.4-1.1
+[   18s] [113/190] preinstalled libz1-1.3.1-3.3
+[   18s] [114/190] preinstalled libzstd1-1.5.7-6.1
+[   18s] [115/190] preinstalled linux-glibc-devel-7.2-2.1
+[   18s] [116/190] cumulate llvm23-polly-23.1.3-1.1
+[   18s] [117/190] preinstalled lua-interpreter-5-3.4
+[   18s] [118/190] preinstalled lua54-5.4.8-4.7
+[   18s] [119/190] preinstalled make-4.4.1-3.10
+[   18s] [120/190] preinstalled ncurses-utils-6.6.20260926-115.1
+[   18s] [121/190] preinstalled pam-1.7.3-1.1
+[   18s] [122/190] preinstalled patch-2.8-3.2
+[   18s] [123/190] preinstalled perl-5.44.0-1.2
+[   18s] [124/190] preinstalled perl-base-5.44.0-1.2
+[   18s] [125/190] preinstalled perl-rpm-packaging-1.3-1.3
+[   18s] [126/190] preinstalled permctl-1699_20260917-1.1
+[   18s] [127/190] preinstalled permissions-1699_20260917-1.1
+[   18s] [128/190] preinstalled permissions-config-1699_20260917-1.1
+[   18s] [129/190] preinstalled pkgconf-2.5.1-1.5
+[   18s] [130/190] preinstalled pkgconf-m4-2.5.1-1.5
+[   18s] [131/190] preinstalled pkgconf-pkg-config-2.5.1-1.5
+[   18s] [132/190] preinstalled polkit-default-privs-1550+20261009.03465cb-1.1
+[   18s] [133/190] preinstalled post-build-checks-84.87+git20260421.8ed5e73-1.1
+[   18s] [134/190] cumulate python-rpm-macros-20260909.65d2791-1.1
+[   18s] [135/190] preinstalled rpm-4.20.1-11.1
+[   18s] [136/190] preinstalled rpm-build-4.20.1-11.1
+[   18s] [137/190] preinstalled rpm-config-SUSE-20250904-1.4
+[   18s] [138/190] preinstalled rpmlint-mini-2.10.0+git20261009.041119a7-21.49
+[   18s] [139/190] preinstalled rpmlint-strict-2.10.0+git20261009.041119a7-1.1
+[   18s] [140/190] preinstalled sed-4.10-1.4
+[   18s] [141/190] preinstalled suse-reproducible-builds-1.0-1.2
+[   18s] [142/190] preinstalled system-user-root-20190513-2.23
+[   18s] [143/190] preinstalled systemd-rpm-macros-26-1.4
+[   18s] [144/190] preinstalled tar-1.35-10.1
+[   18s] [145/190] preinstalled terminfo-base-6.6.20260926-115.1
+[   18s] [146/190] preinstalled util-linux-2.42.4-1.1
+[   18s] [147/190] preinstalled which-2.25-1.3
+[   18s] [148/190] preinstalled xz-5.8.4-1.1
+[   18s] [149/190] cumulate zstd-1.5.7-6.1
+[   18s] [150/190] cumulate libLLVM23-23.1.3-1.1
+[   18s] [151/190] cumulate libbrotlidec1-1.2.0-2.3
+[   18s] [152/190] cumulate libidn2-0-2.3.8-1.5
+[   18s] [153/190] cumulate libldap2-2.6.13-1.6
+[   18s] [154/190] cumulate libngtcp2_crypto_ossl0-1.25.0-2.1
+[   18s] [155/190] cumulate libomp-devel-23-1.1
+[   18s] [156/190] cumulate libstdc++-devel-16-1.1
+[   18s] [157/190] cumulate llvm-polly-23-1.1
+[   18s] [158/190] cumulate krb5-mini-1.22.2-4.2
+[   18s] [159/190] cumulate libLTO23-23.1.3-1.1
+[   18s] [160/190] cumulate libclang-cpp23-23.1.3-1.1
+[   18s] [161/190] cumulate lld23-23.1.3-1.1
+[   18s] [162/190] cumulate llvm23-23.1.3-1.1
+[   18s] [163/190] cumulate llvm23-gold-23.1.3-1.1
+[   18s] [164/190] cumulate libpsl5-0.23.3-1.1
+[   18s] [165/190] cumulate libssh4-0.11.5-3.1
+[   18s] [166/190] cumulate lld-23-1.1
+[   18s] [167/190] cumulate llvm-23-1.1
+[   18s] [168/190] cumulate llvm-gold-23-1.1
+[   18s] [169/190] cumulate libclang13-23.1.3-1.1
+[   18s] [170/190] cumulate libcurl4-8.22.0-1.1
+[   18s] [171/190] cumulate llvm23-polly-devel-23.1.3-1.1
+[   18s] [172/190] cumulate python313-base-3.13.15-2.1
+[   18s] [173/190] cumulate libclang_rt23-23.1.3-1.1
+[   18s] [174/190] cumulate libpython3_13-1_0-3.13.15-2.1
+[   18s] [175/190] cumulate python313-packaging-26.3-1.1
+[   18s] [176/190] cumulate llvm-polly-devel-23-1.1
+[   18s] [177/190] cumulate llvm23-devel-23.1.3-1.1
+[   18s] [178/190] cumulate python-rpm-packaging-20210526+a18ca48-2.1
+[   18s] [179/190] cumulate clang23-23.1.3-1.1
+[   18s] [180/190] cumulate llvm-devel-23-1.1
+[   18s] [181/190] cumulate clang-23-1.1
+[   18s] [182/190] cumulate rust1.99-1.99.0-1.1
+[   18s] [183/190] cumulate clang-tools-23.1.3-1.1
+[   18s] [184/190] cumulate rust-1.99.0-1.1
+[   18s] [185/190] cumulate cargo1.99-1.99.0-1.1
+[   18s] [186/190] cumulate clang23-devel-23.1.3-1.1
+[   18s] [187/190] cumulate cargo-1.99.0-1.1
+[   18s] [188/190] cumulate clang-devel-23-1.1
+[   18s] [189/190] cumulate cargo-auditable-0.7.7~0-1.1
+[   18s] [190/190] cumulate cargo-packaging-1.5.0+0-1.4
+[   18s] now installing cumulated packages
+[   18s] Preparing...                          ########################################
+[   18s] Updating / installing...
+[   18s] llvm23-polly-23.1.3-1.1               ########################################
+[   18s] libunistring5-1.4.2-1.3               ########################################
+[   18s] libidn2-0-2.3.8-1.5                   ########################################
+[   18s] libomp23-devel-23.1.3-1.1             ########################################
+[   18s] libngtcp2-16-1.25.0-2.1               ########################################
+[   18s] libngtcp2_crypto_ossl0-1.25.0-2.1     ########################################
+[   18s] libomp-devel-23-1.1                   ########################################
+[   18s] libpsl5-0.23.3-1.1                    ########################################
+[   19s] llvm-polly-23-1.1                     ########################################
+[   19s] zstd-1.5.7-6.1                        ########################################
+[   19s] python-rpm-macros-20260909.65d2791-1.1########################################
+[   19s] libverto1-0.3.2-3.11                  ########################################
+[   19s] libstdc++6-devel-gcc16-16.2.1+git9713-########################################
+[   19s] libstdc++-devel-16-1.1                ########################################
+[   19s] libssh-config-0.11.5-3.1              ########################################
+[   19s] libsasl2-3-2.1.28-13.1                ########################################
+[   19s] libldap2-2.6.13-1.6                   ########################################
+[   19s] libnghttp3-9-1.18.0-2.1               ########################################
+[   19s] libnghttp2-14-1.70.0-1.1              ########################################
+[   19s] libmpdec4-4.0.1-2.6                   ########################################
+[   19s] libffi8-3.5.2-2.4                     ########################################
+[   19s] libexpat1-2.9.0-1.1                   ########################################
+[   19s] libpython3_13-1_0-3.13.15-2.1         ########################################
+[   19s] python313-base-3.13.15-2.1            ########################################
+[   20s] libclang_rt23-23.1.3-1.1              ########################################
+[   20s] python313-packaging-26.3-1.1          ########################################
+[   20s] libedit0-20250104.3.1-1.5             ########################################
+[   21s] libLLVM23-23.1.3-1.1                  ########################################
+[   21s] libclang-cpp23-23.1.3-1.1             ########################################
+[   21s] libclang13-23.1.3-1.1                 ########################################
+[   21s] clang23-23.1.3-1.1                    ########################################
+[   21s] clang-23-1.1                          ########################################
+[   22s] llvm23-23.1.3-1.1                     ########################################
+[   22s] llvm23-gold-23.1.3-1.1                ########################################
+[   22s] llvm-gold-23-1.1                      ########################################
+[   22s] llvm-23-1.1                           ########################################
+[   22s] clang-tools-23.1.3-1.1                ########################################
+[   22s] libLTO23-23.1.3-1.1                   ########################################
+[   22s] llvm23-polly-devel-23.1.3-1.1         ########################################
+[   22s] llvm23-devel-23.1.3-1.1               ########################################
+[   22s] clang23-devel-23.1.3-1.1              ########################################
+[   22s] llvm-polly-devel-23-1.1               ########################################
+[   22s] llvm-devel-23-1.1                     ########################################
+[   22s] lld23-23.1.3-1.1                      ########################################
+[   22s] lld-23-1.1                            ########################################
+[   27s] rust1.99-1.99.0-1.1                   ########################################
+[   27s] rust-1.99.0-1.1                       ########################################
+[   27s] libcom_err2-1.47.3-2.2                ########################################
+[   27s] krb5-mini-1.22.2-4.2                  ########################################
+[   27s] Updating /etc/sysconfig/kadmind ...
+[   27s] Updating /etc/sysconfig/krb5kdc ...
+[   27s] libssh4-0.11.5-3.1                    ########################################
+[   27s] libbrotlicommon1-1.2.0-2.3            ########################################
+[   27s] libbrotlidec1-1.2.0-2.3               ########################################
+[   27s] libcurl4-8.22.0-1.1                   ########################################
+[   28s] cargo1.99-1.99.0-1.1                  ########################################
+[   28s] cargo-1.99.0-1.1                      ########################################
+[   28s] cargo-auditable-0.7.7~0-1.1           ########################################
+[   28s] cargo-packaging-1.5.0+0-1.4           ########################################
+[   28s] clang-devel-23-1.1                    ########################################
+[   28s] python-rpm-packaging-20210526+a18ca48-########################################
+[   29s] now finalizing build dir...
+[   29s] ... running 01-add_abuild_user_to_trusted_group
+[   29s] ... running 02-set_timezone_to_utc
+[   29s] ... running 03-set-permissions-secure
+[   29s] ... running 11-hack_uname_version_to_kernel_version
+[   29s] setting SOURCE_DATE_EPOCH_MTIME to 1788767303
+[   30s] Running build time source services...
+[   31s] -----------------------------------------------------------------
+[   31s] I have the following modifications for zenith.spec:
+[   31s] 21c21
+[   31s] < Release:        0
+[   31s] ---
+[   31s] > Release:        1.1
+[   31s] -----------------------------------------------------------------
+[   31s] ----- building zenith.spec (user abuild)
+[   31s] -----------------------------------------------------------------
+[   31s] -----------------------------------------------------------------
+[   32s] setting SOURCE_DATE_EPOCH_MTIME to 1788767303
+[   32s] + exec rpmbuild -ba --define '_srcdefattr (-,root,root)' --nosignature --define '_build_create_debug 1' --define 'disturl obs://build.opensuse.org/openSUSE:Factory:ARM/standard/b8ca483e3ff08f35038608100251b31a-zenith' /home/abuild/rpmbuild/SOURCES/zenith.spec
+[   32s] using SOURCE_DATE_EPOCH with value 1788767302 as build time
+[   32s] Executing(%mkbuilddir): /usr/bin/bash -e /var/tmp/rpm-tmp.uryg5q
+[   32s] Executing(%prep): /usr/bin/bash -e /var/tmp/rpm-tmp.YoJ0Dj
+[   32s] + umask 022
+[   32s] + cd /home/abuild/rpmbuild/BUILD/zenith-0.15.1-build
+[   32s] + cd /home/abuild/rpmbuild/BUILD/zenith-0.15.1-build
+[   32s] + rm -rf zenith-0.15.1
+[   32s] + /usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/zenith-0.15.1.tar.zst
+[   32s] + STATUS=0
+[   32s] + '[' 0 -ne 0 ']'
+[   32s] + cd zenith-0.15.1
+[   32s] + /usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/vendor.tar.zst
+[   35s] + STATUS=0
+[   35s] + '[' 0 -ne 0 ']'
+[   35s] + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+[   35s] + RPM_EC=0
+[   35s] ++ jobs -p
+[   35s] + exit 0
+[   35s] Executing(%build): /usr/bin/bash -e /var/tmp/rpm-tmp.s6xqyN
+[   35s] + umask 022
+[   35s] + cd /home/abuild/rpmbuild/BUILD/zenith-0.15.1-build
+[   35s] + /usr/bin/rm -rf /home/abuild/rpmbuild/BUILD/zenith-0.15.1-build/BUILDROOT
+[   35s] ++ dirname /home/abuild/rpmbuild/BUILD/zenith-0.15.1-build/BUILDROOT
+[   35s] + /usr/bin/mkdir -p /home/abuild/rpmbuild/BUILD/zenith-0.15.1-build
+[   35s] + /usr/bin/mkdir /home/abuild/rpmbuild/BUILD/zenith-0.15.1-build/BUILDROOT
+[   35s] + cd zenith-0.15.1
+[   35s] + ref=/usr/lib/rpm
+[   35s] + mints=0
+[   35s] + case $(uname -m) in
+[   35s] ++ uname -m
+[   35s] + mints=20120610
+[   35s] + for s in guess sub
+[   35s] ++ find -maxdepth 8 -name config.guess
+[   35s] + for s in guess sub
+[   35s] ++ find -maxdepth 8 -name config.sub
+[   36s] + unset LIBSSH2_SYS_USE_PKG_CONFIG
+[   36s] + '[' -z '' ']'
+[   36s] + CARGO_AUDITABLE=auditable
+[   36s] + CARGO_INCREMENTAL=0
+[   36s] + CARGO_FEATURE_VENDORED=1
+[   36s] + RUSTFLAGS=' -Clink-arg=-Wl,-z,relro,-z,now -C debuginfo=2 -C strip=none'
+[   36s] + CARGO_TARGET_DIR=/home/abuild/rpmbuild/BUILD/zenith-0.15.1-build/zenith-0.15.1/target/
+[   36s] + /usr/bin/cargo auditable build -j4 --offline --release
+[   37s]    Compiling autocfg v1.5.1
+[   37s]    Compiling libc v0.2.189
+[   37s]    Compiling proc-macro2 v1.0.107
+[   37s]    Compiling quote v1.0.47
+[   37s] error: linker `aarch64-linux-gnu-gcc` not found
+[   37s]   |
+[   37s]   = note: No such file or directory (os error 2)
+[   37s] 
+[   37s] error: could not compile `proc-macro2` (build script) due to 1 previous error
+[   37s] warning: build failed, waiting for other jobs to finish...
+[   37s] error: could not compile `quote` (build script) due to 1 previous error
+[   37s] error: could not compile `libc` (build script) due to 1 previous error
+[   38s] error: Bad exit status from /var/tmp/rpm-tmp.s6xqyN (%build)
+[   38s] 
+[   38s] RPM build errors:
+[   38s]     Bad exit status from /var/tmp/rpm-tmp.s6xqyN (%build)
+[   38s] ### VM INTERACTION START ###
+[   39s] [   27.566307][    T1] sysrq: Power Off
+[   39s] ### VM INTERACTION END ###
+[   39s] 
+[   39s] i02-armsrv1 failed "build zenith.spec" at Tue Oct 13 12:54:44 UTC 2026.
+[   39s] 

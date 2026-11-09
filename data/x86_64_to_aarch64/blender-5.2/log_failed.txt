@@ -1,0 +1,1799 @@
+[    0s] Using BUILD_ROOT=/var/cache/obs/worker/root_3/.mount
+[    0s] Using BUILD_ARCH=aarch64:aarch64_ilp32:armv8l
+[    0s] Doing kvm build in /var/cache/obs/worker/root_3/root
+[    0s] 
+[    1s] 
+[    1s] armv9 started "build blender-5.2.spec" at Wed Nov  4 20:20:56 UTC 2026.
+[    1s] 
+[    1s] Building blender-5.2 for project 'openSUSE:Factory:ARM' repository 'standard' arch 'aarch64' srcmd5 '125980f555a1fe23cdbe8213ebbde1a2'
+[    1s] 
+[    1s] processing recipe /var/cache/obs/worker/root_3/.build-srcdir/blender-5.2.spec ...
+[    1s] running changelog2spec --target rpm --file /var/cache/obs/worker/root_3/.build-srcdir/blender-5.2.spec
+[    1s] init_buildsystem --configdir /var/run/obs/worker/3/build/configs --cachedir /var/cache/build --prepare --clean --rpmlist /var/cache/obs/worker/root_3/.build.rpmlist /var/cache/obs/worker/root_3/.build-srcdir/blender-5.2.spec build ...
+[    1s] unpacking preinstall image openSUSE:Factory:ARM/standard/preinstallimage-base [c45239e4fa4d2e98bff4cd9080f758a7]
+[    3s] 
+[    3s] copying packages...
+[    4s] reordering...cycle: OpenShadingLanguage-common-headers -> OpenShadingLanguage
+[    4s]   breaking dependency OpenShadingLanguage -> OpenShadingLanguage-common-headers
+[    4s] cycle: Mesa-dri -> Mesa
+[    4s]   breaking dependency Mesa -> Mesa-dri
+[    4s] cycle: Mesa-dri -> Mesa -> Mesa-libEGL1
+[    4s]   breaking dependency Mesa -> Mesa-libEGL1
+[    4s] cycle: Mesa -> Mesa-libGL1
+[    4s]   breaking dependency Mesa-libGL1 -> Mesa
+[    4s] cycle: Mesa-dri -> Mesa -> Mesa-libGL1
+[    4s]   breaking dependency Mesa-libGL1 -> Mesa-dri
+[    4s] cycle: libglvnd -> Mesa-dri -> Mesa -> Mesa-libGL1
+[    4s]   breaking dependency Mesa -> Mesa-libGL1
+[    4s] cycle: libglvnd -> Mesa-dri -> Mesa
+[    4s]   breaking dependency libglvnd -> Mesa-dri
+[    4s] cycle: libgio-2_0-0 -> gio-branding-upstream
+[    4s]   breaking dependency libgio-2_0-0 -> gio-branding-upstream
+[    4s] cycle: libgio-2_0-0 -> glib2-tools
+[    4s]   breaking dependency libgio-2_0-0 -> glib2-tools
+[    4s] cycle: libQt6Network6 -> qt6-network-tls
+[    4s]   breaking dependency libQt6Network6 -> qt6-network-tls
+[    4s] cycle: libQt6Network6 -> qt6-networkinformation-connman
+[    4s]   breaking dependency libQt6Network6 -> qt6-networkinformation-connman
+[    4s] cycle: libQt6Network6 -> qt6-networkinformation-glib
+[    4s]   breaking dependency libQt6Network6 -> qt6-networkinformation-glib
+[    4s] cycle: libQt6Network6 -> qt6-networkinformation-nm
+[    4s]   breaking dependency libQt6Network6 -> qt6-networkinformation-nm
+[    4s] cycle: libQt6Gui6 -> libQt6OpenGL6
+[    4s]   breaking dependency libQt6Gui6 -> libQt6OpenGL6
+[    4s] cycle: libQt6Gui6 -> libQt6WaylandClient6
+[    4s]   breaking dependency libQt6Gui6 -> libQt6WaylandClient6
+[    4s] cycle: libfontconfig1 -> fontconfig
+[    4s]   breaking dependency libfontconfig1 -> fontconfig
+[    4s] cycle: libdecor-0-0 -> libdecor
+[    4s]   breaking dependency libdecor -> libdecor-0-0
+[    4s] cycle: libgtk-3-0 -> gtk3-tools
+[    4s]   breaking dependency libgtk-3-0 -> gtk3-tools
+[    4s] cycle: libpipewire-0_3-0 -> pipewire-modules-0_3
+[    4s]   breaking dependency libpipewire-0_3-0 -> pipewire-modules-0_3
+[    4s] cycle: openblas-common-devel -> libopenblas_serial-devel
+[    4s]   breaking dependency openblas-common-devel -> libopenblas_serial-devel
+[    4s] cycle: openssl -> openssl-3
+[    4s]   breaking dependency openssl-3 -> openssl
+[    4s] cycle: llvm23-polly-devel -> llvm23-devel
+[    4s]   breaking dependency llvm23-polly-devel -> llvm23-devel
+[    4s] cycle: gstreamer -> libgstreamer-1_0-0
+[    4s]   breaking dependency libgstreamer-1_0-0 -> gstreamer
+[    4s] cycle: gstreamer-plugins-base -> libgstallocators-1_0-0
+[    4s]   breaking dependency gstreamer-plugins-base -> libgstallocators-1_0-0
+[    4s] cycle: libgstapp-1_0-0 -> gstreamer-plugins-base
+[    4s]   breaking dependency gstreamer-plugins-base -> libgstapp-1_0-0
+[    4s] cycle: gstreamer-plugins-base -> libgstaudio-1_0-0
+[    4s]   breaking dependency gstreamer-plugins-base -> libgstaudio-1_0-0
+[    4s] cycle: gstreamer-plugins-base -> libgstgl-1_0-0 -> libgstallocators-1_0-0
+[    4s]   breaking dependency gstreamer-plugins-base -> libgstgl-1_0-0
+[    4s] cycle: gstreamer-plugins-base -> libgstpbutils-1_0-0
+[    4s]   breaking dependency gstreamer-plugins-base -> libgstpbutils-1_0-0
+[    4s] cycle: gstreamer-plugins-base -> libgstriff-1_0-0
+[    4s]   breaking dependency gstreamer-plugins-base -> libgstriff-1_0-0
+[    4s] cycle: gstreamer-plugins-base -> libgsttag-1_0-0
+[    4s]   breaking dependency gstreamer-plugins-base -> libgsttag-1_0-0
+[    4s] cycle: gstreamer-plugins-base -> libgstvideo-1_0-0
+[    4s]   breaking dependency gstreamer-plugins-base -> libgstvideo-1_0-0
+[    4s] done
+[    4s] Detected virtio-serial support
+[    5s] booting kvm...
+[    5s] ### VM INTERACTION START ###
+[    5s] Using virtio-serial support
+[    5s] /usr/bin/qemu-system-aarch64 -nodefaults -no-reboot -nographic -vga none -cpu host -enable-kvm -M virt,accel=kvm,usb=off,gic-version=host -sandbox on -object rng-random,filename=/dev/hwrng,id=rng0 -device virtio-rng-device,rng=rng0 -object iothread,id=io0 -run-with user=qemu -net none -kernel /var/cache/obs/worker/root_3/.mount/boot/kernel -initrd /var/cache/obs/worker/root_3/.mount/boot/initrd -append root=/dev/disk/by-id/virtio-0 rootfstype=ext4 rootflags=noatime elevator=noop nmi_watchdog=0 rw ia32_emulation=1 oops=panic panic=1 quiet console=hvc0 init=/.build/build -m 23552 -drive file=/var/cache/obs/worker/root_3/root,format=raw,if=none,id=disk,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=disk,serial=0 -drive file=/var/cache/obs/worker/root_3/swap,format=raw,if=none,id=swap,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=swap,serial=1 -device virtio-serial,max_ports=2 -device virtconsole,chardev=virtiocon0 -chardev stdio,id=virtiocon0 -chardev socket,id=monitor,server=on,wait=off,path=/var/cache/obs/worker/root_3/root.qemu/monitor -mon chardev=monitor,mode=readline -smp 8
+[    9s] P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=2e0bc4bd5a534a5b9402307d8a998246;user=root;hostname=localhost;machineid=8a744e55af5044d1957a09ffe241c218;bootid=b91a22899a4449eaab7f1e3e1fb9d160;pid=1;pidfdid=1;comm=systemd;type=boot\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J### VM INTERACTION END ###
+[    9s] 2nd stage started in virtual machine
+[    9s] ^[[24;80R^[[24;80Rmachine type: aarch64
+[    9s] Linux version: 7.3.1-1-default #1 SMP PREEMPT_DYNAMIC Sat Oct 31 11:17:21 UTC 2026 (8815021)
+[    9s] Time: Wed Nov  4 20:21:04 UTC 2026
+[    9s] Increasing log level from now on...
+[    9s] [    3.195751][  T495] sysrq: Changing Loglevel
+[    9s] [    3.195792][  T495] sysrq: Loglevel set to 4
+[    9s] Enable sysrq operations
+[    9s] Setting up swapspace version 1, size = 2 GiB (2147479552 bytes)
+[    9s] no label, UUID=5ad23b43-38ce-465e-9429-71090f7871d3
+[    9s] logging output to //.build.log...
+[    9s] processing recipe //.build-srcdir/blender-5.2.spec ...
+[    9s] init_buildsystem --configdir /.build/configs --cachedir /var/cache/build //.build-srcdir/blender-5.2.spec build ...
+[    9s] initializing rpm db...
+[    9s] querying package ids...
+[   10s] [1/700] cumulate Mesa-KHR-devel-26.2.5-1.1
+[   10s] [2/700] preinstalled aaa_base-84.87+git20260924.144354a1-2.1
+[   10s] [3/700] preinstalled aaa_base-malloccheck-84.87+git20260924.144354a1-2.1
+[   10s] [4/700] preinstalled alts-2.0+0.4f22c01-1.1
+[   10s] [5/700] preinstalled bash-5.3.20-10.1
+[   10s] [6/700] preinstalled bash-sh-5.3.20-10.1
+[   10s] [7/700] preinstalled binutils-2.47-2.1
+[   10s] [8/700] cumulate boost-license1_92_0-1.92.0-1.1
+[   10s] [9/700] preinstalled brp-check-suse-84.87+git20260317.a0eb4ba-1.3
+[   10s] [10/700] cumulate bubblewrap-0.13.1-1.1
+[   10s] [11/700] preinstalled build-compare-20261001T080039.deb96f7-1.1
+[   10s] [12/700] preinstalled build-mkbaselibs-20260901-1.1
+[   10s] [13/700] preinstalled bzip2-1.0.8-7.1
+[   10s] [14/700] preinstalled compat-usrmerge-build-84.87-5.29
+[   10s] [15/700] preinstalled compat-usrmerge-tools-84.87-5.29
+[   10s] [16/700] preinstalled coreutils-9.12-1.1
+[   10s] [17/700] preinstalled cpio-2.15-10.1
+[   10s] [18/700] preinstalled cpp-16-1.1
+[   10s] [19/700] preinstalled cpp16-16.2.1+git9713-1.1
+[   10s] [20/700] preinstalled crypto-policies-20250714.cd6043a-6.1
+[   10s] [21/700] preinstalled debugedit-5.1-1.9
+[   10s] [22/700] preinstalled diffutils-3.12-1.6
+[   10s] [23/700] preinstalled dwz-0.17-1.1
+[   10s] [24/700] cumulate eigen3-devel-5.0.1-1.3
+[   10s] [25/700] preinstalled elfutils-0.196-2.1
+[   10s] [26/700] preinstalled envsubst-mini-1.0-5.1
+[   10s] [27/700] cumulate fdupes-2.4.0-1.5
+[   10s] [28/700] cumulate ffmpeg-8-mini-libs-8.1.3-4.1
+[   10s] [29/700] preinstalled file-5.48-2.2
+[   10s] [30/700] preinstalled file-magic-5.48-2.2
+[   10s] [31/700] preinstalled filesystem-84.87-21.2
+[   10s] [32/700] preinstalled fillup-1.42-281.9
+[   10s] [33/700] preinstalled findutils-4.11.0-1.2
+[   10s] [34/700] preinstalled gawk-5.4.1-1.2
+[   10s] [35/700] preinstalled gcc-16-1.1
+[   10s] [36/700] preinstalled gcc-PIE-16-1.1
+[   10s] [37/700] preinstalled gcc16-16.2.1+git9713-1.1
+[   10s] [38/700] preinstalled gcc16-PIE-16.2.1+git9713-1.1
+[   10s] [39/700] preinstalled gettext-runtime-mini-1.0-5.1
+[   10s] [40/700] preinstalled gettext-tools-mini-1.0-5.1
+[   10s] [41/700] preinstalled glibc-2.44-3.1
+[   10s] [42/700] preinstalled glibc-devel-2.44-3.1
+[   10s] [43/700] preinstalled glibc-gconv-modules-extra-2.44-3.1
+[   10s] [44/700] preinstalled glibc-locale-base-2.44-3.1
+[   10s] [45/700] preinstalled grep-3.12-1.5
+[   10s] [46/700] cumulate gtk3-data-3.24.52+git59.b30343717d-1.1
+[   10s] [47/700] cumulate gtk3-schema-3.24.52+git59.b30343717d-1.1
+[   10s] [48/700] preinstalled gzip-1.15-1.1
+[   10s] [49/700] cumulate hicolor-icon-theme-0.18-1.6
+[   10s] [50/700] cumulate hwloc-data-2.13.0-1.3
+[   10s] [51/700] preinstalled kernel-obs-build-7.3.1-1.1
+[   10s] [52/700] cumulate level-zero-1.35.0-1.1
+[   10s] [53/700] cumulate libClipper2-2-2.0.1-1.4
+[   10s] [54/700] cumulate libClipper2Z2-2.0.1-1.4
+[   10s] [55/700] cumulate libICE6-1.1.2-1.7
+[   10s] [56/700] cumulate libIex-3_5-34-3.5.3-1.1
+[   10s] [57/700] cumulate libImath-3_2-30-3.2.3-1.1
+[   10s] [58/700] cumulate libLerc4-4.2.0-1.1
+[   10s] [59/700] cumulate libOpenImageDenoise_core2_5_1-2.5.1-2.1
+[   10s] [60/700] cumulate libSPIRV-Tools-2026_4_rc2-2026.4~rc2-1.1
+[   10s] [61/700] cumulate libSvtAv1Enc4-4.3.0-1.1
+[   10s] [62/700] cumulate libX11-data-1.8.14-1.1
+[   10s] [63/700] cumulate libXau6-1.0.12-2.5
+[   10s] [64/700] cumulate libabsl_raw_logging_internal2608_0_0-20260817.0-1.1
+[   10s] [65/700] cumulate libabsl_throw_delegate2608_0_0-20260817.0-1.1
+[   10s] [66/700] preinstalled libacl1-2.4.0-1.2
+[   10s] [67/700] preinstalled libalternatives1-2.0+0.4f22c01-1.1
+[   10s] [68/700] preinstalled libarchive13-3.8.10-1.1
+[   10s] [69/700] preinstalled libasan8-16.2.1+git9713-1.1
+[   10s] [70/700] preinstalled libasm1-0.196-2.1
+[   10s] [71/700] cumulate libasound2-1.2.16.1-3.1
+[   10s] [72/700] preinstalled libatomic1-16.2.1+git9713-1.1
+[   10s] [73/700] preinstalled libattr1-2.6.0-1.2
+[   10s] [74/700] preinstalled libaudit1-4.0.2-3.4
+[   10s] [75/700] cumulate libavahi-common3-0.8-45.2
+[   10s] [76/700] cumulate libb2-1-0.98.1-2.4
+[   10s] [77/700] preinstalled libblkid1-2.42.4-2.1
+[   10s] [78/700] cumulate libbluetooth3-5.87-4.1
+[   10s] [79/700] cumulate libbrotlicommon1-1.2.1-1.1
+[   10s] [80/700] cumulate libbtf2-7.14.1-1.1
+[   10s] [81/700] preinstalled libbz2-1-1.0.8-7.1
+[   10s] [82/700] cumulate libbz2-devel-1.0.8-7.1
+[   10s] [83/700] cumulate libcamera-base0_7-0.7.2-1.2
+[   10s] [84/700] preinstalled libcap-ng0-0.8.5-1.10
+[   10s] [85/700] preinstalled libcap2-2.78-1.4
+[   10s] [86/700] cumulate libclang_rt23-23.1.4-1.1
+[   10s] [87/700] cumulate libcom_err2-1.47.4-1.1
+[   10s] [88/700] cumulate libconfig++15-1.8.3-1.1
+[   10s] [89/700] preinstalled libcrypt1-4.5.2-2.4
+[   10s] [90/700] preinstalled libctf-nobfd0-2.47-2.1
+[   10s] [91/700] preinstalled libctf0-2.47-2.1
+[   10s] [92/700] cumulate libdatrie1-0.2.14-1.6
+[   10s] [93/700] cumulate libdav1d7-1.5.4-1.2
+[   10s] [94/700] cumulate libdeflate0-1.26-1.1
+[   10s] [95/700] cumulate libdisplay-info3-0.3.0-2.5
+[   10s] [96/700] cumulate libdouble-conversion3-3.4.0-1.4
+[   10s] [97/700] cumulate libdraco11-1.5.9-1.1
+[   10s] [98/700] cumulate libdrm2-2.4.134-2.2
+[   10s] [99/700] preinstalled libdw1-0.196-2.1
+[   10s] [100/700] cumulate libebur128-1-1.2.6-2.6
+[   10s] [101/700] cumulate libeconf-devel-0.8.6-1.1
+[   10s] [102/700] preinstalled libeconf0-0.8.6-1.1
+[   10s] [103/700] cumulate libedit0-20250104.3.1-1.5
+[   10s] [104/700] preinstalled libelf1-0.196-2.1
+[   10s] [105/700] cumulate libembree4-4-4.4.1-1.3
+[   10s] [106/700] cumulate libepoxy0-1.5.10-2.11
+[   10s] [107/700] cumulate libevdev2-1.13.7-1.1
+[   10s] [108/700] preinstalled libexpat1-2.10.0-1.1
+[   10s] [109/700] preinstalled libfdisk1-2.42.4-2.1
+[   10s] [110/700] cumulate libfdk-aac2-2.0.3-1.2
+[   10s] [111/700] cumulate libffi-devel-3.5.2-2.4
+[   10s] [112/700] preinstalled libffi8-3.5.2-2.4
+[   10s] [113/700] cumulate libfftw3-3-3.3.11-1.1
+[   10s] [114/700] cumulate libfmt12-12.1.0-1.4
+[   10s] [115/700] cumulate libfreeaptx0-0.2.2-2.1
+[   10s] [116/700] cumulate libfribidi0-1.0.17-1.1
+[   10s] [117/700] preinstalled libgcc_s1-16.2.1+git9713-1.1
+[   10s] [118/700] preinstalled libgcrypt20-1.12.4-1.1
+[   10s] [119/700] preinstalled libgdbm6-1.26-1.6
+[   10s] [120/700] preinstalled libgdbm_compat4-1.26-1.6
+[   10s] [121/700] cumulate libgfortran5-16.2.1+git9713-1.1
+[   10s] [122/700] cumulate libgif7-5.2.2-4.3
+[   10s] [123/700] cumulate libglib-2_0-0-2.90.1-1.1
+[   10s] [124/700] cumulate libglog2-0.7.1-1.7
+[   10s] [125/700] preinstalled libgmp10-6.3.0-5.6
+[   10s] [126/700] cumulate libgmpxx4-6.3.0-5.6
+[   10s] [127/700] preinstalled libgomp1-16.2.1+git9713-1.1
+[   10s] [128/700] preinstalled libgpg-error0-1.61-2.1
+[   10s] [129/700] cumulate libgraphblas10-7.14.1-1.1
+[   10s] [130/700] cumulate libgraphite2-3-1.3.15-1.3
+[   10s] [131/700] preinstalled libhwasan0-16.2.1+git9713-1.1
+[   10s] [132/700] cumulate libhwy1-1.4.0-3.1
+[   10s] [133/700] cumulate libicu78-ledata-78.3-1.3
+[   10s] [134/700] cumulate libirml1-2023.0.0-1.3
+[   10s] [135/700] preinstalled libisl23-0.27-1.8
+[   10s] [136/700] preinstalled libitm1-16.2.1+git9713-1.1
+[   10s] [137/700] cumulate libjack0-1.9.22-5.5
+[   10s] [138/700] cumulate libjbig2-2.2-1.1
+[   10s] [139/700] cumulate libjemalloc2-5.4.0-1.1
+[   10s] [140/700] preinstalled libjitterentropy3-3.6.3-2.1
+[   10s] [141/700] cumulate libjpeg8-8.3.2-86.1
+[   10s] [142/700] cumulate liblc3-1-1.1.3-1.7
+[   10s] [143/700] cumulate liblcms2-2-2.20-1.1
+[   10s] [144/700] cumulate libldac2-2.0.2.6-1.1
+[   10s] [145/700] cumulate libldl3-7.14.1-1.1
+[   10s] [146/700] cumulate libleancrypto1-1.8.0-3.2
+[   10s] [147/700] preinstalled liblsan0-16.2.1+git9713-1.1
+[   10s] [148/700] preinstalled liblua5_4-5-5.4.8-4.7
+[   10s] [149/700] preinstalled liblz1-1.16-2.1
+[   10s] [150/700] preinstalled liblz4-1-1.10.0-2.10
+[   10s] [151/700] preinstalled liblzma5-5.8.4-1.1
+[   10s] [152/700] cumulate liblzo2-2-2.10-9.10
+[   10s] [153/700] preinstalled libmagic1-5.48-2.2
+[   10s] [154/700] cumulate libmd4c0-0.5.3-1.3
+[   10s] [155/700] cumulate libmeshoptimizer-1_2-1.2-1.2
+[   10s] [156/700] cumulate libmetis5-5.1.0-13.5
+[   10s] [157/700] cumulate libminizip1-1.3.1-3.3
+[   10s] [158/700] preinstalled libmount1-2.42.4-2.1
+[   10s] [159/700] preinstalled libmpc3-1.4.1-1.3
+[   10s] [160/700] preinstalled libmpdec4-4.0.1-2.6
+[   10s] [161/700] preinstalled libmpfr6-4.2.2-1.5
+[   10s] [162/700] cumulate libmtdev1-1.1.6-1.20
+[   10s] [163/700] cumulate libmysofa1-1.3.5-1.1
+[   10s] [164/700] preinstalled libncurses6-6.6.20261017-116.1
+[   10s] [165/700] cumulate libnettle9-4.0-1.1
+[   10s] [166/700] cumulate libogg0-1.3.6-1.4
+[   10s] [167/700] cumulate libomp23-devel-23.1.4-1.1
+[   10s] [168/700] cumulate libopenjp2-7-2.5.4-2.6
+[   10s] [169/700] cumulate libopenjph0_32-0.32.0-1.1
+[   10s] [170/700] preinstalled libopenssl3-3.5.3-9.1
+[   10s] [171/700] cumulate libopus0-1.6.1-1.5
+[   10s] [172/700] cumulate liborc-0_4-0-0.4.44-1.1
+[   10s] [173/700] cumulate liboslnoise1_15-1.15.7.0-1.1
+[   10s] [174/700] cumulate libp11-kit0-0.26.5-1.1
+[   10s] [175/700] cumulate libpartio1-1.20.0-1.4
+[   10s] [176/700] cumulate libpciaccess0-0.19-1.3
+[   10s] [177/700] cumulate libpcre2-16-0-10.49-2.1
+[   10s] [178/700] cumulate libpcre2-32-0-10.49-2.1
+[   10s] [179/700] preinstalled libpcre2-8-0-10.49-2.1
+[   10s] [180/700] cumulate libpcre2-posix3-10.49-2.1
+[   10s] [181/700] cumulate libpixman-1-0-0.46.4-2.6
+[   10s] [182/700] preinstalled libpkgconf7-2.5.1-1.5
+[   10s] [183/700] cumulate libpng16-16-1.6.59-1.1
+[   10s] [184/700] preinstalled libpopt0-1.19-2.3
+[   10s] [185/700] cumulate libpotrace0-1.16-2.10
+[   10s] [186/700] cumulate libpugixml1-1.16-1.2
+[   10s] [187/700] cumulate libpystring1-1.2.0-1.1
+[   10s] [188/700] preinstalled libpython3_13-1_0-3.13.16-2.1
+[   10s] [189/700] cumulate librav1e0_8-0.8.1-2.4
+[   10s] [190/700] cumulate libraw1394-11-2.1.2-2.9
+[   10s] [191/700] preinstalled libreadline8-8.3.6-3.1
+[   10s] [192/700] cumulate librhash1-1.4.6-2.3
+[   10s] [193/700] preinstalled librpmbuild10-4.20.1-11.1
+[   10s] [194/700] cumulate libsamplerate0-0.2.2-3.8
+[   10s] [195/700] cumulate libsbc1-2.2-2.1
+[   10s] [196/700] preinstalled libseccomp2-2.6.1-3.1
+[   10s] [197/700] preinstalled libselinux1-3.11-2.1
+[   10s] [198/700] cumulate libsemanage-conf-3.11-1.2
+[   10s] [199/700] cumulate libsepol2-3.11-1.2
+[   10s] [200/700] cumulate libserd-0-0-0.32.10-1.1
+[   10s] [201/700] preinstalled libsframe3-2.47-2.1
+[   10s] [202/700] cumulate libsharpyuv0-1.6.0-2.3
+[   10s] [203/700] cumulate libsigc-2_0-0-2.12.1-2.11
+[   10s] [204/700] preinstalled libsmartcols1-2.42.4-2.1
+[   10s] [205/700] cumulate libsnappy1-1.3.0-1.1
+[   10s] [206/700] cumulate libsqlite3-0-3.54.1-1.1
+[   10s] [207/700] preinstalled libstdc++6-16.2.1+git9713-1.1
+[   10s] [208/700] cumulate libstdc++6-devel-gcc16-16.2.1+git9713-1.1
+[   10s] [209/700] cumulate libsubid6-4.20.3-1.1
+[   10s] [210/700] cumulate libsuitesparseconfig7-7.14.1-1.1
+[   10s] [211/700] cumulate libsystemd0-mini-261.4-1.1
+[   10s] [212/700] cumulate libtasn1-6-4.21.0-2.1
+[   10s] [213/700] cumulate libtbb12-2023.0.0-1.3
+[   10s] [214/700] cumulate libtbbmalloc2-2023.0.0-1.3
+[   10s] [215/700] cumulate libthai-data-0.1.30-1.4
+[   10s] [216/700] cumulate libtheoradec2-1.2.0-3.1
+[   10s] [217/700] cumulate libts0-1.24-1.4
+[   10s] [218/700] preinstalled libtsan2-16.2.1+git9713-1.1
+[   10s] [219/700] cumulate libturbojpeg0-8.3.2-86.1
+[   10s] [220/700] preinstalled libubsan1-16.2.1+git9713-1.1
+[   10s] [221/700] cumulate libudev-mini1-261.4-1.1
+[   10s] [222/700] cumulate libunistring5-1.5-1.1
+[   10s] [223/700] cumulate libunwind8-1.8.3-3.3
+[   10s] [224/700] preinstalled libuuid1-2.42.4-2.1
+[   10s] [225/700] cumulate libuv1-1.52.0-1.3
+[   10s] [226/700] cumulate libverto1-0.3.2-3.11
+[   10s] [227/700] cumulate libvmaf3-3.2.1-1.1
+[   10s] [228/700] cumulate libvpl2-2.17.0-1.2
+[   10s] [229/700] cumulate libvulkan1-1.4.363-1.1
+[   10s] [230/700] cumulate libwacom-data-2.20.0-1.1
+[   10s] [231/700] cumulate libwayland-client0-1.26.0-1.2
+[   10s] [232/700] cumulate libwayland-egl1-1.26.0-1.2
+[   10s] [233/700] cumulate libwayland-server0-1.26.0-1.2
+[   10s] [234/700] cumulate libwebpdecoder3-1.6.0-2.3
+[   10s] [235/700] cumulate libwrap0-7.6-901.6
+[   10s] [236/700] preinstalled libxcrypt-devel-4.5.2-2.4
+[   10s] [237/700] preinstalled libxml2-16-2.15.4-1.1
+[   10s] [238/700] cumulate libxshmfence1-1.3.3-1.7
+[   10s] [239/700] cumulate libyaml-0-2-0.2.5-2.14
+[   10s] [240/700] cumulate libyaml-cpp0_9-0.9.0-1.3
+[   10s] [241/700] cumulate libz-ng2-2.3.3-2.3
+[   10s] [242/700] preinstalled libz1-1.3.1-3.3
+[   10s] [243/700] cumulate libzix-0-0-0.8.2-1.1
+[   10s] [244/700] cumulate libzstd-devel-1.5.7-6.1
+[   10s] [245/700] preinstalled libzstd1-1.5.7-6.1
+[   10s] [246/700] preinstalled linux-glibc-devel-7.3-1.1
+[   10s] [247/700] cumulate llvm23-polly-23.1.4-1.1
+[   10s] [248/700] cumulate login_defs-4.20.3-1.1
+[   10s] [249/700] cumulate logrotate-3.22.0-2.8
+[   10s] [250/700] preinstalled lua-interpreter-5-3.4
+[   10s] [251/700] preinstalled lua54-5.4.8-4.7
+[   10s] [252/700] preinstalled make-4.4.1-3.10
+[   10s] [253/700] cumulate mold-3.0.0-2.1
+[   10s] [254/700] preinstalled ncurses-utils-6.6.20261017-116.1
+[   10s] [255/700] cumulate ninja-1.13.2-1.4
+[   10s] [256/700] preinstalled pam-1.7.3-1.1
+[   10s] [257/700] preinstalled patch-2.8.1-2.1
+[   10s] [258/700] preinstalled perl-5.44.0-1.2
+[   10s] [259/700] preinstalled perl-base-5.44.0-1.2
+[   10s] [260/700] preinstalled perl-rpm-packaging-1.3-1.3
+[   10s] [261/700] preinstalled permctl-1699_20260917-2.1
+[   10s] [262/700] preinstalled permissions-1699_20260917-2.1
+[   10s] [263/700] preinstalled permissions-config-1699_20260917-2.1
+[   10s] [264/700] preinstalled pkgconf-2.5.1-1.5
+[   10s] [265/700] preinstalled pkgconf-m4-2.5.1-1.5
+[   10s] [266/700] preinstalled pkgconf-pkg-config-2.5.1-1.5
+[   10s] [267/700] preinstalled polkit-default-privs-1550+20261016.b8e1631-1.1
+[   10s] [268/700] preinstalled post-build-checks-84.87+git20260421.8ed5e73-1.1
+[   10s] [269/700] preinstalled python-rpm-macros-20260912.881b918-1.1
+[   10s] [270/700] preinstalled python-rpm-packaging-20210526+a18ca48-2.1
+[   10s] [271/700] preinstalled python313-base-3.13.16-2.1
+[   10s] [272/700] cumulate python313-charset-normalizer-3.5.2-1.1
+[   10s] [273/700] cumulate python313-devel-3.13.16-2.1
+[   10s] [274/700] cumulate python313-idna-3.20-1.1
+[   10s] [275/700] preinstalled python313-packaging-26.3-1.1
+[   10s] [276/700] preinstalled rpm-4.20.1-11.1
+[   10s] [277/700] preinstalled rpm-build-4.20.1-11.1
+[   10s] [278/700] preinstalled rpm-config-SUSE-20250904-1.4
+[   10s] [279/700] preinstalled rpmlint-mini-2.10.0+git20261020.513f17e8-21.57
+[   10s] [280/700] preinstalled rpmlint-strict-2.10.0+git20261020.513f17e8-1.1
+[   10s] [281/700] preinstalled sed-4.10-1.4
+[   10s] [282/700] preinstalled suse-reproducible-builds-1.0-1.2
+[   10s] [283/700] preinstalled system-user-root-20190513-2.23
+[   10s] [284/700] preinstalled systemd-rpm-macros-26-1.4
+[   10s] [285/700] cumulate sysuser-shadow-3.3-12.3
+[   10s] [286/700] preinstalled tar-1.35-10.1
+[   10s] [287/700] preinstalled terminfo-base-6.6.20261017-116.1
+[   10s] [288/700] cumulate timezone-2026e-1.1
+[   10s] [289/700] cumulate typelib-1_0-GIRepository-3_0-2.90.1-1.1
+[   10s] [290/700] cumulate update-alternatives-1.22.22-1.3
+[   10s] [291/700] preinstalled util-linux-2.42.4-2.1
+[   10s] [292/700] cumulate wayland-protocols-devel-1.50-1.1
+[   10s] [293/700] preinstalled which-2.25-1.3
+[   10s] [294/700] cumulate xkeyboard-config-2.48-2.1
+[   10s] [295/700] cumulate xorgproto-devel-2026.1-1.1
+[   10s] [296/700] preinstalled xz-5.8.4-1.1
+[   10s] [297/700] cumulate xz-devel-5.8.4-1.1
+[   10s] [298/700] cumulate zlib-devel-1.3.1-3.3
+[   10s] [299/700] cumulate dbus-1-common-1.14.10-5.5
+[   10s] [300/700] cumulate draco-devel-1.5.9-1.1
+[   10s] [301/700] cumulate embree-devel-4.4.1-1.3
+[   10s] [302/700] cumulate ffmpeg-8-mini-devel-8.1.3-4.1
+[   10s] [303/700] cumulate fmt-devel-12.1.0-1.4
+[   10s] [304/700] cumulate fribidi-devel-1.0.17-1.1
+[   10s] [305/700] cumulate gcc16-c++-16.2.1+git9713-1.1
+[   10s] [306/700] cumulate glog-devel-0.7.1-1.7
+[   10s] [307/700] cumulate gmp-devel-6.3.0-5.6
+[   10s] [308/700] cumulate jemalloc-devel-5.4.0-1.1
+[   10s] [309/700] cumulate lerc-devel-4.2.0-1.1
+[   10s] [310/700] cumulate level-zero-devel-1.35.0-1.1
+[   10s] [311/700] cumulate libAlembic1_8-1.8.12-1.1
+[   10s] [312/700] cumulate libFLAC14-1.5.0-1.8
+[   10s] [313/700] cumulate libIlmThread-3_5-34-3.5.3-1.1
+[   10s] [314/700] cumulate libLLVM23-23.1.4-1.1
+[   10s] [315/700] cumulate libOpenImageIO_Util3_2-3.2.2.0-1.1
+[   10s] [316/700] cumulate libSM6-1.2.6-1.5
+[   10s] [317/700] cumulate libX11-xcb1-1.8.14-1.1
+[   10s] [318/700] cumulate libabsl_strings_internal2608_0_0-20260817.0-1.1
+[   10s] [319/700] cumulate libamd3-7.14.1-1.1
+[   10s] [320/700] cumulate libaom3-3.15.2-1.1
+[   10s] [321/700] cumulate libassimp6-6.0.5-4.3
+[   10s] [322/700] cumulate libavc1394-0-0.5.4-20.9
+[   10s] [323/700] cumulate libblkid-devel-2.42.4-2.1
+[   10s] [324/700] cumulate libblosc1-1.21.7-1.1
+[   10s] [325/700] cumulate libboost_atomic1_92_0-1.92.0-1.1
+[   10s] [326/700] cumulate libboost_chrono1_92_0-1.92.0-1.1
+[   10s] [327/700] cumulate libboost_container1_92_0-1.92.0-1.1
+[   10s] [328/700] cumulate libboost_date_time1_92_0-1.92.0-1.1
+[   10s] [329/700] cumulate libboost_filesystem1_92_0-1.92.0-1.1
+[   10s] [330/700] cumulate libboost_graph1_92_0-1.92.0-1.1
+[   10s] [331/700] cumulate libboost_iostreams1_92_0-1.92.0-1.1
+[   10s] [332/700] cumulate libboost_math1_92_0-1.92.0-1.1
+[   10s] [333/700] cumulate libboost_python-py3-1_92_0-1.92.0-1.1
+[   10s] [334/700] cumulate libboost_random1_92_0-1.92.0-1.1
+[   10s] [335/700] cumulate libboost_regex1_92_0-1.92.0-1.1
+[   10s] [336/700] cumulate libboost_serialization1_92_0-1.92.0-1.1
+[   10s] [337/700] cumulate libboost_thread1_92_0-1.92.0-1.1
+[   10s] [338/700] cumulate libbrotlidec1-1.2.1-1.1
+[   10s] [339/700] cumulate libbrotlienc1-1.2.1-1.1
+[   10s] [340/700] cumulate libcamd3-7.14.1-1.1
+[   10s] [341/700] cumulate libccolamd3-7.14.1-1.1
+[   10s] [342/700] cumulate libcolamd3-7.14.1-1.1
+[   10s] [343/700] cumulate libcxsparse4-7.14.1-1.1
+[   10s] [344/700] cumulate libdeflate-devel-1.26-1.1
+[   10s] [345/700] cumulate libdrm_amdgpu1-2.4.134-2.2
+[   10s] [346/700] cumulate libfftw3_threads3-3.3.11-1.1
+[   10s] [347/700] cumulate libgbm1-26.2.5-1.1
+[   10s] [348/700] cumulate libglslang16-16.6.0-1.1
+[   10s] [349/700] cumulate libgmodule-2_0-0-2.90.1-1.1
+[   10s] [350/700] cumulate libgobject-2_0-0-2.90.1-1.1
+[   10s] [351/700] cumulate libgthread-2_0-0-2.90.1-1.1
+[   10s] [352/700] cumulate libhogweed7-4.0-1.1
+[   10s] [353/700] cumulate libhpdf2_4-2.4.6-1.1
+[   10s] [354/700] cumulate libidn2-0-2.3.8-1.5
+[   10s] [355/700] cumulate libiec61883-0-1.2.0-9.5
+[   10s] [356/700] cumulate libjackserver0-1.9.22-5.5
+[   10s] [357/700] cumulate liblagraph1-7.14.1-1.1
+[   10s] [358/700] cumulate libminizip-ng4-4.1.0-1.3
+[   10s] [359/700] cumulate libogg-devel-1.3.6-1.4
+[   10s] [360/700] cumulate libopenblas_openmp0-0.3.34-1.1
+[   10s] [361/700] cumulate libopenblas_serial0-0.3.34-1.1
+[   10s] [362/700] cumulate libopenpgl0-0.7.1-1.5
+[   10s] [363/700] cumulate libopus-devel-1.6.1-1.5
+[   10s] [364/700] cumulate libosdCPU3_7_0-3.7.0-1.1
+[   10s] [365/700] cumulate librbio4-7.14.1-1.1
+[   10s] [366/700] cumulate librubberband3-4.0.0-1.6
+[   10s] [367/700] cumulate libsepol-devel-3.11-1.2
+[   10s] [368/700] cumulate libstdc++-devel-16-1.1
+[   10s] [369/700] cumulate libsuitesparse_mongoose3-7.14.1-1.1
+[   10s] [370/700] cumulate libtheoraenc2-1.2.0-3.1
+[   10s] [371/700] cumulate libusb-1_0-0-1.0.30-1.3
+[   10s] [372/700] cumulate libvorbis0-1.3.7-5.10
+[   10s] [373/700] cumulate libvpl-devel-2.17.0-1.2
+[   10s] [374/700] cumulate libwayland-cursor0-1.26.0-1.2
+[   10s] [375/700] cumulate libwebp7-1.6.0-2.3
+[   10s] [376/700] cumulate libxcb1-1.17.0-2.7
+[   10s] [377/700] cumulate libxkbcommon0-1.13.2-1.3
+[   10s] [378/700] cumulate libyuv0-20230517+a377993-2.5
+[   10s] [379/700] cumulate lzo-devel-2.10-9.10
+[   10s] [380/700] cumulate meshoptimizer-devel-1.2-1.2
+[   10s] [381/700] cumulate metis-devel-5.1.0-13.5
+[   10s] [382/700] cumulate potrace-1.16-2.10
+[   10s] [383/700] cumulate pugixml-devel-1.16-1.2
+[   10s] [384/700] cumulate python313-3.13.16-2.1
+[   10s] [385/700] cumulate shared-mime-info-2.5.1-1.1
+[   10s] [386/700] cumulate system-user-lp-20250822-2.3
+[   10s] [387/700] cumulate Clipper2-devel-2.0.1-1.4
+[   10s] [388/700] cumulate cmake-mini-4.4.4-1.1
+[   10s] [389/700] cumulate libOpenEXRCore-3_5-34-3.5.3-1.1
+[   10s] [390/700] cumulate libOpenImageDenoise_device_cpu2_5_1-2.5.1-2.1
+[   10s] [391/700] cumulate libXau-devel-1.0.12-2.5
+[   10s] [392/700] cumulate libblas3-3.12.1-5.1
+[   10s] [393/700] cumulate libhwloc15-2.13.0-1.3
+[   10s] [394/700] cumulate libicu78-78.3-1.3
+[   10s] [395/700] cumulate libjacknet0-1.9.22-5.5
+[   10s] [396/700] cumulate libjpeg8-devel-8.3.2-86.1
+[   10s] [397/700] cumulate libmanifold3-3.5.4-1.1
+[   10s] [398/700] cumulate libpng16-devel-1.6.59-1.1
+[   10s] [399/700] cumulate libportaudio2-190700_20210406-1.19
+[   10s] [400/700] cumulate libraw25-0.22.2-2.1
+[   10s] [401/700] cumulate libsemanage2-3.11-1.2
+[   10s] [402/700] cumulate libsord-0-0-0.16.22-1.3
+[   10s] [403/700] cumulate libthai0-0.1.30-1.4
+[   10s] [404/700] cumulate minizip-devel-1.3.1-3.3
+[   10s] [405/700] cumulate p11-kit-0.26.5-1.1
+[   10s] [406/700] cumulate p11-kit-tools-0.26.5-1.1
+[   10s] [407/700] cumulate krb5-mini-1.22.2-6.1
+[   10s] [408/700] cumulate libtiff6-4.7.2-1.2
+[   10s] [409/700] cumulate OpenSubdiv-devel-3.7.0-1.1
+[   10s] [410/700] cumulate blas-devel-3.12.1-5.1
+[   10s] [411/700] cumulate blosc-devel-1.21.7-1.1
+[   10s] [412/700] cumulate cups-config-2.4.20-2.1
+[   10s] [413/700] cumulate gcc-c++-16-1.1
+[   10s] [414/700] cumulate libFLAC++11-1.5.0-1.8
+[   10s] [415/700] cumulate libLTO23-23.1.4-1.1
+[   10s] [416/700] cumulate libclang-cpp23-23.1.4-1.1
+[   10s] [417/700] cumulate libicu-devel-78.3-1.3
+[   10s] [418/700] cumulate libmanifoldc3-3.5.4-1.1
+[   10s] [419/700] cumulate liboslquery1_15-1.15.7.0-1.1
+[   10s] [420/700] cumulate libtbbbind_2_5-3-2023.0.0-1.3
+[   10s] [421/700] cumulate libvorbisenc2-1.3.7-5.10
+[   10s] [422/700] cumulate libwebpdemux2-1.6.0-2.3
+[   10s] [423/700] cumulate libwebpmux3-1.6.0-2.3
+[   10s] [424/700] cumulate libxcb-composite0-1.17.0-2.7
+[   10s] [425/700] cumulate libxcb-damage0-1.17.0-2.7
+[   10s] [426/700] cumulate libxcb-dbe0-1.17.0-2.7
+[   10s] [427/700] cumulate libxcb-dpms0-1.17.0-2.7
+[   10s] [428/700] cumulate libxcb-dri2-0-1.17.0-2.7
+[   10s] [429/700] cumulate libxcb-dri3-0-1.17.0-2.7
+[   10s] [430/700] cumulate libxcb-glx0-1.17.0-2.7
+[   10s] [431/700] cumulate libxcb-icccm4-0.4.2-1.12
+[   10s] [432/700] cumulate libxcb-keysyms1-0.4.1-1.12
+[   10s] [433/700] cumulate libxcb-present0-1.17.0-2.7
+[   10s] [434/700] cumulate libxcb-randr0-1.17.0-2.7
+[   10s] [435/700] cumulate libxcb-record0-1.17.0-2.7
+[   10s] [436/700] cumulate libxcb-render0-1.17.0-2.7
+[   10s] [437/700] cumulate libxcb-res0-1.17.0-2.7
+[   10s] [438/700] cumulate libxcb-screensaver0-1.17.0-2.7
+[   10s] [439/700] cumulate libxcb-shape0-1.17.0-2.7
+[   10s] [440/700] cumulate libxcb-shm0-1.17.0-2.7
+[   10s] [441/700] cumulate libxcb-sync1-1.17.0-2.7
+[   10s] [442/700] cumulate libxcb-util1-0.4.1-1.12
+[   10s] [443/700] cumulate libxcb-xf86dri0-1.17.0-2.7
+[   10s] [444/700] cumulate libxcb-xfixes0-1.17.0-2.7
+[   10s] [445/700] cumulate libxcb-xinerama0-1.17.0-2.7
+[   10s] [446/700] cumulate libxcb-xinput0-1.17.0-2.7
+[   10s] [447/700] cumulate libxcb-xkb1-1.17.0-2.7
+[   10s] [448/700] cumulate libxcb-xtest0-1.17.0-2.7
+[   10s] [449/700] cumulate libxcb-xv0-1.17.0-2.7
+[   10s] [450/700] cumulate libxcb-xvmc0-1.17.0-2.7
+[   10s] [451/700] cumulate libxkbcommon-devel-1.13.2-1.3
+[   10s] [452/700] cumulate llvm23-23.1.4-1.1
+[   10s] [453/700] cumulate llvm23-gold-23.1.4-1.1
+[   10s] [454/700] cumulate openpgl-devel-0.7.1-1.5
+[   10s] [455/700] cumulate potrace-devel-1.16-2.10
+[   10s] [456/700] cumulate Imath-devel-3.2.3-1.1
+[   10s] [457/700] cumulate ca-certificates-2+git20260727.241e0ff-1.1
+[   10s] [458/700] cumulate cmake-4.4.4-1.1
+[   10s] [459/700] cumulate compatlibopenblas_serial0-0.3.34-1.1
+[   10s] [460/700] cumulate fftw3-devel-3.3.11-1.1
+[   10s] [461/700] cumulate libOpenImageDenoise2-2.5.1-2.1
+[   10s] [462/700] cumulate libX11-6-1.8.14-1.1
+[   10s] [463/700] cumulate libatk-1_0-0-2.62.1-1.1
+[   10s] [464/700] cumulate libaudaspace1_10-1.10.0-1.2
+[   10s] [465/700] cumulate libboost_headers1_92_0-devel-1.92.0-1.1
+[   10s] [466/700] cumulate libboost_numpy-py3-1_92_0-1.92.0-1.1
+[   10s] [467/700] cumulate libcblas3-3.12.1-5.1
+[   10s] [468/700] cumulate libdbus-1-3-1.14.10-5.5
+[   10s] [469/700] cumulate libfreetype6-2.15.0-2.1
+[   10s] [470/700] cumulate libgraphene-1_0-0-1.10.8-3.1
+[   10s] [471/700] cumulate liblagraphx1-7.14.1-1.1
+[   10s] [472/700] cumulate libpng16-compat-devel-1.6.59-1.1
+[   10s] [473/700] cumulate libshaderc_shared1-2026.4-1.1
+[   10s] [474/700] cumulate libspandsp3-3.0.0+g57-1.8
+[   10s] [475/700] cumulate libsratom-0-0-0.6.22-1.3
+[   10s] [476/700] cumulate libvorbisfile3-1.3.7-5.10
+[   10s] [477/700] cumulate openjph-devel-0.32.0-1.1
+[   10s] [478/700] cumulate typelib-1_0-GLib-2_0-2.90.1-1.1
+[   10s] [479/700] cumulate assimp-devel-6.0.5-4.3
+[   10s] [480/700] cumulate libabsl_strings2608_0_0-20260817.0-1.1
+[   10s] [481/700] cumulate libboost_log1_92_0-1.92.0-1.1
+[   10s] [482/700] cumulate libbrotli-devel-1.2.1-1.1
+[   10s] [483/700] cumulate libdcmtk20-3.7.0-2.4
+[   10s] [484/700] cumulate libgirepository-2_0-0-2.90.1-1.1
+[   10s] [485/700] cumulate libgudev-1_0-0-238-1.13
+[   10s] [486/700] cumulate libheif1-1.23.7-1.1
+[   10s] [487/700] cumulate libjack-devel-1.9.22-5.5
+[   10s] [488/700] cumulate libjxl0_12-0.12.0-1.2
+[   10s] [489/700] cumulate liblapack3-3.12.1-5.1
+[   10s] [490/700] cumulate libspex3-7.14.1-1.1
+[   10s] [491/700] cumulate shadow-4.20.3-1.1
+[   10s] [492/700] cumulate libOpenColorIO2_6-2.6.0-1.2
+[   10s] [493/700] cumulate libOpenEXR-3_5-34-3.5.3-1.1
+[   10s] [494/700] cumulate libglibmm-2_4-1-2.66.10-1.1
+[   10s] [495/700] cumulate libklu2-7.14.1-1.1
+[   10s] [496/700] cumulate libopenvdb13_1-13.1.0-1.2
+[   10s] [497/700] cumulate openjpeg2-2.5.4-2.6
+[   10s] [498/700] cumulate pcre2-devel-10.49-2.1
+[   10s] [499/700] cumulate wayland-devel-1.26.0-1.2
+[   10s] [500/700] cumulate libQt6Core6-6.12.0-2.1
+[   10s] [501/700] cumulate libavif16-1.4.2-1.5
+[   10s] [502/700] cumulate libgnutls30-3.8.13-4.1
+[   10s] [503/700] cumulate libtiff-devel-4.7.2-1.2
+[   10s] [504/700] cumulate OpenColorIO-devel-2.6.0-1.2
+[   10s] [505/700] cumulate OpenImageDenoise-devel-2.5.1-2.1
+[   10s] [506/700] cumulate ca-certificates-mozilla-2.92-2.1
+[   10s] [507/700] cumulate libXcomposite1-0.4.7-1.4
+[   10s] [508/700] cumulate libXdamage1-1.1.7-1.4
+[   10s] [509/700] cumulate libXext6-1.3.7-1.4
+[   10s] [510/700] cumulate libXfixes3-6.0.2-2.4
+[   10s] [511/700] cumulate libXrender1-0.9.13-1.1
+[   10s] [512/700] cumulate libaudaspace-c1_10-1.10.0-1.2
+[   10s] [513/700] cumulate libaudaspace-py1_10-1.10.0-1.2
+[   10s] [514/700] cumulate libspnav0-1.2-1.5
+[   10s] [515/700] cumulate libwebrtc-audio-processing-2-1-2.1+git.4-2.8
+[   10s] [516/700] cumulate libxml++-3_0-1-3.2.5-2.6
+[   10s] [517/700] cumulate llvm-23-1.1
+[   10s] [518/700] cumulate shaderc-devel-2026.4-1.1
+[   10s] [519/700] cumulate shadow-pw-mgmt-4.20.3-1.1
+[   10s] [520/700] cumulate alembic-devel-1.8.12-1.1
+[   10s] [521/700] cumulate cblas-devel-3.12.1-5.1
+[   10s] [522/700] cumulate fftw3-threads-devel-3.3.11-1.1
+[   10s] [523/700] cumulate libQt6DBus6-6.12.0-2.1
+[   10s] [524/700] cumulate libavahi-client3-0.8-45.2
+[   10s] [525/700] cumulate libboost_chrono1_92_0-devel-1.92.0-1.1
+[   10s] [526/700] cumulate libboost_numpy-py3-1_92_0-devel-1.92.0-1.1
+[   10s] [527/700] cumulate libboost_random1_92_0-devel-1.92.0-1.1
+[   10s] [528/700] cumulate libclang13-23.1.4-1.1
+[   10s] [529/700] cumulate libpisp1-1.7.0-1.2
+[   10s] [530/700] cumulate libselinux-devel-3.11-2.1
+[   10s] [531/700] cumulate libxcb-render-util0-0.3.10-1.12
+[   10s] [532/700] cumulate openjpeg2-devel-2.5.4-2.6
+[   10s] [533/700] cumulate openvdb-devel-13.1.0-1.2
+[   10s] [534/700] cumulate typelib-1_0-GModule-2_0-2.90.1-1.1
+[   10s] [535/700] cumulate typelib-1_0-GObject-2_0-2.90.1-1.1
+[   10s] [536/700] cumulate dbus-1-daemon-1.14.10-5.5
+[   10s] [537/700] cumulate libOpenEXRUtil-3_5-34-3.5.3-1.1
+[   10s] [538/700] cumulate libboost_atomic1_92_0-devel-1.92.0-1.1
+[   10s] [539/700] cumulate libboost_container1_92_0-devel-1.92.0-1.1
+[   10s] [540/700] cumulate libboost_regex1_92_0-devel-1.92.0-1.1
+[   10s] [541/700] cumulate libharfbuzz0-15.0.0-1.1
+[   10s] [542/700] cumulate libharu-devel-2.4.6-1.1
+[   10s] [543/700] cumulate liboslcomp1_15-1.15.7.0-1.1
+[   10s] [544/700] cumulate libtmglib3-3.12.1-5.1
+[   10s] [545/700] cumulate libxcb-image0-0.4.1-1.13
+[   10s] [546/700] cumulate libxkbcommon-x11-0-1.13.2-1.3
+[   10s] [547/700] cumulate python313-numpy-2.5.3-1.1
+[   10s] [548/700] cumulate typelib-1_0-GLibUnix-2_0-2.90.1-1.1
+[   10s] [549/700] cumulate Mesa-vulkan-device-select-26.2.5-1.1
+[   10s] [550/700] cumulate flac-devel-1.5.0-1.8
+[   10s] [551/700] cumulate freetype2-devel-2.15.0-2.1
+[   10s] [552/700] cumulate liblilv-0-0-0.28.0-1.3
+[   10s] [553/700] cumulate libvorbis-devel-1.3.7-5.10
+[   10s] [554/700] cumulate manifold-devel-3.5.4-1.1
+[   10s] [555/700] cumulate libsndfile1-1.2.2-7.1
+[   10s] [556/700] cumulate libwacom9-2.20.0-1.1
+[   10s] [557/700] cumulate libwebp-devel-1.6.0-2.3
+[   10s] [558/700] cumulate tbb-devel-2023.0.0-1.3
+[   10s] [559/700] cumulate libcholmod5-7.14.1-1.1
+[   10s] [560/700] cumulate libOpenImageIO3_2-3.2.2.0-1.1
+[   10s] [561/700] cumulate libxcb-devel-1.17.0-2.7
+[   10s] [562/700] cumulate libboost_numpy3-devel-1.92.0-1.1
+[   10s] [563/700] cumulate libspnav-devel-1.2-1.5
+[   10s] [564/700] cumulate python313-urllib3-2.8.0-2.1
+[   10s] [565/700] cumulate tmglib-devel-3.12.1-5.1
+[   10s] [566/700] cumulate libXi6-1.8.4-1.1
+[   10s] [567/700] cumulate libXinerama1-1.1.6-1.4
+[   10s] [568/700] cumulate libXss1-1.2.5-1.5
+[   10s] [569/700] cumulate libXtst6-1.2.6-1.1
+[   10s] [570/700] cumulate libXv1-1.0.13-1.7
+[   10s] [571/700] cumulate libXxf86vm1-1.1.7-1.4
+[   10s] [572/700] cumulate libklu_cholmod2-7.14.1-1.1
+[   10s] [573/700] cumulate audaspace-devel-1.10.0-1.2
+[   10s] [574/700] cumulate libXcursor1-1.2.3-1.8
+[   10s] [575/700] cumulate libXrandr2-1.5.5-1.4
+[   10s] [576/700] cumulate libboost_math1_92_0-devel-1.92.0-1.1
+[   10s] [577/700] cumulate libmount-devel-2.42.4-2.1
+[   10s] [578/700] cumulate libspqr4-7.14.1-1.1
+[   10s] [579/700] cumulate clang23-23.1.4-1.1
+[   10s] [580/700] cumulate libX11-devel-1.8.14-1.1
+[   10s] [581/700] cumulate libinput10-1.32-1.1
+[   10s] [582/700] cumulate libpulse0-17.0-7.5
+[   10s] [583/700] cumulate libumfpack6-7.14.1-1.1
+[   10s] [584/700] cumulate libxcb-cursor0-0.1.6-1.5
+[   10s] [585/700] cumulate libboost_date_time1_92_0-devel-1.92.0-1.1
+[   10s] [586/700] cumulate libcups2-2.4.20-2.1
+[   10s] [587/700] cumulate libffado2-2.5.0-2.1
+[   10s] [588/700] cumulate libsndfile-devel-1.2.2-7.1
+[   10s] [589/700] cumulate liboslexec1_15-1.15.7.0-1.1
+[   10s] [590/700] cumulate openexr-devel-3.5.3-1.1
+[   10s] [591/700] cumulate libvulkan_lvp-26.2.5-1.1
+[   10s] [592/700] cumulate clang-23-1.1
+[   10s] [593/700] cumulate libpulse-mainloop-glib0-17.0-7.5
+[   10s] [594/700] cumulate lapack-devel-3.12.1-5.1
+[   10s] [595/700] cumulate libXext-devel-1.3.7-1.4
+[   10s] [596/700] cumulate libXfixes-devel-6.0.2-2.4
+[   10s] [597/700] cumulate libXrender-devel-0.9.13-1.1
+[   10s] [598/700] cumulate libparu1-7.14.1-1.1
+[   10s] [599/700] cumulate OpenImageIO-plugin-osl-1.15.7.0-1.1
+[   10s] [600/700] cumulate libceres4-2.2.0-3.3
+[   10s] [601/700] cumulate libtestshade1_15-1.15.7.0-1.1
+[   10s] [602/700] cumulate libboost_thread1_92_0-devel-1.92.0-1.1
+[   10s] [603/700] cumulate clang-tools-23.1.4-1.1
+[   10s] [604/700] cumulate libXxf86vm-devel-1.1.7-1.4
+[   10s] [605/700] cumulate libXi-devel-1.8.4-1.1
+[   10s] [606/700] cumulate libXrandr-devel-1.5.5-1.4
+[   10s] [607/700] cumulate python313-numpy-devel-2.5.3-1.1
+[   10s] [608/700] cumulate libboost_serialization1_92_0-devel-1.92.0-1.1
+[   10s] [609/700] cumulate vulkan-headers-1.4.363-1.1
+[   10s] [610/700] cumulate libboost_graph1_92_0-devel-1.92.0-1.1
+[   10s] [611/700] cumulate vulkan-devel-1.4.363-1.1
+[   10s] [612/700] cumulate libboost_python-py3-1_92_0-devel-1.92.0-1.1
+[   10s] [613/700] cumulate libboost_python3-devel-1.92.0-1.1
+[   10s] [614/700] cumulate openblas-common-devel-0.3.34-1.1
+[   10s] [615/700] cumulate openssl-3-3.5.3-9.1
+[   10s] [616/700] cumulate libfontconfig1-2.18.3-1.1
+[   10s] [617/700] cumulate libglvnd-1.7.0-2.3
+[   10s] [618/700] cumulate llvm23-polly-devel-23.1.4-1.1
+[   10s] [619/700] cumulate libgio-2_0-0-2.90.1-1.1
+[   10s] [620/700] cumulate gio-branding-upstream-2.90.1-1.1
+[   10s] [621/700] cumulate libglvnd-devel-1.7.0-2.3
+[   10s] [622/700] cumulate openssl-3.5.3-1.3
+[   10s] [623/700] cumulate desktop-file-utils-0.28-3.4
+[   10s] [624/700] cumulate fontconfig-2.18.3-1.1
+[   10s] [625/700] cumulate libopenblas_openmp-devel-0.3.34-1.1
+[   10s] [626/700] cumulate libopenblas_serial-devel-0.3.34-1.1
+[   10s] [627/700] cumulate libopencv413-4.13.0-2.4
+[   10s] [628/700] cumulate libpxbackend-1_0-mini-0.5.12-2.4
+[   10s] [629/700] cumulate Mesa-26.2.5-1.1
+[   10s] [630/700] cumulate gdk-pixbuf-query-loaders-2.44.8-1.1
+[   10s] [631/700] cumulate glib2-tools-2.90.1-1.1
+[   10s] [632/700] cumulate libXft2-2.3.9-1.5
+[   10s] [633/700] cumulate libglycin-2-0-2.2.5-1.1
+[   10s] [634/700] cumulate typelib-1_0-Gio-2_0-2.90.1-1.1
+[   10s] [635/700] cumulate libcolord2-1.4.8-3.1
+[   10s] [636/700] cumulate libatspi0-2.62.1-1.1
+[   10s] [637/700] cumulate libcamera0_7-0.7.2-1.2
+[   10s] [638/700] cumulate libgstreamer-1_0-0-1.28.8-1.1
+[   10s] [639/700] cumulate llvm23-devel-23.1.4-1.1
+[   10s] [640/700] cumulate libcairo2-1.18.6-1.1
+[   10s] [641/700] cumulate Mesa-libGL1-26.2.5-1.1
+[   10s] [642/700] cumulate gstreamer-1.28.8-1.1
+[   10s] [643/700] cumulate libcairo-gobject2-1.18.6-1.1
+[   10s] [644/700] cumulate libproxy1-0.5.12-2.4
+[   10s] [645/700] cumulate python313-certifi-2026.10.23-1.1
+[   10s] [646/700] cumulate Mesa-libGL-devel-26.2.5-1.1
+[   10s] [647/700] cumulate clang23-devel-23.1.4-1.1
+[   10s] [648/700] cumulate libatk-bridge-2_0-0-2.62.1-1.1
+[   10s] [649/700] cumulate libgdk_pixbuf-2_0-0-2.44.8-1.1
+[   10s] [650/700] cumulate libopencv_imgcodecs413-4.13.0-2.4
+[   10s] [651/700] cumulate libpango-1_0-0-1.58.2-1.1
+[   10s] [652/700] cumulate Mesa-dri-26.2.5-1.1
+[   10s] [653/700] cumulate glib2-devel-2.90.1-1.1
+[   10s] [654/700] cumulate suitesparse-devel-7.14.1-1.1
+[   10s] [655/700] cumulate pipewire-spa-plugins-0_2-1.6.11-1.1
+[   10s] [656/700] cumulate libpipewire-0_3-0-1.6.11-1.1
+[   10s] [657/700] cumulate libpulse-devel-17.0-7.5
+[   10s] [658/700] cumulate libceres-devel-2.2.0-3.3
+[   10s] [659/700] cumulate python313-requests-2.34.2-1.2
+[   10s] [660/700] cumulate librsvg-2-2-2.63.4-1.1
+[   10s] [661/700] cumulate libQt6Network6-6.12.0-2.1
+[   10s] [662/700] cumulate Mesa-libEGL1-26.2.5-1.1
+[   10s] [663/700] cumulate gstreamer-plugins-base-1.28.8-1.1
+[   10s] [664/700] cumulate pipewire-devel-1.6.11-1.1
+[   10s] [665/700] cumulate qt6-network-tls-6.12.0-2.1
+[   10s] [666/700] cumulate qt6-networkinformation-connman-6.12.0-2.1
+[   10s] [667/700] cumulate qt6-networkinformation-nm-6.12.0-2.1
+[   10s] [668/700] cumulate Mesa-libEGL-devel-26.2.5-1.1
+[   10s] [669/700] cumulate libgstapp-1_0-0-1.28.8-1.1
+[   10s] [670/700] cumulate libgsttag-1_0-0-1.28.8-1.1
+[   10s] [671/700] cumulate qt6-networkinformation-glib-6.12.0-2.1
+[   10s] [672/700] cumulate libgstallocators-1_0-0-1.28.8-1.1
+[   10s] [673/700] cumulate libopenal1-1.25.2~0-1.1
+[   10s] [674/700] cumulate pipewire-modules-0_3-1.6.11-1.1
+[   10s] [675/700] cumulate glycin-loaders-2.2.5-1.1
+[   10s] [676/700] cumulate libQt6Gui6-6.12.0-2.1
+[   10s] [677/700] cumulate openal-soft-devel-1.25.2~0-1.1
+[   10s] [678/700] cumulate libQt6Widgets6-6.12.0-2.1
+[   10s] [679/700] cumulate libepoxy-devel-1.5.10-2.11
+[   10s] [680/700] cumulate libQt6WaylandClient6-6.12.0-2.1
+[   10s] [681/700] cumulate libgstaudio-1_0-0-1.28.8-1.1
+[   10s] [682/700] cumulate libgstvideo-1_0-0-1.28.8-1.1
+[   10s] [683/700] cumulate libgtk-3-0-3.24.52+git59.b30343717d-1.1
+[   10s] [684/700] cumulate libQt6OpenGL6-6.12.0-2.1
+[   10s] [685/700] cumulate libgstriff-1_0-0-1.28.8-1.1
+[   10s] [686/700] cumulate gtk3-tools-3.24.52+git59.b30343717d-1.1
+[   10s] [687/700] cumulate libgstpbutils-1_0-0-1.28.8-1.1
+[   10s] [688/700] cumulate libdecor-0.2.5-1.6
+[   10s] [689/700] cumulate OpenShadingLanguage-1.15.7.0-1.1
+[   10s] [690/700] cumulate libgstgl-1_0-0-1.28.8-1.1
+[   10s] [691/700] cumulate OpenShadingLanguage-common-headers-1.15.7.0-1.1
+[   10s] [692/700] cumulate libdecor-0-0-0.2.5-1.6
+[   10s] [693/700] cumulate OpenShadingLanguage-devel-1.15.7.0-1.1
+[   10s] [694/700] cumulate libopencv_videoio413-4.13.0-2.4
+[   10s] [695/700] cumulate libdecor-devel-0.2.5-1.6
+[   10s] [696/700] cumulate OpenImageIO-3.2.2.0-1.1
+[   10s] [697/700] cumulate libSDL3-0-3.4.18-1.1
+[   10s] [698/700] cumulate libSDL2-2_0-0-2.32.74-2.1
+[   10s] [699/700] cumulate OpenImageIO-devel-3.2.2.0-1.1
+[   10s] [700/700] cumulate sdl2-compat-devel-2.32.74-2.1
+[   10s] now installing cumulated packages
+[   10s] Preparing...                          ########################################
+[   10s] Updating / installing...
+[   10s] libglib-2_0-0-2.90.1-1.1              ########################################
+[   10s] libgobject-2_0-0-2.90.1-1.1           ########################################
+[   10s] boost-license1_92_0-1.92.0-1.1        ########################################
+[   10s] libsuitesparseconfig7-7.14.1-1.1      ########################################
+[   10s] libgmodule-2_0-0-2.90.1-1.1           ########################################
+[   10s] libdrm2-2.4.134-2.2                   ########################################
+[   10s] libwayland-client0-1.26.0-1.2         ########################################
+[   10s] libpng16-16-1.6.59-1.1                ########################################
+[   10s] libtbb12-2023.0.0-1.3                 ########################################
+[   10s] libOpenImageIO_Util3_2-3.2.2.0-1.1    ########################################
+[   10s] libjpeg8-8.3.2-86.1                   ########################################
+[   10s] zlib-devel-1.3.1-3.3                  ########################################
+[   10s] xorgproto-devel-2026.1-1.1            ########################################
+[   10s] libudev-mini1-261.4-1.1               ########################################
+[   10s] libopus0-1.6.1-1.5                    ########################################
+[   10s] libogg0-1.3.6-1.4                     ########################################
+[   10s] libwayland-cursor0-1.26.0-1.2         ########################################
+[   10s] libvorbis0-1.3.7-5.10                 ########################################
+[   10s] libgbm1-26.2.5-1.1                    ########################################
+[   10s] libamd3-7.14.1-1.1                    ########################################
+[   10s] typelib-1_0-GLib-2_0-2.90.1-1.1       ########################################
+[   10s] update-alternatives-1.22.22-1.3       ########################################
+[   10s] libsystemd0-mini-261.4-1.1            ########################################
+[   10s] libgfortran5-16.2.1+git9713-1.1       ########################################
+[   10s] libblas3-3.12.1-5.1                   ########################################
+[   10s] update-alternatives: using /usr/lib64/blas/libblas.so.3 to provide /usr/lib64/libblas.so.3 (libblas.so.3_aarch64) in auto mode
+[   10s] libfftw3-3-3.3.11-1.1                 ########################################
+[   10s] libasound2-1.2.16.1-3.1               ########################################
+[   10s] libImath-3_2-30-3.2.3-1.1             ########################################
+[   10s] liboslquery1_15-1.15.7.0-1.1          ########################################
+[   10s] libcolamd3-7.14.1-1.1                 ########################################
+[   10s] libwayland-egl1-1.26.0-1.2            ########################################
+[   10s] libsharpyuv0-1.6.0-2.3                ########################################
+[   10s] libwebp7-1.6.0-2.3                    ########################################
+[   10s] libpugixml1-1.16-1.2                  ########################################
+[   10s] libopenjp2-7-2.5.4-2.6                ########################################
+[   10s] libSPIRV-Tools-2026_4_rc2-2026.4~rc2-1########################################
+[   10s] libIex-3_5-34-3.5.3-1.1               ########################################
+[   10s] ffmpeg-8-mini-libs-8.1.3-4.1          ########################################
+[   10s] libwebpdemux2-1.6.0-2.3               ########################################
+[   10s] libwebpmux3-1.6.0-2.3                 ########################################
+[   10s] blas-devel-3.12.1-5.1                 ########################################
+[   10s] liblapack3-3.12.1-5.1                 ########################################
+[   10s] update-alternatives: using /usr/lib64/lapack/liblapack.so.3 to provide /usr/lib64/liblapack.so.3 (liblapack.so.3_aarch64) in auto mode
+[   10s] libvorbisenc2-1.3.7-5.10              ########################################
+[   10s] libFLAC14-1.5.0-1.8                   ########################################
+[   10s] libsndfile1-1.2.2-7.1                 ########################################
+[   10s] libogg-devel-1.3.6-1.4                ########################################
+[   10s] libboost_thread1_92_0-1.92.0-1.1      ########################################
+[   10s] libvulkan1-1.4.363-1.1                ########################################
+[   10s] libtasn1-6-4.21.0-2.1                 ########################################
+[   10s] libserd-0-0-0.32.10-1.1               ########################################
+[   10s] libraw1394-11-2.1.2-2.9               ########################################
+[   10s] libp11-kit0-0.26.5-1.1                ########################################
+[   10s] liborc-0_4-0-0.4.44-1.1               ########################################
+[   10s] libopenjph0_32-0.32.0-1.1             ########################################
+[   10s] liblcms2-2-2.20-1.1                   ########################################
+[   11s] libgraphblas10-7.14.1-1.1             ########################################
+[   11s] libfribidi0-1.0.17-1.1                ########################################
+[   11s] libbrotlicommon1-1.2.1-1.1            ########################################
+[   11s] libbrotlidec1-1.2.1-1.1               ########################################
+[   11s] libfreetype6-2.15.0-2.1               ########################################
+[   11s] libfontconfig1-2.18.3-1.1             ########################################
+[   11s] fontconfig-2.18.3-1.1                 ########################################
+[   11s] libbrotlienc1-1.2.1-1.1               ########################################
+[   11s] libavahi-common3-0.8-45.2             ########################################
+[   11s] libheif1-1.23.7-1.1                   ########################################
+[   11s] liblagraph1-7.14.1-1.1                ########################################
+[   11s] libfftw3_threads3-3.3.11-1.1          ########################################
+[   11s] libcblas3-3.12.1-5.1                  ########################################
+[   11s] update-alternatives: using /usr/lib64/blas/libcblas.so.3 to provide /usr/lib64/libcblas.so.3 (libcblas.so.3_aarch64) in auto mode
+[   11s] libopenblas_serial0-0.3.34-1.1        ########################################
+[   11s] compatlibopenblas_serial0-0.3.34-1.1  ########################################
+[   11s] update-alternatives: using /usr/lib64/openblas-serial to provide /usr/lib64/openblas-default (openblas-default_aarch64) in auto mode
+[   11s] update-alternatives: using /usr/lib64/openblas-serial/libopenblas.so.0 to provide /usr/lib64/liblapacke.so.3 (liblapacke.so.3_aarch64) in auto mode
+[   11s] typelib-1_0-GModule-2_0-2.90.1-1.1    ########################################
+[   11s] typelib-1_0-GObject-2_0-2.90.1-1.1    ########################################
+[   11s] libgudev-1_0-0-238-1.13               ########################################
+[   11s] libyuv0-20230517+a377993-2.5          ########################################
+[   11s] libcamd3-7.14.1-1.1                   ########################################
+[   11s] libccolamd3-7.14.1-1.1                ########################################
+[   11s] libcholmod5-7.14.1-1.1                ########################################
+[   11s] libspqr4-7.14.1-1.1                   ########################################
+[   11s] libumfpack6-7.14.1-1.1                ########################################
+[   11s] libboost_python-py3-1_92_0-1.92.0-1.1 ########################################
+[   11s] libatk-1_0-0-2.62.1-1.1               ########################################
+[   11s] libzstd-devel-1.5.7-6.1               ########################################
+[   11s] libzix-0-0-0.8.2-1.1                  ########################################
+[   11s] libsord-0-0-0.16.22-1.3               ########################################
+[   11s] libxshmfence1-1.3.3-1.7               ########################################
+[   11s] libuv1-1.52.0-1.3                     ########################################
+[   11s] libunistring5-1.5-1.1                 ########################################
+[   11s] libstdc++6-devel-gcc16-16.2.1+git9713-########################################
+[   11s] libstdc++-devel-16-1.1                ########################################
+[   11s] libboost_headers1_92_0-devel-1.92.0-1.########################################
+[   12s] Imath-devel-3.2.3-1.1                 ########################################
+[   12s] libsepol2-3.11-1.2                    ########################################
+[   12s] libpcre2-16-0-10.49-2.1               ########################################
+[   12s] liboslnoise1_15-1.15.7.0-1.1          ########################################
+[   12s] libnettle9-4.0-1.1                    ########################################
+[   12s] libmtdev1-1.1.6-1.20                  ########################################
+[   12s] libminizip1-1.3.1-3.3                 ########################################
+[   12s] libjack0-1.9.22-5.5                   ########################################
+[   12s] libglog2-0.7.1-1.7                    ########################################
+[   12s] libffi-devel-3.5.2-2.4                ########################################
+[   12s] libevdev2-1.13.7-1.1                  ########################################
+[   12s] libepoxy0-1.5.10-2.11                 ########################################
+[   12s] libeconf-devel-0.8.6-1.1              ########################################
+[   12s] libdeflate0-1.26-1.1                  ########################################
+[   12s] libOpenEXRCore-3_5-34-3.5.3-1.1       ########################################
+[   12s] libdav1d7-1.5.4-1.2                   ########################################
+[   12s] libcamera-base0_7-0.7.2-1.2           ########################################
+[   12s] libbtf2-7.14.1-1.1                    ########################################
+[   12s] libklu2-7.14.1-1.1                    ########################################
+[   12s] libabsl_raw_logging_internal2608_0_0-2########################################
+[   12s] libXau6-1.0.12-2.5                    ########################################
+[   12s] libxcb1-1.17.0-2.7                    ########################################
+[   12s] libxcb-shm0-1.17.0-2.7                ########################################
+[   12s] libxcb-dri3-0-1.17.0-2.7              ########################################
+[   12s] libxcb-xfixes0-1.17.0-2.7             ########################################
+[   12s] libxcb-present0-1.17.0-2.7            ########################################
+[   12s] libxcb-randr0-1.17.0-2.7              ########################################
+[   12s] libxcb-render0-1.17.0-2.7             ########################################
+[   12s] libxcb-sync1-1.17.0-2.7               ########################################
+[   12s] libxcb-xkb1-1.17.0-2.7                ########################################
+[   12s] libxcb-render-util0-0.3.10-1.12       ########################################
+[   12s] libxcb-glx0-1.17.0-2.7                ########################################
+[   12s] libxcb-shape0-1.17.0-2.7              ########################################
+[   12s] libxcb-xinput0-1.17.0-2.7             ########################################
+[   12s] libX11-data-1.8.14-1.1                ########################################
+[   12s] libX11-6-1.8.14-1.1                   ########################################
+[   12s] libXext6-1.3.7-1.4                    ########################################
+[   12s] libX11-xcb1-1.8.14-1.1                ########################################
+[   12s] libXrender1-0.9.13-1.1                ########################################
+[   12s] libXi6-1.8.4-1.1                      ########################################
+[   12s] libXfixes3-6.0.2-2.4                  ########################################
+[   12s] libXrandr2-1.5.5-1.4                  ########################################
+[   12s] libXcursor1-1.2.3-1.8                 ########################################
+[   12s] libXxf86vm1-1.1.7-1.4                 ########################################
+[   12s] libOpenImageDenoise_core2_5_1-2.5.1-2.########################################
+[   12s] libLerc4-4.2.0-1.1                    ########################################
+[   12s] libICE6-1.1.2-1.7                     ########################################
+[   12s] libClipper2-2-2.0.1-1.4               ########################################
+[   12s] libmanifold3-3.5.4-1.1                ########################################
+[   12s] Mesa-KHR-devel-26.2.5-1.1             ########################################
+[   12s] libmanifoldc3-3.5.4-1.1               ########################################
+[   12s] libSM6-1.2.6-1.5                      ########################################
+[   12s] lerc-devel-4.2.0-1.1                  ########################################
+[   12s] libOpenImageDenoise_device_cpu2_5_1-2.########################################
+[   12s] libOpenImageDenoise2-2.5.1-2.1        ########################################
+[   12s] libXft2-2.3.9-1.5                     ########################################
+[   12s] libXinerama1-1.1.6-1.4                ########################################
+[   12s] libXss1-1.2.5-1.5                     ########################################
+[   12s] libXtst6-1.2.6-1.1                    ########################################
+[   12s] libXv1-1.0.13-1.7                     ########################################
+[   12s] libXcomposite1-0.4.7-1.4              ########################################
+[   12s] libXdamage1-1.1.7-1.4                 ########################################
+[   12s] libspnav0-1.2-1.5                     ########################################
+[   12s] Mesa-vulkan-device-select-26.2.5-1.1  ########################################
+[   12s] libxcb-composite0-1.17.0-2.7          ########################################
+[   12s] libxcb-damage0-1.17.0-2.7             ########################################
+[   12s] libxcb-dbe0-1.17.0-2.7                ########################################
+[   12s] libxcb-dpms0-1.17.0-2.7               ########################################
+[   12s] libxcb-dri2-0-1.17.0-2.7              ########################################
+[   12s] libxcb-icccm4-0.4.2-1.12              ########################################
+[   12s] libxcb-keysyms1-0.4.1-1.12            ########################################
+[   12s] libxcb-record0-1.17.0-2.7             ########################################
+[   12s] libxcb-res0-1.17.0-2.7                ########################################
+[   12s] libxcb-screensaver0-1.17.0-2.7        ########################################
+[   12s] libxcb-util1-0.4.1-1.12               ########################################
+[   12s] libxcb-image0-0.4.1-1.13              ########################################
+[   12s] libxcb-cursor0-0.1.6-1.5              ########################################
+[   12s] libxcb-xf86dri0-1.17.0-2.7            ########################################
+[   12s] libxcb-xinerama0-1.17.0-2.7           ########################################
+[   12s] libxcb-xtest0-1.17.0-2.7              ########################################
+[   12s] libxcb-xv0-1.17.0-2.7                 ########################################
+[   12s] libxcb-xvmc0-1.17.0-2.7               ########################################
+[   12s] libXau-devel-1.0.12-2.5               ########################################
+[   12s] libxcb-devel-1.17.0-2.7               ########################################
+[   12s] libX11-devel-1.8.14-1.1               ########################################
+[   12s] libXext-devel-1.3.7-1.4               ########################################
+[   12s] libXfixes-devel-6.0.2-2.4             ########################################
+[   12s] libXrender-devel-0.9.13-1.1           ########################################
+[   12s] libXrandr-devel-1.5.5-1.4             ########################################
+[   12s] libabsl_strings_internal2608_0_0-20260########################################
+[   12s] libklu_cholmod2-7.14.1-1.1            ########################################
+[   12s] libdeflate-devel-1.26-1.1             ########################################
+[   12s] libblkid-devel-2.42.4-2.1             ########################################
+[   12s] glog-devel-0.7.1-1.7                  ########################################
+[   12s] libceres4-2.2.0-3.3                   ########################################
+[   12s] libportaudio2-190700_20210406-1.19    ########################################
+[   12s] libassimp6-6.0.5-4.3                  ########################################
+[   12s] minizip-devel-1.3.1-3.3               ########################################
+[   12s] assimp-devel-6.0.5-4.3                ########################################
+[   12s] libhogweed7-4.0-1.1                   ########################################
+[   12s] libsepol-devel-3.11-1.2               ########################################
+[   12s] gcc16-c++-16.2.1+git9713-1.1          ########################################
+[   12s] gcc-c++-16-1.1                        ########################################
+[   12s] libidn2-0-2.3.8-1.5                   ########################################
+[   12s] libsratom-0-0-0.6.22-1.3              ########################################
+[   12s] liblilv-0-0-0.28.0-1.3                ########################################
+[   12s] libboost_numpy-py3-1_92_0-1.92.0-1.1  ########################################
+[   12s] libboost_numpy-py3-1_92_0-devel-1.92.0########################################
+[   12s] libparu1-7.14.1-1.1                   ########################################
+[   12s] openblas-common-devel-0.3.34-1.1      ########################################
+[   12s] libopenblas_serial-devel-0.3.34-1.1   ########################################
+[   12s] cblas-devel-3.12.1-5.1                ########################################
+[   13s] python313-numpy-2.5.3-1.1             ########################################
+[   13s] fftw3-devel-3.3.11-1.1                ########################################
+[   13s] liblagraphx1-7.14.1-1.1               ########################################
+[   13s] libbrotli-devel-1.2.1-1.1             ########################################
+[   13s] libraw25-0.22.2-2.1                   ########################################
+[   13s] p11-kit-0.26.5-1.1                    ########################################
+[   13s] p11-kit-tools-0.26.5-1.1              ########################################
+[   13s] ca-certificates-2+git20260727.241e0ff-########################################
+[   13s] ca-certificates-mozilla-2.92-2.1      ########################################
+[   13s] '//etc/ssl/certs' -> '../../var/lib/ca-certificates/pem'
+[   13s] python313-urllib3-2.8.0-2.1           ########################################
+[   13s] libavc1394-0-0.5.4-20.9               ########################################
+[   13s] libiec61883-0-1.2.0-9.5               ########################################
+[   13s] libFLAC++11-1.5.0-1.8                 ########################################
+[   13s] flac-devel-1.5.0-1.8                  ########################################
+[   13s] libtmglib3-3.12.1-5.1                 ########################################
+[   13s] tmglib-devel-3.12.1-5.1               ########################################
+[   13s] lapack-devel-3.12.1-5.1               ########################################
+[   13s] libIlmThread-3_5-34-3.5.3-1.1         ########################################
+[   13s] libOpenEXR-3_5-34-3.5.3-1.1           ########################################
+[   13s] libOpenEXRUtil-3_5-34-3.5.3-1.1       ########################################
+[   13s] libglslang16-16.6.0-1.1               ########################################
+[   13s] libshaderc_shared1-2026.4-1.1         ########################################
+[   13s] libspex3-7.14.1-1.1                   ########################################
+[   13s] libAlembic1_8-1.8.12-1.1              ########################################
+[   13s] librubberband3-4.0.0-1.6              ########################################
+[   13s] libaudaspace1_10-1.10.0-1.2           ########################################
+[   13s] libaudaspace-c1_10-1.10.0-1.2         ########################################
+[   13s] libaudaspace-py1_10-1.10.0-1.2        ########################################
+[   13s] libopenblas_openmp0-0.3.34-1.1        ########################################
+[   13s] libopenblas_openmp-devel-0.3.34-1.1   ########################################
+[   13s] typelib-1_0-GLibUnix-2_0-2.90.1-1.1   ########################################
+[   13s] libvorbisfile3-1.3.7-5.10             ########################################
+[   13s] libvorbis-devel-1.3.7-5.10            ########################################
+[   13s] libtheoraenc2-1.2.0-3.1               ########################################
+[   13s] libjackserver0-1.9.22-5.5             ########################################
+[   13s] libopus-devel-1.6.1-1.5               ########################################
+[   13s] libusb-1_0-0-1.0.30-1.3               ########################################
+[   13s] libpng16-devel-1.6.59-1.1             ########################################
+[   13s] libpng16-compat-devel-1.6.59-1.1      ########################################
+[   13s] libopenpgl0-0.7.1-1.5                 ########################################
+[   13s] libosdCPU3_7_0-3.7.0-1.1              ########################################
+[   13s] libhpdf2_4-2.4.6-1.1                  ########################################
+[   13s] libdrm_amdgpu1-2.4.134-2.2            ########################################
+[   13s] libgirepository-2_0-0-2.90.1-1.1      ########################################
+[   13s] libcxsparse4-7.14.1-1.1               ########################################
+[   13s] librbio4-7.14.1-1.1                   ########################################
+[   13s] libsuitesparse_mongoose3-7.14.1-1.1   ########################################
+[   13s] libboost_atomic1_92_0-1.92.0-1.1      ########################################
+[   13s] libboost_atomic1_92_0-devel-1.92.0-1.1########################################
+[   13s] libboost_chrono1_92_0-1.92.0-1.1      ########################################
+[   13s] libboost_chrono1_92_0-devel-1.92.0-1.1########################################
+[   13s] libboost_container1_92_0-1.92.0-1.1   ########################################
+[   13s] libboost_container1_92_0-devel-1.92.0-########################################
+[   13s] libboost_date_time1_92_0-1.92.0-1.1   ########################################
+[   13s] libboost_date_time1_92_0-devel-1.92.0-########################################
+[   13s] libboost_thread1_92_0-devel-1.92.0-1.1########################################
+[   13s] libboost_filesystem1_92_0-1.92.0-1.1  ########################################
+[   13s] libboost_log1_92_0-1.92.0-1.1         ########################################
+[   13s] libpisp1-1.7.0-1.2                    ########################################
+[   13s] libboost_graph1_92_0-1.92.0-1.1       ########################################
+[   13s] libboost_iostreams1_92_0-1.92.0-1.1   ########################################
+[   13s] libboost_math1_92_0-1.92.0-1.1        ########################################
+[   13s] libboost_random1_92_0-1.92.0-1.1      ########################################
+[   13s] libboost_random1_92_0-devel-1.92.0-1.1########################################
+[   13s] libboost_math1_92_0-devel-1.92.0-1.1  ########################################
+[   13s] libboost_regex1_92_0-1.92.0-1.1       ########################################
+[   13s] libboost_serialization1_92_0-1.92.0-1.########################################
+[   13s] libboost_serialization1_92_0-devel-1.9########################################
+[   13s] libgraphene-1_0-0-1.10.8-3.1          ########################################
+[   13s] libgthread-2_0-0-2.90.1-1.1           ########################################
+[   13s] shared-mime-info-2.5.1-1.1            ########################################
+[   14s] openssl-3.5.3-1.3                     ########################################
+[   14s] openssl-3-3.5.3-9.1                   ########################################
+[   14s] python313-certifi-2026.10.23-1.1      ########################################
+[   14s] xz-devel-5.8.4-1.1                    ########################################
+[   14s] xkeyboard-config-2.48-2.1             ########################################
+[   14s] libxkbcommon0-1.13.2-1.3              ########################################
+[   14s] libxkbcommon-x11-0-1.13.2-1.3         ########################################
+[   14s] typelib-1_0-GIRepository-3_0-2.90.1-1.########################################
+[   14s] timezone-2026e-1.1                    ########################################
+[   14s] python313-idna-3.20-1.1               ########################################
+[   14s] python313-devel-3.13.16-2.1           ########################################
+[   14s] python313-charset-normalizer-3.5.2-1.1########################################
+[   14s] logrotate-3.22.0-2.8                  ########################################
+[   14s] login_defs-4.20.3-1.1                 ########################################
+[   14s] llvm23-polly-23.1.4-1.1               ########################################
+[   14s] libz-ng2-2.3.3-2.3                    ########################################
+[   14s] libminizip-ng4-4.1.0-1.3              ########################################
+[   14s] libyaml-cpp0_9-0.9.0-1.3              ########################################
+[   14s] libyaml-0-2-0.2.5-2.14                ########################################
+[   14s] libwrap0-7.6-901.6                    ########################################
+[   14s] libwebpdecoder3-1.6.0-2.3             ########################################
+[   14s] libwayland-server0-1.26.0-1.2         ########################################
+[   14s] wayland-devel-1.26.0-1.2              ########################################
+[   14s] vulkan-headers-1.4.363-1.1            ########################################
+[   14s] libwacom-data-2.20.0-1.1              ########################################
+[   14s] libwacom9-2.20.0-1.1                  ########################################
+[   14s] libinput10-1.32-1.1                   ########################################
+[   14s] libvpl2-2.17.0-1.2                    ########################################
+[   14s] libvmaf3-3.2.1-1.1                    ########################################
+[   14s] libaom3-3.15.2-1.1                    ########################################
+[   14s] libverto1-0.3.2-3.11                  ########################################
+[   14s] libunwind8-1.8.3-3.3                  ########################################
+[   14s] libturbojpeg0-8.3.2-86.1              ########################################
+[   14s] libjpeg8-devel-8.3.2-86.1             ########################################
+[   14s] openjph-devel-0.32.0-1.1              ########################################
+[   14s] libts0-1.24-1.4                       ########################################
+[   14s] libtheoradec2-1.2.0-3.1               ########################################
+[   14s] libthai-data-0.1.30-1.4               ########################################
+[   14s] libtbbmalloc2-2023.0.0-1.3            ########################################
+[   14s] libsubid6-4.20.3-1.1                  ########################################
+[   14s] libsqlite3-0-3.54.1-1.1               ########################################
+[   14s] python313-3.13.16-2.1                 ########################################
+[   14s] libsnappy1-1.3.0-1.1                  ########################################
+[   14s] libblosc1-1.21.7-1.1                  ########################################
+[   14s] libopenvdb13_1-13.1.0-1.2             ########################################
+[   14s] libsigc-2_0-0-2.12.1-2.11             ########################################
+[   14s] libglibmm-2_4-1-2.66.10-1.1           ########################################
+[   14s] libxml++-3_0-1-3.2.5-2.6              ########################################
+[   14s] libsemanage-conf-3.11-1.2             ########################################
+[   14s] libsemanage2-3.11-1.2                 ########################################
+[   14s] shadow-pw-mgmt-4.20.3-1.1             ########################################
+[   14s] /usr/bin/newgidmap: setting to root:root 0755 "cap_setgid=ep". (missing capabilities)
+[   14s] /usr/bin/newuidmap: setting to root:root 0755 "cap_setuid=ep". (missing capabilities)
+[   14s] shadow-4.20.3-1.1                     ########################################
+[   14s] sysuser-shadow-3.3-12.3               ########################################
+[   14s] /usr/sbin/useradd -r -c User for D-Bus -d /run/dbus -U messagebus -s /usr/sbin/nologin
+[   14s] dbus-1-common-1.14.10-5.5             ########################################
+[   14s] libdbus-1-3-1.14.10-5.5               ########################################
+[   14s] libpulse0-17.0-7.5                    ########################################
+[   14s] libavahi-client3-0.8-45.2             ########################################
+[   14s] dbus-1-daemon-1.14.10-5.5             ########################################
+[   14s] gio-branding-upstream-2.90.1-1.1      ########################################
+[   14s] libgio-2_0-0-2.90.1-1.1               ########################################
+[   14s] glib2-tools-2.90.1-1.1                ########################################
+[   14s] No schema files found: doing nothing.
+[   14s] libgstreamer-1_0-0-1.28.8-1.1         ########################################
+[   14s] gstreamer-1.28.8-1.1                  ########################################
+[   14s] /usr/libexec/gstreamer-1.0/gst-ptp-helper: setting to root:root 0755 "cap_net_bind_service=ep". (missing capabilities)
+[   14s] libglycin-2-0-2.2.5-1.1               ########################################
+[   14s] libpxbackend-1_0-mini-0.5.12-2.4      ########################################
+[   14s] libproxy1-0.5.12-2.4                  ########################################
+[   14s] gdk-pixbuf-query-loaders-2.44.8-1.1   ########################################
+[   14s] libgdk_pixbuf-2_0-0-2.44.8-1.1        ########################################
+[   14s] typelib-1_0-Gio-2_0-2.90.1-1.1        ########################################
+[   14s] libcolord2-1.4.8-3.1                  ########################################
+[   14s] libatspi0-2.62.1-1.1                  ########################################
+[   14s] libatk-bridge-2_0-0-2.62.1-1.1        ########################################
+[   14s] libpulse-mainloop-glib0-17.0-7.5      ########################################
+[   14s] /usr/sbin/useradd -r -c Printing daemon -d /var/spool/lpd -U lp -s /usr/sbin/nologin
+[   14s] /usr/sbin/usermod --expiredate 1 lp
+[   14s] system-user-lp-20250822-2.3           ########################################
+[   14s] cups-config-2.4.20-2.1                ########################################
+[   14s] libsbc1-2.2-2.1                       ########################################
+[   14s] libsamplerate0-0.2.2-3.8              ########################################
+[   14s] libjacknet0-1.9.22-5.5                ########################################
+[   14s] librhash1-1.4.6-2.3                   ########################################
+[   15s] cmake-mini-4.4.4-1.1                  ########################################
+[   15s] librav1e0_8-0.8.1-2.4                 ########################################
+[   15s] libpystring1-1.2.0-1.1                ########################################
+[   15s] libOpenColorIO2_6-2.6.0-1.2           ########################################
+[   15s] libpotrace0-1.16-2.10                 ########################################
+[   15s] potrace-1.16-2.10                     ########################################
+[   15s] libpixman-1-0-0.46.4-2.6              ########################################
+[   15s] libcairo2-1.18.6-1.1                  ########################################
+[   15s] libcairo-gobject2-1.18.6-1.1          ########################################
+[   15s] libpcre2-posix3-10.49-2.1             ########################################
+[   15s] libpcre2-32-0-10.49-2.1               ########################################
+[   15s] pcre2-devel-10.49-2.1                 ########################################
+[   15s] libselinux-devel-3.11-2.1             ########################################
+[   15s] libmount-devel-2.42.4-2.1             ########################################
+[   15s] glib2-devel-2.90.1-1.1                ########################################
+[   15s] No schema files found: doing nothing.
+[   15s] libpciaccess0-0.19-1.3                ########################################
+[   15s] libpartio1-1.20.0-1.4                 ########################################
+[   15s] libomp23-devel-23.1.4-1.1             ########################################
+[   15s] libmysofa1-1.3.5-1.1                  ########################################
+[   15s] libmetis5-5.1.0-13.5                  ########################################
+[   15s] metis-devel-5.1.0-13.5                ########################################
+[   15s] libmeshoptimizer-1_2-1.2-1.2          ########################################
+[   15s] libmd4c0-0.5.3-1.3                    ########################################
+[   15s] liblzo2-2-2.10-9.10                   ########################################
+[   15s] libleancrypto1-1.8.0-3.2              ########################################
+[   15s] libgnutls30-3.8.13-4.1                ########################################
+[   15s] libldl3-7.14.1-1.1                    ########################################
+[   15s] libldac2-2.0.2.6-1.1                  ########################################
+[   15s] liblc3-1-1.1.3-1.7                    ########################################
+[   15s] libjemalloc2-5.4.0-1.1                ########################################
+[   15s] libjbig2-2.2-1.1                      ########################################
+[   15s] libtiff6-4.7.2-1.2                    ########################################
+[   15s] libspandsp3-3.0.0+g57-1.8             ########################################
+[   15s] libdcmtk20-3.7.0-2.4                  ########################################
+[   15s] openjpeg2-2.5.4-2.6                   ########################################
+[   15s] libirml1-2023.0.0-1.3                 ########################################
+[   15s] libicu78-ledata-78.3-1.3              ########################################
+[   15s] libicu78-78.3-1.3                     ########################################
+[   15s] libicu-devel-78.3-1.3                 ########################################
+[   15s] libboost_regex1_92_0-devel-1.92.0-1.1 ########################################
+[   15s] libboost_graph1_92_0-devel-1.92.0-1.1 ########################################
+[   15s] libboost_python-py3-1_92_0-devel-1.92.########################################
+[   15s] libhwy1-1.4.0-3.1                     ########################################
+[   15s] libjxl0_12-0.12.0-1.2                 ########################################
+[   15s] libgraphite2-3-1.3.15-1.3             ########################################
+[   15s] libharfbuzz0-15.0.0-1.1               ########################################
+[   15s] libgmpxx4-6.3.0-5.6                   ########################################
+[   15s] libgif7-5.2.2-4.3                     ########################################
+[   15s] libOpenImageIO3_2-3.2.2.0-1.1         ########################################
+[   15s] libfreeaptx0-0.2.2-2.1                ########################################
+[   15s] libfmt12-12.1.0-1.4                   ########################################
+[   15s] fmt-devel-12.1.0-1.4                  ########################################
+[   15s] libfdk-aac2-2.0.3-1.2                 ########################################
+[   15s] libembree4-4-4.4.1-1.3                ########################################
+[   15s] libedit0-20250104.3.1-1.5             ########################################
+[   16s] libLLVM23-23.1.4-1.1                  ########################################
+[   16s] libclang-cpp23-23.1.4-1.1             ########################################
+[   16s] liboslcomp1_15-1.15.7.0-1.1           ########################################
+[   16s] liboslexec1_15-1.15.7.0-1.1           ########################################
+[   16s] libclang13-23.1.4-1.1                 ########################################
+[   16s] llvm23-23.1.4-1.1                     ########################################
+[   16s] OpenImageIO-plugin-osl-1.15.7.0-1.1   ########################################
+[   16s] libtestshade1_15-1.15.7.0-1.1         ########################################
+[   16s] libLTO23-23.1.4-1.1                   ########################################
+[   16s] llvm23-gold-23.1.4-1.1                ########################################
+[   16s] llvm23-polly-devel-23.1.4-1.1         ########################################
+[   16s] llvm23-devel-23.1.4-1.1               ########################################
+[   16s] libebur128-1-1.2.6-2.6                ########################################
+[   16s] libdraco11-1.5.9-1.1                  ########################################
+[   16s] libdouble-conversion3-3.4.0-1.4       ########################################
+[   16s] libdisplay-info3-0.3.0-2.5            ########################################
+[   16s] libvulkan_lvp-26.2.5-1.1              ########################################
+[   16s] libglvnd-1.7.0-2.3                    ########################################
+[   16s] Mesa-libGL1-26.2.5-1.1                ########################################
+[   16s] Mesa-26.2.5-1.1                       ########################################
+[   17s] Mesa-dri-26.2.5-1.1                   ########################################
+[   17s] Mesa-libEGL1-26.2.5-1.1               ########################################
+[   17s] libopencv413-4.13.0-2.4               ########################################
+[   17s] libglvnd-devel-1.7.0-2.3              ########################################
+[   17s] Mesa-libGL-devel-26.2.5-1.1           ########################################
+[   17s] Mesa-libEGL-devel-26.2.5-1.1          ########################################
+[   17s] libcamera0_7-0.7.2-1.2                ########################################
+[   17s] libdatrie1-0.2.14-1.6                 ########################################
+[   17s] libthai0-0.1.30-1.4                   ########################################
+[   17s] libpango-1_0-0-1.58.2-1.1             ########################################
+[   17s] libgstapp-1_0-0-1.28.8-1.1            ########################################
+[   17s] libgsttag-1_0-0-1.28.8-1.1            ########################################
+[   17s] libgstallocators-1_0-0-1.28.8-1.1     ########################################
+[   17s] libgstaudio-1_0-0-1.28.8-1.1          ########################################
+[   17s] libgstvideo-1_0-0-1.28.8-1.1          ########################################
+[   17s] libgstgl-1_0-0-1.28.8-1.1             ########################################
+[   17s] libgstriff-1_0-0-1.28.8-1.1           ########################################
+[   17s] libgstpbutils-1_0-0-1.28.8-1.1        ########################################
+[   17s] gstreamer-plugins-base-1.28.8-1.1     ########################################
+[   17s] librsvg-2-2-2.63.4-1.1                ########################################
+[   17s] libconfig++15-1.8.3-1.1               ########################################
+[   17s] libffado2-2.5.0-2.1                   ########################################
+[   17s] libcom_err2-1.47.4-1.1                ########################################
+[   17s] krb5-mini-1.22.2-6.1                  ########################################
+[   17s] Updating /etc/sysconfig/kadmind ...
+[   17s] Updating /etc/sysconfig/krb5kdc ...
+[   17s] libcups2-2.4.20-2.1                   ########################################
+[   17s] libclang_rt23-23.1.4-1.1              ########################################
+[   17s] clang23-23.1.4-1.1                    ########################################
+[   17s] clang-23-1.1                          ########################################
+[   17s] clang-tools-23.1.4-1.1                ########################################
+[   17s] libbz2-devel-1.0.8-7.1                ########################################
+[   17s] libbluetooth3-5.87-4.1                ########################################
+[   17s] libb2-1-0.98.1-2.4                    ########################################
+[   17s] libQt6Core6-6.12.0-2.1                ########################################
+[   17s] libQt6DBus6-6.12.0-2.1                ########################################
+[   17s] qt6-network-tls-6.12.0-2.1            ########################################
+[   17s] qt6-networkinformation-connman-6.12.0-########################################
+[   17s] qt6-networkinformation-nm-6.12.0-2.1  ########################################
+[   17s] libQt6Network6-6.12.0-2.1             ########################################
+[   17s] qt6-networkinformation-glib-6.12.0-2.1########################################
+[   17s] libQt6Widgets6-6.12.0-2.1             ########################################
+[   17s] libQt6WaylandClient6-6.12.0-2.1       ########################################
+[   17s] libQt6OpenGL6-6.12.0-2.1              ########################################
+[   17s] libQt6Gui6-6.12.0-2.1                 ########################################
+[   17s] OpenShadingLanguage-common-headers-1.1########################################
+[   17s] OpenShadingLanguage-1.15.7.0-1.1      ########################################
+[   17s] libabsl_throw_delegate2608_0_0-2026081########################################
+[   17s] libabsl_strings2608_0_0-20260817.0-1.1########################################
+[   17s] libwebrtc-audio-processing-2-1-2.1+git########################################
+[   17s] pipewire-spa-plugins-0_2-1.6.11-1.1   ########################################
+[   17s] pipewire-modules-0_3-1.6.11-1.1       ########################################
+[   17s] libpipewire-0_3-0-1.6.11-1.1          ########################################
+[   17s] libopenal1-1.25.2~0-1.1               ########################################
+[   17s] libSvtAv1Enc4-4.3.0-1.1               ########################################
+[   17s] libavif16-1.4.2-1.5                   ########################################
+[   17s] libopencv_imgcodecs413-4.13.0-2.4     ########################################
+[   17s] libopencv_videoio413-4.13.0-2.4       ########################################
+[   17s] OpenImageIO-3.2.2.0-1.1               ########################################
+[   17s] libClipper2Z2-2.0.1-1.4               ########################################
+[   17s] Clipper2-devel-2.0.1-1.4              ########################################
+[   17s] level-zero-1.35.0-1.1                 ########################################
+[   17s] hwloc-data-2.13.0-1.3                 ########################################
+[   17s] libhwloc15-2.13.0-1.3                 ########################################
+[   17s] libtbbbind_2_5-3-2023.0.0-1.3         ########################################
+[   17s] tbb-devel-2023.0.0-1.3                ########################################
+[   17s] suitesparse-devel-7.14.1-1.1          ########################################
+[   17s] hicolor-icon-theme-0.18-1.6           ########################################
+[   17s] gtk3-schema-3.24.52+git59.b30343717d-1########################################
+[   17s] gtk3-data-3.24.52+git59.b30343717d-1.1########################################
+[   17s] eigen3-devel-5.0.1-1.3                ########################################
+[   18s] bubblewrap-0.13.1-1.1                 ########################################
+[   18s] glycin-loaders-2.2.5-1.1              ########################################
+[   18s] gtk3-tools-3.24.52+git59.b30343717d-1.########################################
+[   18s] libgtk-3-0-3.24.52+git59.b30343717d-1.########################################
+[   18s] libdecor-0-0-0.2.5-1.6                ########################################
+[   18s] libdecor-0.2.5-1.6                    ########################################
+[   18s] libSDL3-0-3.4.18-1.1                  ########################################
+[   18s] libSDL2-2_0-0-2.32.74-2.1             ########################################
+[   18s] sdl2-compat-devel-2.32.74-2.1         ########################################
+[   18s] libdecor-devel-0.2.5-1.6              ########################################
+[   18s] libceres-devel-2.2.0-3.3              ########################################
+[   18s] level-zero-devel-1.35.0-1.1           ########################################
+[   18s] manifold-devel-3.5.4-1.1              ########################################
+[   18s] OpenImageIO-devel-3.2.2.0-1.1         ########################################
+[   18s] openal-soft-devel-1.25.2~0-1.1        ########################################
+[   18s] pipewire-devel-1.6.11-1.1             ########################################
+[   18s] OpenShadingLanguage-devel-1.15.7.0-1.1########################################
+[   18s] freetype2-devel-2.15.0-2.1            ########################################
+[   18s] clang23-devel-23.1.4-1.1              ########################################
+[   18s] libepoxy-devel-1.5.10-2.11            ########################################
+[   18s] draco-devel-1.5.9-1.1                 ########################################
+[   18s] llvm-23-1.1                           ########################################
+[   18s] embree-devel-4.4.1-1.3                ########################################
+[   18s] gmp-devel-6.3.0-5.6                   ########################################
+[   18s] libboost_python3-devel-1.92.0-1.1     ########################################
+[   18s] openjpeg2-devel-2.5.4-2.6             ########################################
+[   18s] libtiff-devel-4.7.2-1.2               ########################################
+[   18s] jemalloc-devel-5.4.0-1.1              ########################################
+[   18s] lzo-devel-2.10-9.10                   ########################################
+[   18s] meshoptimizer-devel-1.2-1.2           ########################################
+[   18s] libpulse-devel-17.0-7.5               ########################################
+[   18s] potrace-devel-1.16-2.10               ########################################
+[   18s] OpenColorIO-devel-2.6.0-1.2           ########################################
+[   18s] cmake-4.4.4-1.1                       ########################################
+[   18s] libjack-devel-1.9.22-5.5              ########################################
+[   18s] desktop-file-utils-0.28-3.4           ########################################
+[   18s] setting SOURCE_DATE_EPOCH_MTIME to 1793747022
+[   18s] setting SOURCE_DATE_EPOCH_MTIME to 1793747022
+[   18s] openvdb-devel-13.1.0-1.2              ########################################
+[   18s] blosc-devel-1.21.7-1.1                ########################################
+[   18s] python313-requests-2.34.2-1.2         ########################################
+[   18s] openexr-devel-3.5.3-1.1               ########################################
+[   18s] libvpl-devel-2.17.0-1.2               ########################################
+[   18s] vulkan-devel-1.4.363-1.1              ########################################
+[   18s] libwebp-devel-1.6.0-2.3               ########################################
+[   18s] python313-numpy-devel-2.5.3-1.1       ########################################
+[   18s] libxkbcommon-devel-1.13.2-1.3         ########################################
+[   18s] libharu-devel-2.4.6-1.1               ########################################
+[   18s] OpenSubdiv-devel-3.7.0-1.1            ########################################
+[   18s] openpgl-devel-0.7.1-1.5               ########################################
+[   18s] libsndfile-devel-1.2.2-7.1            ########################################
+[   18s] audaspace-devel-1.10.0-1.2            ########################################
+[   18s] alembic-devel-1.8.12-1.1              ########################################
+[   18s] shaderc-devel-2026.4-1.1              ########################################
+[   18s] fftw3-threads-devel-3.3.11-1.1        ########################################
+[   18s] libboost_numpy3-devel-1.92.0-1.1      ########################################
+[   18s] libXi-devel-1.8.4-1.1                 ########################################
+[   18s] libXxf86vm-devel-1.1.7-1.4            ########################################
+[   18s] libspnav-devel-1.2-1.5                ########################################
+[   18s] OpenImageDenoise-devel-2.5.1-2.1      ########################################
+[   18s] fribidi-devel-1.0.17-1.1              ########################################
+[   18s] ffmpeg-8-mini-devel-8.1.3-4.1         ########################################
+[   18s] pugixml-devel-1.16-1.2                ########################################
+[   18s] mold-3.0.0-2.1                        ########################################
+[   18s] wayland-protocols-devel-1.50-1.1      ########################################
+[   18s] ninja-1.13.2-1.4                      ########################################
+[   18s] fdupes-2.4.0-1.5                      ########################################
+[   20s] now finalizing build dir...
+[   20s] ... running 01-add_abuild_user_to_trusted_group
+[   20s] ... running 02-set_timezone_to_utc
+[   20s] ... running 03-set-permissions-secure
+[   20s] ... running 11-hack_uname_version_to_kernel_version
+[   20s] setting SOURCE_DATE_EPOCH_MTIME to 1793747022
+[   21s] Running build time source services...
+[   21s] spec file parser line 276: cannot expand %(...)
+[   21s] spec file parser line 278: cannot expand %(...)
+[   21s] spec file parser line 501: cannot expand %(...)
+[   21s] spec file parser line 510: cannot expand %(...)
+[   21s] spec file parser line 511: cannot expand %(...)
+[   21s] spec file parser line 514: cannot expand %(...)
+[   21s] spec file parser line 515: cannot expand %(...)
+[   21s] spec file parser line 516: cannot expand %(...)
+[   21s] spec file parser line 517: cannot expand %(...)
+[   21s] spec file parser line 520: cannot expand %(...)
+[   21s] spec file parser line 521: cannot expand %(...)
+[   21s] spec file parser line 523: cannot expand %(...)
+[   21s] spec file parser line 528: cannot expand %(...)
+[   21s] spec file parser line 532: cannot expand %(...)
+[   21s] spec file parser line 532: cannot expand %(...)
+[   21s] spec file parser line 542: cannot expand %(...)
+[   21s] spec file parser line 543: cannot expand %(...)
+[   21s] spec file parser line 544: cannot expand %(...)
+[   21s] spec file parser line 545: cannot expand %(...)
+[   21s] spec file parser line 546: cannot expand %(...)
+[   21s] spec file parser line 547: cannot expand %(...)
+[   21s] spec file parser line 548: cannot expand %(...)
+[   21s] spec file parser line 549: cannot expand %(...)
+[   21s] spec file parser line 602: cannot expand %(...)
+[   21s] spec file parser line 603: cannot expand %(...)
+[   21s] spec file parser line 604: cannot expand %(...)
+[   21s] spec file parser line 605: cannot expand %(...)
+[   21s] spec file parser line 608: cannot expand %(...)
+[   21s] spec file parser line 609: cannot expand %(...)
+[   21s] spec file parser line 611: cannot expand %(...)
+[   21s] spec file parser line 612: cannot expand %(...)
+[   21s] spec file parser line 614: cannot expand %(...)
+[   21s] spec file parser line 615: cannot expand %(...)
+[   21s] spec file parser line 616: cannot expand %(...)
+[   21s] spec file parser line 617: cannot expand %(...)
+[   21s] spec file parser line 618: cannot expand %(...)
+[   21s] spec file parser line 619: cannot expand %(...)
+[   21s] spec file parser line 620: cannot expand %(...)
+[   21s] spec file parser line 621: cannot expand %(...)
+[   21s] spec file parser line 622: cannot expand %(...)
+[   21s] spec file parser line 623: cannot expand %(...)
+[   21s] spec file parser line 624: cannot expand %(...)
+[   21s] spec file parser line 625: cannot expand %(...)
+[   21s] spec file parser line 626: cannot expand %(...)
+[   21s] spec file parser line 648: cannot expand %(...)
+[   21s] -----------------------------------------------------------------
+[   21s] I have the following modifications for blender-5.2.spec:
+[   21s] 115c115
+[   21s] < Release:        0
+[   21s] ---
+[   21s] > Release:        2.1
+[   21s] -----------------------------------------------------------------
+[   21s] ----- building blender-5.2.spec (user abuild)
+[   21s] -----------------------------------------------------------------
+[   21s] -----------------------------------------------------------------
+[   21s] setting SOURCE_DATE_EPOCH_MTIME to 1793747022
+[   21s] + exec rpmbuild -ba --define '_srcdefattr (-,root,root)' --nosignature --define '_build_create_debug 1' --define 'disturl obs://build.opensuse.org/openSUSE:Factory:ARM/standard/125980f555a1fe23cdbe8213ebbde1a2-blender-5.2' /home/abuild/rpmbuild/SOURCES/blender-5.2.spec
+[   21s] using SOURCE_DATE_EPOCH with value 1793747021 as build time
+[   21s] Executing(%mkbuilddir): /usr/bin/bash -e /var/tmp/rpm-tmp.MN9LaH
+[   21s] Executing(%prep): /usr/bin/bash -e /var/tmp/rpm-tmp.sYLQi1
+[   21s] + umask 022
+[   21s] + cd /home/abuild/rpmbuild/BUILD/blender-5.2-5.2.3-build
+[   21s] + pushd /home/abuild/rpmbuild/SOURCES
+[   21s] ~/rpmbuild/SOURCES ~/rpmbuild/BUILD/blender-5.2-5.2.3-build
+[   21s] + md5sum -c /home/abuild/rpmbuild/SOURCES/blender-5.2.3.tar.xz.md5sum
+[   21s] blender-5.2.3.tar.xz: OK
+[   21s] + popd
+[   21s] ~/rpmbuild/BUILD/blender-5.2-5.2.3-build
+[   21s] + cd /home/abuild/rpmbuild/BUILD/blender-5.2-5.2.3-build
+[   21s] + rm -rf blender-5.2.3
+[   21s] + /usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/blender-5.2.3.tar.xz
+[   24s] + STATUS=0
+[   24s] + '[' 0 -ne 0 ']'
+[   24s] + cd blender-5.2.3
+[   24s] + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+[   24s] + /usr/lib/rpm/rpmuncompress /home/abuild/rpmbuild/SOURCES/cmake_manpage_fix.patch
+[   24s] + /usr/bin/patch -p1 -s --fuzz=0 --no-backup-if-mismatch -f
+[   24s] + /usr/lib/rpm/rpmuncompress /home/abuild/rpmbuild/SOURCES/octree-missing-fstream.patch
+[   24s] + /usr/bin/patch -p1 -s --fuzz=0 --no-backup-if-mismatch -f
+[   24s] + /usr/lib/rpm/rpmuncompress /home/abuild/rpmbuild/SOURCES/assert.patch
+[   24s] + /usr/bin/patch -p1 -s --fuzz=0 --no-backup-if-mismatch -f
+[   24s] + rm -rf extern/libopenjpeg
+[   24s] + rm -rf extern/glew
+[   24s] + mkdir -p extern/glew/include
+[   24s] + sed -i 's|NOT WITH_SYSTEM_GLEW|WITH_SYSTEM_GLEW|' source/blender/gpu/CMakeLists.txt
+[   24s] ++ grep -rl '/usr/bin/env python'
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' build_files/build_environment/install_linux_packages.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' build_files/build_environment/utils/set_rpath.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' build_files/build_environment/utils/strip_libraries.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' build_files/package_spec/build_archive.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' build_files/utils/make_benchmark.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' build_files/utils/make_bpy_wheel.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' build_files/utils/make_source_archive.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' build_files/utils/make_test.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' build_files/utils/make_update.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' build_files/utils/make_utils.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' doc/blender_file_format/BlendFileDnaExporter_25.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' doc/blender_file_format/BlendFileReader.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' doc/manpage/blender.1.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' doc/python_api/check_stubs.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' doc/python_api/sphinx_stub_gen.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' doc/python_api/sphinx_stub_validate.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' extern/audaspace/bindings/doc/conf.py.in
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' release/datafiles/blender_icons_geom_update.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' release/datafiles/ctodata.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' release/lts/create_release_notes.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' release/lts/lts_download.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' release/lts/lts_issue.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' release/pypi/upload-release.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' release/release_notes/bug_fixes_per_major_release.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' scripts/addons_core/bl_pkg/cli/blender_ext.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' scripts/addons_core/io_curve_svg/svg_util_test.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' scripts/addons_core/io_scene_fbx/fbx2json.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' scripts/addons_core/io_scene_fbx/json2fbx.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' scripts/addons_core/node_wrangler/utils/paths_test.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' scripts/modules/_bl_i18n_utils/merge_po.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' scripts/modules/_bl_i18n_utils/utils_rtl.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' scripts/modules/_bpy_internal/system_info/url_prefill_startup.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' scripts/modules/blend_render_info.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' source/blender/makesrna/rna_cleanup/rna_cleaner.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' source/blender/makesrna/rna_cleanup/rna_cleaner_merge.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/coverage/coverage.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/performance/benchmark.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/python/alembic_export_tests.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/python/bl_io_curve_svg_test.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/python/compositor_render_tests.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/python/cycles_render_tests.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/python/eevee_render_tests.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/python/ffmpeg_tests.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/python/modules/test_utils.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/python/overlay_render_tests.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/python/sculpt_brush_render_tests.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/python/sequencer_render_tests.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/python/sequencer_video_output_tests.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/python/storm_render_tests.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/python/ui_screenshot_tests.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/python/ui_simulate/run.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/python/workbench_render_tests.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/utils/bl_run_operators_isolate.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tests/utils/blender_headless.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_blender_release/check_module_enabled.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_blender_release/check_module_numpy.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_blender_release/check_module_requests.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_blender_release/check_release.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_blender_release/check_static_binaries.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_blender_release/check_utils.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_docs/check_docs_code_layout.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_source/check_cmake_consistency.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_source/check_descriptions.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_source/check_header_duplicate.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_source/check_licenses.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_source/check_mypy.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_source/check_spelling.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_source/check_unused_defines.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_source/static_check_clang.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_source/static_check_clang_array.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_source/static_check_cppcheck.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/check_source/static_check_size_comments.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/git/git_sh1_to_svn_rev.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/git/git_sort_commits.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/triage/bug_fixes_per_module.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/triage/gitea_utils.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/triage/issues_module_listing.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/triage/issues_needing_info.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/triage/weekly_report.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils/addr2line_backtrace.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils/authors_git_gen.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils/autopep8_clean.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils/blend2json.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils/blender_keyconfig_export_permutations.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils/blender_merge_format_changes.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils/blender_theme_as_c.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils/credits_git_gen.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils/cycles_timeit.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils/git_data_canonical_authors.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils/git_data_sha1_override_authors.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils/git_log_review_commits.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils/git_log_review_commits_advanced.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils/make_generate_datamodels.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_api/bpy_introspect_ui.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_build/wheel_cleanup.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_doc/code_layout_diagram.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_doc/doxygen_single_file
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_ide/cmake_qtcreator_project.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_ide/project_info.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_ide/qtcreator/externaltools/qtc_assembler_preview.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_ide/qtcreator/externaltools/qtc_blender_diffusion.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_ide/qtcreator/externaltools/qtc_cpp_to_c_comments.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_ide/qtcreator/externaltools/qtc_doxy_file.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_ide/qtcreator/externaltools/qtc_expand_tabmix.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_ide/qtcreator/externaltools/qtc_project_update.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_ide/qtcreator/externaltools/qtc_right_align_trailing_char.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_ide/qtcreator/externaltools/qtc_select_surround.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_ide/qtcreator/externaltools/qtc_sort_paths.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_ide/qtcreator/externaltools/qtc_toggle_if0.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_maintenance/autopep8_format_paths.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_maintenance/c_sort_blocks.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_maintenance/c_struct_clean.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_maintenance/clang_format_paths.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_maintenance/clang_tidy.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_maintenance/cmake_sort_filelists.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_maintenance/code_clean.py
+[   24s] + for i in $(grep -rl "/usr/bin/env python")
+[   24s] + sed -i '1s@^#!.*@#!/usr/bin/python3.13@' tools/utils_maintenance/trailing_space_clean.py
+[   24s] + RPM_EC=0
+[   24s] ++ jobs -p
+[   24s] + exit 0
+[   24s] Executing(%build): /usr/bin/bash -e /var/tmp/rpm-tmp.jY3oEG
+[   24s] + umask 022
+[   24s] + cd /home/abuild/rpmbuild/BUILD/blender-5.2-5.2.3-build
+[   24s] + /usr/bin/rm -rf /home/abuild/rpmbuild/BUILD/blender-5.2-5.2.3-build/BUILDROOT
+[   24s] ++ dirname /home/abuild/rpmbuild/BUILD/blender-5.2-5.2.3-build/BUILDROOT
+[   24s] + /usr/bin/mkdir -p /home/abuild/rpmbuild/BUILD/blender-5.2-5.2.3-build
+[   24s] + /usr/bin/mkdir /home/abuild/rpmbuild/BUILD/blender-5.2-5.2.3-build/BUILDROOT
+[   24s] + cd blender-5.2.3
+[   24s] + ref=/usr/lib/rpm
+[   24s] + mints=0
+[   24s] + case $(uname -m) in
+[   24s] ++ uname -m
+[   24s] + mints=20120610
+[   24s] + for s in guess sub
+[   24s] ++ find -maxdepth 8 -name config.guess
+[   24s] + for s in guess sub
+[   24s] ++ find -maxdepth 8 -name config.sub
+[   24s] + echo 'optflags: ' -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g
+[   24s] optflags:  -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g
+[   24s] + mkdir -p build
+[   24s] + pushd build
+[   24s] ~/rpmbuild/BUILD/blender-5.2-5.2.3-build/blender-5.2.3/build ~/rpmbuild/BUILD/blender-5.2-5.2.3-build/blender-5.2.3
+[   24s] + cmake ../ -GNinja '-DCMAKE_C_FLAGS:STRING= -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC ' '-DCMAKE_CXX_FLAGS:STRING= -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC ' '-DCMAKE_EXE_LINKER_FLAGS=-Wl,-z,gcs-report-dynamic=none -flto=auto -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now' '-DCMAKE_MODULE_LINKER_FLAGS=-Wl,-z,gcs-report-dynamic=none -flto=auto -Wl,--as-needed' '-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,gcs-report-dynamic=none -flto=auto -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now' -DWITH_MEM_VALGRIND:BOOL=OFF -DWITH_ASSERT_ABORT:BOOL=OFF -DWITH_LIBS_PRECOMPILED=OFF -DCMAKE_INSTALL_LIBDIR=lib64 -DCMAKE_CXX_STANDARD=17 -DWITH_CLANG:BOOL=ON -DWITH_LLVM:BOOL=ON -DLLVM_LIBRARY:FILE=/usr/lib64/libLLVM.so -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_EXE_LINKER_FLAGS:STRING=-pie -DBUILD_SHARED_LIBS:BOOL=OFF -DWITH_INSTALL_PORTABLE:BOOL=OFF -DWITH_MEM_JEMALLOC:BOOL=ON -DWITH_ALEMBIC:BOOL=ON -DWITH_AUDASPACE:BOOL=ON -DWITH_SYSTEM_AUDASPACE:BOOL=ON -DWITH_BUILDINFO:BOOL=OFF -DWITH_BULLET:BOOL=ON -DWITH_CODEC_FFMPEG:BOOL=ON -DFFMPEG_ROOT_DIR:PATH=/usr/include/ffmpeg -DWITH_CODEC_SNDFILE:BOOL=ON -DLIBSNDFILE_ROOT_DIR:FILE=/usr -DWITH_CYCLES:BOOL=ON -DWITH_CYCLES_OSL:BOOL=ON -DOSL_SHADER_HINT:PATH=/usr/share/OpenShadingLanguage -DWITH_CYCLES_EMBREE:BOOL=ON -DWITH_DRACO:BOOL=ON -DWITH_FFTW3:BOOL=ON -DWITH_FREESTYLE:BOOL=ON -DWITH_GMP:BOOL=ON -DWITH_HARU:BOOL=ON -DWITH_IK_ITASC:BOOL=ON -DWITH_IK_SOLVER:BOOL=ON -DWITH_IMAGE_CINEON:BOOL=ON -DWITH_IMAGE_OPENJPEG:BOOL=ON -DWITH_INPUT_NDOF:BOOL=ON -DWITH_INTERNATIONAL:BOOL=ON -DWITH_LIBMV:BOOL=ON -DWITH_SYSTEM_FREETYPE:BOOL=ON -DWITH_MANIFOLD:BOOL=ON -DWITH_MOD_FLUID:BOOL=ON -DWITH_FRIBIDI:BOOL=ON -DWITH_MOD_OCEANSIM:BOOL=ON -DWITH_MOD_REMESH:BOOL=ON -DWITH_NANOVDB:BOOL=ON -DWITH_OPENAL:BOOL=ON -DWITH_OPENIMAGEDENOISE:BOOL=ON -DWITH_OPENSUBDIV:BOOL=ON -DOPENSUBDIV_OSDGPU_LIBRARY:FILE=/usr/lib64/libosdGPU.so -DWITH_OPENVDB:BOOL=ON -DWITH_OPENVDB_BLOSC:BOOL=ON -DWITH_POTRACE:BOOL=ON -DWITH_PUGIXML:BOOL=ON -DWITH_PYTHON:BOOL=ON -DWITH_PYTHON_INSTALL:BOOL=OFF -DPYTHON_VERSION=3.13 -DPYTHON_LIBPATH=/usr/libexec -DPYTHON_LIBRARY=python3.13 -DPYTHON_INCLUDE_DIRS=/usr/include/python3.13 -DWITH_PYTHON_INSTALL_NUMPY=OFF -DPYTHON_NUMPY_PATH:PATH=/usr/lib64/python3.13/site-packages -DWITH_QUADRIFLOW:BOOL=ON -DWITH_SDL:BOOL=ON -DWITH_TBB:BOOL=ON -DWITH_USD:BOOL=ON -DWITH_MATERIALX:BOOL=OFF -DWITH_MEM_JEMALLOC:BOOL=ON -DWITH_JACK:BOOL=ON -DWITH_DOC_MANPAGE:BOOL=ON -DWITH_GHOST_XDND:BOOL=ON -DWITH_GHOST_SDL:BOOL=OFF -DWITH_X11_XINPUT:BOOL=ON -DWITH_INPUT_IME:BOOL=ON -DWITH_XR_OPENXR:BOOL=OFF -DWITH_CYCLES_CUDA_BINARIES:BOOL=OFF -DWITH_CYCLES_DEVICE_ONEAPI:BOOL=ON -DWITH_CYCLES_ONEAPI_BINARIES:BOOL=ON -DWITH_MANIFOLD:BOOL=ON
+[   25s] -- The C compiler identification is GNU 16.2.1
+[   25s] -- The CXX compiler identification is GNU 16.2.1
+[   25s] -- Detecting C compiler ABI info
+[   25s] -- Detecting C compiler ABI info - done
+[   25s] -- Check for working C compiler: /usr/bin/cc - skipped
+[   25s] -- Detecting C compile features
+[   25s] -- Detecting C compile features - done
+[   25s] -- Detecting CXX compiler ABI info
+[   25s] -- Detecting CXX compiler ABI info - done
+[   25s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[   25s] -- Detecting CXX compile features
+[   25s] -- Detecting CXX compile features - done
+[   25s] -- Looking for malloc_stats
+[   25s] -- Looking for malloc_stats - found
+[   25s] -- Looking for feenableexcept
+[   25s] -- Looking for feenableexcept - not found
+[   25s] -- Looking for include file execinfo.h
+[   25s] -- Looking for include file execinfo.h - found
+[   25s] -- WITH_SYSTEM_AUDASPACE is enabled but incompatible, setting WITH_RUBBERBAND=OFF
+[   25s] -- Found JPEG: /usr/lib64/libjpeg.so (found version "80")
+[   25s] -- Found ZLIB: /usr/lib64/libz.so (found version "1.3.1")
+[   25s] -- Found PNG: /usr/lib64/libpng.so (found version "1.6.59")
+[   25s] -- Found Zstd: /usr/lib64/libzstd.so
+[   25s] -- Found Epoxy: /usr/lib64/libepoxy.so
+[   25s] -- Found PkgConfig: /usr/bin/pkg-config (found version "2.5.1")
+[   25s] -- Checking for module 'vulkan'
+[   25s] --   Found vulkan, version 1.4.363
+[   25s] -- Checking for module 'shaderc'
+[   25s] --   Found shaderc, version 2026.4.1
+[   26s] -- Found Fribidi: /usr/lib64/libfribidi.so
+[   26s] -- Found PythonLibsUnix: python3.13
+[   26s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[   26s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[   26s] -- Found Threads: TRUE
+[   26s] -- Found OpenJPEG: /usr/lib64/libopenjp2.so
+[   26s] -- Found OpenAL: /usr/lib64/libopenal.so
+[   26s] -- Found SndFile: /usr/lib64/libsndfile.so
+[   26s] -- Found FFmpeg: /usr/lib64/libavcodec.so;/usr/lib64/libavdevice.so;/usr/lib64/libavfilter.so;/usr/lib64/libavformat.so;/usr/lib64/libavutil.so;/usr/lib64/libswscale.so;/usr/lib64/libswresample.so
+[   26s] -- Found Fftw3: /usr/lib64/libfftw3f.so
+[   26s] -- Found Spacenav: /usr/lib64/libspnav.so
+[   26s] -- Found OpenVDB: /usr/lib64/libopenvdb.so
+[   26s] -- Found NanoVDB: /usr/include
+[   26s] -- Performing Test SUPPORTS_NEON_BUILD
+[   26s] -- Performing Test SUPPORTS_NEON_BUILD - Success
+[   26s] CMake Error at /usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake:290 (message):
+[   26s]   Could NOT find sse2neon (missing: SSE2NEON_INCLUDE_DIR)
+[   26s] Call Stack (most recent call first):
+[   26s]   /usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake:654 (_FPHSA_FAILURE_MESSAGE)
+[   26s]   build_files/cmake/Modules/Findsse2neon.cmake:39 (find_package_handle_standard_args)
+[   26s]   build_files/cmake/platform/platform_unix.cmake:123 (find_package)
+[   26s]   build_files/cmake/platform/platform_unix.cmake:417 (find_package_wrapper)
+[   26s]   CMakeLists.txt:1542 (include)
+[   26s] 
+[   26s] 
+[   26s] -- Configuring incomplete, errors occurred!
+[   26s] error: Bad exit status from /var/tmp/rpm-tmp.jY3oEG (%build)
+[   26s] 
+[   26s] RPM build errors:
+[   26s]     Bad exit status from /var/tmp/rpm-tmp.jY3oEG (%build)
+[   26s] ### VM INTERACTION START ###
+[   26s] [   20.942215][    T1] sysrq: Power Off
+[   26s] ### VM INTERACTION END ###
+[   26s] 
+[   26s] armv9 failed "build blender-5.2.spec" at Wed Nov  4 20:21:21 UTC 2026.
+[   26s] 

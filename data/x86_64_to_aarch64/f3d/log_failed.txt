@@ -1,0 +1,1460 @@
+[    0s] Using BUILD_ROOT=/var/cache/obs/worker/root_39/.mount
+[    0s] Using BUILD_ARCH=aarch64:aarch64_ilp32:armv8l
+[    0s] Doing kvm build in /var/cache/obs/worker/root_39/root
+[    0s] 
+[    0s] 
+[    0s] i03-armsrv2 started "build f3d.spec" at Tue Oct 13 14:39:15 UTC 2026.
+[    0s] 
+[    0s] Building f3d for project 'openSUSE:Factory:ARM' repository 'standard' arch 'aarch64' srcmd5 '4a9bdf3393ee3339a6b32208e356454a'
+[    0s] 
+[    1s] processing recipe /var/cache/obs/worker/root_39/.build-srcdir/f3d.spec ...
+[    1s] running changelog2spec --target rpm --file /var/cache/obs/worker/root_39/.build-srcdir/f3d.spec
+[    1s] init_buildsystem --configdir /var/run/obs/worker/39/build/configs --cachedir /var/cache/build --prepare --clean --rpmlist /var/cache/obs/worker/root_39/.build.rpmlist /var/cache/obs/worker/root_39/.build-srcdir/f3d.spec build ...
+[    2s] unpacking preinstall image openSUSE:Factory:ARM/standard/preinstallimage-gtk2-devel [ada9351eb04352728c6c9b4096f732f7]
+[    8s] 
+[    8s] copying packages...
+[    8s] reordering...cycle: Mesa-dri -> Mesa
+[    8s]   breaking dependency Mesa -> Mesa-dri
+[    8s] cycle: Mesa-dri -> Mesa -> Mesa-libEGL1
+[    8s]   breaking dependency Mesa -> Mesa-libEGL1
+[    8s] cycle: Mesa -> Mesa-libGL1
+[    8s]   breaking dependency Mesa-libGL1 -> Mesa
+[    8s] cycle: Mesa-dri -> Mesa -> Mesa-libGL1
+[    8s]   breaking dependency Mesa-libGL1 -> Mesa-dri
+[    8s] cycle: libglvnd -> Mesa-dri -> Mesa -> Mesa-libGL1
+[    8s]   breaking dependency Mesa -> Mesa-libGL1
+[    8s] cycle: libglvnd -> Mesa-dri -> Mesa
+[    8s]   breaking dependency libglvnd -> Mesa-dri
+[    8s] cycle: gstreamer -> libgstreamer-1_0-0
+[    8s]   breaking dependency libgstreamer-1_0-0 -> gstreamer
+[    8s] cycle: libpolkit-gobject-1-0 -> polkit -> libpolkit-agent-1-0
+[    8s]   breaking dependency polkit -> libpolkit-agent-1-0
+[    8s] cycle: libpolkit-gobject-1-0 -> polkit
+[    8s]   breaking dependency polkit -> libpolkit-gobject-1-0
+[    8s] cycle: openssl -> openssl-3
+[    8s]   breaking dependency openssl-3 -> openssl
+[    8s] cycle: libQt6Network6 -> qt6-network-tls
+[    8s]   breaking dependency libQt6Network6 -> qt6-network-tls
+[    8s] cycle: libQt6Network6 -> qt6-networkinformation-connman
+[    8s]   breaking dependency libQt6Network6 -> qt6-networkinformation-connman
+[    8s] cycle: libQt6Network6 -> qt6-networkinformation-glib
+[    8s]   breaking dependency libQt6Network6 -> qt6-networkinformation-glib
+[    8s] cycle: libQt6Network6 -> qt6-networkinformation-nm
+[    8s]   breaking dependency qt6-networkinformation-nm -> libQt6Network6
+[    8s] cycle: libQt6Gui6 -> libQt6OpenGL6
+[    8s]   breaking dependency libQt6Gui6 -> libQt6OpenGL6
+[    8s] cycle: libQt6Gui6 -> libQt6WaylandClient6
+[    8s]   breaking dependency libQt6Gui6 -> libQt6WaylandClient6
+[    8s] cycle: libQt6LabsAnimation6 -> libQt6Qml6 -> qt6-declarative-imports
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6LabsAnimation6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6LabsFolderListModel6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6LabsFolderListModel6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6LabsPlatform6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6LabsPlatform6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6LabsQmlModels6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6LabsQmlModels6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6LabsSettings6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6LabsSettings6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6LabsSharedImage6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6LabsSharedImage6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6LabsStyleKit6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6LabsStyleKit6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6LabsSynchronizer6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6LabsSynchronizer6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6LabsWavefrontMesh6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6LabsWavefrontMesh6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6Qml6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QmlCore6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QmlCore6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QmlLocalStorage6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QmlLocalStorage6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QmlMeta6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QmlMeta6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QmlModels6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QmlModels6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QmlNetwork6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QmlNetwork6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QmlWorkerScript6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QmlWorkerScript6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QmlXmlListModel6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QmlXmlListModel6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6Quick6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6Quick6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QuickControls2-6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QuickControls2-6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QuickControls2Impl6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QuickControls2Impl6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QuickDialogs2-6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QuickDialogs2-6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QuickDialogs2QuickImpl6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QuickDialogs2QuickImpl6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QuickEffects6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QuickEffects6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QuickLayouts6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QuickLayouts6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QuickParticles6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QuickParticles6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QuickShapes6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QuickShapes6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QuickTemplates2-6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QuickTemplates2-6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QuickTest6
+[    8s]   breaking dependency qt6-declarative-imports -> libQt6QuickTest6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QuickVectorImage6
+[    8s]   breaking dependency libQt6QuickVectorImage6 -> libQt6Qml6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QuickVectorImage6 -> libQt6Quick6
+[    8s]   breaking dependency libQt6Quick6 -> libQt6Qml6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QuickVectorImage6 -> libQt6Quick6 -> libQt6QmlMeta6
+[    8s]   breaking dependency libQt6Quick6 -> libQt6QmlMeta6
+[    8s] cycle: libQt6Qml6 -> qt6-declarative-imports -> libQt6QuickVectorImage6 -> libQt6Quick6 -> libQt6QmlModels6
+[    8s]   breaking dependency libQt6Quick6 -> libQt6QmlModels6
+[    8s] cycle: libQt6Sensors6 -> qt6-sensors
+[    8s]   breaking dependency qt6-sensors -> libQt6Sensors6
+[    8s] cycle: gstreamer-plugins-base -> libgstallocators-1_0-0
+[    8s]   breaking dependency gstreamer-plugins-base -> libgstallocators-1_0-0
+[    8s] cycle: libgstapp-1_0-0 -> gstreamer-plugins-base
+[    8s]   breaking dependency gstreamer-plugins-base -> libgstapp-1_0-0
+[    8s] cycle: gstreamer-plugins-base -> libgstaudio-1_0-0
+[    8s]   breaking dependency gstreamer-plugins-base -> libgstaudio-1_0-0
+[    8s] cycle: gstreamer-plugins-base -> libgstgl-1_0-0 -> libgstallocators-1_0-0
+[    8s]   breaking dependency gstreamer-plugins-base -> libgstgl-1_0-0
+[    8s] cycle: gstreamer-plugins-base -> libgstpbutils-1_0-0
+[    8s]   breaking dependency gstreamer-plugins-base -> libgstpbutils-1_0-0
+[    8s] cycle: gstreamer-plugins-base -> libgstriff-1_0-0
+[    8s]   breaking dependency gstreamer-plugins-base -> libgstriff-1_0-0
+[    8s] cycle: gstreamer-plugins-base -> libgsttag-1_0-0
+[    8s]   breaking dependency gstreamer-plugins-base -> libgsttag-1_0-0
+[    8s] cycle: gstreamer-plugins-base -> libgstvideo-1_0-0
+[    8s]   breaking dependency libgstvideo-1_0-0 -> gstreamer-plugins-base
+[    8s] cycle: gstreamer-plugins-base -> libgstvideo-1_0-0 -> libgstallocators-1_0-0
+[    8s]   breaking dependency gstreamer-plugins-base -> libgstvideo-1_0-0
+[    8s] cycle: libopenssl-3-devel -> libopenssl-devel
+[    8s]   breaking dependency libopenssl-devel -> libopenssl-3-devel
+[    8s] cycle: libQt6Multimedia6 -> qt6-multimedia
+[    8s]   breaking dependency qt6-multimedia -> libQt6Multimedia6
+[    8s] cycle: libQt6TextToSpeech6 -> qt6-texttospeech
+[    8s]   breaking dependency qt6-texttospeech -> libQt6TextToSpeech6
+[    8s] cycle: libQt6PrintSupport6 -> qt6-printsupport-cups
+[    8s]   breaking dependency qt6-printsupport-cups -> libQt6PrintSupport6
+[    8s] cycle: python3-vtk -> libvtk-9_7-1
+[    8s]   breaking dependency python3-vtk -> libvtk-9_7-1
+[    8s] cycle: python3-vtk -> vtk-qt -> libvtk-9_7-1
+[    8s]   breaking dependency vtk-qt -> libvtk-9_7-1
+[    8s] done
+[    9s] Detected virtio-serial support
+[   12s] booting kvm...
+[   12s] ### VM INTERACTION START ###
+[   12s] Using virtio-serial support
+[   12s] /usr/bin/qemu-system-aarch64 -nodefaults -no-reboot -nographic -vga none -cpu host -enable-kvm -M virt,accel=kvm,usb=off,gic-version=host -sandbox on -object rng-random,filename=/dev/random,id=rng0 -device virtio-rng-device,rng=rng0 -object iothread,id=io0 -run-with user=qemu -net none -kernel /var/cache/obs/worker/root_39/.mount/boot/kernel -initrd /var/cache/obs/worker/root_39/.mount/boot/initrd -append root=/dev/disk/by-id/virtio-0 rootfstype=ext4 rootflags=noatime elevator=noop nmi_watchdog=0 rw ia32_emulation=1 oops=panic panic=1 quiet console=hvc0 init=/.build/build -m 10240 -drive file=/var/cache/obs/worker/root_39/root,format=raw,if=none,id=disk,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=disk,serial=0 -drive file=/var/cache/obs/worker/root_39/swap,format=raw,if=none,id=swap,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=swap,serial=1 -device virtio-serial,max_ports=2 -device virtconsole,chardev=virtiocon0 -chardev stdio,id=virtiocon0 -chardev socket,id=monitor,server=on,wait=off,path=/var/cache/obs/worker/root_39/root.qemu/monitor -mon chardev=monitor,mode=readline -smp 4
+[   19s] P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=40bc93fd550c4adea6ea487cd6ecd04a;user=root;hostname=localhost;machineid=81754a1021ea4ab7ace552dd50f97328;bootid=4c56403ab2264323bd6e4b82c3cc01dd;pid=1;pidfdid=1;comm=systemd;type=boot\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J### VM INTERACTION END ###
+[   19s] 2nd stage started in virtual machine
+[   19s] ^[[24;80R^[[24;80Rmachine type: aarch64
+[   19s] Linux version: 7.2.9-1-default #1 SMP PREEMPT_DYNAMIC Sun Oct  4 08:22:02 UTC 2026 (584f686)
+[   19s] Time: Tue Oct 13 14:39:34 UTC 2026
+[   19s] Increasing log level from now on...
+[   19s] [    6.089340][  T427] sysrq: Changing Loglevel
+[   19s] [    6.093225][  T427] sysrq: Loglevel set to 4
+[   19s] Enable sysrq operations
+[   19s] Setting up swapspace version 1, size = 2 GiB (2147479552 bytes)
+[   19s] no label, UUID=e39c6fd9-90f2-49c4-bd10-8f7c59c481a3
+[   19s] logging output to //.build.log...
+[   19s] processing recipe //.build-srcdir/f3d.spec ...
+[   19s] init_buildsystem --configdir /.build/configs --cachedir /var/cache/build //.build-srcdir/f3d.spec build ...
+[   19s] initializing rpm db...
+[   20s] querying package ids...
+[   24s] [1/656] cumulate Mesa-KHR-devel-26.2.4-1.1
+[   24s] [2/656] preinstalled aaa_base-84.87+git20260924.144354a1-1.1
+[   24s] [3/656] preinstalled aaa_base-malloccheck-84.87+git20260924.144354a1-1.1
+[   24s] [4/656] preinstalled alts-2.0+0.4f22c01-1.1
+[   24s] [5/656] preinstalled at-spi2-core-2.60.7-1.1
+[   24s] [6/656] preinstalled at-spi2-core-devel-2.60.7-1.1
+[   24s] [7/656] preinstalled bash-5.3.20-9.1
+[   24s] [8/656] preinstalled bash-sh-5.3.20-9.1
+[   24s] [9/656] preinstalled binutils-2.47-1.1
+[   24s] [10/656] preinstalled brp-check-suse-84.87+git20260317.a0eb4ba-1.3
+[   24s] [11/656] preinstalled build-compare-20261001T080039.deb96f7-1.1
+[   24s] [12/656] preinstalled build-mkbaselibs-20260505-1.3
+[   24s] [13/656] preinstalled bzip2-1.0.8-6.1
+[   24s] [14/656] preinstalled cairo-devel-1.18.6-1.1
+[   24s] [15/656] cumulate cli11-devel-2.7.2-1.1
+[   24s] [16/656] preinstalled compat-usrmerge-build-84.87-5.29
+[   24s] [17/656] preinstalled compat-usrmerge-tools-84.87-5.29
+[   24s] [18/656] preinstalled coreutils-9.12-1.1
+[   24s] [19/656] preinstalled cpio-2.15-9.1
+[   24s] [20/656] preinstalled cpp-16-1.1
+[   24s] [21/656] preinstalled cpp16-16.2.1+git9713-1.1
+[   24s] [22/656] preinstalled crypto-policies-20250714.cd6043a-6.1
+[   24s] [23/656] preinstalled cups-config-2.4.19-4.1
+[   24s] [24/656] preinstalled dbus-1-1.14.10-5.5
+[   24s] [25/656] preinstalled dbus-1-common-1.14.10-5.5
+[   24s] [26/656] preinstalled dbus-1-daemon-1.14.10-5.5
+[   24s] [27/656] preinstalled dbus-1-devel-1.14.10-5.5
+[   24s] [28/656] preinstalled dbus-1-tools-1.14.10-5.5
+[   24s] [29/656] preinstalled dbus-broker-37-2.4
+[   24s] [30/656] preinstalled dbus-broker-block-restart-37-2.4
+[   24s] [31/656] preinstalled debugedit-5.1-1.9
+[   24s] [32/656] preinstalled diffutils-3.12-1.6
+[   24s] [33/656] preinstalled dwz-0.17-1.1
+[   24s] [34/656] cumulate eigen3-devel-5.0.1-1.3
+[   24s] [35/656] preinstalled elfutils-0.196-2.1
+[   24s] [36/656] preinstalled envsubst-mini-1.0-4.1
+[   24s] [37/656] cumulate fast_float-devel-8.3.2-1.1
+[   24s] [38/656] cumulate ffmpeg-8-mini-libs-8.1.3-2.2
+[   24s] [39/656] preinstalled file-5.48-2.2
+[   24s] [40/656] preinstalled file-magic-5.48-2.2
+[   24s] [41/656] preinstalled filesystem-84.87-21.2
+[   24s] [42/656] preinstalled fillup-1.42-281.9
+[   24s] [43/656] preinstalled findutils-4.11.0-1.2
+[   24s] [44/656] preinstalled fontconfig-2.18.3-1.1
+[   24s] [45/656] preinstalled fontconfig-devel-2.18.3-1.1
+[   24s] [46/656] preinstalled freetype2-devel-2.14.3-1.2
+[   24s] [47/656] preinstalled fribidi-devel-1.0.17-1.1
+[   24s] [48/656] preinstalled gawk-5.4.1-1.2
+[   24s] [49/656] preinstalled gcc-16-1.1
+[   24s] [50/656] preinstalled gcc-PIE-16-1.1
+[   24s] [51/656] preinstalled gcc16-16.2.1+git9713-1.1
+[   24s] [52/656] preinstalled gcc16-PIE-16.2.1+git9713-1.1
+[   24s] [53/656] cumulate gcc16-c++-16.2.1+git9713-1.1
+[   24s] [54/656] preinstalled gdk-pixbuf-devel-2.44.7-1.2
+[   24s] [55/656] preinstalled gdk-pixbuf-query-loaders-2.44.7-1.2
+[   24s] [56/656] preinstalled gettext-runtime-mini-1.0-4.1
+[   24s] [57/656] preinstalled gettext-tools-mini-1.0-4.1
+[   24s] [58/656] preinstalled gio-branding-upstream-2.88.4-1.1
+[   24s] [59/656] preinstalled girepository-1_0-1.86.0-4.1
+[   24s] [60/656] preinstalled glib2-devel-2.88.4-1.1
+[   24s] [61/656] preinstalled glib2-tools-2.88.4-1.1
+[   24s] [62/656] preinstalled glibc-2.44-3.1
+[   24s] [63/656] preinstalled glibc-devel-2.44-3.1
+[   24s] [64/656] preinstalled glibc-gconv-modules-extra-2.44-3.1
+[   24s] [65/656] preinstalled glibc-locale-base-2.44-3.1
+[   24s] [66/656] preinstalled graphite2-devel-1.3.15-1.3
+[   24s] [67/656] preinstalled grep-3.12-1.5
+[   24s] [68/656] preinstalled gtk2-devel-2.24.33-20.1
+[   24s] [69/656] preinstalled gtk2-tools-2.24.33-20.1
+[   24s] [70/656] preinstalled gzip-1.15-1.1
+[   24s] [71/656] preinstalled harfbuzz-devel-14.6.0-1.1
+[   24s] [72/656] cumulate hdf5-devel-data-1.14.6-3.1
+[   24s] [73/656] preinstalled hicolor-icon-theme-0.18-1.6
+[   24s] [74/656] cumulate jitterentropy-devel-3.6.3-2.1
+[   24s] [75/656] preinstalled kernel-obs-build-7.2.9-1.1
+[   24s] [76/656] preinstalled krb5-mini-1.22.2-4.2
+[   24s] [77/656] cumulate libICE6-1.1.2-1.7
+[   24s] [78/656] cumulate libImath-3_2-30-3.2.3-1.1
+[   24s] [79/656] cumulate libLerc4-4.1.0-3.3
+[   24s] [80/656] cumulate libSPIRV-Tools-2026_4_rc2-2026.4~rc2-1.1
+[   24s] [81/656] preinstalled libX11-6-1.8.13-3.1
+[   24s] [82/656] preinstalled libX11-data-1.8.13-3.1
+[   24s] [83/656] preinstalled libX11-devel-1.8.13-3.1
+[   24s] [84/656] preinstalled libX11-xcb1-1.8.13-3.1
+[   24s] [85/656] preinstalled libXau-devel-1.0.12-2.5
+[   24s] [86/656] preinstalled libXau6-1.0.12-2.5
+[   24s] [87/656] preinstalled libXcomposite1-0.4.7-1.4
+[   24s] [88/656] preinstalled libXcursor1-1.2.3-1.8
+[   24s] [89/656] preinstalled libXdamage1-1.1.7-1.4
+[   24s] [90/656] preinstalled libXext-devel-1.3.7-1.4
+[   24s] [91/656] preinstalled libXext6-1.3.7-1.4
+[   24s] [92/656] preinstalled libXfixes-devel-6.0.2-2.4
+[   24s] [93/656] preinstalled libXfixes3-6.0.2-2.4
+[   24s] [94/656] preinstalled libXft-devel-2.3.9-1.5
+[   24s] [95/656] preinstalled libXft2-2.3.9-1.5
+[   24s] [96/656] preinstalled libXi-devel-1.8.3-2.1
+[   24s] [97/656] preinstalled libXi6-1.8.3-2.1
+[   24s] [98/656] preinstalled libXinerama1-1.1.6-1.4
+[   24s] [99/656] cumulate libXmuu1-1.3.1-1.4
+[   24s] [100/656] cumulate libXrandr-devel-1.5.5-1.4
+[   24s] [101/656] preinstalled libXrandr2-1.5.5-1.4
+[   24s] [102/656] preinstalled libXrender-devel-0.9.12-2.1
+[   24s] [103/656] preinstalled libXrender1-0.9.12-2.1
+[   24s] [104/656] cumulate libXss1-1.2.5-1.5
+[   24s] [105/656] preinstalled libXtst-devel-1.2.5-2.1
+[   24s] [106/656] preinstalled libXtst6-1.2.5-2.1
+[   24s] [107/656] cumulate libXv1-1.0.13-1.7
+[   24s] [108/656] cumulate libXxf86vm1-1.1.7-1.4
+[   24s] [109/656] preinstalled libacl1-2.4.0-1.2
+[   24s] [110/656] preinstalled libalternatives1-2.0+0.4f22c01-1.1
+[   24s] [111/656] preinstalled libarchive13-3.8.9-1.1
+[   24s] [112/656] preinstalled libasan8-16.2.1+git9713-1.1
+[   24s] [113/656] preinstalled libasm1-0.196-2.1
+[   24s] [114/656] cumulate libasound2-1.2.16.1-2.1
+[   24s] [115/656] preinstalled libatk-1_0-0-2.60.7-1.1
+[   24s] [116/656] preinstalled libatk-bridge-2_0-0-2.60.7-1.1
+[   24s] [117/656] preinstalled libatomic1-16.2.1+git9713-1.1
+[   24s] [118/656] preinstalled libatspi0-2.60.7-1.1
+[   24s] [119/656] preinstalled libattr1-2.6.0-1.2
+[   24s] [120/656] preinstalled libaudit1-4.0.2-3.4
+[   24s] [121/656] preinstalled libavahi-client3-0.8-45.2
+[   24s] [122/656] preinstalled libavahi-common3-0.8-45.2
+[   24s] [123/656] cumulate libb2-1-0.98.1-2.4
+[   24s] [124/656] preinstalled libblkid-devel-2.42.4-1.1
+[   24s] [125/656] preinstalled libblkid1-2.42.4-1.1
+[   24s] [126/656] preinstalled libbrotli-devel-1.2.0-2.3
+[   24s] [127/656] preinstalled libbrotlicommon1-1.2.0-2.3
+[   24s] [128/656] preinstalled libbrotlidec1-1.2.0-2.3
+[   24s] [129/656] preinstalled libbrotlienc1-1.2.0-2.3
+[   24s] [130/656] preinstalled libbz2-1-1.0.8-6.1
+[   24s] [131/656] preinstalled libbz2-devel-1.0.8-6.1
+[   24s] [132/656] preinstalled libcairo-gobject2-1.18.6-1.1
+[   24s] [133/656] preinstalled libcairo-script-interpreter2-1.18.6-1.1
+[   24s] [134/656] preinstalled libcairo2-1.18.6-1.1
+[   24s] [135/656] preinstalled libcap-ng0-0.8.5-1.10
+[   24s] [136/656] preinstalled libcap2-2.78-1.4
+[   24s] [137/656] cumulate libcom_err-devel-1.47.3-2.2
+[   24s] [138/656] preinstalled libcom_err2-1.47.3-2.2
+[   24s] [139/656] preinstalled libcrypt1-4.5.2-2.4
+[   24s] [140/656] preinstalled libctf-nobfd0-2.47-1.1
+[   24s] [141/656] preinstalled libctf0-2.47-1.1
+[   24s] [142/656] preinstalled libcups2-2.4.19-4.1
+[   24s] [143/656] preinstalled libdatrie-devel-0.2.14-1.6
+[   24s] [144/656] preinstalled libdatrie1-0.2.14-1.6
+[   24s] [145/656] preinstalled libdbus-1-3-1.14.10-5.5
+[   24s] [146/656] cumulate libdisplay-info3-0.3.0-2.5
+[   24s] [147/656] cumulate libdouble-conversion3-3.4.0-1.4
+[   24s] [148/656] cumulate libdraco9-1.5.7-3.2
+[   24s] [149/656] cumulate libdrm2-2.4.134-2.2
+[   24s] [150/656] cumulate libduktape207-2.7.0-3.11
+[   24s] [151/656] preinstalled libdw1-0.196-2.1
+[   24s] [152/656] preinstalled libeconf-devel-0.8.5-1.1
+[   24s] [153/656] preinstalled libeconf0-0.8.5-1.1
+[   24s] [154/656] cumulate libedit0-20250104.3.1-1.5
+[   24s] [155/656] preinstalled libelf1-0.196-2.1
+[   24s] [156/656] cumulate libevdev2-1.13.7-1.1
+[   24s] [157/656] preinstalled libexpat-devel-2.9.0-1.1
+[   24s] [158/656] preinstalled libexpat1-2.9.0-1.1
+[   24s] [159/656] preinstalled libfdisk1-2.42.4-1.1
+[   24s] [160/656] preinstalled libffi-devel-3.5.2-2.4
+[   24s] [161/656] preinstalled libffi8-3.5.2-2.4
+[   24s] [162/656] cumulate libfmt12-12.1.0-1.4
+[   24s] [163/656] preinstalled libfontconfig1-2.18.3-1.1
+[   24s] [164/656] preinstalled libfreetype6-2.14.3-1.2
+[   24s] [165/656] preinstalled libfribidi0-1.0.17-1.1
+[   24s] [166/656] preinstalled libgcc_s1-16.2.1+git9713-1.1
+[   24s] [167/656] preinstalled libgcrypt20-1.12.4-1.1
+[   24s] [168/656] preinstalled libgdbm6-1.26-1.6
+[   24s] [169/656] preinstalled libgdbm_compat4-1.26-1.6
+[   24s] [170/656] preinstalled libgdk_pixbuf-2_0-0-2.44.7-1.2
+[   24s] [171/656] cumulate libgfortran5-16.2.1+git9713-1.1
+[   24s] [172/656] preinstalled libgio-2_0-0-2.88.4-1.1
+[   24s] [173/656] preinstalled libgirepository-1_0-1-1.86.0-4.1
+[   24s] [174/656] preinstalled libgirepository-2_0-0-2.88.4-1.1
+[   24s] [175/656] preinstalled libglib-2_0-0-2.88.4-1.1
+[   24s] [176/656] preinstalled libglycin-2-0-2.1.5-1.4
+[   24s] [177/656] preinstalled libglycin-devel-2.1.5-1.4
+[   24s] [178/656] preinstalled libgmodule-2_0-0-2.88.4-1.1
+[   24s] [179/656] preinstalled libgmp10-6.3.0-5.6
+[   24s] [180/656] preinstalled libgnutls30-3.8.13-3.2
+[   24s] [181/656] preinstalled libgobject-2_0-0-2.88.4-1.1
+[   24s] [182/656] preinstalled libgomp1-16.2.1+git9713-1.1
+[   24s] [183/656] preinstalled libgpg-error0-1.61-2.1
+[   24s] [184/656] cumulate libgraphene-1_0-0-1.10.8-3.1
+[   24s] [185/656] preinstalled libgraphite2-3-1.3.15-1.3
+[   24s] [186/656] preinstalled libgthread-2_0-0-2.88.4-1.1
+[   24s] [187/656] preinstalled libgtk-2_0-0-2.24.33-20.1
+[   24s] [188/656] preinstalled libharfbuzz-cairo0-14.6.0-1.1
+[   24s] [189/656] preinstalled libharfbuzz-gobject0-14.6.0-1.1
+[   24s] [190/656] preinstalled libharfbuzz-gpu0-14.6.0-1.1
+[   24s] [191/656] preinstalled libharfbuzz-icu0-14.6.0-1.1
+[   24s] [192/656] preinstalled libharfbuzz-raster0-14.6.0-1.1
+[   24s] [193/656] preinstalled libharfbuzz-subset0-14.6.0-1.1
+[   24s] [194/656] preinstalled libharfbuzz-vector0-14.6.0-1.1
+[   24s] [195/656] preinstalled libharfbuzz0-14.6.0-1.1
+[   24s] [196/656] cumulate libhdf5-310-1.14.6-3.1
+[   24s] [197/656] preinstalled libhogweed7-4.0-1.1
+[   24s] [198/656] cumulate libhpdf2_4-2.4.6-1.1
+[   24s] [199/656] preinstalled libhwasan0-16.2.1+git9713-1.1
+[   24s] [200/656] preinstalled libicu-devel-78.3-1.3
+[   24s] [201/656] preinstalled libicu78-78.3-1.3
+[   24s] [202/656] preinstalled libicu78-ledata-78.3-1.3
+[   24s] [203/656] preinstalled libidn2-0-2.3.8-1.5
+[   24s] [204/656] cumulate libidn2-devel-2.3.8-1.5
+[   24s] [205/656] cumulate libiodbc2-3.52.16-2.3
+[   24s] [206/656] preinstalled libisl23-0.27-1.8
+[   24s] [207/656] preinstalled libitm1-16.2.1+git9713-1.1
+[   24s] [208/656] cumulate libjbig2-2.1-5.11
+[   24s] [209/656] preinstalled libjitterentropy3-3.6.3-2.1
+[   24s] [210/656] cumulate libjpeg8-8.3.2-85.1
+[   24s] [211/656] cumulate libjsoncpp27-1.9.8-2.3
+[   24s] [212/656] preinstalled liblcms2-2-2.19.1-1.3
+[   24s] [213/656] preinstalled liblcms2-devel-2.19.1-1.3
+[   24s] [214/656] preinstalled libleancrypto1-1.8.0-3.2
+[   24s] [215/656] preinstalled liblsan0-16.2.1+git9713-1.1
+[   24s] [216/656] preinstalled liblua5_4-5-5.4.8-4.7
+[   24s] [217/656] preinstalled liblz1-1.16-2.1
+[   24s] [218/656] preinstalled liblz4-1-1.10.0-2.10
+[   24s] [219/656] cumulate liblz4-devel-1.10.0-2.10
+[   24s] [220/656] preinstalled liblzma5-5.8.4-1.1
+[   24s] [221/656] preinstalled liblzo2-2-2.10-9.10
+[   24s] [222/656] preinstalled libmagic1-5.48-2.2
+[   24s] [223/656] cumulate libmd4c0-0.5.3-1.3
+[   24s] [224/656] cumulate libminizip1-1.3.1-3.3
+[   24s] [225/656] preinstalled libmount-devel-2.42.4-1.1
+[   24s] [226/656] preinstalled libmount1-2.42.4-1.1
+[   24s] [227/656] preinstalled libmpc3-1.4.1-1.3
+[   24s] [228/656] preinstalled libmpdec4-4.0.1-2.6
+[   24s] [229/656] preinstalled libmpfr6-4.2.2-1.5
+[   24s] [230/656] cumulate libmtdev1-1.1.6-1.20
+[   24s] [231/656] preinstalled libncurses6-6.6.20260926-115.1
+[   24s] [232/656] preinstalled libnettle9-4.0-1.1
+[   24s] [233/656] cumulate libnghttp2-14-1.70.0-1.1
+[   24s] [234/656] cumulate libnghttp3-9-1.18.0-2.1
+[   24s] [235/656] cumulate libngtcp2-16-1.25.0-2.1
+[   24s] [236/656] cumulate libogg0-1.3.6-1.4
+[   24s] [237/656] cumulate libonig5-6.9.10-2.5
+[   24s] [238/656] cumulate libopencascade-foundationclasses7_9_3-7.9.3-1.4
+[   24s] [239/656] preinstalled libopenssl3-3.5.3-8.3
+[   24s] [240/656] cumulate libopus0-1.6.1-1.5
+[   24s] [241/656] cumulate liborc-0_4-0-0.4.44-1.1
+[   24s] [242/656] preinstalled libp11-kit0-0.26.5-1.1
+[   24s] [243/656] preinstalled libpango-1_0-0-1.58.2-1.1
+[   24s] [244/656] cumulate libpciaccess0-0.19-1.3
+[   24s] [245/656] preinstalled libpcre2-16-0-10.49-1.1
+[   24s] [246/656] preinstalled libpcre2-32-0-10.49-1.1
+[   24s] [247/656] preinstalled libpcre2-8-0-10.49-1.1
+[   24s] [248/656] preinstalled libpcre2-posix3-10.49-1.1
+[   24s] [249/656] cumulate libpcsclite1-2.3.3-2.4
+[   24s] [250/656] preinstalled libpixman-1-0-0.46.4-2.6
+[   24s] [251/656] preinstalled libpixman-1-0-devel-0.46.4-2.6
+[   24s] [252/656] preinstalled libpkgconf7-2.5.1-1.5
+[   24s] [253/656] preinstalled libpng16-16-1.6.59-1.1
+[   24s] [254/656] preinstalled libpng16-compat-devel-1.6.59-1.1
+[   24s] [255/656] preinstalled libpng16-devel-1.6.59-1.1
+[   24s] [256/656] preinstalled libpopt0-1.19-2.3
+[   24s] [257/656] cumulate libpsl5-0.23.3-1.1
+[   24s] [258/656] cumulate libpugixml1-1.16-1.2
+[   24s] [259/656] cumulate libpxbackend-1_0-mini-0.5.12-2.4
+[   24s] [260/656] preinstalled libpython3_13-1_0-3.13.15-2.1
+[   24s] [261/656] preinstalled libreadline8-8.3.6-3.1
+[   24s] [262/656] cumulate librhash1-1.4.6-2.3
+[   24s] [263/656] preinstalled librpmbuild10-4.20.1-11.1
+[   24s] [264/656] cumulate libsasl2-3-2.1.28-13.1
+[   24s] [265/656] preinstalled libseccomp-devel-2.6.1-3.1
+[   24s] [266/656] preinstalled libseccomp2-2.6.1-3.1
+[   24s] [267/656] preinstalled libselinux-devel-3.11-2.1
+[   24s] [268/656] preinstalled libselinux1-3.11-2.1
+[   24s] [269/656] preinstalled libsemanage-conf-3.11-1.2
+[   24s] [270/656] preinstalled libsemanage2-3.11-1.2
+[   24s] [271/656] preinstalled libsepol-devel-3.11-1.2
+[   24s] [272/656] preinstalled libsepol2-3.11-1.2
+[   24s] [273/656] preinstalled libsframe3-2.47-1.1
+[   24s] [274/656] preinstalled libsmartcols1-2.42.4-1.1
+[   24s] [275/656] cumulate libspeechd2-0.12.1-1.6
+[   24s] [276/656] cumulate libsqlite3-0-3.53.2-3.2
+[   24s] [277/656] cumulate libssh-config-0.11.5-3.1
+[   24s] [278/656] preinstalled libstdc++-devel-16-1.1
+[   24s] [279/656] preinstalled libstdc++6-16.2.1+git9713-1.1
+[   24s] [280/656] preinstalled libstdc++6-devel-gcc16-16.2.1+git9713-1.1
+[   24s] [281/656] preinstalled libsubid6-4.20.3-1.1
+[   24s] [282/656] preinstalled libsystemd0-mini-261.3-1.1
+[   24s] [283/656] preinstalled libtasn1-6-4.21.0-2.1
+[   24s] [284/656] preinstalled libthai-data-0.1.30-1.4
+[   24s] [285/656] preinstalled libthai-devel-0.1.30-1.4
+[   24s] [286/656] preinstalled libthai0-0.1.30-1.4
+[   24s] [287/656] cumulate libtheoradec2-1.2.0-3.1
+[   24s] [288/656] cumulate libts0-1.24-1.4
+[   24s] [289/656] preinstalled libtsan2-16.2.1+git9713-1.1
+[   24s] [290/656] cumulate libturbojpeg0-8.3.2-85.1
+[   24s] [291/656] preinstalled libubsan1-16.2.1+git9713-1.1
+[   24s] [292/656] cumulate libudev-mini1-261.3-1.1
+[   24s] [293/656] preinstalled libunistring5-1.4.2-1.3
+[   24s] [294/656] cumulate libunwind8-1.8.3-3.3
+[   24s] [295/656] cumulate libuuid-devel-2.42.4-1.1
+[   24s] [296/656] preinstalled libuuid1-2.42.4-1.1
+[   24s] [297/656] cumulate libuv1-1.52.0-1.3
+[   24s] [298/656] cumulate libva2-2.24.1-1.1
+[   24s] [299/656] cumulate libverdict1_4-1.4.4-1.5
+[   24s] [300/656] cumulate libverto-devel-0.3.2-3.11
+[   24s] [301/656] preinstalled libverto1-0.3.2-3.11
+[   24s] [302/656] cumulate libvulkan1-1.4.363-1.1
+[   24s] [303/656] cumulate libwacom-data-2.19.1-1.1
+[   24s] [304/656] cumulate libwayland-client0-1.26.0-1.2
+[   24s] [305/656] cumulate libwayland-egl1-1.26.0-1.2
+[   24s] [306/656] cumulate libwayland-server0-1.26.0-1.2
+[   24s] [307/656] preinstalled libxcb-composite0-1.17.0-2.7
+[   24s] [308/656] preinstalled libxcb-damage0-1.17.0-2.7
+[   24s] [309/656] preinstalled libxcb-dbe0-1.17.0-2.7
+[   24s] [310/656] preinstalled libxcb-devel-1.17.0-2.7
+[   24s] [311/656] preinstalled libxcb-dpms0-1.17.0-2.7
+[   24s] [312/656] preinstalled libxcb-dri2-0-1.17.0-2.7
+[   24s] [313/656] preinstalled libxcb-dri3-0-1.17.0-2.7
+[   24s] [314/656] preinstalled libxcb-glx0-1.17.0-2.7
+[   24s] [315/656] cumulate libxcb-icccm4-0.4.2-1.12
+[   24s] [316/656] cumulate libxcb-keysyms1-0.4.1-1.12
+[   24s] [317/656] preinstalled libxcb-present0-1.17.0-2.7
+[   24s] [318/656] preinstalled libxcb-randr0-1.17.0-2.7
+[   24s] [319/656] preinstalled libxcb-record0-1.17.0-2.7
+[   24s] [320/656] cumulate libxcb-render-util0-0.3.10-1.12
+[   24s] [321/656] preinstalled libxcb-render0-1.17.0-2.7
+[   24s] [322/656] preinstalled libxcb-res0-1.17.0-2.7
+[   24s] [323/656] preinstalled libxcb-screensaver0-1.17.0-2.7
+[   24s] [324/656] preinstalled libxcb-shape0-1.17.0-2.7
+[   24s] [325/656] preinstalled libxcb-shm0-1.17.0-2.7
+[   24s] [326/656] preinstalled libxcb-sync1-1.17.0-2.7
+[   24s] [327/656] cumulate libxcb-util1-0.4.1-1.12
+[   24s] [328/656] preinstalled libxcb-xf86dri0-1.17.0-2.7
+[   24s] [329/656] preinstalled libxcb-xfixes0-1.17.0-2.7
+[   24s] [330/656] preinstalled libxcb-xinerama0-1.17.0-2.7
+[   24s] [331/656] preinstalled libxcb-xinput0-1.17.0-2.7
+[   24s] [332/656] preinstalled libxcb-xkb1-1.17.0-2.7
+[   24s] [333/656] preinstalled libxcb-xtest0-1.17.0-2.7
+[   24s] [334/656] preinstalled libxcb-xv0-1.17.0-2.7
+[   24s] [335/656] preinstalled libxcb-xvmc0-1.17.0-2.7
+[   24s] [336/656] preinstalled libxcb1-1.17.0-2.7
+[   24s] [337/656] preinstalled libxcrypt-devel-4.5.2-2.4
+[   24s] [338/656] preinstalled libxml2-16-2.15.4-1.1
+[   24s] [339/656] cumulate libxshmfence1-1.3.3-1.7
+[   24s] [340/656] preinstalled libz1-1.3.1-3.3
+[   24s] [341/656] cumulate libzstd-devel-1.5.7-6.1
+[   24s] [342/656] preinstalled libzstd1-1.5.7-6.1
+[   24s] [343/656] preinstalled linux-glibc-devel-7.2-2.1
+[   24s] [344/656] preinstalled login_defs-4.20.3-1.1
+[   24s] [345/656] preinstalled lua-interpreter-5-3.4
+[   24s] [346/656] preinstalled lua54-5.4.8-4.7
+[   24s] [347/656] preinstalled lzo-devel-2.10-9.10
+[   24s] [348/656] preinstalled make-4.4.1-3.10
+[   24s] [349/656] preinstalled ncurses-utils-6.6.20260926-115.1
+[   24s] [350/656] cumulate netcdf-devel-data-4.10.1-1.2
+[   24s] [351/656] cumulate ninja-1.13.2-1.4
+[   24s] [352/656] cumulate nlohmann_json-devel-3.12.0-2.6
+[   24s] [353/656] cumulate occt-resources-7.9.3-1.4
+[   24s] [354/656] preinstalled pam-1.7.3-1.1
+[   24s] [355/656] preinstalled pango-devel-1.58.2-1.1
+[   24s] [356/656] preinstalled patch-2.8-3.2
+[   24s] [357/656] preinstalled pcre2-devel-10.49-1.1
+[   24s] [358/656] preinstalled perl-5.44.0-1.2
+[   24s] [359/656] preinstalled perl-base-5.44.0-1.2
+[   24s] [360/656] cumulate perl-gettext-1.07-2.17
+[   24s] [361/656] preinstalled perl-rpm-packaging-1.3-1.3
+[   24s] [362/656] preinstalled permctl-1699_20260917-1.1
+[   24s] [363/656] preinstalled permissions-1699_20260917-1.1
+[   24s] [364/656] preinstalled permissions-config-1699_20260917-1.1
+[   24s] [365/656] preinstalled pkgconf-2.5.1-1.5
+[   24s] [366/656] preinstalled pkgconf-m4-2.5.1-1.5
+[   24s] [367/656] preinstalled pkgconf-pkg-config-2.5.1-1.5
+[   24s] [368/656] preinstalled polkit-default-privs-1550+20261009.03465cb-1.1
+[   24s] [369/656] preinstalled post-build-checks-84.87+git20260421.8ed5e73-1.1
+[   24s] [370/656] preinstalled python-rpm-macros-20260909.65d2791-1.1
+[   24s] [371/656] preinstalled python-rpm-packaging-20210526+a18ca48-2.1
+[   24s] [372/656] cumulate python313-PyQt6-sip-13.12.0-1.1
+[   24s] [373/656] preinstalled python313-base-3.13.15-2.1
+[   24s] [374/656] cumulate python313-gobject-3.56.3-1.3
+[   24s] [375/656] preinstalled python313-packaging-26.3-1.1
+[   24s] [376/656] preinstalled rpm-4.20.1-11.1
+[   24s] [377/656] preinstalled rpm-build-4.20.1-11.1
+[   24s] [378/656] preinstalled rpm-config-SUSE-20250904-1.4
+[   24s] [379/656] preinstalled rpmlint-mini-2.10.0+git20261009.041119a7-21.49
+[   24s] [380/656] preinstalled rpmlint-strict-2.10.0+git20261009.041119a7-1.1
+[   24s] [381/656] preinstalled sed-4.10-1.4
+[   24s] [382/656] preinstalled shadow-4.20.3-1.1
+[   24s] [383/656] preinstalled shadow-pw-mgmt-4.20.3-1.1
+[   24s] [384/656] preinstalled shared-mime-info-2.5.1-1.1
+[   24s] [385/656] preinstalled suse-reproducible-builds-1.0-1.2
+[   24s] [386/656] preinstalled system-user-lp-20250822-2.3
+[   24s] [387/656] preinstalled system-user-root-20190513-2.23
+[   24s] [388/656] cumulate system-user-srvGeoClue-2.8.2-1.2
+[   24s] [389/656] preinstalled systemd-mini-261.3-1.1
+[   24s] [390/656] preinstalled systemd-rpm-macros-26-1.4
+[   24s] [391/656] preinstalled sysuser-shadow-3.3-12.3
+[   24s] [392/656] preinstalled tar-1.35-10.1
+[   24s] [393/656] cumulate tcl-8.6.18-2.1
+[   24s] [394/656] preinstalled terminfo-base-6.6.20260926-115.1
+[   24s] [395/656] preinstalled timezone-2026e-1.1
+[   24s] [396/656] preinstalled typelib-1_0-Atk-1_0-2.60.7-1.1
+[   24s] [397/656] preinstalled typelib-1_0-Atspi-2_0-2.60.7-1.1
+[   24s] [398/656] preinstalled typelib-1_0-GIRepository-3_0-2.88.4-1.1
+[   24s] [399/656] preinstalled typelib-1_0-GLib-2_0-2.88.4-1.1
+[   24s] [400/656] preinstalled typelib-1_0-GLibUnix-2_0-2.88.4-1.1
+[   24s] [401/656] preinstalled typelib-1_0-GModule-2_0-2.88.4-1.1
+[   24s] [402/656] preinstalled typelib-1_0-GObject-2_0-2.88.4-1.1
+[   24s] [403/656] preinstalled typelib-1_0-GdkPixbuf-2_0-2.44.7-1.2
+[   24s] [404/656] preinstalled typelib-1_0-GdkPixdata-2_0-2.44.7-1.2
+[   24s] [405/656] preinstalled typelib-1_0-Gio-2_0-2.88.4-1.1
+[   24s] [406/656] preinstalled typelib-1_0-Gly_2-2.1.5-1.4
+[   24s] [407/656] preinstalled typelib-1_0-Gtk-2_0-2.24.33-20.1
+[   24s] [408/656] preinstalled typelib-1_0-HarfBuzz-0_0-14.6.0-1.1
+[   24s] [409/656] preinstalled typelib-1_0-Pango-1_0-1.58.2-1.1
+[   24s] [410/656] cumulate update-alternatives-1.22.22-1.3
+[   24s] [411/656] cumulate utfcpp-devel-4.0.8-1.4
+[   24s] [412/656] preinstalled util-linux-2.42.4-1.1
+[   24s] [413/656] preinstalled which-2.25-1.3
+[   24s] [414/656] cumulate xbitmaps-1.1.4-1.2
+[   24s] [415/656] cumulate xbitmaps-devel-1.1.4-1.2
+[   24s] [416/656] cumulate xkeyboard-config-2.48-1.2
+[   24s] [417/656] preinstalled xorgproto-devel-2026.1-1.1
+[   24s] [418/656] preinstalled xz-5.8.4-1.1
+[   24s] [419/656] cumulate xz-devel-5.8.4-1.1
+[   24s] [420/656] preinstalled zlib-devel-1.3.1-3.3
+[   24s] [421/656] cumulate Imath-devel-3.2.3-1.1
+[   24s] [422/656] cumulate draco-devel-1.5.7-3.2
+[   24s] [423/656] cumulate ffmpeg-8-mini-devel-8.1.3-2.2
+[   24s] [424/656] cumulate fmt-devel-12.1.0-1.4
+[   24s] [425/656] cumulate gcc-c++-16-1.1
+[   24s] [426/656] cumulate help2man-1.49.3-1.17
+[   24s] [427/656] cumulate iodbc-3.52.16-2.3
+[   24s] [428/656] cumulate jsoncpp-devel-1.9.8-2.3
+[   24s] [429/656] cumulate lerc-devel-4.1.0-3.3
+[   24s] [430/656] cumulate libAlembic1_8-1.8.12-1.1
+[   24s] [431/656] cumulate libFLAC14-1.5.0-1.8
+[   24s] [432/656] cumulate libICE-devel-1.1.2-1.7
+[   24s] [433/656] cumulate libLLVM23-23.1.3-1.1
+[   24s] [434/656] cumulate libSM6-1.2.6-1.5
+[   24s] [435/656] cumulate libassimp6-6.0.5-4.3
+[   24s] [436/656] cumulate libcgns4_4-4.4.0-2.13
+[   24s] [437/656] cumulate libdrm_amdgpu1-2.4.134-2.2
+[   24s] [438/656] cumulate libdrm_etnaviv1-2.4.134-2.2
+[   24s] [439/656] cumulate libdrm_exynos1-2.4.134-2.2
+[   24s] [440/656] cumulate libdrm_freedreno1-2.4.134-2.2
+[   24s] [441/656] cumulate libdrm_nouveau2-2.4.134-2.2
+[   24s] [442/656] cumulate libdrm_radeon1-2.4.134-2.2
+[   24s] [443/656] cumulate libdrm_tegra0-2.4.134-2.2
+[   24s] [444/656] cumulate libgbm1-26.2.4-1.1
+[   24s] [445/656] cumulate libgudev-1_0-0-238-1.13
+[   24s] [446/656] cumulate libhdf5_cpp310-1.14.6-3.1
+[   24s] [447/656] cumulate libhdf5_hl310-1.14.6-3.1
+[   24s] [448/656] cumulate libhdf5_tools310-1.14.6-3.1
+[   24s] [449/656] cumulate libiodbcadm2-3.52.16-2.3
+[   24s] [450/656] cumulate libjq1-1.8.2-3.1
+[   24s] [451/656] cumulate libldap2-2.6.13-1.6
+[   24s] [452/656] cumulate libnghttp2-devel-1.70.0-1.1
+[   24s] [453/656] cumulate libngtcp2_crypto_ossl0-1.25.0-2.1
+[   24s] [454/656] cumulate libogg-devel-1.3.6-1.4
+[   24s] [455/656] cumulate libopencascade-modelingdata7_9_3-7.9.3-1.4
+[   24s] [456/656] cumulate libpciaccess-devel-0.19-1.3
+[   24s] [457/656] cumulate libproxy1-0.5.12-2.4
+[   24s] [458/656] cumulate libssh4-0.11.5-3.1
+[   24s] [459/656] cumulate libtheora1-1.2.0-3.1
+[   24s] [460/656] cumulate libtheoraenc2-1.2.0-3.1
+[   24s] [461/656] cumulate libvorbis0-1.3.7-5.10
+[   24s] [462/656] cumulate libwayland-cursor0-1.26.0-1.2
+[   24s] [463/656] cumulate libxcb-image0-0.4.1-1.13
+[   24s] [464/656] cumulate libxkbcommon0-1.13.2-1.3
+[   24s] [465/656] cumulate minizip-devel-1.3.1-3.3
+[   24s] [466/656] cumulate nghttp3-devel-1.18.0-2.1
+[   24s] [467/656] cumulate ngtcp2-devel-1.25.0-2.1
+[   24s] [468/656] cumulate pugixml-devel-1.16-1.2
+[   24s] [469/656] cumulate python313-dbus-python-1.4.0-2.1
+[   24s] [470/656] cumulate sqlite3-devel-3.53.2-3.2
+[   24s] [471/656] cumulate tcl-devel-8.6.18-2.1
+[   24s] [472/656] cumulate verdict-devel-1.4.4-1.5
+[   24s] [473/656] cumulate xhost-1.0.10-1.7
+[   24s] [474/656] cumulate Mesa-vulkan-device-select-26.2.4-1.1
+[   24s] [475/656] cumulate cmake-mini-4.4.3-2.1
+[   24s] [476/656] cumulate krb5-mini-devel-1.22.2-4.2
+[   24s] [477/656] cumulate libQt6Core6-6.11.2-2.1
+[   24s] [478/656] cumulate libblas3-3.12.1-5.1
+[   24s] [479/656] cumulate libdrm_intel1-2.4.134-2.2
+[   24s] [480/656] cumulate libhdf5_fortran310-1.14.6-3.1
+[   24s] [481/656] cumulate libjpeg8-devel-8.3.2-85.1
+[   24s] [482/656] cumulate libpsl-devel-0.23.3-1.1
+[   24s] [483/656] cumulate libtiff6-4.7.2-1.2
+[   24s] [484/656] cumulate cgns-devel-4.4.0-2.13
+[   24s] [485/656] cumulate libQt6DBus6-6.11.2-2.1
+[   24s] [486/656] cumulate libQt6Positioning6-6.11.2-1.1
+[   24s] [487/656] cumulate libQt6Sql6-6.11.2-2.1
+[   24s] [488/656] cumulate libQt6Test6-6.11.2-2.1
+[   24s] [489/656] cumulate libQt6Xml6-6.11.2-2.1
+[   24s] [490/656] cumulate libgbm-devel-26.2.4-1.1
+[   24s] [491/656] cumulate libhdf5_hl_cpp310-1.14.6-3.1
+[   24s] [492/656] cumulate libssh-devel-0.11.5-3.1
+[   24s] [493/656] cumulate libvorbisenc2-1.3.7-5.10
+[   24s] [494/656] cumulate libxkbcommon-devel-1.13.2-1.3
+[   24s] [495/656] cumulate libxkbcommon-x11-0-1.13.2-1.3
+[   24s] [496/656] cumulate alembic-devel-1.8.12-1.1
+[   24s] [497/656] cumulate assimp-devel-6.0.5-4.3
+[   24s] [498/656] cumulate cmake-4.4.3-2.1
+[   24s] [499/656] cumulate jq-1.8.2-3.1
+[   24s] [500/656] cumulate libQt6Nfc6-6.11.2-1.1
+[   24s] [501/656] cumulate libQt6SerialPort6-6.11.2-1.1
+[   24s] [502/656] cumulate libXt6-1.3.1-3.6
+[   24s] [503/656] cumulate libcblas3-3.12.1-5.1
+[   24s] [504/656] cumulate libdrvproxy2-3.52.16-2.3
+[   24s] [505/656] cumulate libopencascade-modelingalgorithms7_9_3-7.9.3-1.4
+[   24s] [506/656] cumulate libxcb-cursor0-0.1.6-1.5
+[   24s] [507/656] cumulate libSM-devel-1.2.6-1.5
+[   24s] [508/656] cumulate liblapack3-3.12.1-5.1
+[   24s] [509/656] cumulate libwacom9-2.19.1-1.1
+[   24s] [510/656] cumulate tk-8.6.18-1.3
+[   24s] [511/656] cumulate libhdf5_hl_fortran310-1.14.6-3.1
+[   24s] [512/656] cumulate libtheora-devel-1.2.0-3.1
+[   24s] [513/656] cumulate wayland-devel-1.26.0-1.2
+[   24s] [514/656] cumulate libtiff-devel-4.7.2-1.2
+[   24s] [515/656] cumulate libcurl4-8.22.0-1.1
+[   24s] [516/656] cumulate libvulkan_lvp-26.2.4-1.1
+[   24s] [517/656] cumulate libdrm-devel-2.4.134-2.2
+[   24s] [518/656] cumulate qml-autoreqprov-1.4.1-1.9
+[   24s] [519/656] cumulate libXmu6-1.3.1-1.4
+[   24s] [520/656] cumulate qt6-macros-20260508-1.2
+[   24s] [521/656] cumulate tk-devel-8.6.18-1.3
+[   24s] [522/656] cumulate vulkan-headers-1.4.363-1.1
+[   24s] [523/656] cumulate libXt-devel-1.3.1-3.6
+[   24s] [524/656] cumulate libnetcdf22-4.10.1-1.2
+[   24s] [525/656] cumulate libproj25-9.9.0-2.1
+[   24s] [526/656] cumulate python313-numpy-2.5.3-1.1
+[   24s] [527/656] cumulate libinput10-1.32-1.1
+[   24s] [528/656] cumulate libiodbc-devel-3.52.16-2.3
+[   24s] [529/656] cumulate libsndfile1-1.2.2-5.3
+[   24s] [530/656] cumulate hdf5-1.14.6-3.1
+[   24s] [531/656] cumulate libpulse0-17.0-7.5
+[   24s] [532/656] cumulate vulkan-devel-1.4.363-1.1
+[   24s] [533/656] cumulate libXmu-devel-1.3.1-1.4
+[   24s] [534/656] cumulate qt6-base-common-devel-6.11.2-2.1
+[   24s] [535/656] cumulate hdf5-devel-1.14.6-3.1
+[   24s] [536/656] cumulate libflite1-2.2-1.13
+[   24s] [537/656] cumulate qt6-core-devel-6.11.2-2.1
+[   24s] [538/656] cumulate qt6-dbus-devel-6.11.2-2.1
+[   24s] [539/656] cumulate qt6-sql-devel-6.11.2-2.1
+[   24s] [540/656] cumulate libglvnd-1.7.0-2.3
+[   24s] [541/656] cumulate openssl-3-3.5.3-8.3
+[   24s] [542/656] cumulate libgstreamer-1_0-0-1.28.8-1.1
+[   24s] [543/656] cumulate polkit-127-7.2
+[   24s] [544/656] cumulate qt6-networkinformation-nm-6.11.2-2.1
+[   24s] [545/656] cumulate qt6-sensors-6.11.2-1.1
+[   24s] [546/656] cumulate gstreamer-1.28.8-1.1
+[   24s] [547/656] cumulate libgl2ps1-1.4.2-1.24
+[   24s] [548/656] cumulate libglvnd-devel-1.7.0-2.3
+[   24s] [549/656] cumulate libgstphotography-1_0-0-1.28.8-1.1
+[   24s] [550/656] cumulate libpolkit-gobject-1-0-127-7.2
+[   24s] [551/656] cumulate openssl-3.5.3-1.3
+[   24s] [552/656] cumulate libQt6Sensors6-6.11.2-1.1
+[   24s] [553/656] cumulate Mesa-26.2.4-1.1
+[   24s] [554/656] cumulate libopencascade-visualization7_9_3-7.9.3-1.4
+[   24s] [555/656] cumulate Mesa-libGL1-26.2.4-1.1
+[   24s] [556/656] cumulate libQt6Network6-6.11.2-2.1
+[   24s] [557/656] cumulate gl2ps-devel-1.4.2-1.24
+[   24s] [558/656] cumulate libQt6RemoteObjects6-6.11.2-1.1
+[   24s] [559/656] cumulate libQt6WebSockets6-6.11.2-1.1
+[   24s] [560/656] cumulate libopenssl-devel-3.5.3-1.3
+[   24s] [561/656] cumulate libpolkit-agent-1-0-127-7.2
+[   24s] [562/656] cumulate qt6-network-tls-6.11.2-2.1
+[   24s] [563/656] cumulate qt6-networkinformation-glib-6.11.2-2.1
+[   24s] [564/656] cumulate Mesa-libGL-devel-26.2.4-1.1
+[   24s] [565/656] cumulate iio-sensor-proxy-3.9-1.5
+[   24s] [566/656] cumulate libQt6Bluetooth6-6.11.2-1.1
+[   24s] [567/656] cumulate qt6-networkinformation-connman-6.11.2-2.1
+[   24s] [568/656] cumulate libopencascade-applicationframework7_9_3-7.9.3-1.4
+[   24s] [569/656] cumulate Mesa-dri-26.2.4-1.1
+[   24s] [570/656] cumulate gstreamer-plugins-base-1.28.8-1.1
+[   24s] [571/656] cumulate libQt6Gui6-6.11.2-2.1
+[   24s] [572/656] cumulate libQt6QuickDialogs2Utils6-6.11.2-2.1
+[   24s] [573/656] cumulate libQt6ShaderTools6-6.11.2-1.1
+[   24s] [574/656] cumulate libQt6StateMachine6-6.11.2-1.1
+[   24s] [575/656] cumulate libQt6Svg6-6.11.2-1.1
+[   24s] [576/656] cumulate libQt6Widgets6-6.11.2-2.1
+[   24s] [577/656] cumulate libgstapp-1_0-0-1.28.8-1.1
+[   24s] [578/656] cumulate libgsttag-1_0-0-1.28.8-1.1
+[   24s] [579/656] cumulate libopenssl-3-devel-3.5.3-8.3
+[   24s] [580/656] cumulate libgstallocators-1_0-0-1.28.8-1.1
+[   24s] [581/656] cumulate Mesa-libEGL1-26.2.4-1.1
+[   24s] [582/656] cumulate libQt6WaylandClient6-6.11.2-2.1
+[   24s] [583/656] cumulate libopencascade-dataexchange7_9_3-7.9.3-1.4
+[   24s] [584/656] cumulate Mesa-libEGL-devel-26.2.4-1.1
+[   24s] [585/656] cumulate libQt6Help6-6.11.2-2.5
+[   24s] [586/656] cumulate libQt6OpenGL6-6.11.2-2.1
+[   24s] [587/656] cumulate libQt6SvgWidgets6-6.11.2-1.1
+[   24s] [588/656] cumulate libgstaudio-1_0-0-1.28.8-1.1
+[   24s] [589/656] cumulate libgstvideo-1_0-0-1.28.8-1.1
+[   24s] [590/656] cumulate libngtcp2_crypto_ossl-devel-1.25.0-2.1
+[   24s] [591/656] cumulate qt6-printsupport-cups-6.11.2-2.1
+[   24s] [592/656] cumulate libopencascade-draw7_9_3-7.9.3-1.4
+[   24s] [593/656] cumulate Mesa-libGLESv3-devel-26.2.4-1.1
+[   24s] [594/656] cumulate Mesa-libGLESv2-devel-26.2.4-1.1
+[   24s] [595/656] cumulate libQt6OpenGLWidgets6-6.11.2-2.1
+[   24s] [596/656] cumulate libQt6PrintSupport6-6.11.2-2.1
+[   24s] [597/656] cumulate libgstriff-1_0-0-1.28.8-1.1
+[   24s] [598/656] cumulate libgstpbutils-1_0-0-1.28.8-1.1
+[   24s] [599/656] cumulate libQt6Quick6-6.11.2-2.1
+[   24s] [600/656] cumulate libgstgl-1_0-0-1.28.8-1.1
+[   24s] [601/656] cumulate occt-devel-7.9.3-1.4
+[   24s] [602/656] cumulate libcurl-devel-8.22.0-1.1
+[   24s] [603/656] cumulate libgstplay-1_0-0-1.28.8-1.1
+[   24s] [604/656] cumulate netcdf-devel-4.10.1-1.2
+[   24s] [605/656] cumulate proj-devel-9.9.0-2.1
+[   24s] [606/656] cumulate libQt6Designer6-6.11.2-2.5
+[   24s] [607/656] cumulate libQt6QuickVectorImage6-6.11.2-2.1
+[   24s] [608/656] cumulate vtk-qt-9.7.0-2.1
+[   24s] [609/656] cumulate qt6-gui-devel-6.11.2-2.1
+[   24s] [610/656] cumulate qt6-widgets-devel-6.11.2-2.1
+[   24s] [611/656] cumulate qt6-opengl-devel-6.11.2-2.1
+[   24s] [612/656] cumulate qt6-multimedia-6.11.2-1.2
+[   24s] [613/656] cumulate qt6-declarative-imports-6.11.2-2.1
+[   24s] [614/656] cumulate libQt6Qml6-6.11.2-2.1
+[   24s] [615/656] cumulate libQt6Multimedia6-6.11.2-1.2
+[   24s] [616/656] cumulate libQt6LabsAnimation6-6.11.2-2.1
+[   24s] [617/656] cumulate libQt6LabsFolderListModel6-6.11.2-2.1
+[   24s] [618/656] cumulate libQt6LabsSettings6-6.11.2-2.1
+[   24s] [619/656] cumulate libQt6LabsSynchronizer6-6.11.2-2.1
+[   24s] [620/656] cumulate libQt6QmlCompiler6-6.11.2-2.1
+[   24s] [621/656] cumulate libQt6QmlModels6-6.11.2-2.1
+[   24s] [622/656] cumulate libQt6QmlWorkerScript6-6.11.2-2.1
+[   24s] [623/656] cumulate libQt6WebChannel6-6.11.2-1.1
+[   24s] [624/656] cumulate libQt6QmlCore6-6.11.2-2.1
+[   24s] [625/656] cumulate libQt6QmlLocalStorage6-6.11.2-2.1
+[   24s] [626/656] cumulate libQt6QmlNetwork6-6.11.2-2.1
+[   24s] [627/656] cumulate libQt6QmlXmlListModel6-6.11.2-2.1
+[   24s] [628/656] cumulate libQt6Quick3DUtils6-6.11.2-1.1
+[   24s] [629/656] cumulate libQt6SpatialAudio6-6.11.2-1.2
+[   24s] [630/656] cumulate libQt6LabsSharedImage6-6.11.2-2.1
+[   24s] [631/656] cumulate libQt6LabsWavefrontMesh6-6.11.2-2.1
+[   24s] [632/656] cumulate libQt6MultimediaWidgets6-6.11.2-1.2
+[   24s] [633/656] cumulate libQt6QuickEffects6-6.11.2-2.1
+[   24s] [634/656] cumulate libQt6QuickLayouts6-6.11.2-2.1
+[   24s] [635/656] cumulate libQt6QuickParticles6-6.11.2-2.1
+[   24s] [636/656] cumulate libQt6QuickShapes6-6.11.2-2.1
+[   24s] [637/656] cumulate libQt6QuickTest6-6.11.2-2.1
+[   24s] [638/656] cumulate libQt6QuickWidgets6-6.11.2-2.1
+[   24s] [639/656] cumulate qt6-texttospeech-6.11.2-1.1
+[   24s] [640/656] cumulate libQt6LabsQmlModels6-6.11.2-2.1
+[   24s] [641/656] cumulate libQt6TextToSpeech6-6.11.2-1.1
+[   24s] [642/656] cumulate libQt6QmlMeta6-6.11.2-2.1
+[   24s] [643/656] cumulate libQt6Quick3DRuntimeRender6-6.11.2-1.1
+[   24s] [644/656] cumulate libQt6QuickTemplates2-6-6.11.2-2.1
+[   24s] [645/656] cumulate qt6-declarative-tools-6.11.2-2.1
+[   24s] [646/656] cumulate libQt6LabsStyleKit6-6.11.2-2.1
+[   24s] [647/656] cumulate libQt6QuickControls2-6-6.11.2-2.1
+[   24s] [648/656] cumulate libQt6QuickControls2Impl6-6.11.2-2.1
+[   24s] [649/656] cumulate libQt6LabsPlatform6-6.11.2-2.1
+[   24s] [650/656] cumulate libQt6Quick3D6-6.11.2-1.1
+[   24s] [651/656] cumulate libQt6QuickDialogs2QuickImpl6-6.11.2-2.1
+[   24s] [652/656] cumulate python313-PyQt6-6.11.0-2.3
+[   24s] [653/656] cumulate python3-vtk-9.7.0-2.1
+[   24s] [654/656] cumulate libQt6QuickDialogs2-6-6.11.2-2.1
+[   24s] [655/656] cumulate libvtk-9_7-1-9.7.0-2.1
+[   24s] [656/656] cumulate vtk-devel-9.7.0-2.1
+[   24s] now installing cumulated packages
+[   24s] Preparing...                          ########################################
+[   24s] Updating / installing...
+[   24s] libdrm2-2.4.134-2.2                   ########################################
+[   24s] libhdf5-310-1.14.6-3.1                ########################################
+[   24s] libogg0-1.3.6-1.4                     ########################################
+[   24s] libwayland-client0-1.26.0-1.2         ########################################
+[   24s] libopencascade-foundationclasses7_9_3-########################################
+[   24s] libopencascade-modelingdata7_9_3-7.9.3########################################
+[   24s] libhdf5_hl310-1.14.6-3.1              ########################################
+[   24s] libopencascade-modelingalgorithms7_9_3########################################
+[   25s] libgbm1-26.2.4-1.1                    ########################################
+[   25s] libjpeg8-8.3.2-85.1                   ########################################
+[   25s] libudev-mini1-261.3-1.1               ########################################
+[   25s] libiodbc2-3.52.16-2.3                 ########################################
+[   25s] libgfortran5-16.2.1+git9713-1.1       ########################################
+[   25s] libfmt12-12.1.0-1.4                   ########################################
+[   25s] libICE6-1.1.2-1.7                     ########################################
+[   25s] Mesa-KHR-devel-26.2.4-1.1             ########################################
+[   25s] libSM6-1.2.6-1.5                      ########################################
+[   25s] libhdf5_fortran310-1.14.6-3.1         ########################################
+[   25s] libgudev-1_0-0-238-1.13               ########################################
+[   25s] libwayland-cursor0-1.26.0-1.2         ########################################
+[   25s] libtheoraenc2-1.2.0-3.1               ########################################
+[   25s] libvorbis0-1.3.7-5.10                 ########################################
+[   25s] update-alternatives-1.22.22-1.3       ########################################
+[   25s] libblas3-3.12.1-5.1                   ########################################
+[   25s] update-alternatives: using /usr/lib64/blas/libblas.so.3 to provide /usr/lib64/libblas.so.3 (libblas.so.3_aarch64) in auto mode
+[   25s] tcl-8.6.18-2.1                        ########################################
+[   25s] libtheoradec2-1.2.0-3.1               ########################################
+[   25s] libsqlite3-0-3.53.2-3.2               ########################################
+[   25s] liborc-0_4-0-0.4.44-1.1               ########################################
+[   25s] libngtcp2-16-1.25.0-2.1               ########################################
+[   25s] libngtcp2_crypto_ossl0-1.25.0-2.1     ########################################
+[   25s] ngtcp2-devel-1.25.0-2.1               ########################################
+[   25s] tcl-devel-8.6.18-2.1                  ########################################
+[   25s] libvorbisenc2-1.3.7-5.10              ########################################
+[   25s] libhdf5_hl_fortran310-1.14.6-3.1      ########################################
+[   25s] libXt6-1.3.1-3.6                      ########################################
+[   25s] libICE-devel-1.1.2-1.7                ########################################
+[   25s] libiodbcadm2-3.52.16-2.3              ########################################
+[   25s] libhdf5_hl_cpp310-1.14.6-3.1          ########################################
+[   25s] libcgns4_4-4.4.0-2.13                 ########################################
+[   25s] libhdf5_cpp310-1.14.6-3.1             ########################################
+[   25s] libhdf5_tools310-1.14.6-3.1           ########################################
+[   25s] libdrm_amdgpu1-2.4.134-2.2            ########################################
+[   25s] xz-devel-5.8.4-1.1                    ########################################
+[   25s] libzstd-devel-1.5.7-6.1               ########################################
+[   25s] libxshmfence1-1.3.3-1.7               ########################################
+[   25s] libxcb-render-util0-0.3.10-1.12       ########################################
+[   25s] libwayland-egl1-1.26.0-1.2            ########################################
+[   25s] libvulkan1-1.4.363-1.1                ########################################
+[   25s] libverdict1_4-1.4.4-1.5               ########################################
+[   25s] libuv1-1.52.0-1.3                     ########################################
+[   26s] libpugixml1-1.16-1.2                  ########################################
+[   26s] libpsl5-0.23.3-1.1                    ########################################
+[   26s] libpciaccess0-0.19-1.3                ########################################
+[   26s] libopus0-1.6.1-1.5                    ########################################
+[   26s] libonig5-6.9.10-2.5                   ########################################
+[   26s] libnghttp3-9-1.18.0-2.1               ########################################
+[   26s] libnghttp2-14-1.70.0-1.1              ########################################
+[   26s] libmtdev1-1.1.6-1.20                  ########################################
+[   26s] libminizip1-1.3.1-3.3                 ########################################
+[   26s] libjsoncpp27-1.9.8-2.3                ########################################
+[   26s] libidn2-devel-2.3.8-1.5               ########################################
+[   26s] libevdev2-1.13.7-1.1                  ########################################
+[   26s] libXmuu1-1.3.1-1.4                    ########################################
+[   26s] libSPIRV-Tools-2026_4_rc2-2026.4~rc2-1########################################
+[   26s] libLerc4-4.1.0-3.3                    ########################################
+[   26s] libImath-3_2-30-3.2.3-1.1             ########################################
+[   26s] ffmpeg-8-mini-libs-8.1.3-2.2          ########################################
+[   26s] ffmpeg-8-mini-devel-8.1.3-2.2         ########################################
+[   26s] Imath-devel-3.2.3-1.1                 ########################################
+[   26s] libAlembic1_8-1.8.12-1.1              ########################################
+[   26s] lerc-devel-4.1.0-3.3                  ########################################
+[   26s] xhost-1.0.10-1.7                      ########################################
+[   26s] libpsl-devel-0.23.3-1.1               ########################################
+[   26s] jsoncpp-devel-1.9.8-2.3               ########################################
+[   26s] libassimp6-6.0.5-4.3                  ########################################
+[   26s] minizip-devel-1.3.1-3.3               ########################################
+[   26s] libnghttp2-devel-1.70.0-1.1           ########################################
+[   26s] nghttp3-devel-1.18.0-2.1              ########################################
+[   26s] libjq1-1.8.2-3.1                      ########################################
+[   26s] jq-1.8.2-3.1                          ########################################
+[   26s] libpciaccess-devel-0.19-1.3           ########################################
+[   26s] libdrm_intel1-2.4.134-2.2             ########################################
+[   27s] pugixml-devel-1.16-1.2                ########################################
+[   27s] verdict-devel-1.4.4-1.5               ########################################
+[   27s] hdf5-1.14.6-3.1                       ########################################
+[   27s] cgns-devel-4.4.0-2.13                 ########################################
+[   27s] libdrvproxy2-3.52.16-2.3              ########################################
+[   27s] sqlite3-devel-3.53.2-3.2              ########################################
+[   27s] libcblas3-3.12.1-5.1                  ########################################
+[   27s] update-alternatives: using /usr/lib64/blas/libcblas.so.3 to provide /usr/lib64/libcblas.so.3 (libcblas.so.3_aarch64) in auto mode
+[   27s] liblapack3-3.12.1-5.1                 ########################################
+[   27s] update-alternatives: using /usr/lib64/lapack/liblapack.so.3 to provide /usr/lib64/liblapack.so.3 (liblapack.so.3_aarch64) in auto mode
+[   27s] python313-numpy-2.5.3-1.1             ########################################
+[   27s] fmt-devel-12.1.0-1.4                  ########################################
+[   27s] iodbc-3.52.16-2.3                     ########################################
+[   27s] libiodbc-devel-3.52.16-2.3            ########################################
+[   27s] libgbm-devel-26.2.4-1.1               ########################################
+[   27s] Mesa-vulkan-device-select-26.2.4-1.1  ########################################
+[   27s] libFLAC14-1.5.0-1.8                   ########################################
+[   27s] libsndfile1-1.2.2-5.3                 ########################################
+[   27s] libpulse0-17.0-7.5                    ########################################
+[   27s] libflite1-2.2-1.13                    ########################################
+[   27s] libogg-devel-1.3.6-1.4                ########################################
+[   27s] libtheora1-1.2.0-3.1                  ########################################
+[   28s] libtheora-devel-1.2.0-3.1             ########################################
+[   28s] libdrm_etnaviv1-2.4.134-2.2           ########################################
+[   28s] libdrm_exynos1-2.4.134-2.2            ########################################
+[   28s] libdrm_freedreno1-2.4.134-2.2         ########################################
+[   28s] libdrm_nouveau2-2.4.134-2.2           ########################################
+[   28s] libdrm_radeon1-2.4.134-2.2            ########################################
+[   28s] libdrm_tegra0-2.4.134-2.2             ########################################
+[   28s] libdrm-devel-2.4.134-2.2              ########################################
+[   28s] openssl-3.5.3-1.3                     ########################################
+[   28s] openssl-3-3.5.3-8.3                   ########################################
+[   28s] xkeyboard-config-2.48-1.2             ########################################
+[   28s] libxkbcommon0-1.13.2-1.3              ########################################
+[   28s] libxkbcommon-devel-1.13.2-1.3         ########################################
+[   28s] libxkbcommon-x11-0-1.13.2-1.3         ########################################
+[   28s] xbitmaps-devel-1.1.4-1.2              ########################################
+[   28s] xbitmaps-1.1.4-1.2                    ########################################
+[   28s] libXmu6-1.3.1-1.4                     ########################################
+[   28s] utfcpp-devel-4.0.8-1.4                ########################################
+[   28s] /usr/bin/systemd-sysusers --replace=/usr/lib/sysusers.d/system-user-srvGeoClue.conf -
+[   28s] Creating group 'srvGeoClue' with GID 496.
+[   28s] Creating user 'srvGeoClue' (User for GeoClue D-Bus service) with UID 496 and GID 496.
+[   28s] system-user-srvGeoClue-2.8.2-1.2      ########################################
+[   28s] python313-gobject-3.56.3-1.3          ########################################
+[   28s] python313-dbus-python-1.4.0-2.1       ########################################
+[   28s] python313-PyQt6-sip-13.12.0-1.1       ########################################
+[   28s] perl-gettext-1.07-2.17                ########################################
+[   28s] occt-resources-7.9.3-1.4              ########################################
+[   28s] nlohmann_json-devel-3.12.0-2.6        ########################################
+[   28s] ninja-1.13.2-1.4                      ########################################
+[   28s] netcdf-devel-data-4.10.1-1.2          ########################################
+[   28s] libxcb-util1-0.4.1-1.12               ########################################
+[   28s] libxcb-image0-0.4.1-1.13              ########################################
+[   28s] libxcb-cursor0-0.1.6-1.5              ########################################
+[   28s] libxcb-keysyms1-0.4.1-1.12            ########################################
+[   28s] libxcb-icccm4-0.4.2-1.12              ########################################
+[   28s] libwayland-server0-1.26.0-1.2         ########################################
+[   28s] wayland-devel-1.26.0-1.2              ########################################
+[   29s] libwacom-data-2.19.1-1.1              ########################################
+[   29s] libwacom9-2.19.1-1.1                  ########################################
+[   29s] libinput10-1.32-1.1                   ########################################
+[   29s] libverto-devel-0.3.2-3.11             ########################################
+[   29s] libva2-2.24.1-1.1                     ########################################
+[   29s] libuuid-devel-2.42.4-1.1              ########################################
+[   29s] libSM-devel-1.2.6-1.5                 ########################################
+[   29s] libXt-devel-1.3.1-3.6                 ########################################
+[   29s] libXmu-devel-1.3.1-1.4                ########################################
+[   29s] libunwind8-1.8.3-3.3                  ########################################
+[   29s] gstreamer-1.28.8-1.1                  ########################################
+[   29s] /usr/libexec/gstreamer-1.0/gst-ptp-helper: setting to root:root 0755 "cap_net_bind_service=ep". (missing capabilities)
+[   29s] libgstreamer-1_0-0-1.28.8-1.1         ########################################
+[   29s] libgstphotography-1_0-0-1.28.8-1.1    ########################################
+[   29s] libturbojpeg0-8.3.2-85.1              ########################################
+[   29s] libjpeg8-devel-8.3.2-85.1             ########################################
+[   29s] libts0-1.24-1.4                       ########################################
+[   29s] libssh-config-0.11.5-3.1              ########################################
+[   29s] libssh4-0.11.5-3.1                    ########################################
+[   29s] libssh-devel-0.11.5-3.1               ########################################
+[   29s] libspeechd2-0.12.1-1.6                ########################################
+[   29s] libsasl2-3-2.1.28-13.1                ########################################
+[   29s] libldap2-2.6.13-1.6                   ########################################
+[   29s] libcurl4-8.22.0-1.1                   ########################################
+[   29s] libnetcdf22-4.10.1-1.2                ########################################
+[   29s] librhash1-1.4.6-2.3                   ########################################
+[   30s] cmake-mini-4.4.3-2.1                  ########################################
+[   30s] cmake-4.4.3-2.1                       ########################################
+[   30s] qt6-macros-20260508-1.2               ########################################
+[   30s] libpxbackend-1_0-mini-0.5.12-2.4      ########################################
+[   30s] libproxy1-0.5.12-2.4                  ########################################
+[   30s] libpcsclite1-2.3.3-2.4                ########################################
+[   30s] libmd4c0-0.5.3-1.3                    ########################################
+[   30s] liblz4-devel-1.10.0-2.10              ########################################
+[   30s] libjbig2-2.1-5.11                     ########################################
+[   31s] libtiff6-4.7.2-1.2                    ########################################
+[   31s] libtiff-devel-4.7.2-1.2               ########################################
+[   31s] libproj25-9.9.0-2.1                   ########################################
+[   31s] libhpdf2_4-2.4.6-1.1                  ########################################
+[   31s] libgraphene-1_0-0-1.10.8-3.1          ########################################
+[   31s] libedit0-20250104.3.1-1.5             ########################################
+[   31s] libLLVM23-23.1.3-1.1                  ########################################
+[   31s] libduktape207-2.7.0-3.11              ########################################
+[   31s] libpolkit-gobject-1-0-127-7.2         ########################################
+[   31s] libpolkit-agent-1-0-127-7.2           ########################################
+[   32s] /usr/bin/systemd-sysusers --replace=/usr/lib/sysusers.d/polkitd.conf -
+[   32s] Creating group 'polkitd' with GID 495.
+[   32s] Creating user 'polkitd' (User for polkitd) with UID 495 and GID 495.
+[   32s] polkit-127-7.2                        ########################################
+[   32s] iio-sensor-proxy-3.9-1.5              ########################################
+[   32s] libdraco9-1.5.7-3.2                   ########################################
+[   32s] libdouble-conversion3-3.4.0-1.4       ########################################
+[   32s] libdisplay-info3-0.3.0-2.5            ########################################
+[   32s] libvulkan_lvp-26.2.4-1.1              ########################################
+[   32s] libcom_err-devel-1.47.3-2.2           ########################################
+[   32s] krb5-mini-devel-1.22.2-4.2            ########################################
+[   32s] libb2-1-0.98.1-2.4                    ########################################
+[   32s] libQt6Core6-6.11.2-2.1                ########################################
+[   32s] libQt6DBus6-6.11.2-2.1                ########################################
+[   32s] libQt6Sql6-6.11.2-2.1                 ########################################
+[   32s] libQt6Test6-6.11.2-2.1                ########################################
+[   32s] libQt6Xml6-6.11.2-2.1                 ########################################
+[   32s] qt6-networkinformation-nm-6.11.2-2.1  ########################################
+[   32s] qt6-network-tls-6.11.2-2.1            ########################################
+[   32s] qt6-networkinformation-glib-6.11.2-2.1########################################
+[   32s] libQt6Network6-6.11.2-2.1             ########################################
+[   32s] qt6-networkinformation-connman-6.11.2-########################################
+[   32s] libQt6RemoteObjects6-6.11.2-1.1       ########################################
+[   32s] libQt6WebSockets6-6.11.2-1.1          ########################################
+[   32s] libQt6Bluetooth6-6.11.2-1.1           ########################################
+[   32s] qt6-sensors-6.11.2-1.1                ########################################
+[   33s] libQt6Sensors6-6.11.2-1.1             ########################################
+[   33s] libQt6Positioning6-6.11.2-1.1         ########################################
+[   33s] libQt6Nfc6-6.11.2-1.1                 ########################################
+[   33s] libQt6SerialPort6-6.11.2-1.1          ########################################
+[   33s] libasound2-1.2.16.1-2.1               ########################################
+[   33s] libXxf86vm1-1.1.7-1.4                 ########################################
+[   33s] libglvnd-1.7.0-2.3                    ########################################
+[   33s] Mesa-libGL1-26.2.4-1.1                ########################################
+[   33s] Mesa-26.2.4-1.1                       ########################################
+[   33s] Mesa-dri-26.2.4-1.1                   ########################################
+[   33s] Mesa-libEGL1-26.2.4-1.1               ########################################
+[   33s] libQt6Widgets6-6.11.2-2.1             ########################################
+[   33s] libQt6WaylandClient6-6.11.2-2.1       ########################################
+[   33s] libQt6OpenGL6-6.11.2-2.1              ########################################
+[   34s] libQt6Gui6-6.11.2-2.1                 ########################################
+[   34s] libopencascade-visualization7_9_3-7.9.########################################
+[   34s] libopencascade-applicationframework7_9########################################
+[   34s] libQt6Svg6-6.11.2-1.1                 ########################################
+[   34s] libQt6OpenGLWidgets6-6.11.2-2.1       ########################################
+[   34s] libglvnd-devel-1.7.0-2.3              ########################################
+[   34s] Mesa-libEGL-devel-26.2.4-1.1          ########################################
+[   34s] Mesa-libGLESv3-devel-26.2.4-1.1       ########################################
+[   34s] Mesa-libGLESv2-devel-26.2.4-1.1       ########################################
+[   34s] Mesa-libGL-devel-26.2.4-1.1           ########################################
+[   34s] libopencascade-dataexchange7_9_3-7.9.3########################################
+[   34s] libQt6QuickDialogs2Utils6-6.11.2-2.1  ########################################
+[   34s] libQt6Designer6-6.11.2-2.5            ########################################
+[   35s] libQt6SvgWidgets6-6.11.2-1.1          ########################################
+[   35s] libQt6ShaderTools6-6.11.2-1.1         ########################################
+[   35s] libQt6StateMachine6-6.11.2-1.1        ########################################
+[   35s] libQt6Help6-6.11.2-2.5                ########################################
+[   35s] qt6-printsupport-cups-6.11.2-2.1      ########################################
+[   35s] libQt6PrintSupport6-6.11.2-2.1        ########################################
+[   35s] libgl2ps1-1.4.2-1.24                  ########################################
+[   35s] gl2ps-devel-1.4.2-1.24                ########################################
+[   35s] libXv1-1.0.13-1.7                     ########################################
+[   35s] libgstapp-1_0-0-1.28.8-1.1            ########################################
+[   35s] libgsttag-1_0-0-1.28.8-1.1            ########################################
+[   35s] libgstallocators-1_0-0-1.28.8-1.1     ########################################
+[   35s] libgstaudio-1_0-0-1.28.8-1.1          ########################################
+[   35s] libgstvideo-1_0-0-1.28.8-1.1          ########################################
+[   35s] libgstgl-1_0-0-1.28.8-1.1             ########################################
+[   35s] libgstriff-1_0-0-1.28.8-1.1           ########################################
+[   35s] libgstpbutils-1_0-0-1.28.8-1.1        ########################################
+[   35s] gstreamer-plugins-base-1.28.8-1.1     ########################################
+[   35s] libgstplay-1_0-0-1.28.8-1.1           ########################################
+[   35s] libXss1-1.2.5-1.5                     ########################################
+[   35s] tk-8.6.18-1.3                         ########################################
+[   36s] tk-devel-8.6.18-1.3                   ########################################
+[   36s] libopencascade-draw7_9_3-7.9.3-1.4    ########################################
+[   36s] libXrandr-devel-1.5.5-1.4             ########################################
+[   36s] vulkan-headers-1.4.363-1.1            ########################################
+[   36s] vulkan-devel-1.4.363-1.1              ########################################
+[   36s] jitterentropy-devel-3.6.3-2.1         ########################################
+[   36s] libopenssl-3-devel-3.5.3-8.3          ########################################
+[   36s] libopenssl-devel-3.5.3-1.3            ########################################
+[   36s] libngtcp2_crypto_ossl-devel-1.25.0-2.1########################################
+[   36s] libcurl-devel-8.22.0-1.1              ########################################
+[   36s] proj-devel-9.9.0-2.1                  ########################################
+[   36s] hdf5-devel-data-1.14.6-3.1            ########################################
+[   36s] hdf5-devel-1.14.6-3.1                 ########################################
+[   36s] netcdf-devel-4.10.1-1.2               ########################################
+[   37s] gcc16-c++-16.2.1+git9713-1.1          ########################################
+[   37s] gcc-c++-16-1.1                        ########################################
+[   37s] qt6-base-common-devel-6.11.2-2.1      ########################################
+[   37s] qt6-core-devel-6.11.2-2.1             ########################################
+[   37s] libQt6LabsAnimation6-6.11.2-2.1       ########################################
+[   37s] libQt6LabsFolderListModel6-6.11.2-2.1 ########################################
+[   37s] libQt6LabsSettings6-6.11.2-2.1        ########################################
+[   37s] libQt6LabsSynchronizer6-6.11.2-2.1    ########################################
+[   37s] libQt6QmlCompiler6-6.11.2-2.1         ########################################
+[   37s] libQt6QmlModels6-6.11.2-2.1           ########################################
+[   37s] libQt6QmlWorkerScript6-6.11.2-2.1     ########################################
+[   37s] libQt6QmlLocalStorage6-6.11.2-2.1     ########################################
+[   37s] libQt6QmlNetwork6-6.11.2-2.1          ########################################
+[   37s] libQt6QmlXmlListModel6-6.11.2-2.1     ########################################
+[   37s] libQt6LabsQmlModels6-6.11.2-2.1       ########################################
+[   37s] libQt6QuickVectorImage6-6.11.2-2.1    ########################################
+[   37s] libQt6LabsSharedImage6-6.11.2-2.1     ########################################
+[   37s] libQt6LabsWavefrontMesh6-6.11.2-2.1   ########################################
+[   37s] libQt6QuickEffects6-6.11.2-2.1        ########################################
+[   37s] libQt6QuickLayouts6-6.11.2-2.1        ########################################
+[   38s] libQt6QuickParticles6-6.11.2-2.1      ########################################
+[   38s] libQt6QuickShapes6-6.11.2-2.1         ########################################
+[   38s] libQt6QuickTest6-6.11.2-2.1           ########################################
+[   38s] libQt6Quick6-6.11.2-2.1               ########################################
+[   38s] libQt6QmlMeta6-6.11.2-2.1             ########################################
+[   38s] libQt6QuickTemplates2-6-6.11.2-2.1    ########################################
+[   38s] libQt6LabsStyleKit6-6.11.2-2.1        ########################################
+[   38s] libQt6QuickControls2-6-6.11.2-2.1     ########################################
+[   38s] libQt6QuickControls2Impl6-6.11.2-2.1  ########################################
+[   38s] libQt6LabsPlatform6-6.11.2-2.1        ########################################
+[   38s] libQt6QuickDialogs2QuickImpl6-6.11.2-2########################################
+[   38s] libQt6QmlCore6-6.11.2-2.1             ########################################
+[   38s] qt6-declarative-imports-6.11.2-2.1    ########################################
+[   38s] libQt6QuickDialogs2-6-6.11.2-2.1      ########################################
+[   38s] libQt6Qml6-6.11.2-2.1                 ########################################
+[   39s] qt6-declarative-tools-6.11.2-2.1      ########################################
+[   39s] qml-autoreqprov-1.4.1-1.9             ########################################
+[   39s] libQt6Quick3DUtils6-6.11.2-1.1        ########################################
+[   39s] libQt6Quick3DRuntimeRender6-6.11.2-1.1########################################
+[   39s] libQt6Quick3D6-6.11.2-1.1             ########################################
+[   39s] libQt6WebChannel6-6.11.2-1.1          ########################################
+[   39s] libQt6QuickWidgets6-6.11.2-2.1        ########################################
+[   39s] libQt6Multimedia6-6.11.2-1.2          ########################################
+[   39s] qt6-multimedia-6.11.2-1.2             ########################################
+[   39s] libQt6SpatialAudio6-6.11.2-1.2        ########################################
+[   39s] libQt6MultimediaWidgets6-6.11.2-1.2   ########################################
+[   39s] qt6-texttospeech-6.11.2-1.1           ########################################
+[   39s] libQt6TextToSpeech6-6.11.2-1.1        ########################################
+[   39s] python313-PyQt6-6.11.0-2.3            ########################################
+[   39s] vtk-qt-9.7.0-2.1                      ########################################
+[   40s] libvtk-9_7-1-9.7.0-2.1                ########################################
+[   40s] python3-vtk-9.7.0-2.1                 ########################################
+[   40s] qt6-dbus-devel-6.11.2-2.1             ########################################
+[   41s] qt6-gui-devel-6.11.2-2.1              ########################################
+[   41s] qt6-widgets-devel-6.11.2-2.1          ########################################
+[   41s] qt6-opengl-devel-6.11.2-2.1           ########################################
+[   41s] qt6-sql-devel-6.11.2-2.1              ########################################
+[   41s] fast_float-devel-8.3.2-1.1            ########################################
+[   41s] cli11-devel-2.7.2-1.1                 ########################################
+[   41s] vtk-devel-9.7.0-2.1                   ########################################
+[   43s] occt-devel-7.9.3-1.4                  ########################################
+[   45s] draco-devel-1.5.7-3.2                 ########################################
+[   45s] help2man-1.49.3-1.17                  ########################################
+[   45s] assimp-devel-6.0.5-4.3                ########################################
+[   45s] alembic-devel-1.8.12-1.1              ########################################
+[   45s] eigen3-devel-5.0.1-1.3                ########################################
+[   47s] now finalizing build dir...
+[   47s] ... running 01-add_abuild_user_to_trusted_group
+[   47s] ... running 02-set_timezone_to_utc
+[   47s] ... running 03-set-permissions-secure
+[   47s] ... running 11-hack_uname_version_to_kernel_version
+[   47s] setting SOURCE_DATE_EPOCH_MTIME to 1775555177
+[   49s] -----------------------------------------------------------------
+[   49s] I have the following modifications for f3d.spec:
+[   49s] 22c22
+[   49s] < Release:        0
+[   49s] ---
+[   49s] > Release:        1.1
+[   50s] -----------------------------------------------------------------
+[   50s] ----- building f3d.spec (user abuild)
+[   50s] -----------------------------------------------------------------
+[   50s] -----------------------------------------------------------------
+[   50s] setting SOURCE_DATE_EPOCH_MTIME to 1775555177
+[   50s] + exec rpmbuild -ba --define '_srcdefattr (-,root,root)' --nosignature --define '_build_create_debug 1' --define 'disturl obs://build.opensuse.org/openSUSE:Factory:ARM/standard/4a9bdf3393ee3339a6b32208e356454a-f3d' /home/abuild/rpmbuild/SOURCES/f3d.spec
+[   50s] using SOURCE_DATE_EPOCH with value 1775555176 as build time
+[   50s] Executing(%mkbuilddir): /usr/bin/bash -e /var/tmp/rpm-tmp.7m1N1B
+[   50s] Executing(%prep): /usr/bin/bash -e /var/tmp/rpm-tmp.5jJvZU
+[   50s] + umask 022
+[   50s] + cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build
+[   50s] + cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build
+[   50s] + rm -rf f3d-3.5.0
+[   50s] + /usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/f3d-3.5.0.tar.gz
+[   50s] + STATUS=0
+[   50s] + '[' 0 -ne 0 ']'
+[   50s] + cd f3d-3.5.0
+[   50s] + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+[   50s] + /usr/lib/rpm/rpmuncompress /home/abuild/rpmbuild/SOURCES/help.patch
+[   50s] + /usr/bin/patch -p1 -s --fuzz=0 --no-backup-if-mismatch -f
+[   50s] + RPM_EC=0
+[   50s] ++ jobs -p
+[   50s] + exit 0
+[   50s] Executing(%build): /usr/bin/bash -e /var/tmp/rpm-tmp.vTL1sl
+[   50s] + umask 022
+[   50s] + cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build
+[   50s] + /usr/bin/rm -rf /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/BUILDROOT
+[   50s] ++ dirname /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/BUILDROOT
+[   50s] + /usr/bin/mkdir -p /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build
+[   50s] + /usr/bin/mkdir /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/BUILDROOT
+[   50s] + cd f3d-3.5.0
+[   50s] + ref=/usr/lib/rpm
+[   50s] + mints=0
+[   50s] + case $(uname -m) in
+[   50s] ++ uname -m
+[   50s] + mints=20120610
+[   50s] + for s in guess sub
+[   50s] ++ find -maxdepth 8 -name config.guess
+[   50s] + for s in guess sub
+[   50s] ++ find -maxdepth 8 -name config.sub
+[   50s] + find . -type f -name CMakeLists.txt -exec sed -i -re '/^[[:blank:]]*[sS][eE][tT][[:blank:]]*\([[:blank:]]*(CMAKE_BUILD_TYPE|CMAKE_COLOR_MAKEFILE|CMAKE_INSTALL_PREFIX|CMAKE_VERBOSE_MAKEFILE).*\)/{s/^/#IGNORE /}' '{}' +
+[   51s] + mkdir -p build
+[   51s] + cd build
+[   51s] + /usr/bin/cmake /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/. '-GUnix Makefiles' -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_INSTALL_BINDIR:PATH=bin -DCMAKE_INSTALL_SBINDIR:PATH=sbin -DCMAKE_INSTALL_LIBEXECDIR:PATH=libexec -DCMAKE_INSTALL_SYSCONFDIR:PATH=etc -DCMAKE_INSTALL_SHAREDSTATEDIR:PATH=/var/lib -DCMAKE_INSTALL_LOCALSTATEDIR:PATH=var -DCMAKE_INSTALL_RUNSTATEDIR:PATH=run -DCMAKE_INSTALL_LIBDIR:PATH=lib64 -DCMAKE_INSTALL_INCLUDEDIR:PATH=include -DCMAKE_INSTALL_DATAROOTDIR:PATH=share -DCMAKE_INSTALL_DOCDIR:PATH=share/doc/packages/f3d -DCMAKE_INSTALL_MANDIR:PATH=share/man -DCMAKE_INSTALL_INFODIR:PATH=share/info -DINCLUDE_INSTALL_DIR:PATH=/usr/include -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DSYSCONF_INSTALL_DIR:PATH=/etc -DSHARE_INSTALL_PREFIX:PATH=/usr/share -DCMAKE_BUILD_TYPE=RelWithDebInfo '-DCMAKE_C_FLAGS=-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g' '-DCMAKE_CXX_FLAGS=-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g' '-DCMAKE_Fortran_FLAGS=-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g' '-DCMAKE_EXE_LINKER_FLAGS=-Wl,-z,gcs-report-dynamic=none -flto=auto -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now' '-DCMAKE_MODULE_LINKER_FLAGS=-Wl,-z,gcs-report-dynamic=none -flto=auto -Wl,--as-needed' '-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,gcs-report-dynamic=none -flto=auto -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now' -DLIB_SUFFIX=64 -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON -DBUILD_STATIC_LIBS:BOOL=OFF -DCMAKE_COLOR_MAKEFILE:BOOL=OFF -DCMAKE_INSTALL_DO_STRIP:BOOL=OFF -DCMAKE_MODULES_INSTALL_DIR=/usr/lib64/cmake/f3d -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_SKIP_INSTALL_RPATH=ON -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON -DBUILD_TESTING=OFF -DF3D_BINDINGS_JAVA=OFF -DF3D_BINDINGS_PYTHON=OFF -DF3D_LINUX_LINK_FILESYSTEM=ON -DF3D_LINUX_GENERATE_MAN=ON -DF3D_LINUX_INSTALL_DEFAULT_CONFIGURATION_FILE_IN_PREFIX=ON -DF3D_MODULE_EXTERNAL_RENDERING=OFF -DF3D_MODULE_RAYTRACING=OFF -DF3D_PLUGINS_STATIC_BUILD=OFF -DF3D_PLUGIN_BUILD_ALEMBIC=ON -DF3D_PLUGIN_BUILD_ASSIMP=ON -DF3D_PLUGIN_BUILD_DRACO=OFF -DF3D_PLUGIN_BUILD_EXODUS=ON -DF3D_PLUGIN_BUILD_OCCT=ON
+[   51s] -- The C compiler identification is GNU 16.2.1
+[   52s] -- The CXX compiler identification is GNU 16.2.1
+[   52s] -- Detecting C compiler ABI info
+[   52s] -- Detecting C compiler ABI info - done
+[   52s] -- Check for working C compiler: /usr/bin/cc - skipped
+[   52s] -- Detecting C compile features
+[   52s] -- Detecting C compile features - done
+[   52s] -- Detecting CXX compiler ABI info
+[   53s] -- Detecting CXX compiler ABI info - done
+[   53s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[   53s] -- Detecting CXX compile features
+[   53s] -- Detecting CXX compile features - done
+[   53s] -- Could not use git to determine source version, using version 3.5.0
+[   53s] -- Found nlohmann_json: /usr/lib64/cmake/nlohmann_json/nlohmann_jsonConfig.cmake (found version "3.12.0")
+[   53s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[   53s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[   53s] -- Found Threads: TRUE
+[   53s] -- Found OpenGL: /usr/lib64/libOpenGL.so  found components: GLES3
+[   53s] -- Found HDF5: hdf5-shared (found version "1.14.6") found components: C HL
+[   53s] -- Found utf8cpp: /usr/include/utf8cpp
+[   54s] -- Found NetCDF: netcdf (found version "4.10.1")
+[   54s] -- Found JsonCpp: /usr/lib64/libjsoncpp.so (found suitable version "1.9.8", minimum required is "0.7.0")
+[   54s] -- Found ZLIB: /usr/lib64/libz.so (found version "1.3.1")
+[   54s] -- Found PNG: /usr/lib64/libpng.so (found version "1.6.59")
+[   54s] -- Found Eigen3: /usr/include/eigen3 (found version "..")
+[   54s] -- Found X11: /usr/include
+[   54s] -- Looking for XOpenDisplay in /usr/lib64/libX11.so;/usr/lib64/libXext.so
+[   54s] -- Looking for XOpenDisplay in /usr/lib64/libX11.so;/usr/lib64/libXext.so - found
+[   54s] -- Looking for gethostbyname
+[   55s] -- Looking for gethostbyname - found
+[   55s] -- Looking for connect
+[   55s] -- Looking for connect - found
+[   55s] -- Looking for remove
+[   55s] -- Looking for remove - found
+[   55s] -- Looking for shmat
+[   56s] -- Looking for shmat - found
+[   56s] -- Looking for IceConnectionNumber in ICE
+[   56s] -- Looking for IceConnectionNumber in ICE - found
+[   56s] -- Found EXPAT: /usr/lib64/libexpat.so (found suitable version "2.9.0", minimum required is "2.2.1")
+[   56s] -- Found JPEG: /usr/lib64/libjpeg.so (found version "80")
+[   56s] -- Found TIFF: /usr/lib64/cmake/tiff (found version "4.7.2")
+[   56s] -- Found LZ4: /usr/lib64/liblz4.so (found version "1.10.0")
+[   56s] -- Found LZMA: /usr/lib64/liblzma.so (found version "5.8.4")
+[   56s] -- Could NOT find freetype (missing: freetype_DIR)
+[   56s] -- Found Freetype: /usr/lib64/libfreetype.so (found version "2.14.3")
+[   58s] -- Found OpenMP_C: -fopenmp (found version "5.2")
+[   58s] -- Found OpenMP_CXX: -fopenmp (found version "5.2")
+[   58s] -- Found OpenMP: TRUE (found version "5.2")
+[   59s] -- VTK 9.7.0 found
+[   59s] CMake Warning (author) at /usr/lib64/cmake/vtk-9.7/vtkModule.cmake:4900 (cmake_parse_arguments):
+[   59s]   The SUBDIR keyword was followed by an empty string or no value at all.
+[   59s]   Policy CMP0174 is not set, so cmake_parse_arguments() will unset the
+[   59s]   _vtk_install_headers_SUBDIR variable rather than setting it to an empty
+[   59s]   string.
+[   59s] Call Stack (most recent call first):
+[   59s]   /usr/lib64/cmake/vtk-9.7/vtkModule.cmake:4277 (vtk_module_install_headers)
+[   59s]   vtkext/public/module/CMakeLists.txt:35 (vtk_module_add_module)
+[   59s] This warning is for project developers.  Use -Wno-author to suppress it.
+[   59s] 
+[   59s] -- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY
+[   59s] -- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY - Success
+[   59s] -- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY
+[   59s] -- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY - Success
+[   59s] -- Performing Test COMPILER_HAS_DEPRECATED_ATTR
+[   60s] -- Performing Test COMPILER_HAS_DEPRECATED_ATTR - Success
+[   60s] -- Found OpenMP_C: -fopenmp (found version "5.2")
+[   60s] -- Found OpenMP_CXX: -fopenmp (found version "5.2")
+[   60s] -- Plugin: Alembic 1.8.12 found
+[   60s] -- Plugin: assimp 6.0.5 found
+[   60s] -- Could NOT find freetype (missing: freetype_DIR)
+[   61s] -- Plugin: OpenCASCADE 7.9.3 found
+[   61s] -- Could NOT find freetype (missing: freetype_DIR)
+[   61s] -- F3D_BINDINGS_C: OFF
+[   61s] -- F3D_BINDINGS_JAVA: OFF
+[   61s] -- F3D_BINDINGS_PYTHON: OFF
+[   61s] -- F3D_BUILD_APPLICATION: ON
+[   61s] -- F3D_MODULE_EXR: OFF
+[   61s] -- F3D_MODULE_RAYTRACING: OFF
+[   61s] -- F3D_MODULE_UI: ON
+[   61s] -- F3D_MODULE_WEBP: OFF
+[   61s] -- F3D_PLUGIN_BUILD_ALEMBIC: ON
+[   61s] -- F3D_PLUGIN_BUILD_ASSIMP: ON
+[   61s] -- F3D_PLUGIN_BUILD_DRACO: OFF
+[   61s] -- F3D_PLUGIN_BUILD_HDF: ON
+[   61s] -- F3D_PLUGIN_BUILD_OCCT: ON
+[   61s] -- F3D_PLUGIN_BUILD_PDAL: OFF
+[   61s] -- F3D_PLUGIN_BUILD_USD: OFF
+[   61s] -- F3D_PLUGIN_BUILD_VDB: OFF
+[   61s] -- F3D_PLUGIN_BUILD_WEBIFC: OFF
+[   61s] -- Configuring done (10.6s)
+[   61s] -- Generating done (0.2s)
+[   61s] CMake Warning (unused-cli):
+[   61s]   Manually-specified variables were not used by the project:
+[   61s] 
+[   61s]     BUILD_STATIC_LIBS
+[   61s]     CMAKE_Fortran_FLAGS
+[   61s]     CMAKE_INSTALL_DO_STRIP
+[   61s]     CMAKE_MODULES_INSTALL_DIR
+[   61s]     F3D_MODULE_EXTERNAL_RENDERING
+[   61s]     F3D_PLUGIN_BUILD_EXODUS
+[   61s]     INCLUDE_INSTALL_DIR
+[   61s]     LIB_INSTALL_DIR
+[   61s]     LIB_SUFFIX
+[   61s]     SHARE_INSTALL_PREFIX
+[   61s]     SYSCONF_INSTALL_DIR
+[   61s] 
+[   61s] 
+[   61s] -- Build files have been written to: /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build
+[   61s] + /usr/bin/make -O VERBOSE=1 -j4
+[   61s] /usr/bin/cmake -S/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0 -B/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build --check-build-system CMakeFiles/Makefile.cmake 0
+[   61s] /usr/bin/cmake -E cmake_progress_start /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build//CMakeFiles/progress.marks
+[   61s] /usr/bin/make  -f CMakeFiles/Makefile2 all
+[   61s] /usr/bin/make  -f vtkext/public/module/CMakeFiles/vtkext.dir/build.make vtkext/public/module/CMakeFiles/vtkext.dir/depend
+[   61s] /usr/bin/make  -f plugins/alembic/module/CMakeFiles/vtkextAlembic.dir/build.make plugins/alembic/module/CMakeFiles/vtkextAlembic.dir/depend
+[   61s] /usr/bin/make  -f plugins/occt/module/CMakeFiles/vtkextOCCT.dir/build.make plugins/occt/module/CMakeFiles/vtkextOCCT.dir/depend
+[   61s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   61s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0 /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/plugins/alembic/module /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/plugins/alembic/module /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/plugins/alembic/module/CMakeFiles/vtkextAlembic.dir/DependInfo.cmake vtkextAlembic
+[   61s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   61s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   61s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0 /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/plugins/occt/module /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/plugins/occt/module /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/plugins/occt/module/CMakeFiles/vtkextOCCT.dir/DependInfo.cmake vtkextOCCT
+[   61s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   61s] /usr/bin/make  -f plugins/alembic/module/CMakeFiles/vtkextAlembic.dir/build.make plugins/alembic/module/CMakeFiles/vtkextAlembic.dir/build
+[   61s] /usr/bin/make  -f plugins/occt/module/CMakeFiles/vtkextOCCT.dir/build.make plugins/occt/module/CMakeFiles/vtkextOCCT.dir/build
+[   61s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   61s] [  0%] Generating vtkF3DBitonicSortFunctions.h, vtkF3DBitonicSortFunctions.cxx
+[   61s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module && /usr/bin/cmake -Dsource_dir=/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module -Dbinary_dir=/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module -Dsource_file=/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module/glsl/vtkF3DBitonicSortFunctions.glsl -Doutput_name=vtkF3DBitonicSortFunctions -Dexport_symbol= -Dexport_header= -Dabi_mangle_symbol_begin= -Dabi_mangle_symbol_end= -Dabi_mangle_header= -Dbinary=FALSE -Dnul_terminate=FALSE -D_vtk_encode_string_run=ON -P /usr/lib64/cmake/vtk-9.7/vtkEncodeString.cmake
+[   61s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   61s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   61s] [  1%] Generating vtkF3DBitonicSortLocalSortCS.h, vtkF3DBitonicSortLocalSortCS.cxx
+[   61s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module && /usr/bin/cmake -Dsource_dir=/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module -Dbinary_dir=/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module -Dsource_file=/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module/glsl/vtkF3DBitonicSortLocalSortCS.glsl -Doutput_name=vtkF3DBitonicSortLocalSortCS -Dexport_symbol= -Dexport_header= -Dabi_mangle_symbol_begin= -Dabi_mangle_symbol_end= -Dabi_mangle_header= -Dbinary=FALSE -Dnul_terminate=FALSE -D_vtk_encode_string_run=ON -P /usr/lib64/cmake/vtk-9.7/vtkEncodeString.cmake
+[   61s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   61s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   61s] [  2%] Generating vtkF3DBitonicSortGlobalDisperseCS.h, vtkF3DBitonicSortGlobalDisperseCS.cxx
+[   61s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module && /usr/bin/cmake -Dsource_dir=/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module -Dbinary_dir=/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module -Dsource_file=/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module/glsl/vtkF3DBitonicSortGlobalDisperseCS.glsl -Doutput_name=vtkF3DBitonicSortGlobalDisperseCS -Dexport_symbol= -Dexport_header= -Dabi_mangle_symbol_begin= -Dabi_mangle_symbol_end= -Dabi_mangle_header= -Dbinary=FALSE -Dnul_terminate=FALSE -D_vtk_encode_string_run=ON -P /usr/lib64/cmake/vtk-9.7/vtkEncodeString.cmake
+[   61s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   61s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   61s] [  3%] Generating vtkF3DBitonicSortGlobalFlipCS.h, vtkF3DBitonicSortGlobalFlipCS.cxx
+[   61s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module && /usr/bin/cmake -Dsource_dir=/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module -Dbinary_dir=/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module -Dsource_file=/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module/glsl/vtkF3DBitonicSortGlobalFlipCS.glsl -Doutput_name=vtkF3DBitonicSortGlobalFlipCS -Dexport_symbol= -Dexport_header= -Dabi_mangle_symbol_begin= -Dabi_mangle_symbol_end= -Dabi_mangle_header= -Dbinary=FALSE -Dnul_terminate=FALSE -D_vtk_encode_string_run=ON -P /usr/lib64/cmake/vtk-9.7/vtkEncodeString.cmake
+[   61s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   61s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   61s] [  4%] Generating vtkF3DBitonicSortLocalDisperseCS.h, vtkF3DBitonicSortLocalDisperseCS.cxx
+[   61s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module && /usr/bin/cmake -Dsource_dir=/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module -Dbinary_dir=/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module -Dsource_file=/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module/glsl/vtkF3DBitonicSortLocalDisperseCS.glsl -Doutput_name=vtkF3DBitonicSortLocalDisperseCS -Dexport_symbol= -Dexport_header= -Dabi_mangle_symbol_begin= -Dabi_mangle_symbol_end= -Dabi_mangle_header= -Dbinary=FALSE -Dnul_terminate=FALSE -D_vtk_encode_string_run=ON -P /usr/lib64/cmake/vtk-9.7/vtkEncodeString.cmake
+[   61s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   62s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   62s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0 /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module/CMakeFiles/vtkext.dir/DependInfo.cmake vtkext
+[   62s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   62s] /usr/bin/make  -f vtkext/public/module/CMakeFiles/vtkext.dir/build.make vtkext/public/module/CMakeFiles/vtkext.dir/build
+[   62s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   62s] [  6%] Building CXX object vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DBitonicSortGlobalFlipCS.cxx.o
+[   62s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module && /usr/bin/c++ -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double -DvtkRenderingCore_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -DvtkRenderingLabel_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -Dvtkext_EXPORTS -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module -isystem /usr/include/vtk-9.7 -isystem /usr/include/vtk-9.7/vtkscn/include -isystem /usr/include/vtk-9.7/vtkscn -isystem /usr/include/vtk-9.7/token -isystem /usr/include/vtk-9.7/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk-9.7/vtkglad -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIC -fopenmp -MD -MT vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DBitonicSortGlobalFlipCS.cxx.o -MF CMakeFiles/vtkext.dir/vtkF3DBitonicSortGlobalFlipCS.cxx.o.d -o CMakeFiles/vtkext.dir/vtkF3DBitonicSortGlobalFlipCS.cxx.o -c /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module/vtkF3DBitonicSortGlobalFlipCS.cxx
+[   62s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   62s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   62s] [  5%] Building CXX object vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DBitonicSortGlobalDisperseCS.cxx.o
+[   62s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module && /usr/bin/c++ -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double -DvtkRenderingCore_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -DvtkRenderingLabel_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -Dvtkext_EXPORTS -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module -isystem /usr/include/vtk-9.7 -isystem /usr/include/vtk-9.7/vtkscn/include -isystem /usr/include/vtk-9.7/vtkscn -isystem /usr/include/vtk-9.7/token -isystem /usr/include/vtk-9.7/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk-9.7/vtkglad -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIC -fopenmp -MD -MT vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DBitonicSortGlobalDisperseCS.cxx.o -MF CMakeFiles/vtkext.dir/vtkF3DBitonicSortGlobalDisperseCS.cxx.o.d -o CMakeFiles/vtkext.dir/vtkF3DBitonicSortGlobalDisperseCS.cxx.o -c /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module/vtkF3DBitonicSortGlobalDisperseCS.cxx
+[   62s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   62s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   62s] [  7%] Building CXX object vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DBitonicSortLocalDisperseCS.cxx.o
+[   62s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module && /usr/bin/c++ -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double -DvtkRenderingCore_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -DvtkRenderingLabel_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -Dvtkext_EXPORTS -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module -isystem /usr/include/vtk-9.7 -isystem /usr/include/vtk-9.7/vtkscn/include -isystem /usr/include/vtk-9.7/vtkscn -isystem /usr/include/vtk-9.7/token -isystem /usr/include/vtk-9.7/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk-9.7/vtkglad -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIC -fopenmp -MD -MT vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DBitonicSortLocalDisperseCS.cxx.o -MF CMakeFiles/vtkext.dir/vtkF3DBitonicSortLocalDisperseCS.cxx.o.d -o CMakeFiles/vtkext.dir/vtkF3DBitonicSortLocalDisperseCS.cxx.o -c /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module/vtkF3DBitonicSortLocalDisperseCS.cxx
+[   62s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   62s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   62s] [  7%] Building CXX object vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DBitonicSortLocalSortCS.cxx.o
+[   62s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module && /usr/bin/c++ -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double -DvtkRenderingCore_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -DvtkRenderingLabel_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -Dvtkext_EXPORTS -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module -isystem /usr/include/vtk-9.7 -isystem /usr/include/vtk-9.7/vtkscn/include -isystem /usr/include/vtk-9.7/vtkscn -isystem /usr/include/vtk-9.7/token -isystem /usr/include/vtk-9.7/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk-9.7/vtkglad -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIC -fopenmp -MD -MT vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DBitonicSortLocalSortCS.cxx.o -MF CMakeFiles/vtkext.dir/vtkF3DBitonicSortLocalSortCS.cxx.o.d -o CMakeFiles/vtkext.dir/vtkF3DBitonicSortLocalSortCS.cxx.o -c /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module/vtkF3DBitonicSortLocalSortCS.cxx
+[   62s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   62s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   62s] [  8%] Building CXX object vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DBitonicSortFunctions.cxx.o
+[   62s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module && /usr/bin/c++ -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double -DvtkRenderingCore_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -DvtkRenderingLabel_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -Dvtkext_EXPORTS -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module -isystem /usr/include/vtk-9.7 -isystem /usr/include/vtk-9.7/vtkscn/include -isystem /usr/include/vtk-9.7/vtkscn -isystem /usr/include/vtk-9.7/token -isystem /usr/include/vtk-9.7/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk-9.7/vtkglad -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIC -fopenmp -MD -MT vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DBitonicSortFunctions.cxx.o -MF CMakeFiles/vtkext.dir/vtkF3DBitonicSortFunctions.cxx.o.d -o CMakeFiles/vtkext.dir/vtkF3DBitonicSortFunctions.cxx.o -c /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module/vtkF3DBitonicSortFunctions.cxx
+[   62s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   64s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   64s] [  9%] Building CXX object vtkext/public/module/CMakeFiles/vtkext.dir/F3DUtils.cxx.o
+[   64s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module && /usr/bin/c++ -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double -DvtkRenderingCore_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -DvtkRenderingLabel_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -Dvtkext_EXPORTS -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module -isystem /usr/include/vtk-9.7 -isystem /usr/include/vtk-9.7/vtkscn/include -isystem /usr/include/vtk-9.7/vtkscn -isystem /usr/include/vtk-9.7/token -isystem /usr/include/vtk-9.7/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk-9.7/vtkglad -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIC -fopenmp -MD -MT vtkext/public/module/CMakeFiles/vtkext.dir/F3DUtils.cxx.o -MF CMakeFiles/vtkext.dir/F3DUtils.cxx.o.d -o CMakeFiles/vtkext.dir/F3DUtils.cxx.o -c /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module/F3DUtils.cxx
+[   64s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   67s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   67s] [ 11%] Building CXX object vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DGLTFImporter.cxx.o
+[   67s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module && /usr/bin/c++ -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double -DvtkRenderingCore_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -DvtkRenderingLabel_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -Dvtkext_EXPORTS -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module -isystem /usr/include/vtk-9.7 -isystem /usr/include/vtk-9.7/vtkscn/include -isystem /usr/include/vtk-9.7/vtkscn -isystem /usr/include/vtk-9.7/token -isystem /usr/include/vtk-9.7/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk-9.7/vtkglad -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIC -fopenmp -MD -MT vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DGLTFImporter.cxx.o -MF CMakeFiles/vtkext.dir/vtkF3DGLTFImporter.cxx.o.d -o CMakeFiles/vtkext.dir/vtkF3DGLTFImporter.cxx.o -c /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module/vtkF3DGLTFImporter.cxx
+[   67s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   67s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   67s] [ 10%] Building CXX object vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DFaceVaryingPointDispatcher.cxx.o
+[   67s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module && /usr/bin/c++ -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double -DvtkRenderingCore_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -DvtkRenderingLabel_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -Dvtkext_EXPORTS -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module -isystem /usr/include/vtk-9.7 -isystem /usr/include/vtk-9.7/vtkscn/include -isystem /usr/include/vtk-9.7/vtkscn -isystem /usr/include/vtk-9.7/token -isystem /usr/include/vtk-9.7/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk-9.7/vtkglad -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIC -fopenmp -MD -MT vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DFaceVaryingPointDispatcher.cxx.o -MF CMakeFiles/vtkext.dir/vtkF3DFaceVaryingPointDispatcher.cxx.o.d -o CMakeFiles/vtkext.dir/vtkF3DFaceVaryingPointDispatcher.cxx.o -c /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module/vtkF3DFaceVaryingPointDispatcher.cxx
+[   67s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   69s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   69s] [ 11%] Building CXX object vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DImporter.cxx.o
+[   69s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module && /usr/bin/c++ -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double -DvtkRenderingCore_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -DvtkRenderingLabel_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -Dvtkext_EXPORTS -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module -isystem /usr/include/vtk-9.7 -isystem /usr/include/vtk-9.7/vtkscn/include -isystem /usr/include/vtk-9.7/vtkscn -isystem /usr/include/vtk-9.7/token -isystem /usr/include/vtk-9.7/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk-9.7/vtkglad -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIC -fopenmp -MD -MT vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DImporter.cxx.o -MF CMakeFiles/vtkext.dir/vtkF3DImporter.cxx.o.d -o CMakeFiles/vtkext.dir/vtkF3DImporter.cxx.o -c /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module/vtkF3DImporter.cxx
+[   69s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   70s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   70s] [ 12%] Building CXX object vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DBitonicSort.cxx.o
+[   70s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module && /usr/bin/c++ -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double -DvtkRenderingCore_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -DvtkRenderingLabel_AUTOINIT_INCLUDE=\"/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/CMakeFiles/vtkModuleAutoInit_5de8469e3d5a3b5acaa374fa4cf4b13b.h\" -Dvtkext_EXPORTS -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/vtkext/public/module -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module -isystem /usr/include/vtk-9.7 -isystem /usr/include/vtk-9.7/vtkscn/include -isystem /usr/include/vtk-9.7/vtkscn -isystem /usr/include/vtk-9.7/token -isystem /usr/include/vtk-9.7/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk-9.7/vtkglad -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIC -fopenmp -MD -MT vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DBitonicSort.cxx.o -MF CMakeFiles/vtkext.dir/vtkF3DBitonicSort.cxx.o.d -o CMakeFiles/vtkext.dir/vtkF3DBitonicSort.cxx.o -c /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module/vtkF3DBitonicSort.cxx
+[   70s] /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module/vtkF3DBitonicSort.cxx: In member function ‘bool vtkF3DBitonicSort::Run(vtkOpenGLRenderWindow*, int, vtkOpenGLBufferObject*, vtkOpenGLBufferObject*)’:
+[   70s] /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module/vtkF3DBitonicSort.cxx:138:3: error: ‘glDispatchCompute’ was not declared in this scope
+[   70s]   138 |   glDispatchCompute(workgroupCount, 1, 1);
+[   70s]       |   ^~~~~~~~~~~~~~~~~
+[   70s] /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module/vtkF3DBitonicSort.cxx:139:19: error: ‘GL_SHADER_STORAGE_BARRIER_BIT’ was not declared in this scope
+[   70s]   139 |   glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
+[   70s]       |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[   70s] /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/vtkext/public/module/vtkF3DBitonicSort.cxx:139:3: error: ‘glMemoryBarrier’ was not declared in this scope
+[   70s]   139 |   glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
+[   70s]       |   ^~~~~~~~~~~~~~~
+[   70s] make[2]: *** [vtkext/public/module/CMakeFiles/vtkext.dir/build.make:248: vtkext/public/module/CMakeFiles/vtkext.dir/vtkF3DBitonicSort.cxx.o] Error 1
+[   70s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   70s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   70s] [  2%] Building CXX object plugins/occt/module/CMakeFiles/vtkextOCCT.dir/vtkF3DOCCTReader.cxx.o
+[   70s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/plugins/occt/module && /usr/bin/c++ -DF3D_PLUGIN_OCCT_XCAF -DFMT_SHARED -DHAVE_FREETYPE -DHAVE_OPENGL_EXT -DHAVE_RAPIDJSON -DHAVE_TK -DHAVE_XLIB -DOCC_CONVERT_SIGNALS -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/plugins/occt/module -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/plugins/occt/module -isystem /usr/include/opencascade -isystem /usr/include/vtk-9.7 -isystem /usr/include/vtk-9.7/vtkscn/include -isystem /usr/include/vtk-9.7/vtkscn -isystem /usr/include/vtk-9.7/token -isystem /usr/include/vtk-9.7/vtkkissfft -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -fPIC -fopenmp -MD -MT plugins/occt/module/CMakeFiles/vtkextOCCT.dir/vtkF3DOCCTReader.cxx.o -MF CMakeFiles/vtkextOCCT.dir/vtkF3DOCCTReader.cxx.o.d -o CMakeFiles/vtkextOCCT.dir/vtkF3DOCCTReader.cxx.o -c /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/plugins/occt/module/vtkF3DOCCTReader.cxx
+[   70s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   70s] make[1]: *** [CMakeFiles/Makefile2:483: vtkext/public/module/CMakeFiles/vtkext.dir/all] Error 2
+[   70s] make[1]: *** Waiting for unfinished jobs....
+[   70s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   70s] [ 13%] Linking CXX static library ../../../lib/libvtkextOCCT.a
+[   70s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/plugins/occt/module && /usr/bin/cmake -P CMakeFiles/vtkextOCCT.dir/cmake_clean_target.cmake
+[   70s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/plugins/occt/module && /usr/bin/cmake -E cmake_link_script CMakeFiles/vtkextOCCT.dir/link.txt --verbose=1
+[   70s] /usr/bin/ar qc ../../../lib/libvtkextOCCT.a CMakeFiles/vtkextOCCT.dir/vtkF3DOCCTReader.cxx.o
+[   70s] /usr/bin/ranlib ../../../lib/libvtkextOCCT.a
+[   70s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   70s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   70s] [ 13%] Built target vtkextOCCT
+[   70s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   73s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   73s] [  2%] Building CXX object plugins/alembic/module/CMakeFiles/vtkextAlembic.dir/vtkF3DAlembicReader.cxx.o
+[   73s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/plugins/alembic/module && /usr/bin/c++ -DFMT_SHARED -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/plugins/alembic/module -I/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/plugins/alembic/module -isystem /usr/include/vtk-9.7 -isystem /usr/include/vtk-9.7/vtkscn/include -isystem /usr/include/vtk-9.7/vtkscn -isystem /usr/include/vtk-9.7/token -isystem /usr/include/vtk-9.7/vtkkissfft -isystem /usr/include/Imath -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIC -fopenmp -MD -MT plugins/alembic/module/CMakeFiles/vtkextAlembic.dir/vtkF3DAlembicReader.cxx.o -MF CMakeFiles/vtkextAlembic.dir/vtkF3DAlembicReader.cxx.o.d -o CMakeFiles/vtkextAlembic.dir/vtkF3DAlembicReader.cxx.o -c /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/plugins/alembic/module/vtkF3DAlembicReader.cxx
+[   73s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   73s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   73s] [ 13%] Linking CXX static library ../../../lib/libvtkextAlembic.a
+[   73s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/plugins/alembic/module && /usr/bin/cmake -P CMakeFiles/vtkextAlembic.dir/cmake_clean_target.cmake
+[   73s] cd /home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build/plugins/alembic/module && /usr/bin/cmake -E cmake_link_script CMakeFiles/vtkextAlembic.dir/link.txt --verbose=1
+[   73s] /usr/bin/ar qc ../../../lib/libvtkextAlembic.a CMakeFiles/vtkextAlembic.dir/vtkF3DAlembicReader.cxx.o
+[   73s] /usr/bin/ranlib ../../../lib/libvtkextAlembic.a
+[   73s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   73s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   73s] [ 13%] Built target vtkextAlembic
+[   73s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/f3d-3.5.0-build/f3d-3.5.0/build'
+[   73s] make: *** [Makefile:139: all] Error 2
+[   73s] error: Bad exit status from /var/tmp/rpm-tmp.vTL1sl (%build)
+[   73s] 
+[   73s] RPM build errors:
+[   73s]     Bad exit status from /var/tmp/rpm-tmp.vTL1sl (%build)
+[   73s] ### VM INTERACTION START ###
+[   74s] Powering off.
+[   74s] ### VM INTERACTION END ###
+[   74s] 
+[   74s] i03-armsrv2 failed "build f3d.spec" at Tue Oct 13 14:40:28 UTC 2026.
+[   74s] 

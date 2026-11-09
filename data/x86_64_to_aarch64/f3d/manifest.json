@@ -1,0 +1,36 @@
+{
+  "task": {
+    "package": "f3d",
+    "direction": "x86_64_to_aarch64",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "4a9bdf3393ee3339a6b32208e356454a"
+    },
+    "target": {
+      "project": "openSUSE:Factory:ARM",
+      "repository": "standard",
+      "arch": "aarch64"
+    }
+  },
+  "files": [
+    {
+      "name": "f3d-3.5.0.tar.gz",
+      "size": "3479300"
+    },
+    {
+      "name": "f3d.changes",
+      "size": "36240"
+    },
+    {
+      "name": "f3d.spec",
+      "size": "6059"
+    },
+    {
+      "name": "help.patch",
+      "size": "723"
+    }
+  ],
+  "created_at": 1794231857,
+  "version": 1
+}

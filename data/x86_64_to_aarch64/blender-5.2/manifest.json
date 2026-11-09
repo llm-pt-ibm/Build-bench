@@ -1,0 +1,88 @@
+{
+  "task": {
+    "package": "blender-5.2",
+    "direction": "x86_64_to_aarch64",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "125980f555a1fe23cdbe8213ebbde1a2"
+    },
+    "target": {
+      "project": "openSUSE:Factory:ARM",
+      "repository": "standard",
+      "arch": "aarch64"
+    }
+  },
+  "files": [
+    {
+      "name": "SUSE-NVIDIA-GPU-rendering.txt",
+      "size": "5620"
+    },
+    {
+      "name": "SUSE-NVIDIA-OptiX-rendering.txt",
+      "size": "1180"
+    },
+    {
+      "name": "_constraints",
+      "size": "525"
+    },
+    {
+      "name": "_service",
+      "size": "589"
+    },
+    {
+      "name": "assert.patch",
+      "size": "2769"
+    },
+    {
+      "name": "blender-5.2.3.tar.xz",
+      "size": "93684924"
+    },
+    {
+      "name": "blender-5.2.3.tar.xz.md5sum",
+      "size": "55"
+    },
+    {
+      "name": "blender-5.2.changes",
+      "size": "246128"
+    },
+    {
+      "name": "blender-5.2.spec",
+      "size": "23621"
+    },
+    {
+      "name": "blender-sample",
+      "size": "716"
+    },
+    {
+      "name": "cmake_manpage_fix.patch",
+      "size": "468"
+    },
+    {
+      "name": "geeko.README",
+      "size": "65"
+    },
+    {
+      "name": "geeko.blend",
+      "size": "138344"
+    },
+    {
+      "name": "geeko_example_scene.README",
+      "size": "145"
+    },
+    {
+      "name": "geeko_example_scene.blend",
+      "size": "7732220"
+    },
+    {
+      "name": "octree-missing-fstream.patch",
+      "size": "372"
+    },
+    {
+      "name": "series",
+      "size": "145"
+    }
+  ],
+  "created_at": 1794231775,
+  "version": 1
+}

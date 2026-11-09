@@ -1,0 +1,1082 @@
+[    0s] Using BUILD_ROOT=/var/cache/obs/worker/root_25/.mount
+[    0s] Using BUILD_ARCH=aarch64:aarch64_ilp32:armv8l
+[    0s] Doing kvm build in /var/cache/obs/worker/root_25/root
+[    0s] 
+[    0s] 
+[    0s] i03-armsrv1 started "build CalcMySky.spec" at Tue Oct 13 12:45:22 UTC 2026.
+[    0s] 
+[    0s] Building CalcMySky for project 'openSUSE:Factory:ARM' repository 'standard' arch 'aarch64' srcmd5 '40e6db80adcd992316848bb0cccfca0d'
+[    0s] 
+[    0s] processing recipe /var/cache/obs/worker/root_25/.build-srcdir/CalcMySky.spec ...
+[    0s] running changelog2spec --target rpm --file /var/cache/obs/worker/root_25/.build-srcdir/CalcMySky.spec
+[    0s] init_buildsystem --configdir /var/run/obs/worker/25/build/configs --cachedir /var/cache/build --prepare --clean --rpmlist /var/cache/obs/worker/root_25/.build.rpmlist /var/cache/obs/worker/root_25/.build-srcdir/CalcMySky.spec build ...
+[    1s] unpacking preinstall image openSUSE:Factory:ARM/standard/preinstallimage-base [d9ff8d2211c02194fa7a2b6996071314]
+[    4s] 
+[    4s] copying packages...
+[    5s] reordering...cycle: gio-branding-upstream -> libgio-2_0-0
+[    5s]   breaking dependency libgio-2_0-0 -> gio-branding-upstream
+[    5s] cycle: libgio-2_0-0 -> glib2-tools
+[    5s]   breaking dependency libgio-2_0-0 -> glib2-tools
+[    5s] cycle: girepository-1_0 -> libgirepository-1_0-1
+[    5s]   breaking dependency libgirepository-1_0-1 -> girepository-1_0
+[    5s] cycle: python313-base -> libpython3_13-1_0
+[    5s]   breaking dependency python313-base -> libpython3_13-1_0
+[    5s] cycle: Mesa-dri -> Mesa
+[    5s]   breaking dependency Mesa -> Mesa-dri
+[    5s] cycle: Mesa-dri -> Mesa -> Mesa-libEGL1
+[    5s]   breaking dependency Mesa -> Mesa-libEGL1
+[    5s] cycle: Mesa -> Mesa-libGL1
+[    5s]   breaking dependency Mesa-libGL1 -> Mesa
+[    5s] cycle: Mesa-dri -> Mesa -> Mesa-libGL1
+[    5s]   breaking dependency Mesa-libGL1 -> Mesa-dri
+[    5s] cycle: libglvnd -> Mesa-dri -> Mesa -> Mesa-libGL1
+[    5s]   breaking dependency Mesa -> Mesa-libGL1
+[    5s] cycle: libglvnd -> Mesa-dri -> Mesa
+[    5s]   breaking dependency libglvnd -> Mesa-dri
+[    5s] cycle: fontconfig -> libfontconfig1
+[    5s]   breaking dependency libfontconfig1 -> fontconfig
+[    5s] cycle: libQt6Network6 -> qt6-network-tls
+[    5s]   breaking dependency libQt6Network6 -> qt6-network-tls
+[    5s] cycle: libQt6Network6 -> qt6-networkinformation-connman
+[    5s]   breaking dependency libQt6Network6 -> qt6-networkinformation-connman
+[    5s] cycle: libQt6Network6 -> qt6-networkinformation-glib
+[    5s]   breaking dependency libQt6Network6 -> qt6-networkinformation-glib
+[    5s] cycle: libQt6Network6 -> qt6-networkinformation-nm
+[    5s]   breaking dependency libQt6Network6 -> qt6-networkinformation-nm
+[    5s] cycle: libQt6Gui6 -> libQt6OpenGL6
+[    5s]   breaking dependency libQt6Gui6 -> libQt6OpenGL6
+[    5s] cycle: libQt6Gui6 -> libQt6WaylandClient6
+[    5s]   breaking dependency libQt6Gui6 -> libQt6WaylandClient6
+[    5s] done
+[    5s] Detected virtio-serial support
+[    8s] booting kvm...
+[    8s] ### VM INTERACTION START ###
+[    8s] Using virtio-serial support
+[    8s] /usr/bin/qemu-system-aarch64 -nodefaults -no-reboot -nographic -vga none -cpu host -enable-kvm -M virt,accel=kvm,usb=off,gic-version=host -sandbox on -object rng-random,filename=/dev/random,id=rng0 -device virtio-rng-device,rng=rng0 -object iothread,id=io0 -run-with user=qemu -net none -kernel /var/cache/obs/worker/root_25/.mount/boot/kernel -initrd /var/cache/obs/worker/root_25/.mount/boot/initrd -append root=/dev/disk/by-id/virtio-0 rootfstype=ext4 rootflags=noatime elevator=noop nmi_watchdog=0 rw ia32_emulation=1 oops=panic panic=1 quiet console=hvc0 init=/.build/build -m 10240 -drive file=/var/cache/obs/worker/root_25/root,format=raw,if=none,id=disk,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=disk,serial=0 -drive file=/var/cache/obs/worker/root_25/swap,format=raw,if=none,id=swap,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=swap,serial=1 -device virtio-serial,max_ports=2 -device virtconsole,chardev=virtiocon0 -chardev stdio,id=virtiocon0 -chardev socket,id=monitor,server=on,wait=off,path=/var/cache/obs/worker/root_25/root.qemu/monitor -mon chardev=monitor,mode=readline -smp 4
+[   15s] P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=f594ed1ce4e14f6e9e458991537e731e;user=root;hostname=localhost;machineid=0e66041158ac4c7896284c25c36a8dc7;bootid=91d5848ac43e4e52ba8659cd4ebfaf2e;pid=1;pidfdid=1;comm=systemd;type=boot\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J### VM INTERACTION END ###
+[   15s] 2nd stage started in virtual machine
+[   15s] ^[[24;80R^[[24;80Rmachine type: aarch64
+[   15s] Linux version: 7.2.9-1-default #1 SMP PREEMPT_DYNAMIC Sun Oct  4 08:22:02 UTC 2026 (584f686)
+[   15s] Time: Tue Oct 13 12:45:37 UTC 2026
+[   15s] Increasing log level from now on...
+[   15s] [    6.766889][  T456] sysrq: Changing Loglevel
+[   15s] [    6.766973][  T456] sysrq: Loglevel set to 4
+[   15s] Enable sysrq operations
+[   15s] Setting up swapspace version 1, size = 2 GiB (2147479552 bytes)
+[   15s] no label, UUID=4085470b-7a92-46e5-bc4e-06e3f742be40
+[   15s] logging output to //.build.log...
+[   15s] processing recipe //.build-srcdir/CalcMySky.spec ...
+[   15s] init_buildsystem --configdir /.build/configs --cachedir /var/cache/build //.build-srcdir/CalcMySky.spec build ...
+[   15s] initializing rpm db...
+[   15s] querying package ids...
+[   18s] [1/349] cumulate Mesa-KHR-devel-26.2.4-1.1
+[   18s] [2/349] preinstalled aaa_base-84.87+git20260924.144354a1-1.1
+[   18s] [3/349] preinstalled aaa_base-malloccheck-84.87+git20260924.144354a1-1.1
+[   18s] [4/349] preinstalled alts-2.0+0.4f22c01-1.1
+[   18s] [5/349] preinstalled bash-5.3.20-9.1
+[   18s] [6/349] preinstalled bash-sh-5.3.20-9.1
+[   18s] [7/349] preinstalled binutils-2.47-1.1
+[   18s] [8/349] preinstalled brp-check-suse-84.87+git20260317.a0eb4ba-1.3
+[   18s] [9/349] preinstalled build-compare-20261001T080039.deb96f7-1.1
+[   18s] [10/349] preinstalled build-mkbaselibs-20260505-1.3
+[   18s] [11/349] preinstalled bzip2-1.0.8-6.1
+[   18s] [12/349] preinstalled compat-usrmerge-build-84.87-5.29
+[   18s] [13/349] preinstalled compat-usrmerge-tools-84.87-5.29
+[   18s] [14/349] preinstalled coreutils-9.12-1.1
+[   18s] [15/349] preinstalled cpio-2.15-9.1
+[   18s] [16/349] preinstalled cpp-16-1.1
+[   18s] [17/349] preinstalled cpp16-16.2.1+git9713-1.1
+[   18s] [18/349] preinstalled crypto-policies-20250714.cd6043a-6.1
+[   18s] [19/349] cumulate dbus-broker-block-restart-37-2.4
+[   18s] [20/349] preinstalled debugedit-5.1-1.9
+[   18s] [21/349] preinstalled diffutils-3.12-1.6
+[   18s] [22/349] preinstalled dwz-0.17-1.1
+[   18s] [23/349] cumulate eigen3-devel-5.0.1-1.3
+[   18s] [24/349] preinstalled elfutils-0.196-2.1
+[   18s] [25/349] preinstalled envsubst-mini-1.0-4.1
+[   18s] [26/349] preinstalled file-5.48-2.2
+[   18s] [27/349] preinstalled file-magic-5.48-2.2
+[   18s] [28/349] preinstalled filesystem-84.87-21.2
+[   18s] [29/349] preinstalled fillup-1.42-281.9
+[   18s] [30/349] preinstalled findutils-4.11.0-1.2
+[   18s] [31/349] preinstalled gawk-5.4.1-1.2
+[   18s] [32/349] preinstalled gcc-16-1.1
+[   18s] [33/349] preinstalled gcc-PIE-16-1.1
+[   18s] [34/349] preinstalled gcc16-16.2.1+git9713-1.1
+[   18s] [35/349] preinstalled gcc16-PIE-16.2.1+git9713-1.1
+[   18s] [36/349] preinstalled gettext-runtime-mini-1.0-4.1
+[   18s] [37/349] preinstalled gettext-tools-mini-1.0-4.1
+[   18s] [38/349] preinstalled glibc-2.44-3.1
+[   18s] [39/349] preinstalled glibc-devel-2.44-3.1
+[   18s] [40/349] preinstalled glibc-gconv-modules-extra-2.44-3.1
+[   18s] [41/349] preinstalled glibc-locale-base-2.44-3.1
+[   18s] [42/349] preinstalled grep-3.12-1.5
+[   18s] [43/349] preinstalled gzip-1.15-1.1
+[   18s] [44/349] preinstalled kernel-obs-build-7.2.9-1.1
+[   18s] [45/349] cumulate libICE6-1.1.2-1.7
+[   18s] [46/349] cumulate libSPIRV-Tools-2026_4_rc2-2026.4~rc2-1.1
+[   18s] [47/349] cumulate libX11-data-1.8.13-3.1
+[   18s] [48/349] cumulate libXau6-1.0.12-2.5
+[   18s] [49/349] preinstalled libacl1-2.4.0-1.2
+[   18s] [50/349] preinstalled libalternatives1-2.0+0.4f22c01-1.1
+[   18s] [51/349] preinstalled libarchive13-3.8.9-1.1
+[   18s] [52/349] preinstalled libasan8-16.2.1+git9713-1.1
+[   18s] [53/349] preinstalled libasm1-0.196-2.1
+[   18s] [54/349] preinstalled libatomic1-16.2.1+git9713-1.1
+[   18s] [55/349] preinstalled libattr1-2.6.0-1.2
+[   18s] [56/349] preinstalled libaudit1-4.0.2-3.4
+[   18s] [57/349] cumulate libb2-1-0.98.1-2.4
+[   18s] [58/349] preinstalled libblkid1-2.42.4-1.1
+[   18s] [59/349] cumulate libbrotlicommon1-1.2.0-2.3
+[   18s] [60/349] preinstalled libbz2-1-1.0.8-6.1
+[   18s] [61/349] preinstalled libcap-ng0-0.8.5-1.10
+[   18s] [62/349] preinstalled libcap2-2.78-1.4
+[   18s] [63/349] cumulate libcom_err2-1.47.3-2.2
+[   18s] [64/349] preinstalled libcrypt1-4.5.2-2.4
+[   18s] [65/349] preinstalled libctf-nobfd0-2.47-1.1
+[   18s] [66/349] preinstalled libctf0-2.47-1.1
+[   18s] [67/349] cumulate libdisplay-info3-0.3.0-2.5
+[   18s] [68/349] cumulate libdouble-conversion3-3.4.0-1.4
+[   18s] [69/349] cumulate libdrm2-2.4.134-2.2
+[   18s] [70/349] preinstalled libdw1-0.196-2.1
+[   18s] [71/349] cumulate libeconf-devel-0.8.5-1.1
+[   18s] [72/349] preinstalled libeconf0-0.8.5-1.1
+[   18s] [73/349] cumulate libedit0-20250104.3.1-1.5
+[   18s] [74/349] preinstalled libelf1-0.196-2.1
+[   18s] [75/349] cumulate libevdev2-1.13.7-1.1
+[   18s] [76/349] cumulate libexpat1-2.9.0-1.1
+[   18s] [77/349] preinstalled libfdisk1-2.42.4-1.1
+[   18s] [78/349] cumulate libffi8-3.5.2-2.4
+[   18s] [79/349] preinstalled libgcc_s1-16.2.1+git9713-1.1
+[   18s] [80/349] preinstalled libgcrypt20-1.12.4-1.1
+[   18s] [81/349] preinstalled libgdbm6-1.26-1.6
+[   18s] [82/349] preinstalled libgdbm_compat4-1.26-1.6
+[   18s] [83/349] cumulate libglib-2_0-0-2.88.4-1.1
+[   18s] [84/349] preinstalled libgmp10-6.3.0-5.6
+[   18s] [85/349] preinstalled libgomp1-16.2.1+git9713-1.1
+[   18s] [86/349] preinstalled libgpg-error0-1.61-2.1
+[   18s] [87/349] cumulate libgraphite2-3-1.3.15-1.3
+[   18s] [88/349] preinstalled libhwasan0-16.2.1+git9713-1.1
+[   18s] [89/349] cumulate libicu78-ledata-78.3-1.3
+[   18s] [90/349] preinstalled libisl23-0.27-1.8
+[   18s] [91/349] preinstalled libitm1-16.2.1+git9713-1.1
+[   18s] [92/349] preinstalled libjitterentropy3-3.6.3-2.1
+[   18s] [93/349] cumulate libjpeg8-8.3.2-85.1
+[   18s] [94/349] preinstalled liblsan0-16.2.1+git9713-1.1
+[   18s] [95/349] preinstalled liblua5_4-5-5.4.8-4.7
+[   18s] [96/349] preinstalled liblz1-1.16-2.1
+[   18s] [97/349] preinstalled liblz4-1-1.10.0-2.10
+[   18s] [98/349] preinstalled liblzma5-5.8.4-1.1
+[   18s] [99/349] preinstalled libmagic1-5.48-2.2
+[   18s] [100/349] cumulate libmd4c0-0.5.3-1.3
+[   18s] [101/349] preinstalled libmount1-2.42.4-1.1
+[   18s] [102/349] preinstalled libmpc3-1.4.1-1.3
+[   18s] [103/349] cumulate libmpdec4-4.0.1-2.6
+[   18s] [104/349] preinstalled libmpfr6-4.2.2-1.5
+[   18s] [105/349] cumulate libmtdev1-1.1.6-1.20
+[   18s] [106/349] preinstalled libncurses6-6.6.20260926-115.1
+[   18s] [107/349] preinstalled libopenssl3-3.5.3-8.3
+[   18s] [108/349] cumulate libpciaccess0-0.19-1.3
+[   18s] [109/349] cumulate libpcre2-16-0-10.49-1.1
+[   18s] [110/349] cumulate libpcre2-32-0-10.49-1.1
+[   18s] [111/349] preinstalled libpcre2-8-0-10.49-1.1
+[   18s] [112/349] cumulate libpcre2-posix3-10.49-1.1
+[   18s] [113/349] preinstalled libpkgconf7-2.5.1-1.5
+[   18s] [114/349] cumulate libpng16-16-1.6.59-1.1
+[   18s] [115/349] preinstalled libpopt0-1.19-2.3
+[   18s] [116/349] preinstalled libreadline8-8.3.6-3.1
+[   18s] [117/349] cumulate librhash1-1.4.6-2.3
+[   18s] [118/349] preinstalled librpmbuild10-4.20.1-11.1
+[   18s] [119/349] preinstalled libseccomp2-2.6.1-3.1
+[   18s] [120/349] preinstalled libselinux1-3.11-2.1
+[   18s] [121/349] cumulate libsemanage-conf-3.11-1.2
+[   18s] [122/349] cumulate libsepol2-3.11-1.2
+[   18s] [123/349] preinstalled libsframe3-2.47-1.1
+[   18s] [124/349] preinstalled libsmartcols1-2.42.4-1.1
+[   18s] [125/349] preinstalled libstdc++6-16.2.1+git9713-1.1
+[   18s] [126/349] cumulate libstdc++6-devel-gcc16-16.2.1+git9713-1.1
+[   18s] [127/349] cumulate libsubid6-4.20.3-1.1
+[   18s] [128/349] cumulate libsystemd0-mini-261.3-1.1
+[   18s] [129/349] cumulate libts0-1.24-1.4
+[   18s] [130/349] preinstalled libtsan2-16.2.1+git9713-1.1
+[   18s] [131/349] preinstalled libubsan1-16.2.1+git9713-1.1
+[   18s] [132/349] cumulate libudev-mini1-261.3-1.1
+[   18s] [133/349] preinstalled libuuid1-2.42.4-1.1
+[   18s] [134/349] cumulate libuv1-1.52.0-1.3
+[   18s] [135/349] cumulate libverto1-0.3.2-3.11
+[   18s] [136/349] cumulate libvulkan1-1.4.363-1.1
+[   18s] [137/349] cumulate libwacom-data-2.19.1-1.1
+[   18s] [138/349] cumulate libwayland-egl1-1.26.0-1.2
+[   18s] [139/349] preinstalled libxcrypt-devel-4.5.2-2.4
+[   18s] [140/349] preinstalled libxml2-16-2.15.4-1.1
+[   18s] [141/349] cumulate libxshmfence1-1.3.3-1.7
+[   18s] [142/349] preinstalled libz1-1.3.1-3.3
+[   18s] [143/349] preinstalled libzstd1-1.5.7-6.1
+[   18s] [144/349] preinstalled linux-glibc-devel-7.2-2.1
+[   18s] [145/349] cumulate login_defs-4.20.3-1.1
+[   18s] [146/349] preinstalled lua-interpreter-5-3.4
+[   18s] [147/349] preinstalled lua54-5.4.8-4.7
+[   18s] [148/349] preinstalled make-4.4.1-3.10
+[   18s] [149/349] preinstalled ncurses-utils-6.6.20260926-115.1
+[   18s] [150/349] cumulate ninja-1.13.2-1.4
+[   18s] [151/349] preinstalled pam-1.7.3-1.1
+[   18s] [152/349] preinstalled patch-2.8-3.2
+[   18s] [153/349] preinstalled perl-5.44.0-1.2
+[   18s] [154/349] preinstalled perl-base-5.44.0-1.2
+[   18s] [155/349] preinstalled perl-rpm-packaging-1.3-1.3
+[   18s] [156/349] preinstalled permctl-1699_20260917-1.1
+[   18s] [157/349] preinstalled permissions-1699_20260917-1.1
+[   18s] [158/349] preinstalled permissions-config-1699_20260917-1.1
+[   18s] [159/349] preinstalled pkgconf-2.5.1-1.5
+[   18s] [160/349] preinstalled pkgconf-m4-2.5.1-1.5
+[   18s] [161/349] preinstalled pkgconf-pkg-config-2.5.1-1.5
+[   18s] [162/349] preinstalled polkit-default-privs-1550+20261009.03465cb-1.1
+[   18s] [163/349] preinstalled post-build-checks-84.87+git20260421.8ed5e73-1.1
+[   18s] [164/349] cumulate python-rpm-macros-20260909.65d2791-1.1
+[   18s] [165/349] preinstalled rpm-4.20.1-11.1
+[   18s] [166/349] preinstalled rpm-build-4.20.1-11.1
+[   18s] [167/349] preinstalled rpm-config-SUSE-20250904-1.4
+[   18s] [168/349] preinstalled rpmlint-mini-2.10.0+git20261009.041119a7-21.49
+[   18s] [169/349] preinstalled rpmlint-strict-2.10.0+git20261009.041119a7-1.1
+[   18s] [170/349] preinstalled sed-4.10-1.4
+[   18s] [171/349] preinstalled suse-reproducible-builds-1.0-1.2
+[   18s] [172/349] preinstalled system-user-root-20190513-2.23
+[   18s] [173/349] cumulate systemd-mini-261.3-1.1
+[   18s] [174/349] preinstalled systemd-rpm-macros-26-1.4
+[   18s] [175/349] cumulate sysuser-shadow-3.3-12.3
+[   18s] [176/349] preinstalled tar-1.35-10.1
+[   18s] [177/349] preinstalled terminfo-base-6.6.20260926-115.1
+[   18s] [178/349] cumulate timezone-2026e-1.1
+[   18s] [179/349] cumulate typelib-1_0-GIRepository-3_0-2.88.4-1.1
+[   18s] [180/349] preinstalled util-linux-2.42.4-1.1
+[   18s] [181/349] preinstalled which-2.25-1.3
+[   18s] [182/349] cumulate xkeyboard-config-2.48-1.2
+[   18s] [183/349] cumulate xorgproto-devel-2026.1-1.1
+[   18s] [184/349] preinstalled xz-5.8.4-1.1
+[   18s] [185/349] cumulate zlib-devel-1.3.1-3.3
+[   18s] [186/349] cumulate dbus-1-common-1.14.10-5.5
+[   18s] [187/349] cumulate gcc16-c++-16.2.1+git9713-1.1
+[   18s] [188/349] cumulate libLLVM23-23.1.3-1.1
+[   18s] [189/349] cumulate libSM6-1.2.6-1.5
+[   18s] [190/349] cumulate libX11-xcb1-1.8.13-3.1
+[   18s] [191/349] cumulate libblkid-devel-2.42.4-1.1
+[   18s] [192/349] cumulate libbrotlidec1-1.2.0-2.3
+[   18s] [193/349] cumulate libdrm_amdgpu1-2.4.134-2.2
+[   18s] [194/349] cumulate libdrm_etnaviv1-2.4.134-2.2
+[   18s] [195/349] cumulate libdrm_exynos1-2.4.134-2.2
+[   18s] [196/349] cumulate libdrm_freedreno1-2.4.134-2.2
+[   18s] [197/349] cumulate libdrm_nouveau2-2.4.134-2.2
+[   18s] [198/349] cumulate libdrm_radeon1-2.4.134-2.2
+[   18s] [199/349] cumulate libdrm_tegra0-2.4.134-2.2
+[   18s] [200/349] cumulate libffi-devel-3.5.2-2.4
+[   18s] [201/349] cumulate libgbm1-26.2.4-1.1
+[   18s] [202/349] cumulate libgmodule-2_0-0-2.88.4-1.1
+[   18s] [203/349] cumulate libgthread-2_0-0-2.88.4-1.1
+[   18s] [204/349] cumulate libsepol-devel-3.11-1.2
+[   18s] [205/349] cumulate libstdc++-devel-16-1.1
+[   18s] [206/349] cumulate libwayland-client0-1.26.0-1.2
+[   18s] [207/349] cumulate libwayland-server0-1.26.0-1.2
+[   18s] [208/349] cumulate libxcb1-1.17.0-2.7
+[   18s] [209/349] cumulate libxkbcommon0-1.13.2-1.3
+[   18s] [210/349] cumulate shared-mime-info-2.5.1-1.1
+[   18s] [211/349] cumulate krb5-mini-1.22.2-4.2
+[   18s] [212/349] cumulate libXau-devel-1.0.12-2.5
+[   18s] [213/349] cumulate libdrm_intel1-2.4.134-2.2
+[   18s] [214/349] cumulate libgobject-2_0-0-2.88.4-1.1
+[   18s] [215/349] cumulate libicu78-78.3-1.3
+[   18s] [216/349] cumulate libpciaccess-devel-0.19-1.3
+[   18s] [217/349] cumulate libsemanage2-3.11-1.2
+[   18s] [218/349] cumulate gcc-c++-16-1.1
+[   18s] [219/349] cumulate libgbm-devel-26.2.4-1.1
+[   18s] [220/349] cumulate libwayland-cursor0-1.26.0-1.2
+[   18s] [221/349] cumulate libxcb-composite0-1.17.0-2.7
+[   18s] [222/349] cumulate libxcb-damage0-1.17.0-2.7
+[   18s] [223/349] cumulate libxcb-dbe0-1.17.0-2.7
+[   18s] [224/349] cumulate libxcb-dpms0-1.17.0-2.7
+[   18s] [225/349] cumulate libxcb-dri2-0-1.17.0-2.7
+[   18s] [226/349] cumulate libxcb-dri3-0-1.17.0-2.7
+[   18s] [227/349] cumulate libxcb-glx0-1.17.0-2.7
+[   18s] [228/349] cumulate libxcb-icccm4-0.4.2-1.12
+[   18s] [229/349] cumulate libxcb-keysyms1-0.4.1-1.12
+[   18s] [230/349] cumulate libxcb-present0-1.17.0-2.7
+[   18s] [231/349] cumulate libxcb-randr0-1.17.0-2.7
+[   18s] [232/349] cumulate libxcb-record0-1.17.0-2.7
+[   18s] [233/349] cumulate libxcb-render0-1.17.0-2.7
+[   18s] [234/349] cumulate libxcb-res0-1.17.0-2.7
+[   18s] [235/349] cumulate libxcb-screensaver0-1.17.0-2.7
+[   18s] [236/349] cumulate libxcb-shape0-1.17.0-2.7
+[   18s] [237/349] cumulate libxcb-shm0-1.17.0-2.7
+[   18s] [238/349] cumulate libxcb-sync1-1.17.0-2.7
+[   18s] [239/349] cumulate libxcb-util1-0.4.1-1.12
+[   18s] [240/349] cumulate libxcb-xf86dri0-1.17.0-2.7
+[   18s] [241/349] cumulate libxcb-xfixes0-1.17.0-2.7
+[   18s] [242/349] cumulate libxcb-xinerama0-1.17.0-2.7
+[   18s] [243/349] cumulate libxcb-xinput0-1.17.0-2.7
+[   18s] [244/349] cumulate libxcb-xkb1-1.17.0-2.7
+[   18s] [245/349] cumulate libxcb-xtest0-1.17.0-2.7
+[   18s] [246/349] cumulate libxcb-xv0-1.17.0-2.7
+[   18s] [247/349] cumulate libxcb-xvmc0-1.17.0-2.7
+[   18s] [248/349] cumulate libxkbcommon-devel-1.13.2-1.3
+[   18s] [249/349] cumulate libX11-6-1.8.13-3.1
+[   18s] [250/349] cumulate libatk-1_0-0-2.60.7-1.1
+[   18s] [251/349] cumulate libdbus-1-3-1.14.10-5.5
+[   18s] [252/349] cumulate libfreetype6-2.14.3-1.2
+[   18s] [253/349] cumulate typelib-1_0-GLib-2_0-2.88.4-1.1
+[   18s] [254/349] cumulate libgudev-1_0-0-238-1.13
+[   18s] [255/349] cumulate shadow-4.20.3-1.1
+[   18s] [256/349] cumulate libgirepository-2_0-0-2.88.4-1.1
+[   18s] [257/349] cumulate pcre2-devel-10.49-1.1
+[   18s] [258/349] cumulate dbus-broker-37-2.4
+[   18s] [259/349] cumulate libQt6Core6-6.11.2-2.1
+[   18s] [260/349] cumulate libdrm-devel-2.4.134-2.2
+[   18s] [261/349] cumulate dbus-1-tools-1.14.10-5.5
+[   18s] [262/349] cumulate libXext6-1.3.7-1.4
+[   18s] [263/349] cumulate libXfixes3-6.0.2-2.4
+[   18s] [264/349] cumulate libXrender1-0.9.12-2.1
+[   18s] [265/349] cumulate shadow-pw-mgmt-4.20.3-1.1
+[   18s] [266/349] cumulate libQt6DBus6-6.11.2-2.1
+[   18s] [267/349] cumulate libselinux-devel-3.11-2.1
+[   18s] [268/349] cumulate libxcb-render-util0-0.3.10-1.12
+[   18s] [269/349] cumulate typelib-1_0-GModule-2_0-2.88.4-1.1
+[   18s] [270/349] cumulate typelib-1_0-GObject-2_0-2.88.4-1.1
+[   18s] [271/349] cumulate libharfbuzz0-14.6.0-1.1
+[   18s] [272/349] cumulate libxcb-image0-0.4.1-1.13
+[   18s] [273/349] cumulate libxkbcommon-x11-0-1.13.2-1.3
+[   18s] [274/349] cumulate typelib-1_0-GLibUnix-2_0-2.88.4-1.1
+[   18s] [275/349] cumulate Mesa-vulkan-device-select-26.2.4-1.1
+[   18s] [276/349] cumulate dbus-1-daemon-1.14.10-5.5
+[   18s] [277/349] cumulate libwacom9-2.19.1-1.1
+[   18s] [278/349] cumulate wayland-devel-1.26.0-1.2
+[   18s] [279/349] cumulate libxcb-devel-1.17.0-2.7
+[   18s] [280/349] cumulate libXi6-1.8.3-2.1
+[   18s] [281/349] cumulate libXtst6-1.2.5-2.1
+[   18s] [282/349] cumulate libXxf86vm1-1.1.7-1.4
+[   18s] [283/349] cumulate libXrandr2-1.5.5-1.4
+[   18s] [284/349] cumulate libmount-devel-2.42.4-1.1
+[   18s] [285/349] cumulate typelib-1_0-Atk-1_0-2.60.7-1.1
+[   18s] [286/349] cumulate dbus-1-1.14.10-5.5
+[   18s] [287/349] cumulate libX11-devel-1.8.13-3.1
+[   18s] [288/349] cumulate libinput10-1.32-1.1
+[   18s] [289/349] cumulate libxcb-cursor0-0.1.6-1.5
+[   18s] [290/349] cumulate libvulkan_lvp-26.2.4-1.1
+[   18s] [291/349] cumulate dbus-1-devel-1.14.10-5.5
+[   18s] [292/349] cumulate libXext-devel-1.3.7-1.4
+[   18s] [293/349] cumulate libXfixes-devel-6.0.2-2.4
+[   18s] [294/349] cumulate libXrender-devel-0.9.12-2.1
+[   18s] [295/349] cumulate libXi-devel-1.8.3-2.1
+[   18s] [296/349] cumulate libXrandr-devel-1.5.5-1.4
+[   18s] [297/349] cumulate libXtst-devel-1.2.5-2.1
+[   18s] [298/349] cumulate libglvnd-1.7.0-2.3
+[   18s] [299/349] cumulate libfontconfig1-2.18.3-1.1
+[   18s] [300/349] cumulate python313-base-3.13.15-2.1
+[   18s] [301/349] cumulate libgirepository-1_0-1-1.86.0-4.1
+[   18s] [302/349] cumulate libgio-2_0-0-2.88.4-1.1
+[   18s] [303/349] cumulate gio-branding-upstream-2.88.4-1.1
+[   18s] [304/349] cumulate girepository-1_0-1.86.0-4.1
+[   18s] [305/349] cumulate libglvnd-devel-1.7.0-2.3
+[   18s] [306/349] cumulate libpython3_13-1_0-3.13.15-2.1
+[   18s] [307/349] cumulate python313-packaging-26.3-1.1
+[   18s] [308/349] cumulate fontconfig-2.18.3-1.1
+[   18s] [309/349] cumulate libpxbackend-1_0-mini-0.5.12-2.4
+[   18s] [310/349] cumulate Mesa-26.2.4-1.1
+[   18s] [311/349] cumulate cmake-mini-4.4.3-2.1
+[   18s] [312/349] cumulate glib2-tools-2.88.4-1.1
+[   18s] [313/349] cumulate typelib-1_0-Gio-2_0-2.88.4-1.1
+[   18s] [314/349] cumulate vulkan-headers-1.4.363-1.1
+[   18s] [315/349] cumulate libatspi0-2.60.7-1.1
+[   18s] [316/349] cumulate Mesa-libGL1-26.2.4-1.1
+[   18s] [317/349] cumulate cmake-4.4.3-2.1
+[   18s] [318/349] cumulate vulkan-devel-1.4.363-1.1
+[   18s] [319/349] cumulate libproxy1-0.5.12-2.4
+[   18s] [320/349] cumulate python-rpm-packaging-20210526+a18ca48-2.1
+[   18s] [321/349] cumulate typelib-1_0-Atspi-2_0-2.60.7-1.1
+[   18s] [322/349] cumulate libatk-bridge-2_0-0-2.60.7-1.1
+[   18s] [323/349] cumulate Mesa-dri-26.2.4-1.1
+[   18s] [324/349] cumulate glib2-devel-2.88.4-1.1
+[   18s] [325/349] cumulate glm-devel-1.0.1-1.5
+[   18s] [326/349] cumulate qt6-macros-20260508-1.2
+[   18s] [327/349] cumulate libQt6Network6-6.11.2-2.1
+[   18s] [328/349] cumulate at-spi2-core-2.60.7-1.1
+[   18s] [329/349] cumulate Mesa-libEGL1-26.2.4-1.1
+[   18s] [330/349] cumulate qt6-network-tls-6.11.2-2.1
+[   18s] [331/349] cumulate qt6-networkinformation-connman-6.11.2-2.1
+[   18s] [332/349] cumulate qt6-networkinformation-nm-6.11.2-2.1
+[   18s] [333/349] cumulate Mesa-libEGL-devel-26.2.4-1.1
+[   18s] [334/349] cumulate qt6-networkinformation-glib-6.11.2-2.1
+[   18s] [335/349] cumulate qt6-base-common-devel-6.11.2-2.1
+[   18s] [336/349] cumulate at-spi2-core-devel-2.60.7-1.1
+[   18s] [337/349] cumulate libQt6Gui6-6.11.2-2.1
+[   18s] [338/349] cumulate Mesa-libGLESv3-devel-26.2.4-1.1
+[   18s] [339/349] cumulate libQt6Widgets6-6.11.2-2.1
+[   18s] [340/349] cumulate qt6-core-devel-6.11.2-2.1
+[   18s] [341/349] cumulate Mesa-libGLESv2-devel-26.2.4-1.1
+[   18s] [342/349] cumulate libQt6WaylandClient6-6.11.2-2.1
+[   18s] [343/349] cumulate qt6-dbus-devel-6.11.2-2.1
+[   18s] [344/349] cumulate libQt6OpenGL6-6.11.2-2.1
+[   18s] [345/349] cumulate libQt6OpenGLWidgets6-6.11.2-2.1
+[   18s] [346/349] cumulate qt6-gui-devel-6.11.2-2.1
+[   18s] [347/349] cumulate qt6-widgets-devel-6.11.2-2.1
+[   18s] [348/349] cumulate qt6-opengl-devel-6.11.2-2.1
+[   18s] [349/349] cumulate qt6-openglwidgets-devel-6.11.2-2.1
+[   18s] now installing cumulated packages
+[   19s] Preparing...                          ########################################
+[   19s] Updating / installing...
+[   19s] libglib-2_0-0-2.88.4-1.1              ########################################
+[   19s] libdrm2-2.4.134-2.2                   ########################################
+[   19s] xorgproto-devel-2026.1-1.1            ########################################
+[   19s] libffi8-3.5.2-2.4                     ########################################
+[   19s] libgobject-2_0-0-2.88.4-1.1           ########################################
+[   19s] libexpat1-2.9.0-1.1                   ########################################
+[   19s] typelib-1_0-GLib-2_0-2.88.4-1.1       ########################################
+[   19s] libgmodule-2_0-0-2.88.4-1.1           ########################################
+[   19s] libwayland-client0-1.26.0-1.2         ########################################
+[   19s] libsystemd0-mini-261.3-1.1            ########################################
+[   19s] typelib-1_0-GObject-2_0-2.88.4-1.1    ########################################
+[   19s] libgbm1-26.2.4-1.1                    ########################################
+[   19s] libatk-1_0-0-2.60.7-1.1               ########################################
+[   19s] libudev-mini1-261.3-1.1               ########################################
+[   19s] libpcre2-16-0-10.49-1.1               ########################################
+[   19s] Mesa-KHR-devel-26.2.4-1.1             ########################################
+[   19s] libwayland-cursor0-1.26.0-1.2         ########################################
+[   19s] typelib-1_0-GModule-2_0-2.88.4-1.1    ########################################
+[   19s] libffi-devel-3.5.2-2.4                ########################################
+[   19s] libdrm_amdgpu1-2.4.134-2.2            ########################################
+[   19s] zlib-devel-1.3.1-3.3                  ########################################
+[   19s] libxshmfence1-1.3.3-1.7               ########################################
+[   19s] libvulkan1-1.4.363-1.1                ########################################
+[   19s] libuv1-1.52.0-1.3                     ########################################
+[   20s] libstdc++6-devel-gcc16-16.2.1+git9713-########################################
+[   20s] libsepol2-3.11-1.2                    ########################################
+[   20s] libpng16-16-1.6.59-1.1                ########################################
+[   20s] libpciaccess0-0.19-1.3                ########################################
+[   20s] libmtdev1-1.1.6-1.20                  ########################################
+[   20s] libevdev2-1.13.7-1.1                  ########################################
+[   20s] libeconf-devel-0.8.5-1.1              ########################################
+[   20s] libXau6-1.0.12-2.5                    ########################################
+[   20s] libxcb1-1.17.0-2.7                    ########################################
+[   20s] libxcb-dri3-0-1.17.0-2.7              ########################################
+[   20s] libxcb-shm0-1.17.0-2.7                ########################################
+[   20s] libxcb-xfixes0-1.17.0-2.7             ########################################
+[   20s] libxcb-present0-1.17.0-2.7            ########################################
+[   20s] libxcb-randr0-1.17.0-2.7              ########################################
+[   20s] libxcb-render0-1.17.0-2.7             ########################################
+[   20s] libxcb-sync1-1.17.0-2.7               ########################################
+[   20s] libxcb-xkb1-1.17.0-2.7                ########################################
+[   20s] libxcb-render-util0-0.3.10-1.12       ########################################
+[   20s] libxcb-glx0-1.17.0-2.7                ########################################
+[   20s] libxcb-shape0-1.17.0-2.7              ########################################
+[   20s] libxcb-xinput0-1.17.0-2.7             ########################################
+[   20s] libX11-data-1.8.13-3.1                ########################################
+[   20s] libX11-6-1.8.13-3.1                   ########################################
+[   20s] libXext6-1.3.7-1.4                    ########################################
+[   20s] libX11-xcb1-1.8.13-3.1                ########################################
+[   20s] libXi6-1.8.3-2.1                      ########################################
+[   20s] libXtst6-1.2.5-2.1                    ########################################
+[   21s] libXrender1-0.9.12-2.1                ########################################
+[   21s] libSPIRV-Tools-2026_4_rc2-2026.4~rc2-1########################################
+[   21s] libICE6-1.1.2-1.7                     ########################################
+[   21s] libSM6-1.2.6-1.5                      ########################################
+[   21s] libXrandr2-1.5.5-1.4                  ########################################
+[   21s] libXxf86vm1-1.1.7-1.4                 ########################################
+[   21s] libXfixes3-6.0.2-2.4                  ########################################
+[   21s] Mesa-vulkan-device-select-26.2.4-1.1  ########################################
+[   21s] libxcb-composite0-1.17.0-2.7          ########################################
+[   21s] libxcb-damage0-1.17.0-2.7             ########################################
+[   21s] libxcb-dbe0-1.17.0-2.7                ########################################
+[   21s] libxcb-dpms0-1.17.0-2.7               ########################################
+[   21s] libxcb-dri2-0-1.17.0-2.7              ########################################
+[   21s] libxcb-icccm4-0.4.2-1.12              ########################################
+[   21s] libxcb-keysyms1-0.4.1-1.12            ########################################
+[   21s] libxcb-record0-1.17.0-2.7             ########################################
+[   21s] libxcb-res0-1.17.0-2.7                ########################################
+[   21s] libxcb-screensaver0-1.17.0-2.7        ########################################
+[   21s] libxcb-util1-0.4.1-1.12               ########################################
+[   21s] libxcb-image0-0.4.1-1.13              ########################################
+[   21s] libxcb-cursor0-0.1.6-1.5              ########################################
+[   21s] libxcb-xf86dri0-1.17.0-2.7            ########################################
+[   21s] libxcb-xinerama0-1.17.0-2.7           ########################################
+[   21s] libxcb-xtest0-1.17.0-2.7              ########################################
+[   21s] libxcb-xv0-1.17.0-2.7                 ########################################
+[   21s] libxcb-xvmc0-1.17.0-2.7               ########################################
+[   21s] libXau-devel-1.0.12-2.5               ########################################
+[   21s] libxcb-devel-1.17.0-2.7               ########################################
+[   21s] libX11-devel-1.8.13-3.1               ########################################
+[   22s] libXext-devel-1.3.7-1.4               ########################################
+[   22s] libXfixes-devel-6.0.2-2.4             ########################################
+[   22s] libXi-devel-1.8.3-2.1                 ########################################
+[   22s] libXtst-devel-1.2.5-2.1               ########################################
+[   22s] libXrender-devel-0.9.12-2.1           ########################################
+[   22s] libXrandr-devel-1.5.5-1.4             ########################################
+[   22s] libblkid-devel-2.42.4-1.1             ########################################
+[   22s] libdrm_intel1-2.4.134-2.2             ########################################
+[   22s] libpciaccess-devel-0.19-1.3           ########################################
+[   22s] libsepol-devel-3.11-1.2               ########################################
+[   22s] gcc16-c++-16.2.1+git9713-1.1          ########################################
+[   22s] gcc-c++-16-1.1                        ########################################
+[   22s] libstdc++-devel-16-1.1                ########################################
+[   22s] libgudev-1_0-0-238-1.13               ########################################
+[   22s] typelib-1_0-Atk-1_0-2.60.7-1.1        ########################################
+[   22s] libgbm-devel-26.2.4-1.1               ########################################
+[   22s] libgirepository-2_0-0-2.88.4-1.1      ########################################
+[   22s] girepository-1_0-1.86.0-4.1           ########################################
+[   22s] libgirepository-1_0-1-1.86.0-4.1      ########################################
+[   22s] typelib-1_0-GLibUnix-2_0-2.88.4-1.1   ########################################
+[   22s] libwayland-server0-1.26.0-1.2         ########################################
+[   22s] libdrm_etnaviv1-2.4.134-2.2           ########################################
+[   22s] libdrm_exynos1-2.4.134-2.2            ########################################
+[   22s] libdrm_freedreno1-2.4.134-2.2         ########################################
+[   22s] libdrm_nouveau2-2.4.134-2.2           ########################################
+[   22s] libdrm_radeon1-2.4.134-2.2            ########################################
+[   22s] libdrm_tegra0-2.4.134-2.2             ########################################
+[   22s] libdrm-devel-2.4.134-2.2              ########################################
+[   22s] libgthread-2_0-0-2.88.4-1.1           ########################################
+[   22s] shared-mime-info-2.5.1-1.1            ########################################
+[   24s] xkeyboard-config-2.48-1.2             ########################################
+[   24s] libxkbcommon0-1.13.2-1.3              ########################################
+[   24s] libxkbcommon-devel-1.13.2-1.3         ########################################
+[   24s] libxkbcommon-x11-0-1.13.2-1.3         ########################################
+[   24s] typelib-1_0-GIRepository-3_0-2.88.4-1.########################################
+[   24s] timezone-2026e-1.1                    ########################################
+[   24s] systemd-mini-261.3-1.1                ########################################
+[   25s] python-rpm-macros-20260909.65d2791-1.1########################################
+[   25s] ninja-1.13.2-1.4                      ########################################
+[   25s] login_defs-4.20.3-1.1                 ########################################
+[   25s] libwayland-egl1-1.26.0-1.2            ########################################
+[   25s] wayland-devel-1.26.0-1.2              ########################################
+[   25s] libwacom-data-2.19.1-1.1              ########################################
+[   25s] libwacom9-2.19.1-1.1                  ########################################
+[   25s] libinput10-1.32-1.1                   ########################################
+[   25s] libverto1-0.3.2-3.11                  ########################################
+[   25s] libts0-1.24-1.4                       ########################################
+[   25s] libsubid6-4.20.3-1.1                  ########################################
+[   25s] libsemanage-conf-3.11-1.2             ########################################
+[   25s] libsemanage2-3.11-1.2                 ########################################
+[   25s] shadow-pw-mgmt-4.20.3-1.1             ########################################
+[   26s] /usr/bin/newgidmap: setting to root:root 0755 "cap_setgid=ep". (missing capabilities)
+[   26s] /usr/bin/newuidmap: setting to root:root 0755 "cap_setuid=ep". (missing capabilities)
+[   26s] shadow-4.20.3-1.1                     ########################################
+[   26s] sysuser-shadow-3.3-12.3               ########################################
+[   26s] /usr/bin/systemd-sysusers --replace=/usr/lib/sysusers.d/dbus.conf -
+[   26s] Creating group 'systemd-journal' with GID 499.
+[   26s] Creating group 'messagebus' with GID 498.
+[   26s] Creating user 'messagebus' (User for D-Bus) with UID 498 and GID 498.
+[   26s] dbus-1-common-1.14.10-5.5             ########################################
+[   26s] libdbus-1-3-1.14.10-5.5               ########################################
+[   26s] dbus-1-daemon-1.14.10-5.5             ########################################
+[   26s] gio-branding-upstream-2.88.4-1.1      ########################################
+[   26s] libgio-2_0-0-2.88.4-1.1               ########################################
+[   26s] glib2-tools-2.88.4-1.1                ########################################
+[   26s] No schema files found: doing nothing.
+[   26s] libatspi0-2.60.7-1.1                  ########################################
+[   26s] typelib-1_0-Atspi-2_0-2.60.7-1.1      ########################################
+[   26s] libatk-bridge-2_0-0-2.60.7-1.1        ########################################
+[   26s] libpxbackend-1_0-mini-0.5.12-2.4      ########################################
+[   26s] libproxy1-0.5.12-2.4                  ########################################
+[   26s] typelib-1_0-Gio-2_0-2.88.4-1.1        ########################################
+[   26s] dbus-1-tools-1.14.10-5.5              ########################################
+[   26s] librhash1-1.4.6-2.3                   ########################################
+[   26s] libpcre2-posix3-10.49-1.1             ########################################
+[   26s] libpcre2-32-0-10.49-1.1               ########################################
+[   26s] pcre2-devel-10.49-1.1                 ########################################
+[   26s] libselinux-devel-3.11-2.1             ########################################
+[   26s] libmount-devel-2.42.4-1.1             ########################################
+[   26s] libmpdec4-4.0.1-2.6                   ########################################
+[   27s] libpython3_13-1_0-3.13.15-2.1         ########################################
+[   27s] python313-base-3.13.15-2.1            ########################################
+[   27s] python313-packaging-26.3-1.1          ########################################
+[   28s] cmake-mini-4.4.3-2.1                  ########################################
+[   28s] cmake-4.4.3-2.1                       ########################################
+[   28s] qt6-macros-20260508-1.2               ########################################
+[   28s] vulkan-headers-1.4.363-1.1            ########################################
+[   28s] vulkan-devel-1.4.363-1.1              ########################################
+[   28s] glib2-devel-2.88.4-1.1                ########################################
+[   28s] No schema files found: doing nothing.
+[   28s] libmd4c0-0.5.3-1.3                    ########################################
+[   28s] libjpeg8-8.3.2-85.1                   ########################################
+[   29s] libicu78-ledata-78.3-1.3              ########################################
+[   29s] libicu78-78.3-1.3                     ########################################
+[   29s] libgraphite2-3-1.3.15-1.3             ########################################
+[   29s] libedit0-20250104.3.1-1.5             ########################################
+[   30s] libLLVM23-23.1.3-1.1                  ########################################
+[   30s] libdouble-conversion3-3.4.0-1.4       ########################################
+[   30s] libdisplay-info3-0.3.0-2.5            ########################################
+[   30s] libvulkan_lvp-26.2.4-1.1              ########################################
+[   30s] libglvnd-1.7.0-2.3                    ########################################
+[   30s] Mesa-libGL1-26.2.4-1.1                ########################################
+[   30s] Mesa-26.2.4-1.1                       ########################################
+[   30s] Mesa-dri-26.2.4-1.1                   ########################################
+[   30s] Mesa-libEGL1-26.2.4-1.1               ########################################
+[   30s] libglvnd-devel-1.7.0-2.3              ########################################
+[   30s] Mesa-libEGL-devel-26.2.4-1.1          ########################################
+[   31s] Mesa-libGLESv3-devel-26.2.4-1.1       ########################################
+[   31s] Mesa-libGLESv2-devel-26.2.4-1.1       ########################################
+[   31s] libcom_err2-1.47.3-2.2                ########################################
+[   31s] krb5-mini-1.22.2-4.2                  ########################################
+[   31s] Updating /etc/sysconfig/kadmind ...
+[   31s] Updating /etc/sysconfig/krb5kdc ...
+[   31s] libbrotlicommon1-1.2.0-2.3            ########################################
+[   31s] libbrotlidec1-1.2.0-2.3               ########################################
+[   31s] libfreetype6-2.14.3-1.2               ########################################
+[   31s] libfontconfig1-2.18.3-1.1             ########################################
+[   31s] fontconfig-2.18.3-1.1                 ########################################
+[   31s] libharfbuzz0-14.6.0-1.1               ########################################
+[   31s] libb2-1-0.98.1-2.4                    ########################################
+[   31s] libQt6Core6-6.11.2-2.1                ########################################
+[   31s] libQt6DBus6-6.11.2-2.1                ########################################
+[   31s] qt6-network-tls-6.11.2-2.1            ########################################
+[   31s] qt6-networkinformation-connman-6.11.2-########################################
+[   31s] qt6-networkinformation-nm-6.11.2-2.1  ########################################
+[   31s] libQt6Network6-6.11.2-2.1             ########################################
+[   31s] qt6-networkinformation-glib-6.11.2-2.1########################################
+[   31s] libQt6Widgets6-6.11.2-2.1             ########################################
+[   32s] libQt6WaylandClient6-6.11.2-2.1       ########################################
+[   32s] libQt6OpenGL6-6.11.2-2.1              ########################################
+[   32s] libQt6Gui6-6.11.2-2.1                 ########################################
+[   32s] libQt6OpenGLWidgets6-6.11.2-2.1       ########################################
+[   32s] qt6-base-common-devel-6.11.2-2.1      ########################################
+[   32s] qt6-core-devel-6.11.2-2.1             ########################################
+[   32s] qt6-dbus-devel-6.11.2-2.1             ########################################
+[   32s] dbus-broker-block-restart-37-2.4      ########################################
+[   33s] dbus-broker-37-2.4                    ########################################
+[   33s] dbus-1-1.14.10-5.5                    ########################################
+[   33s] dbus-1-devel-1.14.10-5.5              ########################################
+[   33s] at-spi2-core-2.60.7-1.1               ########################################
+[   33s] at-spi2-core-devel-2.60.7-1.1         ########################################
+[   33s] qt6-gui-devel-6.11.2-2.1              ########################################
+[   33s] qt6-widgets-devel-6.11.2-2.1          ########################################
+[   33s] qt6-opengl-devel-6.11.2-2.1           ########################################
+[   33s] qt6-openglwidgets-devel-6.11.2-2.1    ########################################
+[   33s] glm-devel-1.0.1-1.5                   ########################################
+[   33s] python-rpm-packaging-20210526+a18ca48-########################################
+[   33s] eigen3-devel-5.0.1-1.3                ########################################
+[   35s] now finalizing build dir...
+[   35s] ... running 01-add_abuild_user_to_trusted_group
+[   35s] ... running 02-set_timezone_to_utc
+[   35s] ... running 03-set-permissions-secure
+[   35s] ... running 11-hack_uname_version_to_kernel_version
+[   35s] setting SOURCE_DATE_EPOCH_MTIME to 1770379767
+[   37s] -----------------------------------------------------------------
+[   37s] I have the following modifications for CalcMySky.spec:
+[   37s] 32c32
+[   37s] < Release:        0
+[   37s] ---
+[   37s] > Release:        1.1
+[   38s] -----------------------------------------------------------------
+[   38s] ----- building CalcMySky.spec (user abuild)
+[   38s] -----------------------------------------------------------------
+[   38s] -----------------------------------------------------------------
+[   39s] setting SOURCE_DATE_EPOCH_MTIME to 1770379767
+[   39s] + exec rpmbuild -ba --define '_srcdefattr (-,root,root)' --nosignature --define '_build_create_debug 1' --define 'disturl obs://build.opensuse.org/openSUSE:Factory:ARM/standard/40e6db80adcd992316848bb0cccfca0d-CalcMySky' /home/abuild/rpmbuild/SOURCES/CalcMySky.spec
+[   39s] using SOURCE_DATE_EPOCH with value 1770379766 as build time
+[   39s] Executing(%mkbuilddir): /usr/bin/bash -e /var/tmp/rpm-tmp.ODSuKv
+[   39s] Executing(%prep): /usr/bin/bash -e /var/tmp/rpm-tmp.E1qzon
+[   39s] + umask 022
+[   39s] + cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build
+[   39s] + cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build
+[   39s] + rm -rf CalcMySky-0.4.0
+[   39s] + /usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/CalcMySky-0.4.0.tar.gz
+[   39s] + STATUS=0
+[   39s] + '[' 0 -ne 0 ']'
+[   39s] + cd CalcMySky-0.4.0
+[   39s] + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+[   39s] + RPM_EC=0
+[   39s] ++ jobs -p
+[   39s] + exit 0
+[   39s] Executing(%build): /usr/bin/bash -e /var/tmp/rpm-tmp.IFJcTa
+[   39s] + umask 022
+[   39s] + cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build
+[   39s] + /usr/bin/rm -rf /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/BUILDROOT
+[   39s] ++ dirname /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/BUILDROOT
+[   39s] + /usr/bin/mkdir -p /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build
+[   39s] + /usr/bin/mkdir /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/BUILDROOT
+[   39s] + cd CalcMySky-0.4.0
+[   39s] + ref=/usr/lib/rpm
+[   39s] + mints=0
+[   39s] + case $(uname -m) in
+[   39s] ++ uname -m
+[   39s] + mints=20120610
+[   39s] + for s in guess sub
+[   39s] ++ find -maxdepth 8 -name config.guess
+[   39s] + for s in guess sub
+[   39s] ++ find -maxdepth 8 -name config.sub
+[   39s] + export 'CFLAGS=-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fpie -fPIC'
+[   39s] + CFLAGS='-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fpie -fPIC'
+[   39s] + export 'LDFLAGS= -pie'
+[   39s] + LDFLAGS=' -pie'
+[   39s] + find . -type f -name CMakeLists.txt -exec sed -i -re '/^[[:blank:]]*[sS][eE][tT][[:blank:]]*\([[:blank:]]*(CMAKE_BUILD_TYPE|CMAKE_COLOR_MAKEFILE|CMAKE_INSTALL_PREFIX|CMAKE_VERBOSE_MAKEFILE).*\)/{s/^/#IGNORE /}' '{}' +
+[   39s] + mkdir -p build
+[   39s] + cd build
+[   39s] + /usr/bin/cmake /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/. '-GUnix Makefiles' -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_INSTALL_BINDIR:PATH=bin -DCMAKE_INSTALL_SBINDIR:PATH=sbin -DCMAKE_INSTALL_LIBEXECDIR:PATH=libexec -DCMAKE_INSTALL_SYSCONFDIR:PATH=etc -DCMAKE_INSTALL_SHAREDSTATEDIR:PATH=/var/lib -DCMAKE_INSTALL_LOCALSTATEDIR:PATH=var -DCMAKE_INSTALL_RUNSTATEDIR:PATH=run -DCMAKE_INSTALL_LIBDIR:PATH=lib64 -DCMAKE_INSTALL_INCLUDEDIR:PATH=include -DCMAKE_INSTALL_DATAROOTDIR:PATH=share -DCMAKE_INSTALL_DOCDIR:PATH=share/doc/packages/CalcMySky -DCMAKE_INSTALL_MANDIR:PATH=share/man -DCMAKE_INSTALL_INFODIR:PATH=share/info -DINCLUDE_INSTALL_DIR:PATH=/usr/include -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DSYSCONF_INSTALL_DIR:PATH=/etc -DSHARE_INSTALL_PREFIX:PATH=/usr/share -DCMAKE_BUILD_TYPE=RelWithDebInfo '-DCMAKE_C_FLAGS=-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fpie -fPIC' '-DCMAKE_CXX_FLAGS=-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g' '-DCMAKE_Fortran_FLAGS=-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g' '-DCMAKE_EXE_LINKER_FLAGS=-Wl,-z,gcs-report-dynamic=none -flto=auto -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now' '-DCMAKE_MODULE_LINKER_FLAGS=-Wl,-z,gcs-report-dynamic=none -flto=auto -Wl,--as-needed' '-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,gcs-report-dynamic=none -flto=auto -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now' -DLIB_SUFFIX=64 -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON -DBUILD_STATIC_LIBS:BOOL=OFF -DCMAKE_COLOR_MAKEFILE:BOOL=OFF -DCMAKE_INSTALL_DO_STRIP:BOOL=OFF -DCMAKE_MODULES_INSTALL_DIR=/usr/lib64/cmake/CalcMySky -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DQT_VERSION=6 -DCMAKE_CXX_STANDARD=17
+[   39s] CMake Warning (deprecated) at CMakeLists.txt:3 (cmake_policy):
+[   39s]   The OLD behavior for policy CMP0110 will be removed from a future version
+[   39s]   of CMake.
+[   39s] 
+[   39s]   The cmake-policies(7) manual explains that the OLD behaviors of all
+[   39s]   policies are deprecated and that a policy should be set to OLD only under
+[   39s]   specific short-term circumstances.  Projects should be ported to the NEW
+[   39s]   behavior and not rely on setting a policy to OLD.
+[   39s] This warning is for project developers.  Use -Wno-author or -Wno-deprecated
+[   39s] to suppress it.
+[   39s] 
+[   40s] -- The CXX compiler identification is GNU 16.2.1
+[   40s] -- Detecting CXX compiler ABI info
+[   41s] -- Detecting CXX compiler ABI info - done
+[   41s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[   41s] -- Detecting CXX compile features
+[   41s] -- Detecting CXX compile features - done
+[   41s] -- Looking for C++ include glm/glm.hpp
+[   42s] -- Looking for C++ include glm/glm.hpp - found
+[   42s] -- Checking that GLM has the required features
+[   43s] -- Checking that GLM has the required features - done
+[   43s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[   43s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[   43s] -- Found Threads: TRUE
+[   43s] -- Performing Test HAVE_STDATOMIC
+[   44s] -- Performing Test HAVE_STDATOMIC - Success
+[   44s] -- Found WrapAtomic: TRUE
+[   44s] -- Found WrapVulkanHeaders: /usr/include
+[   44s] -- Performing Test HAVE_EGL
+[   45s] -- Performing Test HAVE_EGL - Success
+[   45s] -- Found EGL: /usr/include (found version "1.5")
+[   45s] -- Performing Test HAVE_GLESv2
+[   45s] -- Performing Test HAVE_GLESv2 - Success
+[   45s] -- Found GLESv2: /usr/include
+[   45s] -- CPM: using local package Eigen3@5.0.1
+[   45s] -- ABI version: 15
+[   46s] -- Configuring done (6.5s)
+[   46s] -- Generating done (0.1s)
+[   46s] CMake Warning (unused-cli):
+[   46s]   Manually-specified variables were not used by the project:
+[   46s] 
+[   46s]     BUILD_STATIC_LIBS
+[   46s]     CMAKE_C_FLAGS
+[   46s]     CMAKE_Fortran_FLAGS
+[   46s]     CMAKE_INSTALL_DO_STRIP
+[   46s]     CMAKE_MODULES_INSTALL_DIR
+[   46s]     INCLUDE_INSTALL_DIR
+[   46s]     LIB_INSTALL_DIR
+[   46s]     LIB_SUFFIX
+[   46s]     SHARE_INSTALL_PREFIX
+[   46s]     SYSCONF_INSTALL_DIR
+[   46s] 
+[   46s] 
+[   46s] -- Build files have been written to: /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build
+[   46s] + /usr/bin/make -O VERBOSE=1 -j4
+[   46s] /usr/bin/cmake -S/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 -B/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build --check-build-system CMakeFiles/Makefile.cmake 0
+[   46s] /usr/bin/cmake -E cmake_progress_start /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/CMakeFiles /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build//CMakeFiles/progress.marks
+[   46s] /usr/bin/make  -f CMakeFiles/Makefile2 all
+[   46s] /usr/bin/make  -f CMakeFiles/version_autogen_timestamp_deps.dir/build.make CMakeFiles/version_autogen_timestamp_deps.dir/depend
+[   46s] /usr/bin/make  -f CMakeFiles/common_autogen_timestamp_deps.dir/build.make CMakeFiles/common_autogen_timestamp_deps.dir/depend
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Spectrum_autogen_timestamp_deps.dir/build.make tests/CMakeFiles/test-Spectrum_autogen_timestamp_deps.dir/depend
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Fourier-interpolation_autogen_timestamp_deps.dir/build.make tests/CMakeFiles/test-Fourier-interpolation_autogen_timestamp_deps.dir/depend
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-Spectrum_autogen_timestamp_deps.dir/DependInfo.cmake test-Spectrum_autogen_timestamp_deps
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Spectrum_autogen_timestamp_deps.dir/build.make tests/CMakeFiles/test-Spectrum_autogen_timestamp_deps.dir/build
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-Fourier-interpolation_autogen_timestamp_deps.dir/DependInfo.cmake test-Fourier-interpolation_autogen_timestamp_deps
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] make[2]: Nothing to be done for 'tests/CMakeFiles/test-Spectrum_autogen_timestamp_deps.dir/build'.
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/CMakeFiles/version_autogen_timestamp_deps.dir/DependInfo.cmake version_autogen_timestamp_deps
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/CMakeFiles/common_autogen_timestamp_deps.dir/DependInfo.cmake common_autogen_timestamp_deps
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f CMakeFiles/version_autogen_timestamp_deps.dir/build.make CMakeFiles/version_autogen_timestamp_deps.dir/build
+[   46s] /usr/bin/make  -f CMakeFiles/common_autogen_timestamp_deps.dir/build.make CMakeFiles/common_autogen_timestamp_deps.dir/build
+[   46s] make[2]: Nothing to be done for 'CMakeFiles/common_autogen_timestamp_deps.dir/build'.
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Fourier-interpolation_autogen_timestamp_deps.dir/build.make tests/CMakeFiles/test-Fourier-interpolation_autogen_timestamp_deps.dir/build
+[   46s] make[2]: Nothing to be done for 'tests/CMakeFiles/test-Fourier-interpolation_autogen_timestamp_deps.dir/build'.
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [  1%] Generating check-version-update
+[   46s] true
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [  1%] Built target common_autogen_timestamp_deps
+[   46s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [  1%] Built target test-Fourier-interpolation_autogen_timestamp_deps
+[   46s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Spline-interpolation_autogen_timestamp_deps.dir/build.make tests/CMakeFiles/test-Spline-interpolation_autogen_timestamp_deps.dir/depend
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-exception-catch_autogen_timestamp_deps.dir/build.make tests/CMakeFiles/test-exception-catch_autogen_timestamp_deps.dir/depend
+[   46s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [  2%] Built target test-Spectrum_autogen_timestamp_deps
+[   46s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f CMakeFiles/common_autogen.dir/build.make CMakeFiles/common_autogen.dir/depend
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-Spline-interpolation_autogen_timestamp_deps.dir/DependInfo.cmake test-Spline-interpolation_autogen_timestamp_deps
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Spline-interpolation_autogen_timestamp_deps.dir/build.make tests/CMakeFiles/test-Spline-interpolation_autogen_timestamp_deps.dir/build
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [  2%] Generating version.cpp
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 && /usr/bin/cmake -D staticVersion=0.4.0 -D inputFile=/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/version.cpp.in -D outputFile=/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/version.cpp -P /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/cmake/gen_version.cmake
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] make[2]: Nothing to be done for 'tests/CMakeFiles/test-Spline-interpolation_autogen_timestamp_deps.dir/build'.
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-exception-catch_autogen_timestamp_deps.dir/DependInfo.cmake test-exception-catch_autogen_timestamp_deps
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/CMakeFiles/common_autogen.dir/DependInfo.cmake common_autogen
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-exception-catch_autogen_timestamp_deps.dir/build.make tests/CMakeFiles/test-exception-catch_autogen_timestamp_deps.dir/build
+[   46s] make[2]: Nothing to be done for 'tests/CMakeFiles/test-exception-catch_autogen_timestamp_deps.dir/build'.
+[   46s] /usr/bin/make  -f CMakeFiles/common_autogen.dir/build.make CMakeFiles/common_autogen.dir/build
+[   46s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [  2%] Built target version_autogen_timestamp_deps
+[   46s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Spectrum_autogen.dir/build.make tests/CMakeFiles/test-Spectrum_autogen.dir/depend
+[   46s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [  4%] Built target test-Spline-interpolation_autogen_timestamp_deps
+[   46s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [  2%] Built target test-exception-catch_autogen_timestamp_deps
+[   46s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Fourier-interpolation_autogen.dir/build.make tests/CMakeFiles/test-Fourier-interpolation_autogen.dir/depend
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Spline-interpolation_autogen.dir/build.make tests/CMakeFiles/test-Spline-interpolation_autogen.dir/depend
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-Fourier-interpolation_autogen.dir/DependInfo.cmake test-Fourier-interpolation_autogen
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Fourier-interpolation_autogen.dir/build.make tests/CMakeFiles/test-Fourier-interpolation_autogen.dir/build
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-Spectrum_autogen.dir/DependInfo.cmake test-Spectrum_autogen
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Spectrum_autogen.dir/build.make tests/CMakeFiles/test-Spectrum_autogen.dir/build
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-Spline-interpolation_autogen.dir/DependInfo.cmake test-Spline-interpolation_autogen
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Spline-interpolation_autogen.dir/build.make tests/CMakeFiles/test-Spline-interpolation_autogen.dir/build
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [  5%] Automatic MOC and UIC for target test-Spectrum
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests && /usr/bin/cmake -E cmake_autogen /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-Spectrum_autogen.dir/AutogenInfo.json RelWithDebInfo
+[   46s] AutoGen: Refreshing parse cache because it doesn't exist.
+[   46s] AutoMoc: Generating "SRC:/build/tests/test-Spectrum_autogen/moc_predefs.h", because it doesn't exist.
+[   46s] /usr/bin/c++ -std=gnu++17 -w -dM -E /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -DGLM_ENABLE_EXPERIMENTAL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_OPENGL_LIB -D_USE_MATH_DEFINES -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build -I/usr/include/qt6/QtCore -I/usr/include/qt6 -I/usr/lib64/qt6/mkspecs/linux-g++ -I/usr/include/qt6/QtOpenGL -I/usr/include/qt6/QtGui -I/usr/include -I/usr/include/c++/16 -I/usr/include/c++/16/aarch64-suse-linux -I/usr/include/c++/16/backward -I/usr/lib64/gcc/aarch64-suse-linux/16/include -I/usr/local/include -I/usr/lib64/gcc/aarch64-suse-linux/16/include-fixed -I/usr/aarch64-suse-linux/include
+[   46s] AutoGen: Parsing "SRC:/common/Spectrum.cpp"
+[   46s] AutoGen: Parsing "SRC:/tests/test-Spectrum.cpp"
+[   46s] AutoGen: Parsing "SRC:/common/Spectrum.hpp"
+[   46s] AutoMoc: Generating MOC compilation "SRC:/build/tests/test-Spectrum_autogen/mocs_compilation.cpp"
+[   46s] AutoMoc: Merging MOC dependencies into "SRC:/build/tests/test-Spectrum_autogen/deps"
+[   46s] AutoGen: Writing the parse cache file "SRC:/build/tests/CMakeFiles/test-Spectrum_autogen.dir/ParseCache.txt"
+[   46s] AutoGen: Writing the settings file "SRC:/build/tests/CMakeFiles/test-Spectrum_autogen.dir/AutogenUsed.txt"
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests && /usr/bin/cmake -E touch /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/test-Spectrum_autogen/timestamp
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [  4%] Automatic MOC and UIC for target common
+[   46s] /usr/bin/cmake -E cmake_autogen /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/CMakeFiles/common_autogen.dir/AutogenInfo.json RelWithDebInfo
+[   46s] AutoGen: Refreshing parse cache because it doesn't exist.
+[   46s] AutoMoc: Generating "SRC:/build/common_autogen/moc_predefs.h", because it doesn't exist.
+[   46s] /usr/bin/c++ -std=gnu++17 -w -dM -E /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -DGLM_ENABLE_EXPERIMENTAL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -D_USE_MATH_DEFINES -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build -I/usr/include/qt6/QtCore -I/usr/include/qt6 -I/usr/lib64/qt6/mkspecs/linux-g++ -I/usr/include/qt6/QtOpenGL -I/usr/include/qt6/QtGui -I/usr/include/qt6/QtWidgets -I/usr/include/eigen3 -I/usr/include -I/usr/include/c++/16 -I/usr/include/c++/16/aarch64-suse-linux -I/usr/include/c++/16/backward -I/usr/lib64/gcc/aarch64-suse-linux/16/include -I/usr/local/include -I/usr/lib64/gcc/aarch64-suse-linux/16/include-fixed -I/usr/aarch64-suse-linux/include
+[   46s] AutoGen: Parsing "SRC:/common/AtmosphereParameters.hpp"
+[   46s] AutoGen: Parsing "SRC:/common/EclipsedDoubleScatteringPrecomputer.hpp"
+[   46s] AutoGen: Parsing "SRC:/common/Spectrum.hpp"
+[   46s] AutoGen: Parsing "SRC:/common/TextureAverageComputer.hpp"
+[   46s] AutoGen: Parsing "SRC:/common/util.hpp"
+[   46s] AutoGen: Parsing "SRC:/common/AtmosphereParameters.cpp"
+[   46s] AutoGen: Parsing "SRC:/common/EclipsedDoubleScatteringPrecomputer.cpp"
+[   46s] AutoGen: Parsing "SRC:/common/Spectrum.cpp"
+[   46s] AutoGen: Parsing "SRC:/common/TextureAverageComputer.cpp"
+[   46s] AutoGen: Parsing "SRC:/common/util.cpp"
+[   46s] AutoMoc: Generating MOC compilation "SRC:/build/common_autogen/mocs_compilation.cpp"
+[   46s] AutoMoc: Merging MOC dependencies into "SRC:/build/common_autogen/deps"
+[   46s] AutoGen: Writing the parse cache file "SRC:/build/CMakeFiles/common_autogen.dir/ParseCache.txt"
+[   46s] AutoGen: Writing the settings file "SRC:/build/CMakeFiles/common_autogen.dir/AutogenUsed.txt"
+[   46s] /usr/bin/cmake -E touch /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/common_autogen/timestamp
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [  8%] Built target common_autogen
+[   46s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-exception-catch_autogen.dir/build.make tests/CMakeFiles/test-exception-catch_autogen.dir/depend
+[   46s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [  8%] Built target test-Spectrum_autogen
+[   46s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f CMakeFiles/version_autogen.dir/build.make CMakeFiles/version_autogen.dir/depend
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/CMakeFiles/version_autogen.dir/DependInfo.cmake version_autogen
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f CMakeFiles/version_autogen.dir/build.make CMakeFiles/version_autogen.dir/build
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-exception-catch_autogen.dir/DependInfo.cmake test-exception-catch_autogen
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-exception-catch_autogen.dir/build.make tests/CMakeFiles/test-exception-catch_autogen.dir/build
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [  8%] Automatic MOC and UIC for target test-Fourier-interpolation
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests && /usr/bin/cmake -E cmake_autogen /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-Fourier-interpolation_autogen.dir/AutogenInfo.json RelWithDebInfo
+[   46s] AutoGen: Refreshing parse cache because it doesn't exist.
+[   46s] AutoMoc: Generating "SRC:/build/tests/test-Fourier-interpolation_autogen/moc_predefs.h", because it doesn't exist.
+[   46s] /usr/bin/c++ -std=gnu++17 -w -dM -E /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -DGLM_ENABLE_EXPERIMENTAL -D_USE_MATH_DEFINES -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build -I/usr/include/eigen3 -I/usr/include/c++/16 -I/usr/include/c++/16/aarch64-suse-linux -I/usr/include/c++/16/backward -I/usr/lib64/gcc/aarch64-suse-linux/16/include -I/usr/local/include -I/usr/lib64/gcc/aarch64-suse-linux/16/include-fixed -I/usr/aarch64-suse-linux/include -I/usr/include
+[   46s] AutoGen: Parsing "SRC:/tests/test-Fourier-interpolation.cpp"
+[   46s] AutoMoc: Generating MOC compilation "SRC:/build/tests/test-Fourier-interpolation_autogen/mocs_compilation.cpp"
+[   46s] AutoMoc: Merging MOC dependencies into "SRC:/build/tests/test-Fourier-interpolation_autogen/deps"
+[   46s] AutoGen: Writing the parse cache file "SRC:/build/tests/CMakeFiles/test-Fourier-interpolation_autogen.dir/ParseCache.txt"
+[   46s] AutoGen: Writing the settings file "SRC:/build/tests/CMakeFiles/test-Fourier-interpolation_autogen.dir/AutogenUsed.txt"
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests && /usr/bin/cmake -E touch /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/test-Fourier-interpolation_autogen/timestamp
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [ 11%] Built target test-Fourier-interpolation_autogen
+[   46s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f CMakeFiles/common.dir/build.make CMakeFiles/common.dir/depend
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [  7%] Automatic MOC and UIC for target test-Spline-interpolation
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests && /usr/bin/cmake -E cmake_autogen /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-Spline-interpolation_autogen.dir/AutogenInfo.json RelWithDebInfo
+[   46s] AutoGen: Refreshing parse cache because it doesn't exist.
+[   46s] AutoMoc: Generating "SRC:/build/tests/test-Spline-interpolation_autogen/moc_predefs.h", because it doesn't exist.
+[   46s] /usr/bin/c++ -std=gnu++17 -w -dM -E /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -DGLM_ENABLE_EXPERIMENTAL -D_USE_MATH_DEFINES -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build -I/usr/include/eigen3 -I/usr/include/c++/16 -I/usr/include/c++/16/aarch64-suse-linux -I/usr/include/c++/16/backward -I/usr/lib64/gcc/aarch64-suse-linux/16/include -I/usr/local/include -I/usr/lib64/gcc/aarch64-suse-linux/16/include-fixed -I/usr/aarch64-suse-linux/include -I/usr/include
+[   46s] AutoGen: Parsing "SRC:/tests/test-Spline-interpolation.cpp"
+[   46s] AutoMoc: Generating MOC compilation "SRC:/build/tests/test-Spline-interpolation_autogen/mocs_compilation.cpp"
+[   46s] AutoMoc: Merging MOC dependencies into "SRC:/build/tests/test-Spline-interpolation_autogen/deps"
+[   46s] AutoGen: Writing the parse cache file "SRC:/build/tests/CMakeFiles/test-Spline-interpolation_autogen.dir/ParseCache.txt"
+[   46s] AutoGen: Writing the settings file "SRC:/build/tests/CMakeFiles/test-Spline-interpolation_autogen.dir/AutogenUsed.txt"
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests && /usr/bin/cmake -E touch /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/test-Spline-interpolation_autogen/timestamp
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [ 11%] Built target test-Spline-interpolation_autogen
+[   46s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Spectrum.dir/build.make tests/CMakeFiles/test-Spectrum.dir/depend
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/CMakeFiles/common.dir/DependInfo.cmake common
+[   46s] Dependencies file "common_autogen/deps" is newer than depends file "/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/CMakeFiles/common.dir/compiler_depend.internal".
+[   46s] Consolidate compiler generated dependencies of target common
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f CMakeFiles/common.dir/build.make CMakeFiles/common.dir/build
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-Spectrum.dir/DependInfo.cmake test-Spectrum
+[   46s] Dependencies file "tests/test-Spectrum_autogen/deps" is newer than depends file "/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-Spectrum.dir/compiler_depend.internal".
+[   46s] Consolidate compiler generated dependencies of target test-Spectrum
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Spectrum.dir/build.make tests/CMakeFiles/test-Spectrum.dir/build
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [  9%] Automatic MOC and UIC for target version
+[   46s] /usr/bin/cmake -E cmake_autogen /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/CMakeFiles/version_autogen.dir/AutogenInfo.json RelWithDebInfo
+[   46s] AutoGen: Refreshing parse cache because it doesn't exist.
+[   46s] AutoMoc: Generating "SRC:/build/version_autogen/moc_predefs.h", because it doesn't exist.
+[   46s] /usr/bin/c++ -std=gnu++17 -w -dM -E /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -DGLM_ENABLE_EXPERIMENTAL -D_USE_MATH_DEFINES -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build -I/usr/include/c++/16 -I/usr/include/c++/16/aarch64-suse-linux -I/usr/include/c++/16/backward -I/usr/lib64/gcc/aarch64-suse-linux/16/include -I/usr/local/include -I/usr/lib64/gcc/aarch64-suse-linux/16/include-fixed -I/usr/aarch64-suse-linux/include -I/usr/include
+[   46s] AutoGen: Parsing "SRC:/build/version.cpp"
+[   46s] AutoMoc: Generating MOC compilation "SRC:/build/version_autogen/mocs_compilation.cpp"
+[   46s] AutoMoc: Merging MOC dependencies into "SRC:/build/version_autogen/deps"
+[   46s] AutoGen: Writing the parse cache file "SRC:/build/CMakeFiles/version_autogen.dir/ParseCache.txt"
+[   46s] AutoGen: Writing the settings file "SRC:/build/CMakeFiles/version_autogen.dir/AutogenUsed.txt"
+[   46s] /usr/bin/cmake -E touch /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/version_autogen/timestamp
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [ 11%] Automatic MOC and UIC for target test-exception-catch
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests && /usr/bin/cmake -E cmake_autogen /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-exception-catch_autogen.dir/AutogenInfo.json RelWithDebInfo
+[   46s] AutoGen: Refreshing parse cache because it doesn't exist.
+[   46s] AutoMoc: Generating "SRC:/build/tests/test-exception-catch_autogen/moc_predefs.h", because it doesn't exist.
+[   46s] /usr/bin/c++ -std=gnu++17 -w -dM -E /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -DGLM_ENABLE_EXPERIMENTAL "-DLIBRARY_FILE_PATH=\"/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/ShowMySky/libShowMySky-Qt6.so.15.0.0\"" -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -D_USE_MATH_DEFINES -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build -I/usr/include/qt6/QtCore -I/usr/include/qt6 -I/usr/lib64/qt6/mkspecs/linux-g++ -I/usr/include/qt6/QtWidgets -I/usr/include/qt6/QtGui -I/usr/include/qt6/QtOpenGL -I/usr/include -I/usr/include/c++/16 -I/usr/include/c++/16/aarch64-suse-linux -I/usr/include/c++/16/backward -I/usr/lib64/gcc/aarch64-suse-linux/16/include -I/usr/local/include -I/usr/lib64/gcc/aarch64-suse-linux/16/include-fixed -I/usr/aarch64-suse-linux/include
+[   46s] AutoGen: Parsing "SRC:/tests/test-exception-catch.cpp"
+[   46s] AutoMoc: Generating MOC compilation "SRC:/build/tests/test-exception-catch_autogen/mocs_compilation.cpp"
+[   46s] AutoMoc: Merging MOC dependencies into "SRC:/build/tests/test-exception-catch_autogen/deps"
+[   46s] AutoGen: Writing the parse cache file "SRC:/build/tests/CMakeFiles/test-exception-catch_autogen.dir/ParseCache.txt"
+[   46s] AutoGen: Writing the settings file "SRC:/build/tests/CMakeFiles/test-exception-catch_autogen.dir/AutogenUsed.txt"
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests && /usr/bin/cmake -E touch /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/test-exception-catch_autogen/timestamp
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [ 14%] Built target version_autogen
+[   46s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Fourier-interpolation.dir/build.make tests/CMakeFiles/test-Fourier-interpolation.dir/depend
+[   46s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [ 14%] Built target test-exception-catch_autogen
+[   46s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Spline-interpolation.dir/build.make tests/CMakeFiles/test-Spline-interpolation.dir/depend
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-Fourier-interpolation.dir/DependInfo.cmake test-Fourier-interpolation
+[   46s] Dependencies file "tests/test-Fourier-interpolation_autogen/deps" is newer than depends file "/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-Fourier-interpolation.dir/compiler_depend.internal".
+[   46s] Consolidate compiler generated dependencies of target test-Fourier-interpolation
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Fourier-interpolation.dir/build.make tests/CMakeFiles/test-Fourier-interpolation.dir/build
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [ 14%] Building CXX object CMakeFiles/common.dir/common_autogen/mocs_compilation.cpp.o
+[   46s] /usr/bin/c++ -DGLM_ENABLE_EXPERIMENTAL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -D_USE_MATH_DEFINES -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/common_autogen/include -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtOpenGL -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/eigen3 -Werror=return-type -Wall -Wextra -fvisibility=hidden -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIC -MD -MT CMakeFiles/common.dir/common_autogen/mocs_compilation.cpp.o -MF CMakeFiles/common.dir/common_autogen/mocs_compilation.cpp.o.d -o CMakeFiles/common.dir/common_autogen/mocs_compilation.cpp.o -c /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/common_autogen/mocs_compilation.cpp
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [ 14%] Building CXX object tests/CMakeFiles/test-Spectrum.dir/test-Spectrum_autogen/mocs_compilation.cpp.o
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests && /usr/bin/c++ -DGLM_ENABLE_EXPERIMENTAL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_OPENGL_LIB -D_USE_MATH_DEFINES -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/test-Spectrum_autogen/include -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtOpenGL -isystem /usr/include/qt6/QtGui -Werror=return-type -Wall -Wextra -fvisibility=hidden -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIE -MD -MT tests/CMakeFiles/test-Spectrum.dir/test-Spectrum_autogen/mocs_compilation.cpp.o -MF CMakeFiles/test-Spectrum.dir/test-Spectrum_autogen/mocs_compilation.cpp.o.d -o CMakeFiles/test-Spectrum.dir/test-Spectrum_autogen/mocs_compilation.cpp.o -c /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/test-Spectrum_autogen/mocs_compilation.cpp
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0 /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-Spline-interpolation.dir/DependInfo.cmake test-Spline-interpolation
+[   46s] Dependencies file "tests/test-Spline-interpolation_autogen/deps" is newer than depends file "/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/CMakeFiles/test-Spline-interpolation.dir/compiler_depend.internal".
+[   46s] Consolidate compiler generated dependencies of target test-Spline-interpolation
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] /usr/bin/make  -f tests/CMakeFiles/test-Spline-interpolation.dir/build.make tests/CMakeFiles/test-Spline-interpolation.dir/build
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [ 19%] Building CXX object tests/CMakeFiles/test-Spline-interpolation.dir/test-Spline-interpolation_autogen/mocs_compilation.cpp.o
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests && /usr/bin/c++ -DGLM_ENABLE_EXPERIMENTAL -D_USE_MATH_DEFINES -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/test-Spline-interpolation_autogen/include -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build -isystem /usr/include/eigen3 -Werror=return-type -Wall -Wextra -fvisibility=hidden -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIE -MD -MT tests/CMakeFiles/test-Spline-interpolation.dir/test-Spline-interpolation_autogen/mocs_compilation.cpp.o -MF CMakeFiles/test-Spline-interpolation.dir/test-Spline-interpolation_autogen/mocs_compilation.cpp.o.d -o CMakeFiles/test-Spline-interpolation.dir/test-Spline-interpolation_autogen/mocs_compilation.cpp.o -c /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/test-Spline-interpolation_autogen/mocs_compilation.cpp
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   46s] [ 15%] Building CXX object tests/CMakeFiles/test-Fourier-interpolation.dir/test-Fourier-interpolation_autogen/mocs_compilation.cpp.o
+[   46s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests && /usr/bin/c++ -DGLM_ENABLE_EXPERIMENTAL -D_USE_MATH_DEFINES -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/test-Fourier-interpolation_autogen/include -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build -isystem /usr/include/eigen3 -Werror=return-type -Wall -Wextra -fvisibility=hidden -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIE -MD -MT tests/CMakeFiles/test-Fourier-interpolation.dir/test-Fourier-interpolation_autogen/mocs_compilation.cpp.o -MF CMakeFiles/test-Fourier-interpolation.dir/test-Fourier-interpolation_autogen/mocs_compilation.cpp.o.d -o CMakeFiles/test-Fourier-interpolation.dir/test-Fourier-interpolation_autogen/mocs_compilation.cpp.o -c /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/test-Fourier-interpolation_autogen/mocs_compilation.cpp
+[   46s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   47s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   47s] [ 16%] Building CXX object tests/CMakeFiles/test-Spectrum.dir/test-Spectrum.cpp.o
+[   47s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests && /usr/bin/c++ -DGLM_ENABLE_EXPERIMENTAL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_OPENGL_LIB -D_USE_MATH_DEFINES -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/test-Spectrum_autogen/include -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtOpenGL -isystem /usr/include/qt6/QtGui -Werror=return-type -Wall -Wextra -fvisibility=hidden -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIE -MD -MT tests/CMakeFiles/test-Spectrum.dir/test-Spectrum.cpp.o -MF CMakeFiles/test-Spectrum.dir/test-Spectrum.cpp.o.d -o CMakeFiles/test-Spectrum.dir/test-Spectrum.cpp.o -c /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests/test-Spectrum.cpp
+[   47s] In file included from /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests/../common/Spectrum.hpp:26,
+[   47s]                  from /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests/test-Spectrum.cpp:1:
+[   47s] /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests/../common/../common/util.hpp:33:10: fatal error: QOpenGLFunctions_3_3_Core: No such file or directory
+[   47s]    33 | #include <QOpenGLFunctions_3_3_Core>
+[   47s]       |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+[   47s] compilation terminated.
+[   47s] make[2]: *** [tests/CMakeFiles/test-Spectrum.dir/build.make:103: tests/CMakeFiles/test-Spectrum.dir/test-Spectrum.cpp.o] Error 1
+[   47s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   47s] make[1]: *** [CMakeFiles/Makefile2:742: tests/CMakeFiles/test-Spectrum.dir/all] Error 2
+[   47s] make[1]: *** Waiting for unfinished jobs....
+[   47s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   47s] [ 18%] Building CXX object CMakeFiles/common.dir/common/EclipsedDoubleScatteringPrecomputer.cpp.o
+[   47s] /usr/bin/c++ -DGLM_ENABLE_EXPERIMENTAL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -D_USE_MATH_DEFINES -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/common_autogen/include -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtOpenGL -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/eigen3 -Werror=return-type -Wall -Wextra -fvisibility=hidden -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIC -MD -MT CMakeFiles/common.dir/common/EclipsedDoubleScatteringPrecomputer.cpp.o -MF CMakeFiles/common.dir/common/EclipsedDoubleScatteringPrecomputer.cpp.o.d -o CMakeFiles/common.dir/common/EclipsedDoubleScatteringPrecomputer.cpp.o -c /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/common/EclipsedDoubleScatteringPrecomputer.cpp
+[   47s] In file included from /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/common/types.hpp:26,
+[   47s]                  from /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/common/AtmosphereParameters.hpp:26,
+[   47s]                  from /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/common/EclipsedDoubleScatteringPrecomputer.hpp:28,
+[   47s]                  from /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/common/EclipsedDoubleScatteringPrecomputer.cpp:20:
+[   47s] /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/common/util.hpp:33:10: fatal error: QOpenGLFunctions_3_3_Core: No such file or directory
+[   47s]    33 | #include <QOpenGLFunctions_3_3_Core>
+[   47s]       |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+[   47s] compilation terminated.
+[   47s] make[2]: *** [CMakeFiles/common.dir/build.make:103: CMakeFiles/common.dir/common/EclipsedDoubleScatteringPrecomputer.cpp.o] Error 1
+[   47s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   47s] make[2]: *** Waiting for unfinished jobs....
+[   48s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   48s] [ 23%] Building CXX object CMakeFiles/common.dir/common/TextureAverageComputer.cpp.o
+[   48s] /usr/bin/c++ -DGLM_ENABLE_EXPERIMENTAL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -D_USE_MATH_DEFINES -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/common_autogen/include -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib64/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtOpenGL -isystem /usr/include/qt6/QtGui -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/eigen3 -Werror=return-type -Wall -Wextra -fvisibility=hidden -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIC -MD -MT CMakeFiles/common.dir/common/TextureAverageComputer.cpp.o -MF CMakeFiles/common.dir/common/TextureAverageComputer.cpp.o.d -o CMakeFiles/common.dir/common/TextureAverageComputer.cpp.o -c /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/common/TextureAverageComputer.cpp
+[   48s] In file included from /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/common/TextureAverageComputer.cpp:21:
+[   48s] /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/common/util.hpp:33:10: fatal error: QOpenGLFunctions_3_3_Core: No such file or directory
+[   48s]    33 | #include <QOpenGLFunctions_3_3_Core>
+[   48s]       |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+[   48s] compilation terminated.
+[   48s] make[2]: *** [CMakeFiles/common.dir/build.make:117: CMakeFiles/common.dir/common/TextureAverageComputer.cpp.o] Error 1
+[   48s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   48s] make[1]: *** [CMakeFiles/Makefile2:249: CMakeFiles/common.dir/all] Error 2
+[   51s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   51s] [ 22%] Building CXX object tests/CMakeFiles/test-Fourier-interpolation.dir/test-Fourier-interpolation.cpp.o
+[   51s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests && /usr/bin/c++ -DGLM_ENABLE_EXPERIMENTAL -D_USE_MATH_DEFINES -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/test-Fourier-interpolation_autogen/include -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build -isystem /usr/include/eigen3 -Werror=return-type -Wall -Wextra -fvisibility=hidden -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIE -MD -MT tests/CMakeFiles/test-Fourier-interpolation.dir/test-Fourier-interpolation.cpp.o -MF CMakeFiles/test-Fourier-interpolation.dir/test-Fourier-interpolation.cpp.o.d -o CMakeFiles/test-Fourier-interpolation.dir/test-Fourier-interpolation.cpp.o -c /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests/test-Fourier-interpolation.cpp
+[   51s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   52s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   52s] [ 25%] Linking CXX executable test-Fourier-interpolation
+[   52s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests && /usr/bin/cmake -E cmake_link_script CMakeFiles/test-Fourier-interpolation.dir/link.txt --verbose=1
+[   52s] /usr/bin/c++ -Werror=return-type -Wall -Wextra -fvisibility=hidden -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -Wl,-z,gcs-report-dynamic=none -flto=auto -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now -Wl,--dependency-file=CMakeFiles/test-Fourier-interpolation.dir/link.d "CMakeFiles/test-Fourier-interpolation.dir/test-Fourier-interpolation_autogen/mocs_compilation.cpp.o" "CMakeFiles/test-Fourier-interpolation.dir/test-Fourier-interpolation.cpp.o" -o test-Fourier-interpolation
+[   52s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   52s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   52s] [ 26%] Built target test-Fourier-interpolation
+[   52s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   62s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   62s] [ 21%] Building CXX object tests/CMakeFiles/test-Spline-interpolation.dir/test-Spline-interpolation.cpp.o
+[   62s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests && /usr/bin/c++ -DGLM_ENABLE_EXPERIMENTAL -D_USE_MATH_DEFINES -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests/test-Spline-interpolation_autogen/include -I/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build -isystem /usr/include/eigen3 -Werror=return-type -Wall -Wextra -fvisibility=hidden -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -std=gnu++17 -fPIE -MD -MT tests/CMakeFiles/test-Spline-interpolation.dir/test-Spline-interpolation.cpp.o -MF CMakeFiles/test-Spline-interpolation.dir/test-Spline-interpolation.cpp.o.d -o CMakeFiles/test-Spline-interpolation.dir/test-Spline-interpolation.cpp.o -c /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/tests/test-Spline-interpolation.cpp
+[   62s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   66s] make[2]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   66s] [ 28%] Linking CXX executable test-Spline-interpolation
+[   66s] cd /home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build/tests && /usr/bin/cmake -E cmake_link_script CMakeFiles/test-Spline-interpolation.dir/link.txt --verbose=1
+[   66s] /usr/bin/c++ -Werror=return-type -Wall -Wextra -fvisibility=hidden -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -O2 -g -DNDEBUG -Wl,-z,gcs-report-dynamic=none -flto=auto -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now -Wl,--dependency-file=CMakeFiles/test-Spline-interpolation.dir/link.d "CMakeFiles/test-Spline-interpolation.dir/test-Spline-interpolation_autogen/mocs_compilation.cpp.o" "CMakeFiles/test-Spline-interpolation.dir/test-Spline-interpolation.cpp.o" -o test-Spline-interpolation
+[   66s] make[2]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   66s] make[1]: Entering directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   66s] [ 29%] Built target test-Spline-interpolation
+[   66s] make[1]: Leaving directory '/home/abuild/rpmbuild/BUILD/CalcMySky-0.4.0-build/CalcMySky-0.4.0/build'
+[   66s] make: *** [Makefile:149: all] Error 2
+[   66s] error: Bad exit status from /var/tmp/rpm-tmp.IFJcTa (%build)
+[   66s] 
+[   66s] RPM build errors:
+[   66s]     Bad exit status from /var/tmp/rpm-tmp.IFJcTa (%build)
+[   66s] ### VM INTERACTION START ###
+[   66s] Powering off.
+[   66s] ### VM INTERACTION END ###
+[   66s] 
+[   66s] i03-armsrv1 failed "build CalcMySky.spec" at Tue Oct 13 12:46:28 UTC 2026.
+[   66s] 

@@ -1,0 +1,767 @@
+[    0s] Using BUILD_ROOT=/var/cache/obs/worker/root_11/.mount
+[    0s] Using BUILD_ARCH=aarch64:aarch64_ilp32:armv8l
+[    0s] Doing kvm build in /var/cache/obs/worker/root_11/root
+[    0s] 
+[    1s] 
+[    1s] i03-armsrv2 started "build pkcs11-provider.spec" at Tue Oct 13 12:51:52 UTC 2026.
+[    1s] 
+[    1s] Building pkcs11-provider for project 'openSUSE:Factory:ARM' repository 'standard' arch 'aarch64' srcmd5 'dfea526479233e796f427d2c7d8bc94a'
+[    1s] 
+[    1s] processing recipe /var/cache/obs/worker/root_11/.build-srcdir/pkcs11-provider.spec ...
+[    1s] running changelog2spec --target rpm --file /var/cache/obs/worker/root_11/.build-srcdir/pkcs11-provider.spec
+[    1s] init_buildsystem --configdir /var/run/obs/worker/11/build/configs --cachedir /var/cache/build --prepare --clean --rpmlist /var/cache/obs/worker/root_11/.build.rpmlist /var/cache/obs/worker/root_11/.build-srcdir/pkcs11-provider.spec build ...
+[    2s] unpacking preinstall image openSUSE:Factory:ARM/standard/preinstallimage-base [d9ff8d2211c02194fa7a2b6996071314]
+[    4s] 
+[    4s] copying packages...
+[    5s] reordering...cycle: gio-branding-upstream -> libgio-2_0-0
+[    5s]   breaking dependency libgio-2_0-0 -> gio-branding-upstream
+[    5s] cycle: libgio-2_0-0 -> glib2-tools
+[    5s]   breaking dependency libgio-2_0-0 -> glib2-tools
+[    5s] cycle: libpython3_13-1_0 -> python313-base
+[    5s]   breaking dependency python313-base -> libpython3_13-1_0
+[    5s] cycle: openssl -> openssl-3
+[    5s]   breaking dependency openssl-3 -> openssl
+[    5s] cycle: libopenssl-devel -> libopenssl-3-devel
+[    5s]   breaking dependency libopenssl-devel -> libopenssl-3-devel
+[    5s] cycle: mozilla-nss -> libsoftokn3
+[    5s]   breaking dependency mozilla-nss -> libsoftokn3
+[    5s] cycle: libpolkit-gobject-1-0 -> polkit -> libpolkit-agent-1-0
+[    5s]   breaking dependency polkit -> libpolkit-agent-1-0
+[    5s] cycle: libpolkit-gobject-1-0 -> polkit
+[    5s]   breaking dependency polkit -> libpolkit-gobject-1-0
+[    5s] done
+[    5s] Detected virtio-serial support
+[    7s] booting kvm...
+[    7s] ### VM INTERACTION START ###
+[    7s] Using virtio-serial support
+[    8s] /usr/bin/qemu-system-aarch64 -nodefaults -no-reboot -nographic -vga none -cpu host -enable-kvm -M virt,accel=kvm,usb=off,gic-version=host -sandbox on -object rng-random,filename=/dev/random,id=rng0 -device virtio-rng-device,rng=rng0 -object iothread,id=io0 -run-with user=qemu -net none -kernel /var/cache/obs/worker/root_11/.mount/boot/kernel -initrd /var/cache/obs/worker/root_11/.mount/boot/initrd -append root=/dev/disk/by-id/virtio-0 rootfstype=ext4 rootflags=noatime elevator=noop nmi_watchdog=0 rw ia32_emulation=1 oops=panic panic=1 quiet console=hvc0 init=/.build/build -m 10240 -drive file=/var/cache/obs/worker/root_11/root,format=raw,if=none,id=disk,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=disk,serial=0 -drive file=/var/cache/obs/worker/root_11/swap,format=raw,if=none,id=swap,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=swap,serial=1 -device virtio-serial,max_ports=2 -device virtconsole,chardev=virtiocon0 -chardev stdio,id=virtiocon0 -chardev socket,id=monitor,server=on,wait=off,path=/var/cache/obs/worker/root_11/root.qemu/monitor -mon chardev=monitor,mode=readline -smp 4
+[   14s] P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=948c26c5b4424126ac6995e48a5915ad;user=root;hostname=localhost;machineid=610ef70d9c6a4df0acf578647389a2f9;bootid=bbabab659eec469ba96bcf691190bbb5;pid=1;pidfdid=1;comm=systemd;type=boot\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J### VM INTERACTION END ###
+[   14s] 2nd stage started in virtual machine
+[   14s] ^[[24;80R^[[24;80Rmachine type: aarch64
+[   14s] Linux version: 7.2.9-1-default #1 SMP PREEMPT_DYNAMIC Sun Oct  4 08:22:02 UTC 2026 (584f686)
+[   14s] Time: Tue Oct 13 12:52:05 UTC 2026
+[   14s] Increasing log level from now on...
+[   14s] [    5.569531][  T421] sysrq: Changing Loglevel
+[   14s] [    5.569624][  T421] sysrq: Loglevel set to 4
+[   14s] Enable sysrq operations
+[   14s] Setting up swapspace version 1, size = 2 GiB (2147479552 bytes)
+[   14s] no label, UUID=64c2b4e1-991d-49ca-826b-c41f5cdb498d
+[   14s] logging output to //.build.log...
+[   14s] processing recipe //.build-srcdir/pkcs11-provider.spec ...
+[   14s] init_buildsystem --configdir /.build/configs --cachedir /var/cache/build //.build-srcdir/pkcs11-provider.spec build ...
+[   14s] initializing rpm db...
+[   14s] querying package ids...
+[   17s] [1/197] preinstalled aaa_base-84.87+git20260924.144354a1-1.1
+[   17s] [2/197] preinstalled aaa_base-malloccheck-84.87+git20260924.144354a1-1.1
+[   17s] [3/197] preinstalled alts-2.0+0.4f22c01-1.1
+[   17s] [4/197] preinstalled bash-5.3.20-9.1
+[   17s] [5/197] preinstalled bash-sh-5.3.20-9.1
+[   17s] [6/197] preinstalled binutils-2.47-1.1
+[   17s] [7/197] preinstalled brp-check-suse-84.87+git20260317.a0eb4ba-1.3
+[   17s] [8/197] preinstalled build-compare-20261001T080039.deb96f7-1.1
+[   17s] [9/197] preinstalled build-mkbaselibs-20260505-1.3
+[   17s] [10/197] preinstalled bzip2-1.0.8-6.1
+[   17s] [11/197] preinstalled compat-usrmerge-build-84.87-5.29
+[   17s] [12/197] preinstalled compat-usrmerge-tools-84.87-5.29
+[   17s] [13/197] preinstalled coreutils-9.12-1.1
+[   17s] [14/197] preinstalled cpio-2.15-9.1
+[   17s] [15/197] preinstalled cpp-16-1.1
+[   17s] [16/197] preinstalled cpp16-16.2.1+git9713-1.1
+[   17s] [17/197] preinstalled crypto-policies-20250714.cd6043a-6.1
+[   17s] [18/197] cumulate dbus-broker-block-restart-37-2.4
+[   17s] [19/197] preinstalled debugedit-5.1-1.9
+[   17s] [20/197] preinstalled diffutils-3.12-1.6
+[   17s] [21/197] preinstalled dwz-0.17-1.1
+[   17s] [22/197] preinstalled elfutils-0.196-2.1
+[   17s] [23/197] preinstalled envsubst-mini-1.0-4.1
+[   17s] [24/197] preinstalled file-5.48-2.2
+[   17s] [25/197] preinstalled file-magic-5.48-2.2
+[   17s] [26/197] preinstalled filesystem-84.87-21.2
+[   17s] [27/197] preinstalled fillup-1.42-281.9
+[   17s] [28/197] preinstalled findutils-4.11.0-1.2
+[   17s] [29/197] preinstalled gawk-5.4.1-1.2
+[   17s] [30/197] preinstalled gcc-16-1.1
+[   17s] [31/197] preinstalled gcc-PIE-16-1.1
+[   17s] [32/197] preinstalled gcc16-16.2.1+git9713-1.1
+[   17s] [33/197] preinstalled gcc16-PIE-16.2.1+git9713-1.1
+[   17s] [34/197] preinstalled gettext-runtime-mini-1.0-4.1
+[   17s] [35/197] preinstalled gettext-tools-mini-1.0-4.1
+[   17s] [36/197] preinstalled glibc-2.44-3.1
+[   17s] [37/197] preinstalled glibc-devel-2.44-3.1
+[   17s] [38/197] preinstalled glibc-gconv-modules-extra-2.44-3.1
+[   17s] [39/197] preinstalled glibc-locale-base-2.44-3.1
+[   17s] [40/197] preinstalled grep-3.12-1.5
+[   17s] [41/197] preinstalled gzip-1.15-1.1
+[   17s] [42/197] cumulate jitterentropy-devel-3.6.3-2.1
+[   17s] [43/197] preinstalled kernel-obs-build-7.2.9-1.1
+[   17s] [44/197] preinstalled libacl1-2.4.0-1.2
+[   17s] [45/197] preinstalled libalternatives1-2.0+0.4f22c01-1.1
+[   17s] [46/197] preinstalled libarchive13-3.8.9-1.1
+[   17s] [47/197] preinstalled libasan8-16.2.1+git9713-1.1
+[   17s] [48/197] preinstalled libasm1-0.196-2.1
+[   17s] [49/197] preinstalled libatomic1-16.2.1+git9713-1.1
+[   17s] [50/197] preinstalled libattr1-2.6.0-1.2
+[   17s] [51/197] preinstalled libaudit1-4.0.2-3.4
+[   17s] [52/197] preinstalled libblkid1-2.42.4-1.1
+[   17s] [53/197] preinstalled libbz2-1-1.0.8-6.1
+[   17s] [54/197] preinstalled libcap-ng0-0.8.5-1.10
+[   17s] [55/197] preinstalled libcap2-2.78-1.4
+[   17s] [56/197] preinstalled libcrypt1-4.5.2-2.4
+[   17s] [57/197] preinstalled libctf-nobfd0-2.47-1.1
+[   17s] [58/197] preinstalled libctf0-2.47-1.1
+[   17s] [59/197] cumulate libduktape207-2.7.0-3.11
+[   17s] [60/197] preinstalled libdw1-0.196-2.1
+[   17s] [61/197] cumulate libeac3-1.1.3-1.9
+[   17s] [62/197] preinstalled libeconf0-0.8.5-1.1
+[   17s] [63/197] preinstalled libelf1-0.196-2.1
+[   17s] [64/197] cumulate libexpat1-2.9.0-1.1
+[   17s] [65/197] preinstalled libfdisk1-2.42.4-1.1
+[   17s] [66/197] cumulate libffi8-3.5.2-2.4
+[   17s] [67/197] cumulate libfreebl3-3.129-1.1
+[   17s] [68/197] preinstalled libgcc_s1-16.2.1+git9713-1.1
+[   17s] [69/197] preinstalled libgcrypt20-1.12.4-1.1
+[   17s] [70/197] preinstalled libgdbm6-1.26-1.6
+[   17s] [71/197] preinstalled libgdbm_compat4-1.26-1.6
+[   17s] [72/197] cumulate libglib-2_0-0-2.88.4-1.1
+[   17s] [73/197] preinstalled libgmp10-6.3.0-5.6
+[   17s] [74/197] preinstalled libgomp1-16.2.1+git9713-1.1
+[   17s] [75/197] preinstalled libgpg-error0-1.61-2.1
+[   17s] [76/197] preinstalled libhwasan0-16.2.1+git9713-1.1
+[   17s] [77/197] preinstalled libisl23-0.27-1.8
+[   17s] [78/197] preinstalled libitm1-16.2.1+git9713-1.1
+[   17s] [79/197] preinstalled libjitterentropy3-3.6.3-2.1
+[   17s] [80/197] preinstalled liblsan0-16.2.1+git9713-1.1
+[   17s] [81/197] preinstalled liblua5_4-5-5.4.8-4.7
+[   17s] [82/197] preinstalled liblz1-1.16-2.1
+[   17s] [83/197] preinstalled liblz4-1-1.10.0-2.10
+[   17s] [84/197] preinstalled liblzma5-5.8.4-1.1
+[   17s] [85/197] preinstalled libmagic1-5.48-2.2
+[   17s] [86/197] preinstalled libmount1-2.42.4-1.1
+[   17s] [87/197] preinstalled libmpc3-1.4.1-1.3
+[   17s] [88/197] cumulate libmpdec4-4.0.1-2.6
+[   17s] [89/197] preinstalled libmpfr6-4.2.2-1.5
+[   17s] [90/197] preinstalled libncurses6-6.6.20260926-115.1
+[   17s] [91/197] preinstalled libopenssl3-3.5.3-8.3
+[   17s] [92/197] preinstalled libpcre2-8-0-10.49-1.1
+[   17s] [93/197] cumulate libpcsclite1-2.3.3-2.4
+[   17s] [94/197] preinstalled libpkgconf7-2.5.1-1.5
+[   17s] [95/197] preinstalled libpopt0-1.19-2.3
+[   17s] [96/197] preinstalled libreadline8-8.3.6-3.1
+[   17s] [97/197] preinstalled librpmbuild10-4.20.1-11.1
+[   17s] [98/197] preinstalled libseccomp2-2.6.1-3.1
+[   17s] [99/197] preinstalled libselinux1-3.11-2.1
+[   17s] [100/197] cumulate libsemanage-conf-3.11-1.2
+[   17s] [101/197] cumulate libsepol2-3.11-1.2
+[   17s] [102/197] preinstalled libsframe3-2.47-1.1
+[   17s] [103/197] preinstalled libsmartcols1-2.42.4-1.1
+[   17s] [104/197] cumulate libsqlite3-0-3.53.2-3.2
+[   17s] [105/197] preinstalled libstdc++6-16.2.1+git9713-1.1
+[   17s] [106/197] cumulate libsubid6-4.20.3-1.1
+[   17s] [107/197] cumulate libsystemd0-mini-261.3-1.1
+[   17s] [108/197] cumulate libtasn1-6-4.21.0-2.1
+[   17s] [109/197] preinstalled libtsan2-16.2.1+git9713-1.1
+[   17s] [110/197] preinstalled libubsan1-16.2.1+git9713-1.1
+[   17s] [111/197] cumulate libudev-mini1-261.3-1.1
+[   17s] [112/197] preinstalled libuuid1-2.42.4-1.1
+[   17s] [113/197] preinstalled libxcrypt-devel-4.5.2-2.4
+[   17s] [114/197] preinstalled libxml2-16-2.15.4-1.1
+[   17s] [115/197] preinstalled libz1-1.3.1-3.3
+[   17s] [116/197] preinstalled libzstd1-1.5.7-6.1
+[   17s] [117/197] preinstalled linux-glibc-devel-7.2-2.1
+[   17s] [118/197] cumulate login_defs-4.20.3-1.1
+[   17s] [119/197] preinstalled lua-interpreter-5-3.4
+[   17s] [120/197] preinstalled lua54-5.4.8-4.7
+[   17s] [121/197] preinstalled make-4.4.1-3.10
+[   17s] [122/197] cumulate mozilla-nspr-4.40-2.1
+[   17s] [123/197] preinstalled ncurses-utils-6.6.20260926-115.1
+[   17s] [124/197] cumulate ninja-1.13.2-1.4
+[   17s] [125/197] preinstalled pam-1.7.3-1.1
+[   17s] [126/197] preinstalled patch-2.8-3.2
+[   17s] [127/197] preinstalled perl-5.44.0-1.2
+[   17s] [128/197] preinstalled perl-base-5.44.0-1.2
+[   17s] [129/197] preinstalled perl-rpm-packaging-1.3-1.3
+[   17s] [130/197] preinstalled permctl-1699_20260917-1.1
+[   17s] [131/197] preinstalled permissions-1699_20260917-1.1
+[   17s] [132/197] preinstalled permissions-config-1699_20260917-1.1
+[   17s] [133/197] preinstalled pkgconf-2.5.1-1.5
+[   17s] [134/197] preinstalled pkgconf-m4-2.5.1-1.5
+[   17s] [135/197] preinstalled pkgconf-pkg-config-2.5.1-1.5
+[   17s] [136/197] preinstalled polkit-default-privs-1550+20261009.03465cb-1.1
+[   17s] [137/197] preinstalled post-build-checks-84.87+git20260421.8ed5e73-1.1
+[   17s] [138/197] cumulate python-rpm-macros-20260909.65d2791-1.1
+[   17s] [139/197] preinstalled rpm-4.20.1-11.1
+[   17s] [140/197] preinstalled rpm-build-4.20.1-11.1
+[   17s] [141/197] preinstalled rpm-config-SUSE-20250904-1.4
+[   17s] [142/197] preinstalled rpmlint-mini-2.10.0+git20261009.041119a7-21.49
+[   17s] [143/197] preinstalled rpmlint-strict-2.10.0+git20261009.041119a7-1.1
+[   17s] [144/197] preinstalled sed-4.10-1.4
+[   17s] [145/197] cumulate sqlite3-3.53.2-3.2
+[   17s] [146/197] preinstalled suse-reproducible-builds-1.0-1.2
+[   17s] [147/197] preinstalled system-user-root-20190513-2.23
+[   17s] [148/197] cumulate systemd-mini-261.3-1.1
+[   17s] [149/197] preinstalled systemd-rpm-macros-26-1.4
+[   17s] [150/197] cumulate sysuser-shadow-3.3-12.3
+[   17s] [151/197] preinstalled tar-1.35-10.1
+[   17s] [152/197] cumulate tcl-8.6.18-2.1
+[   17s] [153/197] preinstalled terminfo-base-6.6.20260926-115.1
+[   17s] [154/197] preinstalled util-linux-2.42.4-1.1
+[   17s] [155/197] preinstalled which-2.25-1.3
+[   17s] [156/197] preinstalled xz-5.8.4-1.1
+[   17s] [157/197] cumulate zlib-devel-1.3.1-3.3
+[   17s] [158/197] cumulate dbus-1-common-1.14.10-5.5
+[   17s] [159/197] cumulate expect-5.45.4-8.5
+[   17s] [160/197] cumulate libgmodule-2_0-0-2.88.4-1.1
+[   17s] [161/197] cumulate libp11-kit0-0.26.5-1.1
+[   17s] [162/197] cumulate mozilla-nspr-devel-4.40-2.1
+[   17s] [163/197] cumulate mozilla-nss-certs-3.129-1.1
+[   17s] [164/197] cumulate shared-mime-info-2.5.1-1.1
+[   17s] [165/197] cumulate sqlite3-devel-3.53.2-3.2
+[   17s] [166/197] cumulate kryoptic-1.5.0-2.4
+[   17s] [167/197] cumulate libgobject-2_0-0-2.88.4-1.1
+[   17s] [168/197] cumulate libsemanage2-3.11-1.2
+[   17s] [169/197] cumulate p11-kit-devel-0.26.5-1.1
+[   17s] [170/197] cumulate p11-kit-0.26.5-1.1
+[   17s] [171/197] cumulate shadow-4.20.3-1.1
+[   17s] [172/197] cumulate dbus-broker-37-2.4
+[   17s] [173/197] cumulate shadow-pw-mgmt-4.20.3-1.1
+[   17s] [174/197] cumulate p11-kit-server-0.26.5-1.1
+[   17s] [175/197] cumulate openssl-3-3.5.3-8.3
+[   17s] [176/197] cumulate mozilla-nss-3.129-1.1
+[   17s] [177/197] cumulate python313-base-3.13.15-2.1
+[   17s] [178/197] cumulate libgio-2_0-0-2.88.4-1.1
+[   17s] [179/197] cumulate gio-branding-upstream-2.88.4-1.1
+[   17s] [180/197] cumulate libpython3_13-1_0-3.13.15-2.1
+[   17s] [181/197] cumulate openssl-3.5.3-1.3
+[   17s] [182/197] cumulate python313-packaging-26.3-1.1
+[   17s] [183/197] cumulate meson-1.12.1-1.1
+[   17s] [184/197] cumulate mozilla-nss-tools-3.129-1.1
+[   17s] [185/197] cumulate glib2-tools-2.88.4-1.1
+[   17s] [186/197] cumulate libsoftokn3-3.129-1.1
+[   17s] [187/197] cumulate polkit-127-7.2
+[   17s] [188/197] cumulate libopenssl-devel-3.5.3-1.3
+[   17s] [189/197] cumulate python-rpm-packaging-20210526+a18ca48-2.1
+[   17s] [190/197] cumulate mozilla-nss-devel-3.129-1.1
+[   17s] [191/197] cumulate libpolkit-gobject-1-0-127-7.2
+[   17s] [192/197] cumulate softhsm-2.6.1+git.1732869438.f7883c2-2.7
+[   17s] [193/197] cumulate libopenssl-3-devel-3.5.3-8.3
+[   17s] [194/197] cumulate softhsm-devel-2.6.1+git.1732869438.f7883c2-2.7
+[   17s] [195/197] cumulate libpolkit-agent-1-0-127-7.2
+[   17s] [196/197] cumulate pcsc-lite-2.3.3-2.4
+[   17s] [197/197] cumulate opensc-0.27.1-2.3
+[   17s] now installing cumulated packages
+[   17s] Preparing...                          ########################################
+[   17s] Updating / installing...
+[   17s] libglib-2_0-0-2.88.4-1.1              ########################################
+[   17s] mozilla-nspr-4.40-2.1                 ########################################
+[   17s] libsystemd0-mini-261.3-1.1            ########################################
+[   17s] libsqlite3-0-3.53.2-3.2               ########################################
+[   17s] libffi8-3.5.2-2.4                     ########################################
+[   17s] libgobject-2_0-0-2.88.4-1.1           ########################################
+[   17s] libp11-kit0-0.26.5-1.1                ########################################
+[   18s] systemd-mini-261.3-1.1                ########################################
+[   18s] libfreebl3-3.129-1.1                  ########################################
+[   18s] libexpat1-2.9.0-1.1                   ########################################
+[   18s] libgmodule-2_0-0-2.88.4-1.1           ########################################
+[   18s] sqlite3-devel-3.53.2-3.2              ########################################
+[   18s] mozilla-nspr-devel-4.40-2.1           ########################################
+[   18s] mozilla-nss-certs-3.129-1.1           ########################################
+[   18s] mozilla-nss-3.129-1.1                 ########################################
+[   18s] libsoftokn3-3.129-1.1                 ########################################
+[   18s] mozilla-nss-tools-3.129-1.1           ########################################
+[   18s] shared-mime-info-2.5.1-1.1            ########################################
+[   19s] gio-branding-upstream-2.88.4-1.1      ########################################
+[   19s] libgio-2_0-0-2.88.4-1.1               ########################################
+[   19s] glib2-tools-2.88.4-1.1                ########################################
+[   19s] No schema files found: doing nothing.
+[   19s] openssl-3.5.3-1.3                     ########################################
+[   19s] openssl-3-3.5.3-8.3                   ########################################
+[   19s] zlib-devel-1.3.1-3.3                  ########################################
+[   19s] tcl-8.6.18-2.1                        ########################################
+[   19s] sqlite3-3.53.2-3.2                    ########################################
+[   19s] python-rpm-macros-20260909.65d2791-1.1########################################
+[   19s] ninja-1.13.2-1.4                      ########################################
+[   19s] login_defs-4.20.3-1.1                 ########################################
+[   19s] libudev-mini1-261.3-1.1               ########################################
+[   19s] libtasn1-6-4.21.0-2.1                 ########################################
+[   19s] p11-kit-0.26.5-1.1                    ########################################
+[   19s] libsubid6-4.20.3-1.1                  ########################################
+[   19s] libsepol2-3.11-1.2                    ########################################
+[   19s] libsemanage-conf-3.11-1.2             ########################################
+[   19s] libsemanage2-3.11-1.2                 ########################################
+[   19s] shadow-pw-mgmt-4.20.3-1.1             ########################################
+[   19s] /usr/bin/newgidmap: setting to root:root 0755 "cap_setgid=ep". (missing capabilities)
+[   19s] /usr/bin/newuidmap: setting to root:root 0755 "cap_setuid=ep". (missing capabilities)
+[   19s] shadow-4.20.3-1.1                     ########################################
+[   19s] sysuser-shadow-3.3-12.3               ########################################
+[   20s] /usr/bin/systemd-sysusers --replace=/usr/lib/sysusers.d/dbus.conf -
+[   20s] Creating group 'systemd-journal' with GID 499.
+[   20s] Creating group 'messagebus' with GID 498.
+[   20s] Creating user 'messagebus' (User for D-Bus) with UID 498 and GID 498.
+[   20s] dbus-1-common-1.14.10-5.5             ########################################
+[   20s] /usr/bin/systemd-sysusers --replace=/usr/lib/sysusers.d/ods-user.conf -
+[   20s] Creating group 'ods' with GID 497.
+[   20s] Creating user 'ods' (softhsm private keys owner) with UID 497 and GID 497.
+[   20s] softhsm-2.6.1+git.1732869438.f7883c2-2########################################
+[   20s] libpcsclite1-2.3.3-2.4                ########################################
+[   20s] libmpdec4-4.0.1-2.6                   ########################################
+[   20s] libpython3_13-1_0-3.13.15-2.1         ########################################
+[   20s] python313-base-3.13.15-2.1            ########################################
+[   20s] python313-packaging-26.3-1.1          ########################################
+[   20s] libeac3-1.1.3-1.9                     ########################################
+[   20s] libduktape207-2.7.0-3.11              ########################################
+[   20s] jitterentropy-devel-3.6.3-2.1         ########################################
+[   20s] libopenssl-3-devel-3.5.3-8.3          ########################################
+[   20s] libopenssl-devel-3.5.3-1.3            ########################################
+[   20s] dbus-broker-block-restart-37-2.4      ########################################
+[   20s] dbus-broker-37-2.4                    ########################################
+[   20s] libpolkit-gobject-1-0-127-7.2         ########################################
+[   20s] libpolkit-agent-1-0-127-7.2           ########################################
+[   20s] /usr/bin/systemd-sysusers --replace=/usr/lib/sysusers.d/polkitd.conf -
+[   20s] Creating group 'polkitd' with GID 496.
+[   20s] Creating user 'polkitd' (User for polkitd) with UID 496 and GID 496.
+[   20s] polkit-127-7.2                        ########################################
+[   20s] /usr/bin/systemd-sysusers --replace=/usr/lib/sysusers.d/scard.conf -
+[   20s] Creating group 'scard' with GID 495.
+[   20s] Creating user 'scard' (Smart Card Reader) with UID 495 and GID 495.
+[   20s] pcsc-lite-2.3.3-2.4                   ########################################
+[   21s] Updating /etc/sysconfig/pcscd ...
+[   21s] opensc-0.27.1-2.3                     ########################################
+[   21s] softhsm-devel-2.6.1+git.1732869438.f78########################################
+[   21s] python-rpm-packaging-20210526+a18ca48-########################################
+[   21s] meson-1.12.1-1.1                      ########################################
+[   21s] p11-kit-server-0.26.5-1.1             ########################################
+[   21s] kryoptic-1.5.0-2.4                    ########################################
+[   21s] expect-5.45.4-8.5                     ########################################
+[   21s] mozilla-nss-devel-3.129-1.1           ########################################
+[   21s] p11-kit-devel-0.26.5-1.1              ########################################
+[   21s] now finalizing build dir...
+[   21s] ... running 01-add_abuild_user_to_trusted_group
+[   21s] ... running 02-set_timezone_to_utc
+[   21s] ... running 03-set-permissions-secure
+[   21s] ... running 11-hack_uname_version_to_kernel_version
+[   22s] setting SOURCE_DATE_EPOCH_MTIME to 1758223353
+[   23s] spec file parser line 74: cannot expand %(...)
+[   23s] -----------------------------------------------------------------
+[   23s] I have the following modifications for pkcs11-provider.spec:
+[   23s] 24c24
+[   23s] < Release:        0
+[   23s] ---
+[   23s] > Release:        2.1
+[   23s] -----------------------------------------------------------------
+[   23s] ----- building pkcs11-provider.spec (user abuild)
+[   23s] -----------------------------------------------------------------
+[   23s] -----------------------------------------------------------------
+[   24s] setting SOURCE_DATE_EPOCH_MTIME to 1758223353
+[   24s] + exec rpmbuild -ba --define '_srcdefattr (-,root,root)' --nosignature --define '_build_create_debug 1' --define 'disturl obs://build.opensuse.org/openSUSE:Factory:ARM/standard/dfea526479233e796f427d2c7d8bc94a-pkcs11-provider' /home/abuild/rpmbuild/SOURCES/pkcs11-provider.spec
+[   24s] using SOURCE_DATE_EPOCH with value 1758223352 as build time
+[   24s] Executing(%mkbuilddir): /usr/bin/bash -e /var/tmp/rpm-tmp.CfKTHj
+[   24s] Executing(%prep): /usr/bin/bash -e /var/tmp/rpm-tmp.YZe35t
+[   24s] + umask 022
+[   24s] + cd /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build
+[   24s] + cd /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build
+[   24s] + rm -rf pkcs11-provider-1.1
+[   24s] + /usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/pkcs11-provider-1.1.tar.xz
+[   24s] + STATUS=0
+[   24s] + '[' 0 -ne 0 ']'
+[   24s] + cd pkcs11-provider-1.1
+[   24s] + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+[   24s] + /usr/bin/patch -p1 -s --fuzz=0 --no-backup-if-mismatch -f
+[   24s] + /usr/lib/rpm/rpmuncompress /home/abuild/rpmbuild/SOURCES/disable_kryoptic_nss.patch
+[   24s] + RPM_EC=0
+[   24s] ++ jobs -p
+[   24s] + exit 0
+[   24s] Executing(%build): /usr/bin/bash -e /var/tmp/rpm-tmp.U6hI7f
+[   24s] + umask 022
+[   24s] + cd /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build
+[   24s] + /usr/bin/rm -rf /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/BUILDROOT
+[   24s] ++ dirname /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/BUILDROOT
+[   24s] + /usr/bin/mkdir -p /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build
+[   24s] + /usr/bin/mkdir /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/BUILDROOT
+[   24s] + cd pkcs11-provider-1.1
+[   24s] + ref=/usr/lib/rpm
+[   24s] + mints=0
+[   24s] + case $(uname -m) in
+[   24s] ++ uname -m
+[   24s] + mints=20120610
+[   24s] + for s in guess sub
+[   24s] ++ find -maxdepth 8 -name config.guess
+[   24s] + for s in guess sub
+[   24s] ++ find -maxdepth 8 -name config.sub
+[   24s] + CONFIG_SHELL=/usr/bin/bash
+[   24s] + export CONFIG_SHELL
+[   24s] + CFLAGS='-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g'
+[   24s] + export CFLAGS
+[   24s] + CXXFLAGS='-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g'
+[   24s] + export CXXFLAGS
+[   24s] + FFLAGS='-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g '
+[   24s] + export FFLAGS
+[   24s] + FCFLAGS='-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g '
+[   24s] + export FCFLAGS
+[   24s] + LDFLAGS='-Wl,-z,gcs-report-dynamic=none -flto=auto'
+[   24s] + export LDFLAGS
+[   25s] + /usr/bin/meson setup --buildtype=plain --prefix=/usr --libdir=/usr/lib64 --libexecdir=/usr/libexec --bindir=/usr/bin --sbindir=/usr/sbin --includedir=/usr/include --datadir=/usr/share --mandir=/usr/share/man --infodir=/usr/share/info --localedir=/usr/share/locale --sysconfdir=/etc --localstatedir=/var --sharedstatedir=/var/lib --wrap-mode=nodownload --auto-features=enabled . aarch64-suse-linux
+[   28s] The Meson build system
+[   28s] Version: 1.12.1
+[   28s] Source dir: /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/pkcs11-provider-1.1
+[   28s] Build dir: /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/pkcs11-provider-1.1/aarch64-suse-linux
+[   28s] Build type: native build
+[   28s] Project name: pkcs11-provider
+[   28s] Project version: 1.1
+[   28s] C compiler for the host machine: cc (gcc 16.2.1 "cc (SUSE Linux) 16.2.1 20260929")
+[   28s] C linker for the host machine: cc ld.bfd 2.47.0.20260921-1
+[   28s] Host machine cpu family: aarch64
+[   28s] Host machine cpu: aarch64
+[   28s] Compiler for C supports arguments -Wwrite-strings: YES 
+[   28s] Compiler for C supports arguments -Wpointer-arith: YES 
+[   28s] Compiler for C supports arguments -Wno-missing-field-initializers: YES 
+[   28s] Compiler for C supports arguments -Wformat: YES 
+[   28s] Compiler for C supports arguments -Wshadow: YES 
+[   28s] Compiler for C supports arguments -Wno-unused-parameter: YES 
+[   28s] Compiler for C supports arguments -Werror=implicit-function-declaration: YES 
+[   28s] Compiler for C supports arguments -Werror=missing-prototypes: YES 
+[   28s] Compiler for C supports arguments -Werror=format-security: YES 
+[   28s] Compiler for C supports arguments -Werror=parentheses: YES 
+[   28s] Compiler for C supports arguments -Werror=implicit: YES 
+[   28s] Compiler for C supports arguments -Werror=strict-prototypes: YES 
+[   28s] Compiler for C supports arguments -fno-strict-aliasing: YES 
+[   28s] Compiler for C supports arguments -fno-delete-null-pointer-checks: YES 
+[   28s] Compiler for C supports arguments -fdiagnostics-show-option: YES 
+[   28s] Found pkg-config: YES (/usr/bin/pkg-config) 2.5.1
+[   28s] Run-time dependency libcrypto found: YES 3.5.3
+[   28s] Run-time dependency libssl found: YES 3.5.3
+[   28s] Run-time dependency p11-kit-1 found: YES 0.26.5
+[   28s] Has header "dlfcn.h" : YES 
+[   28s] Configuring config.h using configuration
+[   28s] Compiler for C supports link arguments -Wl,--version-script,/home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/pkcs11-provider-1.1/src/provider.map: YES 
+[   28s] Did not find CMake 'cmake'
+[   28s] Found CMake: NO
+[   28s] Run-time dependency nss-softokn found: NO  (tried pkg-config and cmake)
+[   28s] Run-time dependency nss found: YES 3.129
+[   28s] Program valgrind found: NO
+[   28s] Program setup.sh found: YES (/home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/pkcs11-provider-1.1/tests/setup.sh)
+[   28s] Program test-wrapper found: YES (/home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/pkcs11-provider-1.1/tests/test-wrapper)
+[   28s] Build targets in project: 14
+[   28s] 
+[   28s] pkcs11-provider 1.1
+[   28s] 
+[   28s]   User defined options
+[   28s]     auto_features : enabled
+[   28s]     bindir        : /usr/bin
+[   28s]     buildtype     : plain
+[   28s]     datadir       : /usr/share
+[   28s]     includedir    : /usr/include
+[   28s]     infodir       : /usr/share/info
+[   28s]     libdir        : /usr/lib64
+[   28s]     libexecdir    : /usr/libexec
+[   28s]     localedir     : /usr/share/locale
+[   28s]     localstatedir : /var
+[   28s]     mandir        : /usr/share/man
+[   28s]     prefix        : /usr
+[   28s]     sbindir       : /usr/sbin
+[   28s]     sharedstatedir: /var/lib
+[   28s]     sysconfdir    : /etc
+[   28s]     wrap_mode     : nodownload
+[   28s] 
+[   28s] Found ninja-1.13.2 at /usr/bin/ninja
+[   28s] + /usr/bin/meson compile -C aarch64-suse-linux -j4 --verbose
+[   28s] ninja: Entering directory `/home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/pkcs11-provider-1.1/aarch64-suse-linux'
+[   29s] [1/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/decoder.c.o -MF src/pkcs11.so.p/decoder.c.o.d -o src/pkcs11.so.p/decoder.c.o -c ../src/decoder.c
+[   29s] [2/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/debug.c.o -MF src/pkcs11.so.p/debug.c.o.d -o src/pkcs11.so.p/debug.c.o -c ../src/debug.c
+[   29s] [3/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/asymmetric_cipher.c.o -MF src/pkcs11.so.p/asymmetric_cipher.c.o.d -o src/pkcs11.so.p/asymmetric_cipher.c.o -c ../src/asymmetric_cipher.c
+[   29s] [4/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/cipher.c.o -MF src/pkcs11.so.p/cipher.c.o.d -o src/pkcs11.so.p/cipher.c.o -c ../src/cipher.c
+[   29s] [5/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/digests.c.o -MF src/pkcs11.so.p/digests.c.o.d -o src/pkcs11.so.p/digests.c.o -c ../src/digests.c
+[   29s] [6/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/encoder.c.o -MF src/pkcs11.so.p/encoder.c.o.d -o src/pkcs11.so.p/encoder.c.o -c ../src/encoder.c
+[   29s] [7/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/kdf.c.o -MF src/pkcs11.so.p/kdf.c.o.d -o src/pkcs11.so.p/kdf.c.o -c ../src/kdf.c
+[   29s] [8/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/exchange.c.o -MF src/pkcs11.so.p/exchange.c.o.d -o src/pkcs11.so.p/exchange.c.o -c ../src/exchange.c
+[   29s] [9/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/pk11_uri.c.o -MF src/pkcs11.so.p/pk11_uri.c.o.d -o src/pkcs11.so.p/pk11_uri.c.o -c ../src/pk11_uri.c
+[   29s] [10/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/keymgmt.c.o -MF src/pkcs11.so.p/keymgmt.c.o.d -o src/pkcs11.so.p/keymgmt.c.o -c ../src/keymgmt.c
+[   30s] [11/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/interface.c.o -MF src/pkcs11.so.p/interface.c.o.d -o src/pkcs11.so.p/interface.c.o -c ../src/interface.c
+[   30s] [12/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/random.c.o -MF src/pkcs11.so.p/random.c.o.d -o src/pkcs11.so.p/random.c.o -c ../src/random.c
+[   30s] [13/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/provider.c.o -MF src/pkcs11.so.p/provider.c.o.d -o src/pkcs11.so.p/provider.c.o -c ../src/provider.c
+[   30s] [14/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/objects.c.o -MF src/pkcs11.so.p/objects.c.o.d -o src/pkcs11.so.p/objects.c.o -c ../src/objects.c
+[   30s] [15/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/session.c.o -MF src/pkcs11.so.p/session.c.o.d -o src/pkcs11.so.p/session.c.o -c ../src/session.c
+[   30s] [16/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/sig_signature.c.o -MF src/pkcs11.so.p/sig_signature.c.o.d -o src/pkcs11.so.p/sig_signature.c.o -c ../src/sig/signature.c
+[   30s] [17/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/sig_ecdsa.c.o -MF src/pkcs11.so.p/sig_ecdsa.c.o.d -o src/pkcs11.so.p/sig_ecdsa.c.o -c ../src/sig/ecdsa.c
+[   30s] [18/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/sig_rsasig.c.o -MF src/pkcs11.so.p/sig_rsasig.c.o.d -o src/pkcs11.so.p/sig_rsasig.c.o -c ../src/sig/rsasig.c
+[   30s] [19/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/sig_eddsa.c.o -MF src/pkcs11.so.p/sig_eddsa.c.o.d -o src/pkcs11.so.p/sig_eddsa.c.o -c ../src/sig/eddsa.c
+[   30s] [20/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/skeymgmt.c.o -MF src/pkcs11.so.p/skeymgmt.c.o.d -o src/pkcs11.so.p/skeymgmt.c.o -c ../src/skeymgmt.c
+[   30s] [21/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/sig_mldsa.c.o -MF src/pkcs11.so.p/sig_mldsa.c.o.d -o src/pkcs11.so.p/sig_mldsa.c.o -c ../src/sig/mldsa.c
+[   30s] [22/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/tls.c.o -MF src/pkcs11.so.p/tls.c.o.d -o src/pkcs11.so.p/tls.c.o -c ../src/tls.c
+[   30s] [23/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/store.c.o -MF src/pkcs11.so.p/store.c.o.d -o src/pkcs11.so.p/store.c.o -c ../src/store.c
+[   31s] [24/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/slot.c.o -MF src/pkcs11.so.p/slot.c.o.d -o src/pkcs11.so.p/slot.c.o -c ../src/slot.c
+[   31s] [25/26] cc -Isrc/pkcs11.so.p -Isrc -I../src -I. -I.. -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -std=c11 -Wwrite-strings -Wpointer-arith -Wno-missing-field-initializers -Wformat -Wshadow -Wno-unused-parameter -Werror=implicit-function-declaration -Werror=missing-prototypes -Werror=format-security -Werror=parentheses -Werror=implicit -Werror=strict-prototypes -fno-strict-aliasing -fno-delete-null-pointer-checks -fdiagnostics-show-option -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -fPIC -DOPENSSL_LOAD_CONF -MD -MQ src/pkcs11.so.p/util.c.o -MF src/pkcs11.so.p/util.c.o.d -o src/pkcs11.so.p/util.c.o -c ../src/util.c
+[   38s] [26/26] cc  -o src/pkcs11.so src/pkcs11.so.p/asymmetric_cipher.c.o src/pkcs11.so.p/cipher.c.o src/pkcs11.so.p/debug.c.o src/pkcs11.so.p/decoder.c.o src/pkcs11.so.p/digests.c.o src/pkcs11.so.p/encoder.c.o src/pkcs11.so.p/exchange.c.o src/pkcs11.so.p/kdf.c.o src/pkcs11.so.p/keymgmt.c.o src/pkcs11.so.p/pk11_uri.c.o src/pkcs11.so.p/interface.c.o src/pkcs11.so.p/objects.c.o src/pkcs11.so.p/provider.c.o src/pkcs11.so.p/random.c.o src/pkcs11.so.p/session.c.o src/pkcs11.so.p/sig_signature.c.o src/pkcs11.so.p/sig_rsasig.c.o src/pkcs11.so.p/sig_ecdsa.c.o src/pkcs11.so.p/sig_eddsa.c.o src/pkcs11.so.p/sig_mldsa.c.o src/pkcs11.so.p/skeymgmt.c.o src/pkcs11.so.p/slot.c.o src/pkcs11.so.p/store.c.o src/pkcs11.so.p/tls.c.o src/pkcs11.so.p/util.c.o -Wl,--as-needed -Wl,--allow-shlib-undefined -shared -fPIC -Wl,-z,gcs-report-dynamic=none -flto=auto -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g -Wl,--version-script,/home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/pkcs11-provider-1.1/src/provider.map /usr/lib64/libcrypto.so
+[   38s] INFO: autodetecting backend as ninja
+[   38s] INFO: calculating backend command to run: /usr/bin/ninja -C /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/pkcs11-provider-1.1/aarch64-suse-linux -j 4 -v
+[   39s] + RPM_EC=0
+[   39s] ++ jobs -p
+[   39s] + exit 0
+[   39s] Executing(%install): /usr/bin/bash -e /var/tmp/rpm-tmp.jB8C4X
+[   39s] + umask 022
+[   39s] + cd /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build
+[   39s] + /usr/bin/rm -rf /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/BUILDROOT
+[   39s] + /usr/bin/mkdir -p /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build
+[   39s] + /usr/bin/mkdir /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/BUILDROOT
+[   39s] + cd pkcs11-provider-1.1
+[   39s] + DESTDIR=/home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/BUILDROOT
+[   39s] + /usr/bin/meson install -C aarch64-suse-linux --no-rebuild
+[   39s] Installing src/pkcs11.so to /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/BUILDROOT/usr/lib64/ossl-modules
+[   39s] Installing /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/pkcs11-provider-1.1/docs/provider-pkcs11.7 to /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/BUILDROOT/usr/share/man/man7
+[   39s] + /usr/lib/rpm/find-debuginfo -j4 -n --run-dwz --dwz-low-mem-die-limit 10000000 --dwz-max-die-limit 50000000 -S debugsourcefiles.list /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/pkcs11-provider-1.1
+[   39s] find-debuginfo: starting
+[   39s] Extracting debug info from 1 files
+[   39s] DWARF-compressing 1 files
+[   39s] sepdebugcrcfix: Updated 1 CRC32s, 0 CRC32s did match.
+[   39s] Copying sources found by 'debugedit -l' to /usr/src/debug
+[   40s] find-debuginfo: done
+[   40s] + /usr/lib/rpm/brp-compress
+[   40s] + /usr/lib/rpm/brp-suse
+[   40s] calling /usr/lib/rpm/brp-suse.d/brp-05-permissions
+[   40s] calling /usr/lib/rpm/brp-suse.d/brp-15-strip-debug
+[   40s] calling /usr/lib/rpm/brp-suse.d/brp-25-symlink
+[   40s] calling /usr/lib/rpm/brp-suse.d/brp-50-generate-fips-hmac
+[   40s] calling /usr/lib/rpm/brp-suse.d/brp-75-ar
+[   40s] Executing(%check): /usr/bin/bash -e /var/tmp/rpm-tmp.DnHayg
+[   40s] + umask 022
+[   40s] + cd /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build
+[   40s] + cd pkcs11-provider-1.1
+[   40s] + /usr/bin/meson test -C aarch64-suse-linux -j4 --print-errorlogs --num-processes 1
+[   40s] ninja: Entering directory `/home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/pkcs11-provider-1.1/aarch64-suse-linux'
+[   40s] [1/35] Compiling C object tests/tsession.p/tsession.c.o
+[   40s] [2/35] Compiling C object tests/tlsctx.p/tlsctx.c.o
+[   40s] [3/35] Compiling C object tests/tlssetkey.p/tlssetkey.c.o
+[   40s] [4/35] Compiling C object tests/tlsctx.p/util.c.o
+[   40s] [5/35] Compiling C object tests/tgenkey.p/util.c.o
+[   40s] [6/35] Compiling C object tests/tgenkey.p/tgenkey.c.o
+[   40s] [7/35] Compiling C object tests/tdigests.p/tdigests.c.o
+[   40s] [8/35] Compiling C object tests/tlssetkey.p/util.c.o
+[   41s] [9/35] Compiling C object tests/treadkeys.p/treadkeys.c.o
+[   41s] [10/35] Compiling C object tests/tfork.p/util.c.o
+[   41s] [11/35] Compiling C object tests/tpkey.p/util.c.o
+[   41s] [12/35] Compiling C object tests/tcmpkeys.p/tcmpkeys.c.o
+[   41s] [13/35] Compiling C object tests/tcmpkeys.p/util.c.o
+[   41s] [14/35] Compiling C object tests/tfork.p/tfork.c.o
+[   41s] [15/35] Compiling C object tests/ccerts.p/util.c.o
+[   41s] [16/35] Compiling C object tests/pincache.p/pincache.c.o
+[   41s] [17/35] Compiling C object tests/tpkey.p/tpkey.c.o
+[   41s] [18/35] Compiling C object tests/ccerts.p/ccerts.c.o
+[   41s] [19/35] Compiling C object tests/tskey-kdf.p/tskey_kdf.c.o
+[   41s] [20/35] Compiling C object tests/tecx.p/tecx.c.o
+[   41s] [21/35] Compiling C object tests/tecx.p/util.c.o
+[   41s] [22/35] Compiling C object tests/tskey-kdf.p/util.c.o
+[   41s] [23/35] Linking target tests/tlsctx
+[   42s] [24/35] Linking target tests/tlssetkey
+[   42s] [25/35] Linking target tests/tsession
+[   42s] [26/35] Linking target tests/tdigests
+[   42s] [27/35] Linking target tests/treadkeys
+[   42s] [28/35] Linking target tests/tcmpkeys
+[   42s] [29/35] Linking target tests/tgenkey
+[   42s] [30/35] Linking target tests/pincache
+[   42s] [31/35] Linking target tests/tfork
+[   42s] [32/35] Linking target tests/ccerts
+[   42s] [33/35] Linking target tests/tskey-kdf
+[   42s] [34/35] Linking target tests/tpkey
+[   43s] [35/35] Linking target tests/tecx
+[   46s]  1/78 softokn - pkcs11-provider:setup        OK              3.80s
+[   55s]  2/78 softhsm - pkcs11-provider:setup        OK              8.91s
+[   64s]  3/78 kryoptic - pkcs11-provider:setup       OK              9.18s
+[   72s]  4/78 softokn - pkcs11-provider:basic        OK              7.54s
+[   90s]  5/78 softhsm - pkcs11-provider:basic        OK             17.79s
+[   96s]  6/78 kryoptic - pkcs11-provider:basic       OK              6.50s
+[   98s]  7/78 kryoptic - pkcs11-provider:mldsa       OK              1.35s
+[   98s]  8/78 softokn - pkcs11-provider:pubkey       OK              0.33s
+[  101s]  9/78 softhsm - pkcs11-provider:pubkey       OK              3.31s
+[  102s] 10/78 kryoptic - pkcs11-provider:pubkey      OK              0.38s
+[  102s] 11/78 softokn - pkcs11-provider:certs        OK              0.24s
+[  104s] 12/78 softhsm - pkcs11-provider:certs        OK              1.88s
+[  104s] 13/78 kryoptic - pkcs11-provider:certs       OK              0.27s
+[  105s] 14/78 softokn - pkcs11-provider:ecc          OK              0.48s
+[  109s] 15/78 softhsm - pkcs11-provider:ecc          OK              4.60s
+[  110s] 16/78 kryoptic - pkcs11-provider:ecc         OK              1.18s
+[  123s] 17/78 softhsm - pkcs11-provider:edwards      OK             12.23s
+[  124s] 18/78 kryoptic - pkcs11-provider:edwards     OK              1.81s
+[  125s] 19/78 softokn - pkcs11-provider:ecdh         OK              0.22s
+[  126s] 20/78 softhsm - pkcs11-provider:ecdh         OK              0.99s
+[  126s] 21/78 kryoptic - pkcs11-provider:ecdh        OK              0.20s
+[  128s] 22/78 softokn - pkcs11-provider:democa       OK              1.94s
+[  134s] 23/78 softhsm - pkcs11-provider:democa       OK              5.92s
+[  137s] 24/78 kryoptic - pkcs11-provider:democa      OK              3.44s
+[  137s] 25/78 softokn - pkcs11-provider:digest       OK              0.07s
+[  137s] 26/78 softhsm - pkcs11-provider:digest       OK              0.26s
+[  138s] 27/78 kryoptic - pkcs11-provider:digest      OK              0.08s
+[  138s] 28/78 softokn - pkcs11-provider:fork         OK              0.41s
+[  140s] 29/78 softhsm - pkcs11-provider:fork         OK              2.17s
+[  142s] 30/78 kryoptic - pkcs11-provider:fork        OK              1.89s
+[  142s] 31/78 softokn - pkcs11-provider:oaepsha2     OK              0.38s
+[  143s] 32/78 kryoptic - pkcs11-provider:oaepsha2    OK              0.41s
+[  143s] 33/78 softokn - pkcs11-provider:hkdf         OK              0.10s
+[  143s] 34/78 kryoptic - pkcs11-provider:hkdf        OK              0.08s
+[  145s] 35/78 softokn - pkcs11-provider:imported     OK              2.16s
+[  146s] 36/78 kryoptic - pkcs11-provider:imported    OK              1.06s
+[  148s] 37/78 softokn - pkcs11-provider:pem_encoder  OK              2.09s
+[  156s] 38/78 softhsm - pkcs11-provider:pem_encoder  OK              7.37s
+[  158s] 39/78 kryoptic - pkcs11-provider:pem_encoder OK              1.86s
+[  158s] 40/78 softokn - pkcs11-provider:rsa          OK              0.78s
+[  163s] 41/78 softhsm - pkcs11-provider:rsa          OK              4.63s
+[  164s] 42/78 kryoptic - pkcs11-provider:rsa         OK              0.96s
+[  164s] 43/78 softokn - pkcs11-provider:rsapss       OK              0.29s
+[  167s] 44/78 softhsm - pkcs11-provider:rsapss       OK              2.43s
+[  167s] 45/78 kryoptic - pkcs11-provider:rsapss      OK              0.40s
+[  168s] 46/78 softhsm - pkcs11-provider:rsapssam     OK              1.24s
+[  169s] 47/78 kryoptic - pkcs11-provider:rsapssam    OK              0.30s
+[  169s] 48/78 softokn - pkcs11-provider:genkey       OK              0.02s
+[  169s] 49/78 softhsm - pkcs11-provider:genkey       OK              0.04s
+[  169s] 50/78 kryoptic - pkcs11-provider:genkey      OK              0.04s
+[  169s] 51/78 softokn - pkcs11-provider:pkey         OK              0.76s
+[  171s] 52/78 softhsm - pkcs11-provider:pkey         OK              1.26s
+[  172s] 53/78 kryoptic - pkcs11-provider:pkey        OK              1.43s
+[  173s] 54/78 softokn - pkcs11-provider:session      OK              0.41s
+[  173s] 55/78 softhsm - pkcs11-provider:session      OK              0.63s
+[  173s] 56/78 kryoptic - pkcs11-provider:session     OK              0.23s
+[  174s] 57/78 softokn - pkcs11-provider:skey         OK              0.31s
+[  174s] 58/78 kryoptic - pkcs11-provider:skey        OK              0.54s
+[  174s] 59/78 softokn - pkcs11-provider:rand         OK              0.10s
+[  175s] 60/78 softhsm - pkcs11-provider:rand         OK              0.21s
+[  175s] 61/78 kryoptic - pkcs11-provider:rand        OK              0.11s
+[  175s] 62/78 softokn - pkcs11-provider:readkeys     OK              0.06s
+[  175s] 63/78 softhsm - pkcs11-provider:readkeys     OK              0.41s
+[  175s] 64/78 kryoptic - pkcs11-provider:readkeys    OK              0.05s
+[  181s] 65/78 softokn - pkcs11-provider:tls          OK              5.31s
+[  203s] 66/78 softhsm - pkcs11-provider:tls          FAIL           22.95s   exit status 1
+[  203s] >>> MSAN_OPTIONS=halt_on_error=1:abort_on_error=1:print_summary=1:print_stacktrace=1 TEST_PATH=/home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/pkcs11-provider-1.1/tests MESON_TEST_ITERATION=1 ASAN_OPTIONS=halt_on_error=1:abort_on_error=1:print_summary=1 UBSAN_OPTIONS=halt_on_error=1:abort_on_error=1:print_summary=1:print_stacktrace=1 TESTBLDDIR=/home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/pkcs11-provider-1.1/aarch64-suse-linux/tests /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/pkcs11-provider-1.1/tests/test-wrapper tls-softhsm.t
+[  203s] ――――――――――――――――――――――――――――――――――――― ✀  ―――――――――――――――――――――――――――――――――――――
+[  203s] Listing only the last 100 lines from a long log.
+[  203s] Compression: NONE
+[  203s] Expansion: NONE
+[  204s] No ALPN negotiated
+[  204s] SSL-Session:
+[  204s]     Protocol  : TLSv1.2
+[  204s]     Cipher    : ECDHE-ECDSA-AES128-GCM-SHA256
+[  204s]     Session-ID: 2EB78755FBABC3D9639B9171BCB20D37D59CFB5F82E81AB4047ED779FD98A442
+[  204s]     Session-ID-ctx: 
+[  204s]     Master-Key: 8B9C98A4B6E6FD883ABD1DEB4D01DC74B360198B2D2C8A0D94DE752DFBF4342BDD9D1291816DFB0800572DB1DE14A617
+[  204s]     PSK identity: None
+[  204s]     PSK identity hint: None
+[  204s]     SRP username: None
+[  204s]     TLS session ticket lifetime hint: 7200 (seconds)
+[  204s]     TLS session ticket:
+[  204s]     0000 - 36 d6 66 02 a3 08 01 47-6f c9 01 a1 53 f5 41 73   6.f....Go...S.As
+[  204s]     0010 - 8a 02 85 71 01 41 43 24-ae 51 d0 95 a5 62 ee 6f   ...q.AC$.Q...b.o
+[  204s]     0020 - 66 88 51 15 90 b8 bd 63-66 41 c4 62 50 60 98 e4   f.Q....cfA.bP`..
+[  204s]     0030 - 36 26 b4 06 49 78 3e 2b-53 a5 77 63 da f8 74 d9   6&..Ix>+S.wc..t.
+[  204s]     0040 - 6d 68 c2 a2 79 23 2f 26-d9 78 01 f2 44 9d e0 39   mh..y#/&.x..D..9
+[  204s]     0050 - 84 9f 1a 30 fe ca d9 a3-13 2a 34 06 27 30 9b 31   ...0.....*4.'0.1
+[  204s]     0060 - ad a4 3e c4 cd 23 27 b3-b5 99 52 b4 f0 af 8d 49   ..>..#'...R....I
+[  204s]     0070 - e3 31 d0 51 c3 ad fb b1-59 51 a4 e3 c0 8b fc 2e   .1.Q....YQ......
+[  204s]     0080 - 4e b9 a9 73 6d d6 fb 97-2a 44 2b 1f 37 af 4b d0   N..sm...*D+.7.K.
+[  204s]     0090 - b2 29 0b e5 4f ee 9f 17-0d 73 51 48 b9 51 48 3d   .)..O....sQH.QH=
+[  204s]     00a0 - 20 9b d6 35 c0 a0 a2 da-e3 fc c8 05 1a fb 17 21    ..5...........!
+[  204s] 
+[  204s]     Start Time: 1791896115
+[  204s]     Timeout   : 7200 (sec)
+[  204s]     Verify return code: 21 (unable to verify the first certificate)
+[  204s]     Extended master secret: yes
+[  204s] ---
+[  204s] /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/pkcs11-provider-1.1/tests/ttls: line 33: wait: pid 4697 is not a child of this shell
+[  204s] Server output:
+[  204s] spawn openssl s_server -propquery ?provider=pkcs11 -accept 23456 -naccept 1 -key pkcs11:type=private;id=%00%02 -cert pkcs11:type=cert;object=ecCert
+[  204s] Using default temp DH parameters
+[  204s] ACCEPT
+[  204s] -----BEGIN SSL SESSION PARAMETERS-----
+[  204s] MF8CAQECAgMDBALAKwQABDCLnJiktub9iDq9HetNAdx0s2AZiy0sig2U3nUt+/Q0
+[  204s] K92dEpGBbfsIAFctsd4UphehBgIEas4qMqIEAgIcIKQGBAQBAAAArQMCAQGzAwIB
+[  204s] Fw==
+[  204s] -----END SSL SESSION PARAMETERS-----
+[  204s] Shared ciphers:ECDHE-ECDSA-AES128-GCM-SHA256
+[  204s] Signature Algorithms: ECDSA+SHA256:ECDSA+SHA384:ECDSA+SHA512:ed25519:ed448:rsa_pss_pss_sha256:rsa_pss_pss_sha384:rsa_pss_pss_sha512:RSA-PSS+SHA256:RSA-PSS+SHA384:RSA-PSS+SHA512:RSA+SHA256:RSA+SHA384:RSA+SHA512:ECDSA+SHA224:ECDSA+SHA1:RSA+SHA224:RSA+SHA1:DSA+SHA224:DSA+SHA1:DSA+SHA256:DSA+SHA384:DSA+SHA512
+[  204s] Shared Signature Algorithms: ECDSA+SHA256:ECDSA+SHA384:ECDSA+SHA512:ed25519:ed448:rsa_pss_pss_sha256:rsa_pss_pss_sha384:rsa_pss_pss_sha512:RSA-PSS+SHA256:RSA-PSS+SHA384:RSA-PSS+SHA512:RSA+SHA256:RSA+SHA384:RSA+SHA512:ECDSA+SHA224:ECDSA+SHA1:RSA+SHA224:RSA+SHA1:DSA+SHA224:DSA+SHA1:DSA+SHA256:DSA+SHA384:DSA+SHA512
+[  204s] Supported Elliptic Curve Point Formats: uncompressed:ansiX962_compressed_prime:ansiX962_compressed_char2
+[  204s] Supported groups: secp256r1
+[  204s] Shared groups: secp256r1
+[  204s] CIPHER is ECDHE-ECDSA-AES128-GCM-SHA256
+[  204s] Secure Renegotiation IS supported
+[  204s] DONE
+[  204s] shutting down SSL
+[  204s]  TLS SUCCESSFUL 
+[  204s] Q
+[  204s] CONNECTION CLOSED
+[  204s]    0 items in the session cache
+[  204s]    0 client connects (SSL_connect())
+[  204s]    0 client renegotiates (SSL_connect())
+[  204s]    0 client connects that finished
+[  204s]    1 server accepts (SSL_accept())
+[  204s]    0 server renegotiates (SSL_accept())
+[  204s]    1 server accepts that finished
+[  204s]    0 session cache hits
+[  204s]    0 session cache misses
+[  204s]    0 session cache timeouts
+[  204s]    0 callback cache hits
+[  204s]    0 cache full overflows (128 allowed)
+[  204s] Server output:
+[  204s] spawn openssl s_server -propquery ?provider=pkcs11 -accept 23456 -naccept 1 -key pkcs11:type=private;id=%00%02 -cert pkcs11:type=cert;object=ecCert
+[  204s] Using default temp DH parameters
+[  204s] ACCEPT
+[  204s] -----BEGIN SSL SESSION PARAMETERS-----
+[  204s] MF8CAQECAgMDBALAKwQABDCLnJiktub9iDq9HetNAdx0s2AZiy0sig2U3nUt+/Q0
+[  204s] K92dEpGBbfsIAFctsd4UphehBgIEas4qMqIEAgIcIKQGBAQBAAAArQMCAQGzAwIB
+[  204s] Fw==
+[  204s] -----END SSL SESSION PARAMETERS-----
+[  204s] Shared ciphers:ECDHE-ECDSA-AES128-GCM-SHA256
+[  204s] Signature Algorithms: ECDSA+SHA256:ECDSA+SHA384:ECDSA+SHA512:ed25519:ed448:rsa_pss_pss_sha256:rsa_pss_pss_sha384:rsa_pss_pss_sha512:RSA-PSS+SHA256:RSA-PSS+SHA384:RSA-PSS+SHA512:RSA+SHA256:RSA+SHA384:RSA+SHA512:ECDSA+SHA224:ECDSA+SHA1:RSA+SHA224:RSA+SHA1:DSA+SHA224:DSA+SHA1:DSA+SHA256:DSA+SHA384:DSA+SHA512
+[  204s] Shared Signature Algorithms: ECDSA+SHA256:ECDSA+SHA384:ECDSA+SHA512:ed25519:ed448:rsa_pss_pss_sha256:rsa_pss_pss_sha384:rsa_pss_pss_sha512:RSA-PSS+SHA256:RSA-PSS+SHA384:RSA-PSS+SHA512:RSA+SHA256:RSA+SHA384:RSA+SHA512:ECDSA+SHA224:ECDSA+SHA1:RSA+SHA224:RSA+SHA1:DSA+SHA224:DSA+SHA1:DSA+SHA256:DSA+SHA384:DSA+SHA512
+[  204s] Supported Elliptic Curve Point Formats: uncompressed:ansiX962_compressed_prime:ansiX962_compressed_char2
+[  204s] Supported groups: secp256r1
+[  204s] Shared groups: secp256r1
+[  204s] CIPHER is ECDHE-ECDSA-AES128-GCM-SHA256
+[  204s] Secure Renegotiation IS supported
+[  204s] DONE
+[  204s] shutting down SSL
+[  204s]  TLS SUCCESSFUL 
+[  204s] Q
+[  204s] CONNECTION CLOSED
+[  204s]    0 items in the session cache
+[  204s]    0 client connects (SSL_connect())
+[  204s]    0 client renegotiates (SSL_connect())
+[  204s]    0 client connects that finished
+[  204s]    1 server accepts (SSL_accept())
+[  204s]    0 server renegotiates (SSL_accept())
+[  204s]    1 server accepts that finished
+[  204s]    0 session cache hits
+[  204s]    0 session cache misses
+[  204s]    0 session cache timeouts
+[  204s]    0 callback cache hits
+[  204s]    0 cache full overflows (128 allowed)
+[  204s] ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+[  204s] 
+[  213s] 67/78 kryoptic - pkcs11-provider:tls         OK              9.86s
+[  213s] 68/78 softokn - pkcs11-provider:tlsfuzzer    SKIP            0.05s   exit status 77
+[  213s] 69/78 softhsm - pkcs11-provider:tlsfuzzer    SKIP            0.05s   exit status 77
+[  214s] 70/78 kryoptic - pkcs11-provider:tlsfuzzer   SKIP            0.08s   exit status 77
+[  216s] 71/78 softokn - pkcs11-provider:uri          OK              2.00s
+[  243s] 72/78 softhsm - pkcs11-provider:uri          OK             27.79s
+[  246s] 73/78 kryoptic - pkcs11-provider:uri         OK              2.89s
+[  246s] 74/78 softhsm - pkcs11-provider:ecxc         SKIP            0.04s   exit status 77
+[  246s] 75/78 kryoptic - pkcs11-provider:ecxc        SKIP            0.05s   exit status 77
+[  247s] 76/78 softokn - pkcs11-provider:cms          OK              0.25s
+[  247s] 77/78 kryoptic - pkcs11-provider:cms         OK              0.27s
+[  247s] 78/78 kryoptic - pkcs11-provider:pinlock     OK              0.51s
+[  247s] 
+[  247s] Summary of Failures:
+[  247s] 
+[  247s] 66/78 softhsm - pkcs11-provider:tls          FAIL           22.95s   exit status 1
+[  247s] 
+[  247s] Ok:                72  
+[  247s] Fail:              1   
+[  247s] Skipped:           5   
+[  247s] 
+[  247s] Full log written to /home/abuild/rpmbuild/BUILD/pkcs11-provider-1.1-build/pkcs11-provider-1.1/aarch64-suse-linux/meson-logs/testlog.txt
+[  248s] error: Bad exit status from /var/tmp/rpm-tmp.DnHayg (%check)
+[  248s] 
+[  248s] RPM build errors:
+[  248s]     Bad exit status from /var/tmp/rpm-tmp.DnHayg (%check)
+[  248s] ### VM INTERACTION START ###
+[  248s] Powering off.
+[  248s] ### VM INTERACTION END ###
+[  248s] 
+[  248s] i03-armsrv2 failed "build pkcs11-provider.spec" at Tue Oct 13 12:55:59 UTC 2026.
+[  248s] 

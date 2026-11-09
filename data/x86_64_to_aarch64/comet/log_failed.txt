@@ -1,0 +1,379 @@
+[    0s] Using BUILD_ROOT=/var/cache/obs/worker/root_12/.mount
+[    0s] Using BUILD_ARCH=aarch64:aarch64_ilp32:armv8l
+[    0s] Doing kvm build in /var/cache/obs/worker/root_12/root
+[    0s] 
+[    1s] 
+[    1s] i03-armsrv1 started "build comet.spec" at Mon Nov  2 15:43:46 UTC 2026.
+[    1s] 
+[    1s] Building comet for project 'openSUSE:Factory:ARM' repository 'standard' arch 'aarch64' srcmd5 '5d30ad078fbe24eaafb8a1b2bf230c04'
+[    1s] 
+[    1s] processing recipe /var/cache/obs/worker/root_12/.build-srcdir/comet.spec ...
+[    1s] running changelog2spec --target rpm --file /var/cache/obs/worker/root_12/.build-srcdir/comet.spec
+[    1s] init_buildsystem --configdir /var/run/obs/worker/12/build/configs --cachedir /var/cache/build --prepare --clean --rpmlist /var/cache/obs/worker/root_12/.build.rpmlist /var/cache/obs/worker/root_12/.build-srcdir/comet.spec build ...
+[    1s] unpacking preinstall image openSUSE:Factory:ARM/standard/preinstallimage-base [a8692066436a1e1469a226e26fd81b3d]
+[    4s] 
+[    4s] copying packages...
+[    5s] reordering...cycle: mingw64-cross-pkgconf -> mingw64-filesystem
+[    5s]   breaking dependency mingw64-filesystem -> mingw64-cross-pkgconf
+[    5s] done
+[    5s] setting source mtime to 1793624961
+[    5s] Detected virtio-serial support
+[    8s] booting kvm...
+[    8s] ### VM INTERACTION START ###
+[    8s] Using virtio-serial support
+[    8s] /usr/bin/qemu-system-aarch64 -nodefaults -no-reboot -nographic -vga none -cpu host -enable-kvm -M virt,accel=kvm,usb=off,gic-version=host -sandbox on -object rng-random,filename=/dev/random,id=rng0 -device virtio-rng-device,rng=rng0 -object iothread,id=io0 -run-with user=qemu -net none -kernel /var/cache/obs/worker/root_12/.mount/boot/kernel -initrd /var/cache/obs/worker/root_12/.mount/boot/initrd -append root=/dev/disk/by-id/virtio-0 rootfstype=ext4 rootflags=noatime elevator=noop nmi_watchdog=0 rw ia32_emulation=1 oops=panic panic=1 quiet console=hvc0 init=/.build/build -m 10240 -drive file=/var/cache/obs/worker/root_12/root,format=raw,if=none,id=disk,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=disk,serial=0 -drive file=/var/cache/obs/worker/root_12/swap,format=raw,if=none,id=swap,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=swap,serial=1 -device virtio-serial,max_ports=2 -device virtconsole,chardev=virtiocon0 -chardev stdio,id=virtiocon0 -chardev socket,id=monitor,server=on,wait=off,path=/var/cache/obs/worker/root_12/root.qemu/monitor -mon chardev=monitor,mode=readline -smp 4
+[   12s] P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=011558aed3274e44868de7c82cad598c;user=root;hostname=localhost;machineid=07e46869ac3d47a39800b967a8acace9;bootid=770afda8bdce4227b3330f60f36e910c;pid=1;pidfdid=1;comm=systemd;type=boot\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J### VM INTERACTION END ###
+[   12s] 2nd stage started in virtual machine
+[   12s] ^[[24;80R^[[24;80Rmachine type: aarch64
+[   12s] Linux version: 7.3.1-1-default #1 SMP PREEMPT_DYNAMIC Sat Oct 31 11:17:21 UTC 2026 (8815021)
+[   12s] Time: Mon Nov  2 15:43:57 UTC 2026
+[   12s] Increasing log level from now on...
+[   12s] [    3.873708][  T447] sysrq: Changing Loglevel
+[   12s] [    3.873844][  T447] sysrq: Loglevel set to 4
+[   12s] Enable sysrq operations
+[   12s] Setting up swapspace version 1, size = 2 GiB (2147479552 bytes)
+[   12s] no label, UUID=d0ab6831-b993-4b11-8e77-d31a19d2540e
+[   12s] logging output to //.build.log...
+[   12s] processing recipe //.build-srcdir/comet.spec ...
+[   12s] init_buildsystem --configdir /.build/configs --cachedir /var/cache/build //.build-srcdir/comet.spec build ...
+[   12s] initializing rpm db...
+[   12s] querying package ids...
+[   14s] [1/193] preinstalled aaa_base-84.87+git20260924.144354a1-2.1
+[   14s] [2/193] preinstalled aaa_base-malloccheck-84.87+git20260924.144354a1-2.1
+[   14s] [3/193] preinstalled alts-2.0+0.4f22c01-1.1
+[   14s] [4/193] preinstalled bash-5.3.20-10.1
+[   14s] [5/193] preinstalled bash-sh-5.3.20-10.1
+[   14s] [6/193] preinstalled binutils-2.47-2.1
+[   14s] [7/193] preinstalled brp-check-suse-84.87+git20260317.a0eb4ba-1.3
+[   14s] [8/193] preinstalled build-compare-20261001T080039.deb96f7-1.1
+[   14s] [9/193] preinstalled build-mkbaselibs-20260901-1.1
+[   14s] [10/193] preinstalled bzip2-1.0.8-7.1
+[   14s] [11/193] preinstalled compat-usrmerge-build-84.87-5.29
+[   14s] [12/193] preinstalled compat-usrmerge-tools-84.87-5.29
+[   14s] [13/193] preinstalled coreutils-9.12-1.1
+[   14s] [14/193] preinstalled cpio-2.15-10.1
+[   14s] [15/193] preinstalled cpp-16-1.1
+[   14s] [16/193] preinstalled cpp16-16.2.1+git9713-1.1
+[   14s] [17/193] preinstalled crypto-policies-20250714.cd6043a-6.1
+[   14s] [18/193] preinstalled debugedit-5.1-1.9
+[   14s] [19/193] preinstalled diffutils-3.12-1.6
+[   14s] [20/193] preinstalled dwz-0.17-1.1
+[   14s] [21/193] preinstalled elfutils-0.196-2.1
+[   14s] [22/193] preinstalled envsubst-mini-1.0-5.1
+[   14s] [23/193] preinstalled file-5.48-2.2
+[   14s] [24/193] preinstalled file-magic-5.48-2.2
+[   14s] [25/193] preinstalled filesystem-84.87-21.2
+[   14s] [26/193] preinstalled fillup-1.42-281.9
+[   14s] [27/193] preinstalled findutils-4.11.0-1.2
+[   14s] [28/193] preinstalled gawk-5.4.1-1.2
+[   14s] [29/193] preinstalled gcc-16-1.1
+[   14s] [30/193] preinstalled gcc-PIE-16-1.1
+[   14s] [31/193] preinstalled gcc16-16.2.1+git9713-1.1
+[   14s] [32/193] preinstalled gcc16-PIE-16.2.1+git9713-1.1
+[   14s] [33/193] preinstalled gettext-runtime-mini-1.0-5.1
+[   14s] [34/193] preinstalled gettext-tools-mini-1.0-5.1
+[   14s] [35/193] preinstalled glibc-2.44-3.1
+[   14s] [36/193] preinstalled glibc-devel-2.44-3.1
+[   14s] [37/193] preinstalled glibc-gconv-modules-extra-2.44-3.1
+[   14s] [38/193] preinstalled glibc-locale-base-2.44-3.1
+[   14s] [39/193] preinstalled grep-3.12-1.5
+[   14s] [40/193] preinstalled gzip-1.15-1.1
+[   14s] [41/193] preinstalled kernel-obs-build-7.3.1-1.1
+[   14s] [42/193] preinstalled libacl1-2.4.0-1.2
+[   14s] [43/193] preinstalled libalternatives1-2.0+0.4f22c01-1.1
+[   14s] [44/193] preinstalled libarchive13-3.8.10-1.1
+[   14s] [45/193] preinstalled libasan8-16.2.1+git9713-1.1
+[   14s] [46/193] preinstalled libasm1-0.196-2.1
+[   14s] [47/193] preinstalled libatomic1-16.2.1+git9713-1.1
+[   14s] [48/193] preinstalled libattr1-2.6.0-1.2
+[   14s] [49/193] preinstalled libaudit1-4.0.2-3.4
+[   14s] [50/193] preinstalled libblkid1-2.42.4-2.1
+[   14s] [51/193] cumulate libbrotlicommon1-1.2.1-1.1
+[   14s] [52/193] preinstalled libbz2-1-1.0.8-7.1
+[   14s] [53/193] preinstalled libcap-ng0-0.8.5-1.10
+[   14s] [54/193] preinstalled libcap2-2.78-1.4
+[   14s] [55/193] cumulate libclang_rt23-23.1.4-1.1
+[   14s] [56/193] cumulate libcom_err2-1.47.4-1.1
+[   14s] [57/193] preinstalled libcrypt1-4.5.2-2.4
+[   14s] [58/193] preinstalled libctf-nobfd0-2.47-2.1
+[   14s] [59/193] preinstalled libctf0-2.47-2.1
+[   14s] [60/193] preinstalled libdw1-0.196-2.1
+[   14s] [61/193] preinstalled libeconf0-0.8.6-1.1
+[   14s] [62/193] cumulate libedit0-20250104.3.1-1.5
+[   14s] [63/193] preinstalled libelf1-0.196-2.1
+[   14s] [64/193] preinstalled libexpat1-2.9.0-1.1
+[   14s] [65/193] preinstalled libfdisk1-2.42.4-2.1
+[   14s] [66/193] preinstalled libffi8-3.5.2-2.4
+[   14s] [67/193] cumulate libfl2-2.6.4-7.10
+[   14s] [68/193] preinstalled libgcc_s1-16.2.1+git9713-1.1
+[   14s] [69/193] preinstalled libgcrypt20-1.12.4-1.1
+[   14s] [70/193] preinstalled libgdbm6-1.26-1.6
+[   14s] [71/193] preinstalled libgdbm_compat4-1.26-1.6
+[   14s] [72/193] preinstalled libgmp10-6.3.0-5.6
+[   14s] [73/193] preinstalled libgomp1-16.2.1+git9713-1.1
+[   14s] [74/193] preinstalled libgpg-error0-1.61-2.1
+[   14s] [75/193] preinstalled libhwasan0-16.2.1+git9713-1.1
+[   14s] [76/193] preinstalled libisl23-0.27-1.8
+[   14s] [77/193] preinstalled libitm1-16.2.1+git9713-1.1
+[   14s] [78/193] preinstalled libjitterentropy3-3.6.3-2.1
+[   14s] [79/193] preinstalled liblsan0-16.2.1+git9713-1.1
+[   14s] [80/193] preinstalled liblua5_4-5-5.4.8-4.7
+[   14s] [81/193] preinstalled liblz1-1.16-2.1
+[   14s] [82/193] preinstalled liblz4-1-1.10.0-2.10
+[   14s] [83/193] preinstalled liblzma5-5.8.4-1.1
+[   14s] [84/193] preinstalled libmagic1-5.48-2.2
+[   14s] [85/193] preinstalled libmount1-2.42.4-2.1
+[   14s] [86/193] preinstalled libmpc3-1.4.1-1.3
+[   14s] [87/193] preinstalled libmpdec4-4.0.1-2.6
+[   14s] [88/193] preinstalled libmpfr6-4.2.2-1.5
+[   14s] [89/193] preinstalled libncurses6-6.6.20261017-116.1
+[   14s] [90/193] cumulate libnghttp2-14-1.70.0-1.1
+[   14s] [91/193] cumulate libnghttp3-9-1.18.0-2.1
+[   14s] [92/193] cumulate libngtcp2-16-1.25.0-2.1
+[   14s] [93/193] preinstalled libopenssl3-3.5.3-9.1
+[   14s] [94/193] preinstalled libpcre2-8-0-10.49-2.1
+[   14s] [95/193] preinstalled libpkgconf7-2.5.1-1.5
+[   14s] [96/193] preinstalled libpopt0-1.19-2.3
+[   14s] [97/193] preinstalled libpython3_13-1_0-3.13.16-2.1
+[   14s] [98/193] preinstalled libreadline8-8.3.6-3.1
+[   14s] [99/193] cumulate librhash1-1.4.6-2.3
+[   14s] [100/193] preinstalled librpmbuild10-4.20.1-11.1
+[   14s] [101/193] cumulate libsasl2-3-2.1.28-13.1
+[   14s] [102/193] preinstalled libseccomp2-2.6.1-3.1
+[   14s] [103/193] preinstalled libselinux1-3.11-2.1
+[   14s] [104/193] preinstalled libsframe3-2.47-2.1
+[   14s] [105/193] preinstalled libsmartcols1-2.42.4-2.1
+[   14s] [106/193] cumulate libsqlite3-0-3.54.1-1.1
+[   14s] [107/193] cumulate libssh-config-0.11.5-3.1
+[   14s] [108/193] preinstalled libstdc++6-16.2.1+git9713-1.1
+[   14s] [109/193] preinstalled libtsan2-16.2.1+git9713-1.1
+[   14s] [110/193] preinstalled libubsan1-16.2.1+git9713-1.1
+[   14s] [111/193] cumulate libunistring5-1.5-1.1
+[   14s] [112/193] preinstalled libuuid1-2.42.4-2.1
+[   14s] [113/193] cumulate libuv1-1.52.0-1.3
+[   14s] [114/193] cumulate libverto1-0.3.2-3.11
+[   14s] [115/193] preinstalled libxcrypt-devel-4.5.2-2.4
+[   14s] [116/193] preinstalled libxml2-16-2.15.4-1.1
+[   14s] [117/193] preinstalled libz1-1.3.1-3.3
+[   14s] [118/193] preinstalled libzstd1-1.5.7-6.1
+[   14s] [119/193] preinstalled linux-glibc-devel-7.3-1.1
+[   14s] [120/193] cumulate logrotate-3.22.0-2.8
+[   14s] [121/193] preinstalled lua-interpreter-5-3.4
+[   14s] [122/193] preinstalled lua54-5.4.8-4.7
+[   14s] [123/193] preinstalled make-4.4.1-3.10
+[   14s] [124/193] cumulate mingw64-cross-binutils-utils-2.45.1-3.4
+[   14s] [125/193] cumulate mingw64-cross-cpp-16.2.0-1.1
+[   14s] [126/193] cumulate mingw64-libwinpthread1-14.0.0-1.1
+[   14s] [127/193] preinstalled ncurses-utils-6.6.20261017-116.1
+[   14s] [128/193] cumulate ninja-1.13.2-1.4
+[   14s] [129/193] preinstalled pam-1.7.3-1.1
+[   14s] [130/193] preinstalled patch-2.8.1-2.1
+[   14s] [131/193] preinstalled perl-5.44.0-1.2
+[   14s] [132/193] preinstalled perl-base-5.44.0-1.2
+[   14s] [133/193] preinstalled perl-rpm-packaging-1.3-1.3
+[   14s] [134/193] preinstalled permctl-1699_20260917-1.1
+[   14s] [135/193] preinstalled permissions-1699_20260917-1.1
+[   14s] [136/193] preinstalled permissions-config-1699_20260917-1.1
+[   14s] [137/193] preinstalled pkgconf-2.5.1-1.5
+[   14s] [138/193] preinstalled pkgconf-m4-2.5.1-1.5
+[   14s] [139/193] preinstalled pkgconf-pkg-config-2.5.1-1.5
+[   14s] [140/193] preinstalled polkit-default-privs-1550+20261016.b8e1631-1.1
+[   14s] [141/193] preinstalled post-build-checks-84.87+git20260421.8ed5e73-1.1
+[   14s] [142/193] preinstalled python-rpm-macros-20260912.881b918-1.1
+[   14s] [143/193] preinstalled python-rpm-packaging-20210526+a18ca48-2.1
+[   14s] [144/193] preinstalled python313-base-3.13.16-2.1
+[   14s] [145/193] preinstalled python313-packaging-26.3-1.1
+[   14s] [146/193] preinstalled rpm-4.20.1-11.1
+[   14s] [147/193] preinstalled rpm-build-4.20.1-11.1
+[   14s] [148/193] preinstalled rpm-config-SUSE-20250904-1.4
+[   14s] [149/193] preinstalled rpmlint-mini-2.10.0+git20261020.513f17e8-21.56
+[   14s] [150/193] preinstalled rpmlint-strict-2.10.0+git20261020.513f17e8-1.1
+[   14s] [151/193] preinstalled sed-4.10-1.4
+[   14s] [152/193] preinstalled suse-reproducible-builds-1.0-1.2
+[   14s] [153/193] preinstalled system-user-root-20190513-2.23
+[   14s] [154/193] preinstalled systemd-rpm-macros-26-1.4
+[   14s] [155/193] preinstalled tar-1.35-10.1
+[   14s] [156/193] preinstalled terminfo-base-6.6.20261017-116.1
+[   14s] [157/193] preinstalled util-linux-2.42.4-2.1
+[   14s] [158/193] preinstalled which-2.25-1.3
+[   14s] [159/193] preinstalled xz-5.8.4-1.1
+[   14s] [160/193] cumulate zstd-1.5.7-6.1
+[   14s] [161/193] cumulate libLLVM23-23.1.4-1.1
+[   14s] [162/193] cumulate libbrotlidec1-1.2.1-1.1
+[   14s] [163/193] cumulate libidn2-0-2.3.8-1.5
+[   14s] [164/193] cumulate libldap2-2.6.13-1.6
+[   14s] [165/193] cumulate libngtcp2_crypto_ossl0-1.25.0-2.1
+[   14s] [166/193] cumulate meson-1.12.1-1.1
+[   14s] [167/193] cumulate mingw64-winpthreads-devel-14.0.0-1.1
+[   14s] [168/193] cumulate python313-3.13.16-2.1
+[   14s] [169/193] cumulate cmake-mini-4.4.4-1.1
+[   14s] [170/193] cumulate krb5-mini-1.22.2-6.1
+[   14s] [171/193] cumulate libclang-cpp23-23.1.4-1.1
+[   14s] [172/193] cumulate lld23-23.1.4-1.1
+[   14s] [173/193] cumulate mingw64-headers-14.0.0-1.1
+[   14s] [174/193] cumulate cmake-4.4.4-1.1
+[   14s] [175/193] cumulate libpsl5-0.23.3-1.1
+[   14s] [176/193] cumulate libssh4-0.11.5-3.1
+[   14s] [177/193] cumulate lld-23-1.1
+[   14s] [178/193] cumulate mingw64-runtime-14.0.0-1.1
+[   14s] [179/193] cumulate libclang13-23.1.4-1.1
+[   14s] [180/193] cumulate libcurl4-8.23.0-2.1
+[   14s] [181/193] cumulate clang23-23.1.4-1.1
+[   14s] [182/193] cumulate clang-23-1.1
+[   14s] [183/193] cumulate rust1.99-1.99.0-1.1
+[   14s] [184/193] cumulate rust-1.99.0-1.1
+[   14s] [185/193] cumulate cargo1.99-1.99.0-1.1
+[   14s] [186/193] cumulate cargo-1.99.0-1.1
+[   14s] [187/193] cumulate cargo-auditable-0.7.7~0-1.1
+[   14s] [188/193] cumulate cargo-packaging-1.5.0+0-1.4
+[   14s] [189/193] cumulate mingw64-filesystem-20260312-2.1
+[   14s] [190/193] cumulate mingw64-cross-pkgconf-1.6.3-5.13
+[   14s] [191/193] cumulate mingw64-cross-cmake-1.1.6-1.4
+[   14s] [192/193] cumulate mingw64-cross-binutils-2.45.1-3.4
+[   14s] [193/193] cumulate mingw64-cross-gcc-16.2.0-1.1
+[   14s] now installing cumulated packages
+[   14s] Preparing...                          ########################################
+[   14s] Updating / installing...
+[   14s] mingw64-cross-binutils-utils-2.45.1-3.########################################
+[   14s] libuv1-1.52.0-1.3                     ########################################
+[   14s] libunistring5-1.5-1.1                 ########################################
+[   14s] libidn2-0-2.3.8-1.5                   ########################################
+[   14s] libngtcp2-16-1.25.0-2.1               ########################################
+[   14s] libngtcp2_crypto_ossl0-1.25.0-2.1     ########################################
+[   14s] libpsl5-0.23.3-1.1                    ########################################
+[   14s] zstd-1.5.7-6.1                        ########################################
+[   14s] ninja-1.13.2-1.4                      ########################################
+[   14s] mingw64-libwinpthread1-14.0.0-1.1     ########################################
+[   14s] mingw64-winpthreads-devel-14.0.0-1.1  ########################################
+[   14s] mingw64-headers-14.0.0-1.1            ########################################
+[   15s] mingw64-runtime-14.0.0-1.1            ########################################
+[   15s] mingw64-cross-cpp-16.2.0-1.1          ########################################
+[   15s] logrotate-3.22.0-2.8                  ########################################
+[   15s] libverto1-0.3.2-3.11                  ########################################
+[   15s] libssh-config-0.11.5-3.1              ########################################
+[   15s] libsqlite3-0-3.54.1-1.1               ########################################
+[   15s] python313-3.13.16-2.1                 ########################################
+[   15s] mingw64-cross-pkgconf-1.6.3-5.13      ########################################
+[   15s] mingw64-filesystem-20260312-2.1       ########################################
+[   15s] libsasl2-3-2.1.28-13.1                ########################################
+[   15s] libldap2-2.6.13-1.6                   ########################################
+[   15s] librhash1-1.4.6-2.3                   ########################################
+[   16s] cmake-mini-4.4.4-1.1                  ########################################
+[   16s] cmake-4.4.4-1.1                       ########################################
+[   16s] libnghttp3-9-1.18.0-2.1               ########################################
+[   16s] libnghttp2-14-1.70.0-1.1              ########################################
+[   16s] libfl2-2.6.4-7.10                     ########################################
+[   16s] mingw64-cross-binutils-2.45.1-3.4     ########################################
+[   16s] libedit0-20250104.3.1-1.5             ########################################
+[   16s] libLLVM23-23.1.4-1.1                  ########################################
+[   17s] libclang-cpp23-23.1.4-1.1             ########################################
+[   17s] libclang13-23.1.4-1.1                 ########################################
+[   17s] lld23-23.1.4-1.1                      ########################################
+[   17s] lld-23-1.1                            ########################################
+[   17s] libcom_err2-1.47.4-1.1                ########################################
+[   17s] krb5-mini-1.22.2-6.1                  ########################################
+[   17s] Updating /etc/sysconfig/kadmind ...
+[   17s] Updating /etc/sysconfig/krb5kdc ...
+[   17s] libssh4-0.11.5-3.1                    ########################################
+[   17s] libclang_rt23-23.1.4-1.1              ########################################
+[   17s] clang23-23.1.4-1.1                    ########################################
+[   17s] clang-23-1.1                          ########################################
+[   21s] rust1.99-1.99.0-1.1                   ########################################
+[   21s] rust-1.99.0-1.1                       ########################################
+[   21s] libbrotlicommon1-1.2.1-1.1            ########################################
+[   21s] libbrotlidec1-1.2.1-1.1               ########################################
+[   21s] libcurl4-8.23.0-2.1                   ########################################
+[   21s] cargo1.99-1.99.0-1.1                  ########################################
+[   21s] cargo-1.99.0-1.1                      ########################################
+[   21s] cargo-auditable-0.7.7~0-1.1           ########################################
+[   21s] cargo-packaging-1.5.0+0-1.4           ########################################
+[   22s] mingw64-cross-gcc-16.2.0-1.1          ########################################
+[   22s] mingw64-cross-cmake-1.1.6-1.4         ########################################
+[   22s] meson-1.12.1-1.1                      ########################################
+[   22s] now finalizing build dir...
+[   22s] ... running 01-add_abuild_user_to_trusted_group
+[   22s] ... running 02-set_timezone_to_utc
+[   22s] ... running 03-set-permissions-secure
+[   22s] ... running 11-hack_uname_version_to_kernel_version
+[   23s] setting SOURCE_DATE_EPOCH_MTIME to 1793460475
+[   23s] Running build time source services...
+[   24s] -----------------------------------------------------------------
+[   24s] I have the following modifications for comet.spec:
+[   24s] 25c25
+[   24s] < Release:        0
+[   24s] ---
+[   24s] > Release:        1.1
+[   24s] -----------------------------------------------------------------
+[   24s] ----- building comet.spec (user abuild)
+[   24s] -----------------------------------------------------------------
+[   24s] -----------------------------------------------------------------
+[   24s] setting SOURCE_DATE_EPOCH_MTIME to 1793624962
+[   24s] + exec rpmbuild -ba --define '_srcdefattr (-,root,root)' --nosignature --define '_build_create_debug 1' --define 'disturl obs://build.opensuse.org/openSUSE:Factory:ARM/standard/5d30ad078fbe24eaafb8a1b2bf230c04-comet' /home/abuild/rpmbuild/SOURCES/comet.spec
+[   24s] using SOURCE_DATE_EPOCH with value 1793624961 as build time
+[   24s] Executing(%mkbuilddir): /usr/bin/bash -e /var/tmp/rpm-tmp.Zqllv5
+[   24s] Executing(%prep): /usr/bin/bash -e /var/tmp/rpm-tmp.MDatwi
+[   24s] + umask 022
+[   24s] + cd /home/abuild/rpmbuild/BUILD/comet-0.4.1-build
+[   24s] + cd /home/abuild/rpmbuild/BUILD/comet-0.4.1-build
+[   24s] + rm -rf comet-0.4.1
+[   24s] + /usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/comet-0.4.1.tar.xz
+[   24s] + STATUS=0
+[   24s] + '[' 0 -ne 0 ']'
+[   24s] + cd comet-0.4.1
+[   24s] + /usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/vendor-comet.tar.zst
+[   26s] + STATUS=0
+[   26s] + '[' 0 -ne 0 ']'
+[   26s] + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+[   26s] + RPM_EC=0
+[   26s] ++ jobs -p
+[   26s] + exit 0
+[   26s] Executing(%build): /usr/bin/bash -e /var/tmp/rpm-tmp.dcA0yh
+[   26s] + umask 022
+[   26s] + cd /home/abuild/rpmbuild/BUILD/comet-0.4.1-build
+[   26s] + /usr/bin/rm -rf /home/abuild/rpmbuild/BUILD/comet-0.4.1-build/BUILDROOT
+[   26s] ++ dirname /home/abuild/rpmbuild/BUILD/comet-0.4.1-build/BUILDROOT
+[   26s] + /usr/bin/mkdir -p /home/abuild/rpmbuild/BUILD/comet-0.4.1-build
+[   26s] + /usr/bin/mkdir /home/abuild/rpmbuild/BUILD/comet-0.4.1-build/BUILDROOT
+[   26s] + cd comet-0.4.1
+[   26s] + ref=/usr/lib/rpm
+[   26s] + mints=0
+[   26s] + case $(uname -m) in
+[   26s] ++ uname -m
+[   26s] + mints=20120610
+[   26s] + for s in guess sub
+[   26s] ++ find -maxdepth 8 -name config.guess
+[   27s] + for s in guess sub
+[   27s] ++ find -maxdepth 8 -name config.sub
+[   27s] + unset LIBSSH2_SYS_USE_PKG_CONFIG
+[   27s] + '[' -z '' ']'
+[   27s] + CARGO_AUDITABLE=auditable
+[   27s] + CARGO_INCREMENTAL=0
+[   27s] + CARGO_FEATURE_VENDORED=1
+[   27s] + RUSTFLAGS=' -Clink-arg=-Wl,-z,relro,-z,now -C debuginfo=2 -C strip=none'
+[   27s] + CARGO_TARGET_DIR=/home/abuild/rpmbuild/BUILD/comet-0.4.1-build/comet-0.4.1/target/
+[   27s] + /usr/bin/cargo auditable build -j4 --offline --release
+[   28s]    Compiling proc-macro2 v1.0.107
+[   28s]    Compiling quote v1.0.47
+[   28s]    Compiling unicode-ident v1.0.27
+[   28s]    Compiling libc v0.2.191
+[   28s]    Compiling cfg-if v1.0.5
+[   28s]    Compiling parking_lot_core v0.9.12
+[   28s] error: linker `aarch64-linux-gnu-gcc` not found
+[   28s]   |
+[   28s]   = note: No such file or directory (os error 2)
+[   28s] 
+[   28s] error: could not compile `quote` (build script) due to 1 previous error
+[   28s] warning: build failed, waiting for other jobs to finish...
+[   28s] error: could not compile `proc-macro2` (build script) due to 1 previous error
+[   28s] error: could not compile `parking_lot_core` (build script) due to 1 previous error
+[   29s] error: could not compile `libc` (build script) due to 1 previous error
+[   29s] error: Bad exit status from /var/tmp/rpm-tmp.dcA0yh (%build)
+[   29s] 
+[   29s] RPM build errors:
+[   29s]     Bad exit status from /var/tmp/rpm-tmp.dcA0yh (%build)
+[   29s] ### VM INTERACTION START ###
+[   29s] [   21.106232][    T1] sysrq: Power Off
+[   29s] ### VM INTERACTION END ###
+[   29s] 
+[   29s] i03-armsrv1 failed "build comet.spec" at Mon Nov  2 15:44:14 UTC 2026.
+[   29s] 

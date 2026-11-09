@@ -1,0 +1,891 @@
+[    0s] Using BUILD_ROOT=/var/cache/obs/worker/root_25/.mount
+[    0s] Using BUILD_ARCH=aarch64:aarch64_ilp32:armv8l
+[    0s] Doing kvm build in /var/cache/obs/worker/root_25/root
+[    0s] 
+[    1s] 
+[    1s] i02-armsrv1 started "build jaq.spec" at Tue Oct 13 12:50:04 UTC 2026.
+[    1s] 
+[    1s] Building jaq for project 'openSUSE:Factory:ARM' repository 'standard' arch 'aarch64' srcmd5 'c313f446c6d5d6a1ee90b0e81e145189'
+[    1s] 
+[    1s] processing recipe /var/cache/obs/worker/root_25/.build-srcdir/jaq.spec ...
+[    1s] running changelog2spec --target rpm --file /var/cache/obs/worker/root_25/.build-srcdir/jaq.spec
+[    1s] init_buildsystem --configdir /var/run/obs/worker/25/build/configs --cachedir /var/cache/build --prepare --clean --rpmlist /var/cache/obs/worker/root_25/.build.rpmlist /var/cache/obs/worker/root_25/.build-srcdir/jaq.spec build ...
+[    2s] unpacking preinstall image openSUSE:Factory:ARM/standard/preinstallimage-base [d9ff8d2211c02194fa7a2b6996071314]
+[    5s] 
+[    5s] copying packages...
+[    5s] reordering...cycle: python313-base -> libpython3_13-1_0
+[    5s]   breaking dependency python313-base -> libpython3_13-1_0
+[    5s] done
+[    6s] Detected virtio-serial support
+[   10s] booting kvm...
+[   10s] ### VM INTERACTION START ###
+[   10s] Using virtio-serial support
+[   10s] /usr/bin/qemu-system-aarch64 -nodefaults -no-reboot -nographic -vga none -cpu host -enable-kvm -M virt,accel=kvm,usb=off,gic-version=host -sandbox on -object rng-random,filename=/dev/random,id=rng0 -device virtio-rng-device,rng=rng0 -object iothread,id=io0 -run-with user=qemu -net none -kernel /var/cache/obs/worker/root_25/.mount/boot/kernel -initrd /var/cache/obs/worker/root_25/.mount/boot/initrd -append root=/dev/disk/by-id/virtio-0 rootfstype=ext4 rootflags=noatime elevator=noop nmi_watchdog=0 rw ia32_emulation=1 oops=panic panic=1 quiet console=hvc0 init=/.build/build -m 10240 -drive file=/var/cache/obs/worker/root_25/root,format=raw,if=none,id=disk,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=disk,serial=0 -drive file=/var/cache/obs/worker/root_25/swap,format=raw,if=none,id=swap,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=swap,serial=1 -device virtio-serial,max_ports=2 -device virtconsole,chardev=virtiocon0 -chardev stdio,id=virtiocon0 -chardev socket,id=monitor,server=on,wait=off,path=/var/cache/obs/worker/root_25/root.qemu/monitor -mon chardev=monitor,mode=readline -smp 4
+[   16s] P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=bc486b294b9044898a133db7aa36fb14;user=root;hostname=localhost;machineid=d80ecd9447244a9292c3883daeb87fec;bootid=228dde4fbb7345e18b41cbd8eaee6253;pid=1;pidfdid=1;comm=systemd;type=boot\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J### VM INTERACTION END ###
+[   16s] 2nd stage started in virtual machine
+[   16s] ^[[24;80R^[[24;80Rmachine type: aarch64
+[   16s] Linux version: 7.2.9-1-default #1 SMP PREEMPT_DYNAMIC Sun Oct  4 08:22:02 UTC 2026 (584f686)
+[   16s] Time: Tue Oct 13 12:50:19 UTC 2026
+[   16s] Increasing log level from now on...
+[   16s] [    5.780181][  T398] sysrq: Changing Loglevel
+[   16s] [    5.780218][  T398] sysrq: Loglevel set to 4
+[   16s] Enable sysrq operations
+[   16s] Setting up swapspace version 1, size = 2 GiB (2147479552 bytes)
+[   16s] no label, UUID=5c83cc96-26fd-4482-a03d-773b087923fa
+[   16s] logging output to //.build.log...
+[   16s] processing recipe //.build-srcdir/jaq.spec ...
+[   16s] init_buildsystem --configdir /.build/configs --cachedir /var/cache/build //.build-srcdir/jaq.spec build ...
+[   16s] initializing rpm db...
+[   17s] querying package ids...
+[   18s] [1/172] preinstalled aaa_base-84.87+git20260924.144354a1-1.1
+[   18s] [2/172] preinstalled aaa_base-malloccheck-84.87+git20260924.144354a1-1.1
+[   18s] [3/172] preinstalled alts-2.0+0.4f22c01-1.1
+[   18s] [4/172] preinstalled bash-5.3.20-9.1
+[   18s] [5/172] preinstalled bash-sh-5.3.20-9.1
+[   18s] [6/172] preinstalled binutils-2.47-1.1
+[   18s] [7/172] preinstalled brp-check-suse-84.87+git20260317.a0eb4ba-1.3
+[   18s] [8/172] preinstalled build-compare-20261001T080039.deb96f7-1.1
+[   18s] [9/172] preinstalled build-mkbaselibs-20260505-1.3
+[   18s] [10/172] preinstalled bzip2-1.0.8-6.1
+[   18s] [11/172] preinstalled compat-usrmerge-build-84.87-5.29
+[   18s] [12/172] preinstalled compat-usrmerge-tools-84.87-5.29
+[   18s] [13/172] preinstalled coreutils-9.12-1.1
+[   18s] [14/172] preinstalled cpio-2.15-9.1
+[   18s] [15/172] preinstalled cpp-16-1.1
+[   18s] [16/172] preinstalled cpp16-16.2.1+git9713-1.1
+[   18s] [17/172] preinstalled crypto-policies-20250714.cd6043a-6.1
+[   18s] [18/172] preinstalled debugedit-5.1-1.9
+[   18s] [19/172] preinstalled diffutils-3.12-1.6
+[   18s] [20/172] preinstalled dwz-0.17-1.1
+[   18s] [21/172] preinstalled elfutils-0.196-2.1
+[   18s] [22/172] preinstalled envsubst-mini-1.0-4.1
+[   18s] [23/172] preinstalled file-5.48-2.2
+[   18s] [24/172] preinstalled file-magic-5.48-2.2
+[   18s] [25/172] preinstalled filesystem-84.87-21.2
+[   18s] [26/172] preinstalled fillup-1.42-281.9
+[   18s] [27/172] preinstalled findutils-4.11.0-1.2
+[   18s] [28/172] preinstalled gawk-5.4.1-1.2
+[   18s] [29/172] preinstalled gcc-16-1.1
+[   18s] [30/172] preinstalled gcc-PIE-16-1.1
+[   18s] [31/172] preinstalled gcc16-16.2.1+git9713-1.1
+[   18s] [32/172] preinstalled gcc16-PIE-16.2.1+git9713-1.1
+[   18s] [33/172] preinstalled gettext-runtime-mini-1.0-4.1
+[   18s] [34/172] preinstalled gettext-tools-mini-1.0-4.1
+[   18s] [35/172] preinstalled glibc-2.44-3.1
+[   18s] [36/172] preinstalled glibc-devel-2.44-3.1
+[   18s] [37/172] preinstalled glibc-gconv-modules-extra-2.44-3.1
+[   18s] [38/172] preinstalled glibc-locale-base-2.44-3.1
+[   18s] [39/172] preinstalled grep-3.12-1.5
+[   18s] [40/172] preinstalled gzip-1.15-1.1
+[   18s] [41/172] preinstalled kernel-obs-build-7.2.9-1.1
+[   18s] [42/172] preinstalled libacl1-2.4.0-1.2
+[   18s] [43/172] preinstalled libalternatives1-2.0+0.4f22c01-1.1
+[   18s] [44/172] preinstalled libarchive13-3.8.9-1.1
+[   18s] [45/172] preinstalled libasan8-16.2.1+git9713-1.1
+[   18s] [46/172] preinstalled libasm1-0.196-2.1
+[   18s] [47/172] preinstalled libatomic1-16.2.1+git9713-1.1
+[   18s] [48/172] preinstalled libattr1-2.6.0-1.2
+[   18s] [49/172] preinstalled libaudit1-4.0.2-3.4
+[   18s] [50/172] preinstalled libblkid1-2.42.4-1.1
+[   18s] [51/172] cumulate libbrotlicommon1-1.2.0-2.3
+[   18s] [52/172] preinstalled libbz2-1-1.0.8-6.1
+[   18s] [53/172] preinstalled libcap-ng0-0.8.5-1.10
+[   18s] [54/172] preinstalled libcap2-2.78-1.4
+[   18s] [55/172] cumulate libcom_err2-1.47.3-2.2
+[   18s] [56/172] preinstalled libcrypt1-4.5.2-2.4
+[   18s] [57/172] preinstalled libctf-nobfd0-2.47-1.1
+[   18s] [58/172] preinstalled libctf0-2.47-1.1
+[   18s] [59/172] preinstalled libdw1-0.196-2.1
+[   18s] [60/172] preinstalled libeconf0-0.8.5-1.1
+[   18s] [61/172] cumulate libedit0-20250104.3.1-1.5
+[   18s] [62/172] preinstalled libelf1-0.196-2.1
+[   18s] [63/172] cumulate libexpat1-2.9.0-1.1
+[   18s] [64/172] preinstalled libfdisk1-2.42.4-1.1
+[   18s] [65/172] cumulate libffi8-3.5.2-2.4
+[   18s] [66/172] preinstalled libgcc_s1-16.2.1+git9713-1.1
+[   18s] [67/172] preinstalled libgcrypt20-1.12.4-1.1
+[   18s] [68/172] preinstalled libgdbm6-1.26-1.6
+[   18s] [69/172] preinstalled libgdbm_compat4-1.26-1.6
+[   18s] [70/172] preinstalled libgmp10-6.3.0-5.6
+[   18s] [71/172] preinstalled libgomp1-16.2.1+git9713-1.1
+[   18s] [72/172] preinstalled libgpg-error0-1.61-2.1
+[   18s] [73/172] preinstalled libhwasan0-16.2.1+git9713-1.1
+[   18s] [74/172] preinstalled libisl23-0.27-1.8
+[   18s] [75/172] preinstalled libitm1-16.2.1+git9713-1.1
+[   18s] [76/172] preinstalled libjitterentropy3-3.6.3-2.1
+[   18s] [77/172] preinstalled liblsan0-16.2.1+git9713-1.1
+[   18s] [78/172] preinstalled liblua5_4-5-5.4.8-4.7
+[   18s] [79/172] preinstalled liblz1-1.16-2.1
+[   18s] [80/172] preinstalled liblz4-1-1.10.0-2.10
+[   18s] [81/172] preinstalled liblzma5-5.8.4-1.1
+[   18s] [82/172] preinstalled libmagic1-5.48-2.2
+[   18s] [83/172] preinstalled libmount1-2.42.4-1.1
+[   18s] [84/172] preinstalled libmpc3-1.4.1-1.3
+[   18s] [85/172] cumulate libmpdec4-4.0.1-2.6
+[   18s] [86/172] preinstalled libmpfr6-4.2.2-1.5
+[   18s] [87/172] preinstalled libncurses6-6.6.20260926-115.1
+[   18s] [88/172] cumulate libnghttp2-14-1.70.0-1.1
+[   18s] [89/172] cumulate libnghttp3-9-1.18.0-2.1
+[   18s] [90/172] cumulate libngtcp2-16-1.25.0-2.1
+[   18s] [91/172] preinstalled libopenssl3-3.5.3-8.3
+[   18s] [92/172] preinstalled libpcre2-8-0-10.49-1.1
+[   18s] [93/172] preinstalled libpkgconf7-2.5.1-1.5
+[   18s] [94/172] preinstalled libpopt0-1.19-2.3
+[   18s] [95/172] preinstalled libreadline8-8.3.6-3.1
+[   18s] [96/172] preinstalled librpmbuild10-4.20.1-11.1
+[   18s] [97/172] cumulate libsasl2-3-2.1.28-13.1
+[   18s] [98/172] preinstalled libseccomp2-2.6.1-3.1
+[   18s] [99/172] preinstalled libselinux1-3.11-2.1
+[   18s] [100/172] preinstalled libsframe3-2.47-1.1
+[   18s] [101/172] preinstalled libsmartcols1-2.42.4-1.1
+[   18s] [102/172] cumulate libssh-config-0.11.5-3.1
+[   18s] [103/172] preinstalled libstdc++6-16.2.1+git9713-1.1
+[   18s] [104/172] preinstalled libtsan2-16.2.1+git9713-1.1
+[   18s] [105/172] preinstalled libubsan1-16.2.1+git9713-1.1
+[   18s] [106/172] cumulate libunistring5-1.4.2-1.3
+[   18s] [107/172] preinstalled libuuid1-2.42.4-1.1
+[   18s] [108/172] cumulate libverto1-0.3.2-3.11
+[   18s] [109/172] preinstalled libxcrypt-devel-4.5.2-2.4
+[   18s] [110/172] preinstalled libxml2-16-2.15.4-1.1
+[   18s] [111/172] preinstalled libz1-1.3.1-3.3
+[   18s] [112/172] preinstalled libzstd1-1.5.7-6.1
+[   18s] [113/172] preinstalled linux-glibc-devel-7.2-2.1
+[   18s] [114/172] preinstalled lua-interpreter-5-3.4
+[   18s] [115/172] preinstalled lua54-5.4.8-4.7
+[   18s] [116/172] preinstalled make-4.4.1-3.10
+[   18s] [117/172] preinstalled ncurses-utils-6.6.20260926-115.1
+[   18s] [118/172] preinstalled pam-1.7.3-1.1
+[   18s] [119/172] preinstalled patch-2.8-3.2
+[   18s] [120/172] preinstalled perl-5.44.0-1.2
+[   18s] [121/172] preinstalled perl-base-5.44.0-1.2
+[   18s] [122/172] preinstalled perl-rpm-packaging-1.3-1.3
+[   18s] [123/172] preinstalled permctl-1699_20260917-1.1
+[   18s] [124/172] preinstalled permissions-1699_20260917-1.1
+[   18s] [125/172] preinstalled permissions-config-1699_20260917-1.1
+[   18s] [126/172] preinstalled pkgconf-2.5.1-1.5
+[   18s] [127/172] preinstalled pkgconf-m4-2.5.1-1.5
+[   18s] [128/172] preinstalled pkgconf-pkg-config-2.5.1-1.5
+[   18s] [129/172] preinstalled polkit-default-privs-1550+20261009.03465cb-1.1
+[   18s] [130/172] preinstalled post-build-checks-84.87+git20260421.8ed5e73-1.1
+[   18s] [131/172] cumulate python-rpm-macros-20260909.65d2791-1.1
+[   18s] [132/172] preinstalled rpm-4.20.1-11.1
+[   18s] [133/172] preinstalled rpm-build-4.20.1-11.1
+[   18s] [134/172] preinstalled rpm-config-SUSE-20250904-1.4
+[   18s] [135/172] preinstalled rpmlint-mini-2.10.0+git20261009.041119a7-21.49
+[   18s] [136/172] preinstalled rpmlint-strict-2.10.0+git20261009.041119a7-1.1
+[   18s] [137/172] preinstalled sed-4.10-1.4
+[   18s] [138/172] preinstalled suse-reproducible-builds-1.0-1.2
+[   18s] [139/172] preinstalled system-user-root-20190513-2.23
+[   18s] [140/172] preinstalled systemd-rpm-macros-26-1.4
+[   18s] [141/172] preinstalled tar-1.35-10.1
+[   18s] [142/172] preinstalled terminfo-base-6.6.20260926-115.1
+[   18s] [143/172] preinstalled util-linux-2.42.4-1.1
+[   18s] [144/172] preinstalled which-2.25-1.3
+[   18s] [145/172] preinstalled xz-5.8.4-1.1
+[   18s] [146/172] cumulate zstd-1.5.7-6.1
+[   18s] [147/172] cumulate libLLVM23-23.1.3-1.1
+[   18s] [148/172] cumulate libbrotlidec1-1.2.0-2.3
+[   18s] [149/172] cumulate libidn2-0-2.3.8-1.5
+[   18s] [150/172] cumulate libldap2-2.6.13-1.6
+[   18s] [151/172] cumulate libngtcp2_crypto_ossl0-1.25.0-2.1
+[   18s] [152/172] cumulate krb5-mini-1.22.2-4.2
+[   18s] [153/172] cumulate libclang-cpp23-23.1.3-1.1
+[   18s] [154/172] cumulate lld23-23.1.3-1.1
+[   18s] [155/172] cumulate libpsl5-0.23.3-1.1
+[   18s] [156/172] cumulate libssh4-0.11.5-3.1
+[   18s] [157/172] cumulate lld-23-1.1
+[   18s] [158/172] cumulate libclang13-23.1.3-1.1
+[   18s] [159/172] cumulate libcurl4-8.22.0-1.1
+[   18s] [160/172] cumulate python313-base-3.13.15-2.1
+[   18s] [161/172] cumulate libclang_rt23-23.1.3-1.1
+[   18s] [162/172] cumulate libpython3_13-1_0-3.13.15-2.1
+[   18s] [163/172] cumulate python313-packaging-26.3-1.1
+[   18s] [164/172] cumulate python-rpm-packaging-20210526+a18ca48-2.1
+[   18s] [165/172] cumulate clang23-23.1.3-1.1
+[   18s] [166/172] cumulate clang-23-1.1
+[   18s] [167/172] cumulate rust1.99-1.99.0-1.1
+[   18s] [168/172] cumulate rust-1.99.0-1.1
+[   18s] [169/172] cumulate cargo1.99-1.99.0-1.1
+[   18s] [170/172] cumulate cargo-1.99.0-1.1
+[   18s] [171/172] cumulate cargo-auditable-0.7.7~0-1.1
+[   18s] [172/172] cumulate cargo-packaging-1.5.0+0-1.4
+[   18s] now installing cumulated packages
+[   18s] Preparing...                          ########################################
+[   18s] Updating / installing...
+[   19s] libunistring5-1.4.2-1.3               ########################################
+[   19s] libidn2-0-2.3.8-1.5                   ########################################
+[   19s] libngtcp2-16-1.25.0-2.1               ########################################
+[   19s] libngtcp2_crypto_ossl0-1.25.0-2.1     ########################################
+[   19s] libpsl5-0.23.3-1.1                    ########################################
+[   19s] zstd-1.5.7-6.1                        ########################################
+[   19s] python-rpm-macros-20260909.65d2791-1.1########################################
+[   19s] libverto1-0.3.2-3.11                  ########################################
+[   19s] libssh-config-0.11.5-3.1              ########################################
+[   19s] libsasl2-3-2.1.28-13.1                ########################################
+[   19s] libldap2-2.6.13-1.6                   ########################################
+[   19s] libnghttp3-9-1.18.0-2.1               ########################################
+[   19s] libnghttp2-14-1.70.0-1.1              ########################################
+[   19s] libmpdec4-4.0.1-2.6                   ########################################
+[   19s] libffi8-3.5.2-2.4                     ########################################
+[   19s] libexpat1-2.9.0-1.1                   ########################################
+[   19s] libpython3_13-1_0-3.13.15-2.1         ########################################
+[   19s] python313-base-3.13.15-2.1            ########################################
+[   19s] libclang_rt23-23.1.3-1.1              ########################################
+[   19s] python313-packaging-26.3-1.1          ########################################
+[   19s] libedit0-20250104.3.1-1.5             ########################################
+[   20s] libLLVM23-23.1.3-1.1                  ########################################
+[   21s] libclang-cpp23-23.1.3-1.1             ########################################
+[   21s] libclang13-23.1.3-1.1                 ########################################
+[   21s] clang23-23.1.3-1.1                    ########################################
+[   21s] clang-23-1.1                          ########################################
+[   21s] lld23-23.1.3-1.1                      ########################################
+[   21s] lld-23-1.1                            ########################################
+[   25s] rust1.99-1.99.0-1.1                   ########################################
+[   25s] rust-1.99.0-1.1                       ########################################
+[   25s] libcom_err2-1.47.3-2.2                ########################################
+[   25s] krb5-mini-1.22.2-4.2                  ########################################
+[   25s] Updating /etc/sysconfig/kadmind ...
+[   25s] Updating /etc/sysconfig/krb5kdc ...
+[   25s] libssh4-0.11.5-3.1                    ########################################
+[   25s] libbrotlicommon1-1.2.0-2.3            ########################################
+[   25s] libbrotlidec1-1.2.0-2.3               ########################################
+[   25s] libcurl4-8.22.0-1.1                   ########################################
+[   26s] cargo1.99-1.99.0-1.1                  ########################################
+[   26s] cargo-1.99.0-1.1                      ########################################
+[   26s] cargo-auditable-0.7.7~0-1.1           ########################################
+[   26s] cargo-packaging-1.5.0+0-1.4           ########################################
+[   26s] python-rpm-packaging-20210526+a18ca48-########################################
+[   27s] now finalizing build dir...
+[   27s] ... running 01-add_abuild_user_to_trusted_group
+[   27s] ... running 02-set_timezone_to_utc
+[   27s] ... running 03-set-permissions-secure
+[   27s] ... running 11-hack_uname_version_to_kernel_version
+[   27s] setting SOURCE_DATE_EPOCH_MTIME to 1755931260
+[   28s] Running build time source services...
+[   28s] -----------------------------------------------------------------
+[   28s] I have the following modifications for jaq.spec:
+[   28s] 23c23
+[   28s] < Release:        0
+[   28s] ---
+[   28s] > Release:        1.8
+[   28s] -----------------------------------------------------------------
+[   28s] ----- building jaq.spec (user abuild)
+[   28s] -----------------------------------------------------------------
+[   28s] -----------------------------------------------------------------
+[   29s] setting SOURCE_DATE_EPOCH_MTIME to 1755931260
+[   29s] + exec rpmbuild -ba --define '_srcdefattr (-,root,root)' --nosignature --define '_build_create_debug 1' --define 'disturl obs://build.opensuse.org/openSUSE:Factory:ARM/standard/c313f446c6d5d6a1ee90b0e81e145189-jaq' /home/abuild/rpmbuild/SOURCES/jaq.spec
+[   29s] using SOURCE_DATE_EPOCH with value 1755931252 as build time
+[   29s] Executing(%mkbuilddir): /usr/bin/bash -e /var/tmp/rpm-tmp.mrcg6L
+[   29s] Executing(%prep): /usr/bin/bash -e /var/tmp/rpm-tmp.fQm0cj
+[   29s] + umask 022
+[   29s] + cd /home/abuild/rpmbuild/BUILD/jaq-2.3.0-build
+[   29s] + cd /home/abuild/rpmbuild/BUILD/jaq-2.3.0-build
+[   29s] + rm -rf jaq-2.3.0
+[   29s] + /usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/jaq-2.3.0.tar.gz
+[   29s] + STATUS=0
+[   29s] + '[' 0 -ne 0 ']'
+[   29s] + cd jaq-2.3.0
+[   29s] + /usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/vendor.tar.zst
+[   31s] + STATUS=0
+[   31s] + '[' 0 -ne 0 ']'
+[   31s] + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+[   31s] + RPM_EC=0
+[   31s] ++ jobs -p
+[   31s] + exit 0
+[   31s] Executing(%build): /usr/bin/bash -e /var/tmp/rpm-tmp.dl747t
+[   31s] + umask 022
+[   31s] + cd /home/abuild/rpmbuild/BUILD/jaq-2.3.0-build
+[   31s] + /usr/bin/rm -rf /home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/BUILDROOT
+[   31s] ++ dirname /home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/BUILDROOT
+[   31s] + /usr/bin/mkdir -p /home/abuild/rpmbuild/BUILD/jaq-2.3.0-build
+[   31s] + /usr/bin/mkdir /home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/BUILDROOT
+[   31s] + cd jaq-2.3.0
+[   31s] + ref=/usr/lib/rpm
+[   31s] + mints=0
+[   31s] + case $(uname -m) in
+[   31s] ++ uname -m
+[   31s] + mints=20120610
+[   31s] + for s in guess sub
+[   31s] ++ find -maxdepth 8 -name config.guess
+[   31s] + for s in guess sub
+[   31s] ++ find -maxdepth 8 -name config.sub
+[   31s] + unset LIBSSH2_SYS_USE_PKG_CONFIG
+[   31s] + '[' -z '' ']'
+[   31s] + CARGO_AUDITABLE=auditable
+[   31s] + CARGO_INCREMENTAL=0
+[   31s] + CARGO_FEATURE_VENDORED=1
+[   31s] + RUSTFLAGS=' -Clink-arg=-Wl,-z,relro,-z,now -C debuginfo=2 -C strip=none'
+[   31s] + CARGO_TARGET_DIR=/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0/target/
+[   31s] + /usr/bin/cargo auditable build -j4 --offline --release --package jaq
+[   32s]    Compiling libc v0.2.175
+[   32s]    Compiling autocfg v1.5.0
+[   32s]    Compiling rustix v1.0.8
+[   32s]    Compiling cfg-if v1.0.3
+[   32s]    Compiling bitflags v2.9.3
+[   32s]    Compiling shlex v1.3.0
+[   32s]    Compiling once_cell v1.21.3
+[   33s]    Compiling cc v1.2.34
+[   33s]    Compiling num-traits v0.2.19
+[   33s]    Compiling libm v0.2.15
+[   33s]    Compiling linux-raw-sys v0.9.4
+[   33s]    Compiling memchr v2.7.5
+[   35s]    Compiling log v0.4.27
+[   36s]    Compiling getrandom v0.3.3
+[   36s]    Compiling typed-arena v2.0.2
+[   36s]    Compiling dyn-clone v1.0.20
+[   37s]    Compiling iana-time-zone v0.1.63
+[   37s]    Compiling chrono v0.4.41
+[   37s]    Compiling libmimalloc-sys v0.1.43
+[   37s]    Compiling jaq-core v2.2.1 (/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0/jaq-core)
+[   44s]    Compiling aho-corasick v1.1.3
+[   47s]    Compiling hashbrown v0.15.5
+[   48s]    Compiling base64 v0.22.1
+[   48s]    Compiling equivalent v1.0.2
+[   48s]    Compiling urlencoding v2.1.3
+[   49s]    Compiling regex-lite v0.1.6
+[   49s]    Compiling option-ext v0.2.0
+[   49s]    Compiling dirs-sys v0.5.0
+[   49s]    Compiling indexmap v2.11.0
+[   51s]    Compiling jaq-std v2.1.2 (/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0/jaq-std)
+[   53s]    Compiling fd-lock v4.0.4
+[   53s]    Compiling nix v0.27.1
+[   54s]    Compiling fastrand v2.3.0
+[   55s]    Compiling foldhash v0.1.5
+[   55s]    Compiling unicode-segmentation v1.12.0
+[   56s]    Compiling hifijson v0.2.3
+[   56s]    Compiling utf8parse v0.2.2
+[   56s]    Compiling unicode-width v0.1.14
+[   57s]    Compiling jaq-json v1.1.3 (/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0/jaq-json)
+[   57s]    Compiling tempfile v3.21.0
+[   57s]    Compiling mimalloc v0.1.47
+[   57s]    Compiling dirs v6.0.0
+[   57s] warning: hiding a lifetime that's elided elsewhere is confusing
+[   57s]    --> jaq-json/src/lib.rs:537:19
+[   57s]     |
+[   57s] 537 |     fn key_values(&self) -> Option<BoxIter<(Val, &Val)>> {
+[   57s]     |                   ^^^^^            ^^^^^^^^^^^^^^^^^^^^
+[   57s]     |                   |                |             |
+[   57s]     |                   |                |             the same lifetime is elided here
+[   57s]     |                   |                the same lifetime is hidden here
+[   57s]     |                   the lifetime is elided here
+[   57s]     |
+[   57s]     = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+[   57s]     = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+[   57s] help: use `'_` for type paths
+[   57s]     |
+[   57s] 537 |     fn key_values(&self) -> Option<BoxIter<'_, (Val, &Val)>> {
+[   57s]     |                                            +++
+[   57s] 
+[   57s]    Compiling is-terminal v0.4.16
+[   57s]    Compiling memmap2 v0.9.8
+[   58s]    Compiling env_logger v0.10.2
+[   59s]    Compiling rustyline v13.0.0
+[   60s]    Compiling yansi v1.0.1
+[   61s]    Compiling codesnake v0.2.1
+[   68s] warning: `jaq-json` (lib) generated 1 warning (run `cargo fix --lib -p jaq-json` to apply 1 suggestion)
+[   72s]    Compiling jaq v2.3.0 (/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0/jaq)
+[  121s]     Finished `release` profile [optimized] target(s) in 1m 30s
+[  121s] + RPM_EC=0
+[  121s] ++ jobs -p
+[  121s] + exit 0
+[  121s] Executing(%install): /usr/bin/bash -e /var/tmp/rpm-tmp.sITNOf
+[  121s] + umask 022
+[  121s] + cd /home/abuild/rpmbuild/BUILD/jaq-2.3.0-build
+[  121s] + /usr/bin/rm -rf /home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/BUILDROOT
+[  121s] + /usr/bin/mkdir -p /home/abuild/rpmbuild/BUILD/jaq-2.3.0-build
+[  121s] + /usr/bin/mkdir /home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/BUILDROOT
+[  121s] + cd jaq-2.3.0
+[  121s] + pushd jaq
+[  121s] ~/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0/jaq ~/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0
+[  121s] + unset LIBSSH2_SYS_USE_PKG_CONFIG
+[  121s] + '[' -z '' ']'
+[  121s] + CARGO_AUDITABLE=auditable
+[  121s] + CARGO_INCREMENTAL=0
+[  121s] + CARGO_FEATURE_VENDORED=1
+[  121s] + RUSTFLAGS=' -Clink-arg=-Wl,-z,relro,-z,now -C debuginfo=2 -C strip=none'
+[  121s] + CARGO_TARGET_DIR=/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0/target/
+[  121s] + /usr/bin/cargo auditable install -j4 --offline --no-track --root=/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/BUILDROOT/usr --path .
+[  121s]   Installing jaq v2.3.0 (/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0/jaq)
+[  122s]      Locking 103 packages to highest compatible versions
+[  122s] warning: hiding a lifetime that's elided elsewhere is confusing
+[  122s]    --> jaq-json/src/lib.rs:537:19
+[  122s]     |
+[  122s] 537 |     fn key_values(&self) -> Option<BoxIter<(Val, &Val)>> {
+[  122s]     |                   ^^^^^            ^^^^^^^^^^^^^^^^^^^^
+[  122s]     |                   |                |             |
+[  122s]     |                   |                |             the same lifetime is elided here
+[  122s]     |                   |                the same lifetime is hidden here
+[  122s]     |                   the lifetime is elided here
+[  122s]     |
+[  122s]     = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+[  122s]     = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+[  122s] help: use `'_` for type paths
+[  122s]     |
+[  122s] 537 |     fn key_values(&self) -> Option<BoxIter<'_, (Val, &Val)>> {
+[  122s]     |                                            +++
+[  122s] 
+[  122s] warning: `jaq-json` (lib) generated 1 warning (run `cargo fix --lib -p jaq-json` to apply 1 suggestion)
+[  122s]     Finished `release` profile [optimized] target(s) in 0.18s
+[  122s]   Installing /home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/BUILDROOT/usr/bin/jaq
+[  122s]    Installed package `jaq v2.3.0 (/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0/jaq)` (executable `jaq`)
+[  122s] warning: be sure to add `/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/BUILDROOT/usr/bin` to your PATH to be able to run the installed binaries
+[  122s] + popd
+[  122s] ~/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0
+[  122s] + /usr/lib/rpm/find-debuginfo -j4 -n --run-dwz --dwz-low-mem-die-limit 10000000 --dwz-max-die-limit 50000000 -S debugsourcefiles.list /home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0
+[  122s] find-debuginfo: starting
+[  122s] Extracting debug info from 1 files
+[  123s] DWARF-compressing 1 files
+[  123s] sepdebugcrcfix: Updated 1 CRC32s, 0 CRC32s did match.
+[  123s] Copying sources found by 'debugedit -l' to /usr/src/debug
+[  124s] find-debuginfo: done
+[  124s] + /usr/lib/rpm/brp-compress
+[  124s] + /usr/lib/rpm/brp-suse
+[  124s] calling /usr/lib/rpm/brp-suse.d/brp-05-permissions
+[  124s] calling /usr/lib/rpm/brp-suse.d/brp-15-strip-debug
+[  124s] calling /usr/lib/rpm/brp-suse.d/brp-25-symlink
+[  124s] calling /usr/lib/rpm/brp-suse.d/brp-50-generate-fips-hmac
+[  124s] calling /usr/lib/rpm/brp-suse.d/brp-75-ar
+[  124s] Executing(%check): /usr/bin/bash -e /var/tmp/rpm-tmp.M824MR
+[  124s] + umask 022
+[  124s] + cd /home/abuild/rpmbuild/BUILD/jaq-2.3.0-build
+[  124s] + cd jaq-2.3.0
+[  124s] + unset LIBSSH2_SYS_USE_PKG_CONFIG
+[  124s] + '[' -z '' ']'
+[  124s] + CARGO_AUDITABLE=auditable
+[  124s] + CARGO_INCREMENTAL=0
+[  124s] + CARGO_FEATURE_VENDORED=1
+[  124s] + RUSTFLAGS=' -Clink-arg=-Wl,-z,relro,-z,now -C debuginfo=2 -C strip=none'
+[  124s] + CARGO_TARGET_DIR=/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0/target/
+[  124s] + /usr/bin/cargo auditable test -j4 --offline --no-fail-fast
+[  124s]    Compiling once_cell v1.21.3
+[  124s]    Compiling autocfg v1.5.0
+[  124s]    Compiling memchr v2.7.5
+[  124s]    Compiling log v0.4.27
+[  125s]    Compiling libm v0.2.15
+[  125s]    Compiling serde v1.0.219
+[  125s]    Compiling dyn-clone v1.0.20
+[  125s]    Compiling serde_json v1.0.143
+[  125s]    Compiling iana-time-zone v0.1.63
+[  125s]    Compiling typed-arena v2.0.2
+[  125s]    Compiling jaq-core v2.2.1 (/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0/jaq-core)
+[  126s]    Compiling num-traits v0.2.19
+[  129s]    Compiling chrono v0.4.41
+[  130s]    Compiling aho-corasick v1.1.3
+[  130s]    Compiling base64 v0.22.1
+[  132s]    Compiling ryu v1.0.20
+[  132s]    Compiling urlencoding v2.1.3
+[  132s]    Compiling regex-lite v0.1.6
+[  133s]    Compiling itoa v1.0.15
+[  133s]    Compiling hashbrown v0.15.5
+[  134s]    Compiling equivalent v1.0.2
+[  134s]    Compiling indexmap v2.11.0
+[  135s]    Compiling jaq-std v2.1.2 (/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0/jaq-std)
+[  135s]    Compiling hifijson v0.2.3
+[  135s]    Compiling foldhash v0.1.5
+[  136s]    Compiling libc v0.2.175
+[  136s]    Compiling cfg-if v1.0.3
+[  136s]    Compiling proc-macro2 v1.0.101
+[  136s]    Compiling unicode-ident v1.0.18
+[  136s]    Compiling wasm-bindgen-shared v0.2.100
+[  136s]    Compiling bumpalo v3.19.0
+[  136s]    Compiling jaq-json v1.1.3 (/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0/jaq-json)
+[  137s] warning: hiding a lifetime that's elided elsewhere is confusing
+[  137s]    --> jaq-json/src/lib.rs:537:19
+[  137s]     |
+[  137s] 537 |     fn key_values(&self) -> Option<BoxIter<(Val, &Val)>> {
+[  137s]     |                   ^^^^^            ^^^^^^^^^^^^^^^^^^^^
+[  137s]     |                   |                |             |
+[  137s]     |                   |                |             the same lifetime is elided here
+[  137s]     |                   |                the same lifetime is hidden here
+[  137s]     |                   the lifetime is elided here
+[  137s]     |
+[  137s]     = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+[  137s]     = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+[  137s] help: use `'_` for type paths
+[  137s]     |
+[  137s] 537 |     fn key_values(&self) -> Option<BoxIter<'_, (Val, &Val)>> {
+[  137s]     |                                            +++
+[  137s] 
+[  138s]    Compiling quote v1.0.40
+[  139s]    Compiling syn v2.0.106
+[  139s]    Compiling rustversion v1.0.22
+[  139s]    Compiling bitflags v2.9.3
+[  139s]    Compiling wasm-bindgen v0.2.100
+[  139s]    Compiling shlex v1.3.0
+[  139s] warning: `jaq-json` (lib) generated 1 warning (run `cargo fix --lib -p jaq-json` to apply 1 suggestion)
+[  139s]    Compiling rustix v1.0.8
+[  140s]    Compiling cc v1.2.34
+[  140s]    Compiling unicode-width v0.1.14
+[  140s]    Compiling linux-raw-sys v0.9.4
+[  141s]    Compiling codesnake v0.2.1
+[  141s]    Compiling getrandom v0.3.3
+[  141s]    Compiling option-ext v0.2.0
+[  142s]    Compiling dirs-sys v0.5.0
+[  142s]    Compiling nix v0.27.1
+[  143s]    Compiling libmimalloc-sys v0.1.43
+[  145s]    Compiling fd-lock v4.0.4
+[  145s]    Compiling utf8parse v0.2.2
+[  145s]    Compiling unicode-segmentation v1.12.0
+[  145s]    Compiling fastrand v2.3.0
+[  146s]    Compiling wasm-bindgen-backend v0.2.100
+[  146s]    Compiling tempfile v3.21.0
+[  148s]    Compiling rustyline v13.0.0
+[  148s]    Compiling mimalloc v0.1.47
+[  148s]    Compiling dirs v6.0.0
+[  149s]    Compiling getrandom v0.2.16
+[  149s]    Compiling wasm-bindgen-macro-support v0.2.100
+[  151s]    Compiling is-terminal v0.4.16
+[  151s]    Compiling memmap2 v0.9.8
+[  152s]    Compiling env_logger v0.10.2
+[  152s]    Compiling yansi v1.0.1
+[  153s]    Compiling jaq v2.3.0 (/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0/jaq)
+[  153s]    Compiling wasm-bindgen-macro v0.2.100
+[  157s]    Compiling js-sys v0.3.77
+[  164s]    Compiling web-sys v0.3.77
+[  166s]    Compiling console_log v1.0.0
+[  166s]    Compiling jaq-play v0.0.0 (/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0/jaq-play)
+[  177s] warning: `jaq-json` (lib test) generated 1 warning (1 duplicate)
+[  181s]     Finished `test` profile [unoptimized + debuginfo] target(s) in 57.42s
+[  181s]      Running unittests src/main.rs (target/debug/deps/jaq-7383a75b4e6d1615)
+[  181s] 
+[  181s] running 0 tests
+[  181s] 
+[  181s] test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+[  181s] 
+[  181s]      Running tests/golden.rs (target/debug/deps/golden-492c95a1706ce486)
+[  181s] 
+[  181s] running 17 tests
+[  181s] test compact ... ok
+[  181s] test args ... ok
+[  182s] test argjson ... ok
+[  182s] test arg ... ok
+[  182s] test fmt_obj_key ... ok
+[  182s] test mods ... ok
+[  182s] test no_args ... ok
+[  182s] test null_input ... ok
+[  182s] test inputs ... ok
+[  182s] test join_output ... ok
+[  182s] test raw_input_slurp ... ok
+[  182s] test one ... ok
+[  182s] test raw_input ... ok
+[  182s] test sort_keys ... ok
+[  182s] test raw_output ... ok
+[  182s] test sparse ... ok
+[  182s] test fmt_str ... ok
+[  182s] 
+[  182s] test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.16s
+[  182s] 
+[  182s]      Running unittests src/lib.rs (target/debug/deps/jaq_core-c640d084369fb88c)
+[  182s] 
+[  182s] running 4 tests
+[  182s] test filter::lazy_is_lazy ... ok
+[  182s] test load::prec_climb::test ... ok
+[  182s] test rc_list::test ... ok
+[  182s] test rc_lazy_list::drop ... ok
+[  182s] 
+[  182s] test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+[  182s] 
+[  182s]      Running tests/path.rs (target/debug/deps/path-8e8527fa99742517)
+[  182s] 
+[  182s] running 17 tests
+[  182s] test alt_update_r ... ok
+[  182s] test alt_update_l ... ok
+[  182s] test index_access ... ok
+[  182s] test index_keyword ... ok
+[  182s] test index_opt_outer ... ok
+[  182s] test iter_access ... ok
+[  182s] test iter_assign ... ok
+[  182s] test iter_update ... ok
+[  182s] test key_update1 ... ok
+[  182s] test key_update2 ... ok
+[  182s] test obj_keyword ... ok
+[  182s] test index_opt_inner ... ok
+[  182s] test update_complex ... ok
+[  182s] test update_mult ... ok
+[  182s] test range_update ... ok
+[  182s] test range_access ... ok
+[  182s] test index_update ... ok
+[  182s] 
+[  182s] test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+[  182s] 
+[  182s]      Running tests/tests.rs (target/debug/deps/tests-955edfac1f5868ee)
+[  182s] 
+[  182s] running 106 tests
+[  182s] test add ... ok
+[  182s] test args_mixed ... ok
+[  182s] test atomic_block ... ok
+[  182s] test alt ... ok
+[  182s] test atomic_call ... ok
+[  182s] test atomic_fold ... ok
+[  182s] test atomic_id ... ok
+[  182s] test atomic_if ... ok
+[  182s] test atomic_key1 ... ok
+[  182s] test atomic_key2 ... ok
+[  182s] test atomic_num ... ok
+[  182s] 
+[  182s] thread 'ackermann' (2955) has overflowed its stack
+[  182s] fatal runtime error: stack overflow, aborting
+[  182s] error: test failed, to rerun pass `-p jaq-core --test tests`
+[  182s] 
+[  182s] Caused by:
+[  182s]   process didn't exit successfully: `/home/abuild/rpmbuild/BUILD/jaq-2.3.0-build/jaq-2.3.0/target/debug/deps/tests-955edfac1f5868ee` (signal: 6, SIGABRT: process abort signal)
+[  182s]      Running unittests src/lib.rs (target/debug/deps/jaq_json-3aadd1631bd58bf1)
+[  182s] 
+[  182s] running 1 test
+[  182s] test wrap_test ... ok
+[  182s] 
+[  182s] test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+[  182s] 
+[  182s]      Running tests/defs.rs (target/debug/deps/defs-aa06651ed68f7db3)
+[  182s] 
+[  182s] running 13 tests
+[  182s] test keys ... ok
+[  182s] test entries ... ok
+[  182s] test paths_arr ... ok
+[  182s] test paths_arr_obj ... ok
+[  182s] test paths_filter ... ok
+[  182s] test paths_null ... ok
+[  182s] test inside ... ok
+[  182s] test format_json ... ok
+[  182s] test paths_num ... ok
+[  182s] test recurse_paths ... ok
+[  182s] test walk ... ok
+[  182s] test while_until ... ok
+[  182s] test transpose ... ok
+[  182s] 
+[  182s] test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+[  182s] 
+[  182s]      Running tests/funs.rs (target/debug/deps/funs-18b466b2d86926c0)
+[  182s] 
+[  182s] running 26 tests
+[  182s] test bsearch_absent3 ... ok
+[  182s] test bsearch_absent1 ... ok
+[  182s] test bsearch_present ... ok
+[  182s] test indices_arr_arr ... ok
+[  182s] test indices_arr_larger ... ok
+[  182s] test indices_arr_empty ... ok
+[  182s] test bsearch_absent2 ... ok
+[  182s] test indices_arr_overlap ... ok
+[  182s] test has ... ok
+[  182s] test indices_arr_str ... ok
+[  182s] test indices_str ... ok
+[  182s] test indices_arr_num ... ok
+[  182s] test indices_str_gb2 ... ok
+[  182s] test indices_str_overlap ... ok
+[  182s] test keys_unsorted ... ok
+[  182s] test length_float_neg ... ok
+[  182s] test indices_str_gb1 ... ok
+[  182s] test length_float_pos ... ok
+[  182s] test length_int_pos ... ok
+[  182s] test length_int_neg ... ok
+[  182s] test length_obj ... ok
+[  182s] test path_values ... ok
+[  182s] test length_str_foo ... ok
+[  182s] test length_str_namaste ... ok
+[  182s] test tojson ... ok
+[  182s] test math_rem ... ok
+[  182s] 
+[  182s] test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.31s
+[  182s] 
+[  182s]      Running unittests src/lib.rs (target/debug/deps/jaq_play-11ebb76e0deab048)
+[  182s] 
+[  182s] running 0 tests
+[  182s] 
+[  182s] test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+[  182s] 
+[  182s]      Running unittests src/lib.rs (target/debug/deps/jaq_std-f2c098d887ad793e)
+[  182s] 
+[  182s] running 0 tests
+[  182s] 
+[  182s] test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+[  182s] 
+[  182s]      Running tests/defs.rs (target/debug/deps/defs-1639f88cf663fa7c)
+[  182s] 
+[  182s] running 72 tests
+[  182s] test add ... ok
+[  182s] test drem_nan ... ok
+[  182s] test drem_range ... ok
+[  182s] test flatten_deep ... ok
+[  182s] test flatten ... ok
+[  182s] test flatten_obj ... ok
+[  182s] test all ... ok
+[  182s] test flatten_num ... ok
+[  182s] test any ... ok
+[  182s] test format_sh_rejects_nested_arrays ... ok
+[  182s] test format_csv ... ok
+[  182s] test format_sh_rejects_objects ... ok
+[  182s] test format_text ... ok
+[  182s] test format_tsv ... ok
+[  182s] test format_sh ... ok
+[  182s] test fromdate ... ok
+[  182s] test gisub ... ok
+[  182s] test format_urid_invalid ... ok
+[  182s] test gsub ... ok
+[  182s] test gsub_swap ... ok
+[  182s] test gsub_many ... ok
+[  182s] test isfinite_false ... ok
+[  182s] test isnormal_false ... ok
+[  182s] test isfinite_true ... ok
+[  182s] test isnormal_true ... ok
+[  182s] test isub ... ok
+[  182s] test join_empty ... ok
+[  182s] test join_nums ... ok
+[  182s] test join_strs ... ok
+[  182s] test last_empty ... ok
+[  182s] test last_some ... ok
+[  182s] test limit_inf_path ... ok
+[  182s] test limit_inf_suml ... ok
+[  182s] test logb_inf ... ok
+[  182s] test limit_inf_sumr ... ok
+[  182s] test logb_neg_inf ... ok
+[  182s] test logb_nan ... ok
+[  182s] test logb_zero ... ok
+[  182s] test logb_range ... ok
+[  182s] test map ... ok
+[  182s] test match_many ... ok
+[  182s] test max_mult ... ok
+[  182s] test min_empty ... ok
+[  182s] test min_max_eq ... ok
+[  182s] test nth ... ok
+[  182s] test min_max ... ok
+[  182s] test range_many ... ok
+[  182s] test recurse3 ... ok
+[  182s] test range_reverse ... ok
+[  182s] test recurse_flatten ... ok
+[  182s] test recurse_arr ... ok
+[  182s] test recurse_update ... ok
+[  182s] test recurse_obj ... ok
+[  182s] test repeat ... ok
+[  183s] test reduce_recurse ... ok
+[  183s] test scalb_eqv_pow2 ... ok
+[  183s] test scalb_nan ... ok
+[  183s] test scan ... ok
+[  183s] test scalb_range ... ok
+[  183s] test significand_inf ... ok
+[  183s] test significand_nan ... ok
+[  183s] test significand_neg_inf ... ok
+[  183s] test significand_range ... ok
+[  183s] test sub ... ok
+[  183s] test todate ... ok
+[  183s] test tofromdate ... ok
+[  183s] test select ... ok
+[  183s] test tostring_arr_str ... ok
+[  183s] test tostring_str ... ok
+[  183s] test typ ... ok
+[  183s] test format_urid ... ok
+[  183s] test format_uri ... ok
+[  183s] 
+[  183s] test result: ok. 72 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.39s
+[  183s] 
+[  183s]      Running tests/funs.rs (target/debug/deps/funs-23ff53a221ac2348)
+[  183s] 
+[  183s] running 68 tests
+[  183s] test ceili_mid ... ok
+[  183s] test ceili_floor ... ok
+[  183s] test encode_base64 ... ok
+[  183s] test encode_decode_base64 ... ok
+[  183s] test escape_html ... ok
+[  183s] test encode_uri ... ok
+[  183s] test first_empty ... ok
+[  183s] test first_some ... ok
+[  183s] test floor_floor ... ok
+[  183s] test floor_mid ... ok
+[  183s] test fromdate ... ok
+[  183s] test fromdate_mu ... ok
+[  183s] test fromtodate ... ok
+[  183s] test gmtime ... ok
+[  183s] test gmtime_mktime_mu ... ok
+[  183s] test gmtime_mu ... ok
+[  183s] test group_by ... ok
+[  183s] test lazy_array ... ok
+[  183s] test lazy_foreach ... ok
+[  183s] test limit ... ok
+[  183s] test explode_implode ... ok
+[  183s] test limit_overflow ... ok
+[  183s] test ascii ... ok
+[  183s] test math_0_argument_scalar_filters ... ok
+[  183s] test math_0_argument_vector_filters ... ok
+[  183s] test math_2_argument_filters ... ok
+[  183s] test endswith ... ok
+[  183s] test math_3_argument_filters ... ok
+[  183s] test mktime ... ok
+[  183s] test nested_rec ... ok
+[  183s] test ltrimstr ... ok
+[  183s] test range_fp ... ok
+[  183s] test range_ip ... ok
+[  183s] test range_nn ... ok
+[  183s] test range_nz ... ok
+[  183s] test range_np ... ok
+[  183s] test range_in ... ok
+[  183s] test range_pz ... ok
+[  183s] test range_zz ... ok
+[  183s] test rec_two_var_args ... ok
+[  183s] test rec_update ... ok
+[  183s] test range_pn ... ok
+[  183s] test range_pp ... ok
+[  183s] test ltrim ... ok
+[  183s] test repeat ... ok
+[  183s] test round_floor ... ok
+[  183s] test round_int ... ok
+[  183s] test round_ni ... ok
+[  183s] test round_nf ... ok
+[  183s] test round_pf ... ok
+[  183s] test regex ... ok
+[  183s] test round_mid ... ok
+[  183s] test round_pi ... ok
+[  183s] test sort_break_out ... ok
+[  183s] test sort_break_in ... ok
+[  183s] test rtrim ... ok
+[  183s] test strftime_arr ... ok
+[  183s] test rtrimstr ... ok
+[  183s] test strftime_mu ... ok
+[  183s] test strptime ... ok
+[  183s] test startswith ... ok
+[  183s] test todate ... ok
+[  183s] test todate_mu ... ok
+[  183s] test utf8bytelength_foo1 ... ok
+[  183s] test utf8bytelength_foo2 ... ok
+[  183s] test utf8bytelength_namaste ... ok
+[  183s] test strftime ... ok
+[  183s] test trim ... ok
+[  183s] 
+[  183s] test result: ok. 68 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.38s
+[  183s] 
+[  183s]    Doc-tests jaq_core
+[  183s] 
+[  183s] running 2 tests
+[  184s] test jaq-core/src/load/mod.rs - load::parse (line 415) ... ok
+[  187s] test jaq-core/src/lib.rs - (line 14) ... ok
+[  187s] 
+[  187s] test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.29s
+[  187s] 
+[  187s]    Doc-tests jaq_json
+[  188s] 
+[  188s] running 0 tests
+[  188s] 
+[  188s] test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+[  188s] 
+[  188s]    Doc-tests jaq_play
+[  188s] 
+[  188s] running 0 tests
+[  188s] 
+[  188s] test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+[  188s] 
+[  188s]    Doc-tests jaq_std
+[  188s] 
+[  188s] running 0 tests
+[  188s] 
+[  188s] test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+[  188s] 
+[  188s] error: 1 target failed:
+[  188s]     `-p jaq-core --test tests`
+[  188s] error: Bad exit status from /var/tmp/rpm-tmp.M824MR (%check)
+[  188s] 
+[  188s] RPM build errors:
+[  188s]     Bad exit status from /var/tmp/rpm-tmp.M824MR (%check)
+[  188s] ### VM INTERACTION START ###
+[  188s] [  177.733820][    T1] sysrq: Power Off
+[  188s] ### VM INTERACTION END ###
+[  188s] 
+[  188s] i02-armsrv1 failed "build jaq.spec" at Tue Oct 13 12:53:11 UTC 2026.
+[  188s] 

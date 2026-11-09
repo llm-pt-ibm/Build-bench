@@ -1,0 +1,384 @@
+[    0s] Using BUILD_ROOT=/var/cache/obs/worker/root_6/.mount
+[    0s] Using BUILD_ARCH=aarch64:aarch64_ilp32:armv8l
+[    0s] Doing kvm build in /var/cache/obs/worker/root_6/root
+[    0s] 
+[    0s] 
+[    0s] i01-armsrv2 started "build zig0.14.spec" at Tue Oct 13 12:57:00 UTC 2026.
+[    0s] 
+[    0s] Building zig0.14 for project 'openSUSE:Factory:ARM' repository 'standard' arch 'aarch64' srcmd5 '576dcf03dff6cca6c67a3821f907fbda'
+[    0s] 
+[    0s] processing recipe /var/cache/obs/worker/root_6/.build-srcdir/zig0.14.spec ...
+[    0s] running changelog2spec --target rpm --file /var/cache/obs/worker/root_6/.build-srcdir/zig0.14.spec
+[    0s] init_buildsystem --configdir /var/run/obs/worker/6/build/configs --cachedir /var/cache/build --prepare --clean --rpmlist /var/cache/obs/worker/root_6/.build.rpmlist /var/cache/obs/worker/root_6/.build-srcdir/zig0.14.spec build ...
+[    1s] unpacking preinstall image openSUSE:Factory:ARM/standard/preinstallimage-base [d9ff8d2211c02194fa7a2b6996071314]
+[    3s] 
+[    3s] copying packages...
+[    3s] reordering...cycle: python313-base -> libpython3_13-1_0
+[    3s]   breaking dependency python313-base -> libpython3_13-1_0
+[    3s] cycle: llvm19-polly-devel -> llvm19-devel
+[    3s]   breaking dependency llvm19-polly-devel -> llvm19-devel
+[    3s] done
+[    4s] Detected virtio-serial support
+[    5s] booting kvm...
+[    5s] ### VM INTERACTION START ###
+[    5s] Using virtio-serial support
+[    5s] /usr/bin/qemu-system-aarch64 -nodefaults -no-reboot -nographic -vga none -cpu host -enable-kvm -M virt,accel=kvm,usb=off,gic-version=host -sandbox on -object rng-random,filename=/dev/random,id=rng0 -device virtio-rng-device,rng=rng0 -object iothread,id=io0 -run-with user=qemu -net none -kernel /var/cache/obs/worker/root_6/.mount/boot/kernel -initrd /var/cache/obs/worker/root_6/.mount/boot/initrd -append root=/dev/disk/by-id/virtio-0 rootfstype=ext4 rootflags=noatime elevator=noop nmi_watchdog=0 rw ia32_emulation=1 oops=panic panic=1 quiet console=hvc0 init=/.build/build -m 32768 -drive file=/var/cache/obs/worker/root_6/root,format=raw,if=none,id=disk,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=disk,serial=0 -drive file=/var/cache/obs/worker/root_6/swap,format=raw,if=none,id=swap,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=swap,serial=1 -device virtio-serial,max_ports=2 -device virtconsole,chardev=virtiocon0 -chardev stdio,id=virtiocon0 -chardev socket,id=monitor,server=on,wait=off,path=/var/cache/obs/worker/root_6/root.qemu/monitor -mon chardev=monitor,mode=readline -smp 8
+[   10s] P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=2b4539f0a7da43ecad143a27d9b95d9a;user=root;hostname=localhost;machineid=3442a39e343a49aea836ce4cf057d360;bootid=200346c8dbc645c7b98cd3c6512a3e70;pid=1;pidfdid=1;comm=systemd;type=boot\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J### VM INTERACTION END ###
+[   10s] 2nd stage started in virtual machine
+[   10s] ^[[24;80R^[[24;80Rmachine type: aarch64
+[   10s] Linux version: 7.2.9-1-default #1 SMP PREEMPT_DYNAMIC Sun Oct  4 08:22:02 UTC 2026 (584f686)
+[   10s] Time: Tue Oct 13 12:57:10 UTC 2026
+[   10s] Increasing log level from now on...
+[   10s] [    4.393082][  T478] sysrq: Changing Loglevel
+[   10s] [    4.393160][  T478] sysrq: Loglevel set to 4
+[   10s] Enable sysrq operations
+[   10s] Setting up swapspace version 1, size = 2 GiB (2147479552 bytes)
+[   10s] no label, UUID=52552975-fd35-4aab-a99d-a304b53fc124
+[   10s] logging output to //.build.log...
+[   10s] processing recipe //.build-srcdir/zig0.14.spec ...
+[   10s] init_buildsystem --configdir /.build/configs --cachedir /var/cache/build //.build-srcdir/zig0.14.spec build ...
+[   10s] initializing rpm db...
+[   10s] querying package ids...
+[   11s] [1/175] preinstalled aaa_base-84.87+git20260924.144354a1-1.1
+[   11s] [2/175] preinstalled aaa_base-malloccheck-84.87+git20260924.144354a1-1.1
+[   11s] [3/175] preinstalled alts-2.0+0.4f22c01-1.1
+[   11s] [4/175] preinstalled bash-5.3.20-9.1
+[   11s] [5/175] preinstalled bash-sh-5.3.20-9.1
+[   11s] [6/175] preinstalled binutils-2.47-1.1
+[   11s] [7/175] preinstalled brp-check-suse-84.87+git20260317.a0eb4ba-1.3
+[   11s] [8/175] preinstalled build-compare-20261001T080039.deb96f7-1.1
+[   11s] [9/175] preinstalled build-mkbaselibs-20260505-1.3
+[   11s] [10/175] preinstalled bzip2-1.0.8-6.1
+[   11s] [11/175] preinstalled compat-usrmerge-build-84.87-5.29
+[   11s] [12/175] preinstalled compat-usrmerge-tools-84.87-5.29
+[   11s] [13/175] preinstalled coreutils-9.12-1.1
+[   11s] [14/175] preinstalled cpio-2.15-9.1
+[   11s] [15/175] preinstalled cpp-16-1.1
+[   11s] [16/175] preinstalled cpp16-16.2.1+git9713-1.1
+[   11s] [17/175] preinstalled crypto-policies-20250714.cd6043a-6.1
+[   11s] [18/175] preinstalled debugedit-5.1-1.9
+[   11s] [19/175] preinstalled diffutils-3.12-1.6
+[   11s] [20/175] preinstalled dwz-0.17-1.1
+[   11s] [21/175] preinstalled elfutils-0.196-2.1
+[   11s] [22/175] preinstalled envsubst-mini-1.0-4.1
+[   11s] [23/175] preinstalled file-5.48-2.2
+[   11s] [24/175] preinstalled file-magic-5.48-2.2
+[   11s] [25/175] preinstalled filesystem-84.87-21.2
+[   11s] [26/175] preinstalled fillup-1.42-281.9
+[   11s] [27/175] preinstalled findutils-4.11.0-1.2
+[   11s] [28/175] preinstalled gawk-5.4.1-1.2
+[   11s] [29/175] preinstalled gcc-16-1.1
+[   11s] [30/175] preinstalled gcc-PIE-16-1.1
+[   11s] [31/175] preinstalled gcc16-16.2.1+git9713-1.1
+[   11s] [32/175] preinstalled gcc16-PIE-16.2.1+git9713-1.1
+[   11s] [33/175] preinstalled gettext-runtime-mini-1.0-4.1
+[   11s] [34/175] preinstalled gettext-tools-mini-1.0-4.1
+[   11s] [35/175] preinstalled glibc-2.44-3.1
+[   11s] [36/175] preinstalled glibc-devel-2.44-3.1
+[   11s] [37/175] preinstalled glibc-gconv-modules-extra-2.44-3.1
+[   11s] [38/175] preinstalled glibc-locale-base-2.44-3.1
+[   11s] [39/175] preinstalled grep-3.12-1.5
+[   11s] [40/175] preinstalled gzip-1.15-1.1
+[   11s] [41/175] preinstalled kernel-obs-build-7.2.9-1.1
+[   11s] [42/175] preinstalled libacl1-2.4.0-1.2
+[   11s] [43/175] preinstalled libalternatives1-2.0+0.4f22c01-1.1
+[   11s] [44/175] preinstalled libarchive13-3.8.9-1.1
+[   11s] [45/175] preinstalled libasan8-16.2.1+git9713-1.1
+[   11s] [46/175] preinstalled libasm1-0.196-2.1
+[   11s] [47/175] preinstalled libatomic1-16.2.1+git9713-1.1
+[   11s] [48/175] preinstalled libattr1-2.6.0-1.2
+[   11s] [49/175] preinstalled libaudit1-4.0.2-3.4
+[   11s] [50/175] preinstalled libblkid1-2.42.4-1.1
+[   11s] [51/175] preinstalled libbz2-1-1.0.8-6.1
+[   11s] [52/175] preinstalled libcap-ng0-0.8.5-1.10
+[   11s] [53/175] preinstalled libcap2-2.78-1.4
+[   11s] [54/175] preinstalled libcrypt1-4.5.2-2.4
+[   11s] [55/175] preinstalled libctf-nobfd0-2.47-1.1
+[   11s] [56/175] preinstalled libctf0-2.47-1.1
+[   11s] [57/175] preinstalled libdw1-0.196-2.1
+[   11s] [58/175] preinstalled libeconf0-0.8.5-1.1
+[   11s] [59/175] cumulate libedit0-20250104.3.1-1.5
+[   11s] [60/175] preinstalled libelf1-0.196-2.1
+[   11s] [61/175] cumulate libexpat1-2.9.0-1.1
+[   11s] [62/175] preinstalled libfdisk1-2.42.4-1.1
+[   11s] [63/175] cumulate libffi8-3.5.2-2.4
+[   11s] [64/175] preinstalled libgcc_s1-16.2.1+git9713-1.1
+[   11s] [65/175] preinstalled libgcrypt20-1.12.4-1.1
+[   11s] [66/175] preinstalled libgdbm6-1.26-1.6
+[   11s] [67/175] preinstalled libgdbm_compat4-1.26-1.6
+[   11s] [68/175] preinstalled libgmp10-6.3.0-5.6
+[   11s] [69/175] preinstalled libgomp1-16.2.1+git9713-1.1
+[   11s] [70/175] preinstalled libgpg-error0-1.61-2.1
+[   11s] [71/175] preinstalled libhwasan0-16.2.1+git9713-1.1
+[   11s] [72/175] preinstalled libisl23-0.27-1.8
+[   11s] [73/175] preinstalled libitm1-16.2.1+git9713-1.1
+[   11s] [74/175] preinstalled libjitterentropy3-3.6.3-2.1
+[   11s] [75/175] preinstalled liblsan0-16.2.1+git9713-1.1
+[   11s] [76/175] preinstalled liblua5_4-5-5.4.8-4.7
+[   11s] [77/175] preinstalled liblz1-1.16-2.1
+[   11s] [78/175] preinstalled liblz4-1-1.10.0-2.10
+[   11s] [79/175] preinstalled liblzma5-5.8.4-1.1
+[   11s] [80/175] preinstalled libmagic1-5.48-2.2
+[   11s] [81/175] preinstalled libmount1-2.42.4-1.1
+[   11s] [82/175] preinstalled libmpc3-1.4.1-1.3
+[   11s] [83/175] cumulate libmpdec4-4.0.1-2.6
+[   11s] [84/175] preinstalled libmpfr6-4.2.2-1.5
+[   11s] [85/175] preinstalled libncurses6-6.6.20260926-115.1
+[   11s] [86/175] cumulate libomp19-devel-19.1.7-14.3
+[   11s] [87/175] preinstalled libopenssl3-3.5.3-8.3
+[   11s] [88/175] preinstalled libpcre2-8-0-10.49-1.1
+[   11s] [89/175] preinstalled libpkgconf7-2.5.1-1.5
+[   11s] [90/175] preinstalled libpopt0-1.19-2.3
+[   11s] [91/175] preinstalled libreadline8-8.3.6-3.1
+[   11s] [92/175] cumulate librhash1-1.4.6-2.3
+[   11s] [93/175] preinstalled librpmbuild10-4.20.1-11.1
+[   11s] [94/175] preinstalled libseccomp2-2.6.1-3.1
+[   11s] [95/175] preinstalled libselinux1-3.11-2.1
+[   11s] [96/175] preinstalled libsframe3-2.47-1.1
+[   11s] [97/175] preinstalled libsmartcols1-2.42.4-1.1
+[   11s] [98/175] preinstalled libstdc++6-16.2.1+git9713-1.1
+[   11s] [99/175] cumulate libstdc++6-devel-gcc16-16.2.1+git9713-1.1
+[   11s] [100/175] preinstalled libtsan2-16.2.1+git9713-1.1
+[   11s] [101/175] preinstalled libubsan1-16.2.1+git9713-1.1
+[   11s] [102/175] cumulate liburing2-2.15-1.1
+[   11s] [103/175] preinstalled libuuid1-2.42.4-1.1
+[   11s] [104/175] cumulate libuv1-1.52.0-1.3
+[   11s] [105/175] preinstalled libxcrypt-devel-4.5.2-2.4
+[   11s] [106/175] preinstalled libxml2-16-2.15.4-1.1
+[   11s] [107/175] preinstalled libz1-1.3.1-3.3
+[   11s] [108/175] cumulate libzstd-devel-1.5.7-6.1
+[   11s] [109/175] preinstalled libzstd1-1.5.7-6.1
+[   11s] [110/175] preinstalled linux-glibc-devel-7.2-2.1
+[   11s] [111/175] cumulate llvm19-polly-19.1.7-14.3
+[   11s] [112/175] preinstalled lua-interpreter-5-3.4
+[   11s] [113/175] preinstalled lua54-5.4.8-4.7
+[   11s] [114/175] preinstalled make-4.4.1-3.10
+[   11s] [115/175] preinstalled ncurses-utils-6.6.20260926-115.1
+[   11s] [116/175] cumulate ninja-1.13.2-1.4
+[   11s] [117/175] preinstalled pam-1.7.3-1.1
+[   11s] [118/175] preinstalled patch-2.8-3.2
+[   11s] [119/175] preinstalled perl-5.44.0-1.2
+[   11s] [120/175] preinstalled perl-base-5.44.0-1.2
+[   11s] [121/175] cumulate perl-gettext-1.07-2.17
+[   11s] [122/175] preinstalled perl-rpm-packaging-1.3-1.3
+[   11s] [123/175] preinstalled permctl-1699_20260917-1.1
+[   11s] [124/175] preinstalled permissions-1699_20260917-1.1
+[   11s] [125/175] preinstalled permissions-config-1699_20260917-1.1
+[   11s] [126/175] preinstalled pkgconf-2.5.1-1.5
+[   11s] [127/175] preinstalled pkgconf-m4-2.5.1-1.5
+[   11s] [128/175] preinstalled pkgconf-pkg-config-2.5.1-1.5
+[   11s] [129/175] preinstalled polkit-default-privs-1550+20261009.03465cb-1.1
+[   11s] [130/175] preinstalled post-build-checks-84.87+git20260421.8ed5e73-1.1
+[   11s] [131/175] cumulate python-rpm-macros-20260909.65d2791-1.1
+[   11s] [132/175] preinstalled rpm-4.20.1-11.1
+[   11s] [133/175] preinstalled rpm-build-4.20.1-11.1
+[   11s] [134/175] preinstalled rpm-config-SUSE-20250904-1.4
+[   11s] [135/175] preinstalled rpmlint-mini-2.10.0+git20261009.041119a7-21.49
+[   11s] [136/175] preinstalled rpmlint-strict-2.10.0+git20261009.041119a7-1.1
+[   11s] [137/175] preinstalled sed-4.10-1.4
+[   11s] [138/175] preinstalled suse-reproducible-builds-1.0-1.2
+[   11s] [139/175] preinstalled system-user-root-20190513-2.23
+[   11s] [140/175] preinstalled systemd-rpm-macros-26-1.4
+[   11s] [141/175] preinstalled tar-1.35-10.1
+[   11s] [142/175] preinstalled terminfo-base-6.6.20260926-115.1
+[   11s] [143/175] preinstalled util-linux-2.42.4-1.1
+[   11s] [144/175] preinstalled which-2.25-1.3
+[   11s] [145/175] preinstalled xz-5.8.4-1.1
+[   11s] [146/175] cumulate zlib-devel-1.3.1-3.3
+[   11s] [147/175] cumulate zstd-1.5.7-6.1
+[   11s] [148/175] cumulate help2man-1.49.3-1.17
+[   11s] [149/175] cumulate libLLVM19-19.1.7-14.3
+[   11s] [150/175] cumulate libLLVM23-23.1.3-1.1
+[   11s] [151/175] cumulate libstdc++-devel-16-1.1
+[   11s] [152/175] cumulate liburing-devel-2.15-1.1
+[   11s] [153/175] cumulate libelf-devel-0.196-2.1
+[   11s] [154/175] cumulate libLTO19-19.1.7-14.3
+[   11s] [155/175] cumulate libclang-cpp19-19.1.7-14.3
+[   11s] [156/175] cumulate libclang-cpp23-23.1.3-1.1
+[   11s] [157/175] cumulate lld19-19.1.7-14.3
+[   11s] [158/175] cumulate llvm19-19.1.7-14.3
+[   11s] [159/175] cumulate llvm19-gold-19.1.7-14.3
+[   11s] [160/175] cumulate libclang13-23.1.3-1.1
+[   11s] [161/175] cumulate llvm19-polly-devel-19.1.7-14.3
+[   11s] [162/175] cumulate python313-base-3.13.15-2.1
+[   11s] [163/175] cumulate libclang_rt19-19.1.7-14.3
+[   11s] [164/175] cumulate libclang_rt23-23.1.3-1.1
+[   11s] [165/175] cumulate libpython3_13-1_0-3.13.15-2.1
+[   11s] [166/175] cumulate python313-packaging-26.3-1.1
+[   11s] [167/175] cumulate cmake-mini-4.4.3-2.1
+[   11s] [168/175] cumulate llvm19-devel-19.1.7-14.3
+[   11s] [169/175] cumulate cmake-4.4.3-2.1
+[   11s] [170/175] cumulate python-rpm-packaging-20210526+a18ca48-2.1
+[   11s] [171/175] cumulate clang19-19.1.7-14.3
+[   11s] [172/175] cumulate clang23-23.1.3-1.1
+[   11s] [173/175] cumulate clang-23-1.1
+[   11s] [174/175] cumulate clang-tools-23.1.3-1.1
+[   11s] [175/175] cumulate clang19-devel-19.1.7-14.3
+[   11s] now installing cumulated packages
+[   11s] Preparing...                          ########################################
+[   11s] Updating / installing...
+[   11s] libuv1-1.52.0-1.3                     ########################################
+[   11s] libexpat1-2.9.0-1.1                   ########################################
+[   11s] libedit0-20250104.3.1-1.5             ########################################
+[   12s] libLLVM19-19.1.7-14.3                 ########################################
+[   12s] libLLVM23-23.1.3-1.1                  ########################################
+[   13s] libclang-cpp23-23.1.3-1.1             ########################################
+[   13s] libclang13-23.1.3-1.1                 ########################################
+[   13s] libclang-cpp19-19.1.7-14.3            ########################################
+[   13s] libLTO19-19.1.7-14.3                  ########################################
+[   13s] llvm19-19.1.7-14.3                    ########################################
+[   13s] llvm19-gold-19.1.7-14.3               ########################################
+[   13s] zlib-devel-1.3.1-3.3                  ########################################
+[   13s] python-rpm-macros-20260909.65d2791-1.1########################################
+[   13s] perl-gettext-1.07-2.17                ########################################
+[   13s] llvm19-polly-19.1.7-14.3              ########################################
+[   13s] libzstd-devel-1.5.7-6.1               ########################################
+[   13s] liburing2-2.15-1.1                    ########################################
+[   13s] libstdc++6-devel-gcc16-16.2.1+git9713-########################################
+[   13s] libstdc++-devel-16-1.1                ########################################
+[   13s] librhash1-1.4.6-2.3                   ########################################
+[   13s] libomp19-devel-19.1.7-14.3            ########################################
+[   13s] llvm19-polly-devel-19.1.7-14.3        ########################################
+[   13s] llvm19-devel-19.1.7-14.3              ########################################
+[   13s] libmpdec4-4.0.1-2.6                   ########################################
+[   13s] libffi8-3.5.2-2.4                     ########################################
+[   14s] libpython3_13-1_0-3.13.15-2.1         ########################################
+[   14s] python313-base-3.13.15-2.1            ########################################
+[   14s] libclang_rt19-19.1.7-14.3             ########################################
+[   14s] clang19-19.1.7-14.3                   ########################################
+[   14s] libclang_rt23-23.1.3-1.1              ########################################
+[   14s] clang23-23.1.3-1.1                    ########################################
+[   14s] clang-23-1.1                          ########################################
+[   14s] clang-tools-23.1.3-1.1                ########################################
+[   14s] python313-packaging-26.3-1.1          ########################################
+[   15s] cmake-mini-4.4.3-2.1                  ########################################
+[   15s] cmake-4.4.3-2.1                       ########################################
+[   15s] python-rpm-packaging-20210526+a18ca48-########################################
+[   15s] clang19-devel-19.1.7-14.3             ########################################
+[   15s] liburing-devel-2.15-1.1               ########################################
+[   15s] libelf-devel-0.196-2.1                ########################################
+[   15s] help2man-1.49.3-1.17                  ########################################
+[   15s] lld19-19.1.7-14.3                     ########################################
+[   15s] zstd-1.5.7-6.1                        ########################################
+[   15s] ninja-1.13.2-1.4                      ########################################
+[   15s] now finalizing build dir...
+[   15s] ... running 01-add_abuild_user_to_trusted_group
+[   16s] ... running 02-set_timezone_to_utc
+[   16s] ... running 03-set-permissions-secure
+[   16s] ... running 11-hack_uname_version_to_kernel_version
+[   16s] setting SOURCE_DATE_EPOCH_MTIME to 1769562078
+[   16s] -----------------------------------------------------------------
+[   16s] I have the following modifications for zig0.14.spec:
+[   16s] 49c49
+[   16s] < Release:        0
+[   16s] ---
+[   16s] > Release:        2.4
+[   16s] 75c75
+[   16s] < BuildRequires:  glibc-devel-32bit
+[   16s] ---
+[   16s] > 
+[   17s] -----------------------------------------------------------------
+[   17s] ----- building zig0.14.spec (user abuild)
+[   17s] -----------------------------------------------------------------
+[   17s] -----------------------------------------------------------------
+[   17s] setting SOURCE_DATE_EPOCH_MTIME to 1769562078
+[   17s] + exec rpmbuild -ba --define '_srcdefattr (-,root,root)' --nosignature --define '_build_create_debug 1' --define 'disturl obs://build.opensuse.org/openSUSE:Factory:ARM/standard/576dcf03dff6cca6c67a3821f907fbda-zig0.14' /home/abuild/rpmbuild/SOURCES/zig0.14.spec
+[   17s] warning: Macro expanded in comment on line 72: %{?force_gcc_version}-c++
+[   17s] 
+[   17s] using SOURCE_DATE_EPOCH with value 1769562074 as build time
+[   17s] Executing(%mkbuilddir): /usr/bin/bash -e /var/tmp/rpm-tmp.48FcMQ
+[   17s] Executing(%prep): /usr/bin/bash -e /var/tmp/rpm-tmp.IUzIgW
+[   17s] + umask 022
+[   17s] + cd /home/abuild/rpmbuild/BUILD/zig0.14-0.14.1-build
+[   17s] + cd /home/abuild/rpmbuild/BUILD/zig0.14-0.14.1-build
+[   17s] + rm -rf zig-0.14.1
+[   17s] + /usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/zig-0.14.1.tar.xz
+[   18s] + STATUS=0
+[   18s] + '[' 0 -ne 0 ']'
+[   18s] + cd zig-0.14.1
+[   18s] + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+[   19s] + /usr/lib/rpm/rpmuncompress /home/abuild/rpmbuild/SOURCES/0000-remove-lld-in-cmakelist.patch
+[   19s] + /usr/bin/patch -p1 -s --fuzz=0 --no-backup-if-mismatch -f
+[   19s] + /usr/lib/rpm/rpmuncompress /home/abuild/rpmbuild/SOURCES/0001-invoke-lld.patch
+[   19s] + /usr/bin/patch -p1 -s --fuzz=0 --no-backup-if-mismatch -f
+[   19s] + /usr/lib/rpm/rpmuncompress /home/abuild/rpmbuild/SOURCES/0002-no-lld-libs-and-includes.patch
+[   19s] + /usr/bin/patch -p1 -s --fuzz=0 --no-backup-if-mismatch -f
+[   19s] + /usr/lib/rpm/rpmuncompress /home/abuild/rpmbuild/SOURCES/skip-localhost-test.patch
+[   19s] + /usr/bin/patch -p1 -s --fuzz=0 --no-backup-if-mismatch -f
+[   19s] + /usr/bin/patch -p1 -s --fuzz=0 --no-backup-if-mismatch -f
+[   19s] + /usr/lib/rpm/rpmuncompress /home/abuild/rpmbuild/SOURCES/reproducible.patch
+[   19s] + /usr/lib/rpm/rpmuncompress /home/abuild/rpmbuild/SOURCES/bump_max_rss.patch
+[   19s] + /usr/bin/patch -p1 -s --fuzz=0 --no-backup-if-mismatch -f
+[   19s] + RPM_EC=0
+[   19s] ++ jobs -p
+[   19s] + exit 0
+[   19s] Executing(%build): /usr/bin/bash -e /var/tmp/rpm-tmp.Cp17Sa
+[   19s] + umask 022
+[   19s] + cd /home/abuild/rpmbuild/BUILD/zig0.14-0.14.1-build
+[   19s] + /usr/bin/rm -rf /home/abuild/rpmbuild/BUILD/zig0.14-0.14.1-build/BUILDROOT
+[   19s] ++ dirname /home/abuild/rpmbuild/BUILD/zig0.14-0.14.1-build/BUILDROOT
+[   19s] + /usr/bin/mkdir -p /home/abuild/rpmbuild/BUILD/zig0.14-0.14.1-build
+[   19s] + /usr/bin/mkdir /home/abuild/rpmbuild/BUILD/zig0.14-0.14.1-build/BUILDROOT
+[   19s] + cd zig-0.14.1
+[   19s] + ref=/usr/lib/rpm
+[   19s] + mints=0
+[   19s] + case $(uname -m) in
+[   19s] ++ uname -m
+[   19s] + mints=20120610
+[   19s] + for s in guess sub
+[   19s] ++ find -maxdepth 8 -name config.guess
+[   19s] + for s in guess sub
+[   19s] ++ find -maxdepth 8 -name config.sub
+[   19s] + find . -type f -name CMakeLists.txt -exec sed -i -re '/^[[:blank:]]*[sS][eE][tT][[:blank:]]*\([[:blank:]]*(CMAKE_BUILD_TYPE|CMAKE_COLOR_MAKEFILE|CMAKE_INSTALL_PREFIX|CMAKE_VERBOSE_MAKEFILE).*\)/{s/^/#IGNORE /}' '{}' +
+[   19s] + mkdir -p build
+[   19s] + cd build
+[   19s] + /usr/bin/cmake /home/abuild/rpmbuild/BUILD/zig0.14-0.14.1-build/zig-0.14.1/. -GNinja -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_INSTALL_BINDIR:PATH=bin -DCMAKE_INSTALL_SBINDIR:PATH=sbin -DCMAKE_INSTALL_LIBEXECDIR:PATH=libexec -DCMAKE_INSTALL_SYSCONFDIR:PATH=etc -DCMAKE_INSTALL_SHAREDSTATEDIR:PATH=/var/lib -DCMAKE_INSTALL_LOCALSTATEDIR:PATH=var -DCMAKE_INSTALL_RUNSTATEDIR:PATH=run -DCMAKE_INSTALL_LIBDIR:PATH=lib64 -DCMAKE_INSTALL_INCLUDEDIR:PATH=include -DCMAKE_INSTALL_DATAROOTDIR:PATH=share -DCMAKE_INSTALL_DOCDIR:PATH=share/doc/packages/zig0.14 -DCMAKE_INSTALL_MANDIR:PATH=share/man -DCMAKE_INSTALL_INFODIR:PATH=share/info -DINCLUDE_INSTALL_DIR:PATH=/usr/include -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DSYSCONF_INSTALL_DIR:PATH=/etc -DSHARE_INSTALL_PREFIX:PATH=/usr/share -DCMAKE_BUILD_TYPE=RelWithDebInfo '-DCMAKE_C_FLAGS=-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g' '-DCMAKE_CXX_FLAGS=-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g' '-DCMAKE_Fortran_FLAGS=-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g' '-DCMAKE_EXE_LINKER_FLAGS=-Wl,-z,gcs-report-dynamic=none  -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now' '-DCMAKE_MODULE_LINKER_FLAGS=-Wl,-z,gcs-report-dynamic=none  -Wl,--as-needed' '-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,gcs-report-dynamic=none  -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now' -DLIB_SUFFIX=64 -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON -DBUILD_STATIC_LIBS:BOOL=OFF -DCMAKE_COLOR_MAKEFILE:BOOL=OFF -DCMAKE_INSTALL_DO_STRIP:BOOL=OFF -DCMAKE_MODULES_INSTALL_DIR=/usr/lib64/cmake/zig0.14 -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_C_COMPILER=clang-19 -DCMAKE_CXX_COMPILER=clang++-19 -DCMAKE_LINKER_TYPE=LLD -DZIG_SHARED_LLVM=On -DZIG_USE_LLVM_CONFIG=ON -DZIG_PIE:BOOL=true -DZIG_TARGET_MCPU=baseline -DZIG_TARGET_TRIPLE:STRING=native -DZIG_VERSION:STRING=0.14.1
+[   19s] -- The C compiler identification is Clang 19.1.7
+[   19s] -- The CXX compiler identification is Clang 19.1.7
+[   19s] -- Detecting C compiler ABI info
+[   19s] -- Detecting C compiler ABI info - failed
+[   19s] -- Check for working C compiler: /usr/bin/clang-19
+[   19s] -- Check for working C compiler: /usr/bin/clang-19 - broken
+[   19s] CMake Error at /usr/share/cmake/Modules/CMakeTestCCompiler.cmake:65 (message):
+[   19s]   The C compiler
+[   19s] 
+[   19s]     "/usr/bin/clang-19"
+[   19s] 
+[   19s]   is not able to compile a simple test program.
+[   19s] 
+[   19s]   It fails with the following output:
+[   19s] 
+[   19s]     Change Dir: '/home/abuild/rpmbuild/BUILD/zig0.14-0.14.1-build/zig-0.14.1/build/CMakeFiles/CMakeScratch/TryCompile-tboa0z'
+[   19s]     
+[   19s]     Run Build Command(s): /usr/bin/ninja -v cmTC_53bf5
+[   19s]     [1/2] /usr/bin/clang-19   -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -MD -MT CMakeFiles/cmTC_53bf5.dir/testCCompiler.c.o -MF CMakeFiles/cmTC_53bf5.dir/testCCompiler.c.o.d -o CMakeFiles/cmTC_53bf5.dir/testCCompiler.c.o -c /home/abuild/rpmbuild/BUILD/zig0.14-0.14.1-build/zig-0.14.1/build/CMakeFiles/CMakeScratch/TryCompile-tboa0z/testCCompiler.c
+[   19s]     [2/2] : && /usr/bin/clang-19 -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -Wl,-z,gcs-report-dynamic=none  -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now  -fuse-ld=lld CMakeFiles/cmTC_53bf5.dir/testCCompiler.c.o -o cmTC_53bf5   && :
+[   19s]     FAILED: [code=1] cmTC_53bf5 
+[   19s]     : && /usr/bin/clang-19 -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type  -g -Wl,-z,gcs-report-dynamic=none  -Wl,--as-needed -Wl,--no-undefined -Wl,-z,now  -fuse-ld=lld CMakeFiles/cmTC_53bf5.dir/testCCompiler.c.o -o cmTC_53bf5   && :
+[   19s]     clang-19: error: invalid linker name in argument '-fuse-ld=lld'
+[   19s]     ninja: build stopped: subcommand failed.
+[   19s]     
+[   19s]     
+[   19s] 
+[   19s] 
+[   19s] 
+[   19s]   CMake will not be able to correctly generate this project.
+[   19s] Call Stack (most recent call first):
+[   19s]   CMakeLists.txt:31 (project)
+[   19s] 
+[   19s] 
+[   19s] -- Configuring incomplete, errors occurred!
+[   19s] error: Bad exit status from /var/tmp/rpm-tmp.Cp17Sa (%build)
+[   19s] 
+[   19s] RPM build warnings:
+[   19s]     Macro expanded in comment on line 72: %{?force_gcc_version}-c++
+[   19s] 
+[   19s] 
+[   19s] RPM build errors:
+[   19s]     Bad exit status from /var/tmp/rpm-tmp.Cp17Sa (%build)
+[   19s] ### VM INTERACTION START ###
+[   20s] [   13.846325][    T1] sysrq: Power Off
+[   20s] ### VM INTERACTION END ###
+[   20s] 
+[   20s] i01-armsrv2 failed "build zig0.14.spec" at Tue Oct 13 12:57:20 UTC 2026.
+[   20s] 

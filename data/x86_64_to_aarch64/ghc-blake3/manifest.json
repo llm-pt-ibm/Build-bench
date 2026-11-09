@@ -1,0 +1,32 @@
+{
+  "task": {
+    "package": "ghc-blake3",
+    "direction": "x86_64_to_aarch64",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "88e410c808cc0a41573b1171c99f88fc"
+    },
+    "target": {
+      "project": "openSUSE:Factory:ARM",
+      "repository": "standard",
+      "arch": "aarch64"
+    }
+  },
+  "files": [
+    {
+      "name": "blake3-0.3.1.tar.gz",
+      "size": "98696"
+    },
+    {
+      "name": "ghc-blake3.changes",
+      "size": "164"
+    },
+    {
+      "name": "ghc-blake3.spec",
+      "size": "2944"
+    }
+  ],
+  "created_at": 1794231865,
+  "version": 1
+}

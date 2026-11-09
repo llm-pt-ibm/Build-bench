@@ -1,0 +1,48 @@
+{
+  "task": {
+    "package": "comet",
+    "direction": "x86_64_to_aarch64",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "5d30ad078fbe24eaafb8a1b2bf230c04"
+    },
+    "target": {
+      "project": "openSUSE:Factory:ARM",
+      "repository": "standard",
+      "arch": "aarch64"
+    }
+  },
+  "files": [
+    {
+      "name": "_scmsync.obsinfo",
+      "size": "155"
+    },
+    {
+      "name": "_service",
+      "size": "935"
+    },
+    {
+      "name": "_servicedata",
+      "size": "236"
+    },
+    {
+      "name": "comet-0.4.1.tar.xz",
+      "size": "117480"
+    },
+    {
+      "name": "comet.changes",
+      "size": "2334"
+    },
+    {
+      "name": "comet.spec",
+      "size": "1914"
+    },
+    {
+      "name": "vendor-comet.tar.zst",
+      "size": "56662765"
+    }
+  ],
+  "created_at": 1794231814,
+  "version": 1
+}

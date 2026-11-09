@@ -21,6 +21,12 @@ setup_obs.log
 # sources over the GitHub file size limit; dataset/fetch_package.py downloads them
 data/x86_64_to_ppc64le/python-torch/pytorch-v*.tar.gz
 
+# sources of the x86_64 -> aarch64 cases (dataset/fetch_package.py downloads them); the
+# case keeps its manifest.json (with the sources' srcmd5) and log_failed.txt
+data/x86_64_to_aarch64/*/*
+!data/x86_64_to_aarch64/*/manifest.json
+!data/x86_64_to_aarch64/*/log_failed.txt
+
 # sources of build-recipe cases recreated by dataset/fetch_*.sh
 data/x86_64_to_ppc64le/jaxlib/jax/
 data/x86_64_to_ppc64le/jaxlib/xla/

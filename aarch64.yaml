@@ -1,0 +1,36 @@
+source_arch: x86_64
+target_arch: aarch64
+suite: pilot
+label: aarch64_pilot_deepseek-v3
+repeats: 1
+
+model: deepseek/deepseek-chat
+provider: streamlake
+temperature:
+
+llm:
+  max_build_attempts: 3
+  max_tool_rounds: 20
+  extra_tools: true
+  max_context_chars: 300000
+  keep_recent_tool_results: 8
+  repeat_guard_per_build: true
+  empty_reply_retries: 2
+  prompt_cache: auto
+  text_tool_calls: true
+  carry_notes_chars: 4000
+  round_notice_at: [30, 10, 5]
+  build_drought_rounds: 15
+  repeated_failure_note: true
+
+build:
+  backend: obs
+
+obs:
+  project: home:{user}:build-bench-aarch64
+  max_wait_seconds: 21600
+  check_interval: 60
+
+suites:
+  pilot: [CalcMySky, blender-5.2, ck, comet, doomsday, f3d, ghc-blake3, jaq, java-25-openj9,
+          pkcs11-provider, python-devpi-server, reptyr, tail-tray, zenith, zig0.14]

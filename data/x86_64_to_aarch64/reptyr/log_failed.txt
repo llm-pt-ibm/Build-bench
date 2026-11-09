@@ -1,0 +1,394 @@
+[    0s] Using BUILD_ROOT=/var/cache/obs/worker/root_15/.mount
+[    0s] Using BUILD_ARCH=aarch64:aarch64_ilp32:armv8l
+[    0s] Doing kvm build in /var/cache/obs/worker/root_15/root
+[    0s] 
+[    0s] 
+[    0s] i03-armsrv2 started "build reptyr.spec" at Tue Oct 13 12:56:45 UTC 2026.
+[    0s] 
+[    0s] Building reptyr for project 'openSUSE:Factory:ARM' repository 'standard' arch 'aarch64' srcmd5 '208eef2eaddf9b0f53a34d1a549d72cd'
+[    0s] 
+[    0s] processing recipe /var/cache/obs/worker/root_15/.build-srcdir/reptyr.spec ...
+[    0s] running changelog2spec --target rpm --file /var/cache/obs/worker/root_15/.build-srcdir/reptyr.spec
+[    0s] init_buildsystem --configdir /var/run/obs/worker/15/build/configs --cachedir /var/cache/build --prepare --clean --rpmlist /var/cache/obs/worker/root_15/.build.rpmlist /var/cache/obs/worker/root_15/.build-srcdir/reptyr.spec build ...
+[    1s] unpacking preinstall image openSUSE:Factory:ARM/standard/preinstallimage-base [d9ff8d2211c02194fa7a2b6996071314]
+[    3s] 
+[    3s] copying packages...
+[    3s] reordering...cycle: libpython3_11-1_0 -> python311-base
+[    3s]   breaking dependency python311-base -> libpython3_11-1_0
+[    3s] cycle: libpython3_13-1_0 -> python313-base
+[    3s]   breaking dependency python313-base -> libpython3_13-1_0
+[    3s] done
+[    3s] Detected virtio-serial support
+[    7s] booting kvm...
+[    7s] ### VM INTERACTION START ###
+[    7s] Using virtio-serial support
+[    7s] /usr/bin/qemu-system-aarch64 -nodefaults -no-reboot -nographic -vga none -cpu host -enable-kvm -M virt,accel=kvm,usb=off,gic-version=host -sandbox on -object rng-random,filename=/dev/random,id=rng0 -device virtio-rng-device,rng=rng0 -object iothread,id=io0 -run-with user=qemu -net none -kernel /var/cache/obs/worker/root_15/.mount/boot/kernel -initrd /var/cache/obs/worker/root_15/.mount/boot/initrd -append root=/dev/disk/by-id/virtio-0 rootfstype=ext4 rootflags=noatime elevator=noop nmi_watchdog=0 rw ia32_emulation=1 oops=panic panic=1 quiet console=hvc0 init=/.build/build -m 10240 -drive file=/var/cache/obs/worker/root_15/root,format=raw,if=none,id=disk,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=disk,serial=0 -drive file=/var/cache/obs/worker/root_15/swap,format=raw,if=none,id=swap,cache=unsafe,aio=io_uring -device virtio-blk-device,iothread=io0,drive=swap,serial=1 -device virtio-serial,max_ports=2 -device virtconsole,chardev=virtiocon0 -chardev stdio,id=virtiocon0 -chardev socket,id=monitor,server=on,wait=off,path=/var/cache/obs/worker/root_15/root.qemu/monitor -mon chardev=monitor,mode=readline -smp 4
+[   13s] P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=f0c21e569be44378929b9a09339eeec8;user=root;hostname=localhost;machineid=636da618677b4d92b917a5b93d098c12;bootid=6faa35902da7422d9c659502c1f66e8d;pid=1;pidfdid=1;comm=systemd;type=boot\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J### VM INTERACTION END ###
+[   13s] 2nd stage started in virtual machine
+[   13s] ^[[24;80R^[[24;80Rmachine type: aarch64
+[   13s] Linux version: 7.2.9-1-default #1 SMP PREEMPT_DYNAMIC Sun Oct  4 08:22:02 UTC 2026 (584f686)
+[   13s] Time: Tue Oct 13 12:56:58 UTC 2026
+[   13s] Increasing log level from now on...
+[   13s] [    5.212637][  T452] sysrq: Changing Loglevel
+[   13s] [    5.212684][  T452] sysrq: Loglevel set to 4
+[   13s] Enable sysrq operations
+[   13s] Setting up swapspace version 1, size = 2 GiB (2147479552 bytes)
+[   13s] no label, UUID=fa548896-54e4-4392-bc0d-b59ac4d8814d
+[   13s] logging output to //.build.log...
+[   13s] processing recipe //.build-srcdir/reptyr.spec ...
+[   13s] init_buildsystem --configdir /.build/configs --cachedir /var/cache/build //.build-srcdir/reptyr.spec build ...
+[   13s] initializing rpm db...
+[   13s] querying package ids...
+[   15s] [1/145] preinstalled aaa_base-84.87+git20260924.144354a1-1.1
+[   15s] [2/145] preinstalled aaa_base-malloccheck-84.87+git20260924.144354a1-1.1
+[   15s] [3/145] preinstalled alts-2.0+0.4f22c01-1.1
+[   15s] [4/145] preinstalled bash-5.3.20-9.1
+[   15s] [5/145] cumulate bash-completion-2.18.0-2.1
+[   15s] [6/145] preinstalled bash-sh-5.3.20-9.1
+[   15s] [7/145] preinstalled binutils-2.47-1.1
+[   15s] [8/145] preinstalled brp-check-suse-84.87+git20260317.a0eb4ba-1.3
+[   15s] [9/145] preinstalled build-compare-20261001T080039.deb96f7-1.1
+[   15s] [10/145] preinstalled build-mkbaselibs-20260505-1.3
+[   15s] [11/145] preinstalled bzip2-1.0.8-6.1
+[   15s] [12/145] preinstalled compat-usrmerge-build-84.87-5.29
+[   15s] [13/145] preinstalled compat-usrmerge-tools-84.87-5.29
+[   15s] [14/145] preinstalled coreutils-9.12-1.1
+[   15s] [15/145] preinstalled cpio-2.15-9.1
+[   15s] [16/145] preinstalled cpp-16-1.1
+[   15s] [17/145] preinstalled cpp16-16.2.1+git9713-1.1
+[   15s] [18/145] preinstalled crypto-policies-20250714.cd6043a-6.1
+[   15s] [19/145] preinstalled debugedit-5.1-1.9
+[   15s] [20/145] preinstalled diffutils-3.12-1.6
+[   15s] [21/145] preinstalled dwz-0.17-1.1
+[   15s] [22/145] preinstalled elfutils-0.196-2.1
+[   15s] [23/145] preinstalled envsubst-mini-1.0-4.1
+[   15s] [24/145] preinstalled file-5.48-2.2
+[   15s] [25/145] preinstalled file-magic-5.48-2.2
+[   15s] [26/145] preinstalled filesystem-84.87-21.2
+[   15s] [27/145] preinstalled fillup-1.42-281.9
+[   15s] [28/145] preinstalled findutils-4.11.0-1.2
+[   15s] [29/145] preinstalled gawk-5.4.1-1.2
+[   15s] [30/145] preinstalled gcc-16-1.1
+[   15s] [31/145] preinstalled gcc-PIE-16-1.1
+[   15s] [32/145] preinstalled gcc16-16.2.1+git9713-1.1
+[   15s] [33/145] preinstalled gcc16-PIE-16.2.1+git9713-1.1
+[   15s] [34/145] preinstalled gettext-runtime-mini-1.0-4.1
+[   15s] [35/145] preinstalled gettext-tools-mini-1.0-4.1
+[   15s] [36/145] preinstalled glibc-2.44-3.1
+[   15s] [37/145] preinstalled glibc-devel-2.44-3.1
+[   15s] [38/145] preinstalled glibc-gconv-modules-extra-2.44-3.1
+[   15s] [39/145] preinstalled glibc-locale-base-2.44-3.1
+[   15s] [40/145] preinstalled grep-3.12-1.5
+[   15s] [41/145] preinstalled gzip-1.15-1.1
+[   15s] [42/145] preinstalled kernel-obs-build-7.2.9-1.1
+[   15s] [43/145] preinstalled libacl1-2.4.0-1.2
+[   15s] [44/145] preinstalled libalternatives1-2.0+0.4f22c01-1.1
+[   15s] [45/145] preinstalled libarchive13-3.8.9-1.1
+[   15s] [46/145] preinstalled libasan8-16.2.1+git9713-1.1
+[   15s] [47/145] preinstalled libasm1-0.196-2.1
+[   15s] [48/145] preinstalled libatomic1-16.2.1+git9713-1.1
+[   15s] [49/145] preinstalled libattr1-2.6.0-1.2
+[   15s] [50/145] preinstalled libaudit1-4.0.2-3.4
+[   15s] [51/145] preinstalled libblkid1-2.42.4-1.1
+[   15s] [52/145] preinstalled libbz2-1-1.0.8-6.1
+[   15s] [53/145] preinstalled libcap-ng0-0.8.5-1.10
+[   15s] [54/145] preinstalled libcap2-2.78-1.4
+[   15s] [55/145] preinstalled libcrypt1-4.5.2-2.4
+[   15s] [56/145] preinstalled libctf-nobfd0-2.47-1.1
+[   15s] [57/145] preinstalled libctf0-2.47-1.1
+[   15s] [58/145] preinstalled libdw1-0.196-2.1
+[   15s] [59/145] preinstalled libeconf0-0.8.5-1.1
+[   15s] [60/145] preinstalled libelf1-0.196-2.1
+[   15s] [61/145] cumulate libexpat1-2.9.0-1.1
+[   15s] [62/145] preinstalled libfdisk1-2.42.4-1.1
+[   15s] [63/145] cumulate libffi8-3.5.2-2.4
+[   15s] [64/145] preinstalled libgcc_s1-16.2.1+git9713-1.1
+[   15s] [65/145] preinstalled libgcrypt20-1.12.4-1.1
+[   15s] [66/145] preinstalled libgdbm6-1.26-1.6
+[   15s] [67/145] preinstalled libgdbm_compat4-1.26-1.6
+[   15s] [68/145] preinstalled libgmp10-6.3.0-5.6
+[   15s] [69/145] preinstalled libgomp1-16.2.1+git9713-1.1
+[   15s] [70/145] preinstalled libgpg-error0-1.61-2.1
+[   15s] [71/145] preinstalled libhwasan0-16.2.1+git9713-1.1
+[   15s] [72/145] preinstalled libisl23-0.27-1.8
+[   15s] [73/145] preinstalled libitm1-16.2.1+git9713-1.1
+[   15s] [74/145] preinstalled libjitterentropy3-3.6.3-2.1
+[   15s] [75/145] preinstalled liblsan0-16.2.1+git9713-1.1
+[   15s] [76/145] preinstalled liblua5_4-5-5.4.8-4.7
+[   15s] [77/145] preinstalled liblz1-1.16-2.1
+[   15s] [78/145] preinstalled liblz4-1-1.10.0-2.10
+[   15s] [79/145] preinstalled liblzma5-5.8.4-1.1
+[   15s] [80/145] preinstalled libmagic1-5.48-2.2
+[   15s] [81/145] preinstalled libmount1-2.42.4-1.1
+[   15s] [82/145] preinstalled libmpc3-1.4.1-1.3
+[   15s] [83/145] cumulate libmpdec4-4.0.1-2.6
+[   15s] [84/145] preinstalled libmpfr6-4.2.2-1.5
+[   15s] [85/145] preinstalled libncurses6-6.6.20260926-115.1
+[   15s] [86/145] preinstalled libopenssl3-3.5.3-8.3
+[   15s] [87/145] preinstalled libpcre2-8-0-10.49-1.1
+[   15s] [88/145] preinstalled libpkgconf7-2.5.1-1.5
+[   15s] [89/145] preinstalled libpopt0-1.19-2.3
+[   15s] [90/145] preinstalled libreadline8-8.3.6-3.1
+[   15s] [91/145] preinstalled librpmbuild10-4.20.1-11.1
+[   15s] [92/145] preinstalled libseccomp2-2.6.1-3.1
+[   15s] [93/145] preinstalled libselinux1-3.11-2.1
+[   15s] [94/145] preinstalled libsframe3-2.47-1.1
+[   15s] [95/145] preinstalled libsmartcols1-2.42.4-1.1
+[   15s] [96/145] preinstalled libstdc++6-16.2.1+git9713-1.1
+[   15s] [97/145] preinstalled libtsan2-16.2.1+git9713-1.1
+[   15s] [98/145] preinstalled libubsan1-16.2.1+git9713-1.1
+[   15s] [99/145] preinstalled libuuid1-2.42.4-1.1
+[   15s] [100/145] preinstalled libxcrypt-devel-4.5.2-2.4
+[   15s] [101/145] preinstalled libxml2-16-2.15.4-1.1
+[   15s] [102/145] preinstalled libz1-1.3.1-3.3
+[   15s] [103/145] preinstalled libzstd1-1.5.7-6.1
+[   15s] [104/145] preinstalled linux-glibc-devel-7.2-2.1
+[   15s] [105/145] preinstalled lua-interpreter-5-3.4
+[   15s] [106/145] preinstalled lua54-5.4.8-4.7
+[   15s] [107/145] preinstalled make-4.4.1-3.10
+[   15s] [108/145] preinstalled ncurses-utils-6.6.20260926-115.1
+[   15s] [109/145] preinstalled pam-1.7.3-1.1
+[   15s] [110/145] preinstalled patch-2.8-3.2
+[   15s] [111/145] preinstalled perl-5.44.0-1.2
+[   15s] [112/145] preinstalled perl-base-5.44.0-1.2
+[   15s] [113/145] preinstalled perl-rpm-packaging-1.3-1.3
+[   15s] [114/145] preinstalled permctl-1699_20260917-1.1
+[   15s] [115/145] preinstalled permissions-1699_20260917-1.1
+[   15s] [116/145] preinstalled permissions-config-1699_20260917-1.1
+[   15s] [117/145] preinstalled pkgconf-2.5.1-1.5
+[   15s] [118/145] preinstalled pkgconf-m4-2.5.1-1.5
+[   15s] [119/145] preinstalled pkgconf-pkg-config-2.5.1-1.5
+[   15s] [120/145] preinstalled polkit-default-privs-1550+20261009.03465cb-1.1
+[   15s] [121/145] preinstalled post-build-checks-84.87+git20260421.8ed5e73-1.1
+[   15s] [122/145] cumulate python-rpm-macros-20260909.65d2791-1.1
+[   15s] [123/145] preinstalled rpm-4.20.1-11.1
+[   15s] [124/145] preinstalled rpm-build-4.20.1-11.1
+[   15s] [125/145] preinstalled rpm-config-SUSE-20250904-1.4
+[   15s] [126/145] preinstalled rpmlint-mini-2.10.0+git20261009.041119a7-21.49
+[   15s] [127/145] preinstalled rpmlint-strict-2.10.0+git20261009.041119a7-1.1
+[   15s] [128/145] preinstalled sed-4.10-1.4
+[   15s] [129/145] preinstalled suse-reproducible-builds-1.0-1.2
+[   15s] [130/145] preinstalled system-user-root-20190513-2.23
+[   15s] [131/145] preinstalled systemd-rpm-macros-26-1.4
+[   15s] [132/145] preinstalled tar-1.35-10.1
+[   15s] [133/145] preinstalled terminfo-base-6.6.20260926-115.1
+[   15s] [134/145] preinstalled util-linux-2.42.4-1.1
+[   15s] [135/145] preinstalled which-2.25-1.3
+[   15s] [136/145] preinstalled xz-5.8.4-1.1
+[   15s] [137/145] cumulate python311-base-3.11.16-2.1
+[   15s] [138/145] cumulate python313-base-3.13.15-2.1
+[   15s] [139/145] cumulate libpython3_11-1_0-3.11.16-2.1
+[   15s] [140/145] cumulate libpython3_13-1_0-3.13.15-2.1
+[   15s] [141/145] cumulate python311-python-prctl-1.8.1-2.10
+[   15s] [142/145] cumulate python313-packaging-26.3-1.1
+[   15s] [143/145] cumulate python313-ptyprocess-0.7.0-6.1
+[   15s] [144/145] cumulate python313-pexpect-4.9.0-5.2
+[   15s] [145/145] cumulate python-rpm-packaging-20210526+a18ca48-2.1
+[   15s] now installing cumulated packages
+[   15s] Preparing...                          ########################################
+[   15s] Updating / installing...
+[   15s] libmpdec4-4.0.1-2.6                   ########################################
+[   15s] libffi8-3.5.2-2.4                     ########################################
+[   15s] libexpat1-2.9.0-1.1                   ########################################
+[   15s] libpython3_13-1_0-3.13.15-2.1         ########################################
+[   15s] python313-base-3.13.15-2.1            ########################################
+[   15s] libpython3_11-1_0-3.11.16-2.1         ########################################
+[   16s] python311-base-3.11.16-2.1            ########################################
+[   16s] python313-packaging-26.3-1.1          ########################################
+[   16s] python313-ptyprocess-0.7.0-6.1        ########################################
+[   16s] python-rpm-macros-20260909.65d2791-1.1########################################
+[   16s] python-rpm-packaging-20210526+a18ca48-########################################
+[   16s] python313-pexpect-4.9.0-5.2           ########################################
+[   16s] python311-python-prctl-1.8.1-2.10     ########################################
+[   16s] bash-completion-2.18.0-2.1            ########################################
+[   16s] now finalizing build dir...
+[   16s] ... running 01-add_abuild_user_to_trusted_group
+[   16s] ... running 02-set_timezone_to_utc
+[   16s] ... running 03-set-permissions-secure
+[   16s] ... running 11-hack_uname_version_to_kernel_version
+[   17s] setting SOURCE_DATE_EPOCH_MTIME to 1685896152
+[   18s] -----------------------------------------------------------------
+[   18s] I have the following modifications for reptyr.spec:
+[   18s] 21c21
+[   18s] < Release:        0
+[   18s] ---
+[   18s] > Release:        1.6
+[   18s] -----------------------------------------------------------------
+[   18s] ----- building reptyr.spec (user abuild)
+[   18s] -----------------------------------------------------------------
+[   18s] -----------------------------------------------------------------
+[   18s] setting SOURCE_DATE_EPOCH_MTIME to 1685896152
+[   19s] + exec rpmbuild -ba --define '_srcdefattr (-,root,root)' --nosignature --define '_build_create_debug 1' --define 'disturl obs://build.opensuse.org/openSUSE:Factory:ARM/standard/208eef2eaddf9b0f53a34d1a549d72cd-reptyr' /home/abuild/rpmbuild/SOURCES/reptyr.spec
+[   19s] using SOURCE_DATE_EPOCH with value 1685896146 as build time
+[   19s] Executing(%mkbuilddir): /usr/bin/bash -e /var/tmp/rpm-tmp.Y8PsJT
+[   19s] Executing(%prep): /usr/bin/bash -e /var/tmp/rpm-tmp.V0qP15
+[   19s] + umask 022
+[   19s] + cd /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build
+[   19s] + cd /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build
+[   19s] + rm -rf reptyr-reptyr-0.10.0
+[   19s] + /usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/reptyr-0.10.0.tar.gz
+[   19s] + STATUS=0
+[   19s] + '[' 0 -ne 0 ']'
+[   19s] + cd reptyr-reptyr-0.10.0
+[   19s] + /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
+[   19s] + RPM_EC=0
+[   19s] ++ jobs -p
+[   19s] + exit 0
+[   19s] Executing(%build): /usr/bin/bash -e /var/tmp/rpm-tmp.ONl7vT
+[   19s] + umask 022
+[   19s] + cd /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build
+[   19s] + /usr/bin/rm -rf /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build/BUILDROOT
+[   19s] ++ dirname /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build/BUILDROOT
+[   19s] + /usr/bin/mkdir -p /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build
+[   19s] + /usr/bin/mkdir /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build/BUILDROOT
+[   19s] + cd reptyr-reptyr-0.10.0
+[   19s] + ref=/usr/lib/rpm
+[   19s] + mints=0
+[   19s] + case $(uname -m) in
+[   19s] ++ uname -m
+[   19s] + mints=20120610
+[   19s] + for s in guess sub
+[   19s] ++ find -maxdepth 8 -name config.guess
+[   19s] + for s in guess sub
+[   19s] ++ find -maxdepth 8 -name config.sub
+[   19s] + export 'CFLAGS=-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g'
+[   19s] + CFLAGS='-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g'
+[   19s] + export 'CXXFLAGS=-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g'
+[   19s] + CXXFLAGS='-mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g'
+[   19s] + /usr/bin/make -O -j4 V=1 VERBOSE=1
+[   19s] cc -MD -Wall -Werror -D_GNU_SOURCE -g -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g   -c -o reallocarray.o reallocarray.c
+[   19s] cc -MD -Wall -Werror -D_GNU_SOURCE -g -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g   -c -o platform/linux/linux_ptrace.o platform/linux/linux_ptrace.c
+[   19s] cc -MD -Wall -Werror -D_GNU_SOURCE -g -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g   -c -o attach.o attach.c
+[   19s] cc -MD -Wall -Werror -D_GNU_SOURCE -g -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g   -c -o reptyr.o reptyr.c
+[   19s] cc -MD -Wall -Werror -D_GNU_SOURCE -g -mbranch-protection=standard -O2 -Wall -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -fstack-protector-strong -funwind-tables -fasynchronous-unwind-tables -fstack-clash-protection -Werror=return-type -flto=auto -g   -c -o platform/linux/linux.o platform/linux/linux.c
+[   20s] cc   reptyr.o reallocarray.o attach.o platform/linux/linux_ptrace.o platform/linux/linux.o   -o reptyr
+[   20s] + RPM_EC=0
+[   20s] ++ jobs -p
+[   20s] + exit 0
+[   20s] Executing(%install): /usr/bin/bash -e /var/tmp/rpm-tmp.JDlyU7
+[   20s] + umask 022
+[   20s] + cd /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build
+[   20s] + /usr/bin/rm -rf /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build/BUILDROOT
+[   20s] + /usr/bin/mkdir -p /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build
+[   20s] + /usr/bin/mkdir /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build/BUILDROOT
+[   20s] + cd reptyr-reptyr-0.10.0
+[   20s] + make install DESTDIR=/home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build/BUILDROOT PREFIX=/usr BASHCOMPDIR=/usr/share/bash-completion/completions
+[   20s] install -d -m 755 /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build/BUILDROOT/usr/bin
+[   20s] install -m 755 reptyr /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build/BUILDROOT/usr/bin/reptyr
+[   20s] install -d -m 755 /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build/BUILDROOT/usr/share/man/man1
+[   20s] install -m 644 reptyr.1 /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build/BUILDROOT/usr/share/man/man1/reptyr.1
+[   20s] install -d -m 755 /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build/BUILDROOT/usr/share/man/fr/man1
+[   21s] install -m 644 reptyr.fr.1 /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build/BUILDROOT/usr/share/man/fr/man1/reptyr.1
+[   21s] bashcompdir=/usr/share/bash-completion/completions ; \
+[   21s] test -z "$bashcompdir" && bashcompdir=/etc/bash_completion.d ; \
+[   21s] install -d -m 755 /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build/BUILDROOT$bashcompdir ; \
+[   21s] install -m 644 reptyr.bash /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build/BUILDROOT$bashcompdir/reptyr
+[   21s] + /usr/lib/rpm/find-debuginfo -j4 -n --run-dwz --dwz-low-mem-die-limit 10000000 --dwz-max-die-limit 50000000 -S debugsourcefiles.list /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build/reptyr-reptyr-0.10.0
+[   21s] find-debuginfo: starting
+[   21s] Extracting debug info from 1 files
+[   21s] DWARF-compressing 1 files
+[   21s] sepdebugcrcfix: Updated 1 CRC32s, 0 CRC32s did match.
+[   21s] Copying sources found by 'debugedit -l' to /usr/src/debug
+[   21s] find-debuginfo: done
+[   21s] + /usr/lib/rpm/brp-compress
+[   21s] + /usr/lib/rpm/brp-suse
+[   21s] calling /usr/lib/rpm/brp-suse.d/brp-05-permissions
+[   21s] calling /usr/lib/rpm/brp-suse.d/brp-15-strip-debug
+[   21s] calling /usr/lib/rpm/brp-suse.d/brp-25-symlink
+[   21s] calling /usr/lib/rpm/brp-suse.d/brp-50-generate-fips-hmac
+[   21s] calling /usr/lib/rpm/brp-suse.d/brp-75-ar
+[   21s] Executing(%check): /usr/bin/bash -e /var/tmp/rpm-tmp.oWTCHL
+[   21s] + umask 022
+[   21s] + cd /home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build
+[   21s] + cd reptyr-reptyr-0.10.0
+[   21s] + /usr/bin/make -O -j4 V=1 VERBOSE=1 test PYTHON_CMD=python3
+[   21s] cc -MD -Wall -Werror -D_GNU_SOURCE -g    -c -o test/victim.o test/victim.c
+[   21s] cc   test/victim.o   -o test/victim
+[   23s] python3 test/basic.py
+[   23s] hello
+[   23s] ECHO: hello
+[   23s] world
+[   23s] [+] Checking for problematic process group members...
+[   23s] [+] Making sure we have permission to attach...
+[   23s] [+] Using tty: /dev/pts/2
+[   23s] world
+[   23s] [-] Timed out waiting for child stop.
+[   23s] [+] Allocated scratch page: ffffb1de7000
+[   23s] [+] Looking up fds for tty in child.
+[   23s] [+] Resolved child tty: 8800
+[   23s] [+] Found an alias for the tty: 0
+[   23s] [+] Found an alias for the tty: 1
+[   23s] [+] Found an alias for the tty: 2
+[   23s] [+] Opened the new tty in the child: 3
+[   23s] [+] Set the controlling tty
+[   23s] ECHO: world
+[   23s] final
+[   23s] python3 test/tty-steal.py
+[   23s] world
+[   23s] [+] Making sure we have permission to attach...
+[   23s] [+] session leader of pid 1152 = 1152
+[   23s] [+] found terminal emulator process: 1151
+[   23s] [+] Listening on socket: /tmp/reptyr.zgwq2z/reptyr.sock
+[   23s] [+] Attaching terminal emulator pid=1151
+[   23s] Unable to attach to pid 1152: Operation not permitted
+[   23s] The kernel denied permission while attaching. If your uid matches
+[   23s] the target's, check the value of /proc/sys/kernel/yama/ptrace_scope.
+[   23s] For more information, see /etc/sysctl.d/10-ptrace.conf
+[   23s] world
+[   23s] Unable to find `prctl.set_ptracer`, skipping `PR_SET_PTRACER`.
+[   23s] spawned children: me=1151 victim=1152 reptyr=1153
+[   23s] Traceback (most recent call last):
+[   23s]   File "/home/abuild/rpmbuild/BUILD/reptyr-0.10.0-build/reptyr-reptyr-0.10.0/test/tty-steal.py", line 38, in <module>
+[   23s]     reptyr.expect("ECHO: world")
+[   23s]     ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+[   23s]   File "/usr/lib/python3.13/site-packages/pexpect/spawnbase.py", line 354, in expect
+[   23s]     return self.expect_list(compiled_pattern_list,
+[   23s]            ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+[   23s]             timeout, searchwindowsize, async_)
+[   23s]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[   23s]   File "/usr/lib/python3.13/site-packages/pexpect/spawnbase.py", line 383, in expect_list
+[   23s]     return exp.expect_loop(timeout)
+[   23s]            ~~~~~~~~~~~~~~~^^^^^^^^^
+[   23s]   File "/usr/lib/python3.13/site-packages/pexpect/expect.py", line 179, in expect_loop
+[   23s]     return self.eof(e)
+[   23s]            ~~~~~~~~^^^
+[   23s]   File "/usr/lib/python3.13/site-packages/pexpect/expect.py", line 122, in eof
+[   23s]     raise exc
+[   23s] pexpect.exceptions.EOF: End Of File (EOF). Exception style platform.
+[   23s] <pexpect.pty_spawn.spawn object at 0xffff918bead0>
+[   23s] command: ./reptyr
+[   23s] args: ['./reptyr', '-V', '-T', '1152']
+[   23s] buffer (last 100 chars): b''
+[   23s] before (last 100 chars): b'/proc/sys/kernel/yama/ptrace_scope.\r\nFor more information, see /etc/sysctl.d/10-ptrace.conf\r\nworld\r\n'
+[   23s] after: <class 'pexpect.exceptions.EOF'>
+[   23s] match: None
+[   23s] match_index: None
+[   23s] exitstatus: 1
+[   23s] flag_eof: True
+[   23s] pid: 1153
+[   23s] child_fd: 6
+[   23s] closed: False
+[   23s] timeout: 30
+[   23s] delimiter: <class 'pexpect.exceptions.EOF'>
+[   23s] logfile: <_io.BufferedWriter name='<stdout>'>
+[   23s] logfile_read: None
+[   23s] logfile_send: None
+[   23s] maxread: 2000
+[   23s] ignorecase: False
+[   23s] searchwindowsize: None
+[   23s] delaybeforesend: 0.05
+[   23s] delayafterclose: 0.1
+[   23s] delayafterterminate: 0.1
+[   23s] searcher: searcher_re:
+[   23s]     0: re.compile(b'ECHO: world')
+[   23s] make: *** [Makefile:30: test] Error 1
+[   23s] error: Bad exit status from /var/tmp/rpm-tmp.oWTCHL (%check)
+[   23s] 
+[   23s] RPM build errors:
+[   23s]     Bad exit status from /var/tmp/rpm-tmp.oWTCHL (%check)
+[   23s] ### VM INTERACTION START ###
+[   23s] [   15.146208][    T1] sysrq: Power Off
+[   23s] ### VM INTERACTION END ###
+[   23s] 
+[   23s] i03-armsrv2 failed "build reptyr.spec" at Tue Oct 13 12:57:08 UTC 2026.
+[   23s] 

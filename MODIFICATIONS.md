@@ -655,6 +655,24 @@ improvements` shows them file by file.
   without the network, and run again it keeps what is uploaded already.
   `dataset/validate_acceptance.py` builds the acceptance test packages on the
   source architecture against a working build of each package.
+- A pilot of x86_64 → aarch64 on OBS (`aarch64.yaml`, suite `pilot`): 20
+  packages drawn at random (seed 20261109) from the 49 openSUSE:Factory
+  candidates without multibuild flavors or sources over 500 MiB; 15 kept their
+  failure in the project (13 confirmed by a second build, ck and java-25-openj9,
+  whose builds take 1 to 1.5 hours, by one), 5 did not: python-MapProxy, rumdl
+  and soapy-remote build on aarch64 there, leechcraft built once and failed
+  once, python-pymediainfo fails on x86_64 too
+  (`dataset/triage_x86_64_to_aarch64.json`). Each case has an acceptance test
+  package, validated against a working x86_64 build: ck's barrier validation
+  programs, reptyr's own tests and blake3's test suite built against the
+  installed package; a Cycles render (blender), a JIT-heavy program
+  (java-25-openj9), Zig and C programs (zig), jq filters (jaq), the server's
+  API (devpi-server); version, help and library checks for the others. The
+  config has the paper's budget (3 attempts of 20 rounds) with the
+  framework's other settings. The sources stay out of git (`fetch_package.py`
+  downloads the package's current sources; `manifest.json` records the srcmd5
+  of the pilot's); java-25-openj9's failing
+  log keeps its first 500 and last 5000 lines of 199526.
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source

@@ -1,0 +1,40 @@
+{
+  "task": {
+    "package": "jaq",
+    "direction": "x86_64_to_aarch64",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "c313f446c6d5d6a1ee90b0e81e145189"
+    },
+    "target": {
+      "project": "openSUSE:Factory:ARM",
+      "repository": "standard",
+      "arch": "aarch64"
+    }
+  },
+  "files": [
+    {
+      "name": "_service",
+      "size": "275"
+    },
+    {
+      "name": "jaq-2.3.0.tar.gz",
+      "size": "121047"
+    },
+    {
+      "name": "jaq.changes",
+      "size": "16382"
+    },
+    {
+      "name": "jaq.spec",
+      "size": "1437"
+    },
+    {
+      "name": "vendor.tar.zst",
+      "size": "18159967"
+    }
+  ],
+  "created_at": 1794231885,
+  "version": 1
+}

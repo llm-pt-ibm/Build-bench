@@ -1,0 +1,60 @@
+{
+  "task": {
+    "package": "doomsday",
+    "direction": "x86_64_to_aarch64",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "3af1aa93cd82364486953d805182de83"
+    },
+    "target": {
+      "project": "openSUSE:Factory:ARM",
+      "repository": "standard",
+      "arch": "aarch64"
+    }
+  },
+  "files": [
+    {
+      "name": "Doomsday-Engine-2.3.1.tar.xz",
+      "size": "39359604"
+    },
+    {
+      "name": "_scmsync.obsinfo",
+      "size": "155"
+    },
+    {
+      "name": "_service",
+      "size": "840"
+    },
+    {
+      "name": "build.specials.obscpio",
+      "size": "256"
+    },
+    {
+      "name": "doomsday-libs.diff",
+      "size": "1344"
+    },
+    {
+      "name": "doomsday-no-abs-icon.patch",
+      "size": "910"
+    },
+    {
+      "name": "doomsday-notime.diff",
+      "size": "14342"
+    },
+    {
+      "name": "doomsday-rpmlintrc",
+      "size": "190"
+    },
+    {
+      "name": "doomsday.changes",
+      "size": "15336"
+    },
+    {
+      "name": "doomsday.spec",
+      "size": "3634"
+    }
+  ],
+  "created_at": 1794231846,
+  "version": 1
+}

@@ -1,0 +1,68 @@
+{
+  "task": {
+    "package": "zig0.14",
+    "direction": "x86_64_to_aarch64",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "576dcf03dff6cca6c67a3821f907fbda"
+    },
+    "target": {
+      "project": "openSUSE:Factory:ARM",
+      "repository": "standard",
+      "arch": "aarch64"
+    }
+  },
+  "files": [
+    {
+      "name": "0000-remove-lld-in-cmakelist.patch",
+      "size": "669"
+    },
+    {
+      "name": "0001-invoke-lld.patch",
+      "size": "4914"
+    },
+    {
+      "name": "0002-no-lld-libs-and-includes.patch",
+      "size": "2596"
+    },
+    {
+      "name": "_constraints",
+      "size": "1503"
+    },
+    {
+      "name": "bump_max_rss.patch",
+      "size": "426"
+    },
+    {
+      "name": "macros.zig",
+      "size": "1131"
+    },
+    {
+      "name": "reproducible.patch",
+      "size": "1178"
+    },
+    {
+      "name": "skip-localhost-test.patch",
+      "size": "454"
+    },
+    {
+      "name": "zig-0.14.1.tar.xz",
+      "size": "17787696"
+    },
+    {
+      "name": "zig0.14-rpmlintrc",
+      "size": "169"
+    },
+    {
+      "name": "zig0.14.changes",
+      "size": "7915"
+    },
+    {
+      "name": "zig0.14.spec",
+      "size": "6445"
+    }
+  ],
+  "created_at": 1794232250,
+  "version": 1
+}

@@ -1,0 +1,36 @@
+{
+  "task": {
+    "package": "ck",
+    "direction": "x86_64_to_aarch64",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "84374be15becbb2bb51e4ae5670d164c"
+    },
+    "target": {
+      "project": "openSUSE:Factory:ARM",
+      "repository": "standard",
+      "arch": "aarch64"
+    }
+  },
+  "files": [
+    {
+      "name": "_constraints",
+      "size": "144"
+    },
+    {
+      "name": "ck-0.7.2.tar.gz",
+      "size": "257817"
+    },
+    {
+      "name": "ck.changes",
+      "size": "2703"
+    },
+    {
+      "name": "ck.spec",
+      "size": "3434"
+    }
+  ],
+  "created_at": 1794231786,
+  "version": 1
+}

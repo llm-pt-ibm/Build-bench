@@ -1,0 +1,32 @@
+{
+  "task": {
+    "package": "CalcMySky",
+    "direction": "x86_64_to_aarch64",
+    "source": {
+      "project": "openSUSE:Factory",
+      "arch": "x86_64",
+      "srcmd5": "40e6db80adcd992316848bb0cccfca0d"
+    },
+    "target": {
+      "project": "openSUSE:Factory:ARM",
+      "repository": "standard",
+      "arch": "aarch64"
+    }
+  },
+  "files": [
+    {
+      "name": "CalcMySky-0.4.0.tar.gz",
+      "size": "2165658"
+    },
+    {
+      "name": "CalcMySky.changes",
+      "size": "3544"
+    },
+    {
+      "name": "CalcMySky.spec",
+      "size": "6527"
+    }
+  ],
+  "created_at": 1794231720,
+  "version": 1
+}
