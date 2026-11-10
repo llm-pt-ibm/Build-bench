@@ -419,6 +419,29 @@ except SystemExit as e:
     assert "true or false" in str(e), e
 print("extra tools: OK (true or false; a list of before refused)")
 
+# run_command_tool needs a build recipe's environment on this host: RPM cases,
+# built on OBS, are not offered it; the prompt describes an OBS test package
+_offered = [{"type": "function", "function": {"name": n}} for n in client.PAPER_TOOLS + client.EXTRA_TOOLS]
+assert "run_command_tool" in [t["function"]["name"] for t in client.case_tools("recipe", _offered)]
+assert [t["function"]["name"] for t in client.case_tools("rpm", _offered)] == \
+    list(client.PAPER_TOOLS) + ["search_files_tool", "replace_in_file_tool"]
+import tools.auto_repair.acceptance as acceptance_mod  # noqa: E402
+_tests = tempfile.mkdtemp()
+_dirs = (client.obs_acceptance.ACCEPTANCE_DIR, acceptance_mod.ACCEPTANCE_DIR)
+try:
+    client.obs_acceptance.ACCEPTANCE_DIR = acceptance_mod.ACCEPTANCE_DIR = _tests
+    assert client.acceptance_note({"direction": "a_to_b"}, "pkg") == ""
+    os.makedirs(os.path.join(_tests, "a_to_b", "pkg"))
+    open(os.path.join(_tests, "a_to_b", "pkg", "pkg-acceptance.spec"), "w").write("Name: pkg-acceptance\n")
+    _note = client.acceptance_note({"direction": "a_to_b"}, "pkg")
+    assert "pkg-acceptance.spec` in the same OBS repository" in _note and "{target_arch}" in _note, _note
+    open(os.path.join(_tests, "a_to_b", "pkg.sh"), "w").write("true\n")
+    assert "runs the acceptance test" in client.acceptance_note({"direction": "a_to_b"}, "pkg")
+finally:
+    client.obs_acceptance.ACCEPTANCE_DIR, acceptance_mod.ACCEPTANCE_DIR = _dirs
+    shutil.rmtree(_tests)
+print("case tools: OK (no run_command_tool for RPM cases; the prompt describes their OBS test package)")
+
 # beyond max_context_chars the oldest tool results are shortened at once to
 # 80% of it, so that the next turns keep the conversation's start (and the
 # prompt cache) as it is

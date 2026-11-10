@@ -673,6 +673,14 @@ improvements` shows them file by file.
   downloads the package's current sources; `manifest.json` records the srcmd5
   of the pilot's); java-25-openj9's failing
   log keeps its first 500 and last 5000 lines of 199526.
+- `run_command_tool` is offered only to build-recipe cases: it runs in the
+  case's build environment on this host, which an RPM case, built on OBS, has
+  not. With `extra_tools: true` every case got it, and an RPM case's call
+  returned an error, costing a round. The system prompt also describes an RPM
+  case's acceptance test package (`acceptance/<direction>/<package>/`); it
+  only described the scripts of build recipes, so the model learned of the
+  test when it first failed. Both came up in the first minutes of the
+  x86_64 → aarch64 pilot, which was stopped and started again.
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source

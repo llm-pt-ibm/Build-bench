@@ -12,7 +12,7 @@ import openai
 from openai import OpenAI
 from mcp.client.stdio import stdio_client
 from mcp import ClientSession, StdioServerParameters
-from tools.auto_repair import bench_config, container
+from tools.auto_repair import bench_config, container, obs_acceptance
 from tools.auto_repair.acceptance import ACCEPTANCE_DIR, acceptance_test
 from tools.auto_repair.case_type import case_environment, case_type
 from tools.auto_repair.leak_check import leak_report
@@ -111,6 +111,33 @@ def llm_tools(llm_cfg: dict) -> tuple:
 LLM_CFG = info.get("llm") or {}
 SCRIPT_CFG = (info.get("build") or {}).get("script") or {}
 LLM_TOOLS = llm_tools(LLM_CFG)
+
+
+def case_tools(kind: str, tools: List[Dict]) -> List[Dict]:
+    """The tools of a case: run_command_tool runs in the build environment of a
+    build recipe on this host, which an RPM case, built on OBS, has not."""
+    return tools if kind == "recipe" else [t for t in tools if t["function"]["name"] != "run_command_tool"]
+
+
+def acceptance_note(cfg: dict, package_name: str) -> str:
+    """What the system prompt says of the case's acceptance test ("" without one)."""
+    test = acceptance_test(cfg, package_name)
+    if test:
+        return ("\n\n## Acceptance test\n"
+                f"After every successful build the framework runs the acceptance test `{test}` to check that "
+                "the built software installs and works correctly on {target_arch}; a failing test is reported "
+                "as a failed build, with the test output as the log. You can read the test, but not change it. "
+                "The repair is complete only when the build succeeds and the test passes.")
+    tests = obs_acceptance.test_dir(cfg, package_name)
+    if tests:
+        spec = os.path.join(tests, f"{package_name}-acceptance.spec")
+        return ("\n\n## Acceptance test\n"
+                f"After every successful build the framework builds the test package `{spec}` in the same OBS "
+                "repository: it installs the package you built and checks that it works on {target_arch}. A "
+                "failing check is reported as a failed build, with the test package's build log as the log. "
+                "You can read the test and the files next to it, but not change them. The repair is complete "
+                "only when the build succeeds and the test passes.")
+    return ""
 PROMPTS = {"rpm": "prompts/full_file_generation.txt", "recipe": "prompts/build_recipe_generation.txt",
            **(info.get("prompts") or {})}
 MAX_CONTEXT_CHARS = int(os.getenv("BENCH_MAX_CONTEXT_CHARS") or LLM_CFG.get("max_context_chars", 0))
@@ -406,14 +433,9 @@ class AutoRepairClient:
         with open(PROMPTS[kind], "r", encoding="utf-8") as f:
             system_prompt_tpl = f.read()
         readonly_dirs = os.path.join(load_obs_config()["script"]["stage_root"], package_name, "cache")
-        test = acceptance_test(load_obs_config(), package_name)
-        if test:
-            system_prompt_tpl += (
-                "\n\n## Acceptance test\n"
-                f"After every successful build the framework runs the acceptance test `{test}` to check that "
-                "the built software installs and works correctly on {target_arch}; a failing test is reported "
-                "as a failed build, with the test output as the log. You can read the test, but not change it. "
-                "The repair is complete only when the build succeeds and the test passes.")
+        system_prompt_tpl += acceptance_note(load_obs_config(), package_name)
+        tools = case_tools(kind, tools)
+        self.tool_names = [t["function"]["name"] for t in tools]
         if kind == "recipe" and "run_command_tool" in LLM_TOOLS:
             system_prompt_tpl += (
                 "\n\n## Experiments\n"
@@ -776,9 +798,10 @@ class AutoRepairClient:
         self.usage["tool_calls"] += 1
         self._log(package_name, f"Tool call: {tool_name}({json.dumps(tool_args, ensure_ascii=False)[:500]})")
 
-        if tool_name not in LLM_TOOLS:
+        offered = getattr(self, "tool_names", LLM_TOOLS)
+        if tool_name not in offered:
             return tool_name, (f"Error: unknown tool {tool_name}. "
-                               f"Available tools: {', '.join(LLM_TOOLS)}.")
+                               f"Available tools: {', '.join(offered)}.")
 
         if tool_name == "check_build_result" and not self.upload_status.get(package_name, False):
             return tool_name, ("ERROR: Cannot call check_build_result before uploading. "
