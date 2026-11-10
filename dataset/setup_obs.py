@@ -17,8 +17,6 @@ from tools.auto_repair.upload_files import _source_files, main_upload  # noqa: E
 REPOS = {"x86_64": ("openSUSE:Factory", "standard"), "aarch64": ("openSUSE:Factory:ARM", "standard"),
          "ppc64le": ("openSUSE:Factory:PowerPC", "standard")}
 FINAL = {"succeeded", "failed", "unresolvable", "broken", "excluded", "disabled"}
-# a test that hangs is stopped after 15 minutes without output, not OBS's 90
-PRJCONF = "BuildFlags: logidlelimit:900\n"
 
 cfg = load_obs_config()
 auth = HTTPBasicAuth(cfg["user"], cfg["password"])
@@ -110,7 +108,6 @@ def main(only: list, once: list) -> None:
     pkgs = [p for p in sorted(os.listdir(base)) if os.path.isdir(os.path.join(base, p)) and (not only or p in only)]
     print(f"project {PRJ} ({DIRECTION}): {len(pkgs)} packages")
     put(f"{API}/source/{PRJ}/_meta", project_meta())
-    put(f"{API}/source/{PRJ}/_config", PRJCONF)
     for pkg in pkgs:
         if uploaded(pkg, os.path.join(base, pkg)):
             print(f"  {pkg}: on OBS already", flush=True)

@@ -64,6 +64,14 @@ indented = "".join(f"FAIL check{i} (exit status 134, aborted)\n    F1015 20:18:0
                    "Unsupported CPU type: powerpc64le-unknown-linux-gnu\n" for i in range(9))
 ex = error_excerpt(indented)
 assert "Unsupported CPU type" in ex and "[x9]" in ex, ex
+cmake = ("[   23s] Executing(%build): /usr/bin/bash -e /var/tmp/rpm-tmp.O\n"
+         "[   23s] CMake Error at CMakeLists.txt:92 (set_target_properties):\n"
+         "[   23s]   set_target_properties called with incorrect number of arguments.\n[   23s] \n"
+         "[   23s]   See the documentation.\n[   23s] \n[   23s] -- Configuring incomplete, errors occurred!\n"
+         "[   23s] error: Bad exit status from /var/tmp/rpm-tmp.O (%build)\n")
+ex = error_excerpt(cmake)
+assert "(set_target_properties): set_target_properties called with incorrect number of arguments. " \
+    "See the documentation." in ex and "Configuring incomplete" not in ex.split("\n")[0], ex
 from tools.auto_repair.log_excerpt import same_failure  # noqa: E402
 from tools.auto_repair.log_excerpt import ACCEPTANCE_MARK, failure_signature  # noqa: E402
 _acc = (ACCEPTANCE_MARK + "\nPASS int8\nFAIL jax_test_suite (exit status 1): 20 failed, 1508 passed, 70 skipped "

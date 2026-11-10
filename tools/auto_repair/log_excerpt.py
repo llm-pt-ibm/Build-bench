@@ -3,7 +3,7 @@ import re
 KEY_LINE = re.compile(
     r"error:|fatal error|\bFAILED\b|undefined reference|No such file or directory"
     r"|malformed patch|Bad exit status|make(\[\d+\])?: \*\*\*|\bKilled\b"
-    r"|Segmentation fault|cannot find -l|nothing provides|have choice for"
+    r"|Segmentation fault|cannot find -l|nothing provides|have choice for|CMake Error"
     # Bazel/Starlark: "Error in fail: ..." and the "... FAIL: <message>" lines
     r"|Error in \w+:|\bFAIL:"
     # glog/absl fatal messages (F1014 12:00:00.000 123 file.cc:42] ...) and
@@ -34,6 +34,25 @@ PREFIX = re.compile(r"^(\[\s*\d+s\]\s*)?(error:\s*)?")
 
 
 GLOG_PREFIX = re.compile(r"^[FE]\d{4} \d\d:\d\d:\d\d\.\d+ +\d+ ")
+TIMESTAMP = re.compile(r"^\[\s*\d+s\] ?")
+# CMake prints the message of an error on the indented lines under "CMake Error at ...:",
+# with blank lines between its paragraphs
+CMAKE_ERROR = re.compile(r"CMake Error\b.*:$")
+MAX_JOINED_CHARS = 300
+
+
+def _join_messages(lines: list) -> list:
+    out, joining = [], False
+    for line in lines:
+        body = TIMESTAMP.sub("", line)
+        if joining and not body.strip():
+            continue
+        if joining and body[:1] in (" ", "\t") and len(out[-1]) < MAX_JOINED_CHARS:
+            out[-1] += " " + body.strip()
+            continue
+        joining = bool(CMAKE_ERROR.search(body))
+        out.append(line)
+    return out
 
 
 def _text(line: str) -> str:
@@ -57,7 +76,7 @@ def error_excerpt(log_text: str, max_key_lines: int = 15, tail_lines: int = 5) -
     failed build actions collapsed per target, and the end of the log."""
     lines = [l.rstrip() for l in log_text.splitlines()]
     start = next((i for i, l in enumerate(lines) if BUILD_START.search(l)), 0)
-    lines = lines[start:]
+    lines = _join_messages(lines[start:])
 
     key, seen, count = [], set(), {}
     actions = {}  # target -> [first line, number of failed actions]

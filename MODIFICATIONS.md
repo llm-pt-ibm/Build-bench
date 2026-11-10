@@ -648,8 +648,7 @@ improvements` shows them file by file.
   uploads every case first and waits for all the builds together, rebuilds a
   package only when its sources change (`rebuild="local"`: OBS rebuilt the
   cases whenever a dependency of Factory changed, which can turn a failure
-  into a success while it is examined), stops a build after 15 minutes without
-  output (`logidlelimit`: a hanging test took 90), confirms each failure with
+  into a success while it is examined), confirms each failure with
   a second build of the target (`--once` skips it for slow builds) and drops a
   case that built on the target there even once. It goes on after a moment
   without the network, and run again it keeps what is uploaded already.
@@ -694,6 +693,15 @@ improvements` shows them file by file.
   exists already, the files go to `<name>2`, `<name>3`... and the command says
   which. Two runs stopped under the same label went to the same directory, the
   second overwriting the files of the first.
+
+- The OBS project keeps OBS's limit of 90 minutes without output. The
+  15-minute `logidlelimit` set by `setup_obs.py` stopped zig0.14's bootstrap,
+  which compiles a large C file in silence, so the pilot's zig0.14 failed on a
+  fix that was probably right.
+- The log excerpt keeps CMake errors with their message: `CMake Error at
+  <file>:<line> (<command>):` and the indented lines under it, on one line up
+  to 300 characters. The excerpt of a failed configure showed only
+  `Bad exit status`, which left zig0.14's model in the pilot without the cause.
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source
