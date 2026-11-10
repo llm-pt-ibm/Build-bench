@@ -681,6 +681,15 @@ improvements` shows them file by file.
   only described the scripts of build recipes, so the model learned of the
   test when it first failed. Both came up in the first minutes of the
   x86_64 → aarch64 pilot, which was stopped and started again.
+- The framework's notes on rounds follow the attempt's budget. The model is
+  told how many rounds are left when half and a quarter of them are
+  (`llm.round_notices: true`; 10 and 5 of 20, 30 and 15 of 60), and to build
+  after a quarter of them without a change or a build
+  (`llm.build_drought_note: true`; 5 of 20, 15 of 60). `round_notice_at` and
+  `build_drought_rounds` named rounds, so values made for one budget did not
+  suit another: with 20 rounds the notice at 30 never came and the reminder
+  after 15 came with 5 left. A config that still has them stops the run with a
+  message, and each result records the rounds that applied.
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source

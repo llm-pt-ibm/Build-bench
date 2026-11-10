@@ -365,8 +365,8 @@ results (none of it hints at a fix; 0 or `false` turns it off):
 | `llm.` | |
 |---|---|
 | `carry_notes_chars` | the next attempt starts with what the model wrote in the previous one (its notes), up to this many characters: what it found out is not lost when it made no edit |
-| `round_notice_at` | when these many rounds are left in an attempt, so it applies its fix in time |
-| `build_drought_rounds` | after this many rounds without a change or a build, to build its hypothesis |
+| `round_notices` | when half and a quarter of an attempt's rounds are left (30 and 15 of 60), so it applies its fix in time |
+| `build_drought_note` | after a quarter of an attempt's rounds without a change or a build (15 of 60), to build its hypothesis |
 | `repeated_failure_note` | when a build failed the same way as the previous one: the change since then did not affect the failure |
 
 The paper's setup is `max_build_attempts: 3`, `max_tool_rounds: 20`,

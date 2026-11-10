@@ -64,7 +64,14 @@ def check_settings(profile: dict) -> None:
     if removed:
         fail(f"{', '.join(removed)}: no longer read. A run's cases are a suite of the config (suite, or SUITE), "
              "and the model's address and key are API_BASE_URL and API_KEY in .env")
-    if not isinstance((profile.get("llm") or {}).get("extra_tools", False), bool):
+    llm = profile.get("llm") or {}
+    if "round_notice_at" in llm or not isinstance(llm.get("round_notices", False), bool):
+        fail(f"{profile['config']}: llm.round_notice_at is gone: llm.round_notices: true tells the model "
+             "when half and a quarter of its rounds are left")
+    if "build_drought_rounds" in llm or not isinstance(llm.get("build_drought_note", False), bool):
+        fail(f"{profile['config']}: llm.build_drought_rounds is gone: llm.build_drought_note: true tells the "
+             "model to build after a quarter of its rounds without a change or a build")
+    if not isinstance(llm.get("extra_tools", False), bool):
         fail(f"{profile['config']}: llm.extra_tools is true or false now (true: search_files_tool, "
              "replace_in_file_tool and run_command_tool; false: only the paper's tools)")
     if not profile["suite"]:

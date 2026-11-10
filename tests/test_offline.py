@@ -141,7 +141,7 @@ async def main():
         print("empty replies: OK (retried, the attempt goes on)")
 
         # rounds without a change or a build: the framework tells the model to build
-        client.BUILD_DROUGHT_ROUNDS = 2
+        client.BUILD_DROUGHT_NOTE, _max_rounds, cli.max_tool_rounds = True, cli.max_tool_rounds, 8   # a quarter: 2
         cli.script, cli.step = [[call(23, "get_file_content_tool", file_path=f"{TMP}/log_failed.txt")],
                                 [call(24, "get_file_content_tool", file_path=f"{TMP}/zita-resampler.spec")],
                                 [call(25, "get_structure_of_files", package_path=TMP)], None], 0
@@ -150,7 +150,9 @@ async def main():
         noted = [m["tool_call_id"] for m in messages
                  if m.get("role") == "tool" and "2 rounds without a change to the package" in m["content"]]
         assert noted == ["call_24"] and summary["drought_notes"] == 1, (noted, summary)
-        client.BUILD_DROUGHT_ROUNDS = 0
+        assert client.drought_rounds(20) == 5 and client.drought_rounds(60) == 15 and client.drought_rounds(3) == 1
+        client.BUILD_DROUGHT_NOTE, cli.max_tool_rounds = False, _max_rounds
+        assert client.drought_rounds(20) == 0
         # a build that failed the same way as the previous one is pointed out
         client.REPEATED_FAILURE_NOTE = True
         cli.package_path, cli.attempt, cli.builds, cli.last_failure = TMP, 3, [], None
@@ -441,6 +443,18 @@ finally:
     client.obs_acceptance.ACCEPTANCE_DIR, acceptance_mod.ACCEPTANCE_DIR = _dirs
     shutil.rmtree(_tests)
 print("case tools: OK (no run_command_tool for RPM cases; the prompt describes their OBS test package)")
+
+# the model is told how many rounds are left when half and a quarter of them are
+_notices = client.ROUND_NOTICES
+try:
+    client.ROUND_NOTICES = True
+    assert client.notice_rounds(20) == [10, 5] and client.notice_rounds(60) == [30, 15], client.notice_rounds(60)
+    assert client.notice_rounds(3) == [1] and client.notice_rounds(1) == []
+    client.ROUND_NOTICES = False
+    assert client.notice_rounds(20) == []
+finally:
+    client.ROUND_NOTICES = _notices
+print("round notices: OK (half and a quarter of the attempt's rounds)")
 
 # beyond max_context_chars the oldest tool results are shortened at once to
 # 80% of it, so that the next turns keep the conversation's start (and the

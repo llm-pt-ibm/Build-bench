@@ -312,16 +312,16 @@ direction, swap `source_arch` and `target_arch`. Values in the repository's
 | `llm.max_tool_rounds` | 60 | tool rounds per attempt (20 in the original paper) |
 | `llm.extra_tools` | `true` | gives the model `search_files_tool`, `replace_in_file_tool` and `run_command_tool` besides the paper's tools (`false`: the paper's only) |
 | `llm.max_context_chars` | 600000 | beyond this, the oldest tool results are shortened, at once down to 80% of it (the prompt cache keeps working) |
-| `llm.round_notice_at` | 30, 10, 5 | tells how many rounds are left in the attempt |
+| `llm.round_notices` | `true` | tells how many rounds are left when half and a quarter of them are (30 and 15 of 60) |
 | `llm.carry_notes_chars` | 4000 | how much of the model's notes goes to the next attempt |
-| `llm.build_drought_rounds` | 15 | after 15 rounds without a change or a build, reminds the model to build |
+| `llm.build_drought_note` | `true` | after a quarter of the rounds without a change or a build (15 of 60), reminds the model to build |
 | `llm.repeated_failure_note` | on | tells when a build failed the same way as the previous one |
 | `llm.prompt_cache` | `auto` | marks the conversation's cache for Claude models (`on`: every model, `off`: never) |
 | `llm.text_tool_calls` | on | reads tool calls written as text |
 | `obs.max_wait_seconds` | 14400 | longest time of a build, in seconds |
 
-The four options `round_notice_at`, `carry_notes_chars`,
-`build_drought_rounds` and `repeated_failure_note` are what the framework
+The four options `round_notices`, `carry_notes_chars`,
+`build_drought_note` and `repeated_failure_note` are what the framework
 tells the model during a repair, without ever suggesting the fix; with 0 or
 `false` each one is off. The original paper had none of them, and a run
 without the notes between attempts is `carry_notes_chars: 0`.

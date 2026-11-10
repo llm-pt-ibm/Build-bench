@@ -343,6 +343,12 @@ with _tempfile.TemporaryDirectory() as tmp:
     assert "llm.extra_tools is true or false" in _refusal(lambda: bench.check_settings(p)), "a list of before"
     p["llm"] = {"extra_tools": True}
     assert _refusal(lambda: bench.check_settings(p)) == ""
+    p["llm"] = {"round_notice_at": [30, 10, 5]}
+    assert "llm.round_notice_at is gone" in _refusal(lambda: bench.check_settings(p)), "a list of before"
+    p["llm"] = {"round_notices": True}
+    assert _refusal(lambda: bench.check_settings(p)) == ""
+    p["llm"] = {"build_drought_rounds": 15}
+    assert "llm.build_drought_rounds is gone" in _refusal(lambda: bench.check_settings(p)), "a number of before"
 print("run settings: OK (overrides, suites, environment, leftovers archived, stale lock, config frozen per "
       "run with the run's values)")
 

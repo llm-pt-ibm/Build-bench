@@ -142,10 +142,26 @@ PROMPTS = {"rpm": "prompts/full_file_generation.txt", "recipe": "prompts/build_r
            **(info.get("prompts") or {})}
 MAX_CONTEXT_CHARS = int(os.getenv("BENCH_MAX_CONTEXT_CHARS") or LLM_CFG.get("max_context_chars", 0))
 REPEAT_GUARD_PER_BUILD = bool(LLM_CFG.get("repeat_guard_per_build", False))
-_notice = LLM_CFG.get("round_notice_at", 0)
-ROUND_NOTICE_AT = sorted({int(n) for n in (_notice if isinstance(_notice, list) else [_notice]) if int(n) > 0})
+ROUND_NOTICES = LLM_CFG.get("round_notices", False)
+if "round_notice_at" in LLM_CFG or not isinstance(ROUND_NOTICES, bool):
+    sys.exit("error: llm.round_notices is true or false (llm.round_notice_at is gone): true tells the model "
+             "when half and a quarter of its rounds are left")
+
+
+def notice_rounds(max_rounds: int) -> list:
+    """The rounds left when the model is told so: half and a quarter of the attempt's."""
+    return sorted({n for n in (max_rounds // 2, max_rounds // 4) if n > 0}, reverse=True) if ROUND_NOTICES else []
 CARRY_NOTES_CHARS = int(LLM_CFG.get("carry_notes_chars", 0))
-BUILD_DROUGHT_ROUNDS = int(LLM_CFG.get("build_drought_rounds", 0))
+BUILD_DROUGHT_NOTE = LLM_CFG.get("build_drought_note", False)
+if "build_drought_rounds" in LLM_CFG or not isinstance(BUILD_DROUGHT_NOTE, bool):
+    sys.exit("error: llm.build_drought_note is true or false (llm.build_drought_rounds is gone): true tells the "
+             "model to build after a quarter of its rounds without a change or a build")
+
+
+def drought_rounds(max_rounds: int) -> int:
+    """Rounds without a change or a build after which the model is told to
+    build: a quarter of the attempt's (0: never)."""
+    return max(1, max_rounds // 4) if BUILD_DROUGHT_NOTE else 0
 REPEATED_FAILURE_NOTE = bool(LLM_CFG.get("repeated_failure_note", False))
 EMPTY_REPLY_RETRIES = int(LLM_CFG.get("empty_reply_retries", 0))
 INFRA_ERROR = "Build result: Build infrastructure error!"
@@ -184,9 +200,9 @@ def run_metadata(max_build_attempts: int, max_tool_rounds: int) -> Dict:
         "llm_tools": list(LLM_TOOLS),
         "max_context_chars": MAX_CONTEXT_CHARS,
         "repeat_guard_per_build": REPEAT_GUARD_PER_BUILD,
-        "round_notice_at": ROUND_NOTICE_AT,
+        "round_notices": notice_rounds(max_tool_rounds),
         "carry_notes_chars": CARRY_NOTES_CHARS,
-        "build_drought_rounds": BUILD_DROUGHT_ROUNDS,
+        "build_drought_rounds": drought_rounds(max_tool_rounds),
         "repeated_failure_note": REPEATED_FAILURE_NOTE,
         "empty_reply_retries": EMPTY_REPLY_RETRIES,
         "model_retry_waits": list(MODEL_RETRY_WAITS),
@@ -540,7 +556,7 @@ class AutoRepairClient:
                     f"\n\n## Earlier attempts\nThis run continues an earlier one: {resumed['attempts']} attempts "
                     "were already made and the package already contains their changes, shown here "
                     "against the original package:\n\n" + (resumed["changes"] or "(no changes)"))
-            if BUILD_DROUGHT_ROUNDS and attempts and not attempts[-1].get("builds") \
+            if BUILD_DROUGHT_NOTE and attempts and not attempts[-1].get("builds") \
                     and len(messages) > 1 and messages[1].get("role") == "user":
                 messages[1]["content"] += (
                     "\n\n## Note from the framework\nThe previous attempt ended without any change to the "
@@ -1007,7 +1023,8 @@ class AutoRepairClient:
                 break
             self._save_transcript(package_name, self.attempt, messages)
             quiet = 0 if getattr(self, "changes", 0) != changes_before else quiet + 1
-            if BUILD_DROUGHT_ROUNDS and quiet and quiet % BUILD_DROUGHT_ROUNDS == 0 \
+            drought = drought_rounds(self.max_tool_rounds)
+            if drought and quiet and quiet % drought == 0 \
                     and messages[-1].get("role") == "tool":
                 summary["drought_notes"] = summary.get("drought_notes", 0) + 1
                 self._log(package_name, f"[framework note] {quiet} rounds without a change or a build")
@@ -1016,7 +1033,7 @@ class AutoRepairClient:
                     "and experiments only go so far: apply the change your findings point to and build it, to "
                     "test your hypothesis on the real build; you can go on investigating after the result.")
             left = self.max_tool_rounds - rounds
-            if left in ROUND_NOTICE_AT and messages[-1].get("role") == "tool":
+            if left in notice_rounds(self.max_tool_rounds) and messages[-1].get("role") == "tool":
                 messages[-1]["content"] += (
                     f"\n\n[framework note] {left} round(s) of tool calls left in this attempt. "
                     "If you know the fix, apply it now and start a build; edits that you leave "

@@ -19,8 +19,8 @@ llm:
   prompt_cache: auto
   text_tool_calls: true
   carry_notes_chars: 4000
-  round_notice_at: [30, 10, 5]
-  build_drought_rounds: 15
+  round_notices: true
+  build_drought_note: true
   repeated_failure_note: true
 
 build:
