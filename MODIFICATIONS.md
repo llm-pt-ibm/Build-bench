@@ -690,6 +690,10 @@ improvements` shows them file by file.
   suit another: with 20 rounds the notice at 30 never came and the reminder
   after 15 came with 5 left. A config that still has them stops the run with a
   message, and each result records the rounds that applied.
+- `make stop` and `make archive` never mix runs: when the run directory
+  exists already, the files go to `<name>2`, `<name>3`... and the command says
+  which. Two runs stopped under the same label went to the same directory, the
+  second overwriting the files of the first.
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source

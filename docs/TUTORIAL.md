@@ -191,7 +191,7 @@ The dashboard of `status` and `watch` shows:
 The dashboard only reads files, so it also works from another machine that
 sees the repository (e.g. through an sshfs mount). There it shows "running on `<host>`", and `stop`, `run` and `archive` refuse to act.
 
-A stopped run is archived as `<label>_1_stopped`. `resume` continues from the
+A stopped run is archived as `<label>_1_stopped` (`_stopped2`, `_stopped3`… when that exists). `resume` continues from the
 last finished attempt: the workspace keeps the edits made, and the model gets
 the list of the earlier changes. If a run dies without `make stop` (the host
 rebooted, for example), `make archive NAME=<label>_1_stopped` archives what it

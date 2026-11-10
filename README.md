@@ -240,7 +240,7 @@ make run LABEL=run31 ATTEMPTS=6 MODEL=deepseek/deepseek-v4.1-flash
 make run SUITE=easy LABEL=easy1   # the cases of suites.easy
 make status               # the dashboard, once
 make watch                # the live dashboard (Ctrl-C stops watching only)
-make stop                 # stop the run, its builds and experiments; archive it as <run>_stopped
+make stop                 # stop the run, its builds and experiments; archive it as <run>_stopped (or _stopped2…)
 make resume FROM=run29_v41flash_scratch_12att_1 ATTEMPTS=3
 make summary              # archived runs, results and total cost (KEY=1: API key usage)
 make transcript RUN=run29_v41flash_scratch_12att_1 [ATTEMPT=6 REASONING=1 TOOL=... GREP=...]

@@ -290,10 +290,16 @@ with _tempfile.TemporaryDirectory() as tmp:
     open(os.path.join(paths["log_dir"], "a.log"), "w").write("x")
     open(os.path.join(paths["result_dir"], "a_result.json"), "w").write("{}")
     assert len(bench.leftovers(paths, ["a"])) == 2, bench.leftovers(paths, ["a"])
-    bench.archive(paths, ["a"], "r1_1_stopped")
+    assert bench.archive(paths, ["a"], "r1_1_stopped")[0] == "r1_1_stopped"
     assert not bench.leftovers(paths, ["a"])
     assert os.path.isfile(os.path.join(paths["log_dir"], "r1_1_stopped", "a.log"))
     assert os.path.isfile(os.path.join(paths["result_dir"], "r1_1_stopped", "a_result.json"))
+    # a second run stopped under the same name goes to a directory of its own
+    open(os.path.join(paths["log_dir"], "a.log"), "w").write("second run")
+    assert bench.archive(paths, ["a"], "r1_1_stopped")[0] == "r1_1_stopped2"
+    assert open(os.path.join(paths["log_dir"], "r1_1_stopped", "a.log")).read() == "x", "the first is kept"
+    assert open(os.path.join(paths["log_dir"], "r1_1_stopped2", "a.log")).read() == "second run"
+    assert bench.archive(paths, ["a"], "r1_1_stopped") == ("r1_1_stopped", []), "nothing left to archive"
     bench.STATE_DIR, bench.ACTIVE = tmp, os.path.join(tmp, "active.json")
     open(bench.ACTIVE, "w").write('{"label": "r1", "pid": 999999999}')
     assert bench.active_run()["alive"] is False, "a dead runner is not an active run"

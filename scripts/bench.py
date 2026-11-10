@@ -279,20 +279,38 @@ def leftovers(paths: dict, packages: list) -> list:
     return files
 
 
-def archive(paths: dict, packages: list, name: str) -> list:
-    """Move the files an interrupted run left into run directory name."""
+def free_name(paths: dict, name: str) -> str:
+    """name, or name2, name3... when a run directory of that name exists already."""
+    def taken(candidate):
+        return any(os.path.exists(os.path.join(paths[d], candidate)) for d in ("result_dir", "log_dir"))
+    number = 2
+    candidate = name
+    while taken(candidate):
+        candidate, number = f"{name}{number}", number + 1
+    return candidate
+
+
+def archive(paths: dict, packages: list, name: str) -> tuple:
+    """Move the files an interrupted run left into a new run directory: name,
+    or name2, name3... so that an archive never mixes runs. Returns the
+    directory's name and the files moved."""
+    pilot = f"pilot_{name.removesuffix('_stopped')}.log"
+    logs = glob.glob(os.path.join(LOGS_DIR, pilot)) + glob.glob(os.path.join(ROOT, pilot))
+    files = leftovers(paths, packages)
+    if not files and not logs:
+        return name, []
+    name = free_name(paths, name)
     moved = []
-    for path in leftovers(paths, packages):
+    for path in files:
         target = paths["result_dir"] if path.startswith(paths["result_dir"] + os.sep) else paths["log_dir"]
         os.makedirs(os.path.join(target, name), exist_ok=True)
         os.replace(path, os.path.join(target, name, os.path.basename(path)))
         moved.append(os.path.relpath(path, ROOT))
-    pilot = f"pilot_{name.removesuffix('_stopped')}.log"
-    for path in glob.glob(os.path.join(LOGS_DIR, pilot)) + glob.glob(os.path.join(ROOT, pilot)):
+    for path in logs:
         os.makedirs(os.path.join(paths["log_dir"], name), exist_ok=True)
         os.replace(path, os.path.join(paths["log_dir"], name, os.path.basename(path)))
         moved.append(os.path.relpath(path, ROOT))
-    return moved
+    return name, moved
 
 
 def fail(message: str) -> None:
@@ -476,7 +494,7 @@ def cmd_stop(profile: dict) -> None:
     # the run of run_repeats.sh that was interrupted is the one whose log is still at the top
     current = sorted(glob.glob(os.path.join(LOGS_DIR, f"pilot_{run['label']}_*.log")))
     name = (os.path.basename(current[-1])[len("pilot_"):-len(".log")] if current else run["label"]) + "_stopped"
-    moved = archive(paths, packages, name)
+    name, moved = archive(paths, packages, name)
     if os.path.exists(ACTIVE):
         os.remove(ACTIVE)
     print(f"stopped; {len(moved)} files archived as {name}" if moved else "stopped; nothing to archive")
@@ -656,8 +674,8 @@ def cmd_archive(profile: dict, name: str) -> None:
     if run and run["alive"]:
         fail(f"run {run['label']} is active; stop it with `make stop`")
     paths = bench_paths(profile["config"])
-    moved = archive(paths, profile["packages"], name)
-    print("\n".join(f"  {p}" for p in moved) if moved else "nothing to archive")
+    name, moved = archive(paths, profile["packages"], name)
+    print(f"archived as {name}:\n" + "\n".join(f"  {p}" for p in moved) if moved else "nothing to archive")
 
 
 CONFIG_PATH = os.path.join(ROOT, "bench.yaml")
