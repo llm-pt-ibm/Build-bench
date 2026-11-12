@@ -454,6 +454,17 @@ try:
     assert client.notice_rounds(20) == []
 finally:
     client.ROUND_NOTICES = _notices
+
+# what would make a provider reject every later request of the attempt
+_bad = {"id": "1", "type": "function", "function": {"name": "modify_file_tool", "arguments": '{"a": "x\\"y" z"}'}}
+assert client.valid_arguments(_bad)["function"]["arguments"] == "{}"
+_good = {"id": "2", "type": "function", "function": {"name": "f", "arguments": '{"a": 1}'}}
+assert client.valid_arguments(dict(_good))["function"]["arguments"] == '{"a": 1}'
+_huge = "a" * (client.MAX_TOOL_RESULT_CHARS * 3) + "END"
+_cut = client.cut_tool_result(_huge)
+assert len(_cut) < client.MAX_TOOL_RESULT_CHARS + 100 and _cut.endswith("END") and "chars cut by the framework" in _cut
+assert client.cut_tool_result("short") == "short"
+print("request limits: OK (invalid tool arguments kept as {}, oversized tool results cut)")
 print("round notices: OK (half and a quarter of the attempt's rounds)")
 
 # beyond max_context_chars the oldest tool results are shortened at once to

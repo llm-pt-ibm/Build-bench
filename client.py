@@ -170,13 +170,32 @@ RESUME_FROM = os.getenv("BENCH_RESUME_FROM")
 RESUME_WORKSPACE = os.getenv("BENCH_RESUME_WORKSPACE")
 # waits (s) before retrying a model call that failed for a passing reason;
 # then the package stops as an infrastructure failure, without using attempts
-MODEL_RETRY_WAITS = tuple(LLM_CFG.get("retry_waits", (20, 60, 120, 300, 600)))
+MODEL_RETRY_WAITS = tuple(LLM_CFG.get("retry_waits", (20, 60, 120, 300, 600, 900, 1200)))
 # Claude models cache only up to the cache_control marks of a request; other
 # models cache by themselves
 PROMPT_CACHE = (os.getenv("BENCH_PROMPT_CACHE") or str(LLM_CFG.get("prompt_cache", "auto"))).lower()
 TEXT_TOOL_CALLS = (os.getenv("BENCH_TEXT_TOOL_CALLS") or str(LLM_CFG.get("text_tool_calls", True))).lower() \
     not in ("0", "false", "off", "no")
 RETRYABLE_STATUS = {408, 409, 413, 429, 500, 502, 503, 504}
+# a request over a provider's limit fails for good (8 MB on OpenRouter)
+MAX_TOOL_RESULT_CHARS = MAX_CONTEXT_CHARS // 4 if MAX_CONTEXT_CHARS > 0 else 1_000_000
+
+
+def cut_tool_result(text: str) -> str:
+    if len(text) <= MAX_TOOL_RESULT_CHARS:
+        return text
+    half = MAX_TOOL_RESULT_CHARS // 2
+    return (f"{text[:half]}\n[... {len(text) - 2 * half} chars cut by the framework ...]\n{text[-half:]}")
+
+
+def valid_arguments(call: dict) -> dict:
+    """A tool call whose arguments are not valid JSON goes back into the history with {}:
+    providers reject the whole request otherwise; the model gets the error as the call's result."""
+    try:
+        json.loads(call["function"].get("arguments") or "{}")
+    except json.JSONDecodeError:
+        call["function"]["arguments"] = "{}"
+    return call
 KEEP_RECENT_TOOL_RESULTS = int(LLM_CFG.get("keep_recent_tool_results", 8))
 
 
@@ -995,7 +1014,7 @@ class AutoRepairClient:
             reply = {
                 "role": "assistant",
                 "content": choice.message.content,
-                "tool_calls": [t.model_dump() for t in choice.message.tool_calls],
+                "tool_calls": [valid_arguments(t.model_dump()) for t in choice.message.tool_calls],
             }
             if message_reasoning(choice.message):
                 reply["reasoning"] = message_reasoning(choice.message)
@@ -1004,6 +1023,7 @@ class AutoRepairClient:
             changes_before = getattr(self, "changes", 0)
             for tc in choice.message.tool_calls:
                 tool_name, tool_ret = await self._run_one_tool(package_name, tc)
+                tool_ret = cut_tool_result(tool_ret)
                 messages.append({"role": "tool", "tool_call_id": tc.id, "content": tool_ret})
                 if tool_name == "check_build_result":
                     parsed = await self.session.call_tool(

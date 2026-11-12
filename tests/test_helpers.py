@@ -72,6 +72,9 @@ cmake = ("[   23s] Executing(%build): /usr/bin/bash -e /var/tmp/rpm-tmp.O\n"
 ex = error_excerpt(cmake)
 assert "(set_target_properties): set_target_properties called with incorrect number of arguments. " \
     "See the documentation." in ex and "Configuring incomplete" not in ex.split("\n")[0], ex
+deps = "[   89s] DEPS := " + "/x/a.class " * 300000 + "\nmake: *** [Main.gmk:1: all] Error 2\n"
+ex = error_excerpt("[   1s] Executing(%build): x\n[   89s] make: *** [deps] Error 1 " + deps)
+assert max(len(l) for l in ex.splitlines()) < 600 and "more chars]" in ex, len(ex)
 from tools.auto_repair.log_excerpt import same_failure  # noqa: E402
 from tools.auto_repair.log_excerpt import ACCEPTANCE_MARK, failure_signature  # noqa: E402
 _acc = (ACCEPTANCE_MARK + "\nPASS int8\nFAIL jax_test_suite (exit status 1): 20 failed, 1508 passed, 70 skipped "

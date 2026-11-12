@@ -219,7 +219,7 @@ improvements` shows them file by file.
   in runs 20 and 21 while the host could still resolve names.
 - Model calls that fail for a passing reason (rate limits, which StreamLake
   reports as 413, unavailable servers, timeouts, dropped connections) are
-  retried after 20 s, 1, 2, 5 and 10 min (`llm.retry_waits`); if the provider
+  retried after 20 s, 1, 2, 5, 10, 15 and 20 min (`llm.retry_waits`); if the provider
   still fails, the package's run stops with `infrastructure_error: "model
   provider"` instead of using up the remaining attempts (in run 23 a rate
   limit ended attempts 2 and 3 in their first second).
@@ -702,6 +702,18 @@ improvements` shows them file by file.
   <file>:<line> (<command>):` and the indented lines under it, on one line up
   to 300 characters. The excerpt of a failed configure showed only
   `Bad exit status`, which left zig0.14's model in the pilot without the cause.
+
+- Three failures of the model provider in the x86_64 → aarch64 pilot, each
+  of which ended a package early, no longer do:
+  - the log excerpt cuts each line at 500 characters, and a tool result over a
+    quarter of `max_context_chars` (1 MB without it) keeps its start and end:
+    java-25-openj9's excerpt held a `DEPS :=` line of 2.7 MB, and the request,
+    over 8 MB, was refused;
+  - a tool call whose arguments are not valid JSON goes back into the history
+    with `{}` (the model still gets the error): jaq's model wrote one, and the
+    provider refused every later request;
+  - the retries of a model call wait up to 20 min, about an hour in all: ck's
+    provider limited requests (429) for more than the 18 min they covered.
 
 ### Planned
 - Count a repair as successful only if the package still builds on the source

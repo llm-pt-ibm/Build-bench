@@ -68,6 +68,11 @@ ACTION_FAILED = re.compile(r"^ERROR: .*: (?:Compiling|Linking|Generating|Executi
 ACTION_TARGET = re.compile(r"\(from target (\S+?)\)\s*$")
 MAX_ACTION_LINES = 5
 LAST_LINES_KEPT = 3
+MAX_LINE_CHARS = 500
+
+
+def _cut(line: str) -> str:
+    return line if len(line) <= MAX_LINE_CHARS else f"{line[:MAX_LINE_CHARS]} [... {len(line) - MAX_LINE_CHARS} more chars]"
 
 
 def error_excerpt(log_text: str, max_key_lines: int = 15, tail_lines: int = 5) -> str:
@@ -131,7 +136,7 @@ def error_excerpt(log_text: str, max_key_lines: int = 15, tail_lines: int = 5) -
     tail = [l for l in (lines[-tail_lines:] if tail_lines > 0 else [])
             if _text(l) and _text(l) not in seen and not NOISE.search(l)]
     body = shown + action_lines
-    return "\n".join(body + (["..."] if body and tail else []) + tail)
+    return "\n".join(_cut(l) for l in body + (["..."] if body and tail else []) + tail)
 
 
 def _normalize(line: str) -> str:
