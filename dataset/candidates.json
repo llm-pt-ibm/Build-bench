@@ -1,193 +1,2247 @@
 {
- "x86_64_to_ppc64le": [
-  "AppCSXCAD",
-  "ImHex",
-  "MozillaFirefox",
-  "PrusaSlicer",
-  "Rivet",
-  "apko",
-  "arkade",
-  "asl",
-  "awww",
-  "backward-cpp",
-  "bazel8",
-  "bitwarden-sdk-internal",
-  "blender-5.0",
-  "bomctl",
-  "boxfort",
-  "cadabra2",
-  "chainguard-dfc",
-  "ck",
-  "clanlib",
-  "clusterctl",
-  "conftest",
-  "connman",
-  "copacetic",
-  "cosign",
-  "cpufetch",
-  "ctlptl",
-  "dealii",
-  "dealii:openmpi4",
-  "dealii:openmpi5",
-  "digger-cli",
-  "direnv",
-  "dssim",
-  "emptyepsilon",
-  "ensmallen",
-  "espresso",
-  "falcoctl",
-  "fastjet-contrib",
-  "ffcall",
-  "flux2-cli",
-  "frizbee",
-  "giac",
-  "giada",
-  "git-town",
-  "gitleaks",
-  "godot3",
-  "grpc",
-  "grype",
-  "harbor-cli",
-  "hare",
-  "hcloud-cli",
-  "hdf5:mvapich2",
-  "hdjmod",
-  "helm",
-  "helm3",
-  "icinga2",
-  "inspektor-gadget",
-  "intel-level-zero-gpu-raytracing",
-  "jaq",
-  "jenkins-x-cli",
-  "jfrog-cli",
-  "k0sctl",
-  "k6",
-  "k8tz",
-  "kargo-cli",
-  "kbom",
-  "kicad",
-  "kind",
-  "kompose",
-  "kor",
-  "kpt-cli",
-  "krelay",
-  "krita",
-  "kube-linter",
-  "kube-review",
-  "kubearmor-client",
-  "kubeaudit",
-  "kubectl-cnpg",
-  "kubepug",
-  "kubeswitch",
-  "kumactl",
-  "kustomize",
-  "kuttl",
-  "kyverno",
-  "lalpulsar",
-  "lalpulsar:test",
-  "lazyworktree",
-  "libbullet",
-  "libcdada",
-  "librealsense",
-  "libreoffice",
-  "libvarlink",
-  "lite-xl-plugin-manager",
-  "longhornctl",
-  "lpcnet",
-  "mame",
-  "mcphost",
-  "meep",
-  "mesheryctl",
-  "monero-gui",
-  "mono-zeroconf",
-  "nbox",
-  "netfetch",
-  "netgen",
-  "nfpm",
-  "nodejs-electron",
-  "nodejs26",
-  "noise-suppression-for-voice",
-  "nova",
-  "nunit",
-  "nyxt",
-  "o2scl:test",
-  "octave-forge-tisean",
-  "ollama",
-  "ollama:vulkan",
-  "opa",
-  "openEMS",
-  "openvino",
-  "oras",
-  "perses-cli",
-  "pinact",
-  "pluto",
-  "polaris",
-  "prismlauncher-cracked",
-  "ptcpdump",
-  "python-Flask-Admin",
-  "python-PySDL2",
-  "python-aiosmtpd",
-  "python-arviz-plots",
-  "python-bokeh:test",
-  "python-click-extra",
-  "python-edk2toollib",
-  "python-emcee",
-  "python-hatch:test",
-  "python-jupyter-server:test",
-  "python-jxlpy",
-  "python-librosa:test",
-  "python-limnoria",
-  "python-mitmproxy-wireguard",
-  "python-nanobind",
-  "python-nbdime",
-  "python-numba:test-py313",
-  "python-numba:test-py314",
-  "python-quimb:test",
-  "python-redis:test",
-  "python-torch:openmpi4",
-  "python-torch:standard",
-  "python-tornado6",
-  "regal",
-  "reimage",
-  "rtkit",
-  "rtl88x2bu",
-  "rustdesk-server",
-  "rye",
-  "samply",
-  "schismtracker",
-  "seamonkey",
-  "skaffold",
-  "skillspector",
-  "spotifyd",
-  "stackit-cli",
-  "steampipe",
-  "syncterm",
-  "talosctl",
-  "taskwarrior",
-  "tekton-cli",
-  "tkimg",
-  "trigger-rally",
-  "ttl",
-  "ttynvt",
-  "typioca",
-  "typst",
-  "updatecli",
-  "vectorscan",
-  "vtk",
-  "wayshot",
-  "wl-screenrec",
-  "xf86-video-nv",
-  "xsp",
-  "xtensor-python",
-  "yq",
-  "zita-resampler",
-  "zizmor",
-  "zli"
- ],
- "ppc64le_to_x86_64": [
-  "OpenShadingLanguage",
-  "llamacpp"
- ],
+ "x86_64_to_ppc64le": {
+  "queried": "2026-11-12",
+  "cases": {
+   "AppCSXCAD": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "ImHex": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "OpenVolumeMesh": {
+    "project": "devel:libraries:c_c++",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "PrusaSlicer": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "Rivet": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "acpi_call": {
+    "project": "Base:System",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory"
+    }
+   },
+   "akvcam": {
+    "project": "multimedia:apps",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "anura": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "apko": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "arkade": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "atuin": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "audiveris": {
+    "project": "multimedia:apps",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "awww": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "backward-cpp": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "bash-completion-doc": {
+    "project": "shells",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory"
+    }
+   },
+   "bazel8": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "bigForth": {
+    "project": "devel:languages:misc",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory"
+    }
+   },
+   "bitwarden-sdk-internal": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "blosc2": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "bngblaster": {
+    "project": "network:utilities",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "bomctl": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "buildpacks-cli": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "c-ares:testsuite": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "cadabra2": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "cdebug": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "cdo": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "cf-cli": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "chainguard-dfc": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "chezmoi": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "cilium-cli": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "ck": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "ckermit": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "clanlib": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "clusterctl": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "cmctl": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "conftest": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "connman": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "copacetic": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "cosign": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "covid-sim": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "cpufetch": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "crowdsec": {
+    "project": "security",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "ctlptl": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "ctypes.sh": {
+    "project": "shells",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory"
+    }
+   },
+   "daps": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "dav2d": {
+    "project": "multimedia:libs",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "dealii": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "dealii:openmpi4": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "dealii:openmpi5": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "desync": {
+    "project": "network",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "direnv": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "doggo": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "elixir": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "emptyepsilon": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "ensmallen": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "espresso": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "falcoctl": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "fasm": {
+    "project": "devel:tools:compiler",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "fastjet-contrib": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "ffcall": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "flux2-cli": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "fricas": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "frizbee": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "gauche": {
+    "project": "devel:languages:misc",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory"
+    }
+   },
+   "geos": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "getfem": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "ghc-blake3": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "ghtkn": {
+    "project": "devel:tools",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "giada": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "ginkgo": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "git-town": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "gitea-runner": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "gitleaks": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "glab": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "godot3": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "golang-github-prometheus-prometheus": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "gradle": {
+    "project": "security:forensics",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "grant": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "grpc": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "grype": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "grype-db": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "halloy": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "harbor-cli": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "hare": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "hcloud-cli": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "hdf": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "hdf5:mvapich2": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "hdjmod": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "helm": {
+    "project": "Virtualization:containers",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "hugo": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "icann-rdap": {
+    "project": "network:utilities",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "icinga2": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "ingress2gateway": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "inspektor-gadget": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "intel-level-zero-gpu-raytracing": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "iprange": {
+    "project": "security:netfilter",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "istioctl": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "jaq": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "jenkins-x-cli": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "jfrog-cli": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "json-schema-validator": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "k0sctl": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "k6": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "k8tz": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kargo-cli": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "kbom": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kind": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kismet": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kli": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "klog": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kluctl": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "knative-cli": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "knative-cli-operator-plugin": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "kompose": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "konf": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "kor": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kpt-cli": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "krelay": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "krita": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kube-linter": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kube-lock": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "kube-review": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kubearmor-client": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kubeaudit": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kubectl-cnpg": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kubectl-cost": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "kubectl-klock": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kubectl-pv-migrate": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "kubectl-retina": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kubectl-rook-ceph": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "kubectl-switch": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kubepug": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kubero-cli": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "kubeswitch": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kustomize": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "kuttl": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "lazygit": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "lazyworktree": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "lefthook": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "libbullet": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "libcdada": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "libint": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "librealsense": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "libreoffice": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "libtls-ossl": {
+    "project": "security:tls",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "libvarlink": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "linkerd-cli-edge": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "lite-xl-plugin-manager": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "loki": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "longhornctl": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "lpcnet": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "mame": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "managed-kubernetes-auditing-toolkit": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "mcphost": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "meep": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "melange": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "mkcl": {
+    "project": "devel:languages:misc",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory"
+    }
+   },
+   "mono-zeroconf": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "mozc": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "nbox": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "nceplibs-ip": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "netfetch": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "netgen": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "nfpm": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "noctalia": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "nodejs-electron": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "nodejs26": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "noise-suppression-for-voice": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "nova": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "nunit": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "nyxt": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "o2scl:test": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "observatorium-cli": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "octave-forge-gsl": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "octave-forge-tisean": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "okteto": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "ollama": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "ollama:vulkan": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "oniux": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "opa": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "openEMS": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "openbao": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "openomf": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "openvino": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "opslevel-cli": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "oras": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "paranoia": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "perf": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "perses-cli": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "pgrx-0.18": {
+    "project": "server:database:postgresql",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "pgrx-0.19": {
+    "project": "server:database:postgresql",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "pinact": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "pinniped": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "pluto": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "pnpm": {
+    "project": "devel:languages:nodejs",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "polaris": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "policy-assistant": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "pq": {
+    "project": "devel:microos",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "prismlauncher-cracked": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "ptcpdump": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-OpenEXR": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-PySDL2": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-Pyro5": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "python-aiosmtpd": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-arviz-plots": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-billiard": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "python-bokeh:test": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-chardet:test": {
+    "project": "security:forensics",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-click-extra": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-edk2toollib": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-emcee": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-hatch:test": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-jupyter-lsp": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-jupyter-server:test": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-jxlpy": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-librosa:test": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-limnoria": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-minizinc": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-mitmproxy-wireguard": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-moto": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-nanobind": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-nbdime": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-networkx": {
+    "project": "devel:languages:python:numeric",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "python-numba:test-py313": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-numba:test-py314": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-pybreaker": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "python-quimb:test": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-redis:test": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-scikit-learn:test-py313": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-stripe": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "python-tesserocr": {
+    "project": "devel:languages:python",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "python-torch:openmpi4": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "python-torch:standard": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "qcoan": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "qore-ncurses-module": {
+    "project": "devel:languages:misc",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory"
+    }
+   },
+   "rclone": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "redis:test": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "regal": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "reimage": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "rtkit": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "rtlsdr-airband": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "rustdesk-server": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "rye": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "sacad": {
+    "project": "multimedia:apps",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "samply": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "schismtracker": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "seamonkey": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "skaffold": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "skillspector": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "skupper": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "soapy-remote": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "sonobuoy": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "sourcetrail": {
+    "project": "devel:tools",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "spotifyd": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "spotter": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "stackit-cli": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "stalwart-cli": {
+    "project": "server:mail",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "stalwart-keep": {
+    "project": "server:mail",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "steampipe": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "svgpp": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "syft": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "syncterm": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "talosctl": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "taskwarrior": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "tekton-cli": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "terragrunt": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "timoni": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "tinygo": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "tkimg": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "trigger-rally": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "ttynvt": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "typioca": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "typst": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "updatecli": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "vectorscan": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "vis": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "vtk:openmpi4": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "wait4x": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "wasi-libc": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "weave-gitops": {
+    "project": "devel:kubic",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "wl-screenrec": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "wolfictl": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "woodpecker": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "xf86-video-nv": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "xfr": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "xsp": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "xtensor-python": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "yq": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "zfs:longterm": {
+    "project": "filesystems",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "zita-resampler": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "zizmor": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "zli": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "zot-registry": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   }
+  }
+ },
+ "ppc64le_to_x86_64": {
+  "queried": "2026-11-12",
+  "cases": {
+   "SHERPA-MC": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "VecCore": {
+    "project": "devel:libraries:c_c++",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "datovka": {
+    "project": "network",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "go1.16": {
+    "project": "devel:languages:go",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "go1.17": {
+    "project": "devel:languages:go",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "go1.18": {
+    "project": "devel:languages:go",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "lal": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "lal:test": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "lalinference": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "lalinference:test": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "lalinspiral": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "lalinspiral:test": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "lalmetaio": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "llvm14": {
+    "project": "devel:tools:compiler",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "llvm15": {
+    "project": "devel:tools:compiler",
+    "repository": {
+     "x86_64": "openSUSE_Factory",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "med-tools": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "openafs": {
+    "project": "filesystems",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "openexr": {
+    "project": "graphics",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "osmo-trx": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   },
+   "plplot": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "python-pivy": {
+    "project": "science",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Tumbleweed"
+    }
+   },
+   "python316": {
+    "project": "devel:languages:python:Factory",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "python316:nogil": {
+    "project": "devel:languages:python:Factory",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "slirp": {
+    "project": "network",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "snd": {
+    "project": "multimedia:apps",
+    "repository": {
+     "x86_64": "openSUSE_Tumbleweed",
+     "ppc64le": "openSUSE_Factory_PowerPC"
+    }
+   },
+   "soapy-uhd": {
+    "project": "openSUSE:Factory",
+    "repository": {
+     "x86_64": "standard",
+     "ppc64le": "standard"
+    }
+   }
+  }
+ },
  "x86_64_to_aarch64": {
   "queried": "2026-11-09",
   "cases": {

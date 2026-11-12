@@ -20,6 +20,22 @@ Sources, as of 2026-11-03:
   field names amd64 or arm64 but not ppc64el
   (`deb.debian.org/debian/dists/sid/main/source/Sources.xz`).
 
+## The evaluation sample (2026-11-12)
+
+`dataset/sample_x86_64_to_ppc64le.json` holds 60 cases to build, all from OBS
+(Factory and its devel projects, 293 candidates on 2026-11-12), chosen for the
+variety of the cause (ten groups, from compiler flags to failing tests) among
+the failures of `%build` or `%check` whose last build takes at most 20 min.
+For each one: the group, the evidence in its ppc64le log, the OBS revision,
+the sources (upstream at the version that failed, vendored dependencies from
+OBS), the environment and the `make new-case` command; reserves at the end.
+Report results per group: the sample is not random. The 10 cases of the
+tables below are apart from it.
+
+Most of the failures left out are of the packaging only: 99 Go packages fail in
+`%install`, where their binary crashes in the Go 1.27 runtime on the OBS
+ppc64le workers (`fatal error: fault`, SIGSEGV), not in their own code.
+
 ## Simple: a few lines (a compiler flag, a macro, a list of architectures)
 
 | Package | Status | Why it fails on ppc64le |

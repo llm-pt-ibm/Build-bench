@@ -1,0 +1,1389 @@
+{
+ "date": "2026-11-12",
+ "candidates": "dataset/candidates.json, x86_64_to_ppc64le, queried 2026-11-12 (293 packages)",
+ "rule": "packages that build on x86_64 and fail on ppc64le in openSUSE:Factory (against Factory:PowerPC) or in a devel project; without multibuild flavors, sources up to 500 MiB, the last build at most 20 min on each architecture; the failure in %build or %check for a reason of the architecture, read in the ppc64le log. Left out: failures of the RPM packaging only (%install, file lists: 111, of them 99 Go packages whose binary crashes in the Go 1.27 runtime on the OBS ppc64le workers, as do about 10 more Go packages in %build and %check), builds that hang, kernel modules, x86-only tools, and failures of the build environment (dependency versions of the port, timing, network). Chosen for diversity of the cause, not at random: report results per group.",
+ "use": "on the build host, each case's new_case command creates it (make new-case), then build.sh, the acceptance test and make baseline as in docs/TUTORIAL.md; a case whose baseline builds, or fails for another reason, gives its place to a reserve",
+ "envs": {
+  "c-power9": "C and C++ with make, CMake, Meson or autotools: gcc=15.2.0 gxx=15.2.0 make cmake ninja meson pkg-config autoconf automake libtool bison flex zlib ncurses readline openssl libxcrypt libffi elfutils boost eigen nlohmann_json gtest nasm ragel libpcap cmocka glib dbus python=3.12 pytest pexpect lame fftw soapysdr zstd lz4-c libuuid",
+  "gui-power9": "c-power9 plus SDL2, X11, OpenGL and toolkits: sdl2 openal-soft physfs glew freeglut glfw libusb gtk3 alsa-lib freetype fontconfig libpng libjpeg-turbo libvorbis libogg xorg-libx11 xorg-libxinerama libgl-devel llvmdev mbedtls fmt libmagic imagemagick sqlite",
+  "sci-power9": "c-power9 plus Fortran and scientific libraries: gfortran openblas liblapack fftw gsl hdf5 hdf4 libnetcdf netcdf-fortran proj udunits2 libaec eccodes armadillo fastjet libctl harminv guile gmp mpfr openmpi metis occt pybind11 numpy sympy octave",
+  "py-power9": "Python packages: python=3.12 pip pytest numpy scipy h5py matplotlib pandas lxml pydot pygraphviz pyyaml pillow cython cysignals tesseract sdl2 scikit-build-core eigen tsl_robin_map xtensor pybind11 cmake ninja gxx=15.2.0",
+  "rust-power9": "Rust (vendored crates, no network): rust clang cmake pkg-config openssl ffmpeg wayland wayland-protocols libdrm alsa-lib dbus python=3.12 pip maturin corrosion libuuid gxx=15.2.0 scdoc",
+  "go-power9": "Go (vendored modules, no network): go clang llvm libpcap git gcc=15.2.0",
+  "nyxt": "Common Lisp: sbcl gcc make (libfixposix from source)",
+  "elixir": "Elixir on Erlang/OTP: erlang make git"
+ },
+ "cases": {
+  "trigger-rally": {
+   "group": "x86 compiler flags",
+   "evidence": "-march=native is not a ppc64le option",
+   "cause_seen_in_log": true,
+   "env": "gui-power9",
+   "version": "0.6.7",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "e37c4b08162ed6b3ccff5ac0af470729",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/trigger-rally/_log"
+   },
+   "minutes": {
+    "x86_64": 1.6,
+    "ppc64le": 0.9
+   },
+   "sources": [
+    "https://downloads.sourceforge.net/project/trigger-rally/trigger-0.6.7/trigger-rally-0.6.7.tar.gz"
+   ],
+   "new_case": "make new-case CASE=trigger-rally SOURCE=\"https://downloads.sourceforge.net/project/trigger-rally/trigger-0.6.7/trigger-rally-0.6.7.tar.gz\" ENV=gui-power9",
+   "notes": [
+    "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "rtlsdr-airband": {
+   "group": "x86 compiler flags",
+   "evidence": "CMake's PLATFORM=native gives -march=native",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "6.2.0",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "c175d5dd248b59d100e63982da53e201",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/rtlsdr-airband/_log"
+   },
+   "minutes": {
+    "x86_64": 0.4,
+    "ppc64le": 0.5
+   },
+   "sources": [
+    "https://github.com/rtl-airband/RTLSDR-Airband/archive/v6.2.0.tar.gz"
+   ],
+   "new_case": "make new-case CASE=rtlsdr-airband SOURCE=\"https://github.com/rtl-airband/RTLSDR-Airband/archive/v6.2.0.tar.gz\" ENV=c-power9",
+   "notes": [
+    "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "bngblaster": {
+   "group": "x86 compiler flags",
+   "evidence": "unrecognized argument in option -mtune=generic",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "1.1.1",
+   "obs": {
+    "project": "network:utilities",
+    "rev": "afefe0caff0751702dd424a10cfaa839",
+    "ppc64le_log": "https://api.opensuse.org/public/build/network:utilities/openSUSE_Factory_PowerPC/ppc64le/bngblaster/_log"
+   },
+   "minutes": {
+    "x86_64": 0.7,
+    "ppc64le": 0.7
+   },
+   "sources": [
+    "https://github.com/rtbrick/bngblaster/archive/refs/tags/1.1.1.tar.gz"
+   ],
+   "new_case": "make new-case CASE=bngblaster SOURCE=\"https://github.com/rtbrick/bngblaster/archive/refs/tags/1.1.1.tar.gz\" ENV=c-power9",
+   "notes": [
+    "libdict is not on conda-forge: add github.com/rtbrick/libdict as a source",
+    "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "librealsense": {
+   "group": "x86 compiler flags",
+   "evidence": "every CMake header check fails (an x86 flag, probably)",
+   "cause_seen_in_log": false,
+   "env": "gui-power9",
+   "version": "2.59.1",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "7722a28b3ea2415a27f8a70b993770ff",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/librealsense/_log"
+   },
+   "minutes": {
+    "x86_64": 12.5,
+    "ppc64le": 0.6
+   },
+   "sources": [
+    "https://github.com/IntelRealSense/librealsense/archive/v2.59.1.tar.gz",
+    "fastcdr=https://api.opensuse.org/public/source/openSUSE:Factory/librealsense/fastcdr-1.0.25.tar.xz?rev=7722a28b3ea2415a27f8a70b993770ff&expand=1",
+    "libdeflate=https://api.opensuse.org/public/source/openSUSE:Factory/librealsense/libdeflate-1.25.tar.xz?rev=7722a28b3ea2415a27f8a70b993770ff&expand=1"
+   ],
+   "new_case": "make new-case CASE=librealsense SOURCE=\"https://github.com/IntelRealSense/librealsense/archive/v2.59.1.tar.gz fastcdr=https://api.opensuse.org/public/source/openSUSE:Factory/librealsense/fastcdr-1.0.25.tar.xz?rev=7722a28b3ea2415a27f8a70b993770ff&expand=1 libdeflate=https://api.opensuse.org/public/source/openSUSE:Factory/librealsense/libdeflate-1.25.tar.xz?rev=7722a28b3ea2415a27f8a70b993770ff&expand=1\" ENV=gui-power9",
+   "notes": [
+    "fastcdr and libdeflate come from OBS as sources: CMake would download them",
+    "openSUSE carries 7 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "xtensor-python": {
+   "group": "x86 compiler flags",
+   "evidence": "the C++14 flag check fails (-march=native, probably)",
+   "cause_seen_in_log": false,
+   "env": "py-power9",
+   "version": "0.29.0",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "0bbd3574ae1b06b3777744af49b407a2",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/xtensor-python/_log"
+   },
+   "minutes": {
+    "x86_64": 1.1,
+    "ppc64le": 0.8
+   },
+   "sources": [
+    "https://github.com/xtensor-stack/xtensor-python/archive/refs/tags/0.29.0/xtensor-python-0.29.0.tar.gz"
+   ],
+   "new_case": "make new-case CASE=xtensor-python SOURCE=\"https://github.com/xtensor-stack/xtensor-python/archive/refs/tags/0.29.0/xtensor-python-0.29.0.tar.gz\" ENV=py-power9",
+   "notes": [
+    "doctest is not on conda-forge for ppc64le (header-only: add it as a source if the tests need it)",
+    "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "libbullet": {
+   "group": "x86 SIMD",
+   "evidence": "clew.h: __cl_float4 is defined for SSE and NEON only",
+   "cause_seen_in_log": true,
+   "env": "gui-power9",
+   "version": "3.25",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "cf453e5ffc644d2e58a27d5578e5859c",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/libbullet/_log"
+   },
+   "minutes": {
+    "x86_64": 5.8,
+    "ppc64le": 1.4
+   },
+   "sources": [
+    "https://github.com/bulletphysics/bullet3/archive/3.25/bullet3-3.25.tar.gz"
+   ],
+   "new_case": "make new-case CASE=libbullet SOURCE=\"https://github.com/bulletphysics/bullet3/archive/3.25/bullet3-3.25.tar.gz\" ENV=gui-power9",
+   "notes": [
+    "openSUSE carries 5 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "schismtracker": {
+   "group": "x86 SIMD",
+   "evidence": "util-vec.h: unknown type minmax_8_final_spec",
+   "cause_seen_in_log": true,
+   "env": "gui-power9",
+   "version": "20261102",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "8556ff9e93feaf3515c0874f51a9064d",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/schismtracker/_log"
+   },
+   "minutes": {
+    "x86_64": 1.3,
+    "ppc64le": 1.8
+   },
+   "sources": [
+    "https://github.com/schismtracker/schismtracker/archive/refs/tags/20261102.tar.gz"
+   ],
+   "new_case": "make new-case CASE=schismtracker SOURCE=\"https://github.com/schismtracker/schismtracker/archive/refs/tags/20261102.tar.gz\" ENV=gui-power9",
+   "notes": []
+  },
+  "python-nanobind": {
+   "group": "x86 SIMD",
+   "evidence": "Eigen's AltiVec path fails under -Werror",
+   "cause_seen_in_log": true,
+   "env": "py-power9",
+   "version": "3.1.0",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "642f86645aab89d06ed36f23910a770c",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/python-nanobind/_log"
+   },
+   "minutes": {
+    "x86_64": 1.8,
+    "ppc64le": 1.1
+   },
+   "sources": [
+    "https://github.com/wjakob/nanobind/archive/refs/tags/v3.1.0.tar.gz"
+   ],
+   "new_case": "make new-case CASE=python-nanobind SOURCE=\"https://github.com/wjakob/nanobind/archive/refs/tags/v3.1.0.tar.gz\" ENV=py-power9",
+   "notes": [
+    "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "vectorscan": {
+   "group": "x86 SIMD",
+   "evidence": "undefined references to noodExec, aligned_free_internal (arch-specific objects not built)",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "5.4.12",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "643ee386d1ea96905009f67fd0029a22",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/vectorscan/_log"
+   },
+   "minutes": {
+    "x86_64": 8.8,
+    "ppc64le": 5.8
+   },
+   "sources": [
+    "https://github.com/VectorCamp/vectorscan/archive/refs/tags/vectorscan/5.4.12.tar.gz"
+   ],
+   "new_case": "make new-case CASE=vectorscan SOURCE=\"https://github.com/VectorCamp/vectorscan/archive/refs/tags/vectorscan/5.4.12.tar.gz\" ENV=c-power9",
+   "notes": []
+  },
+  "dav2d": {
+   "group": "x86 SIMD",
+   "evidence": "src/ppc/itx.h does not compile",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "0.0.1",
+   "obs": {
+    "project": "multimedia:libs",
+    "rev": "b0cb9d979a3abb279d83ca80466de0b5",
+    "ppc64le_log": "https://api.opensuse.org/public/build/multimedia:libs/openSUSE_Factory_PowerPC/ppc64le/dav2d/_log"
+   },
+   "minutes": {
+    "x86_64": 1.1,
+    "ppc64le": 0.6
+   },
+   "sources": [
+    "https://code.videolan.org/videolan/dav2d/-/archive/0.0.1/dav2d-0.0.1.tar.gz"
+   ],
+   "new_case": "make new-case CASE=dav2d SOURCE=\"https://code.videolan.org/videolan/dav2d/-/archive/0.0.1/dav2d-0.0.1.tar.gz\" ENV=c-power9",
+   "notes": []
+  },
+  "clanlib": {
+   "group": "assembly and low-level code",
+   "evidence": "x86 inline assembly (cpuid, pushl)",
+   "cause_seen_in_log": true,
+   "env": "gui-power9",
+   "version": "4.2.0",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "856f08402a5c323f7cfbe92a0a3841f8",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/clanlib/_log"
+   },
+   "minutes": {
+    "x86_64": 3.8,
+    "ppc64le": 2.0
+   },
+   "sources": [
+    "https://api.opensuse.org/public/source/openSUSE:Factory/clanlib/ClanLib-4.2.0.tar.gz?rev=856f08402a5c323f7cfbe92a0a3841f8&expand=1"
+   ],
+   "new_case": "make new-case CASE=clanlib SOURCE=\"https://api.opensuse.org/public/source/openSUSE:Factory/clanlib/ClanLib-4.2.0.tar.gz?rev=856f08402a5c323f7cfbe92a0a3841f8&expand=1\" ENV=gui-power9",
+   "notes": []
+  },
+  "ffcall": {
+   "group": "assembly and low-level code",
+   "evidence": "calling-convention assembly fails the vacall tests",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "2.5",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "128861ebd5619e1b2ddbf8c270888074",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/ffcall/_log"
+   },
+   "minutes": {
+    "x86_64": 0.9,
+    "ppc64le": 1.4
+   },
+   "sources": [
+    "https://ftp.gnu.org/gnu/libffcall/libffcall-2.5.tar.gz"
+   ],
+   "new_case": "make new-case CASE=ffcall SOURCE=\"https://ftp.gnu.org/gnu/libffcall/libffcall-2.5.tar.gz\" ENV=c-power9",
+   "notes": []
+  },
+  "samply": {
+   "group": "assembly and low-level code",
+   "evidence": "Rust: framehop has no unwinder for ppc64",
+   "cause_seen_in_log": true,
+   "env": "rust-power9",
+   "version": "0.13.1",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "8be8893ae568e13517abe0e3d350f46a",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/samply/_log"
+   },
+   "minutes": {
+    "x86_64": 6.2,
+    "ppc64le": 3.5
+   },
+   "sources": [
+    "https://github.com/mstange/samply/archive/da75c28f367454c621e690eeb4e44ec2ebb29a78.tar.gz",
+    "vendor=https://api.opensuse.org/public/source/openSUSE:Factory/samply/vendor.tar.zst?rev=8be8893ae568e13517abe0e3d350f46a&expand=1"
+   ],
+   "new_case": "make new-case CASE=samply SOURCE=\"https://github.com/mstange/samply/archive/da75c28f367454c621e690eeb4e44ec2ebb29a78.tar.gz vendor=https://api.opensuse.org/public/source/openSUSE:Factory/samply/vendor.tar.zst?rev=8be8893ae568e13517abe0e3d350f46a&expand=1\" ENV=rust-power9",
+   "notes": [
+    "vendored dependencies (vendor/) from OBS: build.sh points cargo at them (.cargo/config.toml, vendored-sources)"
+   ]
+  },
+  "ctypes.sh": {
+   "group": "assembly and low-level code",
+   "evidence": "the test segfaults (FFI and struct support)",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "1.2",
+   "obs": {
+    "project": "shells",
+    "rev": "c753f4caca4bf7d16cce763c03519d78",
+    "ppc64le_log": "https://api.opensuse.org/public/build/shells/openSUSE_Factory/ppc64le/ctypes.sh/_log"
+   },
+   "minutes": {
+    "x86_64": 0.4,
+    "ppc64le": 0.9
+   },
+   "sources": [
+    "https://github.com/taviso/ctypes.sh/releases/download/v1.2/ctypes-sh-1.2.tar.gz"
+   ],
+   "new_case": "make new-case CASE=ctypes.sh SOURCE=\"https://github.com/taviso/ctypes.sh/releases/download/v1.2/ctypes-sh-1.2.tar.gz\" ENV=c-power9",
+   "notes": []
+  },
+  "syncterm": {
+   "group": "architecture detection and Linux headers",
+   "evidence": "#error \"Need to describe target architecture\"",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "1.9",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "c9dcbc98392c1d2367bf0cb438c34dcd",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/syncterm/_log"
+   },
+   "minutes": {
+    "x86_64": 0.9,
+    "ppc64le": 0.7
+   },
+   "sources": [
+    "https://master.dl.sourceforge.net/project/syncterm/syncterm/syncterm-1.9/syncterm-1.9-src.tgz"
+   ],
+   "new_case": "make new-case CASE=syncterm SOURCE=\"https://master.dl.sourceforge.net/project/syncterm/syncterm/syncterm-1.9/syncterm-1.9-src.tgz\" ENV=c-power9",
+   "notes": []
+  },
+  "ImHex": {
+   "group": "architecture detection and Linux headers",
+   "evidence": "ARCH_DEPENDENT was not declared",
+   "cause_seen_in_log": true,
+   "env": "gui-power9",
+   "version": "1.38.1",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "13e9ff1a41165c16c670e64cb25a7b74",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/ImHex/_log"
+   },
+   "minutes": {
+    "x86_64": 11.4,
+    "ppc64le": 4.6
+   },
+   "sources": [
+    "https://api.opensuse.org/public/source/openSUSE:Factory/ImHex/ImHex-1.38.1.tar.xz?rev=13e9ff1a41165c16c670e64cb25a7b74&expand=1",
+    "patterns=https://api.opensuse.org/public/source/openSUSE:Factory/ImHex/ImHex-Patterns-master.zip?rev=13e9ff1a41165c16c670e64cb25a7b74&expand=1"
+   ],
+   "new_case": "make new-case CASE=ImHex SOURCE=\"https://api.opensuse.org/public/source/openSUSE:Factory/ImHex/ImHex-1.38.1.tar.xz?rev=13e9ff1a41165c16c670e64cb25a7b74&expand=1 patterns=https://api.opensuse.org/public/source/openSUSE:Factory/ImHex/ImHex-Patterns-master.zip?rev=13e9ff1a41165c16c670e64cb25a7b74&expand=1\" ENV=gui-power9",
+   "notes": [
+    "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "noise-suppression-for-voice": {
+   "group": "architecture detection and Linux headers",
+   "evidence": "JUCE does not know ppc64le",
+   "cause_seen_in_log": true,
+   "env": "gui-power9",
+   "version": "1.22",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "290372b18aa3c0a731d7f357865d5d27",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/noise-suppression-for-voice/_log"
+   },
+   "minutes": {
+    "x86_64": 6.5,
+    "ppc64le": 4.1
+   },
+   "sources": [
+    "https://github.com/werman/noise-suppression-for-voice/archive/0b8c03b368ca609247a0cb65b0c8eb651759dd69.tar.gz"
+   ],
+   "new_case": "make new-case CASE=noise-suppression-for-voice SOURCE=\"https://github.com/werman/noise-suppression-for-voice/archive/0b8c03b368ca609247a0cb65b0c8eb651759dd69.tar.gz\" ENV=gui-power9",
+   "notes": [
+    "ladspa is not on conda-forge for ppc64le: its one header, or build without the LADSPA plugin"
+   ]
+  },
+  "connman": {
+   "group": "architecture detection and Linux headers",
+   "evidence": "TCGETS2/TCSETS2 do not exist on PowerPC",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "1.42",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "dfc4a80183bc59552fa9fdda3a0564ab",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/connman/_log"
+   },
+   "minutes": {
+    "x86_64": 1.0,
+    "ppc64le": 0.6
+   },
+   "sources": [
+    "http://www.kernel.org/pub/linux/network/connman/connman-1.42.tar.xz"
+   ],
+   "new_case": "make new-case CASE=connman SOURCE=\"http://www.kernel.org/pub/linux/network/connman/connman-1.42.tar.xz\" ENV=c-power9",
+   "notes": [
+    "openSUSE carries 4 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "wl-screenrec": {
+   "group": "types and ABI",
+   "evidence": "Rust E0308 mismatched types (c_char is u8 on ppc64le)",
+   "cause_seen_in_log": true,
+   "env": "rust-power9",
+   "version": "0.3.2+git.20260810T091406.73b5890",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "daaae22e6ee02753bc85e6bdd7558e65",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/wl-screenrec/_log"
+   },
+   "minutes": {
+    "x86_64": 1.6,
+    "ppc64le": 1.4
+   },
+   "sources": [
+    "https://api.opensuse.org/public/source/openSUSE:Factory/wl-screenrec/wl-screenrec-0.3.2%2Bgit.20260810T091406.73b5890.tar.gz?rev=daaae22e6ee02753bc85e6bdd7558e65&expand=1",
+    "vendor=https://api.opensuse.org/public/source/openSUSE:Factory/wl-screenrec/vendor.tar.zst?rev=daaae22e6ee02753bc85e6bdd7558e65&expand=1"
+   ],
+   "new_case": "make new-case CASE=wl-screenrec SOURCE=\"https://api.opensuse.org/public/source/openSUSE:Factory/wl-screenrec/wl-screenrec-0.3.2%2Bgit.20260810T091406.73b5890.tar.gz?rev=daaae22e6ee02753bc85e6bdd7558e65&expand=1 vendor=https://api.opensuse.org/public/source/openSUSE:Factory/wl-screenrec/vendor.tar.zst?rev=daaae22e6ee02753bc85e6bdd7558e65&expand=1\" ENV=rust-power9",
+   "notes": [
+    "vendored dependencies (vendor/) from OBS: build.sh points cargo at them (.cargo/config.toml, vendored-sources)"
+   ]
+  },
+  "qcoan": {
+   "group": "types and ABI",
+   "evidence": "narrowing conversion of 65534 to aux::echar (short)",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "2.0",
+   "obs": {
+    "project": "science",
+    "rev": "08d5be2f7603e9ba8c8984676d1edfee",
+    "ppc64le_log": "https://api.opensuse.org/public/build/science/openSUSE_Tumbleweed/ppc64le/qcoan/_log"
+   },
+   "minutes": {
+    "x86_64": 0.7,
+    "ppc64le": 0.9
+   },
+   "sources": [
+    "https://api.opensuse.org/public/source/science/qcoan/coan-v2.0.tar.bz2?rev=08d5be2f7603e9ba8c8984676d1edfee&expand=1"
+   ],
+   "new_case": "make new-case CASE=qcoan SOURCE=\"https://api.opensuse.org/public/source/science/qcoan/coan-v2.0.tar.bz2?rev=08d5be2f7603e9ba8c8984676d1edfee&expand=1\" ENV=c-power9",
+   "notes": []
+  },
+  "json-schema-validator": {
+   "group": "types and ABI",
+   "evidence": "UTF-8 e-mail test fails (char is unsigned on ppc64le)",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "2.4.0",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "3b6e3f7876985d79a58116b05bcb68e2",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/json-schema-validator/_log"
+   },
+   "minutes": {
+    "x86_64": 1.2,
+    "ppc64le": 1.1
+   },
+   "sources": [
+    "https://github.com/pboettch/json-schema-validator/archive/refs/tags/2.4.0.tar.gz"
+   ],
+   "new_case": "make new-case CASE=json-schema-validator SOURCE=\"https://github.com/pboettch/json-schema-validator/archive/refs/tags/2.4.0.tar.gz\" ENV=c-power9",
+   "notes": []
+  },
+  "python-emcee": {
+   "group": "types and ABI",
+   "evidence": "long double tests: no float128",
+   "cause_seen_in_log": true,
+   "env": "py-power9",
+   "version": "3.1.6",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "9d6f7a187fdf539453ecee1a197bb56f",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/python-emcee/_log"
+   },
+   "minutes": {
+    "x86_64": 4.3,
+    "ppc64le": 4.3
+   },
+   "sources": [
+    "https://files.pythonhosted.org/packages/source/e/emcee/emcee-3.1.6.tar.gz"
+   ],
+   "new_case": "make new-case CASE=python-emcee SOURCE=\"https://files.pythonhosted.org/packages/source/e/emcee/emcee-3.1.6.tar.gz\" ENV=py-power9",
+   "notes": []
+  },
+  "openomf": {
+   "group": "types and ABI",
+   "evidence": "test 'Broken Markup' fails",
+   "cause_seen_in_log": false,
+   "env": "gui-power9",
+   "version": "0.8.6",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "04468b59695644206f0aec21b29a294d",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/openomf/_log"
+   },
+   "minutes": {
+    "x86_64": 1.3,
+    "ppc64le": 4.0
+   },
+   "sources": [
+    "https://api.opensuse.org/public/source/openSUSE:Factory/openomf/openomf-0.8.6.tar.xz?rev=04468b59695644206f0aec21b29a294d&expand=1"
+   ],
+   "new_case": "make new-case CASE=openomf SOURCE=\"https://api.opensuse.org/public/source/openSUSE:Factory/openomf/openomf-0.8.6.tar.xz?rev=04468b59695644206f0aec21b29a294d&expand=1\" ENV=gui-power9",
+   "notes": [
+    "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "awww": {
+   "group": "Rust crates without ppc64le",
+   "evidence": "an old cpufeatures crate refuses ppc64",
+   "cause_seen_in_log": true,
+   "env": "rust-power9",
+   "version": "0.12.0",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "cb3ac9179e008ff7c441869aac9abd58",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/awww/_log"
+   },
+   "minutes": {
+    "x86_64": 10.1,
+    "ppc64le": 1.1
+   },
+   "sources": [
+    "https://api.opensuse.org/public/source/openSUSE:Factory/awww/awww-0.12.0.tar.zst?rev=cb3ac9179e008ff7c441869aac9abd58&expand=1",
+    "vendor=https://api.opensuse.org/public/source/openSUSE:Factory/awww/vendor.tar.zst?rev=cb3ac9179e008ff7c441869aac9abd58&expand=1"
+   ],
+   "new_case": "make new-case CASE=awww SOURCE=\"https://api.opensuse.org/public/source/openSUSE:Factory/awww/awww-0.12.0.tar.zst?rev=cb3ac9179e008ff7c441869aac9abd58&expand=1 vendor=https://api.opensuse.org/public/source/openSUSE:Factory/awww/vendor.tar.zst?rev=cb3ac9179e008ff7c441869aac9abd58&expand=1\" ENV=rust-power9",
+   "notes": [
+    "vendored dependencies (vendor/) from OBS: build.sh points cargo at them (.cargo/config.toml, vendored-sources)"
+   ]
+  },
+  "rustdesk-server": {
+   "group": "Rust crates without ppc64le",
+   "evidence": "ring 0.16 build script fails",
+   "cause_seen_in_log": true,
+   "env": "rust-power9",
+   "version": "1.1.16",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "f78c3bd0b3e9793b9cc0fe5282ec8cc8",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/rustdesk-server/_log"
+   },
+   "minutes": {
+    "x86_64": 9.6,
+    "ppc64le": 0.8
+   },
+   "sources": [
+    "https://github.com/rustdesk/rustdesk-server/archive/73523b31cfd25d77dee862e6fc9f5e1fb5e485ef.tar.gz",
+    "vendor=https://api.opensuse.org/public/source/openSUSE:Factory/rustdesk-server/vendor.tar.zst?rev=f78c3bd0b3e9793b9cc0fe5282ec8cc8&expand=1",
+    "hbb_common=https://github.com/rustdesk/hbb_common/archive/83419b6549636ee39dacef7776c473f5802e08d6.tar.gz"
+   ],
+   "new_case": "make new-case CASE=rustdesk-server SOURCE=\"https://github.com/rustdesk/rustdesk-server/archive/73523b31cfd25d77dee862e6fc9f5e1fb5e485ef.tar.gz vendor=https://api.opensuse.org/public/source/openSUSE:Factory/rustdesk-server/vendor.tar.zst?rev=f78c3bd0b3e9793b9cc0fe5282ec8cc8&expand=1 hbb_common=https://github.com/rustdesk/hbb_common/archive/83419b6549636ee39dacef7776c473f5802e08d6.tar.gz\" ENV=rust-power9",
+   "notes": [
+    "git submodule libs/hbb_common is a second source; build.sh puts it in place",
+    "vendored dependencies (vendor/) from OBS: build.sh points cargo at them (.cargo/config.toml, vendored-sources)"
+   ]
+  },
+  "spotifyd": {
+   "group": "Rust crates without ppc64le",
+   "evidence": "aws-lc-sys does not compile for ppc64le",
+   "cause_seen_in_log": true,
+   "env": "rust-power9",
+   "version": "0.4.2",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "8f0ba8a897a5e9beebbed8d17c3acae9",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/spotifyd/_log"
+   },
+   "minutes": {
+    "x86_64": 8.7,
+    "ppc64le": 3.3
+   },
+   "sources": [
+    "https://github.com/Spotifyd/spotifyd/archive/refs/tags/v0.4.2.tar.gz",
+    "vendor=https://api.opensuse.org/public/source/openSUSE:Factory/spotifyd/vendor.tar.xz?rev=8f0ba8a897a5e9beebbed8d17c3acae9&expand=1"
+   ],
+   "new_case": "make new-case CASE=spotifyd SOURCE=\"https://github.com/Spotifyd/spotifyd/archive/refs/tags/v0.4.2.tar.gz vendor=https://api.opensuse.org/public/source/openSUSE:Factory/spotifyd/vendor.tar.xz?rev=8f0ba8a897a5e9beebbed8d17c3acae9&expand=1\" ENV=rust-power9",
+   "notes": [
+    "vendored dependencies (vendor/) from OBS: build.sh points cargo at them (.cargo/config.toml, vendored-sources)"
+   ]
+  },
+  "python-mitmproxy-wireguard": {
+   "group": "Rust crates without ppc64le",
+   "evidence": "ring 0.16, built through pip and maturin",
+   "cause_seen_in_log": true,
+   "env": "rust-power9",
+   "version": "0.1.23",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "f78c1d9738f51e37d1cb87952d7e7a39",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/python-mitmproxy-wireguard/_log"
+   },
+   "minutes": {
+    "x86_64": 2.5,
+    "ppc64le": 1.0
+   },
+   "sources": [
+    "https://files.pythonhosted.org/packages/source/m/mitmproxy_wireguard/mitmproxy_wireguard-0.1.23.tar.gz",
+    "vendor=https://api.opensuse.org/public/source/openSUSE:Factory/python-mitmproxy-wireguard/vendor.tar.zst?rev=f78c1d9738f51e37d1cb87952d7e7a39&expand=1"
+   ],
+   "new_case": "make new-case CASE=python-mitmproxy-wireguard SOURCE=\"https://files.pythonhosted.org/packages/source/m/mitmproxy_wireguard/mitmproxy_wireguard-0.1.23.tar.gz vendor=https://api.opensuse.org/public/source/openSUSE:Factory/python-mitmproxy-wireguard/vendor.tar.zst?rev=f78c1d9738f51e37d1cb87952d7e7a39&expand=1\" ENV=rust-power9",
+   "notes": [
+    "vendored dependencies (vendor/) from OBS: build.sh points cargo at them (.cargo/config.toml, vendored-sources)"
+   ]
+  },
+  "steampipe": {
+   "group": "Go build tags and generated code",
+   "evidence": "undefined: platform.Paths (amd64 and arm64 only)",
+   "cause_seen_in_log": true,
+   "env": "go-power9",
+   "version": "2.4.9",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "ddf94359c9d79fe82d4d0375d48771ff",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/steampipe/_log"
+   },
+   "minutes": {
+    "x86_64": 3.0,
+    "ppc64le": 2.5
+   },
+   "sources": [
+    "https://github.com/turbot/steampipe/archive/4269e1dc4865647605da6af8f1828e77278106a0.tar.gz",
+    "vendor=https://api.opensuse.org/public/source/openSUSE:Factory/steampipe/vendor.tar.gz?rev=ddf94359c9d79fe82d4d0375d48771ff&expand=1"
+   ],
+   "new_case": "make new-case CASE=steampipe SOURCE=\"https://github.com/turbot/steampipe/archive/4269e1dc4865647605da6af8f1828e77278106a0.tar.gz vendor=https://api.opensuse.org/public/source/openSUSE:Factory/steampipe/vendor.tar.gz?rev=ddf94359c9d79fe82d4d0375d48771ff&expand=1\" ENV=go-power9",
+   "notes": [
+    "vendored dependencies (vendor/) from OBS: build.sh points go at them (-mod=vendor, inside the source tree)"
+   ]
+  },
+  "inspektor-gadget": {
+   "group": "Go build tags and generated code",
+   "evidence": "undefined: pfelf.CurrentMachine (eBPF profiler)",
+   "cause_seen_in_log": true,
+   "env": "go-power9",
+   "version": "0.58.0",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "ff354bc9da66ac42bc970132a2df9207",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/inspektor-gadget/_log"
+   },
+   "minutes": {
+    "x86_64": 4.5,
+    "ppc64le": 3.5
+   },
+   "sources": [
+    "https://github.com/inspektor-gadget/inspektor-gadget/archive/461906a52de982c1b1ad80f9c2faaa9595c47550.tar.gz",
+    "vendor=https://api.opensuse.org/public/source/openSUSE:Factory/inspektor-gadget/vendor.tar.gz?rev=ff354bc9da66ac42bc970132a2df9207&expand=1"
+   ],
+   "new_case": "make new-case CASE=inspektor-gadget SOURCE=\"https://github.com/inspektor-gadget/inspektor-gadget/archive/461906a52de982c1b1ad80f9c2faaa9595c47550.tar.gz vendor=https://api.opensuse.org/public/source/openSUSE:Factory/inspektor-gadget/vendor.tar.gz?rev=ff354bc9da66ac42bc970132a2df9207&expand=1\" ENV=go-power9",
+   "notes": [
+    "vendored dependencies (vendor/) from OBS: build.sh points go at them (-mod=vendor, inside the source tree)"
+   ]
+  },
+  "ptcpdump": {
+   "group": "Go build tags and generated code",
+   "evidence": "undefined: BpfNewNetdeviceEventT (eBPF code generated for amd64 and arm64)",
+   "cause_seen_in_log": true,
+   "env": "go-power9",
+   "version": "0.37.0",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "47d1a2c6492dbb609de3eed2f30731ca",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/ptcpdump/_log"
+   },
+   "minutes": {
+    "x86_64": 2.4,
+    "ppc64le": 1.5
+   },
+   "sources": [
+    "https://github.com/mozillazg/ptcpdump/archive/773055f60c8fb637358991b134ed3f99e8791192.tar.gz",
+    "vendor=https://api.opensuse.org/public/source/openSUSE:Factory/ptcpdump/vendor.tar.gz?rev=47d1a2c6492dbb609de3eed2f30731ca&expand=1",
+    "libpcap=https://github.com/the-tcpdump-group/libpcap/archive/bbcbc9174df3298a854daee2b3e666a4b6e5383a.tar.gz"
+   ],
+   "new_case": "make new-case CASE=ptcpdump SOURCE=\"https://github.com/mozillazg/ptcpdump/archive/773055f60c8fb637358991b134ed3f99e8791192.tar.gz vendor=https://api.opensuse.org/public/source/openSUSE:Factory/ptcpdump/vendor.tar.gz?rev=47d1a2c6492dbb609de3eed2f30731ca&expand=1 libpcap=https://github.com/the-tcpdump-group/libpcap/archive/bbcbc9174df3298a854daee2b3e666a4b6e5383a.tar.gz\" ENV=go-power9",
+   "notes": [
+    "git submodule lib/libpcap is a second source; build.sh puts it in place",
+    "vendored dependencies (vendor/) from OBS: build.sh points go at them (-mod=vendor, inside the source tree)"
+   ]
+  },
+  "kluctl": {
+   "group": "Go build tags and generated code",
+   "evidence": "build constraints exclude all Go files of go-jinja2/internal/data",
+   "cause_seen_in_log": true,
+   "env": "go-power9",
+   "version": "2.28.2",
+   "obs": {
+    "project": "devel:kubic",
+    "rev": "60c77feb7d6daeaeeb59087491828125",
+    "ppc64le_log": "https://api.opensuse.org/public/build/devel:kubic/openSUSE_Factory_PowerPC/ppc64le/kluctl/_log"
+   },
+   "minutes": {
+    "x86_64": 3.5,
+    "ppc64le": 1.5
+   },
+   "sources": [
+    "https://github.com/kluctl/kluctl/archive/b8269b5ece61e7d3e036f80ce7dea5b59c949141.tar.gz",
+    "vendor=https://api.opensuse.org/public/source/devel:kubic/kluctl/vendor.tar.gz?rev=60c77feb7d6daeaeeb59087491828125&expand=1"
+   ],
+   "new_case": "make new-case CASE=kluctl SOURCE=\"https://github.com/kluctl/kluctl/archive/b8269b5ece61e7d3e036f80ce7dea5b59c949141.tar.gz vendor=https://api.opensuse.org/public/source/devel:kubic/kluctl/vendor.tar.gz?rev=60c77feb7d6daeaeeb59087491828125&expand=1\" ENV=go-power9",
+   "notes": [
+    "vendored dependencies (vendor/) from OBS: build.sh points go at them (-mod=vendor, inside the source tree)"
+   ]
+  },
+  "kpt-cli": {
+   "group": "Go build tags and generated code",
+   "evidence": "cannot find -lwasmtime (no wasmtime for ppc64le)",
+   "cause_seen_in_log": true,
+   "env": "go-power9",
+   "version": "1.0.1",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "ae898537e826356aba66435e7747d5fe",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/kpt-cli/_log"
+   },
+   "minutes": {
+    "x86_64": 2.5,
+    "ppc64le": 3.2
+   },
+   "sources": [
+    "https://github.com/kptdev/kpt/archive/6c8a2e16f1f51605d6db9404ddea4f05db0e2aa2.tar.gz",
+    "vendor=https://api.opensuse.org/public/source/openSUSE:Factory/kpt-cli/vendor.tar.gz?rev=ae898537e826356aba66435e7747d5fe&expand=1"
+   ],
+   "new_case": "make new-case CASE=kpt-cli SOURCE=\"https://github.com/kptdev/kpt/archive/6c8a2e16f1f51605d6db9404ddea4f05db0e2aa2.tar.gz vendor=https://api.opensuse.org/public/source/openSUSE:Factory/kpt-cli/vendor.tar.gz?rev=ae898537e826356aba66435e7747d5fe&expand=1\" ENV=go-power9",
+   "notes": [
+    "vendored dependencies (vendor/) from OBS: build.sh points go at them (-mod=vendor, inside the source tree)"
+   ]
+  },
+  "geos": {
+   "group": "numeric tests",
+   "evidence": "1 of 535 tests (fused multiply-add, probably)",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "3.15.0",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "fdd773658f9c75ba148e61e0c8d21d4f",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/geos/_log"
+   },
+   "minutes": {
+    "x86_64": 3.3,
+    "ppc64le": 12.5
+   },
+   "sources": [
+    "https://download.osgeo.org/geos/geos-3.15.0.tar.bz2"
+   ],
+   "new_case": "make new-case CASE=geos SOURCE=\"https://download.osgeo.org/geos/geos-3.15.0.tar.bz2\" ENV=c-power9",
+   "notes": []
+  },
+  "ensmallen": {
+   "group": "numeric tests",
+   "evidence": "lrsdp_test: 1 of 18052 assertions",
+   "cause_seen_in_log": true,
+   "env": "sci-power9",
+   "version": "3.11.0",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "e87f166b3d67fda41d8d248211cae41f",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/ensmallen/_log"
+   },
+   "minutes": {
+    "x86_64": 5.5,
+    "ppc64le": 11.3
+   },
+   "sources": [
+    "https://ensmallen.org/files/ensmallen-3.11.0.tar.gz"
+   ],
+   "new_case": "make new-case CASE=ensmallen SOURCE=\"https://ensmallen.org/files/ensmallen-3.11.0.tar.gz\" ENV=sci-power9",
+   "notes": []
+  },
+  "blosc2": {
+   "group": "numeric tests",
+   "evidence": "1 of 7 tests",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "3.3.5",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "a303964ab47efa4d808bc603687f2320",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/blosc2/_log"
+   },
+   "minutes": {
+    "x86_64": 9.1,
+    "ppc64le": 4.0
+   },
+   "sources": [
+    "https://github.com/Blosc/c-blosc2/archive/refs/tags/v3.3.5.tar.gz"
+   ],
+   "new_case": "make new-case CASE=blosc2 SOURCE=\"https://github.com/Blosc/c-blosc2/archive/refs/tags/v3.3.5.tar.gz\" ENV=c-power9",
+   "notes": []
+  },
+  "fastjet-contrib": {
+   "group": "numeric tests",
+   "evidence": "Nsubjettiness example_advanced_usage differs from the reference",
+   "cause_seen_in_log": true,
+   "env": "sci-power9",
+   "version": "1.104",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "d085a6d39ec779d018ba090994881f40",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/fastjet-contrib/_log"
+   },
+   "minutes": {
+    "x86_64": 3.1,
+    "ppc64le": 7.0
+   },
+   "sources": [
+    "https://fastjet.hepforge.org/contrib/downloads/fjcontrib-1.104.tar.gz"
+   ],
+   "new_case": "make new-case CASE=fastjet-contrib SOURCE=\"https://fastjet.hepforge.org/contrib/downloads/fjcontrib-1.104.tar.gz\" ENV=sci-power9",
+   "notes": []
+  },
+  "nceplibs-ip": {
+   "group": "numeric tests",
+   "evidence": "1 of 114 tests (Fortran)",
+   "cause_seen_in_log": true,
+   "env": "sci-power9",
+   "version": "5.4.0",
+   "obs": {
+    "project": "science",
+    "rev": "b45aab1db78354c07364c3d55f912194",
+    "ppc64le_log": "https://api.opensuse.org/public/build/science/openSUSE_Tumbleweed/ppc64le/nceplibs-ip/_log"
+   },
+   "minutes": {
+    "x86_64": 3.0,
+    "ppc64le": 2.8
+   },
+   "sources": [
+    "https://api.opensuse.org/public/source/science/nceplibs-ip/NCEPLIBS-ip-5.4.0.tar.gz?rev=b45aab1db78354c07364c3d55f912194&expand=1",
+    "test-data=https://ftp.emc.ncep.noaa.gov/static_files/public/NCEPLIBS-ip/ip-test-data-20241230.tgz"
+   ],
+   "new_case": "make new-case CASE=nceplibs-ip SOURCE=\"https://api.opensuse.org/public/source/science/nceplibs-ip/NCEPLIBS-ip-5.4.0.tar.gz?rev=b45aab1db78354c07364c3d55f912194&expand=1 test-data=https://ftp.emc.ncep.noaa.gov/static_files/public/NCEPLIBS-ip/ip-test-data-20241230.tgz\" ENV=sci-power9",
+   "notes": []
+  },
+  "hdf": {
+   "group": "numeric tests",
+   "evidence": "1 of 75 tests (HDF4)",
+   "cause_seen_in_log": true,
+   "env": "sci-power9",
+   "version": "4.2.15",
+   "obs": {
+    "project": "science",
+    "rev": "b8a933eff15e053d1bf76f012adabb4d",
+    "ppc64le_log": "https://api.opensuse.org/public/build/science/openSUSE_Tumbleweed/ppc64le/hdf/_log"
+   },
+   "minutes": {
+    "x86_64": 8.5,
+    "ppc64le": 10.5
+   },
+   "sources": [
+    "https://support.hdfgroup.org/ftp/HDF/releases/HDF4.2.15/src/hdf-4.2.15.tar.bz2"
+   ],
+   "new_case": "make new-case CASE=hdf SOURCE=\"https://support.hdfgroup.org/ftp/HDF/releases/HDF4.2.15/src/hdf-4.2.15.tar.bz2\" ENV=sci-power9",
+   "notes": [
+    "openSUSE carries 10 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "meep": {
+   "group": "numeric tests",
+   "evidence": "three_d aborts (exit 134)",
+   "cause_seen_in_log": true,
+   "env": "sci-power9",
+   "version": "1.28.0",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "db1de2945913f5159baa16f30b7a3652",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/meep/_log"
+   },
+   "minutes": {
+    "x86_64": 4.7,
+    "ppc64le": 9.7
+   },
+   "sources": [
+    "https://github.com/NanoComp/meep/releases/download/v1.28.0/meep-1.28.0.tar.gz"
+   ],
+   "new_case": "make new-case CASE=meep SOURCE=\"https://github.com/NanoComp/meep/releases/download/v1.28.0/meep-1.28.0.tar.gz\" ENV=sci-power9",
+   "notes": []
+  },
+  "cdo": {
+   "group": "numeric tests",
+   "evidence": "3 tests fail",
+   "cause_seen_in_log": true,
+   "env": "sci-power9",
+   "version": "2.6.6",
+   "obs": {
+    "project": "science",
+    "rev": "f192ee6d9da4a3da119848d4bf8953b6",
+    "ppc64le_log": "https://api.opensuse.org/public/build/science/openSUSE_Tumbleweed/ppc64le/cdo/_log"
+   },
+   "minutes": {
+    "x86_64": 8.2,
+    "ppc64le": 8.1
+   },
+   "sources": [
+    "https://api.opensuse.org/public/source/science/cdo/cdo-2.6.6.tar.gz?rev=f192ee6d9da4a3da119848d4bf8953b6&expand=1"
+   ],
+   "new_case": "make new-case CASE=cdo SOURCE=\"https://api.opensuse.org/public/source/science/cdo/cdo-2.6.6.tar.gz?rev=f192ee6d9da4a3da119848d4bf8953b6&expand=1\" ENV=sci-power9",
+   "notes": [
+    "Magics is not on conda-forge for ppc64le (optional)",
+    "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "backward-cpp": {
+   "group": "system and CPU behavior tests",
+   "evidence": "divide_by_zero: no SIGFPE on PowerPC",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "1.6",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "79c46dd73fbbbfdddd01791cc2cce644",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/backward-cpp/_log"
+   },
+   "minutes": {
+    "x86_64": 0.3,
+    "ppc64le": 0.5
+   },
+   "sources": [
+    "https://github.com/bombela/backward-cpp/archive/v1.6.tar.gz"
+   ],
+   "new_case": "make new-case CASE=backward-cpp SOURCE=\"https://github.com/bombela/backward-cpp/archive/v1.6.tar.gz\" ENV=c-power9",
+   "notes": [
+    "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "libcdada": {
+   "group": "system and CPU behavior tests",
+   "evidence": "str_test aborts",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "0.6.4",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "2952389cba6c7c24545c4cc2a3d8f5bf",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/libcdada/_log"
+   },
+   "minutes": {
+    "x86_64": 1.1,
+    "ppc64le": 1.7
+   },
+   "sources": [
+    "https://github.com/msune/libcdada/archive/refs/tags/v0.6.4.tar.gz"
+   ],
+   "new_case": "make new-case CASE=libcdada SOURCE=\"https://github.com/msune/libcdada/archive/refs/tags/v0.6.4.tar.gz\" ENV=c-power9",
+   "notes": []
+  },
+  "libvarlink": {
+   "group": "system and CPU behavior tests",
+   "evidence": "test-symbols fails",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "24",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "c2c1ec55fc29ea09fa3162ce5291cea7",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/libvarlink/_log"
+   },
+   "minutes": {
+    "x86_64": 0.5,
+    "ppc64le": 0.6
+   },
+   "sources": [
+    "https://github.com/varlink/libvarlink/archive/refs/tags/24.tar.gz"
+   ],
+   "new_case": "make new-case CASE=libvarlink SOURCE=\"https://github.com/varlink/libvarlink/archive/refs/tags/24.tar.gz\" ENV=c-power9",
+   "notes": []
+  },
+  "lpcnet": {
+   "group": "system and CPU behavior tests",
+   "evidence": "SIMD_functions test fails",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "0.5",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "f575dc0093ae8c058e899c0c040e1f72",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/lpcnet/_log"
+   },
+   "minutes": {
+    "x86_64": 2.1,
+    "ppc64le": 1.1
+   },
+   "sources": [
+    "https://github.com/drowe67/LPCNet/archive/refs/tags/v0.5.tar.gz",
+    "model=https://api.opensuse.org/public/source/openSUSE:Factory/lpcnet/lpcnet_191005_v1.0.tgz?rev=f575dc0093ae8c058e899c0c040e1f72&expand=1"
+   ],
+   "new_case": "make new-case CASE=lpcnet SOURCE=\"https://github.com/drowe67/LPCNet/archive/refs/tags/v0.5.tar.gz model=https://api.opensuse.org/public/source/openSUSE:Factory/lpcnet/lpcnet_191005_v1.0.tgz?rev=f575dc0093ae8c058e899c0c040e1f72&expand=1\" ENV=c-power9",
+   "notes": [
+    "the model data (lpcnet_191005_v1.0.tgz) is a second source; sox is not on conda-forge for ppc64le"
+   ]
+  },
+  "iprange": {
+   "group": "system and CPU behavior tests",
+   "evidence": "1 of 100 tests",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "2.1.1",
+   "obs": {
+    "project": "security:netfilter",
+    "rev": "149681d80ab072a61694b31e848abd9f",
+    "ppc64le_log": "https://api.opensuse.org/public/build/security:netfilter/openSUSE_Tumbleweed/ppc64le/iprange/_log"
+   },
+   "minutes": {
+    "x86_64": 1.0,
+    "ppc64le": 0.8
+   },
+   "sources": [
+    "https://github.com/firehol/iprange/releases/download/v2.1.1/iprange-2.1.1.tar.xz"
+   ],
+   "new_case": "make new-case CASE=iprange SOURCE=\"https://github.com/firehol/iprange/releases/download/v2.1.1/iprange-2.1.1.tar.xz\" ENV=c-power9",
+   "notes": []
+  },
+  "bash-completion-doc": {
+   "group": "system and CPU behavior tests",
+   "evidence": "test_gcc::test_march expects the x86 -march values",
+   "cause_seen_in_log": true,
+   "env": "c-power9",
+   "version": "2.18.0",
+   "obs": {
+    "project": "shells",
+    "rev": "7d7bef2c87ed5b382df74c6d7c463268",
+    "ppc64le_log": "https://api.opensuse.org/public/build/shells/openSUSE_Factory/ppc64le/bash-completion-doc/_log"
+   },
+   "minutes": {
+    "x86_64": 2.8,
+    "ppc64le": 4.1
+   },
+   "sources": [
+    "https://github.com/scop/bash-completion/releases/download/2.18.0/bash-completion-2.18.0.tar.xz"
+   ],
+   "new_case": "make new-case CASE=bash-completion-doc SOURCE=\"https://github.com/scop/bash-completion/releases/download/2.18.0/bash-completion-2.18.0.tar.xz\" ENV=c-power9",
+   "notes": [
+    "openSUSE carries 10 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "python-PySDL2": {
+   "group": "system and CPU behavior tests",
+   "evidence": "SDL_ConvertPixels: 256 == 16777216 (byte order)",
+   "cause_seen_in_log": true,
+   "env": "py-power9",
+   "version": "0.9.17",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "84403935e89ee8bc9c2ce0f9b4c6d070",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/python-PySDL2/_log"
+   },
+   "minutes": {
+    "x86_64": 1.3,
+    "ppc64le": 1.7
+   },
+   "sources": [
+    "https://files.pythonhosted.org/packages/source/p/pysdl2/pysdl2-0.9.17.tar.gz"
+   ],
+   "new_case": "make new-case CASE=python-PySDL2 SOURCE=\"https://files.pythonhosted.org/packages/source/p/pysdl2/pysdl2-0.9.17.tar.gz\" ENV=py-power9",
+   "notes": [
+    "the tests need SDL's dummy video driver (no X server)",
+    "openSUSE carries 2 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "python-tesserocr": {
+   "group": "system and CPU behavior tests",
+   "evidence": "test_recognize fails",
+   "cause_seen_in_log": true,
+   "env": "py-power9",
+   "version": "2.11.0",
+   "obs": {
+    "project": "devel:languages:python",
+    "rev": "b3e2451bd32ef302e00ed26355a360af",
+    "ppc64le_log": "https://api.opensuse.org/public/build/devel:languages:python/openSUSE_Factory_PowerPC/ppc64le/python-tesserocr/_log"
+   },
+   "minutes": {
+    "x86_64": 1.2,
+    "ppc64le": 10.7
+   },
+   "sources": [
+    "https://files.pythonhosted.org/packages/source/t/tesserocr/tesserocr-2.11.0.tar.gz"
+   ],
+   "new_case": "make new-case CASE=python-tesserocr SOURCE=\"https://files.pythonhosted.org/packages/source/t/tesserocr/tesserocr-2.11.0.tar.gz\" ENV=py-power9",
+   "notes": []
+  },
+  "jaq": {
+   "group": "system and CPU behavior tests",
+   "evidence": "jaq-core tests fail",
+   "cause_seen_in_log": false,
+   "env": "rust-power9",
+   "version": "2.3.0",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "c313f446c6d5d6a1ee90b0e81e145189",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/jaq/_log"
+   },
+   "minutes": {
+    "x86_64": 2.1,
+    "ppc64le": 3.4
+   },
+   "sources": [
+    "https://github.com/01mf02/jaq/archive/refs/tags/v2.3.0.tar.gz",
+    "vendor=https://api.opensuse.org/public/source/openSUSE:Factory/jaq/vendor.tar.zst?rev=c313f446c6d5d6a1ee90b0e81e145189&expand=1"
+   ],
+   "new_case": "make new-case CASE=jaq SOURCE=\"https://github.com/01mf02/jaq/archive/refs/tags/v2.3.0.tar.gz vendor=https://api.opensuse.org/public/source/openSUSE:Factory/jaq/vendor.tar.zst?rev=c313f446c6d5d6a1ee90b0e81e145189&expand=1\" ENV=rust-power9",
+   "notes": [
+    "vendored dependencies (vendor/) from OBS: build.sh points cargo at them (.cargo/config.toml, vendored-sources)"
+   ]
+  },
+  "libtls-ossl": {
+   "group": "cause to confirm",
+   "evidence": "6 crypto test suites fail",
+   "cause_seen_in_log": false,
+   "env": "c-power9",
+   "version": "4.4.0",
+   "obs": {
+    "project": "security:tls",
+    "rev": "c7bbbf198edf9b4280e700bdac4173cb",
+    "ppc64le_log": "https://api.opensuse.org/public/build/security:tls/openSUSE_Factory_PowerPC/ppc64le/libtls-ossl/_log"
+   },
+   "minutes": {
+    "x86_64": 8.4,
+    "ppc64le": 11.8
+   },
+   "sources": [
+    "https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-4.4.0.tar.gz"
+   ],
+   "new_case": "make new-case CASE=libtls-ossl SOURCE=\"https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-4.4.0.tar.gz\" ENV=c-power9",
+   "notes": [
+    "openSUSE carries 2 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "netgen": {
+   "group": "cause to confirm",
+   "evidence": "9 numeric tests fail (assert approx)",
+   "cause_seen_in_log": false,
+   "env": "sci-power9",
+   "version": "6.2.2602",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "92dccbcda193bee825e6495202ce065a",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/netgen/_log"
+   },
+   "minutes": {
+    "x86_64": 7.8,
+    "ppc64le": 9.3
+   },
+   "sources": [
+    "https://github.com/NGSolve/netgen/archive/refs/tags/v6.2.2602.tar.gz"
+   ],
+   "new_case": "make new-case CASE=netgen SOURCE=\"https://github.com/NGSolve/netgen/archive/refs/tags/v6.2.2602.tar.gz\" ENV=sci-power9",
+   "notes": [
+    "openSUSE carries 13 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "python-networkx": {
+   "group": "cause to confirm",
+   "evidence": "2 tests fail",
+   "cause_seen_in_log": false,
+   "env": "py-power9",
+   "version": "3.6.1",
+   "obs": {
+    "project": "devel:languages:python:numeric",
+    "rev": "df3ef4bbea2fd075c9e7d0f44d8c4f0c",
+    "ppc64le_log": "https://api.opensuse.org/public/build/devel:languages:python:numeric/openSUSE_Factory_PowerPC/ppc64le/python-networkx/_log"
+   },
+   "minutes": {
+    "x86_64": 7.0,
+    "ppc64le": 15.0
+   },
+   "sources": [
+    "https://files.pythonhosted.org/packages/source/n/networkx/networkx-3.6.1.tar.gz"
+   ],
+   "new_case": "make new-case CASE=python-networkx SOURCE=\"https://files.pythonhosted.org/packages/source/n/networkx/networkx-3.6.1.tar.gz\" ENV=py-power9",
+   "notes": []
+  },
+  "icinga2": {
+   "group": "cause to confirm",
+   "evidence": "1 of 255 tests",
+   "cause_seen_in_log": false,
+   "env": "c-power9",
+   "version": "2.16.6",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "153ef09b4eb820a3f625b5233b47d1ce",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/icinga2/_log"
+   },
+   "minutes": {
+    "x86_64": 13.1,
+    "ppc64le": 13.9
+   },
+   "sources": [
+    "https://api.opensuse.org/public/source/openSUSE:Factory/icinga2/icinga2-2.16.6.tar.xz?rev=153ef09b4eb820a3f625b5233b47d1ce&expand=1"
+   ],
+   "new_case": "make new-case CASE=icinga2 SOURCE=\"https://api.opensuse.org/public/source/openSUSE:Factory/icinga2/icinga2-2.16.6.tar.xz?rev=153ef09b4eb820a3f625b5233b47d1ce&expand=1\" ENV=c-power9",
+   "notes": [
+    "openSUSE carries 2 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "cadabra2": {
+   "group": "cause to confirm",
+   "evidence": "7 of 48 tests",
+   "cause_seen_in_log": false,
+   "env": "sci-power9",
+   "version": "2.6.0",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "cccdc134d9947ee261172158cef64fe0",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/cadabra2/_log"
+   },
+   "minutes": {
+    "x86_64": 7.1,
+    "ppc64le": 15.2
+   },
+   "sources": [
+    "https://github.com/kpeeters/cadabra2/archive/67cdebce798dbb2e230ae3246221ca3302a03129.tar.gz"
+   ],
+   "new_case": "make new-case CASE=cadabra2 SOURCE=\"https://github.com/kpeeters/cadabra2/archive/67cdebce798dbb2e230ae3246221ca3302a03129.tar.gz\" ENV=sci-power9",
+   "notes": [
+    "openSUSE carries 2 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "soapy-remote": {
+   "group": "cause to confirm",
+   "evidence": "the log does not show the cause",
+   "cause_seen_in_log": false,
+   "env": "c-power9",
+   "version": "0.5.3",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "49f0269fe906d91aba70767cb4262d88",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/soapy-remote/_log"
+   },
+   "minutes": {
+    "x86_64": 0.5,
+    "ppc64le": 0.9
+   },
+   "sources": [
+    "https://github.com/pothosware/SoapyRemote/archive/soapy-remote-0.5.3.tar.gz"
+   ],
+   "new_case": "make new-case CASE=soapy-remote SOURCE=\"https://github.com/pothosware/SoapyRemote/archive/soapy-remote-0.5.3.tar.gz\" ENV=c-power9",
+   "notes": [
+    "openSUSE carries 2 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "octave-forge-gsl": {
+   "group": "cause to confirm",
+   "evidence": "gsl_sf tests fail",
+   "cause_seen_in_log": false,
+   "env": "sci-power9",
+   "version": "2.1.1",
+   "obs": {
+    "project": "science",
+    "rev": "1b136ac729457fb314da3a4e5c241454",
+    "ppc64le_log": "https://api.opensuse.org/public/build/science/openSUSE_Tumbleweed/ppc64le/octave-forge-gsl/_log"
+   },
+   "minutes": {
+    "x86_64": 1.3,
+    "ppc64le": 1.6
+   },
+   "sources": [
+    "http://downloads.sourceforge.net/octave/gsl-2.1.1.tar.gz"
+   ],
+   "new_case": "make new-case CASE=octave-forge-gsl SOURCE=\"http://downloads.sourceforge.net/octave/gsl-2.1.1.tar.gz\" ENV=sci-power9",
+   "notes": []
+  },
+  "nyxt": {
+   "group": "cause to confirm",
+   "evidence": "SBCL compilation fails (1 fatal error)",
+   "cause_seen_in_log": false,
+   "env": "nyxt",
+   "version": "3.12.0",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "e83d15541fd7c8df18a71e537cde4b09",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/nyxt/_log"
+   },
+   "minutes": {
+    "x86_64": 3.5,
+    "ppc64le": 3.0
+   },
+   "sources": [
+    "https://api.opensuse.org/public/source/openSUSE:Factory/nyxt/nyxt-3.12.0-source-with-submodules.tar.xz?rev=e83d15541fd7c8df18a71e537cde4b09&expand=1"
+   ],
+   "new_case": "make new-case CASE=nyxt SOURCE=\"https://api.opensuse.org/public/source/openSUSE:Factory/nyxt/nyxt-3.12.0-source-with-submodules.tar.xz?rev=e83d15541fd7c8df18a71e537cde4b09&expand=1\" ENV=nyxt",
+   "notes": [
+    "libfixposix is not on conda-forge: add it as a source",
+    "openSUSE carries 5 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "taskwarrior": {
+   "group": "cause to confirm",
+   "evidence": "the linker gets ':-z noexecstack' as file names",
+   "cause_seen_in_log": false,
+   "env": "rust-power9",
+   "version": "3.4.2",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "826d0382a0cc667be6a84ac708e84ff1",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/taskwarrior/_log"
+   },
+   "minutes": {
+    "x86_64": 9.0,
+    "ppc64le": 1.5
+   },
+   "sources": [
+    "https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v3.4.2/task-3.4.2.tar.gz",
+    "vendor=https://api.opensuse.org/public/source/openSUSE:Factory/taskwarrior/vendor.tar.zst?rev=826d0382a0cc667be6a84ac708e84ff1&expand=1"
+   ],
+   "new_case": "make new-case CASE=taskwarrior SOURCE=\"https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v3.4.2/task-3.4.2.tar.gz vendor=https://api.opensuse.org/public/source/openSUSE:Factory/taskwarrior/vendor.tar.zst?rev=826d0382a0cc667be6a84ac708e84ff1&expand=1\" ENV=rust-power9",
+   "notes": [
+    "vendored dependencies (vendor/) from OBS: build.sh points cargo at them (.cargo/config.toml, vendored-sources)",
+    "openSUSE carries 3 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "ckermit": {
+   "group": "cause to confirm",
+   "evidence": "undefined reference to crypt",
+   "cause_seen_in_log": false,
+   "env": "c-power9",
+   "version": "11.0.514",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "19e4af919f5edc6a7c6b05e357b1095b",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/ckermit/_log"
+   },
+   "minutes": {
+    "x86_64": 0.5,
+    "ppc64le": 0.9
+   },
+   "sources": [
+    "https://github.com/OpenKermit/ckermit/archive/refs/tags/v11.0.514.tar.gz"
+   ],
+   "new_case": "make new-case CASE=ckermit SOURCE=\"https://github.com/OpenKermit/ckermit/archive/refs/tags/v11.0.514.tar.gz\" ENV=c-power9",
+   "notes": []
+  },
+  "elixir": {
+   "group": "cause to confirm",
+   "evidence": "a test assertion (=~) fails",
+   "cause_seen_in_log": false,
+   "env": "elixir",
+   "version": "1.20.5",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "70d1d91f733ffd65c062f8462610c2c6",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/elixir/_log"
+   },
+   "minutes": {
+    "x86_64": 11.2,
+    "ppc64le": 12.3
+   },
+   "sources": [
+    "https://github.com/elixir-lang/elixir/archive/v1.20.5/elixir-1.20.5.tar.gz"
+   ],
+   "new_case": "make new-case CASE=elixir SOURCE=\"https://github.com/elixir-lang/elixir/archive/v1.20.5/elixir-1.20.5.tar.gz\" ENV=elixir",
+   "notes": [
+    "openSUSE carries 5 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  }
+ },
+ "reserves": [
+  "rye",
+  "giada",
+  "octave-forge-tisean",
+  "anura",
+  "svgpp",
+  "mkcl"
+ ]
+}
