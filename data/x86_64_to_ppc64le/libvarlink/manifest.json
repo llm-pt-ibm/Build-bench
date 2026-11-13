@@ -1,0 +1,12 @@
+{
+  "task": {
+    "package": "libvarlink",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "libvarlink": "https://github.com/varlink/libvarlink/archive/refs/tags/24.tar.gz"
+    }
+  },
+  "environment": "c-power9",
+  "version": 1
+}

@@ -1,0 +1,31 @@
+=== the build succeeded; output of the acceptance test:
+=== build environment: env
+environment c-power9 838dd5426a80 in /home/multiarq/.local/share/build-bench/envs/c-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/c-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/lpcnet/cache (build state of this run); BENCH_SHARED_CACHE_DIR= (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running /home/multiarq/yalle/build-bench/acceptance/x86_64_to_ppc64le/lpcnet.sh
+Test project /home/multiarq/yalle/build-bench/temp_workspace/lpcnet/LPCNet/build
+    Start 1: feature_extraction
+    Start 2: nnet2f32
+    Start 3: SIMD_functions
+1/3 Test #3: SIMD_functions ...................***Failed    0.00 sec
+/usr/bin/sh: ./src/test_vec: No such file or directory
+
+2/3 Test #2: nnet2f32 .........................   Passed    0.03 sec
+3/3 Test #1: feature_extraction ...............   Passed    0.04 sec
+Errors while running CTest
+
+67% tests passed, 1 tests failed out of 3
+
+Total Test time (real) =   0.04 sec
+
+The following tests FAILED:
+	  3 - SIMD_functions (Failed)

@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "bngblaster",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "bngblaster": "https://github.com/rtbrick/bngblaster/archive/refs/tags/1.1.1.tar.gz"
+    },
+    "version": "1.1.1"
+  },
+  "environment": "c-power9",
+  "version": 1
+}

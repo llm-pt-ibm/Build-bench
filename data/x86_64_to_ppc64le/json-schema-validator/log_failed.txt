@@ -1,0 +1,236 @@
+=== the build succeeded; output of the acceptance test:
+=== build environment: env
+environment c-power9 4e579032f8cb in /home/multiarq/.local/share/build-bench/envs/c-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/c-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build
+LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/json-schema-validator/cache (build state of this run); BENCH_SHARED_CACHE_DIR= (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running /home/multiarq/yalle/build-bench/acceptance/x86_64_to_ppc64le/json-schema-validator.sh
+Test project /home/multiarq/yalle/build-bench/temp_workspace/json-schema-validator/json-schema-validator/build
+      Start  1: uri
+      Start  2: errors
+      Start  3: issue-70
+      Start  4: issue-70-root-schema-constructor
+      Start  5: issue-25-default-values
+      Start  6: issue-98-erase-exception-unknown-keywords
+      Start  7: issue-293-float-point-error
+      Start  8: string-format-check-test
+      Start  9: json-patch
+      Start 10: issue-117-format-error
+      Start 11: binary-validation
+      Start 12: issue-149-entry-selection
+      Start 13: issue-189-default-values
+      Start 14: issue-229-oneof-default-values
+      Start 15: issue-243-root-default-values
+      Start 16: issue-255-error-message-limit-precision
+      Start 17: issue-105-verbose-combination-errors
+      Start 18: JSON-Suite::additionalItems
+      Start 19: JSON-Suite::additionalProperties
+      Start 20: JSON-Suite::allOf
+      Start 21: JSON-Suite::anyOf
+      Start 22: JSON-Suite::boolean_schema
+      Start 23: JSON-Suite::const
+      Start 24: JSON-Suite::contains
+      Start 25: JSON-Suite::default
+      Start 26: JSON-Suite::definitions
+      Start 27: JSON-Suite::dependencies
+      Start 28: JSON-Suite::enum
+      Start 29: JSON-Suite::exclusiveMaximum
+      Start 30: JSON-Suite::exclusiveMinimum
+      Start 31: JSON-Suite::format
+      Start 32: JSON-Suite::id
+      Start 33: JSON-Suite::if-then-else
+      Start 34: JSON-Suite::infinite-loop-detection
+      Start 35: JSON-Suite::items
+      Start 36: JSON-Suite::maxItems
+      Start 37: JSON-Suite::maxLength
+      Start 38: JSON-Suite::maxProperties
+      Start 39: JSON-Suite::maximum
+      Start 40: JSON-Suite::minItems
+      Start 41: JSON-Suite::minLength
+      Start 42: JSON-Suite::minProperties
+      Start 43: JSON-Suite::minimum
+      Start 44: JSON-Suite::multipleOf
+      Start 45: JSON-Suite::not
+      Start 46: JSON-Suite::oneOf
+      Start 47: JSON-Suite::pattern
+      Start 48: JSON-Suite::patternProperties
+      Start 49: JSON-Suite::properties
+      Start 50: JSON-Suite::propertyNames
+      Start 51: JSON-Suite::ref
+      Start 52: JSON-Suite::refRemote
+      Start 53: JSON-Suite::required
+      Start 54: JSON-Suite::type
+      Start 55: JSON-Suite::uniqueItems
+      Start 56: JSON-Suite::unknownKeyword
+      Start 57: JSON-Suite::Optional::bignum
+      Start 58: JSON-Suite::Optional::content
+      Start 59: JSON-Suite::Optional::ecmascript-regex
+      Start 60: JSON-Suite::Optional::float-overflow
+      Start 61: JSON-Suite::Optional::non-bmp-regex
+      Start 62: JSON-Suite::Optional::unicode
+      Start 63: JSON-Suite::Optional::Format::date-time
+      Start 64: JSON-Suite::Optional::Format::date
+      Start 65: JSON-Suite::Optional::Format::email
+      Start 66: JSON-Suite::Optional::Format::hostname
+      Start 67: JSON-Suite::Optional::Format::idn-email
+      Start 68: JSON-Suite::Optional::Format::idn-hostname
+      Start 69: JSON-Suite::Optional::Format::ipv4
+      Start 70: JSON-Suite::Optional::Format::ipv6
+      Start 71: JSON-Suite::Optional::Format::iri-reference
+      Start 72: JSON-Suite::Optional::Format::iri
+      Start 73: JSON-Suite::Optional::Format::json-pointer
+      Start 74: JSON-Suite::Optional::Format::regex
+      Start 75: JSON-Suite::Optional::Format::relative-json-pointer
+      Start 76: JSON-Suite::Optional::Format::time
+      Start 77: JSON-Suite::Optional::Format::uri-reference
+      Start 78: JSON-Suite::Optional::Format::uri-template
+      Start 79: JSON-Suite::Optional::Format::uri
+      Start 80: JSON-Suite::Optional::Format::uuid
+      Start 81: Issue::100
+      Start 82: Issue::101
+      Start 83: Issue::12
+      Start 84: Issue::143-1
+      Start 85: Issue::143-a
+      Start 86: Issue::143-ok
+      Start 87: Issue::209
+      Start 88: Issue::27
+      Start 89: Issue::311
+      Start 90: Issue::48
+      Start 91: Issue::54
+      Start 92: Issue::75
+      Start 93: Issue::9
+      Start 94: issue-93
+ 1/95 Test  #1: uri ...................................................   Passed    0.07 sec
+ 2/95 Test  #3: issue-70 ..............................................   Passed    0.07 sec
+ 3/95 Test  #5: issue-25-default-values ...............................   Passed    0.07 sec
+ 4/95 Test  #6: issue-98-erase-exception-unknown-keywords .............   Passed    0.07 sec
+ 5/95 Test  #7: issue-293-float-point-error ...........................   Passed    0.07 sec
+ 6/95 Test #10: issue-117-format-error ................................   Passed    0.07 sec
+ 7/95 Test #13: issue-189-default-values ..............................   Passed    0.06 sec
+ 8/95 Test #14: issue-229-oneof-default-values ........................   Passed    0.06 sec
+ 9/95 Test #15: issue-243-root-default-values .........................   Passed    0.06 sec
+10/95 Test #16: issue-255-error-message-limit-precision ...............   Passed    0.06 sec
+11/95 Test #17: issue-105-verbose-combination-errors ..................   Passed    0.06 sec
+      Start 95: Issue::96
+12/95 Test  #2: errors ................................................   Passed    0.08 sec
+13/95 Test  #4: issue-70-root-schema-constructor ......................   Passed    0.07 sec
+14/95 Test  #8: string-format-check-test ..............................   Passed    0.07 sec
+15/95 Test  #9: json-patch ............................................   Passed    0.07 sec
+16/95 Test #11: binary-validation .....................................   Passed    0.07 sec
+17/95 Test #12: issue-149-entry-selection .............................   Passed    0.07 sec
+18/95 Test #18: JSON-Suite::additionalItems ...........................   Passed    0.06 sec
+19/95 Test #19: JSON-Suite::additionalProperties ......................   Passed    0.06 sec
+20/95 Test #20: JSON-Suite::allOf .....................................   Passed    0.06 sec
+21/95 Test #21: JSON-Suite::anyOf .....................................   Passed    0.06 sec
+22/95 Test #22: JSON-Suite::boolean_schema ............................   Passed    0.06 sec
+23/95 Test #23: JSON-Suite::const .....................................   Passed    0.06 sec
+24/95 Test #24: JSON-Suite::contains ..................................   Passed    0.06 sec
+25/95 Test #25: JSON-Suite::default ...................................   Passed    0.06 sec
+26/95 Test #26: JSON-Suite::definitions ...............................   Passed    0.06 sec
+27/95 Test #27: JSON-Suite::dependencies ..............................   Passed    0.06 sec
+28/95 Test #28: JSON-Suite::enum ......................................   Passed    0.06 sec
+29/95 Test #29: JSON-Suite::exclusiveMaximum ..........................   Passed    0.06 sec
+30/95 Test #30: JSON-Suite::exclusiveMinimum ..........................   Passed    0.06 sec
+31/95 Test #31: JSON-Suite::format ....................................   Passed    0.06 sec
+32/95 Test #32: JSON-Suite::id ........................................   Passed    0.06 sec
+33/95 Test #33: JSON-Suite::if-then-else ..............................   Passed    0.06 sec
+34/95 Test #34: JSON-Suite::infinite-loop-detection ...................   Passed    0.06 sec
+35/95 Test #35: JSON-Suite::items .....................................   Passed    0.06 sec
+36/95 Test #36: JSON-Suite::maxItems ..................................   Passed    0.06 sec
+37/95 Test #37: JSON-Suite::maxLength .................................   Passed    0.05 sec
+38/95 Test #38: JSON-Suite::maxProperties .............................   Passed    0.05 sec
+39/95 Test #39: JSON-Suite::maximum ...................................   Passed    0.05 sec
+40/95 Test #40: JSON-Suite::minItems ..................................   Passed    0.05 sec
+41/95 Test #41: JSON-Suite::minLength .................................   Passed    0.05 sec
+42/95 Test #42: JSON-Suite::minProperties .............................   Passed    0.05 sec
+43/95 Test #43: JSON-Suite::minimum ...................................   Passed    0.05 sec
+44/95 Test #44: JSON-Suite::multipleOf ................................   Passed    0.05 sec
+45/95 Test #45: JSON-Suite::not .......................................   Passed    0.05 sec
+46/95 Test #46: JSON-Suite::oneOf .....................................   Passed    0.05 sec
+47/95 Test #47: JSON-Suite::pattern ...................................   Passed    0.05 sec
+48/95 Test #48: JSON-Suite::patternProperties .........................   Passed    0.05 sec
+49/95 Test #49: JSON-Suite::properties ................................   Passed    0.05 sec
+50/95 Test #50: JSON-Suite::propertyNames .............................   Passed    0.05 sec
+51/95 Test #51: JSON-Suite::ref .......................................   Passed    0.05 sec
+52/95 Test #52: JSON-Suite::refRemote .................................   Passed    0.05 sec
+53/95 Test #53: JSON-Suite::required ..................................   Passed    0.05 sec
+54/95 Test #54: JSON-Suite::type ......................................   Passed    0.05 sec
+55/95 Test #55: JSON-Suite::uniqueItems ...............................   Passed    0.04 sec
+56/95 Test #56: JSON-Suite::unknownKeyword ............................   Passed    0.04 sec
+57/95 Test #57: JSON-Suite::Optional::bignum ..........................   Passed    0.04 sec
+58/95 Test #58: JSON-Suite::Optional::content .........................   Passed    0.04 sec
+59/95 Test #59: JSON-Suite::Optional::ecmascript-regex ................   Passed    0.04 sec
+60/95 Test #60: JSON-Suite::Optional::float-overflow ..................   Passed    0.04 sec
+61/95 Test #61: JSON-Suite::Optional::non-bmp-regex ...................   Passed    0.04 sec
+62/95 Test #62: JSON-Suite::Optional::unicode .........................   Passed    0.04 sec
+63/95 Test #63: JSON-Suite::Optional::Format::date-time ...............   Passed    0.04 sec
+64/95 Test #64: JSON-Suite::Optional::Format::date ....................   Passed    0.04 sec
+65/95 Test #65: JSON-Suite::Optional::Format::email ...................   Passed    0.04 sec
+66/95 Test #66: JSON-Suite::Optional::Format::hostname ................   Passed    0.04 sec
+67/95 Test #67: JSON-Suite::Optional::Format::idn-email ...............***Failed    0.04 sec
+Testing Group "validation of an internationalized e-mail addresses"
+  Testing Case "a valid idn e-mail (example@example.test in Hangul)"
+    Test Case Exception (invalid argument): At  of "실례@실례.테스트" - format-checking failed: 실례@실례.테스트 is not a valid idn-email according to RFC 6531.
+
+      --> Test Case exited with 0 NOT expected.
+
+  Testing Case "an invalid idn e-mail address"
+    Test Case Exception (invalid argument): At  of "2962" - format-checking failed: 2962 is not a valid idn-email according to RFC 6531.
+
+      --> Test Case exited with 0 as expected.
+
+  Testing Case "a valid e-mail address"
+      --> Test Case exited with 1 as expected.
+
+  Testing Case "an invalid e-mail address"
+    Test Case Exception (invalid argument): At  of "2962" - format-checking failed: 2962 is not a valid idn-email according to RFC 6531.
+
+      --> Test Case exited with 0 as expected.
+
+Group RESULT: "validation of an internationalized e-mail addresses" 3 of 4 have succeeded - 1 failed
+-------------
+Total RESULT: 3 of 4 have succeeded - 1 failed
+
+68/95 Test #68: JSON-Suite::Optional::Format::idn-hostname ............   Passed    0.04 sec
+69/95 Test #69: JSON-Suite::Optional::Format::ipv4 ....................   Passed    0.04 sec
+70/95 Test #70: JSON-Suite::Optional::Format::ipv6 ....................   Passed    0.04 sec
+71/95 Test #71: JSON-Suite::Optional::Format::iri-reference ...........   Passed    0.04 sec
+72/95 Test #72: JSON-Suite::Optional::Format::iri .....................   Passed    0.04 sec
+73/95 Test #73: JSON-Suite::Optional::Format::json-pointer ............   Passed    0.04 sec
+74/95 Test #74: JSON-Suite::Optional::Format::regex ...................   Passed    0.03 sec
+75/95 Test #75: JSON-Suite::Optional::Format::relative-json-pointer ...   Passed    0.03 sec
+76/95 Test #76: JSON-Suite::Optional::Format::time ....................   Passed    0.03 sec
+77/95 Test #77: JSON-Suite::Optional::Format::uri-reference ...........   Passed    0.03 sec
+78/95 Test #78: JSON-Suite::Optional::Format::uri-template ............   Passed    0.03 sec
+79/95 Test #79: JSON-Suite::Optional::Format::uri .....................   Passed    0.03 sec
+80/95 Test #80: JSON-Suite::Optional::Format::uuid ....................   Passed    0.03 sec
+81/95 Test #81: Issue::100 ............................................   Passed    0.03 sec
+82/95 Test #82: Issue::101 ............................................   Passed    0.03 sec
+83/95 Test #83: Issue::12 .............................................   Passed    0.03 sec
+84/95 Test #84: Issue::143-1 ..........................................   Passed    0.03 sec
+85/95 Test #85: Issue::143-a ..........................................   Passed    0.03 sec
+86/95 Test #86: Issue::143-ok .........................................   Passed    0.03 sec
+87/95 Test #87: Issue::209 ............................................   Passed    0.03 sec
+88/95 Test #88: Issue::27 .............................................   Passed    0.03 sec
+89/95 Test #89: Issue::311 ............................................   Passed    0.03 sec
+90/95 Test #90: Issue::48 .............................................   Passed    0.03 sec
+91/95 Test #94: issue-93 ..............................................   Passed    0.02 sec
+92/95 Test #91: Issue::54 .............................................   Passed    0.03 sec
+93/95 Test #92: Issue::75 .............................................   Passed    0.02 sec
+94/95 Test #93: Issue::9 ..............................................   Passed    0.02 sec
+95/95 Test #95: Issue::96 .............................................   Passed    0.02 sec
+
+99% tests passed, 1 tests failed out of 95
+
+Total Test time (real) =   0.10 sec
+
+The following tests FAILED:
+	 67 - JSON-Suite::Optional::Format::idn-email (Failed)
+Errors while running CTest

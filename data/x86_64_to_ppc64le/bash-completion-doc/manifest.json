@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "bash-completion-doc",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "bash-completion": "https://github.com/scop/bash-completion/releases/download/2.18.0/bash-completion-2.18.0.tar.xz"
+    },
+    "version": "2.18.0"
+  },
+  "environment": "c-power9",
+  "version": 1
+}

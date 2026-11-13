@@ -4,7 +4,7 @@
  "rule": "packages that build on x86_64 and fail on ppc64le in openSUSE:Factory (against Factory:PowerPC) or in a devel project; without multibuild flavors, sources up to 500 MiB, the last build at most 20 min on each architecture; the failure in %build or %check for a reason of the architecture, read in the ppc64le log. Left out: failures of the RPM packaging only (%install, file lists: 111, of them 99 Go packages whose binary crashes in the Go 1.27 runtime on the OBS ppc64le workers, as do about 10 more Go packages in %build and %check), builds that hang, kernel modules, x86-only tools, and failures of the build environment (dependency versions of the port, timing, network). Chosen for diversity of the cause, not at random: report results per group.",
  "use": "on the build host, each case's new_case command creates it (make new-case), then build.sh, the acceptance test and make baseline as in docs/TUTORIAL.md; a case whose baseline builds, or fails for another reason, gives its place to a reserve",
  "envs": {
-  "c-power9": "C and C++ with make, CMake, Meson or autotools: gcc=15.2.0 gxx=15.2.0 make cmake ninja meson pkg-config autoconf automake libtool bison flex zlib ncurses readline openssl libxcrypt libffi elfutils boost eigen nlohmann_json gtest nasm ragel libpcap cmocka glib dbus python=3.12 pytest pexpect lame fftw soapysdr zstd lz4-c libuuid",
+  "c-power9": "C and C++ with make, CMake, Meson or autotools: envs/c-power9/env.yaml",
   "gui-power9": "c-power9 plus SDL2, X11, OpenGL and toolkits: sdl2 openal-soft physfs glew freeglut glfw libusb gtk3 alsa-lib freetype fontconfig libpng libjpeg-turbo libvorbis libogg xorg-libx11 xorg-libxinerama libgl-devel llvmdev mbedtls fmt libmagic imagemagick sqlite",
   "sci-power9": "c-power9 plus Fortran and scientific libraries: gfortran openblas liblapack fftw gsl hdf5 hdf4 libnetcdf netcdf-fortran proj udunits2 libaec eccodes armadillo fastjet libctl harminv guile gmp mpfr openmpi metis occt pybind11 numpy sympy octave",
   "py-power9": "Python packages: python=3.12 pip pytest numpy scipy h5py matplotlib pandas lxml pydot pygraphviz pyyaml pillow cython cysignals tesseract sdl2 scikit-build-core eigen tsl_robin_map xtensor pybind11 cmake ninja gxx=15.2.0",
@@ -57,7 +57,8 @@
    ],
    "new_case": "make new-case CASE=rtlsdr-airband SOURCE=\"https://github.com/rtl-airband/RTLSDR-Airband/archive/v6.2.0.tar.gz\" ENV=c-power9",
    "notes": [
-    "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+    "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le",
+    "libshout is not on conda-forge: add it (xiph.org) as a source"
    ]
   },
   "bngblaster": {
@@ -201,27 +202,6 @@
     "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le"
    ]
   },
-  "vectorscan": {
-   "group": "x86 SIMD",
-   "evidence": "undefined references to noodExec, aligned_free_internal (arch-specific objects not built)",
-   "cause_seen_in_log": true,
-   "env": "c-power9",
-   "version": "5.4.12",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "643ee386d1ea96905009f67fd0029a22",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/vectorscan/_log"
-   },
-   "minutes": {
-    "x86_64": 8.8,
-    "ppc64le": 5.8
-   },
-   "sources": [
-    "https://github.com/VectorCamp/vectorscan/archive/refs/tags/vectorscan/5.4.12.tar.gz"
-   ],
-   "new_case": "make new-case CASE=vectorscan SOURCE=\"https://github.com/VectorCamp/vectorscan/archive/refs/tags/vectorscan/5.4.12.tar.gz\" ENV=c-power9",
-   "notes": []
-  },
   "dav2d": {
    "group": "x86 SIMD",
    "evidence": "src/ppc/itx.h does not compile",
@@ -264,27 +244,6 @@
    "new_case": "make new-case CASE=clanlib SOURCE=\"https://api.opensuse.org/public/source/openSUSE:Factory/clanlib/ClanLib-4.2.0.tar.gz?rev=856f08402a5c323f7cfbe92a0a3841f8&expand=1\" ENV=gui-power9",
    "notes": []
   },
-  "ffcall": {
-   "group": "assembly and low-level code",
-   "evidence": "calling-convention assembly fails the vacall tests",
-   "cause_seen_in_log": true,
-   "env": "c-power9",
-   "version": "2.5",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "128861ebd5619e1b2ddbf8c270888074",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/ffcall/_log"
-   },
-   "minutes": {
-    "x86_64": 0.9,
-    "ppc64le": 1.4
-   },
-   "sources": [
-    "https://ftp.gnu.org/gnu/libffcall/libffcall-2.5.tar.gz"
-   ],
-   "new_case": "make new-case CASE=ffcall SOURCE=\"https://ftp.gnu.org/gnu/libffcall/libffcall-2.5.tar.gz\" ENV=c-power9",
-   "notes": []
-  },
   "samply": {
    "group": "assembly and low-level code",
    "evidence": "Rust: framehop has no unwinder for ppc64",
@@ -308,27 +267,6 @@
    "notes": [
     "vendored dependencies (vendor/) from OBS: build.sh points cargo at them (.cargo/config.toml, vendored-sources)"
    ]
-  },
-  "ctypes.sh": {
-   "group": "assembly and low-level code",
-   "evidence": "the test segfaults (FFI and struct support)",
-   "cause_seen_in_log": true,
-   "env": "c-power9",
-   "version": "1.2",
-   "obs": {
-    "project": "shells",
-    "rev": "c753f4caca4bf7d16cce763c03519d78",
-    "ppc64le_log": "https://api.opensuse.org/public/build/shells/openSUSE_Factory/ppc64le/ctypes.sh/_log"
-   },
-   "minutes": {
-    "x86_64": 0.4,
-    "ppc64le": 0.9
-   },
-   "sources": [
-    "https://github.com/taviso/ctypes.sh/releases/download/v1.2/ctypes-sh-1.2.tar.gz"
-   ],
-   "new_case": "make new-case CASE=ctypes.sh SOURCE=\"https://github.com/taviso/ctypes.sh/releases/download/v1.2/ctypes-sh-1.2.tar.gz\" ENV=c-power9",
-   "notes": []
   },
   "syncterm": {
    "group": "architecture detection and Linux headers",
@@ -418,7 +356,8 @@
    ],
    "new_case": "make new-case CASE=connman SOURCE=\"http://www.kernel.org/pub/linux/network/connman/connman-1.42.tar.xz\" ENV=c-power9",
    "notes": [
-    "openSUSE carries 4 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+    "openSUSE carries 4 patch(es): apply only those the x86_64 build needs, none for ppc64le",
+    "iptables and nftables (libmnl, libnftnl) are not on conda-forge: add libmnl and libnftnl as sources for --with-firewall=nftables"
    ]
   },
   "wl-screenrec": {
@@ -447,7 +386,7 @@
   },
   "qcoan": {
    "group": "types and ABI",
-   "evidence": "narrowing conversion of 65534 to aux::echar (short)",
+   "evidence": "the console makefile knows x86 and ARM only (it builds ppc64le with -m32); on OBS (qmake): narrowing of 65534 to echar, a short where char is unsigned",
    "cause_seen_in_log": true,
    "env": "c-power9",
    "version": "2.0",
@@ -751,27 +690,6 @@
     "vendored dependencies (vendor/) from OBS: build.sh points go at them (-mod=vendor, inside the source tree)"
    ]
   },
-  "geos": {
-   "group": "numeric tests",
-   "evidence": "1 of 535 tests (fused multiply-add, probably)",
-   "cause_seen_in_log": true,
-   "env": "c-power9",
-   "version": "3.15.0",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "fdd773658f9c75ba148e61e0c8d21d4f",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/geos/_log"
-   },
-   "minutes": {
-    "x86_64": 3.3,
-    "ppc64le": 12.5
-   },
-   "sources": [
-    "https://download.osgeo.org/geos/geos-3.15.0.tar.bz2"
-   ],
-   "new_case": "make new-case CASE=geos SOURCE=\"https://download.osgeo.org/geos/geos-3.15.0.tar.bz2\" ENV=c-power9",
-   "notes": []
-  },
   "ensmallen": {
    "group": "numeric tests",
    "evidence": "lrsdp_test: 1 of 18052 assertions",
@@ -791,27 +709,6 @@
     "https://ensmallen.org/files/ensmallen-3.11.0.tar.gz"
    ],
    "new_case": "make new-case CASE=ensmallen SOURCE=\"https://ensmallen.org/files/ensmallen-3.11.0.tar.gz\" ENV=sci-power9",
-   "notes": []
-  },
-  "blosc2": {
-   "group": "numeric tests",
-   "evidence": "1 of 7 tests",
-   "cause_seen_in_log": true,
-   "env": "c-power9",
-   "version": "3.3.5",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "a303964ab47efa4d808bc603687f2320",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/blosc2/_log"
-   },
-   "minutes": {
-    "x86_64": 9.1,
-    "ppc64le": 4.0
-   },
-   "sources": [
-    "https://github.com/Blosc/c-blosc2/archive/refs/tags/v3.3.5.tar.gz"
-   ],
-   "new_case": "make new-case CASE=blosc2 SOURCE=\"https://github.com/Blosc/c-blosc2/archive/refs/tags/v3.3.5.tar.gz\" ENV=c-power9",
    "notes": []
   },
   "fastjet-contrib": {
@@ -948,27 +845,6 @@
     "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le"
    ]
   },
-  "libcdada": {
-   "group": "system and CPU behavior tests",
-   "evidence": "str_test aborts",
-   "cause_seen_in_log": true,
-   "env": "c-power9",
-   "version": "0.6.4",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "2952389cba6c7c24545c4cc2a3d8f5bf",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/libcdada/_log"
-   },
-   "minutes": {
-    "x86_64": 1.1,
-    "ppc64le": 1.7
-   },
-   "sources": [
-    "https://github.com/msune/libcdada/archive/refs/tags/v0.6.4.tar.gz"
-   ],
-   "new_case": "make new-case CASE=libcdada SOURCE=\"https://github.com/msune/libcdada/archive/refs/tags/v0.6.4.tar.gz\" ENV=c-power9",
-   "notes": []
-  },
   "libvarlink": {
    "group": "system and CPU behavior tests",
    "evidence": "test-symbols fails",
@@ -1033,7 +909,9 @@
     "https://github.com/firehol/iprange/releases/download/v2.1.1/iprange-2.1.1.tar.xz"
    ],
    "new_case": "make new-case CASE=iprange SOURCE=\"https://github.com/firehol/iprange/releases/download/v2.1.1/iprange-2.1.1.tar.xz\" ENV=c-power9",
-   "notes": []
+   "notes": [
+    "baseline: tests.d-45-broken-pipe-output fails ('broken pipe should not look successful', no user name for uid 1000): check it on x86_64 before counting the case"
+   ]
   },
   "bash-completion-doc": {
    "group": "system and CPU behavior tests",
@@ -1127,29 +1005,6 @@
     "vendored dependencies (vendor/) from OBS: build.sh points cargo at them (.cargo/config.toml, vendored-sources)"
    ]
   },
-  "libtls-ossl": {
-   "group": "cause to confirm",
-   "evidence": "6 crypto test suites fail",
-   "cause_seen_in_log": false,
-   "env": "c-power9",
-   "version": "4.4.0",
-   "obs": {
-    "project": "security:tls",
-    "rev": "c7bbbf198edf9b4280e700bdac4173cb",
-    "ppc64le_log": "https://api.opensuse.org/public/build/security:tls/openSUSE_Factory_PowerPC/ppc64le/libtls-ossl/_log"
-   },
-   "minutes": {
-    "x86_64": 8.4,
-    "ppc64le": 11.8
-   },
-   "sources": [
-    "https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-4.4.0.tar.gz"
-   ],
-   "new_case": "make new-case CASE=libtls-ossl SOURCE=\"https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-4.4.0.tar.gz\" ENV=c-power9",
-   "notes": [
-    "openSUSE carries 2 patch(es): apply only those the x86_64 build needs, none for ppc64le"
-   ]
-  },
   "netgen": {
    "group": "cause to confirm",
    "evidence": "9 numeric tests fail (assert approx)",
@@ -1194,29 +1049,6 @@
    "new_case": "make new-case CASE=python-networkx SOURCE=\"https://files.pythonhosted.org/packages/source/n/networkx/networkx-3.6.1.tar.gz\" ENV=py-power9",
    "notes": []
   },
-  "icinga2": {
-   "group": "cause to confirm",
-   "evidence": "1 of 255 tests",
-   "cause_seen_in_log": false,
-   "env": "c-power9",
-   "version": "2.16.6",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "153ef09b4eb820a3f625b5233b47d1ce",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/icinga2/_log"
-   },
-   "minutes": {
-    "x86_64": 13.1,
-    "ppc64le": 13.9
-   },
-   "sources": [
-    "https://api.opensuse.org/public/source/openSUSE:Factory/icinga2/icinga2-2.16.6.tar.xz?rev=153ef09b4eb820a3f625b5233b47d1ce&expand=1"
-   ],
-   "new_case": "make new-case CASE=icinga2 SOURCE=\"https://api.opensuse.org/public/source/openSUSE:Factory/icinga2/icinga2-2.16.6.tar.xz?rev=153ef09b4eb820a3f625b5233b47d1ce&expand=1\" ENV=c-power9",
-   "notes": [
-    "openSUSE carries 2 patch(es): apply only those the x86_64 build needs, none for ppc64le"
-   ]
-  },
   "cadabra2": {
    "group": "cause to confirm",
    "evidence": "7 of 48 tests",
@@ -1236,29 +1068,6 @@
     "https://github.com/kpeeters/cadabra2/archive/67cdebce798dbb2e230ae3246221ca3302a03129.tar.gz"
    ],
    "new_case": "make new-case CASE=cadabra2 SOURCE=\"https://github.com/kpeeters/cadabra2/archive/67cdebce798dbb2e230ae3246221ca3302a03129.tar.gz\" ENV=sci-power9",
-   "notes": [
-    "openSUSE carries 2 patch(es): apply only those the x86_64 build needs, none for ppc64le"
-   ]
-  },
-  "soapy-remote": {
-   "group": "cause to confirm",
-   "evidence": "the log does not show the cause",
-   "cause_seen_in_log": false,
-   "env": "c-power9",
-   "version": "0.5.3",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "49f0269fe906d91aba70767cb4262d88",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/soapy-remote/_log"
-   },
-   "minutes": {
-    "x86_64": 0.5,
-    "ppc64le": 0.9
-   },
-   "sources": [
-    "https://github.com/pothosware/SoapyRemote/archive/soapy-remote-0.5.3.tar.gz"
-   ],
-   "new_case": "make new-case CASE=soapy-remote SOURCE=\"https://github.com/pothosware/SoapyRemote/archive/soapy-remote-0.5.3.tar.gz\" ENV=c-power9",
    "notes": [
     "openSUSE carries 2 patch(es): apply only those the x86_64 build needs, none for ppc64le"
    ]
@@ -1333,27 +1142,6 @@
     "openSUSE carries 3 patch(es): apply only those the x86_64 build needs, none for ppc64le"
    ]
   },
-  "ckermit": {
-   "group": "cause to confirm",
-   "evidence": "undefined reference to crypt",
-   "cause_seen_in_log": false,
-   "env": "c-power9",
-   "version": "11.0.514",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "19e4af919f5edc6a7c6b05e357b1095b",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/ckermit/_log"
-   },
-   "minutes": {
-    "x86_64": 0.5,
-    "ppc64le": 0.9
-   },
-   "sources": [
-    "https://github.com/OpenKermit/ckermit/archive/refs/tags/v11.0.514.tar.gz"
-   ],
-   "new_case": "make new-case CASE=ckermit SOURCE=\"https://github.com/OpenKermit/ckermit/archive/refs/tags/v11.0.514.tar.gz\" ENV=c-power9",
-   "notes": []
-  },
   "elixir": {
    "group": "cause to confirm",
    "evidence": "a test assertion (=~) fails",
@@ -1385,5 +1173,17 @@
   "anura",
   "svgpp",
   "mkcl"
- ]
+ ],
+ "dropped": {
+  "libtls-ossl": "its tests fail on x86_64 as well (the openSUSE spec ignores them), and the OBS failure is of the packaging",
+  "soapy-remote": "the OBS failure is rpmlint's (packaging), not of the build",
+  "vectorscan": "builds and passes its tests on ppc64le from the upstream sources with the environment's GCC 15 (baseline of 2026-11-12): the OBS failure (GCC 16, the distribution's flags) does not reproduce",
+  "ffcall": "builds and passes its tests on ppc64le from the upstream sources with the environment's GCC 15 (baseline of 2026-11-12): the OBS failure (GCC 16, the distribution's flags) does not reproduce",
+  "geos": "builds and passes its tests on ppc64le from the upstream sources with the environment's GCC 15 (baseline of 2026-11-12): the OBS failure (GCC 16, the distribution's flags) does not reproduce",
+  "blosc2": "builds and passes its tests on ppc64le from the upstream sources with the environment's GCC 15 (baseline of 2026-11-12): the OBS failure (GCC 16, the distribution's flags) does not reproduce",
+  "libcdada": "builds and passes its tests on ppc64le from the upstream sources with the environment's GCC 15 (baseline of 2026-11-12): the OBS failure (GCC 16, the distribution's flags) does not reproduce",
+  "ckermit": "builds and passes its tests on ppc64le from the upstream sources with the environment's GCC 15 (baseline of 2026-11-12): the OBS failure (GCC 16, the distribution's flags) does not reproduce",
+  "ctypes.sh": "builds and passes its test on ppc64le (built without struct support, as on OBS): the segfault of the OBS test does not reproduce",
+  "icinga2": "15 of its 255 tests fail in the container (the HTTP server tests: timeouts, a segfault, a symbol lookup error in libgcc_s), against 1 on OBS: the environment, not the architecture"
+ }
 }

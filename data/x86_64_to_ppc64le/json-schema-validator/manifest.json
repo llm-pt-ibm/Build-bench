@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "json-schema-validator",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "json-schema-validator": "https://github.com/pboettch/json-schema-validator/archive/refs/tags/2.4.0.tar.gz"
+    },
+    "version": "2.4.0"
+  },
+  "environment": "c-power9",
+  "version": 1
+}

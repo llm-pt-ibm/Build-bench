@@ -1,0 +1,14 @@
+{
+  "task": {
+    "package": "lpcnet",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "LPCNet": "https://github.com/drowe67/LPCNet/archive/refs/tags/v0.5.tar.gz",
+      "model": "https://api.opensuse.org/public/source/openSUSE:Factory/lpcnet/lpcnet_191005_v1.0.tgz?rev=f575dc0093ae8c058e899c0c040e1f72&expand=1"
+    },
+    "version": "0.5"
+  },
+  "environment": "c-power9",
+  "version": 1
+}

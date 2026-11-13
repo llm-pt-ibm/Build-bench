@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "syncterm",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "syncterm-1.9-src": "https://master.dl.sourceforge.net/project/syncterm/syncterm/syncterm-1.9/syncterm-1.9-src.tgz"
+    },
+    "version": "1.9"
+  },
+  "environment": "c-power9",
+  "version": 1
+}

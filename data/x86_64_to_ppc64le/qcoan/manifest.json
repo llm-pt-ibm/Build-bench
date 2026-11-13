@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "qcoan",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "coan": "https://api.opensuse.org/public/source/science/qcoan/coan-v2.0.tar.bz2?rev=08d5be2f7603e9ba8c8984676d1edfee&expand=1"
+    },
+    "version": "2.0"
+  },
+  "environment": "c-power9",
+  "version": 1
+}

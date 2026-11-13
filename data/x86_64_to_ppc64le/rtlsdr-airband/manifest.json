@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "rtlsdr-airband",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "RTLSDR-Airband-6.2.0": "https://github.com/rtl-airband/RTLSDR-Airband/archive/v6.2.0.tar.gz"
+    },
+    "version": "6.2.0"
+  },
+  "environment": "c-power9",
+  "version": 1
+}

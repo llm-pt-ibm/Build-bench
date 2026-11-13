@@ -1,0 +1,335 @@
+=== the build succeeded; output of the acceptance test:
+=== build environment: env
+environment c-power9 4e579032f8cb in /home/multiarq/.local/share/build-bench/envs/c-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/c-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build
+LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/iprange/cache (build state of this run); BENCH_SHARED_CACHE_DIR= (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running /home/multiarq/yalle/build-bench/acceptance/x86_64_to_ppc64le/iprange.sh
+make: Entering directory '/home/multiarq/yalle/build-bench/temp_workspace/iprange/iprange'
+make  check-am
+make[1]: Entering directory '/home/multiarq/yalle/build-bench/temp_workspace/iprange/iprange'
+make  check-local
+make[2]: Entering directory '/home/multiarq/yalle/build-bench/temp_workspace/iprange/iprange'
+IPRANGE_BIN='/home/multiarq/yalle/build-bench/temp_workspace/iprange/iprange/iprange' /bin/sh ./run-tests.sh
+[1;33mRunning test: tests.d-01-basic-merge[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-02-common[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-03-exclude[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-04-diff[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-05-file-list[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-06-file-list-compare[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-07-file-list-compare-next[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-08-print-ranges[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-09-prefix-suffix[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-10-dont-fix-network[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-100-ipv6-compare-first[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-11-diff-no-difference[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-12-directory-list[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-13-complex-compare-next[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-14-has-directory-loading[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-15-empty-inputs[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-16-recursive-directory[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-17-mixed-input-formats[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-18-invalid-input[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-19-nonexistent-paths[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-20-large-scale[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-21-special-chars[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-22-binary-to-text[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-23-empty-input-count[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-24-nonexistent-file-count[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-25-missing-file-in-list-count[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-26-empty-file-in-list-count[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-27-binary-save-load[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-28-binary-empty[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-29-mixed-text-binary[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-30-compare-first[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-31-count-unique-merged[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-32-count-unique-all[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-33-has-compare-reduce[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-34-min-prefix[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-35-prefixes[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-36-print-single-ips[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-37-split-prefix-suffix[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-38-default-prefix[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-39-quiet-diff[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-40-hostname-localhost[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-41-help-version-status[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-42-count-full-space[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-43-diff-debug-labels[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-44-reduce-mode[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-45-broken-pipe-output[0m
+[0;31mTest failed: Exit code 1[0m
+[0;31mOutput:[0m
+# ERROR: broken pipe should not look successful
+id: cannot find name for user ID 1000
+id: cannot find name for group ID 1000
+id: cannot find name for user ID 1000
+
+[1;33mRunning test: tests.d-46-binary-count-roundtrip[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-47-dns-state-reset[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-48-invalid-ip-does-not-fallback-dns[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-49-filelist-order-preserved[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-50-directory-order-deterministic[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-51-empty-grouped-input-fails[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-52-numeric-leading-hostname[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-53-numeric-leading-hyphen-hostname[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-54-invalid-cidr-like-input[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-55-invalid-hostname-input[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-56-strict-numeric-options[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-57-binary-metadata-validation[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-58-binary-trailing-garbage[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-59-binary-semantic-validation[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-60-directory-skips-special-files[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-61-invalid-input-exit-status[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-62-binary-count-uses-actual-entries[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-63-compare-uses-actual-entries[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-64-dns-failure-exit-status[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-65-update-ipsets-union-all[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-66-update-ipsets-retention-binary-ops[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-67-update-ipsets-compare-contract[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-68-update-ipsets-directory-retention-contract[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-69-update-ipsets-apply-contract[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-70-update-ipsets-dns-helper-contract[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-71-update-ipsets-diff-quiet-equal[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-72-numeric-ipv4-forms[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-73-boundary-addresses[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-74-boundary-adjacency-merge[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-75-default-mode-ipv4-contract[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-76-numeric-ranges[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-77-max-edge-wrap-safety[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-78-ipv6-basic-merge[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-79-ipv6-cidr-decomposition[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-80-ipv6-set-operations[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-81-ipv6-ipv4-mapped-normalization[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-82-ipv6-binary-roundtrip[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-83-ipv6-count-compare[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-84-ipv6-single-ips-cap[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-85-ipv6-default-mode-is-ipv4[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-86-ipv6-mixed-family-rejection[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-87-ipv6-boundary-addresses[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-88-ipv6-has-ipv6-flag[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-89-ipv6-adjacency-max-no-wrap[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-90-ipv6-invalid-prefix-rejected[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-91-ipv4-mapped-ipv6-in-ipv4-mode[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-92-ipv4-graceful-ipv6-drop[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-93-ipv6-min-prefix-prefixes[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-94-csv-field-escaping[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-95-ipv6-multi-file-merge[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-96-ipv6-common[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-97-ipv6-exclude[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-98-ipv6-diff[0m
+[0;32mTest passed[0m
+
+[1;33mRunning test: tests.d-99-ipv6-count-unique-merged[0m
+[0;32mTest passed[0m
+
+[1;33mTest Summary:[0m
+Total tests: 100
+[0;32mPassed tests: 99[0m
+[0;31mFailed tests: 1[0m
+make[2]: Leaving directory '/home/multiarq/yalle/build-bench/temp_workspace/iprange/iprange'
+make[1]: Leaving directory '/home/multiarq/yalle/build-bench/temp_workspace/iprange/iprange'
+make: Leaving directory '/home/multiarq/yalle/build-bench/temp_workspace/iprange/iprange'
+make[2]: *** [Makefile:1178: check-local] Error 1
+make[1]: *** [Makefile:972: check-am] Error 2
+make: *** [Makefile:974: check] Error 2

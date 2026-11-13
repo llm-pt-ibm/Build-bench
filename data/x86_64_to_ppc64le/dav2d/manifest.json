@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "dav2d",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "dav2d": "https://code.videolan.org/videolan/dav2d/-/archive/0.0.1/dav2d-0.0.1.tar.gz"
+    },
+    "version": "0.0.1"
+  },
+  "environment": "c-power9",
+  "version": 1
+}

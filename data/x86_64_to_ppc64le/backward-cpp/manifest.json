@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "backward-cpp",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "backward-cpp": "https://github.com/bombela/backward-cpp/archive/v1.6.tar.gz"
+    },
+    "version": "1.6"
+  },
+  "environment": "c-power9",
+  "version": 1
+}

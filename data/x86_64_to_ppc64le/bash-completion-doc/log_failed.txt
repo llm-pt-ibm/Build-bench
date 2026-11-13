@@ -1,0 +1,54 @@
+=== the build succeeded; output of the acceptance test:
+=== build environment: env
+environment c-power9 838dd5426a80 in /home/multiarq/.local/share/build-bench/envs/c-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/c-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/bash-completion-doc/cache (build state of this run); BENCH_SHARED_CACHE_DIR= (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running /home/multiarq/yalle/build-bench/acceptance/x86_64_to_ppc64le/bash-completion-doc.sh
+.......sF.                                                               [100%]
+=================================== FAILURES ===================================
+______________________________ TestGcc.test_march ______________________________
+
+self = <test_gcc.TestGcc object at 0x7fffafbeeae0>
+completion = <CompletionResult []>, gcc_with_completion = None
+
+    @pytest.mark.complete("gcc -march=")
+    def test_march(self, completion, gcc_with_completion):
+        # https://github.com/scop/bash-completion/issues/1201
+        # native: x86, some others
+        # power*: ppc
+>       assert "native" in completion or any(
+            x.startswith("power") for x in completion
+        )
+E       AssertionError: assert ('native' in <CompletionResult []> or False)
+E        +  where False = any(<generator object TestGcc.test_march.<locals>.<genexpr> at 0x7fffafddbed0>)
+
+/home/multiarq/yalle/build-bench/temp_workspace/bash-completion-doc/bash-completion/test/t/test_gcc.py:63: AssertionError
+=============================== warnings summary ===============================
+t/test_gcc.py::TestGcc::test_enum_value
+  /home/multiarq/.local/share/build-bench/envs/c-power9/test/lib/python3.12/site-packages/_pytest/fixtures.py:1392: PytestRemovedIn10Warning: Class-scoped fixtures defined as instance methods are deprecated.
+  Instance attributes set in the 'gcc_with_completion' fixture will NOT be visible to test methods,
+  as each test gets a new instance while the fixture runs only once per class.
+  Use a @classmethod decorator below @pytest.fixture and set attributes on cls instead.
+  See https://docs.pytest.org/en/stable/deprecations.html#class-scoped-fixture-as-instance-method
+    fixturefunc = resolve_fixture_function(fixturedef, request)
+
+t/test_gcc.py::TestGcc::test_march_amd
+  /home/multiarq/.local/share/build-bench/envs/c-power9/test/lib/python3.12/site-packages/_pytest/fixtures.py:1392: PytestRemovedIn10Warning: Class-scoped fixtures defined as instance methods are deprecated.
+  Instance attributes set in the 'gcc_x86' fixture will NOT be visible to test methods,
+  as each test gets a new instance while the fixture runs only once per class.
+  Use a @classmethod decorator below @pytest.fixture and set attributes on cls instead.
+  See https://docs.pytest.org/en/stable/deprecations.html#class-scoped-fixture-as-instance-method
+    fixturefunc = resolve_fixture_function(fixturedef, request)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED t/test_gcc.py::TestGcc::test_march - AssertionError: assert ('native' ...
+1 failed, 8 passed, 1 skipped, 2 warnings in 1.40s

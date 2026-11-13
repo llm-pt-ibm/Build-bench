@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "iprange",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "iprange": "https://github.com/firehol/iprange/releases/download/v2.1.1/iprange-2.1.1.tar.xz"
+    },
+    "version": "2.1.1"
+  },
+  "environment": "c-power9",
+  "version": 1
+}

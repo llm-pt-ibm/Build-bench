@@ -1,0 +1,31 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment c-power9 4e579032f8cb in /home/multiarq/.local/share/build-bench/envs/c-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/c-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build
+LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/qcoan/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/qcoan/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+make --jobs=4 --directory=build-32-linux --makefile=../Makefile.build main test_aux test_charset test_symtab
+make[1]: Entering directory '/home/multiarq/yalle/build-bench/temp_workspace/qcoan/coan/build-32-linux'
+g++ -Wall -std=c++11 -g3 -Wmaybe-uninitialized -DDEBUG_IO  -Wno-misleading-indentation -Wno-overflow -Wno-nonnull-compare -m32 -D__linux__      -c -o LoadSaveAtmt.o ../LoadSaveAtmt.cpp
+g++ -Wall -std=c++11 -g3 -Wmaybe-uninitialized -DDEBUG_IO  -Wno-misleading-indentation -Wno-overflow -Wno-nonnull-compare -m32 -D__linux__      -c -o FiniteAutomata.o ../FiniteAutomata.cpp
+g++ -Wall -std=c++11 -g3 -Wmaybe-uninitialized -DDEBUG_IO  -Wno-misleading-indentation -Wno-overflow -Wno-nonnull-compare -m32 -D__linux__      -c -o TuringMachine.o ../TuringMachine.cpp
+g++ -Wall -std=c++11 -g3 -Wmaybe-uninitialized -DDEBUG_IO  -Wno-misleading-indentation -Wno-overflow -Wno-nonnull-compare -m32 -D__linux__      -c -o automatdef.o ../automatdef.cpp
+cc1plus: error: '-m32' not supported in this configuration
+cc1plus: error: '-m32' not supported in this configuration
+cc1plus: error: '-m32' not supported in this configuration
+make[1]: *** [<builtin>: LoadSaveAtmt.o] Error 1
+make[1]: *** Waiting for unfinished jobs....
+make[1]: *** [<builtin>: FiniteAutomata.o] Error 1
+make[1]: *** [<builtin>: TuringMachine.o] Error 1
+make[1]: Leaving directory '/home/multiarq/yalle/build-bench/temp_workspace/qcoan/coan/build-32-linux'
+cc1plus: error: '-m32' not supported in this configuration
+make[1]: *** [<builtin>: automatdef.o] Error 1
+make: *** [makefile.console:22: main] Error 2

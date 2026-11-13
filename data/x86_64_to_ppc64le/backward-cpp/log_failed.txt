@@ -1,0 +1,400 @@
+=== the build succeeded; output of the acceptance test:
+=== build environment: env
+environment c-power9 4e579032f8cb in /home/multiarq/.local/share/build-bench/envs/c-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/c-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build
+LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/backward-cpp/cache (build state of this run); BENCH_SHARED_CACHE_DIR= (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running /home/multiarq/yalle/build-bench/acceptance/x86_64_to_ppc64le/backward-cpp.sh
+Test project /home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/build
+    Start 1: test
+    Start 2: stacktrace
+    Start 3: rectrace
+    Start 4: select_signals
+    Start 5: suicide
+1/5 Test #2: stacktrace .......................   Passed    0.07 sec
+2/5 Test #3: rectrace .........................   Passed    0.08 sec
+3/5 Test #1: test .............................   Passed    4.46 sec
+4/5 Test #4: select_signals ...................   Passed    4.47 sec
+Errors while running CTest
+5/5 Test #5: suicide ..........................***Failed    9.49 sec
+-- running test case: invalid_write
+Stack trace (most recent call last):
+#6    Object "/usr/lib64/ld-2.28.so", at 0xffffffffffffffff, in .TOC.
+#5    Object "/usr/lib64/glibc-hwcaps/power9/libc-2.28.so", at 0x7fff8e06a0f3, in __libc_start_main
+#4    Object "/usr/lib64/glibc-hwcaps/power9/libc-2.28.so", at 0x7fff8e069f5b, in generic_start_main.isra.0
+#3    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/_test_main.cpp", line 227, in main [0x11a6c518b]
+        224:     }
+        225: 
+        226:     total_cnt += 1;
+      > 227:     if (run_test(test)) {
+        228:       printf("-- test case success: %s\n", test.name);
+        229:       success_cnt += 1;
+        230:     } else {
+#2    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/_test_main.cpp", line 140, in run_test [0x11a6cd31f]
+        138:   pid_t child_pid = fork();
+        139:   if (child_pid == 0) {
+      > 140:     exit(static_cast<int>(test.run()));
+        141:   }
+        142:   if (child_pid == -1) {
+        143:     error(EXIT_FAILURE, 0, "unable to fork");
+#1    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/test.hpp", line 92, in run [0x11a6cd387]
+         90:   TestStatus run() {
+         91:     try {
+      >  92:       do_test();
+         93:       return SUCCESS;
+         94:     } catch (const AssertFailedError &e) {
+         95:       printf("!! %s\n", e.what());
+#0  | Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 40, in badass_function
+    |    38: }
+    |    39: 
+    | >  40: TEST_SEGFAULT(invalid_write) { badass_function(); }
+    |    41: 
+    |    42: int you_shall_not_pass() {
+      Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 37, in do_test [0x11a6c5594]
+         35: void badass_function() {
+         36:   char *ptr = (char *)42;
+      >  37:   *ptr = 42;
+         38: }
+         39: 
+         40: TEST_SEGFAULT(invalid_write) { badass_function(); }
+Segmentation fault (Address not mapped to object [0x2a])
+!! signal (11) Segmentation fault
+-- test case success: invalid_write
+-- running test case: invalid_read
+Stack trace (most recent call last):
+#6    Object "/usr/lib64/ld-2.28.so", at 0xffffffffffffffff, in .TOC.
+#5    Object "/usr/lib64/glibc-hwcaps/power9/libc-2.28.so", at 0x7fff8e06a0f3, in __libc_start_main
+#4    Object "/usr/lib64/glibc-hwcaps/power9/libc-2.28.so", at 0x7fff8e069f5b, in generic_start_main.isra.0
+#3    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/_test_main.cpp", line 227, in main [0x11a6c518b]
+        224:     }
+        225: 
+        226:     total_cnt += 1;
+      > 227:     if (run_test(test)) {
+        228:       printf("-- test case success: %s\n", test.name);
+        229:       success_cnt += 1;
+        230:     } else {
+#2    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/_test_main.cpp", line 140, in run_test [0x11a6cd31f]
+        138:   pid_t child_pid = fork();
+        139:   if (child_pid == 0) {
+      > 140:     exit(static_cast<int>(test.run()));
+        141:   }
+        142:   if (child_pid == -1) {
+        143:     error(EXIT_FAILURE, 0, "unable to fork");
+#1    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/test.hpp", line 92, in run [0x11a6cd387]
+         90:   TestStatus run() {
+         91:     try {
+      >  92:       do_test();
+         93:       return SUCCESS;
+         94:     } catch (const AssertFailedError &e) {
+         95:       printf("!! %s\n", e.what());
+#0  | Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 49, in you_shall_not_pass
+    |    48: TEST_SEGFAULT(invalid_read) {
+    | >  49:   int v = you_shall_not_pass();
+    |    50:   std::cout << "v=" << v << std::endl;
+    |    51: }
+      Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 44, in do_test [0x11a6c55ec]
+         42: int you_shall_not_pass() {
+         43:   char *ptr = (char *)42;
+      >  44:   int v = *ptr;
+         45:   return v;
+         46: }
+Segmentation fault (Address not mapped to object [0x2a])
+!! signal (11) Segmentation fault
+-- test case success: invalid_read
+-- running test case: calling_abort
+Jumping off the boat!
+Stack trace (most recent call last):
+#9    Object "/usr/lib64/ld-2.28.so", at 0xffffffffffffffff, in .TOC.
+#8    Object "/usr/lib64/glibc-hwcaps/power9/libc-2.28.so", at 0x7fff8e06a0f3, in __libc_start_main
+#7    Object "/usr/lib64/glibc-hwcaps/power9/libc-2.28.so", at 0x7fff8e069f5b, in generic_start_main.isra.0
+#6    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/_test_main.cpp", line 227, in main [0x11a6c518b]
+        224:     }
+        225: 
+        226:     total_cnt += 1;
+      > 227:     if (run_test(test)) {
+        228:       printf("-- test case success: %s\n", test.name);
+        229:       success_cnt += 1;
+        230:     } else {
+#5    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/_test_main.cpp", line 140, in run_test [0x11a6cd31f]
+        138:   pid_t child_pid = fork();
+        139:   if (child_pid == 0) {
+      > 140:     exit(static_cast<int>(test.run()));
+        141:   }
+        142:   if (child_pid == -1) {
+        143:     error(EXIT_FAILURE, 0, "unable to fork");
+#4    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/test.hpp", line 92, in run [0x11a6cd387]
+         90:   TestStatus run() {
+         91:     try {
+      >  92:       do_test();
+         93:       return SUCCESS;
+         94:     } catch (const AssertFailedError &e) {
+         95:       printf("!! %s\n", e.what());
+#3    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 58, in do_test [0x11a6c59d7]
+         55:   abort();
+         56: }
+         57: 
+      >  58: TEST_ABORT(calling_abort) { abort_abort_I_repeat_abort_abort(); }
+         59: 
+         60: // aarch64 and mips does not trap Division by zero
+         61: #if !defined(__aarch64__) || !defined(__mips__)
+#2    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 55, in abort_abort_I_repeat_abort_abort [0x11a6c595f]
+         53: void abort_abort_I_repeat_abort_abort() {
+         54:   std::cout << "Jumping off the boat!" << std::endl;
+      >  55:   abort();
+         56: }
+         57: 
+         58: TEST_ABORT(calling_abort) { abort_abort_I_repeat_abort_abort(); }
+#1    Object "/usr/lib64/glibc-hwcaps/power9/libc-2.28.so", at 0x7fff8e063fe7, in abort
+#0    Object "/usr/lib64/glibc-hwcaps/power9/libc-2.28.so", at 0x7fff8e088ca8, in raise
+Aborted (Signal sent by tkill() 40 1000)
+!! signal (6) Aborted
+-- test case success: calling_abort
+-- running test case: divide_by_zero
+And the wild black hole appears...
+v=0
+** test case FAILED : divide_by_zero
+-- running test case: stackoverflow
+Stack trace (most recent call last):
+#31   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#30   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#29   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#28   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#27   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#26   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#25   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#24   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#23   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#22   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#21   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#20   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#19   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#18   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#17   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#16   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#15   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#14   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#13   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#12   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#11   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#10   Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#9    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#8    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#7    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#6    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#5    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#4    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#3    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#2    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#1    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b1f]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+#0    Source "/home/multiarq/yalle/build-bench/temp_workspace/backward-cpp/backward-cpp/test/suicide.cpp", line 78, in __builtin_memcpy [0x11a6c5b18]
+         76: // Darwin does not allow RLIMIT_STACK to be reduced
+         77: #ifndef __APPLE__
+      >  78: int bye_bye_stack(int i) { return bye_bye_stack(i + 1) + bye_bye_stack(i * 2); }
+         79: 
+         80: TEST_SEGFAULT(stackoverflow) {
+         81: #ifndef _WIN32
+Segmentation fault (Address not mapped to object [0x7fffd512fff0])
+!! signal (11) Segmentation fault
+-- test case success: stackoverflow
+-- tests passing: 4/5 (80%)
+
+
+80% tests passed, 1 tests failed out of 5
+
+Total Test time (real) =   9.50 sec
+
+The following tests FAILED:
+	  5 - suicide (Failed)

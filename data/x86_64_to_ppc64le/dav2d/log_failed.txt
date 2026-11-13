@@ -1,0 +1,1138 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment c-power9 4e579032f8cb in /home/multiarq/.local/share/build-bench/envs/c-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/c-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build
+LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/dav2d/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/dav2d/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+The Meson build system
+Version: 1.12.1
+Source dir: /home/multiarq/yalle/build-bench/temp_workspace/dav2d/dav2d
+Build dir: /home/multiarq/yalle/build-bench/temp_workspace/dav2d/dav2d/build
+Build type: native build
+Project name: dav2d
+Project version: 0.1.0
+C compiler for the host machine: gcc (gcc 15.2.0 "gcc (conda-forge gcc 15.2.0-20) 15.2.0")
+C linker for the host machine: gcc ld.bfd 2.46.1
+Host machine cpu family: ppc64
+Host machine cpu: ppc64le
+Fetching value of define "DAV2D_API_VERSION_MAJOR" : 1 
+Fetching value of define "DAV2D_API_VERSION_MINOR" : 0 
+Fetching value of define "DAV2D_API_VERSION_PATCH" : 0 
+Run-time dependency threads found: YES
+Checking for function "clock_gettime" : YES 
+Checking for function "sigaction" : YES 
+Checking for function "posix_memalign" : YES 
+Checking for function "memalign" : YES 
+Checking for function "aligned_alloc" : YES 
+Library dl found: YES
+Checking for function "dlsym" with dependency -ldl: YES 
+Library m found: YES
+Check usable header "stdatomic.h" : YES 
+Check usable header "sys/types.h" : YES 
+Check usable header "unistd.h" : YES 
+Check usable header "io.h" : NO 
+Check usable header "pthread_np.h" : NO 
+Checking for function "getopt_long" : YES 
+Checking for function "getauxval" : YES 
+Checking for function "elf_aux_info" : NO 
+Checking for function "pthread_getaffinity_np" with dependency threads: YES 
+Checking for function "pthread_setaffinity_np" with dependency threads: YES 
+Checking for function "pthread_setname_np" with dependency threads: YES 
+Checking for function "pthread_set_name_np" with dependency threads: NO 
+Checking if "_Generic" compiles: YES 
+Compiler for C supports arguments -fvisibility=hidden: YES 
+Compiler for C supports arguments -Wundef: YES 
+Compiler for C supports arguments -Werror=vla: YES 
+Compiler for C supports arguments -Wno-maybe-uninitialized: YES 
+Compiler for C supports arguments -Wno-missing-field-initializers: YES 
+Compiler for C supports arguments -Wno-unused-parameter: YES 
+Compiler for C supports arguments -Wstrict-prototypes: YES 
+Compiler for C supports arguments -Werror=missing-prototypes: YES 
+Compiler for C supports arguments -Wshorten-64-to-32: NO 
+Compiler for C supports arguments -fomit-frame-pointer: YES 
+Compiler for C supports arguments -ffast-math: YES 
+Configuring config.h using configuration
+Found pkg-config: YES (/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/pkg-config) 0.29.2
+Header "xxhash.h" has symbol "XXH3_createState" : NO 
+Configuring cli_config.h using configuration
+tests/meson.build:34: WARNING: Project targets '>= 0.49.0' but uses feature introduced in '0.54.0': fallback arg in dependency.
+Found pkg-config: YES (/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/pkg-config) 0.29.2
+Found CMake: /home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/cmake (4.4.5)
+Run-time dependency checkasm found: NO  (tried pkg-config and cmake)
+Looking for a fallback subproject for the dependency checkasm
+Git program not found, cannot download checkasm.wrap via git.
+Subproject checkasm is buildable: NO (disabling)
+Dependency checkasm for host machine from subproject checkasm found: NO (subproject failed to configure)
+Compiler for C supports arguments -Werror=c11-extensions: NO 
+Compiler for C supports arguments -Werror=c99-c11-compat: YES 
+First supported argument: -Werror=c99-c11-compat
+Program objcopy found: YES (/usr/bin/objcopy)
+Build targets in project: 19
+WARNING: Project specifies a minimum meson_version '>= 0.49.0' but uses features which were added in newer versions:
+ * 0.54.0: {'fallback arg in dependency'}
+
+dav2d 0.1.0
+
+  Subprojects (for host machine)
+    checkasm    : NO
+                  Git program not found, cannot download checkasm.wrap via git.
+
+  User defined options
+    buildtype   : release
+    enable_tests: true
+    enable_tools: true
+
+Found ninja-1.13.2 at /home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/ninja
+ninja: Entering directory `/home/multiarq/yalle/build-bench/temp_workspace/dav2d/dav2d/build'
+[1/101] Compiling C object tests/version.h_test.p/header_test.c.o
+[2/101] Compiling C object tests/headers.h_test.p/header_test.c.o
+[3/101] Compiling C object tests/common.h_test.p/header_test.c.o
+[4/101] Compiling C object tools/libdav2d_output.a.p/output_null.c.o
+[5/101] Compiling C object tests/data.h_test.p/header_test.c.o
+[6/101] Compiling C object src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_mc_tmpl.c.o
+FAILED: [code=1] src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_mc_tmpl.c.o 
+gcc -Isrc/libdav2d_arch_bitdepth_16_pwr9.a.p -Isrc -I../src -I. -I.. -Iinclude/dav2d -I../include/dav2d -Iinclude -I../include -fdiagnostics-color=always -DNDEBUG -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=c99 -O3 -D_GNU_SOURCE -fvisibility=hidden -Wundef -Werror=vla -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wstrict-prototypes -Werror=missing-prototypes -fomit-frame-pointer -ffast-math -fPIC -DBITDEPTH=16 -mcpu=power9 -DDAV2D_PWR9 -MD -MQ src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_mc_tmpl.c.o -MF src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_mc_tmpl.c.o.d -o src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_mc_tmpl.c.o -c ../src/ppc/mc_tmpl.c
+In file included from ../src/ppc/mc_tmpl.c:29:
+../src/ppc/mc.h:32:1: warning: data definition has no type or storage class
+   32 | decl_blend_dir_fn(BF(dav2d_blend_h, pwr9));
+      | ^~~~~~~~~~~~~~~~~
+../src/ppc/mc.h:32:1: error: type defaults to 'int' in declaration of 'decl_blend_dir_fn' [-Wimplicit-int]
+../src/ppc/mc.h:32:1: error: parameter names (without types) in function declaration [-Wdeclaration-missing-parameter-type]
+../src/ppc/mc.h:33:1: warning: data definition has no type or storage class
+   33 | decl_blend_dir_fn(BF(dav2d_blend_v, pwr9));
+      | ^~~~~~~~~~~~~~~~~
+../src/ppc/mc.h:33:1: error: type defaults to 'int' in declaration of 'decl_blend_dir_fn' [-Wimplicit-int]
+../src/ppc/mc.h:33:1: error: parameter names (without types) in function declaration [-Wdeclaration-missing-parameter-type]
+[7/101] Compiling C object tests/dav2d.h_test.p/header_test.c.o
+[8/101] Compiling C object tests/picture.h_test.p/header_test.c.o
+[9/101] Compiling C object src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_itx_tmpl.c.o
+FAILED: [code=1] src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_itx_tmpl.c.o 
+gcc -Isrc/libdav2d_arch_bitdepth_16_pwr9.a.p -Isrc -I../src -I. -I.. -Iinclude/dav2d -I../include/dav2d -Iinclude -I../include -fdiagnostics-color=always -DNDEBUG -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=c99 -O3 -D_GNU_SOURCE -fvisibility=hidden -Wundef -Werror=vla -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wstrict-prototypes -Werror=missing-prototypes -fomit-frame-pointer -ffast-math -fPIC -DBITDEPTH=16 -mcpu=power9 -DDAV2D_PWR9 -MD -MQ src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_itx_tmpl.c.o -MF src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_itx_tmpl.c.o.d -o src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_itx_tmpl.c.o -c ../src/ppc/itx_tmpl.c
+In file included from ../src/ppc/itx_tmpl.c:29:
+../src/ppc/itx.h:31:17: error: expected declaration specifiers or '...' before numeric constant
+   31 | decl_itx17_fns( 4,  4, pwr9);
+      |                 ^
+../src/ppc/itx.h:31:21: error: expected declaration specifiers or '...' before numeric constant
+   31 | decl_itx17_fns( 4,  4, pwr9);
+      |                     ^
+../src/ppc/itx.h:31:24: error: unknown type name 'pwr9'
+   31 | decl_itx17_fns( 4,  4, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:32:17: error: expected declaration specifiers or '...' before numeric constant
+   32 | decl_itx16_fns( 4,  8, pwr9);
+      |                 ^
+../src/ppc/itx.h:32:21: error: expected declaration specifiers or '...' before numeric constant
+   32 | decl_itx16_fns( 4,  8, pwr9);
+      |                     ^
+../src/ppc/itx.h:32:24: error: unknown type name 'pwr9'
+   32 | decl_itx16_fns( 4,  8, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:33:17: error: expected declaration specifiers or '...' before numeric constant
+   33 | decl_itx16_fns( 4, 16, pwr9);
+      |                 ^
+../src/ppc/itx.h:33:20: error: expected declaration specifiers or '...' before numeric constant
+   33 | decl_itx16_fns( 4, 16, pwr9);
+      |                    ^~
+../src/ppc/itx.h:33:24: error: unknown type name 'pwr9'
+   33 | decl_itx16_fns( 4, 16, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:34:17: error: expected declaration specifiers or '...' before numeric constant
+   34 | decl_itx16_fns( 8,  4, pwr9);
+      |                 ^
+../src/ppc/itx.h:34:21: error: expected declaration specifiers or '...' before numeric constant
+   34 | decl_itx16_fns( 8,  4, pwr9);
+      |                     ^
+../src/ppc/itx.h:34:24: error: unknown type name 'pwr9'
+   34 | decl_itx16_fns( 8,  4, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:35:17: error: expected declaration specifiers or '...' before numeric constant
+   35 | decl_itx16_fns( 8,  8, pwr9);
+      |                 ^
+../src/ppc/itx.h:35:21: error: expected declaration specifiers or '...' before numeric constant
+   35 | decl_itx16_fns( 8,  8, pwr9);
+      |                     ^
+../src/ppc/itx.h:35:24: error: unknown type name 'pwr9'
+   35 | decl_itx16_fns( 8,  8, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:36:17: error: expected declaration specifiers or '...' before numeric constant
+   36 | decl_itx16_fns( 8, 16, pwr9);
+      |                 ^
+../src/ppc/itx.h:36:20: error: expected declaration specifiers or '...' before numeric constant
+   36 | decl_itx16_fns( 8, 16, pwr9);
+      |                    ^~
+../src/ppc/itx.h:36:24: error: unknown type name 'pwr9'
+   36 | decl_itx16_fns( 8, 16, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:37:17: error: expected declaration specifiers or '...' before numeric constant
+   37 | decl_itx2_fns ( 8, 32, pwr9);
+      |                 ^
+../src/ppc/itx.h:37:20: error: expected declaration specifiers or '...' before numeric constant
+   37 | decl_itx2_fns ( 8, 32, pwr9);
+      |                    ^~
+../src/ppc/itx.h:37:24: error: unknown type name 'pwr9'
+   37 | decl_itx2_fns ( 8, 32, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:38:16: error: expected declaration specifiers or '...' before numeric constant
+   38 | decl_itx16_fns(16,  4, pwr9);
+      |                ^~
+../src/ppc/itx.h:38:21: error: expected declaration specifiers or '...' before numeric constant
+   38 | decl_itx16_fns(16,  4, pwr9);
+      |                     ^
+../src/ppc/itx.h:38:24: error: unknown type name 'pwr9'
+   38 | decl_itx16_fns(16,  4, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:39:16: error: expected declaration specifiers or '...' before numeric constant
+   39 | decl_itx16_fns(16,  8, pwr9);
+      |                ^~
+../src/ppc/itx.h:39:21: error: expected declaration specifiers or '...' before numeric constant
+   39 | decl_itx16_fns(16,  8, pwr9);
+      |                     ^
+../src/ppc/itx.h:39:24: error: unknown type name 'pwr9'
+   39 | decl_itx16_fns(16,  8, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:40:16: error: expected declaration specifiers or '...' before numeric constant
+   40 | decl_itx12_fns(16, 16, pwr9);
+      |                ^~
+../src/ppc/itx.h:40:20: error: expected declaration specifiers or '...' before numeric constant
+   40 | decl_itx12_fns(16, 16, pwr9);
+      |                    ^~
+../src/ppc/itx.h:40:24: error: unknown type name 'pwr9'
+   40 | decl_itx12_fns(16, 16, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:41:16: error: expected declaration specifiers or '...' before numeric constant
+   41 | decl_itx2_fns (16, 32, pwr9);
+      |                ^~
+../src/ppc/itx.h:41:20: error: expected declaration specifiers or '...' before numeric constant
+   41 | decl_itx2_fns (16, 32, pwr9);
+      |                    ^~
+../src/ppc/itx.h:41:24: error: unknown type name 'pwr9'
+   41 | decl_itx2_fns (16, 32, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:42:16: error: expected declaration specifiers or '...' before numeric constant
+   42 | decl_itx2_fns (32,  8, pwr9);
+      |                ^~
+../src/ppc/itx.h:42:21: error: expected declaration specifiers or '...' before numeric constant
+   42 | decl_itx2_fns (32,  8, pwr9);
+      |                     ^
+../src/ppc/itx.h:42:24: error: unknown type name 'pwr9'
+   42 | decl_itx2_fns (32,  8, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:43:16: error: expected declaration specifiers or '...' before numeric constant
+   43 | decl_itx2_fns (32, 16, pwr9);
+      |                ^~
+../src/ppc/itx.h:43:20: error: expected declaration specifiers or '...' before numeric constant
+   43 | decl_itx2_fns (32, 16, pwr9);
+      |                    ^~
+../src/ppc/itx.h:43:24: error: unknown type name 'pwr9'
+   43 | decl_itx2_fns (32, 16, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:44:16: error: expected declaration specifiers or '...' before numeric constant
+   44 | decl_itx2_fns (32, 32, pwr9);
+      |                ^~
+../src/ppc/itx.h:44:20: error: expected declaration specifiers or '...' before numeric constant
+   44 | decl_itx2_fns (32, 32, pwr9);
+      |                    ^~
+../src/ppc/itx.h:44:24: error: unknown type name 'pwr9'
+   44 | decl_itx2_fns (32, 32, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:46:1: warning: data definition has no type or storage class
+   46 | decl_itx_fn(BF(dav2d_inv_txfm_add_dct_dct_16x64, pwr9));
+      | ^~~~~~~~~~~
+../src/ppc/itx.h:46:1: error: type defaults to 'int' in declaration of 'decl_itx_fn' [-Wimplicit-int]
+../src/ppc/itx.h:46:1: error: parameter names (without types) in function declaration [-Wdeclaration-missing-parameter-type]
+../src/ppc/itx.h:47:1: warning: data definition has no type or storage class
+   47 | decl_itx_fn(BF(dav2d_inv_txfm_add_dct_dct_32x64, pwr9));
+      | ^~~~~~~~~~~
+../src/ppc/itx.h:47:1: error: type defaults to 'int' in declaration of 'decl_itx_fn' [-Wimplicit-int]
+../src/ppc/itx.h:47:1: error: parameter names (without types) in function declaration [-Wdeclaration-missing-parameter-type]
+../src/ppc/itx.h:48:1: warning: data definition has no type or storage class
+   48 | decl_itx_fn(BF(dav2d_inv_txfm_add_dct_dct_64x16, pwr9));
+      | ^~~~~~~~~~~
+../src/ppc/itx.h:48:1: error: type defaults to 'int' in declaration of 'decl_itx_fn' [-Wimplicit-int]
+../src/ppc/itx.h:48:1: error: parameter names (without types) in function declaration [-Wdeclaration-missing-parameter-type]
+../src/ppc/itx.h:49:1: warning: data definition has no type or storage class
+   49 | decl_itx_fn(BF(dav2d_inv_txfm_add_dct_dct_64x32, pwr9));
+      | ^~~~~~~~~~~
+../src/ppc/itx.h:49:1: error: type defaults to 'int' in declaration of 'decl_itx_fn' [-Wimplicit-int]
+../src/ppc/itx.h:49:1: error: parameter names (without types) in function declaration [-Wdeclaration-missing-parameter-type]
+../src/ppc/itx.h:50:1: warning: data definition has no type or storage class
+   50 | decl_itx_fn(BF(dav2d_inv_txfm_add_dct_dct_64x64, pwr9));
+      | ^~~~~~~~~~~
+../src/ppc/itx.h:50:1: error: type defaults to 'int' in declaration of 'decl_itx_fn' [-Wimplicit-int]
+../src/ppc/itx.h:50:1: error: parameter names (without types) in function declaration [-Wdeclaration-missing-parameter-type]
+[10/101] Compiling C object src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_loopfilter_tmpl.c.o
+FAILED: [code=1] src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_loopfilter_tmpl.c.o 
+gcc -Isrc/libdav2d_arch_bitdepth_8_pwr9.a.p -Isrc -I../src -I. -I.. -Iinclude/dav2d -I../include/dav2d -Iinclude -I../include -fdiagnostics-color=always -DNDEBUG -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=c99 -O3 -D_GNU_SOURCE -fvisibility=hidden -Wundef -Werror=vla -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wstrict-prototypes -Werror=missing-prototypes -fomit-frame-pointer -ffast-math -fPIC -DBITDEPTH=8 -mcpu=power9 -DDAV2D_PWR9 -MD -MQ src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_loopfilter_tmpl.c.o -MF src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_loopfilter_tmpl.c.o.d -o src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_loopfilter_tmpl.c.o -c ../src/ppc/loopfilter_tmpl.c
+../src/ppc/loopfilter_tmpl.c:40:10: fatal error: src/ppc/loopfilter.h: No such file or directory
+   40 | #include "src/ppc/loopfilter.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+[11/101] Linking target tests/version.h_test
+[12/101] Compiling C object src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_loopfilter_tmpl.c.o
+FAILED: [code=1] src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_loopfilter_tmpl.c.o 
+gcc -Isrc/libdav2d_arch_bitdepth_16_pwr9.a.p -Isrc -I../src -I. -I.. -Iinclude/dav2d -I../include/dav2d -Iinclude -I../include -fdiagnostics-color=always -DNDEBUG -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=c99 -O3 -D_GNU_SOURCE -fvisibility=hidden -Wundef -Werror=vla -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wstrict-prototypes -Werror=missing-prototypes -fomit-frame-pointer -ffast-math -fPIC -DBITDEPTH=16 -mcpu=power9 -DDAV2D_PWR9 -MD -MQ src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_loopfilter_tmpl.c.o -MF src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_loopfilter_tmpl.c.o.d -o src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_loopfilter_tmpl.c.o -c ../src/ppc/loopfilter_tmpl.c
+../src/ppc/loopfilter_tmpl.c:40:10: fatal error: src/ppc/loopfilter.h: No such file or directory
+   40 | #include "src/ppc/loopfilter.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+[13/101] Generating include/vcs_version.h with a custom command
+[14/101] Compiling C object src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_mc_tmpl.c.o
+FAILED: [code=1] src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_mc_tmpl.c.o 
+gcc -Isrc/libdav2d_arch_bitdepth_8_pwr9.a.p -Isrc -I../src -I. -I.. -Iinclude/dav2d -I../include/dav2d -Iinclude -I../include -fdiagnostics-color=always -DNDEBUG -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=c99 -O3 -D_GNU_SOURCE -fvisibility=hidden -Wundef -Werror=vla -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wstrict-prototypes -Werror=missing-prototypes -fomit-frame-pointer -ffast-math -fPIC -DBITDEPTH=8 -mcpu=power9 -DDAV2D_PWR9 -MD -MQ src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_mc_tmpl.c.o -MF src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_mc_tmpl.c.o.d -o src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_mc_tmpl.c.o -c ../src/ppc/mc_tmpl.c
+In file included from ../src/ppc/mc_tmpl.c:29:
+../src/ppc/mc.h:32:1: warning: data definition has no type or storage class
+   32 | decl_blend_dir_fn(BF(dav2d_blend_h, pwr9));
+      | ^~~~~~~~~~~~~~~~~
+../src/ppc/mc.h:32:1: error: type defaults to 'int' in declaration of 'decl_blend_dir_fn' [-Wimplicit-int]
+../src/ppc/mc.h:32:1: error: parameter names (without types) in function declaration [-Wdeclaration-missing-parameter-type]
+../src/ppc/mc.h:33:1: warning: data definition has no type or storage class
+   33 | decl_blend_dir_fn(BF(dav2d_blend_v, pwr9));
+      | ^~~~~~~~~~~~~~~~~
+../src/ppc/mc.h:33:1: error: type defaults to 'int' in declaration of 'decl_blend_dir_fn' [-Wimplicit-int]
+../src/ppc/mc.h:33:1: error: parameter names (without types) in function declaration [-Wdeclaration-missing-parameter-type]
+../src/ppc/mc.h: In function 'mc_dsp_init_ppc':
+../src/ppc/mc.h:42:6: error: 'Dav2dMCDSPContext' has no member named 'blend_h'; did you mean 'blend'?
+   42 |   c->blend_h = BF(dav2d_blend_h, pwr9);
+      |      ^~~~~~~
+      |      blend
+In file included from ../src/mc.h:34,
+                 from ../src/ppc/mc.h:29:
+../src/ppc/mc.h:42:19: error: 'dav2d_blend_h_8bpc_pwr9' undeclared (first use in this function); did you mean 'dav2d_blend_8bpc_pwr9'?
+   42 |   c->blend_h = BF(dav2d_blend_h, pwr9);
+      |                   ^~~~~~~~~~~~~
+../include/common/bitdepth.h:52:23: note: in definition of macro 'BF'
+   52 | #define BF(x, suffix) x##_8bpc_##suffix
+      |                       ^
+../src/ppc/mc.h:42:19: note: each undeclared identifier is reported only once for each function it appears in
+   42 |   c->blend_h = BF(dav2d_blend_h, pwr9);
+      |                   ^~~~~~~~~~~~~
+../include/common/bitdepth.h:52:23: note: in definition of macro 'BF'
+   52 | #define BF(x, suffix) x##_8bpc_##suffix
+      |                       ^
+../src/ppc/mc.h:43:6: error: 'Dav2dMCDSPContext' has no member named 'blend_v'; did you mean 'blend'?
+   43 |   c->blend_v = BF(dav2d_blend_v, pwr9);
+      |      ^~~~~~~
+      |      blend
+../src/ppc/mc.h:43:19: error: 'dav2d_blend_v_8bpc_pwr9' undeclared (first use in this function); did you mean 'dav2d_blend_8bpc_pwr9'?
+   43 |   c->blend_v = BF(dav2d_blend_v, pwr9);
+      |                   ^~~~~~~~~~~~~
+../include/common/bitdepth.h:52:23: note: in definition of macro 'BF'
+   52 | #define BF(x, suffix) x##_8bpc_##suffix
+      |                       ^
+../src/ppc/mc_tmpl.c: At top level:
+../src/ppc/mc_tmpl.c:379:6: error: no previous prototype for 'dav2d_blend_v_8bpc_pwr9' [-Werror=missing-prototypes]
+  379 | void dav2d_blend_v_8bpc_pwr9(pixel *dst, const ptrdiff_t dst_stride, const pixel *tmp,
+      |      ^~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/mc_tmpl.c: In function 'dav2d_blend_v_8bpc_pwr9':
+../src/ppc/mc_tmpl.c:382:34: error: 'dav2d_obmc_masks' undeclared (first use in this function); did you mean 'dav2d_subset_masks_y'?
+  382 |     const uint8_t *const mask = &dav2d_obmc_masks[w];
+      |                                  ^~~~~~~~~~~~~~~~
+      |                                  dav2d_subset_masks_y
+../src/ppc/mc_tmpl.c: At top level:
+../src/ppc/mc_tmpl.c:531:6: error: no previous prototype for 'dav2d_blend_h_8bpc_pwr9' [-Werror=missing-prototypes]
+  531 | void dav2d_blend_h_8bpc_pwr9(pixel *dst, const ptrdiff_t dst_stride, const pixel *tmp,
+      |      ^~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/mc_tmpl.c: In function 'dav2d_blend_h_8bpc_pwr9':
+../src/ppc/mc_tmpl.c:534:28: error: 'dav2d_obmc_masks' undeclared (first use in this function); did you mean 'dav2d_subset_masks_y'?
+  534 |     const uint8_t *mask = &dav2d_obmc_masks[h];
+      |                            ^~~~~~~~~~~~~~~~
+      |                            dav2d_subset_masks_y
+cc1: some warnings being treated as errors
+[15/101] Linking target tests/headers.h_test
+[16/101] Linking target tests/common.h_test
+[17/101] Linking target tests/data.h_test
+[18/101] Compiling C object src/libdav2d_arch_bitdepth_16_vsx.a.p/ppc_cdef_tmpl.c.o
+[19/101] Compiling C object tests/libfuzzer/dav2d_fuzzer.p/main.c.o
+[20/101] Compiling C object tests/libfuzzer/dav2d_fuzzer_mt.p/main.c.o
+[21/101] Compiling C object tools/libdav2d_output.a.p/output_yuv.c.o
+[22/101] Compiling C object tools/libdav2d_input.a.p/input_input.c.o
+[23/101] Compiling C object tests/libfuzzer/dav2d_fuzzer_mt.p/dav2d_fuzzer.c.o
+[24/101] Compiling C object tools/libdav2d_output.a.p/output_y4m2.c.o
+[25/101] Compiling C object src/libdav2d_bitdepth_8.a.p/stx_tmpl.c.o
+[26/101] Compiling C object src/libdav2d_bitdepth_16.a.p/stx_tmpl.c.o
+[27/101] Compiling C object tests/libfuzzer/dav2d_fuzzer.p/dav2d_fuzzer.c.o
+[28/101] Compiling C object tools/libdav2d_input.a.p/input_section5.c.o
+[29/101] Compiling C object tools/libdav2d_input.a.p/input_ivf.c.o
+[30/101] Compiling C object src/libdav2d_bitdepth_8.a.p/ccso_tmpl.c.o
+[31/101] Compiling C object src/libdav2d_bitdepth_8.a.p/fg_apply_tmpl.c.o
+[32/101] Compiling C object src/libdav2d_bitdepth_16.a.p/ccso_tmpl.c.o
+[33/101] Compiling C object tools/libdav2d_output.a.p/output_output.c.o
+[34/101] Compiling C object src/libdav2d_bitdepth_16.a.p/fg_apply_tmpl.c.o
+[35/101] Compiling C object tools/libdav2d_output.a.p/output_md5.c.o
+[36/101] Compiling C object tools/libdav2d_input.a.p/input_annexb.c.o
+[37/101] Compiling C object src/libdav2d_bitdepth_8.a.p/cdef_tmpl.c.o
+[38/101] Compiling C object src/libdav2d_bitdepth_8.a.p/lr_apply_tmpl.c.o
+[39/101] Compiling C object src/libdav2d_bitdepth_16.a.p/ipred_prepare_tmpl.c.o
+[40/101] Compiling C object src/libdav2d_bitdepth_8.a.p/deblock_tmpl.c.o
+[41/101] Compiling C object src/libdav2d_bitdepth_8.a.p/ipred_prepare_tmpl.c.o
+[42/101] Compiling C object src/libdav2d_bitdepth_16.a.p/cdef_apply_tmpl.c.o
+[43/101] Compiling C object src/libdav2d_bitdepth_8.a.p/cdef_apply_tmpl.c.o
+[44/101] Compiling C object src/libdav2d_bitdepth_8.a.p/filmgrain_tmpl.c.o
+[45/101] Compiling C object src/libdav2d_bitdepth_16.a.p/lr_apply_tmpl.c.o
+[46/101] Compiling C object src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_itx_tmpl.c.o
+FAILED: [code=1] src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_itx_tmpl.c.o 
+gcc -Isrc/libdav2d_arch_bitdepth_8_pwr9.a.p -Isrc -I../src -I. -I.. -Iinclude/dav2d -I../include/dav2d -Iinclude -I../include -fdiagnostics-color=always -DNDEBUG -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=c99 -O3 -D_GNU_SOURCE -fvisibility=hidden -Wundef -Werror=vla -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wstrict-prototypes -Werror=missing-prototypes -fomit-frame-pointer -ffast-math -fPIC -DBITDEPTH=8 -mcpu=power9 -DDAV2D_PWR9 -MD -MQ src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_itx_tmpl.c.o -MF src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_itx_tmpl.c.o.d -o src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_itx_tmpl.c.o -c ../src/ppc/itx_tmpl.c
+In file included from ../src/ppc/itx_tmpl.c:29:
+../src/ppc/itx.h:31:17: error: expected declaration specifiers or '...' before numeric constant
+   31 | decl_itx17_fns( 4,  4, pwr9);
+      |                 ^
+../src/ppc/itx.h:31:21: error: expected declaration specifiers or '...' before numeric constant
+   31 | decl_itx17_fns( 4,  4, pwr9);
+      |                     ^
+../src/ppc/itx.h:31:24: error: unknown type name 'pwr9'
+   31 | decl_itx17_fns( 4,  4, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:32:17: error: expected declaration specifiers or '...' before numeric constant
+   32 | decl_itx16_fns( 4,  8, pwr9);
+      |                 ^
+../src/ppc/itx.h:32:21: error: expected declaration specifiers or '...' before numeric constant
+   32 | decl_itx16_fns( 4,  8, pwr9);
+      |                     ^
+../src/ppc/itx.h:32:24: error: unknown type name 'pwr9'
+   32 | decl_itx16_fns( 4,  8, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:33:17: error: expected declaration specifiers or '...' before numeric constant
+   33 | decl_itx16_fns( 4, 16, pwr9);
+      |                 ^
+../src/ppc/itx.h:33:20: error: expected declaration specifiers or '...' before numeric constant
+   33 | decl_itx16_fns( 4, 16, pwr9);
+      |                    ^~
+../src/ppc/itx.h:33:24: error: unknown type name 'pwr9'
+   33 | decl_itx16_fns( 4, 16, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:34:17: error: expected declaration specifiers or '...' before numeric constant
+   34 | decl_itx16_fns( 8,  4, pwr9);
+      |                 ^
+../src/ppc/itx.h:34:21: error: expected declaration specifiers or '...' before numeric constant
+   34 | decl_itx16_fns( 8,  4, pwr9);
+      |                     ^
+../src/ppc/itx.h:34:24: error: unknown type name 'pwr9'
+   34 | decl_itx16_fns( 8,  4, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:35:17: error: expected declaration specifiers or '...' before numeric constant
+   35 | decl_itx16_fns( 8,  8, pwr9);
+      |                 ^
+../src/ppc/itx.h:35:21: error: expected declaration specifiers or '...' before numeric constant
+   35 | decl_itx16_fns( 8,  8, pwr9);
+      |                     ^
+../src/ppc/itx.h:35:24: error: unknown type name 'pwr9'
+   35 | decl_itx16_fns( 8,  8, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:36:17: error: expected declaration specifiers or '...' before numeric constant
+   36 | decl_itx16_fns( 8, 16, pwr9);
+      |                 ^
+../src/ppc/itx.h:36:20: error: expected declaration specifiers or '...' before numeric constant
+   36 | decl_itx16_fns( 8, 16, pwr9);
+      |                    ^~
+../src/ppc/itx.h:36:24: error: unknown type name 'pwr9'
+   36 | decl_itx16_fns( 8, 16, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:37:17: error: expected declaration specifiers or '...' before numeric constant
+   37 | decl_itx2_fns ( 8, 32, pwr9);
+      |                 ^
+../src/ppc/itx.h:37:20: error: expected declaration specifiers or '...' before numeric constant
+   37 | decl_itx2_fns ( 8, 32, pwr9);
+      |                    ^~
+../src/ppc/itx.h:37:24: error: unknown type name 'pwr9'
+   37 | decl_itx2_fns ( 8, 32, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:38:16: error: expected declaration specifiers or '...' before numeric constant
+   38 | decl_itx16_fns(16,  4, pwr9);
+      |                ^~
+../src/ppc/itx.h:38:21: error: expected declaration specifiers or '...' before numeric constant
+   38 | decl_itx16_fns(16,  4, pwr9);
+      |                     ^
+../src/ppc/itx.h:38:24: error: unknown type name 'pwr9'
+   38 | decl_itx16_fns(16,  4, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:39:16: error: expected declaration specifiers or '...' before numeric constant
+   39 | decl_itx16_fns(16,  8, pwr9);
+      |                ^~
+../src/ppc/itx.h:39:21: error: expected declaration specifiers or '...' before numeric constant
+   39 | decl_itx16_fns(16,  8, pwr9);
+      |                     ^
+../src/ppc/itx.h:39:24: error: unknown type name 'pwr9'
+   39 | decl_itx16_fns(16,  8, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:40:16: error: expected declaration specifiers or '...' before numeric constant
+   40 | decl_itx12_fns(16, 16, pwr9);
+      |                ^~
+../src/ppc/itx.h:40:20: error: expected declaration specifiers or '...' before numeric constant
+   40 | decl_itx12_fns(16, 16, pwr9);
+      |                    ^~
+../src/ppc/itx.h:40:24: error: unknown type name 'pwr9'
+   40 | decl_itx12_fns(16, 16, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:41:16: error: expected declaration specifiers or '...' before numeric constant
+   41 | decl_itx2_fns (16, 32, pwr9);
+      |                ^~
+../src/ppc/itx.h:41:20: error: expected declaration specifiers or '...' before numeric constant
+   41 | decl_itx2_fns (16, 32, pwr9);
+      |                    ^~
+../src/ppc/itx.h:41:24: error: unknown type name 'pwr9'
+   41 | decl_itx2_fns (16, 32, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:42:16: error: expected declaration specifiers or '...' before numeric constant
+   42 | decl_itx2_fns (32,  8, pwr9);
+      |                ^~
+../src/ppc/itx.h:42:21: error: expected declaration specifiers or '...' before numeric constant
+   42 | decl_itx2_fns (32,  8, pwr9);
+      |                     ^
+../src/ppc/itx.h:42:24: error: unknown type name 'pwr9'
+   42 | decl_itx2_fns (32,  8, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:43:16: error: expected declaration specifiers or '...' before numeric constant
+   43 | decl_itx2_fns (32, 16, pwr9);
+      |                ^~
+../src/ppc/itx.h:43:20: error: expected declaration specifiers or '...' before numeric constant
+   43 | decl_itx2_fns (32, 16, pwr9);
+      |                    ^~
+../src/ppc/itx.h:43:24: error: unknown type name 'pwr9'
+   43 | decl_itx2_fns (32, 16, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:44:16: error: expected declaration specifiers or '...' before numeric constant
+   44 | decl_itx2_fns (32, 32, pwr9);
+      |                ^~
+../src/ppc/itx.h:44:20: error: expected declaration specifiers or '...' before numeric constant
+   44 | decl_itx2_fns (32, 32, pwr9);
+      |                    ^~
+../src/ppc/itx.h:44:24: error: unknown type name 'pwr9'
+   44 | decl_itx2_fns (32, 32, pwr9);
+      |                        ^~~~
+../src/ppc/itx.h:46:1: warning: data definition has no type or storage class
+   46 | decl_itx_fn(BF(dav2d_inv_txfm_add_dct_dct_16x64, pwr9));
+      | ^~~~~~~~~~~
+../src/ppc/itx.h:46:1: error: type defaults to 'int' in declaration of 'decl_itx_fn' [-Wimplicit-int]
+../src/ppc/itx.h:46:1: error: parameter names (without types) in function declaration [-Wdeclaration-missing-parameter-type]
+../src/ppc/itx.h:47:1: warning: data definition has no type or storage class
+   47 | decl_itx_fn(BF(dav2d_inv_txfm_add_dct_dct_32x64, pwr9));
+      | ^~~~~~~~~~~
+../src/ppc/itx.h:47:1: error: type defaults to 'int' in declaration of 'decl_itx_fn' [-Wimplicit-int]
+../src/ppc/itx.h:47:1: error: parameter names (without types) in function declaration [-Wdeclaration-missing-parameter-type]
+../src/ppc/itx.h:48:1: warning: data definition has no type or storage class
+   48 | decl_itx_fn(BF(dav2d_inv_txfm_add_dct_dct_64x16, pwr9));
+      | ^~~~~~~~~~~
+../src/ppc/itx.h:48:1: error: type defaults to 'int' in declaration of 'decl_itx_fn' [-Wimplicit-int]
+../src/ppc/itx.h:48:1: error: parameter names (without types) in function declaration [-Wdeclaration-missing-parameter-type]
+../src/ppc/itx.h:49:1: warning: data definition has no type or storage class
+   49 | decl_itx_fn(BF(dav2d_inv_txfm_add_dct_dct_64x32, pwr9));
+      | ^~~~~~~~~~~
+../src/ppc/itx.h:49:1: error: type defaults to 'int' in declaration of 'decl_itx_fn' [-Wimplicit-int]
+../src/ppc/itx.h:49:1: error: parameter names (without types) in function declaration [-Wdeclaration-missing-parameter-type]
+../src/ppc/itx.h:50:1: warning: data definition has no type or storage class
+   50 | decl_itx_fn(BF(dav2d_inv_txfm_add_dct_dct_64x64, pwr9));
+      | ^~~~~~~~~~~
+../src/ppc/itx.h:50:1: error: type defaults to 'int' in declaration of 'decl_itx_fn' [-Wimplicit-int]
+../src/ppc/itx.h:50:1: error: parameter names (without types) in function declaration [-Wdeclaration-missing-parameter-type]
+../src/ppc/itx.h: In function 'itx_dsp_init_ppc':
+../src/ppc/itx.h:58:5: error: implicit declaration of function 'assign_itx17_fn'; did you mean 'assign_itx_fn'? [-Wimplicit-function-declaration]
+   58 |     assign_itx17_fn( ,  4,  4, pwr9);
+      |     ^~~~~~~~~~~~~~~
+      |     assign_itx_fn
+../src/ppc/itx.h:58:22: error: expected expression before ',' token
+   58 |     assign_itx17_fn( ,  4,  4, pwr9);
+      |                      ^
+../src/ppc/itx.h:58:32: error: 'pwr9' undeclared (first use in this function)
+   58 |     assign_itx17_fn( ,  4,  4, pwr9);
+      |                                ^~~~
+../src/ppc/itx.h:58:32: note: each undeclared identifier is reported only once for each function it appears in
+../src/ppc/itx.h:59:5: error: implicit declaration of function 'assign_itx16_fn'; did you mean 'assign_itx_fn'? [-Wimplicit-function-declaration]
+   59 |     assign_itx16_fn(R,  4,  8, pwr9);
+      |     ^~~~~~~~~~~~~~~
+      |     assign_itx_fn
+../src/ppc/itx.h:59:21: error: 'R' undeclared (first use in this function)
+   59 |     assign_itx16_fn(R,  4,  8, pwr9);
+      |                     ^
+../src/ppc/itx.h:61:21: error: expected expression before ',' token
+   61 |     assign_itx16_fn(,   8,  8, pwr9);
+      |                     ^
+../src/ppc/itx_tmpl.c: At top level:
+../src/ppc/itx_tmpl.c:475:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_dct_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  475 | void dav2d_inv_txfm_add_dct_dct_4x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride,
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:501:6: error: no previous prototype for 'dav2d_inv_txfm_add_wht_wht_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  501 | void dav2d_inv_txfm_add_wht_wht_4x4_8bpc_pwr9(pixel *dst, const ptrdiff_t stride,
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:561:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_dct_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  561 | void dav2d_inv_txfm_add_##type1##_##type2##_4x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:574:1: note: in expansion of macro 'inv_txfm_fn4x4'
+  574 | inv_txfm_fn4x4(adst,     dct     )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:561:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_adst_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  561 | void dav2d_inv_txfm_add_##type1##_##type2##_4x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:575:1: note: in expansion of macro 'inv_txfm_fn4x4'
+  575 | inv_txfm_fn4x4(dct,      adst    )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:561:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_flipadst_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  561 | void dav2d_inv_txfm_add_##type1##_##type2##_4x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:576:1: note: in expansion of macro 'inv_txfm_fn4x4'
+  576 | inv_txfm_fn4x4(dct,      flipadst)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:561:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_dct_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  561 | void dav2d_inv_txfm_add_##type1##_##type2##_4x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:577:1: note: in expansion of macro 'inv_txfm_fn4x4'
+  577 | inv_txfm_fn4x4(flipadst, dct     )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:561:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_flipadst_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  561 | void dav2d_inv_txfm_add_##type1##_##type2##_4x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:578:1: note: in expansion of macro 'inv_txfm_fn4x4'
+  578 | inv_txfm_fn4x4(adst,     flipadst)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:561:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_adst_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  561 | void dav2d_inv_txfm_add_##type1##_##type2##_4x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:579:1: note: in expansion of macro 'inv_txfm_fn4x4'
+  579 | inv_txfm_fn4x4(flipadst, adst    )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:561:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_dct_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  561 | void dav2d_inv_txfm_add_##type1##_##type2##_4x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:580:1: note: in expansion of macro 'inv_txfm_fn4x4'
+  580 | inv_txfm_fn4x4(identity, dct     )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:561:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_identity_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  561 | void dav2d_inv_txfm_add_##type1##_##type2##_4x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:581:1: note: in expansion of macro 'inv_txfm_fn4x4'
+  581 | inv_txfm_fn4x4(dct,      identity)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:561:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_flipadst_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  561 | void dav2d_inv_txfm_add_##type1##_##type2##_4x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:582:1: note: in expansion of macro 'inv_txfm_fn4x4'
+  582 | inv_txfm_fn4x4(identity, flipadst)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:561:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_identity_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  561 | void dav2d_inv_txfm_add_##type1##_##type2##_4x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:583:1: note: in expansion of macro 'inv_txfm_fn4x4'
+  583 | inv_txfm_fn4x4(flipadst, identity)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:561:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_adst_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  561 | void dav2d_inv_txfm_add_##type1##_##type2##_4x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:584:1: note: in expansion of macro 'inv_txfm_fn4x4'
+  584 | inv_txfm_fn4x4(identity, adst   )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:561:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_identity_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  561 | void dav2d_inv_txfm_add_##type1##_##type2##_4x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:585:1: note: in expansion of macro 'inv_txfm_fn4x4'
+  585 | inv_txfm_fn4x4(adst,     identity)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:561:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_identity_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  561 | void dav2d_inv_txfm_add_##type1##_##type2##_4x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:586:1: note: in expansion of macro 'inv_txfm_fn4x4'
+  586 | inv_txfm_fn4x4(identity, identity)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:561:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_adst_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  561 | void dav2d_inv_txfm_add_##type1##_##type2##_4x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:587:1: note: in expansion of macro 'inv_txfm_fn4x4'
+  587 | inv_txfm_fn4x4(adst,     adst    )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:561:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_flipadst_4x4_8bpc_pwr9' [-Werror=missing-prototypes]
+  561 | void dav2d_inv_txfm_add_##type1##_##type2##_4x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:588:1: note: in expansion of macro 'inv_txfm_fn4x4'
+  588 | inv_txfm_fn4x4(flipadst, flipadst)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1012:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_dct_4x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1012 | void dav2d_inv_txfm_add_dct_dct_4x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride,
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1046:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_dct_4x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1046 | void dav2d_inv_txfm_add_##type1##_##type2##_4x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1065:1: note: in expansion of macro 'inv_txfm_fn4x8'
+ 1065 | inv_txfm_fn4x8(adst,     dct     )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1046:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_adst_4x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1046 | void dav2d_inv_txfm_add_##type1##_##type2##_4x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1066:1: note: in expansion of macro 'inv_txfm_fn4x8'
+ 1066 | inv_txfm_fn4x8(dct,      adst    )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1046:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_flipadst_4x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1046 | void dav2d_inv_txfm_add_##type1##_##type2##_4x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1067:1: note: in expansion of macro 'inv_txfm_fn4x8'
+ 1067 | inv_txfm_fn4x8(dct,      flipadst)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1046:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_dct_4x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1046 | void dav2d_inv_txfm_add_##type1##_##type2##_4x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1068:1: note: in expansion of macro 'inv_txfm_fn4x8'
+ 1068 | inv_txfm_fn4x8(flipadst, dct     )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1046:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_flipadst_4x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1046 | void dav2d_inv_txfm_add_##type1##_##type2##_4x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1069:1: note: in expansion of macro 'inv_txfm_fn4x8'
+ 1069 | inv_txfm_fn4x8(adst,     flipadst)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1046:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_adst_4x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1046 | void dav2d_inv_txfm_add_##type1##_##type2##_4x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1070:1: note: in expansion of macro 'inv_txfm_fn4x8'
+ 1070 | inv_txfm_fn4x8(flipadst, adst    )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1046:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_dct_4x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1046 | void dav2d_inv_txfm_add_##type1##_##type2##_4x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1071:1: note: in expansion of macro 'inv_txfm_fn4x8'
+ 1071 | inv_txfm_fn4x8(identity, dct     )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1046:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_identity_4x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1046 | void dav2d_inv_txfm_add_##type1##_##type2##_4x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1072:1: note: in expansion of macro 'inv_txfm_fn4x8'
+ 1072 | inv_txfm_fn4x8(dct,      identity)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1046:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_flipadst_4x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1046 | void dav2d_inv_txfm_add_##type1##_##type2##_4x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1073:1: note: in expansion of macro 'inv_txfm_fn4x8'
+ 1073 | inv_txfm_fn4x8(identity, flipadst)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1046:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_identity_4x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1046 | void dav2d_inv_txfm_add_##type1##_##type2##_4x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1074:1: note: in expansion of macro 'inv_txfm_fn4x8'
+ 1074 | inv_txfm_fn4x8(flipadst, identity)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1046:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_adst_4x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1046 | void dav2d_inv_txfm_add_##type1##_##type2##_4x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1075:1: note: in expansion of macro 'inv_txfm_fn4x8'
+ 1075 | inv_txfm_fn4x8(identity, adst   )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1046:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_identity_4x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1046 | void dav2d_inv_txfm_add_##type1##_##type2##_4x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1076:1: note: in expansion of macro 'inv_txfm_fn4x8'
+ 1076 | inv_txfm_fn4x8(adst,     identity)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1046:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_identity_4x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1046 | void dav2d_inv_txfm_add_##type1##_##type2##_4x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1077:1: note: in expansion of macro 'inv_txfm_fn4x8'
+ 1077 | inv_txfm_fn4x8(identity, identity)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1046:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_adst_4x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1046 | void dav2d_inv_txfm_add_##type1##_##type2##_4x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1078:1: note: in expansion of macro 'inv_txfm_fn4x8'
+ 1078 | inv_txfm_fn4x8(adst,     adst    )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1046:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_flipadst_4x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1046 | void dav2d_inv_txfm_add_##type1##_##type2##_4x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1079:1: note: in expansion of macro 'inv_txfm_fn4x8'
+ 1079 | inv_txfm_fn4x8(flipadst, flipadst)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1082:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_dct_8x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1082 | void dav2d_inv_txfm_add_dct_dct_8x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride,
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1118:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_dct_8x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1118 | void dav2d_inv_txfm_add_##type1##_##type2##_8x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1138:1: note: in expansion of macro 'inv_txfm_fn8x4'
+ 1138 | inv_txfm_fn8x4(adst,     dct     )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1118:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_adst_8x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1118 | void dav2d_inv_txfm_add_##type1##_##type2##_8x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1139:1: note: in expansion of macro 'inv_txfm_fn8x4'
+ 1139 | inv_txfm_fn8x4(dct,      adst    )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1118:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_flipadst_8x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1118 | void dav2d_inv_txfm_add_##type1##_##type2##_8x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1140:1: note: in expansion of macro 'inv_txfm_fn8x4'
+ 1140 | inv_txfm_fn8x4(dct,      flipadst)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1118:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_dct_8x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1118 | void dav2d_inv_txfm_add_##type1##_##type2##_8x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1141:1: note: in expansion of macro 'inv_txfm_fn8x4'
+ 1141 | inv_txfm_fn8x4(flipadst, dct     )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1118:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_flipadst_8x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1118 | void dav2d_inv_txfm_add_##type1##_##type2##_8x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1142:1: note: in expansion of macro 'inv_txfm_fn8x4'
+ 1142 | inv_txfm_fn8x4(adst,     flipadst)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1118:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_adst_8x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1118 | void dav2d_inv_txfm_add_##type1##_##type2##_8x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1143:1: note: in expansion of macro 'inv_txfm_fn8x4'
+ 1143 | inv_txfm_fn8x4(flipadst, adst    )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1118:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_dct_8x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1118 | void dav2d_inv_txfm_add_##type1##_##type2##_8x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1144:1: note: in expansion of macro 'inv_txfm_fn8x4'
+ 1144 | inv_txfm_fn8x4(identity, dct     )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1118:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_identity_8x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1118 | void dav2d_inv_txfm_add_##type1##_##type2##_8x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1145:1: note: in expansion of macro 'inv_txfm_fn8x4'
+ 1145 | inv_txfm_fn8x4(dct,      identity)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1118:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_flipadst_8x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1118 | void dav2d_inv_txfm_add_##type1##_##type2##_8x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1146:1: note: in expansion of macro 'inv_txfm_fn8x4'
+ 1146 | inv_txfm_fn8x4(identity, flipadst)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1118:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_identity_8x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1118 | void dav2d_inv_txfm_add_##type1##_##type2##_8x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1147:1: note: in expansion of macro 'inv_txfm_fn8x4'
+ 1147 | inv_txfm_fn8x4(flipadst, identity)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1118:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_adst_8x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1118 | void dav2d_inv_txfm_add_##type1##_##type2##_8x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1148:1: note: in expansion of macro 'inv_txfm_fn8x4'
+ 1148 | inv_txfm_fn8x4(identity, adst   )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1118:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_identity_8x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1118 | void dav2d_inv_txfm_add_##type1##_##type2##_8x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1149:1: note: in expansion of macro 'inv_txfm_fn8x4'
+ 1149 | inv_txfm_fn8x4(adst,     identity)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1118:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_identity_8x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1118 | void dav2d_inv_txfm_add_##type1##_##type2##_8x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1150:1: note: in expansion of macro 'inv_txfm_fn8x4'
+ 1150 | inv_txfm_fn8x4(identity, identity)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1118:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_adst_8x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1118 | void dav2d_inv_txfm_add_##type1##_##type2##_8x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1151:1: note: in expansion of macro 'inv_txfm_fn8x4'
+ 1151 | inv_txfm_fn8x4(adst,     adst    )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1118:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_flipadst_8x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1118 | void dav2d_inv_txfm_add_##type1##_##type2##_8x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1152:1: note: in expansion of macro 'inv_txfm_fn8x4'
+ 1152 | inv_txfm_fn8x4(flipadst, flipadst)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1154:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_dct_8x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1154 | void dav2d_inv_txfm_add_dct_dct_8x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride,
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1194:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_dct_8x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1194 | void dav2d_inv_txfm_add_##type1##_##type2##_8x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1220:1: note: in expansion of macro 'inv_txfm_fn8x8'
+ 1220 | inv_txfm_fn8x8(adst,     dct     )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1194:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_adst_8x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1194 | void dav2d_inv_txfm_add_##type1##_##type2##_8x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1221:1: note: in expansion of macro 'inv_txfm_fn8x8'
+ 1221 | inv_txfm_fn8x8(dct,      adst    )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1194:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_flipadst_8x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1194 | void dav2d_inv_txfm_add_##type1##_##type2##_8x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1222:1: note: in expansion of macro 'inv_txfm_fn8x8'
+ 1222 | inv_txfm_fn8x8(dct,      flipadst)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1194:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_dct_8x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1194 | void dav2d_inv_txfm_add_##type1##_##type2##_8x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1223:1: note: in expansion of macro 'inv_txfm_fn8x8'
+ 1223 | inv_txfm_fn8x8(flipadst, dct     )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1194:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_flipadst_8x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1194 | void dav2d_inv_txfm_add_##type1##_##type2##_8x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1224:1: note: in expansion of macro 'inv_txfm_fn8x8'
+ 1224 | inv_txfm_fn8x8(adst,     flipadst)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1194:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_adst_8x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1194 | void dav2d_inv_txfm_add_##type1##_##type2##_8x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1225:1: note: in expansion of macro 'inv_txfm_fn8x8'
+ 1225 | inv_txfm_fn8x8(flipadst, adst    )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1194:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_identity_8x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1194 | void dav2d_inv_txfm_add_##type1##_##type2##_8x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1226:1: note: in expansion of macro 'inv_txfm_fn8x8'
+ 1226 | inv_txfm_fn8x8(dct,      identity)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1194:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_identity_8x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1194 | void dav2d_inv_txfm_add_##type1##_##type2##_8x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1227:1: note: in expansion of macro 'inv_txfm_fn8x8'
+ 1227 | inv_txfm_fn8x8(flipadst, identity)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1194:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_identity_8x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1194 | void dav2d_inv_txfm_add_##type1##_##type2##_8x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1228:1: note: in expansion of macro 'inv_txfm_fn8x8'
+ 1228 | inv_txfm_fn8x8(adst,     identity)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1194:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_adst_8x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1194 | void dav2d_inv_txfm_add_##type1##_##type2##_8x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1229:1: note: in expansion of macro 'inv_txfm_fn8x8'
+ 1229 | inv_txfm_fn8x8(adst,     adst    )
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1194:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_flipadst_8x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1194 | void dav2d_inv_txfm_add_##type1##_##type2##_8x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1230:1: note: in expansion of macro 'inv_txfm_fn8x8'
+ 1230 | inv_txfm_fn8x8(flipadst, flipadst)
+      | ^~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1234:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_dct_8x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1234 | void dav2d_inv_txfm_add_identity_##type2##_8x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1253:1: note: in expansion of macro 'inv_txfm_fn8x8_identity'
+ 1253 | inv_txfm_fn8x8_identity(dct     )
+      | ^~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1234:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_flipadst_8x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1234 | void dav2d_inv_txfm_add_identity_##type2##_8x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1254:1: note: in expansion of macro 'inv_txfm_fn8x8_identity'
+ 1254 | inv_txfm_fn8x8_identity(flipadst)
+      | ^~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1234:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_adst_8x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1234 | void dav2d_inv_txfm_add_identity_##type2##_8x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1255:1: note: in expansion of macro 'inv_txfm_fn8x8_identity'
+ 1255 | inv_txfm_fn8x8_identity(adst    )
+      | ^~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1234:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_identity_8x8_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1234 | void dav2d_inv_txfm_add_identity_##type2##_8x8_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1256:1: note: in expansion of macro 'inv_txfm_fn8x8_identity'
+ 1256 | inv_txfm_fn8x8_identity(identity)
+      | ^~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1776:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_dct_4x16_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1776 | void dav2d_inv_txfm_add_dct_dct_4x16_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride,
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1820:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_dct_4x16_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1820 | void dav2d_inv_txfm_add_##type1##_##type2##_4x16_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1850:1: note: in expansion of macro 'inv_txfm_fn4x16'
+ 1850 | inv_txfm_fn4x16(adst,     dct     )
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1820:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_adst_4x16_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1820 | void dav2d_inv_txfm_add_##type1##_##type2##_4x16_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1851:1: note: in expansion of macro 'inv_txfm_fn4x16'
+ 1851 | inv_txfm_fn4x16(dct,      adst    )
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1820:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_flipadst_4x16_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1820 | void dav2d_inv_txfm_add_##type1##_##type2##_4x16_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1852:1: note: in expansion of macro 'inv_txfm_fn4x16'
+ 1852 | inv_txfm_fn4x16(dct,      flipadst)
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1820:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_dct_4x16_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1820 | void dav2d_inv_txfm_add_##type1##_##type2##_4x16_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1853:1: note: in expansion of macro 'inv_txfm_fn4x16'
+ 1853 | inv_txfm_fn4x16(flipadst, dct     )
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1820:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_flipadst_4x16_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1820 | void dav2d_inv_txfm_add_##type1##_##type2##_4x16_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1854:1: note: in expansion of macro 'inv_txfm_fn4x16'
+ 1854 | inv_txfm_fn4x16(adst,     flipadst)
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1820:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_adst_4x16_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1820 | void dav2d_inv_txfm_add_##type1##_##type2##_4x16_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1855:1: note: in expansion of macro 'inv_txfm_fn4x16'
+ 1855 | inv_txfm_fn4x16(flipadst, adst    )
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1820:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_dct_4x16_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1820 | void dav2d_inv_txfm_add_##type1##_##type2##_4x16_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1856:1: note: in expansion of macro 'inv_txfm_fn4x16'
+ 1856 | inv_txfm_fn4x16(identity, dct     )
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1820:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_identity_4x16_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1820 | void dav2d_inv_txfm_add_##type1##_##type2##_4x16_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1857:1: note: in expansion of macro 'inv_txfm_fn4x16'
+ 1857 | inv_txfm_fn4x16(dct,      identity)
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1820:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_flipadst_4x16_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1820 | void dav2d_inv_txfm_add_##type1##_##type2##_4x16_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1858:1: note: in expansion of macro 'inv_txfm_fn4x16'
+ 1858 | inv_txfm_fn4x16(identity, flipadst)
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1820:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_identity_4x16_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1820 | void dav2d_inv_txfm_add_##type1##_##type2##_4x16_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1859:1: note: in expansion of macro 'inv_txfm_fn4x16'
+ 1859 | inv_txfm_fn4x16(flipadst, identity)
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1820:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_adst_4x16_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1820 | void dav2d_inv_txfm_add_##type1##_##type2##_4x16_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1860:1: note: in expansion of macro 'inv_txfm_fn4x16'
+ 1860 | inv_txfm_fn4x16(identity, adst   )
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1820:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_identity_4x16_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1820 | void dav2d_inv_txfm_add_##type1##_##type2##_4x16_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1861:1: note: in expansion of macro 'inv_txfm_fn4x16'
+ 1861 | inv_txfm_fn4x16(adst,     identity)
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1820:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_identity_4x16_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1820 | void dav2d_inv_txfm_add_##type1##_##type2##_4x16_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1862:1: note: in expansion of macro 'inv_txfm_fn4x16'
+ 1862 | inv_txfm_fn4x16(identity, identity)
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1820:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_adst_4x16_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1820 | void dav2d_inv_txfm_add_##type1##_##type2##_4x16_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1863:1: note: in expansion of macro 'inv_txfm_fn4x16'
+ 1863 | inv_txfm_fn4x16(adst,     adst    )
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1820:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_flipadst_4x16_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1820 | void dav2d_inv_txfm_add_##type1##_##type2##_4x16_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1864:1: note: in expansion of macro 'inv_txfm_fn4x16'
+ 1864 | inv_txfm_fn4x16(flipadst, flipadst)
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1866:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_dct_16x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1866 | void dav2d_inv_txfm_add_dct_dct_16x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride,
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1914:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_dct_16x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1914 | void dav2d_inv_txfm_add_##type1##_##type2##_16x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1950:1: note: in expansion of macro 'inv_txfm_fn16x4'
+ 1950 | inv_txfm_fn16x4(adst,     dct     )
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1914:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_adst_16x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1914 | void dav2d_inv_txfm_add_##type1##_##type2##_16x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1951:1: note: in expansion of macro 'inv_txfm_fn16x4'
+ 1951 | inv_txfm_fn16x4(dct,      adst    )
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1914:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_flipadst_16x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1914 | void dav2d_inv_txfm_add_##type1##_##type2##_16x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1952:1: note: in expansion of macro 'inv_txfm_fn16x4'
+ 1952 | inv_txfm_fn16x4(dct,      flipadst)
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1914:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_dct_16x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1914 | void dav2d_inv_txfm_add_##type1##_##type2##_16x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1953:1: note: in expansion of macro 'inv_txfm_fn16x4'
+ 1953 | inv_txfm_fn16x4(flipadst, dct     )
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1914:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_flipadst_16x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1914 | void dav2d_inv_txfm_add_##type1##_##type2##_16x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1954:1: note: in expansion of macro 'inv_txfm_fn16x4'
+ 1954 | inv_txfm_fn16x4(adst,     flipadst)
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1914:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_adst_16x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1914 | void dav2d_inv_txfm_add_##type1##_##type2##_16x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1955:1: note: in expansion of macro 'inv_txfm_fn16x4'
+ 1955 | inv_txfm_fn16x4(flipadst, adst    )
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1914:6: error: no previous prototype for 'dav2d_inv_txfm_add_dct_identity_16x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1914 | void dav2d_inv_txfm_add_##type1##_##type2##_16x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1956:1: note: in expansion of macro 'inv_txfm_fn16x4'
+ 1956 | inv_txfm_fn16x4(dct,      identity)
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1914:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_identity_16x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1914 | void dav2d_inv_txfm_add_##type1##_##type2##_16x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1957:1: note: in expansion of macro 'inv_txfm_fn16x4'
+ 1957 | inv_txfm_fn16x4(flipadst, identity)
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1914:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_identity_16x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1914 | void dav2d_inv_txfm_add_##type1##_##type2##_16x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1958:1: note: in expansion of macro 'inv_txfm_fn16x4'
+ 1958 | inv_txfm_fn16x4(adst,     identity)
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1914:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_identity_16x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1914 | void dav2d_inv_txfm_add_##type1##_##type2##_16x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1959:1: note: in expansion of macro 'inv_txfm_fn16x4'
+ 1959 | inv_txfm_fn16x4(identity, identity)
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1914:6: error: no previous prototype for 'dav2d_inv_txfm_add_adst_adst_16x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1914 | void dav2d_inv_txfm_add_##type1##_##type2##_16x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1960:1: note: in expansion of macro 'inv_txfm_fn16x4'
+ 1960 | inv_txfm_fn16x4(adst,     adst    )
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1914:6: error: no previous prototype for 'dav2d_inv_txfm_add_flipadst_flipadst_16x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1914 | void dav2d_inv_txfm_add_##type1##_##type2##_16x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1961:1: note: in expansion of macro 'inv_txfm_fn16x4'
+ 1961 | inv_txfm_fn16x4(flipadst, flipadst)
+      | ^~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1964:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_dct_16x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1964 | void dav2d_inv_txfm_add_identity_##type2##_16x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:2002:1: note: in expansion of macro 'inv_txfm_fn16x4_identity'
+ 2002 | inv_txfm_fn16x4_identity(dct)
+      | ^~~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1964:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_adst_16x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1964 | void dav2d_inv_txfm_add_identity_##type2##_16x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:2003:1: note: in expansion of macro 'inv_txfm_fn16x4_identity'
+ 2003 | inv_txfm_fn16x4_identity(adst)
+      | ^~~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:1964:6: error: no previous prototype for 'dav2d_inv_txfm_add_identity_flipadst_16x4_8bpc_pwr9' [-Werror=missing-prototypes]
+ 1964 | void dav2d_inv_txfm_add_identity_##type2##_16x4_8bpc_pwr9(uint8_t *dst, const ptrdiff_t stride, \
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/ppc/itx_tmpl.c:2004:1: note: in expansion of macro 'inv_txfm_fn16x4_identity'
+ 2004 | inv_txfm_fn16x4_identity(flipadst)
+      | ^~~~~~~~~~~~~~~~~~~~~~~~
+cc1: some warnings being treated as errors
+[47/101] Compiling C object src/libdav2d_bitdepth_16.a.p/deblock_tmpl.c.o
+[48/101] Compiling C object src/libdav2d_bitdepth_16.a.p/filmgrain_tmpl.c.o
+[49/101] Compiling C object src/libdav2d_bitdepth_16.a.p/itx_tmpl.c.o
+[50/101] Compiling C object src/libdav2d_bitdepth_8.a.p/itx_tmpl.c.o
+[51/101] Compiling C object src/libdav2d_bitdepth_16.a.p/cdef_tmpl.c.o
+[52/101] Compiling C object src/libdav2d_arch_bitdepth_8_vsx.a.p/ppc_cdef_tmpl.c.o
+[53/101] Compiling C object src/libdav2d_bitdepth_8.a.p/db_apply_tmpl.c.o
+[54/101] Compiling C object src/libdav2d_bitdepth_16.a.p/db_apply_tmpl.c.o
+[55/101] Compiling C object src/libdav2d_bitdepth_8.a.p/looprestoration_tmpl.c.o
+[56/101] Compiling C object src/libdav2d_bitdepth_16.a.p/looprestoration_tmpl.c.o
+[57/101] Compiling C object src/libdav2d_bitdepth_8.a.p/ipred_tmpl.c.o
+[58/101] Compiling C object src/libdav2d_bitdepth_16.a.p/ipred_tmpl.c.o
+[59/101] Compiling C object src/libdav2d_bitdepth_16.a.p/mc_tmpl.c.o
+[60/101] Compiling C object src/libdav2d_bitdepth_8.a.p/mc_tmpl.c.o
+[61/101] Compiling C object src/libdav2d_bitdepth_8.a.p/recon_tmpl.c.o
+[62/101] Compiling C object src/libdav2d_bitdepth_16.a.p/recon_tmpl.c.o
+ninja: build stopped: subcommand failed.
+INFO: autodetecting backend as ninja
+INFO: calculating backend command to run: /home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/ninja -C /home/multiarq/yalle/build-bench/temp_workspace/dav2d/dav2d/build -j 94

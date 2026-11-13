@@ -1,0 +1,244 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment c-power9 ca86bc8562ae in /home/multiarq/.local/share/build-bench/envs/c-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/c-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/syncterm/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/syncterm/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+CMake Warning (deprecated) at CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+This warning is for project developers.  Use -Wno-author or -Wno-deprecated
+to suppress it.
+
+-- The C compiler identification is GNU 15.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+CMake Warning (deprecated) at src/syncterm/CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+This warning is for project developers.  Use -Wno-author or -Wno-deprecated
+to suppress it.
+
+-- Found PkgConfig: /home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/pkg-config (found version "0.29.2")
+-- Checking for module 'libjxl'
+--   No package 'libjxl' found
+-- Checking for module 'libjxl_threads'
+--   No package 'libjxl_threads' found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_POINTER_SIGN
+-- Performing Test HAVE_POINTER_SIGN - Success
+-- Performing Test HAVE_SWITCH
+-- Performing Test HAVE_SWITCH - Success
+-- Performing Test HAVE_STACK_PROTECTOR
+-- Performing Test HAVE_STACK_PROTECTOR - Success
+-- Performing Test HAVE_STACK_PROTECTOR_STRONG
+-- Performing Test HAVE_STACK_PROTECTOR_STRONG - Success
+-- Performing Test HAVE_STACK_CLASH_PROTECTION
+-- Performing Test HAVE_STACK_CLASH_PROTECTION - Success
+-- Performing Test HAVE_WRAPV
+-- Performing Test HAVE_WRAPV - Success
+-- Performing Test HAVE_NO_DELETE_NULL_POINTER_CHECKS
+-- Performing Test HAVE_NO_DELETE_NULL_POINTER_CHECKS - Success
+-- Performing Test HAVE_BIG_PIC
+-- Performing Test HAVE_BIG_PIC - Success
+-- Performing Test HAVE_LITTLE_PIC
+-- Performing Test HAVE_LITTLE_PIC - Success
+-- Could NOT find X11 (missing: X11_X11_INCLUDE_PATH X11_X11_LIB) 
+-- Looking for cbreak in /home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/libncursesw.so
+-- Looking for cbreak in /home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/libncursesw.so - found
+-- Looking for nodelay in /home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/libncursesw.so
+-- Looking for nodelay in /home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/libncursesw.so - found
+-- Found Curses: /home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/libncursesw.so
+-- Could NOT find SDL2 (missing: SDL2_DIR)
+-- Checking for module 'wayland-client'
+--   No package 'wayland-client' found
+-- Checking for module 'xrender'
+--   No package 'xrender' found
+-- Checking for module 'xinerama'
+--   No package 'xinerama' found
+-- Checking for module 'xrandr'
+--   No package 'xrandr' found
+-- Looking for vasprintf
+-- Looking for vasprintf - not found
+-- Could NOT find SDL2 (missing: SDL2_DIR)
+-- Could NOT find PulseAudio (missing: PulseAudio_DIR)
+-- Checking for module 'alsa'
+--   No package 'alsa' found
+-- Checking for module 'portaudio-2.0'
+--   No package 'portaudio-2.0' found
+-- Looking for strlcpy
+-- Looking for strlcpy - not found
+-- Looking for random
+-- Looking for random - found
+-- Looking for srandomdev
+-- Looking for srandomdev - not found
+-- Looking for mkstemp
+-- Looking for mkstemp - found
+-- Looking for include file inttypes.h
+-- Looking for include file inttypes.h - found
+-- Looking for include file stdint.h
+-- Looking for include file stdint.h - found
+-- Looking for include file dev/speaker/speaker.h
+-- Looking for include file dev/speaker/speaker.h - not found
+-- Looking for include file dev/machine/speaker.h
+-- Looking for include file dev/machine/speaker.h - not found
+-- Looking for include file dev/speaker/spkr.h
+-- Looking for include file dev/speaker/spkr.h - not found
+-- Looking for include file sys/soundcard.h
+-- Looking for include file sys/soundcard.h - found
+-- Looking for include file soundcard.h
+-- Looking for include file soundcard.h - not found
+-- Looking for include file linux/soundcard.h
+-- Looking for include file linux/soundcard.h - found
+-- Looking for include file alsa/asoundlib.h
+-- Looking for include file alsa/asoundlib.h - not found
+-- Configuring done (4.1s)
+-- Generating done (0.2s)
+-- Build files have been written to: /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/build
+[  0%] Building C object src/syncterm/CMakeFiles/termtest.dir/termtest.c.o
+[  5%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/dat_file.c.o
+[  5%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/dirwrap.c.o
+[  5%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/conwrap.c.o
+[  5%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/filewrap.c.o
+[  5%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/genwrap.c.o
+[  5%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/link_list.c.o
+[  5%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/datewrap.c.o
+[ 11%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/ini_file.c.o
+[ 11%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/msg_queue.c.o
+[ 11%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/named_str_list.c.o
+[ 17%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/netwrap.c.o
+[ 17%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/semfile.c.o
+[ 17%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/multisock.c.o
+[ 17%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/threadwrap.c.o
+[ 17%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/str_list.c.o
+[ 17%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/sockwrap.c.o
+[ 17%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/semwrap.c.o
+[ 23%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/unicode.c.o
+[ 23%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/strwrap.c.o
+[ 23%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/xp_dl.c.o
+[ 23%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/xpbeep.c.o
+[ 23%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/xpevent.c.o
+[ 29%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/xpmap.c.o
+[ 29%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/xpdatetime.c.o
+[ 29%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/xpprintf.c.o
+[ 35%] Building C object src/syncterm/xpdev/CMakeFiles/xpdev.dir/xpsem.c.o
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/datewrap.c:23:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:107: src/syncterm/xpdev/CMakeFiles/xpdev.dir/datewrap.c.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/dat_file.c:23:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/xpprintf.c:31:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/msg_queue.c:25:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:401: src/syncterm/xpdev/CMakeFiles/xpdev.dir/xpprintf.c.o] Error 1
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/sockwrap.c:31:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/datewrap.h:25,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/xpdatetime.c:23:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/str_list.c:24:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/named_str_list.c:4:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/xpevent.c:25:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:219: src/syncterm/xpdev/CMakeFiles/xpdev.dir/named_str_list.c.o] Error 1
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/ini_file.h:28,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/ini_file.c:22:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:373: src/syncterm/xpdev/CMakeFiles/xpdev.dir/xpdatetime.c.o] Error 1
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:289: src/syncterm/xpdev/CMakeFiles/xpdev.dir/str_list.c.o] Error 1
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:93: src/syncterm/xpdev/CMakeFiles/xpdev.dir/dat_file.c.o] Error 1
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/netwrap.c:23:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/xpsem.c:38:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/threadwrap.c:31:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/xpbeep.c:68:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/dirwrap.c:69:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:359: src/syncterm/xpdev/CMakeFiles/xpdev.dir/xpbeep.c.o] Error 1
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:317: src/syncterm/xpdev/CMakeFiles/xpdev.dir/threadwrap.c.o] Error 1
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:191: src/syncterm/xpdev/CMakeFiles/xpdev.dir/msg_queue.c.o] Error 1
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/ini_file.h:28,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.c:33:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:233: src/syncterm/xpdev/CMakeFiles/xpdev.dir/netwrap.c.o] Error 1
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:415: src/syncterm/xpdev/CMakeFiles/xpdev.dir/xpevent.c.o] Error 1
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/semfile.c:25:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:275: src/syncterm/xpdev/CMakeFiles/xpdev.dir/sockwrap.c.o] Error 1
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/link_list.c:25:
+/home/multiarq/yalle/build-bench/temp_workspace/syncterm/syncterm-1.9-src/src/xpdev/genwrap.h:235:18: error: #error "Need to describe target architecture"
+  235 |                 #error "Need to describe target architecture"
+      |                  ^~~~~
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:429: src/syncterm/xpdev/CMakeFiles/xpdev.dir/xpsem.c.o] Error 1
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:121: src/syncterm/xpdev/CMakeFiles/xpdev.dir/dirwrap.c.o] Error 1
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:247: src/syncterm/xpdev/CMakeFiles/xpdev.dir/semfile.c.o] Error 1
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:177: src/syncterm/xpdev/CMakeFiles/xpdev.dir/link_list.c.o] Error 1
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:149: src/syncterm/xpdev/CMakeFiles/xpdev.dir/genwrap.c.o] Error 1
+gmake[2]: *** [src/syncterm/xpdev/CMakeFiles/xpdev.dir/build.make:163: src/syncterm/xpdev/CMakeFiles/xpdev.dir/ini_file.c.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:622: src/syncterm/xpdev/CMakeFiles/xpdev.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+[ 41%] Linking C executable termtest
+gmake: *** [Makefile:156: all] Error 2
+[ 41%] Built target termtest

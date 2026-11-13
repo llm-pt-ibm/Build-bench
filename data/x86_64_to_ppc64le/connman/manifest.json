@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "connman",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "connman": "http://www.kernel.org/pub/linux/network/connman/connman-1.42.tar.xz"
+    },
+    "version": "1.42"
+  },
+  "environment": "c-power9",
+  "version": 1
+}
