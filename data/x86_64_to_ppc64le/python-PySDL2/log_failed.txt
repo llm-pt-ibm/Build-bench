@@ -1,0 +1,139 @@
+=== the build succeeded; output of the acceptance test:
+=== build environment: env
+environment py-power9 c7a487f382d0 in /home/multiarq/.local/share/build-bench/envs/py-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/py-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/py-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/py-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/py-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/py-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/py-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/py-power9/build
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/py-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/python-PySDL2/cache (build state of this run); BENCH_SHARED_CACHE_DIR= (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running /home/multiarq/yalle/build-bench/acceptance/x86_64_to_ppc64le/python-PySDL2.sh
+.......ssss.........sssssssssssssssssssssssss.....................ss.... [  6%]
+................................ssssssssssssssss..ss.........s.......... [ 13%]
+..........sss..ssssssssssss.....ss.....ssssssssss....................... [ 20%]
+........................s......s...............................sssssssss [ 27%]
+sssssssssss............................................................. [ 34%]
+..............................s........sssss....sss......sssssssssssssss [ 41%]
+ssss..sssssss...s....................................................... [ 48%]
+........................s...ss.......................................... [ 55%]
+........................s..ss...............ss.F......sss............... [ 61%]
+.............s....ss...sss.....ssssssssssssss...sss...............s..... [ 68%]
+s...........s..................s...............s......sss..........sssss [ 75%]
+sssssssssssssssssssssssssssssssssssssssssssssss.ssssssssssssss.......... [ 82%]
+....ss..................................ssssss.....Fs...ss.............. [ 89%]
+s..ssssss.....XX...........x..................s...s...s................. [ 96%]
+..ss..ss.....sssss...ss..ssssssssssssss                                  [100%]
+=================================== FAILURES ===================================
+__________________________ TestExtRenderer.test_copy ___________________________
+
+self = <sdl2.test.sdl2ext_renderer_test.TestExtRenderer object at 0x7ff75949a7e0>
+with_sdl = None
+
+    def test_copy(self, with_sdl):
+        # Initialize target surface and renderer
+        surface = SDL_CreateRGBSurface(0, 128, 128, 32, 0, 0, 0, 0).contents
+        renderer = sdl2ext.Renderer(surface)
+        renderer.clear(0xAABBCC)
+        view = sdl2ext.PixelView(surface)
+    
+        # Test copying a Texture without any arguments (should fill surface)
+        sf = SDL_CreateRGBSurface(0, 16, 16, 32, 0, 0, 0, 0)
+        sdl2ext.fill(sf, (0, 0, 0, 0))
+        tx = sdl2ext.Texture(renderer, sf)
+        renderer.copy(tx)
+        renderer.present()
+        assert view[0][0] == 0
+        assert view[127][127] == 0
+    
+        # Test copying a Texture with only location argument
+        renderer.clear(0xAABBCC) # reset surface
+        renderer.copy(tx, dstrect=(10, 10))
+        renderer.present()
+        assert view[0][0] == 0xAABBCC
+        assert view[10][10] == 0
+        assert view[25][25] == 0
+        assert view[26][26] == 0xAABBCC
+    
+        # Test copying a subset of a Texture
+        renderer.clear(0xAABBCC) # reset surface
+        renderer.copy(tx, srcrect=(0, 0, 10, 10), dstrect=(10, 10))
+        renderer.present()
+        assert view[0][0] == 0xAABBCC
+        assert view[10][10] == 0
+        assert view[19][19] == 0
+        assert view[20][20] == 0xAABBCC
+    
+        # Test copying a subset of a Texture w/ point/rect args
+        renderer.clear(0xAABBCC) # reset surface
+        renderer.copy(tx, srcrect=SDL_Rect(0, 0, 10, 10), dstrect=SDL_Point(10, 10))
+        renderer.present()
+        assert view[0][0] == 0xAABBCC
+        assert view[10][10] == 0
+        assert view[19][19] == 0
+        assert view[20][20] == 0xAABBCC
+    
+        # Test copying a Texture with location and size
+        renderer.clear(0xAABBCC) # reset surface
+        renderer.copy(tx, dstrect=(10, 10, 30, 40))
+        renderer.present()
+        assert view[0][0] == 0xAABBCC
+        assert view[10][10] == 0
+        assert view[49][39] == 0
+        assert view[50][40] == 0xAABBCC
+    
+        if dll.version > 2005:
+            # Test copying a Texture with rotation
+            renderer.clear(0xAABBCC) # reset surface
+            renderer.copy(tx, dstrect=(32, 32), angle=180, center=(0, 0))
+            renderer.present()
+            assert view[0][0] == 0xAABBCC
+>           assert view[16][16] == 0xFF000000  # Rotation suddenly adds alpha?
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           assert 4289379276 == 4278190080
+
+sdl2/test/sdl2ext_renderer_test.py:273: AssertionError
+____________________________ test_SDL_ConvertPixels ____________________________
+
+with_sdl = None
+
+    def test_SDL_ConvertPixels(with_sdl):
+        # Test conversion of pixels to surface of same format
+        for name, buf in pixel_buffers.items():
+            dtype = Uint16 if buf['bpp'] == 16 else Uint32
+            dst = (dtype * len(buf['pixels']))()
+            dst_ptr = cast(dst, POINTER(Uint8))
+            sdl2.SDL_ClearError()
+            ret = sdl2.SDL_ConvertPixels(
+                buf['w'], buf['h'], buf['fmt'], buf['ptr'], buf['pitch'],
+                buf['fmt'], dst_ptr, buf['pitch'],
+            )
+            assert ret == 0, _check_error_msg()
+            for index, val in enumerate(dst):
+                assert val == buf['pixels'][index]
+    
+        # Test conversion of pixels to surface of different format
+        buf = pixel_buffers['RGBA32']
+        dtype = Uint16 if buf['bpp'] == 16 else Uint32
+        dst = (dtype * len(buf['pixels']))()
+        dst_ptr = cast(dst, POINTER(Uint8))
+        sdl2.SDL_ClearError()
+        ret = sdl2.SDL_ConvertPixels(
+            buf['w'], buf['h'], buf['fmt'], buf['ptr'], buf['pitch'],
+            pixels.SDL_PIXELFORMAT_ABGR8888, dst_ptr, buf['pitch'],
+        )
+        assert ret == 0, _check_error_msg()
+        for index, val in enumerate(dst):
+>           assert sdl2.SDL_Swap32(val) == buf['pixels'][index]
+E           assert 256 == 16777216
+E            +  where 256 = <function SDL_Swap32 at 0x7fff9de60540>(65536)
+E            +    where <function SDL_Swap32 at 0x7fff9de60540> = sdl2.SDL_Swap32
+
+sdl2/test/surface_test.py:181: AssertionError
+=========================== short test summary info ============================
+FAILED sdl2/test/sdl2ext_renderer_test.py::TestExtRenderer::test_copy - asser...
+FAILED sdl2/test/surface_test.py::test_SDL_ConvertPixels - assert 256 == 1677...
+2 failed, 753 passed, 290 skipped, 11 deselected, 1 xfailed, 2 xpassed in 23.25s

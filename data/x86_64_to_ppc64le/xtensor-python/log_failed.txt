@@ -1,0 +1,66 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment py-power9 c7a487f382d0 in /home/multiarq/.local/share/build-bench/envs/py-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/py-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/py-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/py-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/py-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/py-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/py-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/py-power9/build
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/py-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/xtensor-python/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/xtensor-python/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+-- The C compiler identification is GNU 16.2.0
+-- The CXX compiler identification is GNU 16.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /home/multiarq/.local/share/build-bench/envs/py-power9/build/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /home/multiarq/.local/share/build-bench/envs/py-power9/build/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- xtensor-python v0.29.0
+-- Performing Test arch_native_supported
+-- Performing Test arch_native_supported - Failed
+-- Found xtensor: /home/multiarq/.local/share/build-bench/envs/py-power9/build/include/xtensor
+-- Found Python: /home/multiarq/.local/share/build-bench/envs/py-power9/build/bin/python3.12 (found version "3.12.16") found components: Interpreter
+CMake Warning (deprecated) at /home/multiarq/.local/share/build-bench/envs/py-power9/build/share/cmake/pybind11/FindPythonLibsNew.cmake:110 (cmake_policy):
+  The OLD behavior for policy CMP0148 will be removed from a future version
+  of CMake.
+
+  The cmake-policies(7) manual explains that the OLD behaviors of all
+  policies are deprecated and that a policy should be set to OLD only under
+  specific short-term circumstances.  Projects should be ported to the NEW
+  behavior and not rely on setting a policy to OLD.
+Call Stack (most recent call first):
+  /home/multiarq/.local/share/build-bench/envs/py-power9/build/share/cmake/pybind11/pybind11Tools.cmake:44 (find_package)
+  /home/multiarq/.local/share/build-bench/envs/py-power9/build/share/cmake/pybind11/pybind11Common.cmake:243 (include)
+  /home/multiarq/.local/share/build-bench/envs/py-power9/build/share/cmake/pybind11/pybind11Config.cmake:257 (include)
+  CMakeLists.txt:56 (find_package)
+This warning is for project developers.  Use -Wno-author or -Wno-deprecated
+to suppress it.
+
+-- Found PythonInterp: /home/multiarq/.local/share/build-bench/envs/py-power9/build/bin/python (found suitable version "3.12.16", minimum required is "3.9")
+-- Found PythonLibs: /home/multiarq/.local/share/build-bench/envs/py-power9/build/lib/libpython3.12.so
+-- Performing Test HAS_FLTO_AUTO
+-- Performing Test HAS_FLTO_AUTO - Success
+-- Found pybind11: /home/multiarq/.local/share/build-bench/envs/py-power9/build/include (found version "3.1.0")
+-- Found pybind11: /home/multiarq/.local/share/build-bench/envs/py-power9/build/include;/home/multiarq/.local/share/build-bench/envs/py-power9/build/include/python3.12/pybind11
+-- Found NumPy: version "2.5.4" /home/multiarq/.local/share/build-bench/envs/py-power9/build/lib/python3.12/site-packages/numpy/_core/include
+-- Found numpy: /home/multiarq/.local/share/build-bench/envs/py-power9/build/lib/python3.12/site-packages/numpy/_core/include
+-- Forcing tests build type to Release
+-- Found GTest: /home/multiarq/.local/share/build-bench/envs/py-power9/build/lib/cmake/GTest/GTestConfig.cmake (found version "1.18.0")
+-- Found Threads: TRUE
+-- Forcing tests build type to Release
+-- Performing Test HAS_CPP14_FLAG
+CMake Error at benchmark/CMakeLists.txt:30 (message):
+  Unsupported compiler -- xtensor requires C++14 support!
+
+
+-- Performing Test HAS_CPP14_FLAG - Failed
+-- Configuring incomplete, errors occurred!

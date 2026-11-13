@@ -7,7 +7,7 @@
   "c-power9": "C and C++ with make, CMake, Meson or autotools: envs/c-power9/env.yaml",
   "gui-power9": "SDL, OpenGL, X11 and audio: envs/gui-power9/env.yaml",
   "sci-power9": "c-power9 plus Fortran and scientific libraries: gfortran openblas liblapack fftw gsl hdf5 hdf4 libnetcdf netcdf-fortran proj udunits2 libaec eccodes armadillo fastjet libctl harminv guile gmp mpfr openmpi metis occt pybind11 numpy sympy octave",
-  "py-power9": "Python packages: python=3.12 pip pytest numpy scipy h5py matplotlib pandas lxml pydot pygraphviz pyyaml pillow cython cysignals tesseract sdl2 scikit-build-core eigen tsl_robin_map xtensor pybind11 cmake ninja gxx=15.2.0",
+  "py-power9": "Python, its scientific packages, SDL and Tesseract: envs/py-power9/env.yaml",
   "rust-power9": "Rust (vendored crates, no network): envs/rust-power9/env.yaml",
   "go-power9": "Go (vendored modules, no network): envs/go-power9/env.yaml",
   "nyxt": "Common Lisp: sbcl gcc make (libfixposix from source)",
@@ -178,29 +178,6 @@
    ],
    "new_case": "make new-case CASE=schismtracker SOURCE=\"https://github.com/schismtracker/schismtracker/archive/refs/tags/20261102.tar.gz\" ENV=gui-power9",
    "notes": []
-  },
-  "python-nanobind": {
-   "group": "x86 SIMD",
-   "evidence": "Eigen's AltiVec path fails under -Werror",
-   "cause_seen_in_log": true,
-   "env": "py-power9",
-   "version": "3.1.0",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "642f86645aab89d06ed36f23910a770c",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/python-nanobind/_log"
-   },
-   "minutes": {
-    "x86_64": 1.8,
-    "ppc64le": 1.1
-   },
-   "sources": [
-    "https://github.com/wjakob/nanobind/archive/refs/tags/v3.1.0.tar.gz"
-   ],
-   "new_case": "make new-case CASE=python-nanobind SOURCE=\"https://github.com/wjakob/nanobind/archive/refs/tags/v3.1.0.tar.gz\" ENV=py-power9",
-   "notes": [
-    "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le"
-   ]
   },
   "dav2d": {
    "group": "x86 SIMD",
@@ -424,27 +401,6 @@
     "https://github.com/pboettch/json-schema-validator/archive/refs/tags/2.4.0.tar.gz"
    ],
    "new_case": "make new-case CASE=json-schema-validator SOURCE=\"https://github.com/pboettch/json-schema-validator/archive/refs/tags/2.4.0.tar.gz\" ENV=c-power9",
-   "notes": []
-  },
-  "python-emcee": {
-   "group": "types and ABI",
-   "evidence": "long double tests: no float128",
-   "cause_seen_in_log": true,
-   "env": "py-power9",
-   "version": "3.1.6",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "9d6f7a187fdf539453ecee1a197bb56f",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/python-emcee/_log"
-   },
-   "minutes": {
-    "x86_64": 4.3,
-    "ppc64le": 4.3
-   },
-   "sources": [
-    "https://files.pythonhosted.org/packages/source/e/emcee/emcee-3.1.6.tar.gz"
-   ],
-   "new_case": "make new-case CASE=python-emcee SOURCE=\"https://files.pythonhosted.org/packages/source/e/emcee/emcee-3.1.6.tar.gz\" ENV=py-power9",
    "notes": []
   },
   "awww": {
@@ -913,27 +869,6 @@
     "openSUSE carries 2 patch(es): apply only those the x86_64 build needs, none for ppc64le"
    ]
   },
-  "python-tesserocr": {
-   "group": "system and CPU behavior tests",
-   "evidence": "test_recognize fails",
-   "cause_seen_in_log": true,
-   "env": "py-power9",
-   "version": "2.11.0",
-   "obs": {
-    "project": "devel:languages:python",
-    "rev": "b3e2451bd32ef302e00ed26355a360af",
-    "ppc64le_log": "https://api.opensuse.org/public/build/devel:languages:python/openSUSE_Factory_PowerPC/ppc64le/python-tesserocr/_log"
-   },
-   "minutes": {
-    "x86_64": 1.2,
-    "ppc64le": 10.7
-   },
-   "sources": [
-    "https://files.pythonhosted.org/packages/source/t/tesserocr/tesserocr-2.11.0.tar.gz"
-   ],
-   "new_case": "make new-case CASE=python-tesserocr SOURCE=\"https://files.pythonhosted.org/packages/source/t/tesserocr/tesserocr-2.11.0.tar.gz\" ENV=py-power9",
-   "notes": []
-  },
   "netgen": {
    "group": "cause to confirm",
    "evidence": "9 numeric tests fail (assert approx)",
@@ -956,27 +891,6 @@
    "notes": [
     "openSUSE carries 13 patch(es): apply only those the x86_64 build needs, none for ppc64le"
    ]
-  },
-  "python-networkx": {
-   "group": "cause to confirm",
-   "evidence": "2 tests fail",
-   "cause_seen_in_log": false,
-   "env": "py-power9",
-   "version": "3.6.1",
-   "obs": {
-    "project": "devel:languages:python:numeric",
-    "rev": "df3ef4bbea2fd075c9e7d0f44d8c4f0c",
-    "ppc64le_log": "https://api.opensuse.org/public/build/devel:languages:python:numeric/openSUSE_Factory_PowerPC/ppc64le/python-networkx/_log"
-   },
-   "minutes": {
-    "x86_64": 7.0,
-    "ppc64le": 15.0
-   },
-   "sources": [
-    "https://files.pythonhosted.org/packages/source/n/networkx/networkx-3.6.1.tar.gz"
-   ],
-   "new_case": "make new-case CASE=python-networkx SOURCE=\"https://files.pythonhosted.org/packages/source/n/networkx/networkx-3.6.1.tar.gz\" ENV=py-power9",
-   "notes": []
   },
   "cadabra2": {
    "group": "cause to confirm",
@@ -1092,6 +1006,10 @@
   "spotifyd": "builds and passes on ppc64le from the upstream sources, with its default features and with the distribution's (alsa_backend, dbus_mpris, pulseaudio_backend): the aws-lc-sys failure on OBS, a warning made an error by the distribution's flags, does not reproduce",
   "jaq": "builds and passes its tests (jaq-core's among them) on ppc64le: the OBS failure does not reproduce",
   "taskwarrior": "the OBS failure comes from the spec (LDFLAGS=$LDFLAGS:\"-z noexecstack\"), not from the architecture; the recipe also needs cxxbridge-cmd, which Corrosion installs from crates.io",
-  "openomf": "its test program does not link from the upstream sources (null_audio_backend_* undefined, on any architecture), and the OBS failure (a test) shows no cause of the architecture"
+  "openomf": "its test program does not link from the upstream sources (null_audio_backend_* undefined, on any architecture), and the OBS failure (a test) shows no cause of the architecture",
+  "python-nanobind": "builds and passes its tests on ppc64le, Eigen's AltiVec test among them (the same Eigen 5.0.1 as OBS): the OBS failure, a warning made an error with the distribution's flags, does not reproduce",
+  "python-emcee": "its long double tests pass on ppc64le with conda-forge's NumPy (IBM double-double long double; the OBS failure may come from IEEE quad): it does not reproduce",
+  "python-tesserocr": "builds and passes its tests (test_recognize among them) on ppc64le: the OBS failure does not reproduce",
+  "python-networkx": "passes its tests on ppc64le: the OBS failure (2 tests) does not reproduce"
  }
 }

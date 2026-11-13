@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "xtensor-python",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "xtensor-python": "https://github.com/xtensor-stack/xtensor-python/archive/refs/tags/0.29.0/xtensor-python-0.29.0.tar.gz"
+    },
+    "version": "0.29.0"
+  },
+  "environment": "py-power9",
+  "version": 1
+}

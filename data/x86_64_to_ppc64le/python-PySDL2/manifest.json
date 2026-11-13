@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "python-PySDL2",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "pysdl2": "https://files.pythonhosted.org/packages/source/p/pysdl2/pysdl2-0.9.17.tar.gz"
+    },
+    "version": "0.9.17"
+  },
+  "environment": "py-power9",
+  "version": 1
+}
