@@ -148,7 +148,7 @@ exit 1
 
 def source_dir_name(url: str) -> str:
     """The directory a source archive is unpacked as: the project's name."""
-    parts = [p for p in urllib.parse.urlparse(url).path.split("/") if p]
+    parts = [p for p in urllib.parse.unquote(urllib.parse.urlparse(url).path).split("/") if p]
     if "archive" in parts:   # GitHub, GitLab: <owner>/<repo>/archive/<ref>.tar.gz
         before = [p for p in parts[:parts.index("archive")] if p != "-"]
         if before:
@@ -164,7 +164,7 @@ def source_dir_name(url: str) -> str:
 def version_of(url: str) -> str:
     found = re.search(r"(?:^|[-_/v])(\d+(?:\.\d+)+)(?:[-_.][0-9A-Za-z]+)*$",
                       re.sub(r"(\.tar)?\.(gz|xz|bz2|zst|tgz|txz|tbz2|zip|tar)$", "",
-                             urllib.parse.urlparse(url).path))
+                             urllib.parse.unquote(urllib.parse.urlparse(url).path)))
     return found.group(1) if found else ""
 
 
@@ -193,7 +193,9 @@ def fetch(case_dir: str, dirname: str, url: str) -> bool:
                     if info.external_attr >> 16 & 0o777:   # the modes zip keeps (executables)
                         os.chmod(path, info.external_attr >> 16 & 0o777)
         else:
-            subprocess.run(["tar", "-xf", archive, "-C", out], check=True)
+            with open(archive, "rb") as f:   # tar before 1.31 (RHEL 8's) does not recognize zstd
+                zstd = f.read(4) == b"\x28\xb5\x2f\xfd"
+            subprocess.run(["tar", *(["-I", "zstd"] if zstd else []), "-xf", archive, "-C", out], check=True)
         entries = os.listdir(out)
         # an archive of one directory (<project>-<version>/) is that directory
         top = os.path.join(out, entries[0]) if len(entries) == 1 else out
