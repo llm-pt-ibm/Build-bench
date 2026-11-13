@@ -1,6 +1,6 @@
 === the build succeeded; output of the acceptance test:
 === build environment: env
-environment c-power9 838dd5426a80 in /home/multiarq/.local/share/build-bench/envs/c-power9
+environment c-power9 60f318ec6cb4 in /home/multiarq/.local/share/build-bench/envs/c-power9
 PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/test/bin/python
 CC=gcc
 CXX=g++
@@ -25,7 +25,7 @@ Errors while running CTest
 
 67% tests passed, 1 tests failed out of 3
 
-Total Test time (real) =   0.04 sec
+Total Test time (real) =   0.05 sec
 
 The following tests FAILED:
 	  3 - SIMD_functions (Failed)

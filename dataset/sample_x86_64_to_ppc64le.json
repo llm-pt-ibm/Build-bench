@@ -386,7 +386,7 @@
   },
   "qcoan": {
    "group": "types and ABI",
-   "evidence": "the console makefile knows x86 and ARM only (it builds ppc64le with -m32); on OBS (qmake): narrowing of 65534 to echar, a short where char is unsigned",
+   "evidence": "the console makefile knows x86 and ARM only (\"unknown arch: powerpc64le\"); on OBS (qmake): narrowing of 65534 to echar, a short where char is unsigned",
    "cause_seen_in_log": true,
    "env": "c-power9",
    "version": "2.0",
@@ -1177,13 +1177,13 @@
  "dropped": {
   "libtls-ossl": "its tests fail on x86_64 as well (the openSUSE spec ignores them), and the OBS failure is of the packaging",
   "soapy-remote": "the OBS failure is rpmlint's (packaging), not of the build",
-  "vectorscan": "builds and passes its tests on ppc64le from the upstream sources with the environment's GCC 15 (baseline of 2026-11-12): the OBS failure (GCC 16, the distribution's flags) does not reproduce",
-  "ffcall": "builds and passes its tests on ppc64le from the upstream sources with the environment's GCC 15 (baseline of 2026-11-12): the OBS failure (GCC 16, the distribution's flags) does not reproduce",
-  "geos": "builds and passes its tests on ppc64le from the upstream sources with the environment's GCC 15 (baseline of 2026-11-12): the OBS failure (GCC 16, the distribution's flags) does not reproduce",
-  "blosc2": "builds and passes its tests on ppc64le from the upstream sources with the environment's GCC 15 (baseline of 2026-11-12): the OBS failure (GCC 16, the distribution's flags) does not reproduce",
-  "libcdada": "builds and passes its tests on ppc64le from the upstream sources with the environment's GCC 15 (baseline of 2026-11-12): the OBS failure (GCC 16, the distribution's flags) does not reproduce",
-  "ckermit": "builds and passes its tests on ppc64le from the upstream sources with the environment's GCC 15 (baseline of 2026-11-12): the OBS failure (GCC 16, the distribution's flags) does not reproduce",
-  "ctypes.sh": "builds and passes its test on ppc64le (built without struct support, as on OBS): the segfault of the OBS test does not reproduce",
-  "icinga2": "15 of its 255 tests fail in the container (the HTTP server tests: timeouts, a segfault, a symbol lookup error in libgcc_s), against 1 on OBS: the environment, not the architecture"
+  "icinga2": "15 of its 255 tests fail in the container (the HTTP server tests: timeouts, a segfault, a symbol lookup error in libgcc_s), against 1 on OBS: the environment, not the architecture",
+  "vectorscan": "builds and passes its tests on ppc64le from the upstream sources, with GCC 15 and with GCC 16 (baselines of 2026-11-12): the OBS failure does not reproduce",
+  "ffcall": "builds and passes its tests on ppc64le from the upstream sources, with GCC 15 and with GCC 16 (baselines of 2026-11-12): the OBS failure does not reproduce",
+  "geos": "builds and passes its tests on ppc64le from the upstream sources, with GCC 15 and with GCC 16 (baselines of 2026-11-12): the OBS failure does not reproduce",
+  "blosc2": "builds and passes its tests on ppc64le from the upstream sources, with GCC 15 and with GCC 16 (baselines of 2026-11-12): the OBS failure does not reproduce",
+  "libcdada": "builds and passes its tests on ppc64le from the upstream sources, with GCC 15 and with GCC 16 (baselines of 2026-11-12): the OBS failure does not reproduce",
+  "ckermit": "builds and passes its tests on ppc64le from the upstream sources, with GCC 15 and with GCC 16 (baselines of 2026-11-12): the OBS failure does not reproduce",
+  "ctypes.sh": "builds and passes its test (without struct support, as on OBS) on ppc64le from the upstream sources, with GCC 15 and with GCC 16 (baselines of 2026-11-12): the OBS failure does not reproduce"
  }
 }

@@ -1,6 +1,6 @@
 === the build succeeded; output of the acceptance test:
 === build environment: env
-environment c-power9 4e579032f8cb in /home/multiarq/.local/share/build-bench/envs/c-power9
+environment c-power9 60f318ec6cb4 in /home/multiarq/.local/share/build-bench/envs/c-power9
 PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/test/bin/python
 CC=gcc
 CXX=g++
@@ -8,7 +8,7 @@ CPATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/include
 LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
 PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/c-power9/build/share/pkgconfig
 CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build
-LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
 BENCH_CACHE_DIR=/home/multiarq/yalle/stage/iprange/cache (build state of this run); BENCH_SHARED_CACHE_DIR= (shared caches)
 === build host: ppc64le, 160 cpus, 94 jobs
 === running /home/multiarq/yalle/build-bench/acceptance/x86_64_to_ppc64le/iprange.sh
@@ -328,8 +328,8 @@ Total tests: 100
 [0;32mPassed tests: 99[0m
 [0;31mFailed tests: 1[0m
 make[2]: Leaving directory '/home/multiarq/yalle/build-bench/temp_workspace/iprange/iprange'
-make[1]: Leaving directory '/home/multiarq/yalle/build-bench/temp_workspace/iprange/iprange'
-make: Leaving directory '/home/multiarq/yalle/build-bench/temp_workspace/iprange/iprange'
 make[2]: *** [Makefile:1178: check-local] Error 1
+make[1]: Leaving directory '/home/multiarq/yalle/build-bench/temp_workspace/iprange/iprange'
 make[1]: *** [Makefile:972: check-am] Error 2
 make: *** [Makefile:974: check] Error 2
+make: Leaving directory '/home/multiarq/yalle/build-bench/temp_workspace/iprange/iprange'

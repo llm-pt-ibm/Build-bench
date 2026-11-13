@@ -1,6 +1,6 @@
 === network: through the build host's proxy, which logs every connection
 === build environment: env
-environment c-power9 4e579032f8cb in /home/multiarq/.local/share/build-bench/envs/c-power9
+environment c-power9 60f318ec6cb4 in /home/multiarq/.local/share/build-bench/envs/c-power9
 PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/test/bin/python
 CC=gcc
 CXX=g++
@@ -8,7 +8,7 @@ CPATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/include
 LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
 PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/c-power9/build/share/pkgconfig
 CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build
-LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
 BENCH_CACHE_DIR=/home/multiarq/yalle/stage/dav2d/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/dav2d/shared (shared caches)
 === build host: ppc64le, 160 cpus, 94 jobs
 === running ./build.sh
@@ -19,7 +19,7 @@ Build dir: /home/multiarq/yalle/build-bench/temp_workspace/dav2d/dav2d/build
 Build type: native build
 Project name: dav2d
 Project version: 0.1.0
-C compiler for the host machine: gcc (gcc 15.2.0 "gcc (conda-forge gcc 15.2.0-20) 15.2.0")
+C compiler for the host machine: gcc (gcc 16.2.0 "gcc (conda-forge gcc 16.2.0-7) 16.2.0")
 C linker for the host machine: gcc ld.bfd 2.46.1
 Host machine cpu family: ppc64
 Host machine cpu: ppc64le
@@ -94,10 +94,12 @@ Found ninja-1.13.2 at /home/multiarq/.local/share/build-bench/envs/c-power9/buil
 ninja: Entering directory `/home/multiarq/yalle/build-bench/temp_workspace/dav2d/dav2d/build'
 [1/101] Compiling C object tests/version.h_test.p/header_test.c.o
 [2/101] Compiling C object tests/headers.h_test.p/header_test.c.o
-[3/101] Compiling C object tests/common.h_test.p/header_test.c.o
-[4/101] Compiling C object tools/libdav2d_output.a.p/output_null.c.o
-[5/101] Compiling C object tests/data.h_test.p/header_test.c.o
-[6/101] Compiling C object src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_mc_tmpl.c.o
+[3/101] Compiling C object tests/data.h_test.p/header_test.c.o
+[4/101] Compiling C object tests/common.h_test.p/header_test.c.o
+[5/101] Compiling C object tests/dav2d.h_test.p/header_test.c.o
+[6/101] Compiling C object tests/picture.h_test.p/header_test.c.o
+[7/101] Compiling C object tools/libdav2d_output.a.p/output_null.c.o
+[8/101] Compiling C object src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_mc_tmpl.c.o
 FAILED: [code=1] src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_mc_tmpl.c.o 
 gcc -Isrc/libdav2d_arch_bitdepth_16_pwr9.a.p -Isrc -I../src -I. -I.. -Iinclude/dav2d -I../include/dav2d -Iinclude -I../include -fdiagnostics-color=always -DNDEBUG -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=c99 -O3 -D_GNU_SOURCE -fvisibility=hidden -Wundef -Werror=vla -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wstrict-prototypes -Werror=missing-prototypes -fomit-frame-pointer -ffast-math -fPIC -DBITDEPTH=16 -mcpu=power9 -DDAV2D_PWR9 -MD -MQ src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_mc_tmpl.c.o -MF src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_mc_tmpl.c.o.d -o src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_mc_tmpl.c.o -c ../src/ppc/mc_tmpl.c
 In file included from ../src/ppc/mc_tmpl.c:29:
@@ -111,8 +113,6 @@ In file included from ../src/ppc/mc_tmpl.c:29:
       | ^~~~~~~~~~~~~~~~~
 ../src/ppc/mc.h:33:1: error: type defaults to 'int' in declaration of 'decl_blend_dir_fn' [-Wimplicit-int]
 ../src/ppc/mc.h:33:1: error: parameter names (without types) in function declaration [-Wdeclaration-missing-parameter-type]
-[7/101] Compiling C object tests/dav2d.h_test.p/header_test.c.o
-[8/101] Compiling C object tests/picture.h_test.p/header_test.c.o
 [9/101] Compiling C object src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_itx_tmpl.c.o
 FAILED: [code=1] src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_itx_tmpl.c.o 
 gcc -Isrc/libdav2d_arch_bitdepth_16_pwr9.a.p -Isrc -I../src -I. -I.. -Iinclude/dav2d -I../include/dav2d -Iinclude -I../include -fdiagnostics-color=always -DNDEBUG -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=c99 -O3 -D_GNU_SOURCE -fvisibility=hidden -Wundef -Werror=vla -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wstrict-prototypes -Werror=missing-prototypes -fomit-frame-pointer -ffast-math -fPIC -DBITDEPTH=16 -mcpu=power9 -DDAV2D_PWR9 -MD -MQ src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_itx_tmpl.c.o -MF src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_itx_tmpl.c.o.d -o src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_itx_tmpl.c.o -c ../src/ppc/itx_tmpl.c
@@ -268,17 +268,17 @@ In file included from ../src/ppc/itx_tmpl.c:29:
       | ^~~~~~~~~~~
 ../src/ppc/itx.h:50:1: error: type defaults to 'int' in declaration of 'decl_itx_fn' [-Wimplicit-int]
 ../src/ppc/itx.h:50:1: error: parameter names (without types) in function declaration [-Wdeclaration-missing-parameter-type]
-[10/101] Compiling C object src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_loopfilter_tmpl.c.o
-FAILED: [code=1] src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_loopfilter_tmpl.c.o 
-gcc -Isrc/libdav2d_arch_bitdepth_8_pwr9.a.p -Isrc -I../src -I. -I.. -Iinclude/dav2d -I../include/dav2d -Iinclude -I../include -fdiagnostics-color=always -DNDEBUG -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=c99 -O3 -D_GNU_SOURCE -fvisibility=hidden -Wundef -Werror=vla -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wstrict-prototypes -Werror=missing-prototypes -fomit-frame-pointer -ffast-math -fPIC -DBITDEPTH=8 -mcpu=power9 -DDAV2D_PWR9 -MD -MQ src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_loopfilter_tmpl.c.o -MF src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_loopfilter_tmpl.c.o.d -o src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_loopfilter_tmpl.c.o -c ../src/ppc/loopfilter_tmpl.c
+[10/101] Linking target tests/version.h_test
+[11/101] Compiling C object src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_loopfilter_tmpl.c.o
+FAILED: [code=1] src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_loopfilter_tmpl.c.o 
+gcc -Isrc/libdav2d_arch_bitdepth_16_pwr9.a.p -Isrc -I../src -I. -I.. -Iinclude/dav2d -I../include/dav2d -Iinclude -I../include -fdiagnostics-color=always -DNDEBUG -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=c99 -O3 -D_GNU_SOURCE -fvisibility=hidden -Wundef -Werror=vla -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wstrict-prototypes -Werror=missing-prototypes -fomit-frame-pointer -ffast-math -fPIC -DBITDEPTH=16 -mcpu=power9 -DDAV2D_PWR9 -MD -MQ src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_loopfilter_tmpl.c.o -MF src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_loopfilter_tmpl.c.o.d -o src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_loopfilter_tmpl.c.o -c ../src/ppc/loopfilter_tmpl.c
 ../src/ppc/loopfilter_tmpl.c:40:10: fatal error: src/ppc/loopfilter.h: No such file or directory
    40 | #include "src/ppc/loopfilter.h"
       |          ^~~~~~~~~~~~~~~~~~~~~~
 compilation terminated.
-[11/101] Linking target tests/version.h_test
-[12/101] Compiling C object src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_loopfilter_tmpl.c.o
-FAILED: [code=1] src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_loopfilter_tmpl.c.o 
-gcc -Isrc/libdav2d_arch_bitdepth_16_pwr9.a.p -Isrc -I../src -I. -I.. -Iinclude/dav2d -I../include/dav2d -Iinclude -I../include -fdiagnostics-color=always -DNDEBUG -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=c99 -O3 -D_GNU_SOURCE -fvisibility=hidden -Wundef -Werror=vla -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wstrict-prototypes -Werror=missing-prototypes -fomit-frame-pointer -ffast-math -fPIC -DBITDEPTH=16 -mcpu=power9 -DDAV2D_PWR9 -MD -MQ src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_loopfilter_tmpl.c.o -MF src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_loopfilter_tmpl.c.o.d -o src/libdav2d_arch_bitdepth_16_pwr9.a.p/ppc_loopfilter_tmpl.c.o -c ../src/ppc/loopfilter_tmpl.c
+[12/101] Compiling C object src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_loopfilter_tmpl.c.o
+FAILED: [code=1] src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_loopfilter_tmpl.c.o 
+gcc -Isrc/libdav2d_arch_bitdepth_8_pwr9.a.p -Isrc -I../src -I. -I.. -Iinclude/dav2d -I../include/dav2d -Iinclude -I../include -fdiagnostics-color=always -DNDEBUG -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=c99 -O3 -D_GNU_SOURCE -fvisibility=hidden -Wundef -Werror=vla -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wstrict-prototypes -Werror=missing-prototypes -fomit-frame-pointer -ffast-math -fPIC -DBITDEPTH=8 -mcpu=power9 -DDAV2D_PWR9 -MD -MQ src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_loopfilter_tmpl.c.o -MF src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_loopfilter_tmpl.c.o.d -o src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_loopfilter_tmpl.c.o -c ../src/ppc/loopfilter_tmpl.c
 ../src/ppc/loopfilter_tmpl.c:40:10: fatal error: src/ppc/loopfilter.h: No such file or directory
    40 | #include "src/ppc/loopfilter.h"
       |          ^~~~~~~~~~~~~~~~~~~~~~
@@ -312,8 +312,6 @@ In file included from ../src/mc.h:34,
    52 | #define BF(x, suffix) x##_8bpc_##suffix
       |                       ^
 ../src/ppc/mc.h:42:19: note: each undeclared identifier is reported only once for each function it appears in
-   42 |   c->blend_h = BF(dav2d_blend_h, pwr9);
-      |                   ^~~~~~~~~~~~~
 ../include/common/bitdepth.h:52:23: note: in definition of macro 'BF'
    52 | #define BF(x, suffix) x##_8bpc_##suffix
       |                       ^
@@ -347,37 +345,34 @@ In file included from ../src/mc.h:34,
       |                            dav2d_subset_masks_y
 cc1: some warnings being treated as errors
 [15/101] Linking target tests/headers.h_test
-[16/101] Linking target tests/common.h_test
-[17/101] Linking target tests/data.h_test
+[16/101] Linking target tests/data.h_test
+[17/101] Linking target tests/common.h_test
 [18/101] Compiling C object src/libdav2d_arch_bitdepth_16_vsx.a.p/ppc_cdef_tmpl.c.o
-[19/101] Compiling C object tests/libfuzzer/dav2d_fuzzer.p/main.c.o
-[20/101] Compiling C object tests/libfuzzer/dav2d_fuzzer_mt.p/main.c.o
-[21/101] Compiling C object tools/libdav2d_output.a.p/output_yuv.c.o
-[22/101] Compiling C object tools/libdav2d_input.a.p/input_input.c.o
-[23/101] Compiling C object tests/libfuzzer/dav2d_fuzzer_mt.p/dav2d_fuzzer.c.o
-[24/101] Compiling C object tools/libdav2d_output.a.p/output_y4m2.c.o
-[25/101] Compiling C object src/libdav2d_bitdepth_8.a.p/stx_tmpl.c.o
-[26/101] Compiling C object src/libdav2d_bitdepth_16.a.p/stx_tmpl.c.o
-[27/101] Compiling C object tests/libfuzzer/dav2d_fuzzer.p/dav2d_fuzzer.c.o
-[28/101] Compiling C object tools/libdav2d_input.a.p/input_section5.c.o
+[19/101] Linking target tests/dav2d.h_test
+[20/101] Linking target tests/picture.h_test
+[21/101] Compiling C object tests/libfuzzer/dav2d_fuzzer_mt.p/dav2d_fuzzer.c.o
+[22/101] Compiling C object tools/libdav2d_output.a.p/output_y4m2.c.o
+[23/101] Compiling C object tests/libfuzzer/dav2d_fuzzer.p/main.c.o
+[24/101] Compiling C object tests/libfuzzer/dav2d_fuzzer_mt.p/main.c.o
+[25/101] Compiling C object tests/libfuzzer/dav2d_fuzzer.p/dav2d_fuzzer.c.o
+[26/101] Compiling C object tools/libdav2d_output.a.p/output_yuv.c.o
+[27/101] Compiling C object src/libdav2d_bitdepth_16.a.p/stx_tmpl.c.o
+[28/101] Compiling C object tools/libdav2d_input.a.p/input_input.c.o
 [29/101] Compiling C object tools/libdav2d_input.a.p/input_ivf.c.o
-[30/101] Compiling C object src/libdav2d_bitdepth_8.a.p/ccso_tmpl.c.o
-[31/101] Compiling C object src/libdav2d_bitdepth_8.a.p/fg_apply_tmpl.c.o
-[32/101] Compiling C object src/libdav2d_bitdepth_16.a.p/ccso_tmpl.c.o
+[30/101] Compiling C object src/libdav2d_bitdepth_8.a.p/stx_tmpl.c.o
+[31/101] Compiling C object tools/libdav2d_input.a.p/input_section5.c.o
+[32/101] Compiling C object tools/libdav2d_output.a.p/output_md5.c.o
 [33/101] Compiling C object tools/libdav2d_output.a.p/output_output.c.o
-[34/101] Compiling C object src/libdav2d_bitdepth_16.a.p/fg_apply_tmpl.c.o
-[35/101] Compiling C object tools/libdav2d_output.a.p/output_md5.c.o
+[34/101] Compiling C object src/libdav2d_bitdepth_16.a.p/ccso_tmpl.c.o
+[35/101] Compiling C object src/libdav2d_bitdepth_16.a.p/fg_apply_tmpl.c.o
 [36/101] Compiling C object tools/libdav2d_input.a.p/input_annexb.c.o
 [37/101] Compiling C object src/libdav2d_bitdepth_8.a.p/cdef_tmpl.c.o
-[38/101] Compiling C object src/libdav2d_bitdepth_8.a.p/lr_apply_tmpl.c.o
-[39/101] Compiling C object src/libdav2d_bitdepth_16.a.p/ipred_prepare_tmpl.c.o
-[40/101] Compiling C object src/libdav2d_bitdepth_8.a.p/deblock_tmpl.c.o
-[41/101] Compiling C object src/libdav2d_bitdepth_8.a.p/ipred_prepare_tmpl.c.o
-[42/101] Compiling C object src/libdav2d_bitdepth_16.a.p/cdef_apply_tmpl.c.o
-[43/101] Compiling C object src/libdav2d_bitdepth_8.a.p/cdef_apply_tmpl.c.o
-[44/101] Compiling C object src/libdav2d_bitdepth_8.a.p/filmgrain_tmpl.c.o
-[45/101] Compiling C object src/libdav2d_bitdepth_16.a.p/lr_apply_tmpl.c.o
-[46/101] Compiling C object src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_itx_tmpl.c.o
+[38/101] Compiling C object src/libdav2d_bitdepth_8.a.p/ccso_tmpl.c.o
+[39/101] Compiling C object src/libdav2d_bitdepth_8.a.p/fg_apply_tmpl.c.o
+[40/101] Compiling C object src/libdav2d_bitdepth_8.a.p/cdef_apply_tmpl.c.o
+[41/101] Compiling C object src/libdav2d_bitdepth_8.a.p/lr_apply_tmpl.c.o
+[42/101] Compiling C object src/libdav2d_bitdepth_16.a.p/ipred_prepare_tmpl.c.o
+[43/101] Compiling C object src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_itx_tmpl.c.o
 FAILED: [code=1] src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_itx_tmpl.c.o 
 gcc -Isrc/libdav2d_arch_bitdepth_8_pwr9.a.p -Isrc -I../src -I. -I.. -Iinclude/dav2d -I../include/dav2d -Iinclude -I../include -fdiagnostics-color=always -DNDEBUG -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -Wextra -std=c99 -O3 -D_GNU_SOURCE -fvisibility=hidden -Wundef -Werror=vla -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-unused-parameter -Wstrict-prototypes -Werror=missing-prototypes -fomit-frame-pointer -ffast-math -fPIC -DBITDEPTH=8 -mcpu=power9 -DDAV2D_PWR9 -MD -MQ src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_itx_tmpl.c.o -MF src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_itx_tmpl.c.o.d -o src/libdav2d_arch_bitdepth_8_pwr9.a.p/ppc_itx_tmpl.c.o -c ../src/ppc/itx_tmpl.c
 In file included from ../src/ppc/itx_tmpl.c:29:
@@ -1117,22 +1112,35 @@ In file included from ../src/ppc/itx_tmpl.c:29:
  2004 | inv_txfm_fn16x4_identity(flipadst)
       | ^~~~~~~~~~~~~~~~~~~~~~~~
 cc1: some warnings being treated as errors
-[47/101] Compiling C object src/libdav2d_bitdepth_16.a.p/deblock_tmpl.c.o
-[48/101] Compiling C object src/libdav2d_bitdepth_16.a.p/filmgrain_tmpl.c.o
+[44/101] Compiling C object src/libdav2d_bitdepth_16.a.p/cdef_apply_tmpl.c.o
+[45/101] Compiling C object src/libdav2d_bitdepth_16.a.p/lr_apply_tmpl.c.o
+[46/101] Compiling C object src/libdav2d_bitdepth_8.a.p/ipred_prepare_tmpl.c.o
+[47/101] Compiling C object src/libdav2d_bitdepth_16.a.p/filmgrain_tmpl.c.o
+[48/101] Compiling C object src/libdav2d_bitdepth_16.a.p/deblock_tmpl.c.o
 [49/101] Compiling C object src/libdav2d_bitdepth_16.a.p/itx_tmpl.c.o
-[50/101] Compiling C object src/libdav2d_bitdepth_8.a.p/itx_tmpl.c.o
-[51/101] Compiling C object src/libdav2d_bitdepth_16.a.p/cdef_tmpl.c.o
-[52/101] Compiling C object src/libdav2d_arch_bitdepth_8_vsx.a.p/ppc_cdef_tmpl.c.o
-[53/101] Compiling C object src/libdav2d_bitdepth_8.a.p/db_apply_tmpl.c.o
-[54/101] Compiling C object src/libdav2d_bitdepth_16.a.p/db_apply_tmpl.c.o
-[55/101] Compiling C object src/libdav2d_bitdepth_8.a.p/looprestoration_tmpl.c.o
-[56/101] Compiling C object src/libdav2d_bitdepth_16.a.p/looprestoration_tmpl.c.o
-[57/101] Compiling C object src/libdav2d_bitdepth_8.a.p/ipred_tmpl.c.o
-[58/101] Compiling C object src/libdav2d_bitdepth_16.a.p/ipred_tmpl.c.o
+[50/101] Compiling C object src/libdav2d_bitdepth_8.a.p/filmgrain_tmpl.c.o
+[51/101] Compiling C object src/libdav2d_bitdepth_8.a.p/deblock_tmpl.c.o
+[52/101] Compiling C object src/libdav2d_bitdepth_16.a.p/cdef_tmpl.c.o
+[53/101] Compiling C object src/libdav2d_arch_bitdepth_8_vsx.a.p/ppc_cdef_tmpl.c.o
+[54/101] Compiling C object src/libdav2d_bitdepth_8.a.p/itx_tmpl.c.o
+[55/101] Compiling C object src/libdav2d_bitdepth_8.a.p/db_apply_tmpl.c.o
+[56/101] Compiling C object src/libdav2d_bitdepth_16.a.p/db_apply_tmpl.c.o
+[57/101] Compiling C object src/libdav2d_bitdepth_8.a.p/looprestoration_tmpl.c.o
+[58/101] Compiling C object src/libdav2d_bitdepth_16.a.p/looprestoration_tmpl.c.o
 [59/101] Compiling C object src/libdav2d_bitdepth_16.a.p/mc_tmpl.c.o
 [60/101] Compiling C object src/libdav2d_bitdepth_8.a.p/mc_tmpl.c.o
-[61/101] Compiling C object src/libdav2d_bitdepth_8.a.p/recon_tmpl.c.o
-[62/101] Compiling C object src/libdav2d_bitdepth_16.a.p/recon_tmpl.c.o
+[61/101] Compiling C object src/libdav2d_bitdepth_16.a.p/ipred_tmpl.c.o
+[62/101] Compiling C object src/libdav2d_bitdepth_8.a.p/ipred_tmpl.c.o
+[63/101] Compiling C object src/libdav2d_bitdepth_16.a.p/recon_tmpl.c.o
+../src/recon_tmpl.c: In function 'tip_pred':
+../src/recon_tmpl.c:2058:21: warning: variable 'yy' set but not used [-Wunused-but-set-variable=]
+ 2058 |     for (int y = 0, yy = 0; y < h4; y += step, yy++, rmv_line += 16 * step >> 1) {
+      |                     ^~
+[64/101] Compiling C object src/libdav2d_bitdepth_8.a.p/recon_tmpl.c.o
+../src/recon_tmpl.c: In function 'tip_pred':
+../src/recon_tmpl.c:2058:21: warning: variable 'yy' set but not used [-Wunused-but-set-variable=]
+ 2058 |     for (int y = 0, yy = 0; y < h4; y += step, yy++, rmv_line += 16 * step >> 1) {
+      |                     ^~
 ninja: build stopped: subcommand failed.
 INFO: autodetecting backend as ninja
 INFO: calculating backend command to run: /home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/ninja -C /home/multiarq/yalle/build-bench/temp_workspace/dav2d/dav2d/build -j 94

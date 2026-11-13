@@ -1,6 +1,6 @@
 === the build succeeded; output of the acceptance test:
 === build environment: env
-environment c-power9 838dd5426a80 in /home/multiarq/.local/share/build-bench/envs/c-power9
+environment c-power9 60f318ec6cb4 in /home/multiarq/.local/share/build-bench/envs/c-power9
 PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/test/bin/python
 CC=gcc
 CXX=g++
@@ -16,7 +16,7 @@ BENCH_CACHE_DIR=/home/multiarq/yalle/stage/bash-completion-doc/cache (build stat
 =================================== FAILURES ===================================
 ______________________________ TestGcc.test_march ______________________________
 
-self = <test_gcc.TestGcc object at 0x7fffafbeeae0>
+self = <test_gcc.TestGcc object at 0x7fffaf706a80>
 completion = <CompletionResult []>, gcc_with_completion = None
 
     @pytest.mark.complete("gcc -march=")
@@ -28,7 +28,7 @@ completion = <CompletionResult []>, gcc_with_completion = None
             x.startswith("power") for x in completion
         )
 E       AssertionError: assert ('native' in <CompletionResult []> or False)
-E        +  where False = any(<generator object TestGcc.test_march.<locals>.<genexpr> at 0x7fffafddbed0>)
+E        +  where False = any(<generator object TestGcc.test_march.<locals>.<genexpr> at 0x7fffaf4dbed0>)
 
 /home/multiarq/yalle/build-bench/temp_workspace/bash-completion-doc/bash-completion/test/t/test_gcc.py:63: AssertionError
 =============================== warnings summary ===============================
@@ -51,4 +51,4 @@ t/test_gcc.py::TestGcc::test_march_amd
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 =========================== short test summary info ============================
 FAILED t/test_gcc.py::TestGcc::test_march - AssertionError: assert ('native' ...
-1 failed, 8 passed, 1 skipped, 2 warnings in 1.40s
+1 failed, 8 passed, 1 skipped, 2 warnings in 1.44s

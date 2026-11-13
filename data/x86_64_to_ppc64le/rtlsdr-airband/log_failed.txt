@@ -1,6 +1,6 @@
 === network: through the build host's proxy, which logs every connection
 === build environment: env
-environment c-power9 838dd5426a80 in /home/multiarq/.local/share/build-bench/envs/c-power9
+environment c-power9 60f318ec6cb4 in /home/multiarq/.local/share/build-bench/envs/c-power9
 PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/test/bin/python
 CC=gcc
 CXX=g++
@@ -12,7 +12,7 @@ LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power
 BENCH_CACHE_DIR=/home/multiarq/yalle/stage/rtlsdr-airband/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/rtlsdr-airband/shared (shared caches)
 === build host: ppc64le, 160 cpus, 94 jobs
 === running ./build.sh
--- The CXX compiler identification is GNU 15.2.0
+-- The CXX compiler identification is GNU 16.2.0
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
 -- Check for working CXX compiler: /home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/g++ - skipped
@@ -58,10 +58,10 @@ BENCH_CACHE_DIR=/home/multiarq/yalle/stage/rtlsdr-airband/cache (build state of 
 -- Checking for module 'libpulse'
 --   No package 'libpulse' found
 -- Performing Test CXX_HAS_MARCH_NATIVE
+-- Performing Test CXX_HAS_MARCH_NATIVE - Failed
 CMake Error at src/CMakeLists.txt:208 (message):
   Cannot build with PLATFORM=native: the compiler does not support
   -march=native option
 
 
--- Performing Test CXX_HAS_MARCH_NATIVE - Failed
 -- Configuring incomplete, errors occurred!

@@ -1,6 +1,6 @@
 === network: through the build host's proxy, which logs every connection
 === build environment: env
-environment c-power9 4e579032f8cb in /home/multiarq/.local/share/build-bench/envs/c-power9
+environment c-power9 60f318ec6cb4 in /home/multiarq/.local/share/build-bench/envs/c-power9
 PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/test/bin/python
 CC=gcc
 CXX=g++
@@ -8,7 +8,7 @@ CPATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/include
 LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
 PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/c-power9/build/share/pkgconfig
 CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build
-LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
 BENCH_CACHE_DIR=/home/multiarq/yalle/stage/connman/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/connman/shared (shared caches)
 === build host: ppc64le, 160 cpus, 94 jobs
 === running ./build.sh
@@ -55,15 +55,15 @@ checking for a sed that does not truncate output... /usr/bin/sed
 checking for grep that handles long lines and -e... /usr/bin/grep
 checking for egrep... /usr/bin/grep -E
 checking for fgrep... /usr/bin/grep -F
-checking for ld used by gcc... /home/multiarq/.local/share/build-bench/envs/c-power9/build/libexec/gcc/powerpc64le-conda-linux-gnu/15.2.0/ld
-checking if the linker (/home/multiarq/.local/share/build-bench/envs/c-power9/build/libexec/gcc/powerpc64le-conda-linux-gnu/15.2.0/ld) is GNU ld... yes
+checking for ld used by gcc... /home/multiarq/.local/share/build-bench/envs/c-power9/build/libexec/gcc/powerpc64le-conda-linux-gnu/16.2.0/ld
+checking if the linker (/home/multiarq/.local/share/build-bench/envs/c-power9/build/libexec/gcc/powerpc64le-conda-linux-gnu/16.2.0/ld) is GNU ld... yes
 checking for BSD- or MS-compatible name lister (nm)... /usr/bin/nm -B
 checking the name lister (/usr/bin/nm -B) interface... BSD nm
 checking whether ln -s works... yes
 checking the maximum length of command line arguments... 1572864
 checking how to convert powerpc64le-unknown-linux-gnu file names to powerpc64le-unknown-linux-gnu format... func_convert_file_noop
 checking how to convert powerpc64le-unknown-linux-gnu file names to toolchain format... func_convert_file_noop
-checking for /home/multiarq/.local/share/build-bench/envs/c-power9/build/libexec/gcc/powerpc64le-conda-linux-gnu/15.2.0/ld option to reload object files... -r
+checking for /home/multiarq/.local/share/build-bench/envs/c-power9/build/libexec/gcc/powerpc64le-conda-linux-gnu/16.2.0/ld option to reload object files... -r
 checking for file... file
 checking for objdump... objdump
 checking how to recognize dependent libraries... pass_all
@@ -87,7 +87,7 @@ checking if gcc PIC flag -fPIC -DPIC works... yes
 checking if gcc static flag -static works... yes
 checking if gcc supports -c -o file.o... yes
 checking if gcc supports -c -o file.o... (cached) yes
-checking whether the gcc linker (/home/multiarq/.local/share/build-bench/envs/c-power9/build/libexec/gcc/powerpc64le-conda-linux-gnu/15.2.0/ld) supports shared libraries... yes
+checking whether the gcc linker (/home/multiarq/.local/share/build-bench/envs/c-power9/build/libexec/gcc/powerpc64le-conda-linux-gnu/16.2.0/ld) supports shared libraries... yes
 checking whether -lc should be explicitly linked in... no
 checking dynamic linker characteristics... GNU/Linux ld.so
 checking how to hardcode library paths into programs... immediate
@@ -171,32 +171,32 @@ make --no-print-directory all-am
   CC       src/shared/tools_dnsproxy_standalone-util.o
   CC       src/shared/tools_dnsproxy_standalone-arp.o
   CC       src/tools_dnsproxy_standalone-main.o
-  CC       src/tools_dnsproxy_standalone-error.o
   CC       src/tools_dnsproxy_standalone-log.o
+  CC       src/tools_dnsproxy_standalone-error.o
   CC       src/tools_dnsproxy_standalone-plugin.o
   CC       src/tools_dnsproxy_standalone-task.o
   CC       src/tools_dnsproxy_standalone-device.o
   CC       src/tools_dnsproxy_standalone-network.o
   CC       src/tools_dnsproxy_standalone-connection.o
   CC       src/tools_dnsproxy_standalone-manager.o
-  CC       src/tools_dnsproxy_standalone-service.o
   CC       src/tools_dnsproxy_standalone-clock.o
+  CC       src/tools_dnsproxy_standalone-service.o
   CC       src/tools_dnsproxy_standalone-timezone.o
   CC       src/tools_dnsproxy_standalone-agent-connman.o
   CC       src/tools_dnsproxy_standalone-agent.o
   CC       src/tools_dnsproxy_standalone-notifier.o
   CC       src/tools_dnsproxy_standalone-provider.o
-  CC       src/tools_dnsproxy_standalone-ipconfig.o
   CC       src/tools_dnsproxy_standalone-resolver.o
   CC       src/tools_dnsproxy_standalone-detect.o
-  CC       src/tools_dnsproxy_standalone-inet.o
+  CC       src/tools_dnsproxy_standalone-ipconfig.o
   CC       src/tools_dnsproxy_standalone-dhcp.o
+  CC       src/tools_dnsproxy_standalone-inet.o
   CC       src/tools_dnsproxy_standalone-dhcpv6.o
   CC       src/tools_dnsproxy_standalone-rtnl.o
   CC       src/tools_dnsproxy_standalone-proxy.o
-  CC       src/tools_dnsproxy_standalone-timeserver.o
   CC       src/tools_dnsproxy_standalone-utsname.o
   CC       src/tools_dnsproxy_standalone-rfkill.o
+  CC       src/tools_dnsproxy_standalone-timeserver.o
   CC       src/tools_dnsproxy_standalone-storage.o
   CC       src/tools_dnsproxy_standalone-dbus.o
   CC       src/tools_dnsproxy_standalone-config.o
@@ -204,57 +204,57 @@ make --no-print-directory all-am
   CC       src/tools_dnsproxy_standalone-counter.o
   CC       src/tools_dnsproxy_standalone-ntp.o
   CC       src/tools_dnsproxy_standalone-session.o
+  CC       src/tools_dnsproxy_standalone-wpad.o
   CC       src/tools_dnsproxy_standalone-tethering.o
   CC       src/tools_dnsproxy_standalone-wispr.o
-  CC       src/tools_dnsproxy_standalone-wpad.o
-  CC       src/tools_dnsproxy_standalone-ippool.o
   CC       src/tools_dnsproxy_standalone-6to4.o
   CC       src/tools_dnsproxy_standalone-bridge.o
-  CC       src/tools_dnsproxy_standalone-ipaddress.o
+  CC       src/tools_dnsproxy_standalone-ippool.o
   CC       src/tools_dnsproxy_standalone-nat.o
+  CC       src/tools_dnsproxy_standalone-ipaddress.o
   CC       src/tools_dnsproxy_standalone-inotify.o
   CC       src/tools_dnsproxy_standalone-ipv6pd.o
   CC       src/tools_dnsproxy_standalone-peer.o
   CC       src/tools_dnsproxy_standalone-peer_service.o
   CC       src/tools_dnsproxy_standalone-machine.o
-  CC       src/tools_dnsproxy_standalone-util.o
-  CC       src/tools_dnsproxy_standalone-dnsproxy.o
   CC       src/tools_dnsproxy_standalone-acd.o
+  CC       src/tools_dnsproxy_standalone-util.o
   CC       src/tools_dnsproxy_standalone-firewall-nftables.o
+  CC       src/tools_dnsproxy_standalone-dnsproxy.o
   CC       gdhcp/src_connmand-common.o
   CC       gdhcp/src_connmand-client.o
   CC       gdhcp/src_connmand-server.o
   CC       gweb/src_connmand-gweb.o
-  CC       gweb/src_connmand-gresolv.o
   CC       gweb/src_connmand-giognutls.o
+  CC       gweb/src_connmand-gresolv.o
   CC       src/connmand-stats.o
   CC       src/connmand-backtrace.o
   CC       plugins/src_connmand-loopback.o
-  CC       plugins/src_connmand-ethernet.o
   CC       plugins/src_connmand-gadget.o
+  CC       plugins/src_connmand-ethernet.o
   CC       plugins/src_connmand-wifi.o
   CC       gsupplicant/src_connmand-supplicant.o
   CC       gsupplicant/src_connmand-dbus.o
-  CC       plugins/src_connmand-ofono.o
   CC       plugins/src_connmand-bluetooth.o
-  CC       plugins/src_connmand-vpn.o
+  CC       plugins/src_connmand-ofono.o
   CC       plugins/src_connmand-dundee.o
+  CC       plugins/src_connmand-vpn.o
   CC       plugins/src_connmand-pacrunner.o
   CC       plugins/src_connmand-neard.o
-  CC       src/shared/connmand-util.o
   CC       src/shared/connmand-arp.o
+  CC       src/shared/connmand-util.o
   CC       src/connmand-main.o
-  CC       src/connmand-log.o
   CC       src/connmand-error.o
+  CC       src/connmand-log.o
   CC       src/connmand-plugin.o
   CC       src/connmand-task.o
   CC       src/connmand-device.o
-  CC       src/connmand-network.o
-  CC       src/connmand-connection.o
   CC       src/connmand-manager.o
+  CC       src/connmand-network.o
   CC       src/connmand-service.o
-  CC       src/connmand-clock.o
+  CC       src/connmand-connection.o
   CC       src/connmand-timezone.o
+  CC       src/connmand-clock.o
   CC       src/connmand-agent-connman.o
   CC       src/connmand-agent.o
   CC       src/connmand-notifier.o
@@ -282,8 +282,8 @@ make --no-print-directory all-am
   CC       src/connmand-wispr.o
   CC       src/connmand-6to4.o
   CC       src/connmand-ippool.o
-  CC       src/connmand-bridge.o
   CC       src/connmand-nat.o
+  CC       src/connmand-bridge.o
   CC       src/connmand-ipaddress.o
   CC       src/connmand-inotify.o
   CC       src/connmand-ipv6pd.o
@@ -326,14 +326,14 @@ make --no-print-directory all-am
   GEN      doc/connman-service.config.5
   GEN      doc/connman-vpn.conf.5
   GEN      doc/connman-vpn-provider.config.5
-  GEN      src/connman.conf
   GEN      doc/connman.8
+  GEN      src/connman.conf
   GEN      vpn/connman-vpn-dbus.conf
   GEN      doc/connman-vpn.8
   CC       client/dbus_helpers.o
   CC       client/services.o
-  CC       client/input.o
   CC       client/commands.o
+  CC       client/input.o
   CC       client/agent.o
   CC       client/peers.o
   CC       client/tethering.o
@@ -349,8 +349,8 @@ make --no-print-directory all-am
   CC       src/dbus.o
   CC       src/error.o
   CC       src/ippool.o
-  CC       unit/test-ippool.o
   CC       gweb/gweb.o
+  CC       unit/test-ippool.o
   CC       gweb/gresolv.o
   CC       gweb/giognutls.o
   CC       tools/wispr.o
@@ -371,8 +371,8 @@ make --no-print-directory all-am
   CC       tools/polkit-test.o
   CC       tools/tap-test.o
   CC       tools/wpad-test.o
-  CC       tools/private-network-test.o
   CC       tools/stats-tool.o
+  CC       tools/private-network-test.o
   CC       tools/session-test.o
   CC       tools/session-utils.o
   CC       tools/manager-api.o
@@ -383,11 +383,11 @@ make --no-print-directory all-am
   CC       gdhcp/tools_dnsproxy_standalone-client.o
   CC       gdhcp/tools_dnsproxy_standalone-server.o
   CC       plugins/tools_dnsproxy_standalone-loopback.o
+  CC       plugins/tools_dnsproxy_standalone-ethernet.o
 client/input.c: In function '__connmanctl_input_init':
 client/input.c:276:28: warning: zero-length gnu_printf format string [-Wformat-zero-length]
   276 |                 rl_message("");
       |                            ^~
-  CC       plugins/tools_dnsproxy_standalone-ethernet.o
   CC       plugins/tools_dnsproxy_standalone-gadget.o
   CC       plugins/tools_dnsproxy_standalone-wifi.o
   CC       gsupplicant/tools_dnsproxy_standalone-supplicant.o
@@ -396,6 +396,11 @@ client/input.c:276:28: warning: zero-length gnu_printf format string [-Wformat-z
   CC       plugins/tools_dnsproxy_standalone-ofono.o
   CC       plugins/tools_dnsproxy_standalone-dundee.o
   CC       plugins/tools_dnsproxy_standalone-vpn.o
+  CC       plugins/tools_dnsproxy_standalone-pacrunner.o
+  CC       plugins/tools_dnsproxy_standalone-neard.o
+  CC       vpn/plugins/connman_vpnd-vpn.o
+  CC       vpn/connman_vpnd-main.o
+  CCLD     tools/addr-test
 plugins/tist.c: In function 'set_custom_baud_rate':
 plugins/tist.c:283:25: error: 'TCGETS2' undeclared (first use in this function); did you mean 'TCGETS'?
   283 |         err = ioctl(fd, TCGETS2, &ti2);
@@ -406,9 +411,6 @@ plugins/tist.c:291:25: error: 'TCSETS2' undeclared (first use in this function);
   291 |         err = ioctl(fd, TCSETS2, &ti2);
       |                         ^~~~~~~
       |                         TCSETS
-  CC       plugins/tools_dnsproxy_standalone-pacrunner.o
-  CC       plugins/tools_dnsproxy_standalone-neard.o
 make[1]: *** [Makefile:3623: plugins/tist_la-tist.lo] Error 1
 make[1]: *** Waiting for unfinished jobs....
-  CC       vpn/plugins/connman_vpnd-vpn.o
 make: *** [Makefile:2113: all] Error 2

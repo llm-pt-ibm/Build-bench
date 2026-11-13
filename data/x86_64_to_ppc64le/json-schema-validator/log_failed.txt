@@ -1,6 +1,6 @@
 === the build succeeded; output of the acceptance test:
 === build environment: env
-environment c-power9 4e579032f8cb in /home/multiarq/.local/share/build-bench/envs/c-power9
+environment c-power9 60f318ec6cb4 in /home/multiarq/.local/share/build-bench/envs/c-power9
 PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/test/bin/python
 CC=gcc
 CXX=g++
@@ -8,7 +8,7 @@ CPATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/include
 LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
 PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/c-power9/build/share/pkgconfig
 CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/c-power9/build
-LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/c-power9/build/lib
 BENCH_CACHE_DIR=/home/multiarq/yalle/stage/json-schema-validator/cache (build state of this run); BENCH_SHARED_CACHE_DIR= (shared caches)
 === build host: ppc64le, 160 cpus, 94 jobs
 === running /home/multiarq/yalle/build-bench/acceptance/x86_64_to_ppc64le/json-schema-validator.sh
@@ -143,7 +143,7 @@ Test project /home/multiarq/yalle/build-bench/temp_workspace/json-schema-validat
 33/95 Test #33: JSON-Suite::if-then-else ..............................   Passed    0.06 sec
 34/95 Test #34: JSON-Suite::infinite-loop-detection ...................   Passed    0.06 sec
 35/95 Test #35: JSON-Suite::items .....................................   Passed    0.06 sec
-36/95 Test #36: JSON-Suite::maxItems ..................................   Passed    0.06 sec
+36/95 Test #36: JSON-Suite::maxItems ..................................   Passed    0.05 sec
 37/95 Test #37: JSON-Suite::maxLength .................................   Passed    0.05 sec
 38/95 Test #38: JSON-Suite::maxProperties .............................   Passed    0.05 sec
 39/95 Test #39: JSON-Suite::maximum ...................................   Passed    0.05 sec

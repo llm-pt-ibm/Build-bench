@@ -1,6 +1,6 @@
 === the build succeeded; output of the acceptance test:
 === build environment: env
-environment c-power9 838dd5426a80 in /home/multiarq/.local/share/build-bench/envs/c-power9
+environment c-power9 60f318ec6cb4 in /home/multiarq/.local/share/build-bench/envs/c-power9
 PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/c-power9/test/bin/python
 CC=gcc
 CXX=g++
@@ -15,63 +15,63 @@ BENCH_CACHE_DIR=/home/multiarq/yalle/stage/libvarlink/cache (build state of this
 ninja: Entering directory `/home/multiarq/yalle/build-bench/temp_workspace/libvarlink/libvarlink/build'
 ninja: no work to do.
   1/325 libvarlink:test-interface                                                 OK              0.33s
-  2/325 libvarlink:test-server-client                                             OK              0.33s
+  2/325 libvarlink:test-server-client                                             OK              0.32s
   3/325 libvarlink:test-array                                                     OK              0.32s
   4/325 libvarlink:test-type                                                      OK              0.32s
   5/325 libvarlink:test-error                                                     OK              0.32s
-  6/325 libvarlink:test-avl                                                       OK              0.32s
+  6/325 libvarlink:test-avl                                                       OK              0.31s
   7/325 libvarlink:y_array_arraysWithSpaces.json                                  OK              0.31s
   8/325 libvarlink:y_array_empty-string.json                                      OK              0.31s
-  9/325 libvarlink:y_array_empty.json                                             OK              0.31s
+  9/325 libvarlink:y_array_empty.json                                             OK              0.30s
  10/325 libvarlink:y_array_ending_with_newline.json                               OK              0.30s
  11/325 libvarlink:y_array_false.json                                             OK              0.30s
  12/325 libvarlink:y_array_null.json                                              OK              0.30s
- 13/325 libvarlink:y_array_with_1_and_newline.json                                OK              0.30s
- 14/325 libvarlink:y_array_with_leading_space.json                                OK              0.30s
+ 13/325 libvarlink:y_array_with_1_and_newline.json                                OK              0.29s
+ 14/325 libvarlink:y_array_with_leading_space.json                                OK              0.29s
  15/325 libvarlink:y_array_with_several_null.json                                 OK              0.29s
  16/325 libvarlink:y_array_with_trailing_space.json                               OK              0.29s
- 17/325 libvarlink:y_number.json                                                  OK              0.29s
- 18/325 libvarlink:y_number_+1.json                                               OK              0.29s
+ 17/325 libvarlink:y_number.json                                                  OK              0.28s
+ 18/325 libvarlink:y_number_+1.json                                               OK              0.28s
  19/325 libvarlink:y_number_-01.json                                              OK              0.28s
  20/325 libvarlink:y_number_-2..json                                              OK              0.28s
  21/325 libvarlink:y_number_0.e1.json                                             OK              0.28s
- 22/325 libvarlink:y_number_0e+1.json                                             OK              0.28s
+ 22/325 libvarlink:y_number_0e+1.json                                             OK              0.27s
  23/325 libvarlink:y_number_0e1.json                                              OK              0.27s
  24/325 libvarlink:y_number_2.e+3.json                                            OK              0.27s
  25/325 libvarlink:y_number_2.e-3.json                                            OK              0.27s
- 26/325 libvarlink:y_number_2.e3.json                                             OK              0.27s
+ 26/325 libvarlink:y_number_2.e3.json                                             OK              0.26s
  27/325 libvarlink:y_number_after_space.json                                      OK              0.26s
  28/325 libvarlink:y_number_double_close_to_zero.json                             OK              0.26s
  29/325 libvarlink:y_number_double_huge_neg_exp.json                              OK              0.26s
- 30/325 libvarlink:y_number_int_with_exp.json                                     OK              0.26s
+ 30/325 libvarlink:y_number_int_with_exp.json                                     OK              0.25s
  31/325 libvarlink:y_number_minus_zero.json                                       OK              0.25s
  32/325 libvarlink:y_number_neg_int_starting_with_zero.json                       OK              0.25s
  33/325 libvarlink:y_number_negative_int.json                                     OK              0.25s
- 34/325 libvarlink:y_number_negative_one.json                                     OK              0.25s
+ 34/325 libvarlink:y_number_negative_one.json                                     OK              0.24s
  35/325 libvarlink:y_number_negative_zero.json                                    OK              0.24s
  36/325 libvarlink:y_number_real_capital_e.json                                   OK              0.24s
  37/325 libvarlink:y_number_real_capital_e_neg_exp.json                           OK              0.24s
- 38/325 libvarlink:y_number_real_capital_e_pos_exp.json                           OK              0.24s
+ 38/325 libvarlink:y_number_real_capital_e_pos_exp.json                           OK              0.23s
  39/325 libvarlink:y_number_real_exponent.json                                    OK              0.23s
  40/325 libvarlink:y_number_real_fraction_exponent.json                           OK              0.23s
  41/325 libvarlink:y_number_real_neg_exp.json                                     OK              0.23s
- 42/325 libvarlink:y_number_real_pos_exponent.json                                OK              0.23s
+ 42/325 libvarlink:y_number_real_pos_exponent.json                                OK              0.22s
  43/325 libvarlink:y_number_real_underflow.json                                   OK              0.22s
  44/325 libvarlink:y_number_real_without_fractional_part.json                     OK              0.22s
  45/325 libvarlink:y_number_simple_int.json                                       OK              0.22s
- 46/325 libvarlink:y_number_simple_real.json                                      OK              0.22s
+ 46/325 libvarlink:y_number_simple_real.json                                      OK              0.21s
  47/325 libvarlink:y_number_with_leading_zero.json                                OK              0.21s
  48/325 libvarlink:y_object.json                                                  OK              0.21s
  49/325 libvarlink:y_object_basic.json                                            OK              0.21s
- 50/325 libvarlink:y_object_empty.json                                            OK              0.21s
+ 50/325 libvarlink:y_object_empty.json                                            OK              0.20s
  51/325 libvarlink:y_object_empty_key.json                                        OK              0.20s
  52/325 libvarlink:y_object_extreme_numbers.json                                  OK              0.20s
  53/325 libvarlink:y_object_long_strings.json                                     OK              0.20s
- 54/325 libvarlink:y_object_simple.json                                           OK              0.20s
+ 54/325 libvarlink:y_object_simple.json                                           OK              0.19s
  55/325 libvarlink:y_object_string_unicode.json                                   OK              0.19s
  56/325 libvarlink:y_object_with_newlines.json                                    OK              0.19s
  57/325 libvarlink:y_string_1_2_3_bytes_UTF-8_sequences.json                      OK              0.19s
- 58/325 libvarlink:y_string_accepted_surrogate_pair.json                          OK              0.19s
+ 58/325 libvarlink:y_string_accepted_surrogate_pair.json                          OK              0.18s
  59/325 libvarlink:y_string_accepted_surrogate_pairs.json                         OK              0.18s
  60/325 libvarlink:y_string_allowed_escapes.json                                  OK              0.18s
  61/325 libvarlink:y_string_backslash_and_u_escaped_zero.json                     OK              0.18s
@@ -82,7 +82,7 @@ ninja: no work to do.
  66/325 libvarlink:y_string_escaped_control_character.json                        OK              0.16s
  67/325 libvarlink:y_string_escaped_noncharacter.json                             OK              0.16s
  68/325 libvarlink:y_string_in_array.json                                         OK              0.16s
- 69/325 libvarlink:y_string_in_array_with_leading_space.json                      OK              0.16s
+ 69/325 libvarlink:y_string_in_array_with_leading_space.json                      OK              0.15s
  70/325 libvarlink:y_string_last_surrogates_1_and_2.json                          OK              0.15s
  71/325 libvarlink:y_string_nbsp_uescaped.json                                    OK              0.15s
  72/325 libvarlink:y_string_nonCharacterInUTF-8_U+10FFFF.json                     OK              0.15s
@@ -100,15 +100,15 @@ ninja: no work to do.
  84/325 libvarlink:y_string_uEscape.json                                          OK              0.11s
  85/325 libvarlink:y_string_uescaped_newline.json                                 OK              0.11s
  86/325 libvarlink:y_string_unescaped_char_delete.json                            OK              0.11s
- 87/325 libvarlink:y_string_unicode.json                                          OK              0.11s
+ 87/325 libvarlink:y_string_unicode.json                                          OK              0.10s
  88/325 libvarlink:y_string_unicodeEscapedBackslash.json                          OK              0.10s
  89/325 libvarlink:y_string_unicode_2.json                                        OK              0.10s
  90/325 libvarlink:y_string_unicode_U+10FFFE_nonchar.json                         OK              0.10s
  91/325 libvarlink:y_string_unicode_U+1FFFE_nonchar.json                          OK              0.09s
  92/325 libvarlink:y_string_unicode_U+200B_ZERO_WIDTH_SPACE.json                  OK              0.09s
  93/325 libvarlink:y_string_unicode_U+2064_invisible_plus.json                    OK              0.07s
- 94/325 libvarlink:test-symbols                                                   FAIL            0.69s   exit status 1
->>> MSAN_OPTIONS=halt_on_error=1:abort_on_error=1:print_summary=1:print_stacktrace=1 ASAN_OPTIONS=halt_on_error=1:abort_on_error=1:print_summary=1 MESON_TEST_ITERATION=1 UBSAN_OPTIONS=halt_on_error=1:abort_on_error=1:print_summary=1:print_stacktrace=1 MALLOC_PERTURB_=126 /home/multiarq/yalle/build-bench/temp_workspace/libvarlink/libvarlink/lib/test-symbols.sh /home/multiarq/yalle/build-bench/temp_workspace/libvarlink/libvarlink/lib/libvarlink.sym /home/multiarq/yalle/build-bench/temp_workspace/libvarlink/libvarlink/build/lib/libvarlink.a
+ 94/325 libvarlink:test-symbols                                                   FAIL            0.68s   exit status 1
+>>> MALLOC_PERTURB_=136 ASAN_OPTIONS=halt_on_error=1:abort_on_error=1:print_summary=1 UBSAN_OPTIONS=halt_on_error=1:abort_on_error=1:print_summary=1:print_stacktrace=1 MESON_TEST_ITERATION=1 MSAN_OPTIONS=halt_on_error=1:abort_on_error=1:print_summary=1:print_stacktrace=1 /home/multiarq/yalle/build-bench/temp_workspace/libvarlink/libvarlink/lib/test-symbols.sh /home/multiarq/yalle/build-bench/temp_workspace/libvarlink/libvarlink/lib/libvarlink.sym /home/multiarq/yalle/build-bench/temp_workspace/libvarlink/libvarlink/build/lib/libvarlink.a
 ――――――――――――――――――――――――――――――――――――― ✀  ―――――――――――――――――――――――――――――――――――――
 stderr:
 + set -e
@@ -163,186 +163,186 @@ readelf: /home/multiarq/yalle/build-bench/temp_workspace/libvarlink/libvarlink/b
 + exit 1
 ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
 
- 95/325 libvarlink:y_string_unicode_U+FDD0_nonchar.json                           OK              0.37s
- 96/325 libvarlink:y_string_unicode_U+FFFE_nonchar.json                           OK              0.37s
+ 95/325 libvarlink:y_string_unicode_U+FDD0_nonchar.json                           OK              0.36s
+ 96/325 libvarlink:y_string_unicode_U+FFFE_nonchar.json                           OK              0.36s
  97/325 libvarlink:y_string_unicode_escaped_double_quote.json                     OK              0.36s
  98/325 libvarlink:y_string_utf8.json                                             OK              0.36s
- 99/325 libvarlink:y_string_with_del_character.json                               OK              0.36s
-100/325 libvarlink:y_structure_500_nested_arrays.json                             OK              0.36s
+ 99/325 libvarlink:y_string_with_del_character.json                               OK              0.35s
+100/325 libvarlink:y_structure_500_nested_arrays.json                             OK              0.35s
 101/325 libvarlink:y_structure_lonely_false.json                                  OK              0.35s
 102/325 libvarlink:y_structure_lonely_int.json                                    OK              0.35s
 103/325 libvarlink:y_structure_lonely_negative_real.json                          OK              0.35s
-104/325 libvarlink:y_structure_lonely_null.json                                   OK              0.35s
-105/325 libvarlink:y_structure_lonely_string.json                                 OK              0.35s
+104/325 libvarlink:y_structure_lonely_null.json                                   OK              0.34s
+105/325 libvarlink:y_structure_lonely_string.json                                 OK              0.34s
 106/325 libvarlink:y_structure_lonely_true.json                                   OK              0.34s
 107/325 libvarlink:y_structure_string_empty.json                                  OK              0.34s
-108/325 libvarlink:y_structure_trailing_newline.json                              OK              0.34s
-109/325 libvarlink:y_structure_true_in_array.json                                 OK              0.34s
+108/325 libvarlink:y_structure_trailing_newline.json                              OK              0.33s
+109/325 libvarlink:y_structure_true_in_array.json                                 OK              0.33s
 110/325 libvarlink:y_structure_whitespace_array.json                              OK              0.33s
 111/325 libvarlink:n_array_just_minus.json                                        EXPECTEDFAIL    0.33s   killed by signal 6 SIGABRT
 112/325 libvarlink:n_array_missing_value.json                                     EXPECTEDFAIL    0.33s   killed by signal 6 SIGABRT
-113/325 libvarlink:n_array_newlines_unclosed.json                                 EXPECTEDFAIL    0.33s   killed by signal 6 SIGABRT
+113/325 libvarlink:n_array_newlines_unclosed.json                                 EXPECTEDFAIL    0.32s   killed by signal 6 SIGABRT
 114/325 libvarlink:n_array_number_and_comma.json                                  EXPECTEDFAIL    0.32s   killed by signal 6 SIGABRT
 115/325 libvarlink:n_array_number_and_several_commas.json                         EXPECTEDFAIL    0.32s   killed by signal 6 SIGABRT
-116/325 libvarlink:n_array_spaces_vertical_tab_formfeed.json                      EXPECTEDFAIL    0.32s   killed by signal 6 SIGABRT
+116/325 libvarlink:n_array_spaces_vertical_tab_formfeed.json                      EXPECTEDFAIL    0.31s   killed by signal 6 SIGABRT
 117/325 libvarlink:n_array_star_inside.json                                       EXPECTEDFAIL    0.31s   killed by signal 6 SIGABRT
 118/325 libvarlink:n_array_unclosed.json                                          EXPECTEDFAIL    0.31s   killed by signal 6 SIGABRT
 119/325 libvarlink:n_array_unclosed_trailing_comma.json                           EXPECTEDFAIL    0.31s   killed by signal 6 SIGABRT
 120/325 libvarlink:n_array_unclosed_with_new_lines.json                           EXPECTEDFAIL    0.30s   killed by signal 6 SIGABRT
 121/325 libvarlink:n_array_unclosed_with_object_inside.json                       EXPECTEDFAIL    0.30s   killed by signal 6 SIGABRT
 122/325 libvarlink:n_incomplete_false.json                                        EXPECTEDFAIL    0.30s   killed by signal 6 SIGABRT
-123/325 libvarlink:n_incomplete_null.json                                         EXPECTEDFAIL    0.29s   killed by signal 6 SIGABRT
+123/325 libvarlink:n_incomplete_null.json                                         EXPECTEDFAIL    0.30s   killed by signal 6 SIGABRT
 124/325 libvarlink:n_incomplete_true.json                                         EXPECTEDFAIL    0.29s   killed by signal 6 SIGABRT
 125/325 libvarlink:n_multidigit_number_then_00.json                               EXPECTEDFAIL    0.29s   killed by signal 6 SIGABRT
-126/325 libvarlink:n_number_++.json                                               EXPECTEDFAIL    0.28s   killed by signal 6 SIGABRT
+126/325 libvarlink:n_number_++.json                                               EXPECTEDFAIL    0.29s   killed by signal 6 SIGABRT
 127/325 libvarlink:n_number_+Inf.json                                             EXPECTEDFAIL    0.28s   killed by signal 6 SIGABRT
 128/325 libvarlink:n_number_-1.0..json                                            EXPECTEDFAIL    0.28s   killed by signal 6 SIGABRT
-129/325 libvarlink:n_number_-NaN.json                                             EXPECTEDFAIL    0.27s   killed by signal 6 SIGABRT
+129/325 libvarlink:n_number_-NaN.json                                             EXPECTEDFAIL    0.28s   killed by signal 6 SIGABRT
 130/325 libvarlink:n_number_.-1.json                                              EXPECTEDFAIL    0.27s   killed by signal 6 SIGABRT
 131/325 libvarlink:n_number_.2e-3.json                                            EXPECTEDFAIL    0.27s   killed by signal 6 SIGABRT
-132/325 libvarlink:n_number_0.1.2.json                                            EXPECTEDFAIL    0.26s   killed by signal 6 SIGABRT
-133/325 libvarlink:n_number_0.3e+.json                                            EXPECTEDFAIL    0.26s   killed by signal 6 SIGABRT
+132/325 libvarlink:n_number_0.1.2.json                                            EXPECTEDFAIL    0.27s   killed by signal 6 SIGABRT
+133/325 libvarlink:n_number_0.3e+.json                                            EXPECTEDFAIL    0.27s   killed by signal 6 SIGABRT
 134/325 libvarlink:n_number_0.3e.json                                             EXPECTEDFAIL    0.26s   killed by signal 6 SIGABRT
-135/325 libvarlink:n_number_0_capital_E+.json                                     EXPECTEDFAIL    0.25s   killed by signal 6 SIGABRT
-136/325 libvarlink:n_number_0_capital_E.json                                      EXPECTEDFAIL    0.25s   killed by signal 6 SIGABRT
+135/325 libvarlink:n_number_0_capital_E+.json                                     EXPECTEDFAIL    0.26s   killed by signal 6 SIGABRT
+136/325 libvarlink:n_number_0_capital_E.json                                      EXPECTEDFAIL    0.26s   killed by signal 6 SIGABRT
 137/325 libvarlink:n_number_0e+.json                                              EXPECTEDFAIL    0.25s   killed by signal 6 SIGABRT
-138/325 libvarlink:n_number_0e.json                                               EXPECTEDFAIL    0.24s   killed by signal 6 SIGABRT
-139/325 libvarlink:n_number_1.0e+.json                                            EXPECTEDFAIL    0.24s   killed by signal 6 SIGABRT
+138/325 libvarlink:n_number_0e.json                                               EXPECTEDFAIL    0.25s   killed by signal 6 SIGABRT
+139/325 libvarlink:n_number_1.0e+.json                                            EXPECTEDFAIL    0.25s   killed by signal 6 SIGABRT
 140/325 libvarlink:n_number_1.0e-.json                                            EXPECTEDFAIL    0.24s   killed by signal 6 SIGABRT
-141/325 libvarlink:n_number_1.0e.json                                             EXPECTEDFAIL    0.23s   killed by signal 6 SIGABRT
-142/325 libvarlink:n_number_1_000.json                                            EXPECTEDFAIL    0.23s   killed by signal 6 SIGABRT
+141/325 libvarlink:n_number_1.0e.json                                             EXPECTEDFAIL    0.24s   killed by signal 6 SIGABRT
+142/325 libvarlink:n_number_1_000.json                                            EXPECTEDFAIL    0.24s   killed by signal 6 SIGABRT
 143/325 libvarlink:n_number_1eE2.json                                             EXPECTEDFAIL    0.23s   killed by signal 6 SIGABRT
-144/325 libvarlink:n_number_9.e+.json                                             EXPECTEDFAIL    0.22s   killed by signal 6 SIGABRT
-145/325 libvarlink:n_number_Inf.json                                              EXPECTEDFAIL    0.22s   killed by signal 6 SIGABRT
+144/325 libvarlink:n_number_9.e+.json                                             EXPECTEDFAIL    0.23s   killed by signal 6 SIGABRT
+145/325 libvarlink:n_number_Inf.json                                              EXPECTEDFAIL    0.23s   killed by signal 6 SIGABRT
 146/325 libvarlink:n_number_NaN.json                                              EXPECTEDFAIL    0.22s   killed by signal 6 SIGABRT
-147/325 libvarlink:n_number_U+FF11_fullwidth_digit_one.json                       EXPECTEDFAIL    0.21s   killed by signal 6 SIGABRT
-148/325 libvarlink:n_number_expression.json                                       EXPECTEDFAIL    0.21s   killed by signal 6 SIGABRT
+147/325 libvarlink:n_number_U+FF11_fullwidth_digit_one.json                       EXPECTEDFAIL    0.22s   killed by signal 6 SIGABRT
+148/325 libvarlink:n_number_expression.json                                       EXPECTEDFAIL    0.22s   killed by signal 6 SIGABRT
 149/325 libvarlink:n_number_hex_1_digit.json                                      EXPECTEDFAIL    0.21s   killed by signal 6 SIGABRT
-150/325 libvarlink:n_number_hex_2_digits.json                                     EXPECTEDFAIL    0.20s   killed by signal 6 SIGABRT
-151/325 libvarlink:n_number_huge_exp.json                                         EXPECTEDFAIL    0.20s   killed by signal 6 SIGABRT
+150/325 libvarlink:n_number_hex_2_digits.json                                     EXPECTEDFAIL    0.21s   killed by signal 6 SIGABRT
+151/325 libvarlink:n_number_huge_exp.json                                         EXPECTEDFAIL    0.21s   killed by signal 6 SIGABRT
 152/325 libvarlink:n_number_infinity.json                                         EXPECTEDFAIL    0.20s   killed by signal 6 SIGABRT
-153/325 libvarlink:n_number_invalid+-.json                                        EXPECTEDFAIL    0.19s   killed by signal 6 SIGABRT
-154/325 libvarlink:n_number_invalid-negative-real.json                            EXPECTEDFAIL    0.19s   killed by signal 6 SIGABRT
+153/325 libvarlink:n_number_invalid+-.json                                        EXPECTEDFAIL    0.20s   killed by signal 6 SIGABRT
+154/325 libvarlink:n_number_invalid-negative-real.json                            EXPECTEDFAIL    0.20s   killed by signal 6 SIGABRT
 155/325 libvarlink:n_number_invalid-utf-8-in-bigger-int.json                      EXPECTEDFAIL    0.19s   killed by signal 6 SIGABRT
-156/325 libvarlink:n_number_invalid-utf-8-in-exponent.json                        EXPECTEDFAIL    0.18s   killed by signal 6 SIGABRT
-157/325 libvarlink:n_number_invalid-utf-8-in-int.json                             EXPECTEDFAIL    0.18s   killed by signal 6 SIGABRT
+156/325 libvarlink:n_number_invalid-utf-8-in-exponent.json                        EXPECTEDFAIL    0.19s   killed by signal 6 SIGABRT
+157/325 libvarlink:n_number_invalid-utf-8-in-int.json                             EXPECTEDFAIL    0.19s   killed by signal 6 SIGABRT
 158/325 libvarlink:n_number_minus_infinity.json                                   EXPECTEDFAIL    0.18s   killed by signal 6 SIGABRT
-159/325 libvarlink:n_number_minus_sign_with_trailing_garbage.json                 EXPECTEDFAIL    0.17s   killed by signal 6 SIGABRT
-160/325 libvarlink:n_number_minus_space_1.json                                    EXPECTEDFAIL    0.17s   killed by signal 6 SIGABRT
-161/325 libvarlink:n_number_neg_int_huge_exp.json                                 EXPECTEDFAIL    0.17s   killed by signal 6 SIGABRT
-162/325 libvarlink:n_number_neg_real_without_int_part.json                        EXPECTEDFAIL    0.16s   killed by signal 6 SIGABRT
-163/325 libvarlink:n_number_neg_with_garbage_at_end.json                          EXPECTEDFAIL    0.16s   killed by signal 6 SIGABRT
+159/325 libvarlink:n_number_minus_sign_with_trailing_garbage.json                 EXPECTEDFAIL    0.18s   killed by signal 6 SIGABRT
+160/325 libvarlink:n_number_minus_space_1.json                                    EXPECTEDFAIL    0.18s   killed by signal 6 SIGABRT
+161/325 libvarlink:n_number_neg_int_huge_exp.json                                 EXPECTEDFAIL    0.18s   killed by signal 6 SIGABRT
+162/325 libvarlink:n_number_neg_real_without_int_part.json                        EXPECTEDFAIL    0.17s   killed by signal 6 SIGABRT
+163/325 libvarlink:n_number_neg_with_garbage_at_end.json                          EXPECTEDFAIL    0.17s   killed by signal 6 SIGABRT
 164/325 libvarlink:n_number_pos_double_huge_exp.json                              EXPECTEDFAIL    0.16s   killed by signal 6 SIGABRT
-165/325 libvarlink:n_number_real_garbage_after_e.json                             EXPECTEDFAIL    0.15s   killed by signal 6 SIGABRT
-166/325 libvarlink:n_number_real_neg_overflow.json                                EXPECTEDFAIL    0.15s   killed by signal 6 SIGABRT
-167/325 libvarlink:n_number_real_pos_overflow.json                                EXPECTEDFAIL    0.15s   killed by signal 6 SIGABRT
-168/325 libvarlink:n_number_real_with_invalid_utf8_after_e.json                   EXPECTEDFAIL    0.14s   killed by signal 6 SIGABRT
-169/325 libvarlink:n_number_starting_with_dot.json                                EXPECTEDFAIL    0.14s   killed by signal 6 SIGABRT
+165/325 libvarlink:n_number_real_garbage_after_e.json                             EXPECTEDFAIL    0.16s   killed by signal 6 SIGABRT
+166/325 libvarlink:n_number_real_neg_overflow.json                                EXPECTEDFAIL    0.16s   killed by signal 6 SIGABRT
+167/325 libvarlink:n_number_real_pos_overflow.json                                EXPECTEDFAIL    0.16s   killed by signal 6 SIGABRT
+168/325 libvarlink:n_number_real_with_invalid_utf8_after_e.json                   EXPECTEDFAIL    0.15s   killed by signal 6 SIGABRT
+169/325 libvarlink:n_number_starting_with_dot.json                                EXPECTEDFAIL    0.15s   killed by signal 6 SIGABRT
 170/325 libvarlink:n_number_too_big_neg_int.json                                  EXPECTEDFAIL    0.14s   killed by signal 6 SIGABRT
-171/325 libvarlink:n_number_too_big_pos_int.json                                  EXPECTEDFAIL    0.13s   killed by signal 6 SIGABRT
+171/325 libvarlink:n_number_too_big_pos_int.json                                  EXPECTEDFAIL    0.14s   killed by signal 6 SIGABRT
 172/325 libvarlink:n_number_very_big_negative_int.json                            EXPECTEDFAIL    0.36s   killed by signal 6 SIGABRT
-173/325 libvarlink:n_number_with_alpha.json                                       EXPECTEDFAIL    0.35s   killed by signal 6 SIGABRT
-174/325 libvarlink:n_number_with_alpha_char.json                                  EXPECTEDFAIL    0.34s   killed by signal 6 SIGABRT
-175/325 libvarlink:n_object_bad_value.json                                        EXPECTEDFAIL    0.34s   killed by signal 6 SIGABRT
-176/325 libvarlink:n_object_bracket_key.json                                      EXPECTEDFAIL    0.34s   killed by signal 6 SIGABRT
+173/325 libvarlink:n_number_with_alpha.json                                       EXPECTEDFAIL    0.36s   killed by signal 6 SIGABRT
+174/325 libvarlink:n_number_with_alpha_char.json                                  EXPECTEDFAIL    0.35s   killed by signal 6 SIGABRT
+175/325 libvarlink:n_object_bad_value.json                                        EXPECTEDFAIL    0.35s   killed by signal 6 SIGABRT
+176/325 libvarlink:n_object_bracket_key.json                                      EXPECTEDFAIL    0.35s   killed by signal 6 SIGABRT
 177/325 libvarlink:n_object_comma_instead_of_colon.json                           EXPECTEDFAIL    0.34s   killed by signal 6 SIGABRT
-178/325 libvarlink:n_object_double_colon.json                                     EXPECTEDFAIL    0.33s   killed by signal 6 SIGABRT
-179/325 libvarlink:n_object_duplicated_key_and_value_was_y.json                   EXPECTEDFAIL    0.33s   killed by signal 6 SIGABRT
+178/325 libvarlink:n_object_double_colon.json                                     EXPECTEDFAIL    0.34s   killed by signal 6 SIGABRT
+179/325 libvarlink:n_object_duplicated_key_and_value_was_y.json                   EXPECTEDFAIL    0.34s   killed by signal 6 SIGABRT
 180/325 libvarlink:n_object_duplicated_key_was_y.json                             EXPECTEDFAIL    0.33s   killed by signal 6 SIGABRT
-181/325 libvarlink:n_object_emoji.json                                            EXPECTEDFAIL    0.32s   killed by signal 6 SIGABRT
-182/325 libvarlink:n_object_escaped_null_in_key.json                              EXPECTEDFAIL    0.32s   killed by signal 6 SIGABRT
+181/325 libvarlink:n_object_emoji.json                                            EXPECTEDFAIL    0.33s   killed by signal 6 SIGABRT
+182/325 libvarlink:n_object_escaped_null_in_key.json                              EXPECTEDFAIL    0.33s   killed by signal 6 SIGABRT
 183/325 libvarlink:n_object_garbage_at_end.json                                   EXPECTEDFAIL    0.32s   killed by signal 6 SIGABRT
-184/325 libvarlink:n_object_key_lone_2nd_surrogate.json                           EXPECTEDFAIL    0.31s   killed by signal 6 SIGABRT
-185/325 libvarlink:n_object_key_with_single_quotes.json                           EXPECTEDFAIL    0.31s   killed by signal 6 SIGABRT
-186/325 libvarlink:n_object_lone_continuation_byte_in_key_and_trailing_comma.json EXPECTEDFAIL    0.31s   killed by signal 6 SIGABRT
-187/325 libvarlink:n_object_missing_colon.json                                    EXPECTEDFAIL    0.30s   killed by signal 6 SIGABRT
-188/325 libvarlink:n_object_missing_key.json                                      EXPECTEDFAIL    0.30s   killed by signal 6 SIGABRT
-189/325 libvarlink:n_object_missing_semicolon.json                                EXPECTEDFAIL    0.33s   killed by signal 6 SIGABRT
+184/325 libvarlink:n_object_key_lone_2nd_surrogate.json                           EXPECTEDFAIL    0.32s   killed by signal 6 SIGABRT
+185/325 libvarlink:n_object_key_with_single_quotes.json                           EXPECTEDFAIL    0.32s   killed by signal 6 SIGABRT
+186/325 libvarlink:n_object_lone_continuation_byte_in_key_and_trailing_comma.json EXPECTEDFAIL    0.32s   killed by signal 6 SIGABRT
+187/325 libvarlink:n_object_missing_colon.json                                    EXPECTEDFAIL    0.31s   killed by signal 6 SIGABRT
+188/325 libvarlink:n_object_missing_key.json                                      EXPECTEDFAIL    0.31s   killed by signal 6 SIGABRT
+189/325 libvarlink:n_object_missing_semicolon.json                                EXPECTEDFAIL    0.32s   killed by signal 6 SIGABRT
 190/325 libvarlink:n_object_missing_value.json                                    EXPECTEDFAIL    0.32s   killed by signal 6 SIGABRT
 191/325 libvarlink:n_object_no-colon.json                                         EXPECTEDFAIL    0.32s   killed by signal 6 SIGABRT
-192/325 libvarlink:n_object_non_string_key.json                                   EXPECTEDFAIL    0.32s   killed by signal 6 SIGABRT
+192/325 libvarlink:n_object_non_string_key.json                                   EXPECTEDFAIL    0.31s   killed by signal 6 SIGABRT
 193/325 libvarlink:n_object_non_string_key_but_huge_number_instead.json           EXPECTEDFAIL    0.31s   killed by signal 6 SIGABRT
 194/325 libvarlink:n_object_repeated_null_null.json                               EXPECTEDFAIL    0.31s   killed by signal 6 SIGABRT
-195/325 libvarlink:n_object_several_trailing_commas.json                          EXPECTEDFAIL    0.31s   killed by signal 6 SIGABRT
+195/325 libvarlink:n_object_several_trailing_commas.json                          EXPECTEDFAIL    0.30s   killed by signal 6 SIGABRT
 196/325 libvarlink:n_object_single_quote.json                                     EXPECTEDFAIL    0.30s   killed by signal 6 SIGABRT
 197/325 libvarlink:n_object_trailing_comma.json                                   EXPECTEDFAIL    0.30s   killed by signal 6 SIGABRT
 198/325 libvarlink:n_object_trailing_comment.json                                 EXPECTEDFAIL    0.30s   killed by signal 6 SIGABRT
 199/325 libvarlink:n_object_trailing_comment_open.json                            EXPECTEDFAIL    0.29s   killed by signal 6 SIGABRT
 200/325 libvarlink:n_object_trailing_comment_slash_open.json                      EXPECTEDFAIL    0.29s   killed by signal 6 SIGABRT
 201/325 libvarlink:n_object_trailing_comment_slash_open_incomplete.json           EXPECTEDFAIL    0.29s   killed by signal 6 SIGABRT
-202/325 libvarlink:n_object_two_commas_in_a_row.json                              EXPECTEDFAIL    0.29s   killed by signal 6 SIGABRT
+202/325 libvarlink:n_object_two_commas_in_a_row.json                              EXPECTEDFAIL    0.28s   killed by signal 6 SIGABRT
 203/325 libvarlink:n_object_unquoted_key.json                                     EXPECTEDFAIL    0.28s   killed by signal 6 SIGABRT
 204/325 libvarlink:n_object_unterminated-value.json                               EXPECTEDFAIL    0.28s   killed by signal 6 SIGABRT
-205/325 libvarlink:n_object_with_single_string.json                               EXPECTEDFAIL    0.28s   killed by signal 6 SIGABRT
+205/325 libvarlink:n_object_with_single_string.json                               EXPECTEDFAIL    0.27s   killed by signal 6 SIGABRT
 206/325 libvarlink:n_object_with_trailing_garbage.json                            EXPECTEDFAIL    0.27s   killed by signal 6 SIGABRT
 207/325 libvarlink:n_single_space.json                                            EXPECTEDFAIL    0.27s   killed by signal 6 SIGABRT
-208/325 libvarlink:n_string_1_surrogate_then_escape.json                          EXPECTEDFAIL    0.27s   killed by signal 6 SIGABRT
+208/325 libvarlink:n_string_1_surrogate_then_escape.json                          EXPECTEDFAIL    0.26s   killed by signal 6 SIGABRT
 209/325 libvarlink:n_string_1_surrogate_then_escape_u.json                        EXPECTEDFAIL    0.26s   killed by signal 6 SIGABRT
 210/325 libvarlink:n_string_1_surrogate_then_escape_u1.json                       EXPECTEDFAIL    0.26s   killed by signal 6 SIGABRT
-211/325 libvarlink:n_string_1_surrogate_then_escape_u1x.json                      EXPECTEDFAIL    0.26s   killed by signal 6 SIGABRT
+211/325 libvarlink:n_string_1_surrogate_then_escape_u1x.json                      EXPECTEDFAIL    0.25s   killed by signal 6 SIGABRT
 212/325 libvarlink:n_string_1st_surrogate_but_2nd_missing.json                    EXPECTEDFAIL    0.25s   killed by signal 6 SIGABRT
 213/325 libvarlink:n_string_1st_valid_surrogate_2nd_invalid.json                  EXPECTEDFAIL    0.25s   killed by signal 6 SIGABRT
-214/325 libvarlink:n_string_UTF-16LE_with_BOM.json                                EXPECTEDFAIL    0.25s   killed by signal 6 SIGABRT
+214/325 libvarlink:n_string_UTF-16LE_with_BOM.json                                EXPECTEDFAIL    0.24s   killed by signal 6 SIGABRT
 215/325 libvarlink:n_string_UTF-8_invalid_sequence.json                           EXPECTEDFAIL    0.24s   killed by signal 6 SIGABRT
 216/325 libvarlink:n_string_UTF8_surrogate_U+D800.json                            EXPECTEDFAIL    0.24s   killed by signal 6 SIGABRT
-217/325 libvarlink:n_string_accentuated_char_no_quotes.json                       EXPECTEDFAIL    0.24s   killed by signal 6 SIGABRT
+217/325 libvarlink:n_string_accentuated_char_no_quotes.json                       EXPECTEDFAIL    0.23s   killed by signal 6 SIGABRT
 218/325 libvarlink:n_string_backslash_00.json                                     EXPECTEDFAIL    0.23s   killed by signal 6 SIGABRT
 219/325 libvarlink:n_string_escape_x.json                                         EXPECTEDFAIL    0.23s   killed by signal 6 SIGABRT
-220/325 libvarlink:n_string_escaped_backslash_bad.json                            EXPECTEDFAIL    0.23s   killed by signal 6 SIGABRT
+220/325 libvarlink:n_string_escaped_backslash_bad.json                            EXPECTEDFAIL    0.22s   killed by signal 6 SIGABRT
 221/325 libvarlink:n_string_escaped_ctrl_char_tab.json                            EXPECTEDFAIL    0.22s   killed by signal 6 SIGABRT
 222/325 libvarlink:n_string_escaped_emoji.json                                    EXPECTEDFAIL    0.22s   killed by signal 6 SIGABRT
-223/325 libvarlink:n_string_incomplete_escape.json                                EXPECTEDFAIL    0.22s   killed by signal 6 SIGABRT
+223/325 libvarlink:n_string_incomplete_escape.json                                EXPECTEDFAIL    0.21s   killed by signal 6 SIGABRT
 224/325 libvarlink:n_string_incomplete_escaped_character.json                     EXPECTEDFAIL    0.21s   killed by signal 6 SIGABRT
 225/325 libvarlink:n_string_incomplete_surrogate.json                             EXPECTEDFAIL    0.21s   killed by signal 6 SIGABRT
-226/325 libvarlink:n_string_incomplete_surrogate_and_escape_valid.json            EXPECTEDFAIL    0.21s   killed by signal 6 SIGABRT
+226/325 libvarlink:n_string_incomplete_surrogate_and_escape_valid.json            EXPECTEDFAIL    0.20s   killed by signal 6 SIGABRT
 227/325 libvarlink:n_string_incomplete_surrogate_escape_invalid.json              EXPECTEDFAIL    0.20s   killed by signal 6 SIGABRT
 228/325 libvarlink:n_string_incomplete_surrogate_pair.json                        EXPECTEDFAIL    0.20s   killed by signal 6 SIGABRT
-229/325 libvarlink:n_string_incomplete_surrogates_escape_valid.json               EXPECTEDFAIL    0.20s   killed by signal 6 SIGABRT
+229/325 libvarlink:n_string_incomplete_surrogates_escape_valid.json               EXPECTEDFAIL    0.19s   killed by signal 6 SIGABRT
 230/325 libvarlink:n_string_invalid-utf-8-in-escape.json                          EXPECTEDFAIL    0.19s   killed by signal 6 SIGABRT
 231/325 libvarlink:n_string_invalid_backslash_esc.json                            EXPECTEDFAIL    0.19s   killed by signal 6 SIGABRT
-232/325 libvarlink:n_string_invalid_lonely_surrogate.json                         EXPECTEDFAIL    0.19s   killed by signal 6 SIGABRT
+232/325 libvarlink:n_string_invalid_lonely_surrogate.json                         EXPECTEDFAIL    0.18s   killed by signal 6 SIGABRT
 233/325 libvarlink:n_string_invalid_surrogate.json                                EXPECTEDFAIL    0.18s   killed by signal 6 SIGABRT
 234/325 libvarlink:n_string_invalid_unicode_escape.json                           EXPECTEDFAIL    0.18s   killed by signal 6 SIGABRT
-235/325 libvarlink:n_string_invalid_utf-8.json                                    EXPECTEDFAIL    0.18s   killed by signal 6 SIGABRT
+235/325 libvarlink:n_string_invalid_utf-8.json                                    EXPECTEDFAIL    0.17s   killed by signal 6 SIGABRT
 236/325 libvarlink:n_string_invalid_utf8_after_escape.json                        EXPECTEDFAIL    0.17s   killed by signal 6 SIGABRT
 237/325 libvarlink:n_string_inverted_surrogates_U+1D11E.json                      EXPECTEDFAIL    0.17s   killed by signal 6 SIGABRT
-238/325 libvarlink:n_string_iso_latin_1.json                                      EXPECTEDFAIL    0.17s   killed by signal 6 SIGABRT
+238/325 libvarlink:n_string_iso_latin_1.json                                      EXPECTEDFAIL    0.16s   killed by signal 6 SIGABRT
 239/325 libvarlink:n_string_leading_uescaped_thinspace.json                       EXPECTEDFAIL    0.16s   killed by signal 6 SIGABRT
 240/325 libvarlink:n_string_lone_second_surrogate.json                            EXPECTEDFAIL    0.16s   killed by signal 6 SIGABRT
-241/325 libvarlink:n_string_lone_utf8_continuation_byte.json                      EXPECTEDFAIL    0.16s   killed by signal 6 SIGABRT
+241/325 libvarlink:n_string_lone_utf8_continuation_byte.json                      EXPECTEDFAIL    0.15s   killed by signal 6 SIGABRT
 242/325 libvarlink:n_string_no_quotes_with_bad_escape.json                        EXPECTEDFAIL    0.15s   killed by signal 6 SIGABRT
 243/325 libvarlink:n_string_not_in_unicode_range.json                             EXPECTEDFAIL    0.15s   killed by signal 6 SIGABRT
-244/325 libvarlink:n_string_null_escape.json                                      EXPECTEDFAIL    0.15s   killed by signal 6 SIGABRT
+244/325 libvarlink:n_string_null_escape.json                                      EXPECTEDFAIL    0.14s   killed by signal 6 SIGABRT
 245/325 libvarlink:n_string_overlong_sequence_2_bytes.json                        EXPECTEDFAIL    0.14s   killed by signal 6 SIGABRT
 246/325 libvarlink:n_string_overlong_sequence_6_bytes.json                        EXPECTEDFAIL    0.14s   killed by signal 6 SIGABRT
-247/325 libvarlink:n_string_overlong_sequence_6_bytes_null.json                   EXPECTEDFAIL    0.14s   killed by signal 6 SIGABRT
+247/325 libvarlink:n_string_overlong_sequence_6_bytes_null.json                   EXPECTEDFAIL    0.13s   killed by signal 6 SIGABRT
 248/325 libvarlink:n_string_single_doublequote.json                               EXPECTEDFAIL    0.13s   killed by signal 6 SIGABRT
 249/325 libvarlink:n_string_single_quote.json                                     EXPECTEDFAIL    0.13s   killed by signal 6 SIGABRT
 250/325 libvarlink:n_string_single_string_no_double_quotes.json                   EXPECTEDFAIL    0.28s   killed by signal 6 SIGABRT
 251/325 libvarlink:n_string_start_escape_unclosed.json                            EXPECTEDFAIL    0.27s   killed by signal 6 SIGABRT
-252/325 libvarlink:n_string_truncated-utf-8.json                                  EXPECTEDFAIL    0.27s   killed by signal 6 SIGABRT
+252/325 libvarlink:n_string_truncated-utf-8.json                                  EXPECTEDFAIL    0.26s   killed by signal 6 SIGABRT
 253/325 libvarlink:n_string_unescaped_crtl_char.json                              EXPECTEDFAIL    0.26s   killed by signal 6 SIGABRT
 254/325 libvarlink:n_string_unescaped_newline.json                                EXPECTEDFAIL    0.26s   killed by signal 6 SIGABRT
-255/325 libvarlink:n_string_unescaped_tab.json                                    EXPECTEDFAIL    0.26s   killed by signal 6 SIGABRT
+255/325 libvarlink:n_string_unescaped_tab.json                                    EXPECTEDFAIL    0.25s   killed by signal 6 SIGABRT
 256/325 libvarlink:n_string_unicode_CapitalU.json                                 EXPECTEDFAIL    0.25s   killed by signal 6 SIGABRT
 257/325 libvarlink:n_string_utf16BE_no_BOM.json                                   EXPECTEDFAIL    0.25s   killed by signal 6 SIGABRT
-258/325 libvarlink:n_string_utf16LE_no_BOM.json                                   EXPECTEDFAIL    0.25s   killed by signal 6 SIGABRT
+258/325 libvarlink:n_string_utf16LE_no_BOM.json                                   EXPECTEDFAIL    0.24s   killed by signal 6 SIGABRT
 259/325 libvarlink:n_string_with_trailing_garbage.json                            EXPECTEDFAIL    0.24s   killed by signal 6 SIGABRT
 260/325 libvarlink:n_structure_100000_opening_arrays.json                         EXPECTEDFAIL    0.24s   killed by signal 6 SIGABRT
-261/325 libvarlink:n_structure_U+2060_word_joined.json                            EXPECTEDFAIL    0.24s   killed by signal 6 SIGABRT
+261/325 libvarlink:n_structure_U+2060_word_joined.json                            EXPECTEDFAIL    0.23s   killed by signal 6 SIGABRT
 262/325 libvarlink:n_structure_UTF-8_BOM_empty_object.json                        EXPECTEDFAIL    0.23s   killed by signal 6 SIGABRT
 263/325 libvarlink:n_structure_UTF8_BOM_no_data.json                              EXPECTEDFAIL    0.23s   killed by signal 6 SIGABRT
 264/325 libvarlink:n_structure_angle_bracket_..json                               EXPECTEDFAIL    0.23s   killed by signal 6 SIGABRT
-265/325 libvarlink:n_structure_angle_bracket_null.json                            EXPECTEDFAIL    0.23s   killed by signal 6 SIGABRT
+265/325 libvarlink:n_structure_angle_bracket_null.json                            EXPECTEDFAIL    0.22s   killed by signal 6 SIGABRT
 266/325 libvarlink:n_structure_array_trailing_garbage.json                        EXPECTEDFAIL    0.22s   killed by signal 6 SIGABRT
 267/325 libvarlink:n_structure_array_with_extra_array_close.json                  EXPECTEDFAIL    0.19s   killed by signal 6 SIGABRT
-268/325 libvarlink:n_structure_array_with_unclosed_string.json                    EXPECTEDFAIL    0.19s   killed by signal 6 SIGABRT
+268/325 libvarlink:n_structure_array_with_unclosed_string.json                    EXPECTEDFAIL    0.18s   killed by signal 6 SIGABRT
 269/325 libvarlink:n_structure_ascii-unicode-identifier.json                      EXPECTEDFAIL    0.18s   killed by signal 6 SIGABRT
 270/325 libvarlink:n_structure_capitalized_True.json                              EXPECTEDFAIL    0.18s   killed by signal 6 SIGABRT
-271/325 libvarlink:n_structure_close_unopened_array.json                          EXPECTEDFAIL    0.18s   killed by signal 6 SIGABRT
+271/325 libvarlink:n_structure_close_unopened_array.json                          EXPECTEDFAIL    0.17s   killed by signal 6 SIGABRT
 272/325 libvarlink:n_structure_comma_instead_of_closing_brace.json                EXPECTEDFAIL    0.17s   killed by signal 6 SIGABRT
 273/325 libvarlink:n_structure_double_array.json                                  EXPECTEDFAIL    0.17s   killed by signal 6 SIGABRT
-274/325 libvarlink:n_structure_end_array.json                                     EXPECTEDFAIL    0.17s   killed by signal 6 SIGABRT
+274/325 libvarlink:n_structure_end_array.json                                     EXPECTEDFAIL    0.16s   killed by signal 6 SIGABRT
 275/325 libvarlink:n_structure_incomplete_UTF8_BOM.json                           EXPECTEDFAIL    0.16s   killed by signal 6 SIGABRT
 276/325 libvarlink:n_structure_lone-invalid-utf-8.json                            EXPECTEDFAIL    0.16s   killed by signal 6 SIGABRT
 277/325 libvarlink:n_structure_lone-open-bracket.json                             EXPECTEDFAIL    0.16s   killed by signal 6 SIGABRT
@@ -378,26 +378,26 @@ readelf: /home/multiarq/yalle/build-bench/temp_workspace/libvarlink/libvarlink/b
 307/325 libvarlink:n_structure_unicode-identifier.json                            EXPECTEDFAIL    0.06s   killed by signal 6 SIGABRT
 308/325 libvarlink:n_structure_whitespace_U+2060_word_joiner.json                 EXPECTEDFAIL    0.05s   killed by signal 6 SIGABRT
 309/325 libvarlink:n_structure_whitespace_formfeed.json                           EXPECTEDFAIL    0.05s   killed by signal 6 SIGABRT
-310/325 libvarlink:n_array_just_comma.json                                        EXPECTEDFAIL   10.27s   killed by signal 6 SIGABRT
-311/325 libvarlink:n_array_incomplete.json                                        EXPECTEDFAIL   10.29s   killed by signal 6 SIGABRT
-312/325 libvarlink:n_array_inner_array_no_comma.json                              EXPECTEDFAIL   10.28s   killed by signal 6 SIGABRT
-313/325 libvarlink:n_array_invalid_utf8.json                                      EXPECTEDFAIL   10.28s   killed by signal 6 SIGABRT
-314/325 libvarlink:n_array_colon_instead_of_comma.json                            EXPECTEDFAIL   10.36s   killed by signal 6 SIGABRT
-315/325 libvarlink:n_array_extra_close.json                                       EXPECTEDFAIL   10.34s   killed by signal 6 SIGABRT
-316/325 libvarlink:n_array_comma_and_number.json                                  EXPECTEDFAIL   10.46s   killed by signal 6 SIGABRT
-317/325 libvarlink:n_array_a_invalid_utf8.json                                    EXPECTEDFAIL   10.48s   killed by signal 6 SIGABRT
-318/325 libvarlink:n_array_1_true_without_comma.json                              EXPECTEDFAIL   10.49s   killed by signal 6 SIGABRT
-319/325 libvarlink:n_array_incomplete_invalid_value.json                          EXPECTEDFAIL   11.30s   killed by signal 6 SIGABRT
-320/325 libvarlink:n_array_extra_comma.json                                       EXPECTEDFAIL   11.31s   killed by signal 6 SIGABRT
-321/325 libvarlink:n_array_double_comma.json                                      EXPECTEDFAIL   11.33s   killed by signal 6 SIGABRT
-322/325 libvarlink:n_array_double_extra_comma.json                                EXPECTEDFAIL   11.34s   killed by signal 6 SIGABRT
-323/325 libvarlink:n_array_heterogeneous.json                                     EXPECTEDFAIL   11.33s   killed by signal 6 SIGABRT
-324/325 libvarlink:n_array_comma_after_close.json                                 EXPECTEDFAIL   11.38s   killed by signal 6 SIGABRT
-325/325 libvarlink:n_array_items_separated_by_semicolon.json                      EXPECTEDFAIL   11.34s   killed by signal 6 SIGABRT
+310/325 libvarlink:n_array_incomplete.json                                        EXPECTEDFAIL   10.42s   killed by signal 6 SIGABRT
+311/325 libvarlink:n_array_heterogeneous.json                                     EXPECTEDFAIL   10.43s   killed by signal 6 SIGABRT
+312/325 libvarlink:n_array_inner_array_no_comma.json                              EXPECTEDFAIL   10.42s   killed by signal 6 SIGABRT
+313/325 libvarlink:n_array_extra_comma.json                                       EXPECTEDFAIL   10.43s   killed by signal 6 SIGABRT
+314/325 libvarlink:n_array_just_comma.json                                        EXPECTEDFAIL   10.42s   killed by signal 6 SIGABRT
+315/325 libvarlink:n_array_invalid_utf8.json                                      EXPECTEDFAIL   10.52s   killed by signal 6 SIGABRT
+316/325 libvarlink:n_array_double_extra_comma.json                                EXPECTEDFAIL   10.55s   killed by signal 6 SIGABRT
+317/325 libvarlink:n_array_extra_close.json                                       EXPECTEDFAIL   10.57s   killed by signal 6 SIGABRT
+318/325 libvarlink:n_array_incomplete_invalid_value.json                          EXPECTEDFAIL   10.56s   killed by signal 6 SIGABRT
+319/325 libvarlink:n_array_1_true_without_comma.json                              EXPECTEDFAIL   10.60s   killed by signal 6 SIGABRT
+320/325 libvarlink:n_array_items_separated_by_semicolon.json                      EXPECTEDFAIL   10.55s   killed by signal 6 SIGABRT
+321/325 libvarlink:n_array_comma_after_close.json                                 EXPECTEDFAIL   10.59s   killed by signal 6 SIGABRT
+322/325 libvarlink:n_array_colon_instead_of_comma.json                            EXPECTEDFAIL   10.59s   killed by signal 6 SIGABRT
+323/325 libvarlink:n_array_comma_and_number.json                                  EXPECTEDFAIL   10.59s   killed by signal 6 SIGABRT
+324/325 libvarlink:n_array_double_comma.json                                      EXPECTEDFAIL   11.44s   killed by signal 6 SIGABRT
+325/325 libvarlink:n_array_a_invalid_utf8.json                                    EXPECTEDFAIL   11.61s   killed by signal 6 SIGABRT
 
 Summary of Failures:
 
- 94/325 libvarlink:test-symbols                                                   FAIL            0.69s   exit status 1
+ 94/325 libvarlink:test-symbols                                                   FAIL            0.68s   exit status 1
 
 Ok:                109 
 Expected Fail:     215 
