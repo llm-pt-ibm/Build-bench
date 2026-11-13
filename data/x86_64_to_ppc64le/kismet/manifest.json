@@ -1,0 +1,12 @@
+{
+  "task": {
+    "package": "kismet",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "kismet": "https://github.com/kismetwireless/kismet/archive/kismet-2026-10-R1.tar.gz"
+    }
+  },
+  "environment": "kismet-power9",
+  "version": 1
+}

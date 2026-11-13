@@ -1,0 +1,1509 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment dealii-power9 baa330998cb8 in /home/multiarq/.local/share/build-bench/envs/dealii-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/dealii-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/dealii-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/dealii-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/dealii-power9/build/lib
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/dealii-power9/build
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/dealii-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/dealii/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/dealii/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+-- This is CMake 4.5.0
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/setup_external_macros.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_add_flags.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_check_compiler_setup.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_check_cxx_compiler_bug.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_check_mpi_interface.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_clear_cmake_required.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_clear_feature.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_collect_source_and_header_files.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_configure_feature.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_copy_target_properties.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_deal_ii_add_definitions.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_deal_ii_add_test.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_deal_ii_find_file.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_deal_ii_find_library.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_deal_ii_find_path.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_deal_ii_find_program.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_deal_ii_initialize_cached_variables.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_deal_ii_invoke_autopilot.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_deal_ii_pickup_tests.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_deal_ii_query_git_information.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_deal_ii_setup_target.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_decorate_with_stars.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_define_interface_target.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_define_object_library.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_enable_if_links.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_enable_if_supported.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_enable_language_optional.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_evaluate_expression.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_expand_instantiations.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_filter_system_libraries.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_find_system_library.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_insource_setup_target.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_item_matches.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_populate_target_properties.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_print_target_properties.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_process_feature.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_purge_feature.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_remove_duplicates.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_replace_flag.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_reset_cmake_required.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_set_if_empty.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_setup_source_list.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_setup_unity_target.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_shell_escape_option_groups.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_strip_flag.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_strip_known_generator_expressions.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_target_compile_flags.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_target_link_flags.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_to_string.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_to_string_and_add_prefix.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_unset_if_changed.cmake
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/macros/macro_verbose_include.cmake
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/setup_cached_variables.cmake
+-- The CXX compiler identification is GNU 16.2.0
+-- The C compiler identification is GNU 16.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /home/multiarq/.local/share/build-bench/envs/dealii-power9/build/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /home/multiarq/.local/share/build-bench/envs/dealii-power9/build/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- No working Fortran compiler found, disabling Fortran
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/setup_deal_ii.cmake
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/setup_compiler_flags.cmake
+-- Performing Test DEAL_II_HAVE_USABLE_USER_FLAGS_RELEASE
+-- Performing Test DEAL_II_HAVE_USABLE_USER_FLAGS_RELEASE - Success
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/setup_compiler_flags_gnu.cmake
+-- Performing Test DEAL_II_HAVE_FLAG_Werror
+-- Performing Test DEAL_II_HAVE_FLAG_Werror - Success
+-- Performing Test DEAL_II_HAVE_FLAG_pedantic
+-- Performing Test DEAL_II_HAVE_FLAG_pedantic - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wall
+-- Performing Test DEAL_II_HAVE_FLAG_Wall - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wextra
+-- Performing Test DEAL_II_HAVE_FLAG_Wextra - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wmissing_braces
+-- Performing Test DEAL_II_HAVE_FLAG_Wmissing_braces - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Woverloaded_virtual
+-- Performing Test DEAL_II_HAVE_FLAG_Woverloaded_virtual - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wpointer_arith
+-- Performing Test DEAL_II_HAVE_FLAG_Wpointer_arith - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wsign_compare
+-- Performing Test DEAL_II_HAVE_FLAG_Wsign_compare - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wsuggest_override
+-- Performing Test DEAL_II_HAVE_FLAG_Wsuggest_override - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wswitch
+-- Performing Test DEAL_II_HAVE_FLAG_Wswitch - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wsynth
+-- Performing Test DEAL_II_HAVE_FLAG_Wsynth - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wwrite_strings
+-- Performing Test DEAL_II_HAVE_FLAG_Wwrite_strings - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_placement_new
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_placement_new - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_deprecated_declarations
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_deprecated_declarations - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_literal_suffix
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_literal_suffix - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_psabi
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_psabi - Success
+-- Performing Test DEAL_II_HAVE_FLAG_funroll_loops
+-- Performing Test DEAL_II_HAVE_FLAG_funroll_loops - Success
+-- Performing Test DEAL_II_HAVE_FLAG_funroll_all_loops
+-- Performing Test DEAL_II_HAVE_FLAG_funroll_all_loops - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_unused_local_typedefs
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_unused_local_typedefs - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_unused_parameter
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_unused_parameter - Success
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/bundled/setup_bundled.cmake
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/checks/check_01_cpu_features.cmake
+-- Performing Test DEAL_II_HAVE_SSE2
+-- Performing Test DEAL_II_HAVE_SSE2 - Failed
+-- Performing Test DEAL_II_HAVE_AVX
+-- Performing Test DEAL_II_HAVE_AVX - Failed
+-- Performing Test DEAL_II_HAVE_AVX512
+-- Performing Test DEAL_II_HAVE_AVX512 - Failed
+-- Performing Test DEAL_II_HAVE_ALTIVEC
+-- Performing Test DEAL_II_HAVE_ALTIVEC - Success
+-- Performing Test DEAL_II_HAVE_ARM_NEON
+-- Performing Test DEAL_II_HAVE_ARM_NEON - Failed
+-- Performing Test DEAL_II_HAVE_OPENMP_SIMD
+-- Performing Test DEAL_II_HAVE_OPENMP_SIMD - Success
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/checks/check_01_cxx_features.cmake
+-- Performing Test DEAL_II_HAVE_CXX17_FEATURES
+-- Performing Test DEAL_II_HAVE_CXX17_FEATURES - Success
+-- Performing Test DEAL_II_HAVE_CXX17_CONSTEXPR_LAMBDA_BUG_OK
+-- Performing Test DEAL_II_HAVE_CXX17_CONSTEXPR_LAMBDA_BUG_OK - Success
+-- Performing Test DEAL_II_HAVE_CXX14_FEATURES
+-- Performing Test DEAL_II_HAVE_CXX14_FEATURES - Success
+-- Performing Test DEAL_II_HAVE_CXX14_CLANGAUTODEBUG_BUG_OK
+-- Performing Test DEAL_II_HAVE_CXX14_CLANGAUTODEBUG_BUG_OK - Success
+-- Performing Test DEAL_II_HAVE_CXX11_FEATURES
+-- Performing Test DEAL_II_HAVE_CXX11_FEATURES - Success
+-- Performing Test DEAL_II_HAVE_CXX11_FUNCTIONAL_LLVMBUG20084_OK
+-- Performing Test DEAL_II_HAVE_CXX11_FUNCTIONAL_LLVMBUG20084_OK - Success
+-- C++17 support is enabled.
+-- Performing Test DEAL_II_HAVE_CXX20_FEATURES
+-- Performing Test DEAL_II_HAVE_CXX20_FEATURES - Success
+-- C++20 support is enabled.
+-- Performing Test DEAL_II_HAVE_CXX23_FEATURES
+-- Performing Test DEAL_II_HAVE_CXX23_FEATURES - Failed
+-- C++23 support is disabled.
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_unused_command_line_argument
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_unused_command_line_argument - Failed
+-- Performing Test DEAL_II_HAVE_FP_EXCEPTIONS
+-- Performing Test DEAL_II_HAVE_FP_EXCEPTIONS - Success
+-- Performing Test DEAL_II_HAVE_COMPLEX_OPERATOR_OVERLOADS
+-- Performing Test DEAL_II_HAVE_COMPLEX_OPERATOR_OVERLOADS - Failed
+-- Performing Test DEAL_II_HAVE_CXX17_ATTRIBUTE_FALLTHROUGH
+-- Performing Test DEAL_II_HAVE_CXX17_ATTRIBUTE_FALLTHROUGH - Success
+-- Performing Test DEAL_II_HAVE_ATTRIBUTE_FALLTHROUGH
+-- Performing Test DEAL_II_HAVE_ATTRIBUTE_FALLTHROUGH - Success
+-- Performing Test DEAL_II_HAVE_CXX17_BESSEL_FUNCTIONS
+-- Performing Test DEAL_II_HAVE_CXX17_BESSEL_FUNCTIONS - Success
+-- Performing Test DEAL_II_HAVE_CXX17_LEGENDRE_FUNCTIONS
+-- Performing Test DEAL_II_HAVE_CXX17_LEGENDRE_FUNCTIONS - Success
+-- Performing Test DEAL_II_CXX14_CONSTEXPR_BUG_OK
+-- Performing Test DEAL_II_CXX14_CONSTEXPR_BUG_OK - Success
+-- Test successful, do not define DEAL_II_CXX14_CONSTEXPR_BUG
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/checks/check_02_compiler_features.cmake
+-- Performing Test DEAL_II_COMPILER_USE_VECTOR_ARITHMETICS
+-- Performing Test DEAL_II_COMPILER_USE_VECTOR_ARITHMETICS - Failed
+-- Performing Test DEAL_II_VECTOR_ITERATOR_IS_POINTER_OK
+-- Performing Test DEAL_II_VECTOR_ITERATOR_IS_POINTER_OK - Success
+-- Test successful, do not define DEAL_II_VECTOR_ITERATOR_IS_POINTER
+-- Performing Test DEAL_II_HAVE_BUILTIN_EXPECT
+-- Performing Test DEAL_II_HAVE_BUILTIN_EXPECT - Success
+-- Performing Test DEAL_II_HAVE_GLIBC_STACKTRACE
+-- Performing Test DEAL_II_HAVE_GLIBC_STACKTRACE - Success
+-- Performing Test DEAL_II_HAVE_LINKER_FLAG_rdynamic
+-- Performing Test DEAL_II_HAVE_LINKER_FLAG_rdynamic - Success
+-- Performing Test DEAL_II_HAVE_LIBSTDCXX_DEMANGLER
+-- Performing Test DEAL_II_HAVE_LIBSTDCXX_DEMANGLER - Success
+-- Performing Test DEAL_II_COMPILER_HAS_ATTRIBUTE_PRETTY_FUNCTION
+-- Performing Test DEAL_II_COMPILER_HAS_ATTRIBUTE_PRETTY_FUNCTION - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wa___compress_debug_sections
+-- Performing Test DEAL_II_HAVE_FLAG_Wa___compress_debug_sections - Success
+-- Performing Test DEAL_II_HAVE_LINKER_FLAG_Wl___compress_debug_sections=zlib
+-- Performing Test DEAL_II_HAVE_LINKER_FLAG_Wl___compress_debug_sections=zlib - Success
+-- Performing Test DEAL_II_COMPILER_HAS_ATTRIBUTE_ALWAYS_INLINE
+-- Performing Test DEAL_II_COMPILER_HAS_ATTRIBUTE_ALWAYS_INLINE - Success
+-- Performing Test DEAL_II_COMPILER_HAS_RESTRICT_KEYWORD
+-- Performing Test DEAL_II_COMPILER_HAS_RESTRICT_KEYWORD - Success
+CMake Warning (policy) at cmake/checks/check_02_compiler_features.cmake:318 (CHECK_CXX_SOURCE_COMPILES):
+  Policy CMP0219 is not set: Macro invocations preserve backslashes in
+  arguments.  Run "cmake --help-policy CMP0219" for policy details.  Use the
+  cmake_policy command to set the policy and suppress this warning.
+
+  Command "CHECK_CXX_SOURCE_COMPILES" called with arguments containing
+  backslashes.
+
+  Since the policy is not set, backslashes in the arguments:
+
+   "
+    _Pragma("GCC diagnostic push")
+    _Pragma("GCC diagnostic ignored \\\"-Wextra\\\"")
+    _Pragma("GCC diagnostic ignored \\\"-Wunknown-pragmas\\\"")
+    _Pragma("GCC diagnostic ignored \\\"-Wpragmas\\\"")
+    int main() { return 0; }
+    _Pragma("GCC diagnostic pop")
+    "
+
+  will be interpreted as escape sequences for compatibility.
+
+  Set the policy to NEW to instead pass
+
+   "
+    _Pragma("GCC diagnostic push")
+    _Pragma("GCC diagnostic ignored \\\\\\"-Wextra\\\\\\"")
+    _Pragma("GCC diagnostic ignored \\\\\\"-Wunknown-pragmas\\\\\\"")
+    _Pragma("GCC diagnostic ignored \\\\\\"-Wpragmas\\\\\\"")
+    int main() { return 0; }
+    _Pragma("GCC diagnostic pop")
+    "
+
+  so that argument parsing will preserve the original values.
+Call Stack (most recent call first):
+  cmake/macros/macro_verbose_include.cmake:18 (include)
+  CMakeLists.txt:129 (verbose_include)
+This warning is for project developers.  Use -Wno-author or -Wno-policy to
+suppress it.
+
+-- Performing Test DEAL_II_COMPILER_HAS_DIAGNOSTIC_PRAGMA
+-- Performing Test DEAL_II_COMPILER_HAS_DIAGNOSTIC_PRAGMA - Success
+-- Performing Test DEAL_II_COMPILER_HAS_FUSE_LD_MOLD
+-- Performing Test DEAL_II_COMPILER_HAS_FUSE_LD_MOLD - Failed
+-- Performing Test DEAL_II_COMPILER_HAS_FUSE_LD_LLD
+-- Performing Test DEAL_II_COMPILER_HAS_FUSE_LD_LLD - Failed
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/checks/check_02_fortran_mangling.cmake
+-- Could NOT find a valid Fortran compiler - using default mangling
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/checks/check_02_system_features.cmake
+-- Looking for C++ include sys/resource.h
+-- Looking for C++ include sys/resource.h - found
+-- Looking for C++ include unistd.h
+-- Looking for C++ include unistd.h - found
+-- Looking for gethostname
+-- Looking for gethostname - found
+-- Looking for getpid
+-- Looking for getpid - found
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/checks/check_03_compiler_bugs.cmake
+-- Performing Test DEAL_II_DELETED_MOVE_CONSTRUCTOR_BUG_OK
+-- Performing Test DEAL_II_DELETED_MOVE_CONSTRUCTOR_BUG_OK - Success
+-- Test successful, do not define DEAL_II_DELETED_MOVE_CONSTRUCTOR_BUG
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/setup_finalize.cmake
+-- Query git repository information.
+-- Could NOT find Git (missing: GIT_EXECUTABLE) 
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_00_threads.cmake
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Check if compiler accepts -pthread
+-- Check if compiler accepts -pthread - yes
+-- Found Threads: TRUE
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_10_lapack.cmake
+-- Looking for sgemm_
+-- Looking for sgemm_ - not found
+-- Looking for sgemm_
+-- Looking for sgemm_ - found
+-- Found BLAS: /home/multiarq/.local/share/build-bench/envs/dealii-power9/build/lib/libopenblas.so
+-- Looking for cheev_
+-- Looking for cheev_ - found
+-- Found LAPACK: /home/multiarq/.local/share/build-bench/envs/dealii-power9/build/lib/libopenblas.so;-pthread;-lm;-ldl
+-- Processing LAPACK variables and targets
+-- Processing LAPACK variables and targets - Done
+-- Performing Test LAPACK_SYMBOL_CHECK
+-- Performing Test LAPACK_SYMBOL_CHECK - Success
+-- Performing Test MKL_SYMBOL_CHECK
+-- Performing Test MKL_SYMBOL_CHECK - Failed
+-- Use other than Intel MKL implementation of BLAS/LAPACK (consult CMakeFiles/CMakeError.log for further information).
+-- 
+-- Defining target: interface_lapack
+--     LINK_LIBRARIES:      -lm;-ldl;/home/multiarq/.local/share/build-bench/envs/dealii-power9/build/lib/libopenblas.so
+-- 
+-- DEAL_II_WITH_LAPACK successfully set up with external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_10_mpi.cmake
+-- DEAL_II_WITH_MPI is set to off.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_10_taskflow.cmake
+-- Processing TASKFLOW variables and targets
+--   TASKFLOW_INCLUDE_DIRS: *** Required variable "TASKFLOW_INCLUDE_DIR" empty ***
+-- Unable to process TASKFLOW
+-- The externally provided Taskflow library is older than version 3.10, which cannot be used with deal.II.
+-- DEAL_II_WITH_TASKFLOW has unmet external dependencies.
+-- 
+-- DEAL_II_WITH_TASKFLOW successfully set up with bundled packages.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_10_tbb.cmake
+-- TBB_LIBRARY not found! The call was:
+--     find_library(TBB_LIBRARY NAMES tbb HINTS PATH_SUFFIXES lib lib64 lib)
+-- TBB_DEBUG_LIBRARY not found! The call was:
+--     find_library(TBB_DEBUG_LIBRARY NAMES tbb_debug HINTS PATH_SUFFIXES lib lib64 lib)
+-- TBB_INCLUDE_DIR not found! The call was:
+--     find_path(TBB_INCLUDE_DIR tbb/tbb_stddef.h HINTS PATH_SUFFIXES include include/tbb tbb)
+-- TBB_INCLUDE_DIR not found! The call was:
+--     find_path(TBB_INCLUDE_DIR oneapi/tbb/version.h HINTS PATH_SUFFIXES include include/tbb tbb)
+-- Processing TBB variables and targets
+--   TBB_LIBRARIES: *** Required variable "TBB_LIBRARY" set to NOTFOUND ***
+--   TBB_INCLUDE_DIRS: *** Required variable "TBB_INCLUDE_DIR" set to NOTFOUND ***
+-- Unable to process TBB
+-- The externally provided TBB library is older than version 4.2.0, which cannot be used with deal.II.
+-- DEAL_II_WITH_TBB has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_10_zlib.cmake
+-- Found ZLIB: /home/multiarq/.local/share/build-bench/envs/dealii-power9/build/lib/libz.so (found version "1.3.2")
+-- Processing ZLIB variables and targets
+-- Processing ZLIB variables and targets - Done
+-- 
+-- Defining target: interface_zlib
+--     VERSION:             1.3.2
+--     LINK_LIBRARIES:      /home/multiarq/.local/share/build-bench/envs/dealii-power9/build/lib/libz.so
+--     INCLUDE_DIRECTORIES: /home/multiarq/.local/share/build-bench/envs/dealii-power9/build/include
+-- 
+-- DEAL_II_WITH_ZLIB successfully set up with external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_20_boost.cmake
+-- Processing BOOST variables and targets
+--   BOOST_TARGETS: *** Required variable "Boost_LIBRARIES" empty ***
+CMake Warning at cmake/modules/FindDEAL_II_BOOST.cmake:50 (find_package):
+  By not providing "FindBoost.cmake" in CMAKE_MODULE_PATH this project has
+  asked CMake to find a package configuration file provided by "Boost", but
+  CMake did not find one.
+
+  Could not find a package configuration file provided by "Boost" (requested
+  version 1.74) with any of the following names:
+
+    Boost.cps
+    boost.cps
+    BoostConfig.cmake
+    boost-config.cmake
+
+  Add the installation prefix of "Boost" to CMAKE_PREFIX_PATH or set
+  "Boost_DIR" to a directory containing one of the above files.  If "Boost"
+  provides a separate development package or SDK, be sure it has been
+  installed.
+Call Stack (most recent call first):
+  cmake/configure/configure_20_boost.cmake:35 (find_package)
+  build/CMakeFiles/CMakeTmp/evaluate_expression.tmp:1 (feature_BOOST_find_external)
+  cmake/macros/macro_evaluate_expression.cmake:29 (include)
+  cmake/macros/macro_configure_feature.cmake:238 (evaluate_expression)
+  cmake/configure/configure_20_boost.cmake:111 (configure_feature)
+  cmake/macros/macro_verbose_include.cmake:18 (include)
+  CMakeLists.txt:141 (verbose_include)
+
+
+-- Unable to process BOOST
+-- DEAL_II_WITH_BOOST has unmet external dependencies.
+-- Performing Test rt_LIBRARY
+-- Performing Test rt_LIBRARY - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_parentheses
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_parentheses - Success
+-- 
+-- DEAL_II_WITH_BOOST successfully set up with bundled packages.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_20_ginkgo.cmake
+-- GINKGO_LIBRARY_ginkgo not found! The call was:
+--     find_library(GINKGO_LIBRARY_ginkgo NAMES ginkgo HINTS NO_DEFAULT_PATH NO_CMAKE_ENVIRONMENT_PATH NO_CMAKE_PATH NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_SYSTEM_PATH NO_CMAKE_FIND_ROOT_PATH)
+-- Processing GINKGO variables and targets
+--   GINKGO_LIBRARIES: *** Required variable "GINKGO_LIBRARY_ginkgo" set to NOTFOUND ***
+--   GINKGO_INCLUDE_DIRS: *** Required variable "GINKGO_INSTALL_INCLUDE_DIR" empty ***
+-- Unable to process GINKGO
+-- DEAL_II_WITH_GINKGO has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_20_metis.cmake
+-- METIS_LIBRARY not found! The call was:
+--     find_library(METIS_LIBRARY NAMES metis HINTS PATH_SUFFIXES lib lib64 lib build/Linux-ppc64le/libmetis)
+-- METIS_INCLUDE_DIR not found! The call was:
+--     find_path(METIS_INCLUDE_DIR metis.h HINTS PATH_SUFFIXES metis include/metis include)
+-- Processing METIS variables and targets
+--   METIS_LIBRARIES: *** Required variable "METIS_LIBRARY" set to NOTFOUND ***
+--   METIS_INCLUDE_DIRS: *** Required variable "METIS_INCLUDE_DIR" set to NOTFOUND ***
+-- Unable to process METIS
+-- DEAL_II_WITH_METIS has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_20_petsc.cmake
+-- DEAL_II_WITH_PETSC has unmet configuration requirements: DEAL_II_WITH_MPI has to be set to "ON".
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_20_trilinos.cmake
+-- DEAL_II_WITH_TRILINOS has unmet configuration requirements: DEAL_II_WITH_MPI has to be set to "ON".
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_20_umfpack.cmake
+-- UMFPACK_INCLUDE_DIR not found! The call was:
+--     find_path(UMFPACK_INCLUDE_DIR umfpack.h HINTS /UMFPACK /../UMFPACK /UMFPACK PATH_SUFFIXES umfpack include/umfpack include Include UMFPACK/Include suitesparse)
+-- AMD_INCLUDE_DIR not found! The call was:
+--     find_path(AMD_INCLUDE_DIR amd.h HINTS /AMD /../AMD /AMD PATH_SUFFIXES amd include/amd include Include AMD/Include suitesparse)
+-- UMFPACK_LIBRARY not found! The call was:
+--     find_library(UMFPACK_LIBRARY NAMES umfpack libumfpack HINTS /UMFPACK /../UMFPACK /UMFPACK PATH_SUFFIXES lib lib64 lib Lib UMFPACK/Lib)
+-- AMD_LIBRARY not found! The call was:
+--     find_library(AMD_LIBRARY NAMES amd libamd HINTS /AMD /../AMD /AMD PATH_SUFFIXES lib lib64 lib Lib AMD/Lib)
+-- CHOLMOD_LIBRARY not found! The call was:
+--     find_library(CHOLMOD_LIBRARY NAMES cholmod libcholmod HINTS /CHOLMOD /../CHOLMOD /CHOLMOD PATH_SUFFIXES lib lib64 lib Lib CHOLMOD/Lib)
+-- COLAMD_LIBRARY not found! The call was:
+--     find_library(COLAMD_LIBRARY NAMES colamd libcolamd HINTS /COLAMD /../COLAMD /COLAMD PATH_SUFFIXES lib lib64 lib Lib COLAMD/Lib)
+-- CCOLAMD_LIBRARY not found! The call was:
+--     find_library(CCOLAMD_LIBRARY NAMES ccolamd libccolamd HINTS /CCOLAMD /../CCOLAMD /CCOLAMD PATH_SUFFIXES lib lib64 lib Lib CCOLAMD/Lib)
+-- CAMD_LIBRARY not found! The call was:
+--     find_library(CAMD_LIBRARY NAMES camd libcamd HINTS /CAMD /../CAMD /CAMD PATH_SUFFIXES lib lib64 lib Lib CAMD/Lib)
+-- SuiteSparse_config_LIBRARY not found! The call was:
+--     find_library(SuiteSparse_config_LIBRARY NAMES suitesparseconfig libsuitesparseconfig HINTS /SuiteSparse_config /../SuiteSparse_config /SuiteSparse_config PATH_SUFFIXES lib lib64 lib Lib SuiteSparse_config/Lib)
+-- Processing UMFPACK variables and targets
+--   UMFPACK_LIBRARIES: *** Required variable "UMFPACK_LIBRARY" set to NOTFOUND ***
+--   UMFPACK_LIBRARIES: *** Required variable "AMD_LIBRARY" set to NOTFOUND ***
+--   UMFPACK_INCLUDE_DIRS: *** Required variable "UMFPACK_INCLUDE_DIR" set to NOTFOUND ***
+--   UMFPACK_INCLUDE_DIRS: *** Required variable "AMD_INCLUDE_DIR" set to NOTFOUND ***
+-- Unable to process UMFPACK
+-- DEAL_II_WITH_UMFPACK has unmet external dependencies.
+-- 
+-- DEAL_II_WITH_UMFPACK successfully set up with bundled packages.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_30_kokkos.cmake
+-- Could NOT find Kokkos (missing: Kokkos_DIR)
+-- Processing KOKKOS variables and targets
+--   KOKKOS_TARGETS: *** Required variable "_target" empty ***
+-- Unable to process KOKKOS
+-- DEAL_II_WITH_KOKKOS has unmet external dependencies.
+-- 
+-- DEAL_II_WITH_KOKKOS successfully set up with bundled packages.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_adolc.cmake
+-- ADOLC_INCLUDE_DIR not found! The call was:
+--     find_path(ADOLC_INCLUDE_DIR NAMES adolc/adolc.h HINTS PATH_SUFFIXES include)
+-- ADOLC_LIBRARY not found! The call was:
+--     find_library(ADOLC_LIBRARY NAMES adolc HINTS PATH_SUFFIXES lib lib64 lib)
+-- ADOLC_SETTINGS_H not found! The call was:
+--     find_file(ADOLC_SETTINGS_H adolc_settings.h HINTS ADOLC_INCLUDE_DIR-NOTFOUND ADOLC_INCLUDE_DIR-NOTFOUND/adolc/internal NO_DEFAULT_PATH NO_CMAKE_ENVIRONMENT_PATH NO_CMAKE_PATH NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_SYSTEM_PATH NO_CMAKE_FIND_ROOT_PATH)
+-- Processing ADOLC variables and targets
+--   ADOLC_LIBRARIES: *** Required variable "ADOLC_LIBRARY" set to NOTFOUND ***
+--   ADOLC_INCLUDE_DIRS: *** Required variable "ADOLC_INCLUDE_DIR" set to NOTFOUND ***
+-- Unable to process ADOLC
+-- DEAL_II_WITH_ADOLC has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_arborx.cmake
+-- Processing ARBORX variables and targets
+--   ARBORX_INCLUDE_DIRS: *** Required variable "ARBORX_INSTALL_INCLUDE_DIR" empty ***
+-- Unable to process ARBORX
+-- DEAL_II_WITH_ARBORX has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_arpack.cmake
+-- ARPACK_LIBRARY not found! The call was:
+--     find_library(ARPACK_LIBRARY NAMES arpack HINTS PATH_SUFFIXES lib lib64 lib)
+-- Processing ARPACK variables and targets
+--   ARPACK_LIBRARIES: *** Required variable "ARPACK_LIBRARY" set to NOTFOUND ***
+-- Unable to process ARPACK
+-- DEAL_II_WITH_ARPACK has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_assimp.cmake
+-- ASSIMP_LIB not found! The call was:
+--     find_library(ASSIMP_LIB NAMES assimp HINTS PATH_SUFFIXES lib lib64 lib)
+-- ASSIMP_INC not found! The call was:
+--     find_path(ASSIMP_INC assimp/defs.h HINTS PATH_SUFFIXES include)
+-- Processing ASSIMP variables and targets
+--   ASSIMP_LIBRARIES: *** Required variable "ASSIMP_LIB" set to NOTFOUND ***
+--   ASSIMP_INCLUDE_DIRS: *** Required variable "ASSIMP_INC" set to NOTFOUND ***
+-- Unable to process ASSIMP
+-- DEAL_II_WITH_ASSIMP has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_cgal.cmake
+-- CGAL wrappers require C++17. Disabling CGAL Support.
+-- Processing CGAL variables and targets
+--   CGAL_INCLUDE_DIRS: *** Required variable "CGAL_INCLUDE_DIRS" set to NOTFOUND ***
+-- Unable to process CGAL
+-- Could not find a sufficient CGAL installation: CGAL links against external Boost but deal.II was configured with bundled Boost.
+-- DEAL_II_WITH_CGAL has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_complex_values.cmake
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_gmsh.cmake
+-- GMSH_EXE not found! The call was:
+--     find_program(GMSH_EXE gmsh HINTS PATH_SUFFIXES bin)
+-- GMSH_LIBRARY not found! The call was:
+--     find_library(GMSH_LIBRARY NAMES gmsh HINTS PATH_SUFFIXES lib lib64 lib)
+-- GMSH_INCLUDE_DIR not found! The call was:
+--     find_path(GMSH_INCLUDE_DIR gmsh.h HINTS PATH_SUFFIXES include)
+-- Processing GMSH variables and targets
+--   GMSH_EXECUTABLE: *** Required variable "GMSH_EXE" set to NOTFOUND ***
+-- Unable to process GMSH
+-- DEAL_II_WITH_GMSH has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_gsl.cmake
+-- GSL_LIBRARY not found! The call was:
+--     find_library(GSL_LIBRARY NAMES gsl HINTS PATH_SUFFIXES lib lib64 lib)
+-- GSL_CBLAS_LIBRARY not found! The call was:
+--     find_library(GSL_CBLAS_LIBRARY NAMES gslcblas cblas refcblas HINTS PATH_SUFFIXES lib lib64 lib)
+-- GSL_INCLUDE_DIR not found! The call was:
+--     find_path(GSL_INCLUDE_DIR gsl/gsl_version.h HINTS PATH_SUFFIXES include)
+-- Processing GSL variables and targets
+--   GSL_LIBRARIES: *** Required variable "GSL_LIBRARY" set to NOTFOUND ***
+--   GSL_INCLUDE_DIRS: *** Required variable "GSL_INCLUDE_DIR" set to NOTFOUND ***
+-- Unable to process GSL
+-- DEAL_II_WITH_GSL has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_hdf5.cmake
+-- DEAL_II_WITH_HDF5 has unmet configuration requirements: DEAL_II_WITH_MPI has to be set to "ON".
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_magic_enum.cmake
+-- MAGIC_ENUM_INCLUDE_DIR not found! The call was:
+--     find_path(MAGIC_ENUM_INCLUDE_DIR magic_enum.hpp HINTS PATH_SUFFIXES include include/magic_enum)
+-- Processing MAGIC_ENUM variables and targets
+--   MAGIC_ENUM_INCLUDE_DIRS: *** Required variable "MAGIC_ENUM_INCLUDE_DIR" set to NOTFOUND ***
+-- Unable to process MAGIC_ENUM
+-- DEAL_II_WITH_MAGIC_ENUM has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_muparser.cmake
+-- MUPARSER_LIBRARY not found! The call was:
+--     find_library(MUPARSER_LIBRARY NAMES muparser muparserd HINTS PATH_SUFFIXES lib lib64 lib)
+-- MUPARSER_INCLUDE_DIR not found! The call was:
+--     find_path(MUPARSER_INCLUDE_DIR muParserDef.h HINTS PATH_SUFFIXES include)
+-- Processing MUPARSER variables and targets
+--   MUPARSER_LIBRARIES: *** Required variable "MUPARSER_LIBRARY" set to NOTFOUND ***
+--   MUPARSER_INCLUDE_DIRS: *** Required variable "MUPARSER_INCLUDE_DIR" set to NOTFOUND ***
+-- Unable to process MUPARSER
+-- DEAL_II_WITH_MUPARSER has unmet external dependencies.
+-- 
+-- DEAL_II_WITH_MUPARSER successfully set up with bundled packages.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_opencascade.cmake
+-- OPENCASCADE_INCLUDE_DIR not found! The call was:
+--     find_path(OPENCASCADE_INCLUDE_DIR Standard_Version.hxx HINTS PATH_SUFFIXES include include/oce include/opencascade inc)
+-- OPENCASCADE_TKBO not found! The call was:
+--     find_library(OPENCASCADE_TKBO NAMES TKBO HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKBool not found! The call was:
+--     find_library(OPENCASCADE_TKBool NAMES TKBool HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKBRep not found! The call was:
+--     find_library(OPENCASCADE_TKBRep NAMES TKBRep HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKernel not found! The call was:
+--     find_library(OPENCASCADE_TKernel NAMES TKernel HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKFeat not found! The call was:
+--     find_library(OPENCASCADE_TKFeat NAMES TKFeat HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKFillet not found! The call was:
+--     find_library(OPENCASCADE_TKFillet NAMES TKFillet HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKG2d not found! The call was:
+--     find_library(OPENCASCADE_TKG2d NAMES TKG2d HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKG3d not found! The call was:
+--     find_library(OPENCASCADE_TKG3d NAMES TKG3d HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKGeomAlgo not found! The call was:
+--     find_library(OPENCASCADE_TKGeomAlgo NAMES TKGeomAlgo HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKGeomBase not found! The call was:
+--     find_library(OPENCASCADE_TKGeomBase NAMES TKGeomBase HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKHLR not found! The call was:
+--     find_library(OPENCASCADE_TKHLR NAMES TKHLR HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKMath not found! The call was:
+--     find_library(OPENCASCADE_TKMath NAMES TKMath HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKMesh not found! The call was:
+--     find_library(OPENCASCADE_TKMesh NAMES TKMesh HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKOffset not found! The call was:
+--     find_library(OPENCASCADE_TKOffset NAMES TKOffset HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKPrim not found! The call was:
+--     find_library(OPENCASCADE_TKPrim NAMES TKPrim HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKShHealing not found! The call was:
+--     find_library(OPENCASCADE_TKShHealing NAMES TKShHealing HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKTopAlgo not found! The call was:
+--     find_library(OPENCASCADE_TKTopAlgo NAMES TKTopAlgo HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKXSBase not found! The call was:
+--     find_library(OPENCASCADE_TKXSBase NAMES TKXSBase HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKIGES not found! The call was:
+--     find_library(OPENCASCADE_TKIGES NAMES TKIGES HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKSTEP not found! The call was:
+--     find_library(OPENCASCADE_TKSTEP NAMES TKSTEP HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKSTEPAttr not found! The call was:
+--     find_library(OPENCASCADE_TKSTEPAttr NAMES TKSTEPAttr HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKSTEPBase not found! The call was:
+--     find_library(OPENCASCADE_TKSTEPBase NAMES TKSTEPBase HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKSTEP209 not found! The call was:
+--     find_library(OPENCASCADE_TKSTEP209 NAMES TKSTEP209 HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- OPENCASCADE_TKSTL not found! The call was:
+--     find_library(OPENCASCADE_TKSTL NAMES TKSTL HINTS PATH_SUFFIXES lib lib64 lib mac64/clang/lib mac32/clang/lib lin64/gcc/lib lin32/gcc/lib)
+-- Processing OPENCASCADE variables and targets
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKBO" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKBool" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKBRep" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKernel" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKFeat" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKFillet" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKG2d" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKG3d" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKGeomAlgo" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKGeomBase" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKHLR" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKMath" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKMesh" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKOffset" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKPrim" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKShHealing" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKTopAlgo" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKXSBase" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKIGES" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKSTEP" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKSTEPAttr" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKSTEPBase" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKSTEP209" set to NOTFOUND ***
+--   OPENCASCADE_LIBRARIES: *** Required variable "OPENCASCADE_TKSTL" set to NOTFOUND ***
+--   OPENCASCADE_INCLUDE_DIRS: *** Required variable "OPENCASCADE_INCLUDE_DIR" set to NOTFOUND ***
+-- Unable to process OPENCASCADE
+-- DEAL_II_WITH_OPENCASCADE has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_p4est.cmake
+-- DEAL_II_WITH_P4EST has unmet configuration requirements: DEAL_II_WITH_MPI has to be set to "ON".
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_psblas.cmake
+-- PSBLAS_BASE_LIBRARY not found! The call was:
+--     find_library(PSBLAS_BASE_LIBRARY NAMES psb_base HINTS PATH_SUFFIXES lib lib64 lib)
+-- PSBLAS_CBIND_LIBRARY not found! The call was:
+--     find_library(PSBLAS_CBIND_LIBRARY NAMES psb_cbind HINTS PATH_SUFFIXES lib lib64 lib)
+-- PSBLAS_KRYLOV_LIBRARY not found! The call was:
+--     find_library(PSBLAS_KRYLOV_LIBRARY NAMES psb_krylov HINTS PATH_SUFFIXES lib lib64 lib)
+-- PSBLAS_PREC_LIBRARY not found! The call was:
+--     find_library(PSBLAS_PREC_LIBRARY NAMES psb_prec HINTS PATH_SUFFIXES lib lib64 lib)
+-- PSBLAS_UTIL_LIBRARY not found! The call was:
+--     find_library(PSBLAS_UTIL_LIBRARY NAMES psb_util HINTS PATH_SUFFIXES lib lib64 lib)
+-- PSBLAS_INCLUDE_DIR not found! The call was:
+--     find_path(PSBLAS_INCLUDE_DIR psb_c_base.h HINTS PATH_SUFFIXES include)
+-- Performing Test gfortran_LIBRARY
+-- Performing Test gfortran_LIBRARY - Success
+-- Performing Test quadmath_LIBRARY
+-- Performing Test quadmath_LIBRARY - Success
+-- Performing Test m_LIBRARY
+-- Performing Test m_LIBRARY - Success
+-- Processing PSBLAS variables and targets
+--   PSBLAS_LIBRARIES: *** Required variable "PSBLAS_BASE_LIBRARY" set to NOTFOUND ***
+--   PSBLAS_LIBRARIES: *** Required variable "PSBLAS_CBIND_LIBRARY" set to NOTFOUND ***
+--   PSBLAS_LIBRARIES: *** Required variable "PSBLAS_KRYLOV_LIBRARY" set to NOTFOUND ***
+--   PSBLAS_LIBRARIES: *** Required variable "PSBLAS_PREC_LIBRARY" set to NOTFOUND ***
+--   PSBLAS_LIBRARIES: *** Required variable "PSBLAS_UTIL_LIBRARY" set to NOTFOUND ***
+--   PSBLAS_INCLUDE_DIRS: *** Required variable "PSBLAS_INCLUDE_DIR" set to NOTFOUND ***
+-- Unable to process PSBLAS
+-- DEAL_II_WITH_PSBLAS has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_scalapack.cmake
+-- DEAL_II_WITH_SCALAPACK has unmet configuration requirements: DEAL_II_WITH_MPI has to be set to "ON".
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_slepc.cmake
+-- DEAL_II_WITH_SLEPC has unmet configuration requirements: DEAL_II_WITH_PETSC has to be set to "ON".
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_sundials.cmake
+-- SUNDIALS_LIB_CORE not found! The call was:
+--     find_library(SUNDIALS_LIB_CORE NAMES sundials_core HINTS PATH_SUFFIXES lib lib64 lib)
+-- SUNDIALS_LIB_IDAS not found! The call was:
+--     find_library(SUNDIALS_LIB_IDAS NAMES sundials_idas HINTS PATH_SUFFIXES lib lib64 lib)
+-- SUNDIALS_LIB_IDA not found! The call was:
+--     find_library(SUNDIALS_LIB_IDA NAMES sundials_ida HINTS PATH_SUFFIXES lib lib64 lib)
+-- SUNDIALS_LIB_ARKODE not found! The call was:
+--     find_library(SUNDIALS_LIB_ARKODE NAMES sundials_arkode HINTS PATH_SUFFIXES lib lib64 lib)
+-- SUNDIALS_LIB_KINSOL not found! The call was:
+--     find_library(SUNDIALS_LIB_KINSOL NAMES sundials_kinsol HINTS PATH_SUFFIXES lib lib64 lib)
+-- SUNDIALS_LIB_SER not found! The call was:
+--     find_library(SUNDIALS_LIB_SER NAMES sundials_nvecserial HINTS PATH_SUFFIXES lib lib64 lib)
+-- SUNDIALS_INCLUDE_DIR not found! The call was:
+--     find_path(SUNDIALS_INCLUDE_DIR sundials/sundials_version.h HINTS PATH_SUFFIXES include)
+-- SUNDIALS_CONFIG_H not found! The call was:
+--     find_file(SUNDIALS_CONFIG_H NAMES sundials_config.h HINTS SUNDIALS_INCLUDE_DIR-NOTFOUND/sundials)
+-- Processing SUNDIALS variables and targets
+--   SUNDIALS_LIBRARIES: *** Required variable "SUNDIALS_LIB_IDA" set to NOTFOUND ***
+--   SUNDIALS_LIBRARIES: *** Required variable "SUNDIALS_LIB_ARKODE" set to NOTFOUND ***
+--   SUNDIALS_LIBRARIES: *** Required variable "SUNDIALS_LIB_KINSOL" set to NOTFOUND ***
+--   SUNDIALS_LIBRARIES: *** Required variable "SUNDIALS_LIB_SER" set to NOTFOUND ***
+--   SUNDIALS_INCLUDE_DIRS: *** Required variable "SUNDIALS_INCLUDE_DIR" set to NOTFOUND ***
+-- Unable to process SUNDIALS
+-- DEAL_II_WITH_SUNDIALS has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_symengine.cmake
+-- Processing SYMENGINE variables and targets
+--   SYMENGINE_LIBRARIES: *** Required variable "SYMENGINE_LIBRARIES" empty ***
+--   SYMENGINE_INCLUDE_DIRS: *** Required variable "SYMENGINE_INCLUDE_DIRS" empty ***
+-- Unable to process SYMENGINE
+-- DEAL_II_WITH_SYMENGINE has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_vectorization.cmake
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_50_vtk.cmake
+-- Processing VTK variables and targets
+--   VTK_INCLUDE_DIRS: *** Required variable "VTK_INCLUDE_DIR" empty ***
+-- Unable to process VTK
+-- DEAL_II_WITH_VTK has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/configure/configure_60_mumps.cmake
+-- MUMPS_INCLUDE_DIR not found! The call was:
+--     find_path(MUMPS_INCLUDE_DIR dmumps_c.h HINTS PATH_SUFFIXES mumps include/mumps include)
+-- DMUMPS_LIBRARY not found! The call was:
+--     find_library(DMUMPS_LIBRARY NAMES dmumps HINTS PATH_SUFFIXES lib lib64 lib)
+-- MUMPS_COMMON_LIBRARY not found! The call was:
+--     find_library(MUMPS_COMMON_LIBRARY NAMES mumps_common HINTS PATH_SUFFIXES lib lib64 lib)
+-- PORD_LIBRARY not found! The call was:
+--     find_library(PORD_LIBRARY NAMES pord HINTS PATH_SUFFIXES lib lib64 lib)
+-- Processing MUMPS variables and targets
+--   MUMPS_LIBRARIES: *** Required variable "DMUMPS_LIBRARY" set to NOTFOUND ***
+--   MUMPS_LIBRARIES: *** Required variable "MUMPS_COMMON_LIBRARY" set to NOTFOUND ***
+--   MUMPS_LIBRARIES: *** Required variable "SCALAPACK_LIBRARIES" empty ***
+--   MUMPS_INCLUDE_DIRS: *** Required variable "MUMPS_INCLUDE_DIR" set to NOTFOUND ***
+-- Unable to process MUMPS
+-- DEAL_II_WITH_MUMPS has unmet external dependencies.
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/setup_sanity_checks.cmake
+-- Performing Test DEAL_II_HAVE_USABLE_FLAGS_RELEASE
+-- Performing Test DEAL_II_HAVE_USABLE_FLAGS_RELEASE - Success
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/setup_cpack.cmake
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/setup_custom_targets.cmake
+-- 
+-- Configuring done. Proceed to target definitions now.
+-- Setting up bundled features
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_c11_extensions
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_c11_extensions - Failed
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_deprecated_copy
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_deprecated_copy - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_uninitialized
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_uninitialized - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_deprecated_builtins
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_deprecated_builtins - Failed
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_suggest_override
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_suggest_override - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_float_conversion
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_float_conversion - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_missing_field_initializers
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_missing_field_initializers - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_unused_but_set_parameter
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_unused_but_set_parameter - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_sign_compare
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_sign_compare - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_write_strings
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_write_strings - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_switch
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_switch - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_nested_anon_types
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_nested_anon_types - Failed
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_implicit_fallthrough
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_implicit_fallthrough - Success
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_cast_function_type
+-- Performing Test DEAL_II_HAVE_FLAG_Wno_cast_function_type - Success
+-- Setting up bundled features - Done
+-- Setting up library
+-- Setting up library - Done
+-- Setting up library installation
+-- Setting up library installation - Done
+-- Setting up project configuration
+-- Setting up project configuration - Done
+-- Setting up examples
+-- Setting up examples - Done
+-- Setting up testsuite
+-- Setting up testsuite - Done
+-- 
+-- Include /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/cmake/setup_write_config.cmake
+###
+#
+#  deal.II configuration:
+#        CMAKE_BUILD_TYPE:       Release
+#        BUILD_SHARED_LIBS:      ON
+#        CMAKE_INSTALL_PREFIX:   /usr/local
+#        CMAKE_SOURCE_DIR:       /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii
+#                                (version 9.7.1)
+#        CMAKE_BINARY_DIR:       /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/build
+#        CMAKE_CXX_COMPILER:     GNU 16.2.0 on platform Linux ppc64le
+#                                /home/multiarq/.local/share/build-bench/envs/dealii-power9/build/bin/g++
+#        C++ language standard:  C++20
+#        Building C++20 module:  OFF
+#        Vectorization level:    128 bit (altivec)
+#
+#  Configured Features (DEAL_II_ALLOW_BUNDLED = ON, DEAL_II_ALLOW_AUTODETECTION = ON):
+#      ( DEAL_II_WITH_64BIT_INDICES = OFF )
+#      ( DEAL_II_WITH_ADOLC = OFF )
+#      ( DEAL_II_WITH_ARBORX = OFF )
+#      ( DEAL_II_WITH_ARPACK = OFF )
+#      ( DEAL_II_WITH_ASSIMP = OFF )
+#        DEAL_II_WITH_BOOST set up with bundled packages
+#      ( DEAL_II_WITH_CGAL = OFF )
+#      ( DEAL_II_WITH_COMPLEX_VALUES = OFF )
+#      ( DEAL_II_WITH_GINKGO = OFF )
+#      ( DEAL_II_WITH_GMSH = OFF )
+#      ( DEAL_II_WITH_GSL = OFF )
+#      ( DEAL_II_WITH_HDF5 = OFF )
+#        DEAL_II_WITH_KOKKOS set up with bundled packages
+#        DEAL_II_WITH_LAPACK set up with external dependencies
+#      ( DEAL_II_WITH_MAGIC_ENUM = OFF )
+#      ( DEAL_II_WITH_METIS = OFF )
+#      ( DEAL_II_WITH_MPI = OFF )
+#      ( DEAL_II_WITH_MUMPS = OFF )
+#        DEAL_II_WITH_MUPARSER set up with bundled packages
+#      ( DEAL_II_WITH_OPENCASCADE = OFF )
+#      ( DEAL_II_WITH_P4EST = OFF )
+#      ( DEAL_II_WITH_PETSC = OFF )
+#      ( DEAL_II_WITH_PSBLAS = OFF )
+#      ( DEAL_II_WITH_SCALAPACK = OFF )
+#      ( DEAL_II_WITH_SLEPC = OFF )
+#      ( DEAL_II_WITH_SUNDIALS = OFF )
+#      ( DEAL_II_WITH_SYMENGINE = OFF )
+#        DEAL_II_WITH_TASKFLOW set up with bundled packages
+#      ( DEAL_II_WITH_TBB = OFF )
+#      ( DEAL_II_WITH_TRILINOS = OFF )
+#        DEAL_II_WITH_UMFPACK set up with bundled packages
+#      ( DEAL_II_WITH_VTK = OFF )
+#        DEAL_II_WITH_ZLIB set up with external dependencies
+#
+#  Component configuration:
+#      ( DEAL_II_COMPONENT_DOCUMENTATION = OFF )
+#        DEAL_II_COMPONENT_EXAMPLES
+#      ( DEAL_II_COMPONENT_PACKAGE = OFF )
+#      ( DEAL_II_COMPONENT_PYTHON_BINDINGS = OFF )
+#
+#  Detailed information (compiler flags, feature configuration) can be found in detailed.log
+#
+#  Run  $ ninja info  to print a help message with a list of top level targets
+#
+###
+-- Configuring done (20.0s)
+-- Generating done (0.5s)
+CMake Warning (unused-cli):
+  Manually-specified variables were not used by the project:
+
+    DEAL_II_COMPILE_EXAMPLES
+    DEAL_II_WITH_THREADS
+
+
+-- Build files have been written to: /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/build
+[0/2] Re-checking globbed directories...
+[1/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/simd/src/Kokkos_SIMD_dummy.cpp.o
+[2/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/algorithms/src/KokkosAlgorithms_dummy.cpp.o
+[3/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/basic_pointer_iserializer.cpp.o
+[4/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/basic_pointer_oserializer.cpp.o
+[5/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/stl_port.cpp.o
+[6/801] Building CXX object bundled/boost-1.84.0/libs/system/src/CMakeFiles/bundled_boost_system_release.dir/error_code.cpp.o
+[7/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/basic_archive.cpp.o
+[8/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/basic_iserializer.cpp.o
+[9/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/basic_oserializer.cpp.o
+[10/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/basic_serializer_map.cpp.o
+[11/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/archive_exception.cpp.o
+[12/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/extended_type_info.cpp.o
+[13/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/basic_xml_archive.cpp.o
+[14/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/xml_archive_exception.cpp.o
+[15/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/extended_type_info_no_rtti.cpp.o
+[16/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/utf8_codecvt_facet.cpp.o
+[17/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/extended_type_info_typeid.cpp.o
+[18/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/basic_text_woprimitive.cpp.o
+[19/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/codecvt_null.cpp.o
+[20/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/basic_text_wiprimitive.cpp.o
+[21/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/void_cast.cpp.o
+[22/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/basic_oarchive.cpp.o
+[23/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/basic_text_oprimitive.cpp.o
+[24/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/impl/Kokkos_MemoryPool.cpp.o
+[25/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/impl/Kokkos_HostThreadTeam.cpp.o
+[26/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/polymorphic_oarchive.cpp.o
+[27/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/impl/Kokkos_CPUDiscovery.cpp.o
+[28/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_blas3_update.cc.o
+[29/801] Building CXX object cmake/scripts/CMakeFiles/expand_instantiations_exe.dir/expand_instantiations.cc.o
+[30/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_build_tuples.cc.o
+[31/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/basic_text_iprimitive.cpp.o
+[32/801] Linking CXX executable bin/expand_instantiations
+[33/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/impl/Kokkos_HostBarrier.cpp.o
+[34/801] Generating cell_data_transfer.inst
+[35/801] Generating data_out.inst
+[36/801] Generating data_out_dof_data.inst
+[37/801] Generating data_out_dof_data_codim.inst
+[38/801] Generating data_out_faces.inst
+[39/801] Generating data_out_resample.inst
+[40/801] Generating data_out_rotation.inst
+[41/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_dump.cc.o
+[42/801] Generating data_out_stack.inst
+[43/801] Generating data_postprocessor.inst
+[44/801] Generating derivative_approximation.inst
+[45/801] Generating dof_output_operator.inst
+[46/801] Generating error_estimator.inst
+[47/801] Generating fe_field_function.inst
+[48/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/impl/Kokkos_Abort.cpp.o
+[49/801] Generating error_estimator_1d.inst
+[50/801] Generating matrix_tools.inst
+[51/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/polymorphic_iarchive.cpp.o
+[52/801] Generating point_value_history.inst
+[53/801] Generating smoothness_estimator.inst
+[54/801] Generating solution_transfer.inst
+[55/801] Generating matrix_creator.inst
+[56/801] Generating time_dependent.inst
+[57/801] Generating vector_tools_constraints.inst
+[58/801] Generating vector_tools_boundary.inst
+[59/801] Generating vector_tools_integrate_difference.inst
+[60/801] Generating vector_tools_mean_value.inst
+[61/801] Generating vector_tools_interpolate.inst
+[62/801] Generating vector_tools_point_gradient.inst
+[63/801] Generating vector_tools_point_value.inst
+[64/801] Generating vector_tools_project.inst
+[65/801] Generating vector_tools_project_codim.inst
+[66/801] Generating vector_tools_project_hp.inst
+[67/801] Generating vector_tools_project_qp.inst
+[68/801] Generating vector_tools_project_qpmf.inst
+[69/801] Generating fe.inst
+[70/801] Generating fe_abf.inst
+[71/801] Generating vector_tools_rhs.inst
+[72/801] Generating fe_bdm.inst
+[73/801] Generating fe_bernstein.inst
+[74/801] Generating fe_dg_vector.inst
+[75/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_get_memory.cc.o
+[76/801] Generating fe_dgp.inst
+[77/801] Generating fe_dgq.inst
+[78/801] Generating fe_dgp_monomial.inst
+[79/801] Generating fe_dgp_nonparametric.inst
+[80/801] Generating fe_enriched.inst
+[81/801] Generating fe_nedelec_sz.inst
+[82/801] Generating fe_face.inst
+[83/801] Generating fe_nedelec.inst
+[84/801] Generating fe_hermite.inst
+[85/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/binary_woarchive.cpp.o
+[86/801] Generating fe_nothing.inst
+[87/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_create_element.cc.o
+[88/801] Generating fe_poly.inst
+[89/801] Generating fe_poly_tensor.inst
+[90/801] Generating fe_pyramid_p.inst
+[91/801] Generating fe_q_base.inst
+[92/801] Generating fe_q.inst
+[93/801] Generating fe_q_bubbles.inst
+[94/801] Generating fe_q_dg0.inst
+[95/801] Generating fe_q_hierarchical.inst
+[96/801] Generating fe_q_iso_q1.inst
+[97/801] Generating fe_rannacher_turek.inst
+[98/801] Generating fe_raviart_thomas_nodal.inst
+[99/801] Generating fe_raviart_thomas.inst
+[100/801] Generating fe_rt_bubbles.inst
+[101/801] Generating fe_series_legendre.inst
+[102/801] Building CXX object bundled/boost-1.84.0/libs/iostreams/src/CMakeFiles/bundled_boost_iostreams_release.dir/file_descriptor.cpp.o
+[103/801] Generating fe_series_fourier.inst
+[104/801] Generating fe_simplex_p.inst
+[105/801] Generating fe_simplex_p_bubbles.inst
+[106/801] Generating fe_system.inst
+[107/801] Generating fe_trace.inst
+[108/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_init_front.cc.o
+[109/801] Generating fe_tools_extrapolate.inst
+[110/801] Generating fe_tools_interpolate.inst
+[111/801] Generating fe_values.inst
+[112/801] Generating fe_tools.inst
+[113/801] Generating fe_values_base.inst
+[114/801] Generating fe_wedge_p.inst
+[115/801] Generating mapping.inst
+[116/801] Generating fe_values_views.inst
+[117/801] Generating fe_values_views_internal.inst
+[118/801] Generating mapping_cartesian.inst
+[119/801] Generating mapping_c1.inst
+[120/801] Generating mapping_fe.inst
+[121/801] Generating mapping_manifold.inst
+[122/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/basic_iarchive.cpp.o
+[123/801] Generating mapping_fe_field.inst
+[124/801] Generating mapping_p1.inst
+[125/801] Generating mapping_q.inst
+[126/801] Generating mapping_q1.inst
+[127/801] Generating mapping_q_cache.inst
+[128/801] Generating mapping_q1_eulerian.inst
+[129/801] Generating mapping_related_data.inst
+[130/801] Generating mapping_q_eulerian.inst
+[131/801] Generating evaluation_template_face_factory.inst
+[132/801] Generating evaluation_template_factory_hanging_nodes.inst
+[133/801] Generating evaluation_template_factory.inst
+[134/801] Generating fe_point_evaluation.inst
+[135/801] Generating matrix_free.inst
+[136/801] Generating mapping_info.inst
+[137/801] Generating shape_info.inst
+[138/801] Generating block_info.inst
+[139/801] Generating dof_accessor_get.inst
+[140/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_assemble.cc.o
+[141/801] Generating dof_accessor_set.inst
+[142/801] Generating dof_handler_policy.inst
+[143/801] Generating dof_accessor.inst
+[144/801] Generating dof_objects.inst
+[145/801] Generating dof_handler.inst
+[146/801] Generating block_sparse_matrix.inst
+[147/801] Generating dof_renumbering.inst
+[148/801] Generating dof_tools_constraints.inst
+[149/801] Generating dof_tools_sparsity.inst
+[150/801] Generating block_vector.inst
+[151/801] Generating la_parallel_vector.inst
+[152/801] Generating la_parallel_block_vector.inst
+[153/801] Generating full_matrix.inst
+[154/801] Generating lapack_full_matrix.inst
+[155/801] Generating chunk_sparse_matrix.inst
+[156/801] Generating affine_constraints.inst
+[157/801] Generating petsc_communication_pattern.inst
+[158/801] Generating precondition_block.inst
+[159/801] Generating dof_tools.inst
+[160/801] Generating read_write_vector.inst
+[161/801] Generating relaxation_block.inst
+[162/801] Generating sparse_matrix_ez.inst
+[163/801] Generating solver_gmres.inst
+[164/801] Generating solver.inst
+[165/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/text_iarchive.cpp.o
+[166/801] Generating vector.inst
+[167/801] Generating tensor_product_matrix.inst
+[168/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_extend_front.cc.o
+[169/801] Generating vector_memory.inst
+[170/801] Generating vector_memory_release.inst
+[171/801] Generating bounding_box.inst
+[172/801] Generating function.inst
+[173/801] Generating sparse_matrix.inst
+[174/801] Generating function_restriction.inst
+[175/801] Generating function_tools.inst
+[176/801] Generating function_signed_distance.inst
+[177/801] Generating geometric_utilities.inst
+[178/801] Generating function_time.inst
+[179/801] Generating incremental_function.inst
+[180/801] Generating data_out_base.inst
+[181/801] Generating mpi_remote_point_evaluation.inst
+[182/801] Generating mpi.inst
+[183/801] Generating mpi_noncontiguous_partitioner.inst
+[184/801] Generating mu_parser_internal.inst
+[185/801] Generating polynomials_rannacher_turek.inst
+[186/801] Generating symmetric_tensor.inst
+[187/801] Generating symbolic_function.inst
+[188/801] Generating partitioner.inst
+[189/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/text_oarchive.cpp.o
+[190/801] Generating tensor_function_parser.inst
+[191/801] Generating tensor_function.inst
+[192/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_kernel.cc.o
+[193/801] Generating time_stepping.inst
+[194/801] Generating cell_id.inst
+[195/801] Generating grid_generator_from_name.inst
+[196/801] Generating grid_generator_cgal.inst
+[197/801] Generating grid_generator_pipe_junction.inst
+[198/801] Generating grid_in.inst
+[199/801] Generating grid_tools_cache.inst
+[200/801] Generating grid_refinement.inst
+[201/801] Generating grid_out.inst
+[202/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/binary_oarchive.cpp.o
+[203/801] Building CXX object bundled/boost-1.84.0/libs/iostreams/src/CMakeFiles/bundled_boost_iostreams_release.dir/zlib.cpp.o
+[204/801] Generating grid_generator.inst
+[205/801] Generating grid_tools_geometry.inst
+[206/801] Generating grid_tools_topology.inst
+[207/801] Generating intergrid_map.inst
+[208/801] Generating manifold.inst
+[209/801] Generating manifold_lib.inst
+[210/801] Generating reference_cell.inst
+[211/801] Generating tria_accessor.inst
+[212/801] Generating fe_collection.inst
+[213/801] Generating tria.inst
+[214/801] Generating tria_objects.inst
+[215/801] Generating fe_values.inst
+[216/801] Generating tria_description.inst
+[217/801] Generating mapping_collection.inst
+[218/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_garbage_collection.cc.o
+[219/801] Generating grid_tools.inst
+[220/801] Generating refinement.inst
+[221/801] Generating mg_transfer_block.inst
+[222/801] Generating mg_base.inst
+[223/801] Generating mg_transfer_component.inst
+[224/801] Generating mg_transfer_global_coarsening.inst
+[225/801] Generating mg_transfer_matrix_free.inst
+[226/801] Generating mg_constrained_dofs.inst
+[227/801] Generating cell_weights.inst
+[228/801] Generating mg_level_global_transfer.inst
+[229/801] Generating mg_transfer_prebuilt.inst
+[230/801] Generating mg_transfer_internal.inst
+[231/801] Generating multigrid.inst
+[232/801] Generating p4est_wrappers.inst
+[233/801] Generating grid_tools_dof_handlers.inst
+[234/801] Generating fully_distributed_tria.inst
+[235/801] Generating mg_tools.inst
+[236/801] Generating repartitioning_policy_tools.inst
+[237/801] Generating tria.inst
+[238/801] Generating shared_tria.inst
+[239/801] Generating tria_base.inst
+[240/801] Generating operator.inst
+[241/801] Generating data_out.inst
+[242/801] Generating scratch_data.inst
+[243/801] Generating particle_handler.inst
+[244/801] Generating mesh_worker_info.inst
+[245/801] Generating generators.inst
+[246/801] Generating mesh_worker_vector_selector.inst
+[247/801] Generating kinematics.inst
+[248/801] Generating utilities.inst
+[249/801] Generating particle.inst
+[250/801] Generating transformations.inst
+[251/801] Generating standard_tensors.inst
+[252/801] Generating fe_immersed_values.inst
+[253/801] Generating mesh_classifier.inst
+[254/801] Generating fe_values.inst
+[255/801] Generating quadrature_generator.inst
+[256/801] Generating coupling.inst
+[257/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_lsolve.cc.o
+[258/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/text_woarchive.cpp.o
+[259/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/impl/Kokkos_Stacktrace.cpp.o
+[260/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_kernel_wrapup.cc.o
+[261/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/xml_woarchive.cpp.o
+[262/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/impl/Kokkos_HostSpace.cpp.o
+[263/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_mem_alloc_element.cc.o
+[264/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/text_wiarchive.cpp.o
+[265/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/xml_oarchive.cpp.o
+[266/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/binary_iarchive.cpp.o
+[267/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_mem_init_memoryspace.cc.o
+[268/801] Building CXX object bundled/boost-1.84.0/libs/iostreams/src/CMakeFiles/bundled_boost_iostreams_release.dir/gzip.cpp.o
+[269/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_set_stats.cc.o
+[270/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/binary_wiarchive.cpp.o
+[271/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_mem_alloc_head_block.cc.o
+[272/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_mem_free_tail_block.cc.o
+[273/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_valid_numeric.cc.o
+[274/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_usolve.cc.o
+[275/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_valid_symbolic.cc.o
+[276/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/impl/Kokkos_HostSpace_deepcopy.cpp.o
+[277/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_grow_front.cc.o
+[278/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_symbolic_usage.cc.o
+[279/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_local_search.cc.o
+[280/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_report_vector.cc.o
+[281/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_mem_alloc_tail_block.cc.o
+[282/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_kernel_init.cc.o
+[283/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_scale_column.cc.o
+[284/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_ltsolve.cc.o
+[285/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_tuple_lengths.cc.o
+[286/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_start_front.cc.o
+[287/801] Building CXX object bundled/boost-1.84.0/libs/iostreams/src/CMakeFiles/bundled_boost_iostreams_release.dir/mapped_file.cpp.o
+[288/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_transpose.cc.o
+[289/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_utsolve.cc.o
+[290/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_defaults.cc.o
+[291/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_col_to_triplet.cc.o
+[292/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_scale.cc.o
+[293/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_free_numeric.cc.o
+[294/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_free_symbolic.cc.o
+[295/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/xml_iarchive.cpp.o
+[296/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_get_lunz.cc.o
+[297/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_row_search.cc.o
+[298/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_symbolic.cc.o
+[299/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_get_symbolic.cc.o
+[300/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_get_determinant.cc.o
+[301/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/containers/src/impl/Kokkos_UnorderedMap_impl.cpp.o
+[302/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_triplet_to_col.cc.o
+[303/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_report_triplet.cc.o
+[304/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_report_perm.cc.o
+[305/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_transpose.cc.o
+[306/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_report_vector.cc.o
+[307/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_report_status.cc.o
+[308/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_report_control.cc.o
+[309/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_numeric.cc.o
+[310/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_scale.cc.o
+[311/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_solve.cc.o
+[312/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_report_matrix.cc.o
+[313/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_save_numeric.cc.o
+[314/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/impl/Kokkos_SharedAlloc.cpp.o
+[315/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_save_symbolic.cc.o
+[316/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/xml_wiarchive.cpp.o
+[317/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_2by2.cc.o
+[318/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_report_symbolic.cc.o
+[319/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_load_symbolic.cc.o
+[320/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_dump.cc.o
+[321/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/impl/Kokkos_hwloc.cpp.o
+[322/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_build_tuples.cc.o
+[323/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_get_memory.cc.o
+[324/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_get_numeric.cc.o
+[325/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_load_numeric.cc.o
+[326/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_extend_front.cc.o
+[327/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_store_lu.cc.o
+[328/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_init_front.cc.o
+[329/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/Serial/Kokkos_Serial_Task.cpp.o
+[330/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_blas3_update.cc.o
+[331/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_mem_alloc_element.cc.o
+[332/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/impl/Kokkos_ExecPolicy.cpp.o
+[333/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_lsolve.cc.o
+[334/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_kernel.cc.o
+[335/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_report_vector.cc.o
+[336/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_mem_alloc_tail_block.cc.o
+[337/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_create_element.cc.o
+[338/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_mem_init_memoryspace.cc.o
+[339/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_mem_free_tail_block.cc.o
+[340/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_mem_alloc_head_block.cc.o
+[341/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_report_info.cc.o
+[342/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_ltsolve.cc.o
+[343/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_symbolic_usage.cc.o
+[344/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_set_stats.cc.o
+[345/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_tuple_lengths.cc.o
+[346/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_garbage_collection.cc.o
+[347/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_scale_column.cc.o
+[348/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_start_front.cc.o
+[349/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_usolve.cc.o
+[350/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_valid_symbolic.cc.o
+[351/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_grow_front.cc.o
+[352/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_kernel_wrapup.cc.o
+[353/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_valid_numeric.cc.o
+[354/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_assemble.cc.o
+[355/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_defaults.cc.o
+[356/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_get_lunz.cc.o
+[357/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_col_to_triplet.cc.o
+[358/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_free_numeric.cc.o
+[359/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_free_symbolic.cc.o
+[360/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_transpose.cc.o
+[361/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/Serial/Kokkos_Serial.cpp.o
+[362/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_utsolve.cc.o
+[363/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_scale.cc.o
+[364/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_report_matrix.cc.o
+[365/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_report_numeric.cc.o
+[366/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_row_search.cc.o
+[367/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_report_perm.cc.o
+[368/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_get_determinant.cc.o
+[369/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_kernel_init.cc.o
+[370/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_local_search.cc.o
+[371/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_report_vector.cc.o
+[372/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_report_status.cc.o
+[373/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_transpose.cc.o
+[374/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMFPACK_release.dir/umf_apply_order.cc.o
+[375/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_report_symbolic.cc.o
+[376/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_save_numeric.cc.o
+[377/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_symbolic.cc.o
+[378/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_triplet_to_col.cc.o
+[379/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_save_symbolic.cc.o
+[380/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_get_symbolic.cc.o
+[381/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_report_control.cc.o
+[382/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_solve.cc.o
+[383/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_report_triplet.cc.o
+[384/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umf_solve.cc.o
+[385/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_load_numeric.cc.o
+[386/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_store_lu.cc.o
+[387/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_load_symbolic.cc.o
+[388/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_numeric.cc.o
+[389/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMF_release.dir/umfpack_qsymbolic.cc.o
+[390/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMFPACK_release.dir/umf_free.cc.o
+[391/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_GENERIC_release.dir/umfpack_timer.cc.o
+[392/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMFPACK_release.dir/umf_is_permutation.cc.o
+[393/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMFPACK_release.dir/umf_fsize.cc.o
+[394/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_scale.cc.o
+[395/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMFPACK_release.dir/umf_malloc.cc.o
+[396/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMFPACK_release.dir/umf_realloc.cc.o
+[397/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_2by2.cc.o
+[398/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMFPACK_release.dir/umf_report_perm.cc.o
+[399/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/impl/Kokkos_Error.cpp.o
+[400/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_DL_TSOLVE_release.dir/umf_ltsolve.cc.o
+[401/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_DL_TRIPLET_NOMAP_X_release.dir/umf_triplet.cc.o
+[402/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_int_release.dir/amd_defaults.cc.o
+[403/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_DL_SOLVE_release.dir/umfpack_solve.cc.o
+[404/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_DL_TRIPLET_MAP_X_release.dir/umf_triplet.cc.o
+[405/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_DL_TSOLVE_release.dir/umf_utsolve.cc.o
+[406/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/xml_wgrammar.cpp.o
+[407/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_GENERIC_release.dir/umfpack_global.cc.o
+[408/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_DL_TRIPLET_MAP_NOX_release.dir/umf_triplet.cc.o
+[409/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_GENERIC_release.dir/umfpack_tictoc.cc.o
+[410/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_DL_TRIPLET_NOMAP_NOX_release.dir/umf_triplet.cc.o
+[411/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_int_release.dir/amd_control.cc.o
+[412/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_report_numeric.cc.o
+[413/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_ZL_TSOLVE_release.dir/umf_ltsolve.cc.o
+[414/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMFPACK_release.dir/umf_singletons.cc.o
+[415/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMFPACK_release.dir/umf_analyze.cc.o
+[416/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_ZL_SOLVE_release.dir/umfpack_solve.cc.o
+[417/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_ZL_TRIPLET_NOMAP_NOX_release.dir/umf_triplet.cc.o
+[418/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_global_release.dir/amd_global.cc.o
+[419/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_get_numeric.cc.o
+[420/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_int_release.dir/amd_valid.cc.o
+[421/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_int_release.dir/amd_dump.cc.o
+[422/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_ZL_TSOLVE_release.dir/umf_utsolve.cc.o
+[423/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_int_release.dir/amd_1.cc.o
+[424/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_int_release.dir/amd_preprocess.cc.o
+[425/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_int_release.dir/amd_post_tree.cc.o
+[426/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_ZL_TRIPLET_NOMAP_X_release.dir/umf_triplet.cc.o
+[427/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_int_release.dir/amd_aat.cc.o
+[428/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_report_info.cc.o
+[429/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_int_release.dir/amd_postorder.cc.o
+[430/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_int_release.dir/amd_order.cc.o
+[431/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_int_release.dir/amd_info.cc.o
+[432/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_ZL_TRIPLET_MAP_NOX_release.dir/umf_triplet.cc.o
+[433/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_long_release.dir/amd_control.cc.o
+[434/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_long_release.dir/amd_aat.cc.o
+[435/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_long_release.dir/amd_1.cc.o
+[436/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_long_release.dir/amd_defaults.cc.o
+[437/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_long_release.dir/amd_info.cc.o
+[438/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_DL_STORE_release.dir/umf_store_lu.cc.o
+[439/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_ZL_TRIPLET_MAP_X_release.dir/umf_triplet.cc.o
+[440/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_long_release.dir/amd_dump.cc.o
+[441/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_long_release.dir/amd_post_tree.cc.o
+[442/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_long_release.dir/amd_postorder.cc.o
+[443/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_long_release.dir/amd_valid.cc.o
+[444/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_L_UMFPACK_release.dir/umf_colamd.cc.o
+[445/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_DL_ASSEMBLE_release.dir/umf_assemble.cc.o
+[446/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_long_release.dir/amd_preprocess.cc.o
+[447/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_long_release.dir/amd_order.cc.o
+[448/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_ZL_STORE_release.dir/umf_store_lu.cc.o
+[449/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_ZL_ASSEMBLE_release.dir/umf_assemble.cc.o
+[450/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_int_release.dir/amd_2.cc.o
+[451/801] Building CXX object bundled/muparser_v2_3_3/CMakeFiles/bundled_muparser_release.dir/src/muParserCallback.cpp.o
+[452/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umf_solve.cc.o
+[453/801] Building CXX object bundled/umfpack/AMD/Source/CMakeFiles/bundled_amd_long_release.dir/amd_2.cc.o
+[454/801] Building CXX object bundled/umfpack/UMFPACK/Source/CMakeFiles/bundled_umfpack_Z_UMF_release.dir/umfpack_qsymbolic.cc.o
+[455/801] Building CXX object bundled/muparser_v2_3_3/CMakeFiles/bundled_muparser_release.dir/src/muParserBytecode.cpp.o
+[456/801] Building CXX object bundled/muparser_v2_3_3/CMakeFiles/bundled_muparser_release.dir/src/muParserError.cpp.o
+[457/801] Building CXX object bundled/muparser_v2_3_3/CMakeFiles/bundled_muparser_release.dir/src/muParserInt.cpp.o
+[458/801] Building CXX object bundled/muparser_v2_3_3/CMakeFiles/bundled_muparser_release.dir/src/muParser.cpp.o
+[459/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/impl/Kokkos_Command_Line_Parsing.cpp.o
+[460/801] Building CXX object bundled/boost-1.84.0/libs/serialization/src/CMakeFiles/bundled_boost_serialization_release.dir/xml_grammar.cpp.o
+[461/801] Building CXX object bundled/muparser_v2_3_3/CMakeFiles/bundled_muparser_release.dir/src/muParserTokenReader.cpp.o
+[462/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/block_mask.cc.o
+[463/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/impl/Kokkos_Profiling.cpp.o
+[464/801] Building CXX object bundled/muparser_v2_3_3/CMakeFiles/bundled_muparser_release.dir/src/muParserBase.cpp.o
+[465/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/component_mask.cc.o
+[466/801] Building CXX object bundled/muparser_v2_3_3/CMakeFiles/bundled_muparser_release.dir/src/muParserTest.cpp.o
+[467/801] Building CXX object bundled/kokkos-4.5.01/CMakeFiles/bundled_kokkos_release.dir/core/src/impl/Kokkos_Core.cpp.o
+[468/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/histogram.cc.o
+[469/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/data_postprocessor.cc.o
+[470/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/matrix_tools_once.cc.o
+[471/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/matrix_tools.cc.o
+[472/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/cell_data_transfer.cc.o
+[473/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/dof_output_operator.cc.o
+[474/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/data_out_stack.cc.o
+[475/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/time_dependent.cc.o
+[476/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/data_out_faces.cc.o
+[477/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_data.cc.o
+[478/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/vector_tools_constraints.cc.o
+[479/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/data_out_rotation.cc.o
+[480/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_bernardi_raugel.cc.o
+[481/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_abf.cc.o
+[482/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/vector_tools_mean_value.cc.o
+[483/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/vector_tools_project_codim.cc.o
+[484/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_dgp_monomial.cc.o
+[485/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_bdm.cc.o
+[486/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/error_estimator_1d.cc.o
+[487/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/vector_tools_point_gradient.cc.o
+[488/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_dgp_nonparametric.cc.o
+[489/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_dgp.cc.o
+[490/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_bernstein.cc.o
+[491/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe.cc.o
+[492/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/data_out_dof_data_inst2.cc.o
+[493/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/error_estimator_inst2.cc.o
+[494/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/data_out_dof_data_codim.cc.o
+[495/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/solution_transfer_inst3.cc.o
+[496/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_nothing.cc.o
+[497/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/vector_tools_point_value.cc.o
+[498/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_dg_vector.cc.o
+[499/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/solution_transfer_inst2.cc.o
+[500/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/solution_transfer_inst1.cc.o
+[501/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_p1nc.cc.o
+[502/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/data_out_dof_data_inst1.cc.o
+[503/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/matrix_creator_inst1.cc.o
+[504/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/error_estimator_inst1.cc.o
+[505/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/vector_tools_rhs.cc.o
+[506/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_dgq.cc.o
+[507/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_face.cc.o
+[508/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_poly.cc.o
+[509/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/vector_tools_integrate_difference.cc.o
+[510/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_values_extractors.cc.o
+[511/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_pyramid_p.cc.o
+[512/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/vector_tools_project_hp.cc.o
+[513/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_series.cc.o
+[514/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_rannacher_turek.cc.o
+[515/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/solution_transfer_inst4.cc.o
+[516/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/data_out_resample.cc.o
+[517/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/data_out.cc.o
+[518/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_q_iso_q1.cc.o
+[519/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_q_dg0.cc.o
+[520/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_nedelec_sz.cc.o
+[521/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_q.cc.o
+[522/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/fe_field_function.cc.o
+[523/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/mapping_c1.cc.o
+[524/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/mapping_q1.cc.o
+[525/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_hermite.cc.o
+[526/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_q_hierarchical.cc.o
+[527/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/vector_tools_boundary.cc.o
+[528/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_series_fourier.cc.o
+[529/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_q_bubbles.cc.o
+[530/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_rt_bubbles.cc.o
+[531/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_nedelec.cc.o
+[532/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/smoothness_estimator.cc.o
+[533/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_trace.cc.o
+[534/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_q_base.cc.o
+[535/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_poly_tensor.cc.o
+[536/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_series_legendre.cc.o
+[537/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_raviart_thomas.cc.o
+[538/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/point_value_history.cc.o
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/source/numerics/point_value_history.cc: In instantiation of 'void dealii::PointValueHistory<dim>::get_postprocessor_locations(const dealii::Quadrature<dim>&, std::vector<dealii::Point<dim> >&) [with int dim = 1]':
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/build/source/numerics/point_value_history.inst:10:16:   required from here
+   10 | template class PointValueHistory< 1 >;
+      |                ^~~~~~~~~~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/source/numerics/point_value_history.cc:1279:21: warning: variable 'data_store_index' set but not used [-Wunused-but-set-variable=]
+ 1279 |   for (unsigned int data_store_index = 0; point != point_geometry_data.end();
+      |                     ^~~~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/source/numerics/point_value_history.cc: In instantiation of 'void dealii::PointValueHistory<dim>::get_postprocessor_locations(const dealii::Quadrature<dim>&, std::vector<dealii::Point<dim> >&) [with int dim = 2]':
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/build/source/numerics/point_value_history.inst:14:16:   required from here
+   14 | template class PointValueHistory< 2 >;
+      |                ^~~~~~~~~~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/source/numerics/point_value_history.cc:1279:21: warning: variable 'data_store_index' set but not used [-Wunused-but-set-variable=]
+ 1279 |   for (unsigned int data_store_index = 0; point != point_geometry_data.end();
+      |                     ^~~~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/source/numerics/point_value_history.cc: In instantiation of 'void dealii::PointValueHistory<dim>::get_postprocessor_locations(const dealii::Quadrature<dim>&, std::vector<dealii::Point<dim> >&) [with int dim = 3]':
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/build/source/numerics/point_value_history.inst:18:16:   required from here
+   18 | template class PointValueHistory< 3 >;
+      |                ^~~~~~~~~~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/source/numerics/point_value_history.cc:1279:21: warning: variable 'data_store_index' set but not used [-Wunused-but-set-variable=]
+ 1279 |   for (unsigned int data_store_index = 0; point != point_geometry_data.end();
+      |                     ^~~~~~~~~~~~~~~~
+[539/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_raviart_thomas_nodal.cc.o
+[540/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_simplex_p_bubbles.cc.o
+[541/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_wedge_p.cc.o
+[542/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/mapping.cc.o
+[543/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/mapping_p1.cc.o
+[544/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_simplex_p.cc.o
+[545/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_enriched.cc.o
+[546/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/mapping_cartesian.cc.o
+[547/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/mapping_q.cc.o
+FAILED: [code=1] source/fe/CMakeFiles/object_fe_release.dir/mapping_q.cc.o 
+/home/multiarq/.local/share/build-bench/envs/dealii-power9/build/bin/g++ -DNDEBUG -I/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/build/include -I/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/build/source -I/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/include -isystem /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/bundled/taskflow-3.10.0 -isystem /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/bundled/boost-1.84.0/include -isystem /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/bundled/umfpack/UMFPACK/Include -isystem /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/bundled/umfpack/AMD/Include -isystem /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/bundled/kokkos-4.5.01/algorithms/src -isystem /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/bundled/kokkos-4.5.01/containers/src -isystem /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/bundled/kokkos-4.5.01/core/src -isystem /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/bundled/kokkos-4.5.01/simd/src -isystem /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/bundled/kokkos-4.5.01/tpls/mdspan/include -isystem /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/bundled/kokkos-4.5.01/tpls/desul/include -isystem /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/bundled/muparser_v2_3_3/include -isystem /home/multiarq/.local/share/build-bench/envs/dealii-power9/build/include -std=c++20 -fPIC -pedantic -Wall -Wextra -Wmissing-braces -Woverloaded-virtual -Wpointer-arith -Wsign-compare -Wsuggest-override -Wswitch -Wsynth -Wwrite-strings -Wno-placement-new -Wno-deprecated-declarations -Wno-literal-suffix -Wno-psabi -Wno-unused-local-typedefs -Wno-parentheses -fopenmp-simd -pthread -O2 -funroll-loops -funroll-all-loops -Wno-unused-parameter -MD -MT source/fe/CMakeFiles/object_fe_release.dir/mapping_q.cc.o -MF source/fe/CMakeFiles/object_fe_release.dir/mapping_q.cc.o.d -o source/fe/CMakeFiles/object_fe_release.dir/mapping_q.cc.o -c /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/source/fe/mapping_q.cc
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/include/deal.II/base/memory_consumption.h:21,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/source/fe/mapping_q.cc:18:
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/include/deal.II/base/vectorization.h: In instantiation of 'Number dealii::compare_and_apply_mask(const Number&, const Number&, const Number&, const Number&) [with SIMDComparison predicate = dealii::SIMDComparison::greater_than; Number = VectorizedArray<double, 2>]':
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/include/deal.II/fe/mapping_q_internal.h:1018:79:   required from 'dealii::Point<dim, Number> dealii::internal::MappingQImplementation::InverseQuadraticApproximation<dim, spacedim>::compute(const dealii::Point<spacedim, Number>&) const [with Number = dealii::VectorizedArray<double, 2>; int dim = 1; int spacedim = 1]'
+ 1018 |               result[d] = compare_and_apply_mask<SIMDComparison::greater_than>(
+      |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+ 1019 |                 distance_to_unit_cell,
+      |                 ~~~~~~~~~~~~~~~~~~~~~~                                         
+ 1020 |                 affine_distance_to_unit_cell + 0.5,
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                            
+ 1021 |                 result_affine[d],
+      |                 ~~~~~~~~~~~~~~~~~                                              
+ 1022 |                 result[d]);
+      |                 ~~~~~~~~~~                                                     
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/source/fe/mapping_q.cc:687:44:   required from 'void dealii::MappingQ<dim, spacedim>::transform_points_real_to_unit_cell(const typename dealii::Triangulation<dim, spacedim>::cell_iterator&, const dealii::ArrayView<const dealii::Point<spacedim> >&, const dealii::ArrayView<dealii::Point<dim> >&) const [with int dim = 1; int spacedim = 1; typename dealii::Triangulation<dim, spacedim>::cell_iterator = dealii::TriaIterator<dealii::CellAccessor<1, 1> >]'
+  687 |               inverse_approximation.compute(p_vec),
+      |               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/build/source/fe/mapping_q.inst:11:17:   required from here
+   11 |  template class MappingQ< 1 ,  1 >;
+      |                 ^~~~~~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/include/deal.II/base/vectorization.h:6130:22: error: no match for 'operator<' (operand types are 'const dealii::VectorizedArray<double, 2>' and 'const dealii::VectorizedArray<double, 2>')
+ 6130 |         mask = (left < right);
+      |                ~~~~~~^~~~~~~~
+  • there is 1 candidate
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/include/deal.II/base/parallel.h:24,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/include/deal.II/base/aligned_vector.h:24,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/include/deal.II/base/table.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/source/fe/mapping_q.cc:22:
+    • candidate 1: 'template<class Iterators> bool dealii::operator<(const SynchronousIterators<Iterators>&, const SynchronousIterators<Iterators>&)'
+      /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/include/deal.II/base/synchronous_iterator.h:124:1:
+        124 | operator<(const SynchronousIterators<Iterators> &a,
+            | ^~~~~~~~
+      • template argument deduction/substitution failed:
+        •   'const dealii::VectorizedArray<double, 2>' is not derived from 'const dealii::SynchronousIterators<Iterators>'
+          /home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/include/deal.II/base/vectorization.h:6130:22:
+           6130 |         mask = (left < right);
+                |                ~~~~~~^~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/include/deal.II/base/vectorization.h:6133:22: error: no match for 'operator<=' (operand types are 'const dealii::VectorizedArray<double, 2>' and 'const dealii::VectorizedArray<double, 2>')
+ 6133 |         mask = (left <= right);
+      |                ~~~~~~^~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/include/deal.II/base/vectorization.h:6136:22: error: no match for 'operator>' (operand types are 'const dealii::VectorizedArray<double, 2>' and 'const dealii::VectorizedArray<double, 2>')
+ 6136 |         mask = (left > right);
+      |                ~~~~~~^~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/dealii/dealii/include/deal.II/base/vectorization.h:6139:22: error: no match for 'operator>=' (operand types are 'const dealii::VectorizedArray<double, 2>' and 'const dealii::VectorizedArray<double, 2>')
+ 6139 |         mask = (left >= right);
+      |                ~~~~~~^~~~~~~~~
+[548/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/mapping_related_data.cc.o
+[549/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/mapping_q1_eulerian.cc.o
+[550/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/fe_point_evaluation.cc.o
+[551/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_tools_extrapolate.cc.o
+[552/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/mapping_manifold.cc.o
+[553/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_values_views.cc.o
+[554/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/vector_data_exchange.cc.o
+[555/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/mapping_fe.cc.o
+[556/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/dof_info.cc.o
+[557/801] Building CXX object source/dofs/CMakeFiles/object_dofs_release.dir/block_info.cc.o
+[558/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_values_views_internal.cc.o
+[559/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/matrix_creator_inst2.cc.o
+[560/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/mapping_q_eulerian.cc.o
+[561/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_tools_interpolate.cc.o
+[562/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/task_info.cc.o
+[563/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_values.cc.o
+[564/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/vector_tools_project_qpmf.cc.o
+[565/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/vector_tools_project_qp.cc.o
+[566/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/derivative_approximation.cc.o
+[567/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/mapping_q_cache.cc.o
+[568/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_system.cc.o
+[569/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_tools.cc.o
+[570/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/portable_matrix_free.cc.o
+[571/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/matrix_creator_inst3.cc.o
+[572/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/vector_tools_interpolate.cc.o
+[573/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/fe_values_base.cc.o
+[574/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/mapping_info_inst1.cc.o
+[575/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/mapping_info_inst2.cc.o
+[576/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/mapping_info_inst3.cc.o
+[577/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/mapping_fe_field_inst1.cc.o
+[578/801] Building CXX object source/fe/CMakeFiles/object_fe_release.dir/mapping_fe_field_inst2.cc.o
+[579/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/shape_info.cc.o
+[580/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/matrix_free.cc.o
+[581/801] Building CXX object source/numerics/CMakeFiles/object_numerics_release.dir/vector_tools_project.cc.o
+[582/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/evaluation_template_factory_inst1.cc.o
+[583/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/evaluation_template_factory_inst2.cc.o
+[584/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/evaluation_template_face_factory_inst1.cc.o
+[585/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/evaluation_template_face_factory_inst2.cc.o
+[586/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/evaluation_template_factory_hanging_nodes.cc.o
+[587/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/evaluation_template_factory_inst3.cc.o
+[588/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/evaluation_template_factory_inst4.cc.o
+[589/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/evaluation_template_factory_inst5.cc.o
+[590/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/evaluation_template_face_factory_inst3.cc.o
+[591/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/evaluation_template_face_factory_inst4.cc.o
+[592/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/evaluation_template_factory_inst6.cc.o
+[593/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/evaluation_template_face_factory_inst5.cc.o
+[594/801] Building CXX object source/matrix_free/CMakeFiles/object_matrix_free_release.dir/evaluation_template_face_factory_inst6.cc.o
+ninja: build stopped: subcommand failed.

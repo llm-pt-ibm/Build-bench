@@ -11,7 +11,9 @@
   "rust-power9": "Rust (vendored crates, no network): envs/rust-power9/env.yaml",
   "go-power9": "Go (vendored modules, no network): envs/go-power9/env.yaml",
   "nyxt": "Common Lisp: sbcl gcc make (libfixposix from source)",
-  "elixir": "Elixir on Erlang/OTP: erlang make git"
+  "elixir": "Elixir on Erlang/OTP: erlang make git",
+  "kismet-power9": "kismet's libraries: envs/kismet-power9/env.yaml",
+  "dealii-power9": "deal.II with its bundled libraries: envs/dealii-power9/env.yaml"
  },
  "cases": {
   "trigger-rally": {
@@ -981,6 +983,52 @@
    "new_case": "make new-case CASE=elixir SOURCE=\"https://github.com/elixir-lang/elixir/archive/v1.20.5/elixir-1.20.5.tar.gz\" ENV=elixir",
    "notes": [
     "openSUSE carries 5 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "kismet": {
+   "group": "architecture detection and Linux headers",
+   "evidence": "uwifi's own kernel headers (kcompat/upstream/uapi) leave __vector128 undefined: asm/elf.h fails",
+   "cause_seen_in_log": true,
+   "env": "kismet-power9",
+   "version": "2026_10_R1",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "adc2a898ea92f0647e6f1362cbbfcf8d",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/kismet/_log"
+   },
+   "minutes": {
+    "x86_64": 13.9,
+    "ppc64le": 30.8
+   },
+   "sources": [
+    "https://github.com/kismetwireless/kismet/archive/kismet-2026-10-R1.tar.gz"
+   ],
+   "new_case": "make new-case CASE=kismet SOURCE=\"https://github.com/kismetwireless/kismet/archive/kismet-2026-10-R1.tar.gz\" ENV=kismet-power9",
+   "notes": [
+    "openSUSE carries 2 patch(es): apply only those the x86_64 build needs, none for ppc64le"
+   ]
+  },
+  "dealii": {
+   "group": "x86 SIMD",
+   "evidence": "the VSX path of base/vectorization.h does not compile (no operator< for VectorizedArray)",
+   "cause_seen_in_log": true,
+   "env": "dealii-power9",
+   "version": "9.7.1",
+   "obs": {
+    "project": "openSUSE:Factory",
+    "rev": "d0edaaae12b07c5b462b918590787389",
+    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/dealii/_log"
+   },
+   "minutes": {
+    "x86_64": 39.8,
+    "ppc64le": 8.9
+   },
+   "sources": [
+    "https://github.com/dealii/dealii/releases/download/v9.7.1/dealii-9.7.1.tar.gz"
+   ],
+   "new_case": "make new-case CASE=dealii SOURCE=\"https://github.com/dealii/dealii/releases/download/v9.7.1/dealii-9.7.1.tar.gz\" ENV=dealii-power9",
+   "notes": [
+    "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le"
    ]
   }
  },

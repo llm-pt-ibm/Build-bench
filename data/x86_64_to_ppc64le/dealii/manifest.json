@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "dealii",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "dealii": "https://github.com/dealii/dealii/releases/download/v9.7.1/dealii-9.7.1.tar.gz"
+    },
+    "version": "9.7.1"
+  },
+  "environment": "dealii-power9",
+  "version": 1
+}
