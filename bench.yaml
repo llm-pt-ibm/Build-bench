@@ -54,3 +54,6 @@ suites:
            steampipe, inspektor-gadget, ptcpdump, kluctl, kpt-cli, backward-cpp,
            libvarlink, lpcnet, iprange, bash-completion-doc, python-PySDL2, kismet,
            dealii]
+  # one case of each group of the sample, the quickest with the plainest evidence
+  groups: [rtlsdr-airband, dav2d, clanlib, syncterm, json-schema-validator, awww, steampipe,
+           backward-cpp]
