@@ -20,21 +20,41 @@ Sources, as of 2026-11-03:
   field names amd64 or arm64 but not ppc64el
   (`deb.debian.org/debian/dists/sid/main/source/Sources.xz`).
 
-## The evaluation sample (2026-11-12)
+## The evaluation sample (2026-11-13)
 
-`dataset/sample_x86_64_to_ppc64le.json` holds 60 cases to build, all from OBS
-(Factory and its devel projects, 293 candidates on 2026-11-12), chosen for the
-variety of the cause (ten groups, from compiler flags to failing tests) among
-the failures of `%build` or `%check` whose last build takes at most 20 min.
-For each one: the group, the evidence in its ppc64le log, the OBS revision,
-the sources (upstream at the version that failed, vendored dependencies from
-OBS), the environment and the `make new-case` command; reserves at the end.
-Report results per group: the sample is not random. The 10 cases of the
-tables below are apart from it.
+`dataset/sample_x86_64_to_ppc64le.json` holds the 33 cases of the evaluation
+(suite `sample` of `bench.yaml`), all from OBS (Factory and its devel
+projects, 293 candidates on 2026-11-12), chosen for the variety of the cause
+among the failures of `%build` or `%check` whose last build takes at most 20
+min (deal.II, 40). Each one's baseline (`log_failed.txt`) reproduces on
+ppc64le the failure of its OBS log; for each one the json gives the group, the
+evidence, the OBS revision, the sources (upstream at the version that failed,
+vendored dependencies from OBS) and the environment. Report results per group:
+the sample is not random. The 10 cases of the tables below are apart from it.
 
-Most of the failures left out are of the packaging only: 99 Go packages fail in
-`%install`, where their binary crashes in the Go 1.27 runtime on the OBS
-ppc64le workers (`fatal error: fault`, SIGSEGV), not in their own code.
+| Group | Cases |
+|---|---|
+| system and CPU behavior tests | 6 |
+| x86 compiler flags | 5 |
+| architecture detection and Linux headers | 5 |
+| Go build tags and generated code | 5 |
+| x86 SIMD (and PowerPC vector code) | 4 |
+| types and ABI | 3 |
+| Rust crates without ppc64le | 3 |
+| assembly and low-level code | 2 |
+
+Of the 51 candidates made into cases, 33 reproduced: 27 of the 30 whose build
+fails on OBS, 6 of the 21 whose tests fail. A test failure on OBS depends on
+the distribution's flags and library versions more than a recipe of the
+upstream sources reproduces (`dropped` in the json says why for each);
+`not_built` lists the 11 candidates left, nearly all failing tests. iprange's
+failing test may come from the container (no user name for its uid): check it
+on x86_64 before counting it.
+
+Most of the failures left out at the start are of the packaging only: 99 Go
+packages fail in `%install`, where their binary crashes in the Go 1.27 runtime
+on the OBS ppc64le workers (`fatal error: fault`, SIGSEGV), not in their own
+code; rustc dies the same way for five Rust packages.
 
 ## Simple: a few lines (a compiler flag, a macro, a list of architectures)
 

@@ -46,3 +46,11 @@ suites:
   easy: [cpufetch, fermi-lite, libzita-resampler, lite-xl-plugin-manager, minigraph, ssw]
   medium: [asl, ksw2, minimap2, miniprot]
   hard: [jaxlib, tensorflow]
+  # the evaluation sample of 2026-11-13 (dataset/sample_x86_64_to_ppc64le.json)
+  sample: [trigger-rally, rtlsdr-airband, bngblaster, librealsense, xtensor-python,
+           libbullet, schismtracker, dav2d, clanlib, samply, syncterm, ImHex,
+           noise-suppression-for-voice, connman, wl-screenrec, qcoan,
+           json-schema-validator, awww, rustdesk-server, python-mitmproxy-wireguard,
+           steampipe, inspektor-gadget, ptcpdump, kluctl, kpt-cli, backward-cpp,
+           libvarlink, lpcnet, iprange, bash-completion-doc, python-PySDL2, kismet,
+           dealii]

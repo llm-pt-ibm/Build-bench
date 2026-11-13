@@ -601,138 +601,6 @@
     "vendored dependencies (vendor/) from OBS: build.sh points go at them (-mod=vendor, inside the source tree)"
    ]
   },
-  "ensmallen": {
-   "group": "numeric tests",
-   "evidence": "lrsdp_test: 1 of 18052 assertions",
-   "cause_seen_in_log": true,
-   "env": "sci-power9",
-   "version": "3.11.0",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "e87f166b3d67fda41d8d248211cae41f",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/ensmallen/_log"
-   },
-   "minutes": {
-    "x86_64": 5.5,
-    "ppc64le": 11.3
-   },
-   "sources": [
-    "https://ensmallen.org/files/ensmallen-3.11.0.tar.gz"
-   ],
-   "new_case": "make new-case CASE=ensmallen SOURCE=\"https://ensmallen.org/files/ensmallen-3.11.0.tar.gz\" ENV=sci-power9",
-   "notes": []
-  },
-  "fastjet-contrib": {
-   "group": "numeric tests",
-   "evidence": "Nsubjettiness example_advanced_usage differs from the reference",
-   "cause_seen_in_log": true,
-   "env": "sci-power9",
-   "version": "1.104",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "d085a6d39ec779d018ba090994881f40",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/fastjet-contrib/_log"
-   },
-   "minutes": {
-    "x86_64": 3.1,
-    "ppc64le": 7.0
-   },
-   "sources": [
-    "https://fastjet.hepforge.org/contrib/downloads/fjcontrib-1.104.tar.gz"
-   ],
-   "new_case": "make new-case CASE=fastjet-contrib SOURCE=\"https://fastjet.hepforge.org/contrib/downloads/fjcontrib-1.104.tar.gz\" ENV=sci-power9",
-   "notes": []
-  },
-  "nceplibs-ip": {
-   "group": "numeric tests",
-   "evidence": "1 of 114 tests (Fortran)",
-   "cause_seen_in_log": true,
-   "env": "sci-power9",
-   "version": "5.4.0",
-   "obs": {
-    "project": "science",
-    "rev": "b45aab1db78354c07364c3d55f912194",
-    "ppc64le_log": "https://api.opensuse.org/public/build/science/openSUSE_Tumbleweed/ppc64le/nceplibs-ip/_log"
-   },
-   "minutes": {
-    "x86_64": 3.0,
-    "ppc64le": 2.8
-   },
-   "sources": [
-    "https://api.opensuse.org/public/source/science/nceplibs-ip/NCEPLIBS-ip-5.4.0.tar.gz?rev=b45aab1db78354c07364c3d55f912194&expand=1",
-    "test-data=https://ftp.emc.ncep.noaa.gov/static_files/public/NCEPLIBS-ip/ip-test-data-20241230.tgz"
-   ],
-   "new_case": "make new-case CASE=nceplibs-ip SOURCE=\"https://api.opensuse.org/public/source/science/nceplibs-ip/NCEPLIBS-ip-5.4.0.tar.gz?rev=b45aab1db78354c07364c3d55f912194&expand=1 test-data=https://ftp.emc.ncep.noaa.gov/static_files/public/NCEPLIBS-ip/ip-test-data-20241230.tgz\" ENV=sci-power9",
-   "notes": []
-  },
-  "hdf": {
-   "group": "numeric tests",
-   "evidence": "1 of 75 tests (HDF4)",
-   "cause_seen_in_log": true,
-   "env": "sci-power9",
-   "version": "4.2.15",
-   "obs": {
-    "project": "science",
-    "rev": "b8a933eff15e053d1bf76f012adabb4d",
-    "ppc64le_log": "https://api.opensuse.org/public/build/science/openSUSE_Tumbleweed/ppc64le/hdf/_log"
-   },
-   "minutes": {
-    "x86_64": 8.5,
-    "ppc64le": 10.5
-   },
-   "sources": [
-    "https://support.hdfgroup.org/ftp/HDF/releases/HDF4.2.15/src/hdf-4.2.15.tar.bz2"
-   ],
-   "new_case": "make new-case CASE=hdf SOURCE=\"https://support.hdfgroup.org/ftp/HDF/releases/HDF4.2.15/src/hdf-4.2.15.tar.bz2\" ENV=sci-power9",
-   "notes": [
-    "openSUSE carries 10 patch(es): apply only those the x86_64 build needs, none for ppc64le"
-   ]
-  },
-  "meep": {
-   "group": "numeric tests",
-   "evidence": "three_d aborts (exit 134)",
-   "cause_seen_in_log": true,
-   "env": "sci-power9",
-   "version": "1.28.0",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "db1de2945913f5159baa16f30b7a3652",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/meep/_log"
-   },
-   "minutes": {
-    "x86_64": 4.7,
-    "ppc64le": 9.7
-   },
-   "sources": [
-    "https://github.com/NanoComp/meep/releases/download/v1.28.0/meep-1.28.0.tar.gz"
-   ],
-   "new_case": "make new-case CASE=meep SOURCE=\"https://github.com/NanoComp/meep/releases/download/v1.28.0/meep-1.28.0.tar.gz\" ENV=sci-power9",
-   "notes": []
-  },
-  "cdo": {
-   "group": "numeric tests",
-   "evidence": "3 tests fail",
-   "cause_seen_in_log": true,
-   "env": "sci-power9",
-   "version": "2.6.6",
-   "obs": {
-    "project": "science",
-    "rev": "f192ee6d9da4a3da119848d4bf8953b6",
-    "ppc64le_log": "https://api.opensuse.org/public/build/science/openSUSE_Tumbleweed/ppc64le/cdo/_log"
-   },
-   "minutes": {
-    "x86_64": 8.2,
-    "ppc64le": 8.1
-   },
-   "sources": [
-    "https://api.opensuse.org/public/source/science/cdo/cdo-2.6.6.tar.gz?rev=f192ee6d9da4a3da119848d4bf8953b6&expand=1"
-   ],
-   "new_case": "make new-case CASE=cdo SOURCE=\"https://api.opensuse.org/public/source/science/cdo/cdo-2.6.6.tar.gz?rev=f192ee6d9da4a3da119848d4bf8953b6&expand=1\" ENV=sci-power9",
-   "notes": [
-    "Magics is not on conda-forge for ppc64le (optional)",
-    "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le"
-   ]
-  },
   "backward-cpp": {
    "group": "system and CPU behavior tests",
    "evidence": "divide_by_zero: no SIGFPE on PowerPC",
@@ -871,120 +739,6 @@
     "openSUSE carries 2 patch(es): apply only those the x86_64 build needs, none for ppc64le"
    ]
   },
-  "netgen": {
-   "group": "cause to confirm",
-   "evidence": "9 numeric tests fail (assert approx)",
-   "cause_seen_in_log": false,
-   "env": "sci-power9",
-   "version": "6.2.2602",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "92dccbcda193bee825e6495202ce065a",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/netgen/_log"
-   },
-   "minutes": {
-    "x86_64": 7.8,
-    "ppc64le": 9.3
-   },
-   "sources": [
-    "https://github.com/NGSolve/netgen/archive/refs/tags/v6.2.2602.tar.gz"
-   ],
-   "new_case": "make new-case CASE=netgen SOURCE=\"https://github.com/NGSolve/netgen/archive/refs/tags/v6.2.2602.tar.gz\" ENV=sci-power9",
-   "notes": [
-    "openSUSE carries 13 patch(es): apply only those the x86_64 build needs, none for ppc64le"
-   ]
-  },
-  "cadabra2": {
-   "group": "cause to confirm",
-   "evidence": "7 of 48 tests",
-   "cause_seen_in_log": false,
-   "env": "sci-power9",
-   "version": "2.6.0",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "cccdc134d9947ee261172158cef64fe0",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/cadabra2/_log"
-   },
-   "minutes": {
-    "x86_64": 7.1,
-    "ppc64le": 15.2
-   },
-   "sources": [
-    "https://github.com/kpeeters/cadabra2/archive/67cdebce798dbb2e230ae3246221ca3302a03129.tar.gz"
-   ],
-   "new_case": "make new-case CASE=cadabra2 SOURCE=\"https://github.com/kpeeters/cadabra2/archive/67cdebce798dbb2e230ae3246221ca3302a03129.tar.gz\" ENV=sci-power9",
-   "notes": [
-    "openSUSE carries 2 patch(es): apply only those the x86_64 build needs, none for ppc64le"
-   ]
-  },
-  "octave-forge-gsl": {
-   "group": "cause to confirm",
-   "evidence": "gsl_sf tests fail",
-   "cause_seen_in_log": false,
-   "env": "sci-power9",
-   "version": "2.1.1",
-   "obs": {
-    "project": "science",
-    "rev": "1b136ac729457fb314da3a4e5c241454",
-    "ppc64le_log": "https://api.opensuse.org/public/build/science/openSUSE_Tumbleweed/ppc64le/octave-forge-gsl/_log"
-   },
-   "minutes": {
-    "x86_64": 1.3,
-    "ppc64le": 1.6
-   },
-   "sources": [
-    "http://downloads.sourceforge.net/octave/gsl-2.1.1.tar.gz"
-   ],
-   "new_case": "make new-case CASE=octave-forge-gsl SOURCE=\"http://downloads.sourceforge.net/octave/gsl-2.1.1.tar.gz\" ENV=sci-power9",
-   "notes": []
-  },
-  "nyxt": {
-   "group": "cause to confirm",
-   "evidence": "SBCL compilation fails (1 fatal error)",
-   "cause_seen_in_log": false,
-   "env": "nyxt",
-   "version": "3.12.0",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "e83d15541fd7c8df18a71e537cde4b09",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/nyxt/_log"
-   },
-   "minutes": {
-    "x86_64": 3.5,
-    "ppc64le": 3.0
-   },
-   "sources": [
-    "https://api.opensuse.org/public/source/openSUSE:Factory/nyxt/nyxt-3.12.0-source-with-submodules.tar.xz?rev=e83d15541fd7c8df18a71e537cde4b09&expand=1"
-   ],
-   "new_case": "make new-case CASE=nyxt SOURCE=\"https://api.opensuse.org/public/source/openSUSE:Factory/nyxt/nyxt-3.12.0-source-with-submodules.tar.xz?rev=e83d15541fd7c8df18a71e537cde4b09&expand=1\" ENV=nyxt",
-   "notes": [
-    "libfixposix is not on conda-forge: add it as a source",
-    "openSUSE carries 5 patch(es): apply only those the x86_64 build needs, none for ppc64le"
-   ]
-  },
-  "elixir": {
-   "group": "cause to confirm",
-   "evidence": "a test assertion (=~) fails",
-   "cause_seen_in_log": false,
-   "env": "elixir",
-   "version": "1.20.5",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "70d1d91f733ffd65c062f8462610c2c6",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/elixir/_log"
-   },
-   "minutes": {
-    "x86_64": 11.2,
-    "ppc64le": 12.3
-   },
-   "sources": [
-    "https://github.com/elixir-lang/elixir/archive/v1.20.5/elixir-1.20.5.tar.gz"
-   ],
-   "new_case": "make new-case CASE=elixir SOURCE=\"https://github.com/elixir-lang/elixir/archive/v1.20.5/elixir-1.20.5.tar.gz\" ENV=elixir",
-   "notes": [
-    "openSUSE carries 5 patch(es): apply only those the x86_64 build needs, none for ppc64le"
-   ]
-  },
   "kismet": {
    "group": "architecture detection and Linux headers",
    "evidence": "uwifi's own kernel headers (kcompat/upstream/uapi) leave __vector128 undefined: asm/elf.h fails",
@@ -1059,5 +813,74 @@
   "python-emcee": "its long double tests pass on ppc64le with conda-forge's NumPy (IBM double-double long double; the OBS failure may come from IEEE quad): it does not reproduce",
   "python-tesserocr": "builds and passes its tests (test_recognize among them) on ppc64le: the OBS failure does not reproduce",
   "python-networkx": "passes its tests on ppc64le: the OBS failure (2 tests) does not reproduce"
- }
+ },
+ "not_built": {
+  "ensmallen": {
+   "group": "numeric tests",
+   "env": "sci-power9",
+   "evidence": "lrsdp_test: 1 of 18052 assertions",
+   "new_case": "make new-case CASE=ensmallen SOURCE=\"https://ensmallen.org/files/ensmallen-3.11.0.tar.gz\" ENV=sci-power9"
+  },
+  "fastjet-contrib": {
+   "group": "numeric tests",
+   "env": "sci-power9",
+   "evidence": "Nsubjettiness example_advanced_usage differs from the reference",
+   "new_case": "make new-case CASE=fastjet-contrib SOURCE=\"https://fastjet.hepforge.org/contrib/downloads/fjcontrib-1.104.tar.gz\" ENV=sci-power9"
+  },
+  "nceplibs-ip": {
+   "group": "numeric tests",
+   "env": "sci-power9",
+   "evidence": "1 of 114 tests (Fortran)",
+   "new_case": "make new-case CASE=nceplibs-ip SOURCE=\"https://api.opensuse.org/public/source/science/nceplibs-ip/NCEPLIBS-ip-5.4.0.tar.gz?rev=b45aab1db78354c07364c3d55f912194&expand=1 test-data=https://ftp.emc.ncep.noaa.gov/static_files/public/NCEPLIBS-ip/ip-test-data-20241230.tgz\" ENV=sci-power9"
+  },
+  "hdf": {
+   "group": "numeric tests",
+   "env": "sci-power9",
+   "evidence": "1 of 75 tests (HDF4)",
+   "new_case": "make new-case CASE=hdf SOURCE=\"https://support.hdfgroup.org/ftp/HDF/releases/HDF4.2.15/src/hdf-4.2.15.tar.bz2\" ENV=sci-power9"
+  },
+  "meep": {
+   "group": "numeric tests",
+   "env": "sci-power9",
+   "evidence": "three_d aborts (exit 134)",
+   "new_case": "make new-case CASE=meep SOURCE=\"https://github.com/NanoComp/meep/releases/download/v1.28.0/meep-1.28.0.tar.gz\" ENV=sci-power9"
+  },
+  "cdo": {
+   "group": "numeric tests",
+   "env": "sci-power9",
+   "evidence": "3 tests fail",
+   "new_case": "make new-case CASE=cdo SOURCE=\"https://api.opensuse.org/public/source/science/cdo/cdo-2.6.6.tar.gz?rev=f192ee6d9da4a3da119848d4bf8953b6&expand=1\" ENV=sci-power9"
+  },
+  "netgen": {
+   "group": "cause to confirm",
+   "env": "sci-power9",
+   "evidence": "9 numeric tests fail (assert approx)",
+   "new_case": "make new-case CASE=netgen SOURCE=\"https://github.com/NGSolve/netgen/archive/refs/tags/v6.2.2602.tar.gz\" ENV=sci-power9"
+  },
+  "cadabra2": {
+   "group": "cause to confirm",
+   "env": "sci-power9",
+   "evidence": "7 of 48 tests",
+   "new_case": "make new-case CASE=cadabra2 SOURCE=\"https://github.com/kpeeters/cadabra2/archive/67cdebce798dbb2e230ae3246221ca3302a03129.tar.gz\" ENV=sci-power9"
+  },
+  "octave-forge-gsl": {
+   "group": "cause to confirm",
+   "env": "sci-power9",
+   "evidence": "gsl_sf tests fail",
+   "new_case": "make new-case CASE=octave-forge-gsl SOURCE=\"http://downloads.sourceforge.net/octave/gsl-2.1.1.tar.gz\" ENV=sci-power9"
+  },
+  "nyxt": {
+   "group": "cause to confirm",
+   "env": "nyxt",
+   "evidence": "SBCL compilation fails (1 fatal error)",
+   "new_case": "make new-case CASE=nyxt SOURCE=\"https://api.opensuse.org/public/source/openSUSE:Factory/nyxt/nyxt-3.12.0-source-with-submodules.tar.xz?rev=e83d15541fd7c8df18a71e537cde4b09&expand=1\" ENV=nyxt"
+  },
+  "elixir": {
+   "group": "cause to confirm",
+   "env": "elixir",
+   "evidence": "a test assertion (=~) fails",
+   "new_case": "make new-case CASE=elixir SOURCE=\"https://github.com/elixir-lang/elixir/archive/v1.20.5/elixir-1.20.5.tar.gz\" ENV=elixir"
+  }
+ },
+ "status": "final on 2026-11-13: the cases above, each with a baseline that reproduces its OBS failure on ppc64le (log_failed.txt); not_built lists the candidates left before building them (mostly failing tests, which reproduce far less often than failing builds), dropped those that did not reproduce"
 }
