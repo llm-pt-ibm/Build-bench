@@ -1,0 +1,111 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment rust-power9 180cc3b6d71f in /home/multiarq/.local/share/build-bench/envs/rust-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/rust-power9/test/bin/python
+CLANG=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/bin/clang (clang version 23.1.5 (https://github.com/conda-forge/clangdev-feedstock 30fd4e93e83162141ae372db80ef9db7baa31094))
+CC=gcc
+CXX=g++
+CARGO_TARGET_POWERPC64LE_UNKNOWN_LINUX_GNU_LINKER=gcc
+LIBCLANG_PATH=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/lib
+CPATH=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/rust-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/rust-power9/build
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/rust-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/awww/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/awww/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+warning: Cargo.toml: `lints.clippy.missing-errors-doc` is deprecated in favor of `lints.clippy.missing_errors_doc` and will not work in a future edition
+warning: Cargo.toml: `lints.clippy.missing-panics-doc` is deprecated in favor of `lints.clippy.missing_panics_doc` and will not work in a future edition
+warning: Cargo.toml: `lints.clippy.module-name-repetitions` is deprecated in favor of `lints.clippy.module_name_repetitions` and will not work in a future edition
+warning: workspace (manifest) generated 3 warnings
+warning: common/Cargo.toml: `lints.clippy.missing-errors-doc` is deprecated in favor of `lints.clippy.missing_errors_doc` and will not work in a future edition
+warning: common/Cargo.toml: `lints.clippy.missing-panics-doc` is deprecated in favor of `lints.clippy.missing_panics_doc` and will not work in a future edition
+warning: common/Cargo.toml: `lints.clippy.module-name-repetitions` is deprecated in favor of `lints.clippy.module_name_repetitions` and will not work in a future edition
+warning: `common` (manifest) generated 3 warnings
+warning: daemon/Cargo.toml: `lints.clippy.missing-errors-doc` is deprecated in favor of `lints.clippy.missing_errors_doc` and will not work in a future edition
+warning: daemon/Cargo.toml: `lints.clippy.missing-panics-doc` is deprecated in favor of `lints.clippy.missing_panics_doc` and will not work in a future edition
+warning: daemon/Cargo.toml: `lints.clippy.module-name-repetitions` is deprecated in favor of `lints.clippy.module_name_repetitions` and will not work in a future edition
+warning: `awww-daemon` (manifest) generated 3 warnings
+warning: tests/Cargo.toml: `lints.clippy.missing-errors-doc` is deprecated in favor of `lints.clippy.missing_errors_doc` and will not work in a future edition
+warning: tests/Cargo.toml: `lints.clippy.missing-panics-doc` is deprecated in favor of `lints.clippy.missing_panics_doc` and will not work in a future edition
+warning: tests/Cargo.toml: `lints.clippy.module-name-repetitions` is deprecated in favor of `lints.clippy.module_name_repetitions` and will not work in a future edition
+warning: `tests` (manifest) generated 3 warnings
+warning: client/Cargo.toml: `lints.clippy.missing-errors-doc` is deprecated in favor of `lints.clippy.missing_errors_doc` and will not work in a future edition
+warning: client/Cargo.toml: `lints.clippy.missing-panics-doc` is deprecated in favor of `lints.clippy.missing_panics_doc` and will not work in a future edition
+warning: client/Cargo.toml: `lints.clippy.module-name-repetitions` is deprecated in favor of `lints.clippy.module_name_repetitions` and will not work in a future edition
+warning: `awww` (manifest) generated 3 warnings
+   Compiling proc-macro2 v1.0.106
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.45
+   Compiling libc v0.2.184
+   Compiling bitflags v2.11.0
+   Compiling cfg-if v1.0.4
+   Compiling simd-adler32 v0.3.9
+   Compiling crc32fast v1.5.0
+   Compiling adler2 v2.0.1
+   Compiling bytemuck v1.25.0
+   Compiling libm v0.2.16
+   Compiling rustix v1.1.4
+   Compiling smallvec v1.15.1
+   Compiling pkg-config v0.3.33
+   Compiling linux-raw-sys v0.12.1
+   Compiling utf8parse v0.2.2
+   Compiling log v0.4.29
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling colorchoice v1.0.5
+   Compiling autocfg v1.5.0
+   Compiling heck v0.5.0
+   Compiling zerocopy v0.8.48
+   Compiling version_check v0.9.5
+   Compiling anstyle-query v1.1.5
+   Compiling anstyle v1.0.14
+   Compiling clap_lex v1.1.0
+   Compiling arrayvec v0.7.6
+   Compiling strsim v0.11.1
+   Compiling float-cmp v0.9.0
+   Compiling tinyvec_macros v0.1.1
+   Compiling arrayref v0.3.9
+   Compiling weezl v0.1.12
+   Compiling roxmltree v0.20.0
+   Compiling memchr v2.8.0
+   Compiling quick-error v2.0.1
+   Compiling zune-core v0.5.1
+   Compiling unicode-bidi-mirroring v0.4.0
+   Compiling unicode-script v0.5.8
+   Compiling siphasher v1.0.2
+   Compiling color_quant v1.1.0
+   Compiling byteorder-lite v0.1.0
+   Compiling unicode-properties v0.1.4
+   Compiling unicode-ccc v0.4.0
+   Compiling thiserror v2.0.18
+   Compiling unicode-bidi v0.3.18
+   Compiling bit_field v0.10.3
+   Compiling pxfm v0.1.28
+   Compiling xmlwriter v0.1.0
+   Compiling data-url v0.3.2
+   Compiling unicode-vo v0.1.0
+   Compiling base64 v0.22.1
+   Compiling imagesize v0.14.0
+   Compiling litrs v1.0.0
+   Compiling lebe v0.5.3
+   Compiling pico-args v0.5.0
+   Compiling cpufeatures v0.3.0
+   Compiling fastrand v2.4.1
+   Compiling jzon v0.12.5
+   Compiling tinyvec v1.11.0
+   Compiling anstyle-parse v1.0.0
+   Compiling miniz_oxide v0.8.9
+   Compiling fdeflate v0.3.7
+   Compiling zune-inflate v0.2.54
+   Compiling strict-num v0.1.1
+   Compiling simplecss v0.2.2
+   Compiling anstream v1.0.0
+error: This crate works only on `aarch64`, `loongarch64`, `x86`, and `x86-64` targets.
+  --> /home/multiarq/yalle/build-bench/temp_workspace/awww/awww/vendor/cpufeatures-0.3.0/src/lib.rs:31:1
+   |
+31 | compile_error!("This crate works only on `aarch64`, `loongarch64`, `x86`, and `x86-64` targets.");
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: could not compile `cpufeatures` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...

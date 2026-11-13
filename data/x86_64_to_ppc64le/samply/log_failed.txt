@@ -1,0 +1,526 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment rust-power9 180cc3b6d71f in /home/multiarq/.local/share/build-bench/envs/rust-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/rust-power9/test/bin/python
+CLANG=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/bin/clang (clang version 23.1.5 (https://github.com/conda-forge/clangdev-feedstock 30fd4e93e83162141ae372db80ef9db7baa31094))
+CC=gcc
+CXX=g++
+CARGO_TARGET_POWERPC64LE_UNKNOWN_LINUX_GNU_LINKER=gcc
+LIBCLANG_PATH=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/lib
+CPATH=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/rust-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/rust-power9/build
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/rust-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/samply/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/samply/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+   Compiling proc-macro2 v1.0.93
+   Compiling unicode-ident v1.0.16
+   Compiling libc v0.2.169
+   Compiling cfg-if v1.0.0
+   Compiling memchr v2.7.4
+   Compiling autocfg v1.4.0
+   Compiling byteorder v1.5.0
+   Compiling bytes v1.9.0
+   Compiling smallvec v1.13.2
+   Compiling bitflags v2.8.0
+   Compiling stable_deref_trait v1.2.0
+   Compiling once_cell v1.20.2
+   Compiling shlex v1.3.0
+   Compiling log v0.4.25
+   Compiling pin-project-lite v0.2.16
+   Compiling futures-core v0.3.31
+   Compiling itoa v1.0.14
+   Compiling foldhash v0.1.4
+   Compiling equivalent v1.0.1
+   Compiling litemap v0.7.4
+   Compiling thiserror v1.0.69
+   Compiling writeable v0.5.5
+   Compiling futures-io v0.3.31
+   Compiling fnv v1.0.7
+   Compiling fallible-iterator v0.3.0
+   Compiling adler2 v2.0.0
+   Compiling icu_locid_transform_data v1.5.0
+   Compiling rustls-pki-types v1.11.0
+   Compiling pin-utils v0.1.0
+   Compiling serde v1.0.217
+   Compiling futures-task v0.3.31
+   Compiling futures-sink v0.3.31
+   Compiling thiserror v2.0.11
+   Compiling untrusted v0.9.0
+   Compiling version_check v0.9.5
+   Compiling httparse v1.10.0
+   Compiling icu_properties_data v1.5.0
+   Compiling atomic-waker v1.1.2
+   Compiling rustls v0.23.22
+   Compiling write16 v1.0.0
+   Compiling alloc-no-stdlib v2.0.4
+   Compiling ref-cast v1.0.23
+   Compiling utf8_iter v1.0.4
+   Compiling anyhow v1.0.95
+   Compiling try-lock v0.2.5
+   Compiling zerocopy v0.8.14
+   Compiling icu_normalizer_data v1.5.0
+   Compiling utf16_iter v1.0.5
+   Compiling ryu v1.0.19
+   Compiling static_assertions v1.1.0
+   Compiling pkg-config v0.3.31
+   Compiling rustix v0.38.44
+   Compiling percent-encoding v2.3.1
+   Compiling subtle v2.6.1
+   Compiling vcpkg v0.2.15
+   Compiling httpdate v1.0.3
+   Compiling tower-service v0.3.3
+   Compiling radium v0.7.0
+   Compiling regex-syntax v0.8.5
+   Compiling either v1.13.0
+   Compiling zeroize v1.8.1
+   Compiling serde_json v1.0.138
+   Compiling crc-catalog v2.4.0
+   Compiling object v0.36.7
+   Compiling binary-merge v0.1.2
+   Compiling utf8parse v0.2.2
+   Compiling powerfmt v0.2.0
+   Compiling scroll v0.12.0
+   Compiling tap v1.0.1
+   Compiling gimli v0.31.1
+   Compiling linux-raw-sys v0.4.15
+   Compiling cpp_demangle v0.4.4
+   Compiling maybe-owned v0.3.4
+   Compiling option-ext v0.2.0
+   Compiling anstyle-query v1.1.2
+   Compiling yaxpeax-x86 v2.0.0
+   Compiling anstyle v1.0.10
+   Compiling funty v2.0.0
+   Compiling is_terminal_polyfill v1.70.1
+   Compiling cfg_aliases v0.2.1
+   Compiling num-conv v0.1.0
+   Compiling scopeguard v1.2.0
+   Compiling linear-map v1.2.0
+   Compiling tower-layer v0.3.3
+   Compiling colorchoice v1.0.3
+   Compiling time-core v0.1.2
+   Compiling minimal-lexical v0.2.1
+   Compiling mime v0.3.17
+   Compiling getrandom v0.3.1
+   Compiling fallible-streaming-iterator v0.1.9
+   Compiling rusqlite_migration v1.3.1
+   Compiling crossbeam-utils v0.8.21
+   Compiling rustc-demangle v0.1.24
+   Compiling lzxd v0.2.6
+   Compiling crc32fast v1.4.2
+   Compiling elsa v1.11.0
+   Compiling scala-native-demangle v0.0.6
+   Compiling ipnet v2.11.0
+   Compiling base64 v0.22.1
+   Compiling twox-hash v1.6.3
+   Compiling rangemap v1.5.1
+   Compiling parking_lot_core v0.9.10
+   Compiling heck v0.5.0
+   Compiling miniz_oxide v0.8.3
+   Compiling want v0.3.1
+   Compiling futures-channel v0.3.31
+   Compiling sync_wrapper v1.0.2
+   Compiling nix v0.29.0
+   Compiling arrayvec v0.7.6
+   Compiling strsim v0.11.1
+   Compiling clap_lex v0.7.4
+   Compiling alloc-stdlib v0.2.2
+   Compiling bytesize v1.3.0
+   Compiling fastrand v2.3.0
+   Compiling lazy_static v1.5.0
+   Compiling humantime v2.1.0
+   Compiling cc v1.2.11
+   Compiling hashbrown v0.15.2
+   Compiling brotli-decompressor v4.0.2
+   Compiling form_urlencoded v1.2.1
+   Compiling nix-base32 v0.2.0
+   Compiling os-release v0.1.0
+   Compiling msvc-demangler v0.10.1
+   Compiling crc v3.2.1
+   Compiling anstyle-parse v0.2.6
+   Compiling wyz v0.5.1
+   Compiling tracing-core v0.1.33
+   Compiling inplace-vec-builder v0.1.1
+   Compiling ruzstd v0.7.3
+   Compiling ahash v0.8.11
+   Compiling deranged v0.3.11
+   Compiling slab v0.4.9
+   Compiling num-traits v0.2.19
+   Compiling lock_api v0.4.12
+   Compiling itertools v0.12.1
+   Compiling anstream v0.6.18
+   Compiling fxhash v0.2.1
+   Compiling webpki-roots v0.26.8
+   Compiling rustls-pemfile v2.2.0
+   Compiling lzma-rs v0.3.0
+   Compiling http v1.2.0
+   Compiling prost v0.12.6
+   Compiling aho-corasick v1.1.3
+   Compiling nom v7.1.3
+   Compiling clap_builder v4.5.27
+   Compiling flate2 v1.0.35
+   Compiling bitvec v1.0.1
+   Compiling tracing v0.1.41
+   Compiling quote v1.0.38
+   Compiling crossbeam-channel v0.5.14
+   Compiling syn v2.0.97
+   Compiling indexmap v2.7.1
+   Compiling ring v0.17.8
+   Compiling libsqlite3-sys v0.30.1
+   Compiling time v0.3.37
+   Compiling yaxpeax-arch v0.3.2
+   Compiling http-body v1.0.1
+   Compiling brotli v7.0.0
+   Compiling getrandom v0.2.15
+   Compiling socket2 v0.5.8
+   Compiling mio v1.0.3
+   Compiling errno v0.3.10
+   Compiling dirs-sys v0.4.1
+   Compiling dirs-sys-next v0.1.2
+   Compiling memmap2 v0.9.5
+   Compiling uname v0.1.1
+   Compiling num_cpus v1.16.0
+   Compiling cab v0.6.0
+   Compiling dirs v5.0.1
+   Compiling dirs-next v1.0.2
+   Compiling uuid v1.12.1
+   Compiling rand_core v0.6.4
+   Compiling platform-dirs v0.3.0
+   Compiling parking_lot v0.12.3
+   Compiling regex-automata v0.4.9
+   Compiling addr2line v0.24.2
+   Compiling debugid v0.8.0
+   Compiling pdb2 v0.9.2
+   Compiling ctrlc v3.4.5
+   Compiling serde_urlencoded v0.7.1
+   Compiling yaxpeax-arm v0.3.0
+   Compiling fs4 v0.12.0
+   Compiling tempfile v3.16.0
+   Compiling synstructure v0.13.1
+   Compiling zerofrom-derive v0.1.5
+   Compiling yoke-derive v0.7.5
+   Compiling zerovec-derive v0.10.3
+   Compiling tokio-macros v2.5.0
+   Compiling displaydoc v0.2.5
+   Compiling zerocopy-derive v0.7.35
+   Compiling icu_provider_macros v1.5.0
+   Compiling thiserror-impl v1.0.69
+   Compiling futures-macro v0.3.31
+   Compiling thiserror-impl v2.0.11
+   Compiling ref-cast-impl v1.0.23
+   Compiling zerocopy-derive v0.8.14
+   Compiling prost-derive v0.12.6
+   Compiling serde_derive v1.0.217
+   Compiling clap_derive v4.5.24
+   Compiling range-collections v0.4.5
+   Compiling tokio v1.43.0
+   Compiling regex v1.11.1
+   Compiling bstr v1.11.3
+   Compiling zerocopy v0.7.35
+   Compiling futures-util v0.3.31
+   Compiling linux-perf-event-reader v0.10.1
+   Compiling pdb-addr2line v0.11.1
+   Compiling srcsrv v0.2.2
+   Compiling zerofrom v0.1.5
+   Compiling env_filter v0.1.3
+   Compiling macho-unwind-info v0.5.0
+   Compiling yoke v0.7.5
+   Compiling env_logger v0.11.6
+   Compiling opener v0.7.2
+   Compiling zerovec v0.10.4
+   Compiling ppv-lite86 v0.2.20
+   Compiling pe-unwind-info v0.3.0
+   Compiling clap v4.5.27
+   Compiling hashbrown v0.14.5
+   Compiling rand_chacha v0.3.1
+   Compiling linux-perf-data v0.10.2
+   Compiling framehop v0.13.2
+   Compiling rand v0.8.5
+   Compiling samply-symbols v0.24.0 (/home/multiarq/yalle/build-bench/temp_workspace/samply/samply/samply-symbols)
+   Compiling hashlink v0.9.1
+   Compiling fxprof-processed-profile v0.8.0 (/home/multiarq/yalle/build-bench/temp_workspace/samply/samply/fxprof-processed-profile)
+   Compiling tinystr v0.7.6
+   Compiling icu_collections v1.5.0
+   Compiling icu_locid v1.5.0
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> fxprof-processed-profile/src/global_lib_table.rs:69:30
+   |
+69 |     pub fn lib_used_rva_iter(&self) -> UsedLibraryAddressesIterator {
+   |                              ^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the same lifetime is hidden here
+   |                              |
+   |                              the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+   = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: use `'_` for type paths
+   |
+69 |     pub fn lib_used_rva_iter(&self) -> UsedLibraryAddressesIterator<'_> {
+   |                                                                    ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+    --> fxprof-processed-profile/src/profile.rs:1012:30
+     |
+1012 |     pub fn lib_used_rva_iter(&self) -> UsedLibraryAddressesIterator {
+     |                              ^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the same lifetime is hidden here
+     |                              |
+     |                              the lifetime is elided here
+     |
+     = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+     |
+1012 |     pub fn lib_used_rva_iter(&self) -> UsedLibraryAddressesIterator<'_> {
+     |                                                                    ++++
+
+   Compiling icu_provider v1.5.0
+   Compiling http-body-util v0.1.2
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> samply-symbols/src/macho.rs:495:17
+    |
+495 |     pub fn data(&self) -> RangeReadRef<&'_ FileContentsWrapper<T>> {
+    |                 ^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |                 |         |             |
+    |                 |         |             the same lifetime is elided here
+    |                 |         the same lifetime is hidden here
+    |                 the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+    = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: use `'_` for type paths
+    |
+495 |     pub fn data(&self) -> RangeReadRef<'_, &'_ FileContentsWrapper<T>> {
+    |                                        +++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> samply-symbols/src/macho.rs:631:9
+    |
+631 |         &self,
+    |         ^^^^^ the lifetime is elided here
+632 |     ) -> object::read::Result<(M::Endian, LoadCommandIterator<M::Endian>)> {
+    |                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the same lifetime is hidden here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+632 |     ) -> object::read::Result<(M::Endian, LoadCommandIterator<'_, M::Endian>)> {
+    |                                                               +++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> samply-symbols/src/windows.rs:119:30
+    |
+119 |     fn make_symbol_map_inner(&self) -> Result<ObjectSymbolMapInnerWrapper<T>, Error> {
+    |                              ^^^^^            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the same lifetime is hidden here
+    |                              |
+    |                              the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+119 |     fn make_symbol_map_inner(&self) -> Result<ObjectSymbolMapInnerWrapper<'_, T>, Error> {
+    |                                                                           +++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> samply-symbols/src/windows.rs:209:9
+    |
+209 |         &self,
+    |         ^^^^^ the lifetime is elided here
+210 |         probe: u32,
+211 |     ) -> Result<Option<pdb_addr2line::FunctionFrames>, pdb_addr2line::Error>;
+    |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the same lifetime is hidden here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+211 |     ) -> Result<Option<pdb_addr2line::FunctionFrames<'_>>, pdb_addr2line::Error>;
+    |                                                     ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> samply-symbols/src/windows.rs:218:9
+    |
+218 |         &self,
+    |         ^^^^^ the lifetime is elided here
+219 |         probe: u32,
+220 |     ) -> Result<Option<pdb_addr2line::FunctionFrames>, pdb_addr2line::Error> {
+    |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the same lifetime is hidden here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+220 |     ) -> Result<Option<pdb_addr2line::FunctionFrames<'_>>, pdb_addr2line::Error> {
+    |                                                     ++++
+
+   Compiling icu_locid_transform v1.5.0
+warning: `fxprof-processed-profile` (lib) generated 2 warnings (run `cargo fix --lib -p fxprof-processed-profile` to apply 2 suggestions)
+   Compiling icu_properties v1.5.1
+   Compiling rustls-webpki v0.102.8
+   Compiling tokio-util v0.7.13
+   Compiling tower v0.5.2
+   Compiling async-compression v0.4.18
+   Compiling samply-api v0.24.0 (/home/multiarq/yalle/build-bench/temp_workspace/samply/samply/samply-api)
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> samply-api/src/symbolicate/request_json.rs:11:17
+   |
+11 |     pub fn jobs(&self) -> JobIterator {
+   |                 ^^^^^     ^^^^^^^^^^^ the same lifetime is hidden here
+   |                 |
+   |                 the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+   = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: use `'_` for type paths
+   |
+11 |     pub fn jobs(&self) -> JobIterator<'_> {
+   |                                      ++++
+
+   Compiling h2 v0.4.7
+warning: `samply-symbols` (lib) generated 5 warnings (run `cargo fix --lib -p samply-symbols` to apply 5 suggestions)
+   Compiling icu_normalizer v1.5.0
+   Compiling idna_adapter v1.2.0
+warning: `samply-api` (lib) generated 1 warning (run `cargo fix --lib -p samply-api` to apply 1 suggestion)
+   Compiling idna v1.0.3
+   Compiling url v2.5.4
+   Compiling hyper v1.6.0
+   Compiling tokio-rustls v0.26.1
+   Compiling hyper-util v0.1.10
+   Compiling hyper-rustls v0.27.5
+   Compiling reqwest v0.12.12
+   Compiling symsrv v0.5.4
+   Compiling wholesym v0.8.0 (/home/multiarq/yalle/build-bench/temp_workspace/samply/samply/wholesym)
+   Compiling rusqlite v0.32.1
+   Compiling samply-quota-manager v0.1.0 (/home/multiarq/yalle/build-bench/temp_workspace/samply/samply/samply-quota-manager)
+   Compiling samply v0.13.1 (/home/multiarq/yalle/build-bench/temp_workspace/samply/samply/samply)
+error[E0433]: cannot find `CacheNative` in `framehop`
+   --> samply/src/linux/profiler.rs:399:19
+    |
+399 |         framehop::CacheNative::new(),
+    |                   ^^^^^^^^^^^ could not find `CacheNative` in `framehop`
+    |
+note: found an item that was configured out
+   --> /home/multiarq/yalle/build-bench/temp_workspace/samply/samply/vendor/framehop-0.13.2/src/lib.rs:150:10
+    |
+149 | #[cfg(target_arch = "aarch64")]
+    |       ----------------------- the item is gated behind the `aarch64` feature
+150 | pub type CacheNative<P> = aarch64::CacheAarch64<P>;
+    |          ^^^^^^^^^^^
+note: found an item that was configured out
+   --> /home/multiarq/yalle/build-bench/temp_workspace/samply/samply/vendor/framehop-0.13.2/src/lib.rs:160:10
+    |
+159 | #[cfg(target_arch = "x86_64")]
+    |       ---------------------- the item is gated behind the `x86_64` feature
+160 | pub type CacheNative<P> = x86_64::CacheX86_64<P>;
+    |          ^^^^^^^^^^^
+
+error[E0425]: cannot find type `UnwinderNative` in crate `framehop`
+   --> samply/src/linux/profiler.rs:364:26
+    |
+364 | ) -> Converter<framehop::UnwinderNative<MmapRangeOrVec, framehop::MayAllocateDuringUnwind>> {
+    |                          ^^^^^^^^^^^^^^ not found in `framehop`
+    |
+note: found an item that was configured out
+   --> /home/multiarq/yalle/build-bench/temp_workspace/samply/samply/vendor/framehop-0.13.2/src/lib.rs:156:10
+    |
+155 | #[cfg(target_arch = "aarch64")]
+    |       ----------------------- the item is gated behind the `aarch64` feature
+156 | pub type UnwinderNative<D, P> = aarch64::UnwinderAarch64<D, P>;
+    |          ^^^^^^^^^^^^^^
+note: found an item that was configured out
+   --> /home/multiarq/yalle/build-bench/temp_workspace/samply/samply/vendor/framehop-0.13.2/src/lib.rs:166:10
+    |
+165 | #[cfg(target_arch = "x86_64")]
+    |       ---------------------- the item is gated behind the `x86_64` feature
+166 | pub type UnwinderNative<D, P> = x86_64::UnwinderX86_64<D, P>;
+    |          ^^^^^^^^^^^^^^
+
+error[E0425]: cannot find type `UnwinderNative` in crate `framehop`
+   --> samply/src/linux/profiler.rs:390:19
+    |
+390 |         framehop::UnwinderNative<MmapRangeOrVec, framehop::MayAllocateDuringUnwind>,
+    |                   ^^^^^^^^^^^^^^ not found in `framehop`
+    |
+note: found an item that was configured out
+   --> /home/multiarq/yalle/build-bench/temp_workspace/samply/samply/vendor/framehop-0.13.2/src/lib.rs:156:10
+    |
+155 | #[cfg(target_arch = "aarch64")]
+    |       ----------------------- the item is gated behind the `aarch64` feature
+156 | pub type UnwinderNative<D, P> = aarch64::UnwinderAarch64<D, P>;
+    |          ^^^^^^^^^^^^^^
+note: found an item that was configured out
+   --> /home/multiarq/yalle/build-bench/temp_workspace/samply/samply/vendor/framehop-0.13.2/src/lib.rs:166:10
+    |
+165 | #[cfg(target_arch = "x86_64")]
+    |       ---------------------- the item is gated behind the `x86_64` feature
+166 | pub type UnwinderNative<D, P> = x86_64::UnwinderX86_64<D, P>;
+    |          ^^^^^^^^^^^^^^
+
+error[E0425]: cannot find type `UnwinderNative` in crate `framehop`
+   --> samply/src/linux/profiler.rs:417:19
+    |
+417 |         framehop::UnwinderNative<MmapRangeOrVec, framehop::MayAllocateDuringUnwind>,
+    |                   ^^^^^^^^^^^^^^ not found in `framehop`
+    |
+note: found an item that was configured out
+   --> /home/multiarq/yalle/build-bench/temp_workspace/samply/samply/vendor/framehop-0.13.2/src/lib.rs:156:10
+    |
+155 | #[cfg(target_arch = "aarch64")]
+    |       ----------------------- the item is gated behind the `aarch64` feature
+156 | pub type UnwinderNative<D, P> = aarch64::UnwinderAarch64<D, P>;
+    |          ^^^^^^^^^^^^^^
+note: found an item that was configured out
+   --> /home/multiarq/yalle/build-bench/temp_workspace/samply/samply/vendor/framehop-0.13.2/src/lib.rs:166:10
+    |
+165 | #[cfg(target_arch = "x86_64")]
+    |       ---------------------- the item is gated behind the `x86_64` feature
+166 | pub type UnwinderNative<D, P> = x86_64::UnwinderX86_64<D, P>;
+    |          ^^^^^^^^^^^^^^
+
+error[E0425]: cannot find type `UnwinderNative` in crate `framehop`
+   --> samply/src/linux/profiler.rs:579:19
+    |
+579 |         framehop::UnwinderNative<MmapRangeOrVec, framehop::MayAllocateDuringUnwind>,
+    |                   ^^^^^^^^^^^^^^ not found in `framehop`
+    |
+note: found an item that was configured out
+   --> /home/multiarq/yalle/build-bench/temp_workspace/samply/samply/vendor/framehop-0.13.2/src/lib.rs:156:10
+    |
+155 | #[cfg(target_arch = "aarch64")]
+    |       ----------------------- the item is gated behind the `aarch64` feature
+156 | pub type UnwinderNative<D, P> = aarch64::UnwinderAarch64<D, P>;
+    |          ^^^^^^^^^^^^^^
+note: found an item that was configured out
+   --> /home/multiarq/yalle/build-bench/temp_workspace/samply/samply/vendor/framehop-0.13.2/src/lib.rs:166:10
+    |
+165 | #[cfg(target_arch = "x86_64")]
+    |       ---------------------- the item is gated behind the `x86_64` feature
+166 | pub type UnwinderNative<D, P> = x86_64::UnwinderX86_64<D, P>;
+    |          ^^^^^^^^^^^^^^
+
+error[E0425]: cannot find type `ConvertRegsNative` in this scope
+   --> samply/src/linux/profiler.rs:662:58
+    |
+662 |                     converter.handle_main_event_sample::<ConvertRegsNative>(&e);
+    |                                                          ^^^^^^^^^^^^^^^^^ not found in this scope
+    |
+help: you might be missing a type parameter
+    |
+576 | fn run_profiler<ConvertRegsNative>(
+    |                +++++++++++++++++++
+
+warning: unused import: `ConvertRegs`
+  --> samply/src/linux/profiler.rs:24:5
+   |
+24 |     ConvertRegs, Converter, EventInterpretation, MmapRangeOrVec, OffCpuIndicator,
+   |     ^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+error[E0433]: cannot find type `ConvertRegsNative` in this scope
+   --> samply/src/linux/profiler.rs:428:21
+    |
+428 |     let regs_mask = ConvertRegsNative::regs_mask();
+    |                     ^^^^^^^^^^^^^^^^^ use of undeclared type `ConvertRegsNative`
+
+Some errors have detailed explanations: E0425, E0433.
+For more information about an error, try `rustc --explain E0425`.
+warning: `samply` (bin "samply") generated 1 warning
+error: could not compile `samply` (bin "samply") due to 7 previous errors; 1 warning emitted

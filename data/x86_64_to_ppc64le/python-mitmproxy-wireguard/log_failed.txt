@@ -1,0 +1,114 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment rust-power9 180cc3b6d71f in /home/multiarq/.local/share/build-bench/envs/rust-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/rust-power9/test/bin/python
+CLANG=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/bin/clang (clang version 23.1.5 (https://github.com/conda-forge/clangdev-feedstock 30fd4e93e83162141ae372db80ef9db7baa31094))
+CC=gcc
+CXX=g++
+CARGO_TARGET_POWERPC64LE_UNKNOWN_LINUX_GNU_LINKER=gcc
+LIBCLANG_PATH=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/lib
+CPATH=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/rust-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/rust-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/rust-power9/build
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/rust-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/python-mitmproxy-wireguard/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/python-mitmproxy-wireguard/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+Processing ./.
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: mitmproxy_wireguard
+  Building wheel for mitmproxy_wireguard (pyproject.toml): started
+  Building wheel for mitmproxy_wireguard (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  × Building wheel for mitmproxy_wireguard (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> [80 lines of output]
+      Running `maturin pep517 build-wheel -i /home/multiarq/.local/share/build-bench/envs/rust-power9/build/bin/python --compatibility off`
+      ⚠️  Warning: You specified maturin>=0.13,<0.14 in pyproject.toml under `build-system.requires`, but the current maturin version is 1.16.0
+      ⚠️  Warning: `project.version` field is required in pyproject.toml unless it is present in the `project.dynamic` list
+      📦 Including license file `LICENSE`
+      🐍 Found CPython 3.12 at /home/multiarq/.local/share/build-bench/envs/rust-power9/build/bin/python
+      🔗 Found pyo3 bindings with abi3-py3.7 support
+         Compiling libc v0.2.142
+         Compiling cfg-if v1.0.0
+         Compiling proc-macro2 v1.0.56
+         Compiling unicode-ident v1.0.8
+         Compiling quote v1.0.26
+         Compiling autocfg v1.1.0
+         Compiling typenum v1.16.0
+         Compiling version_check v0.9.4
+         Compiling target-lexicon v0.12.7
+         Compiling once_cell v1.17.1
+         Compiling subtle v2.4.1
+         Compiling futures-core v0.3.28
+         Compiling pin-project-lite v0.2.9
+         Compiling parking_lot_core v0.9.7
+         Compiling log v0.4.17
+         Compiling syn v1.0.109
+         Compiling futures-channel v0.3.28
+         Compiling getrandom v0.1.16
+         Compiling memchr v2.5.0
+         Compiling scopeguard v1.1.0
+         Compiling smallvec v1.10.0
+         Compiling futures-task v0.3.28
+         Compiling futures-util v0.3.28
+         Compiling anyhow v1.0.71
+         Compiling futures-sink v0.3.28
+         Compiling futures-io v0.3.28
+         Compiling pin-utils v0.1.0
+         Compiling byteorder v1.4.3
+         Compiling cc v1.0.79
+         Compiling opaque-debug v0.3.0
+         Compiling unindent v0.1.11
+         Compiling indoc v1.0.9
+         Compiling untrusted v0.7.1
+         Compiling ip_network v0.4.1
+         Compiling ip_network_table-deps-treebitmap v0.5.0
+         Compiling arc-swap v1.6.0
+         Compiling bitflags v1.3.2
+         Compiling untrusted v0.9.0
+         Compiling managed v0.8.0
+         Compiling hex v0.4.3
+         Compiling base64 v0.13.1
+         Compiling pretty-hex v0.3.0
+         Compiling lock_api v0.4.9
+         Compiling slab v0.4.8
+         Compiling memoffset v0.8.0
+         Compiling tokio v1.28.0
+         Compiling tracing-core v0.1.30
+         Compiling ip_network_table v0.2.0
+         Compiling generic-array v0.14.7
+         Compiling pyo3-build-config v0.18.3
+         Compiling getrandom v0.2.9
+         Compiling num_cpus v1.15.0
+         Compiling mio v0.8.6
+         Compiling socket2 v0.4.9
+         Compiling smoltcp v0.8.2
+         Compiling syn v2.0.15
+         Compiling rand_core v0.5.1
+         Compiling rand_core v0.6.4
+         Compiling parking_lot v0.12.1
+         Compiling ring v0.16.20
+      error: failed to run custom build command for `ring v0.16.20`
+      
+      Caused by:
+        process didn't exit successfully: `/home/multiarq/yalle/build-bench/temp_workspace/python-mitmproxy-wireguard/mitmproxy_wireguard/target/release/build/ring-46e395dc5f87c553/build-script-build` (exit status: 101)
+        --- stderr
+      
+        thread 'main' (818) panicked at /home/multiarq/yalle/build-bench/temp_workspace/python-mitmproxy-wireguard/mitmproxy_wireguard/vendor/ring/build.rs:358:10:
+        called `Option::unwrap()` on a `None` value
+        note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+      warning: build failed, waiting for other jobs to finish...
+      💥 maturin failed
+        Caused by: Failed to build a native library through cargo
+        Caused by: Cargo build finished with "exit status: 101": `env -u CARGO PYO3_BUILD_EXTENSION_MODULE="1" PYO3_ENVIRONMENT_SIGNATURE="cpython-3.12-64bit" PYO3_PYTHON="/home/multiarq/.local/share/build-bench/envs/rust-power9/build/bin/python" PYTHON_SYS_EXECUTABLE="/home/multiarq/.local/share/build-bench/envs/rust-power9/build/bin/python" "cargo" "rustc" "--profile" "release" "--message-format" "json-render-diagnostics" "--manifest-path" "/home/multiarq/yalle/build-bench/temp_workspace/python-mitmproxy-wireguard/mitmproxy_wireguard/Cargo.toml" "--lib"`
+      Error: command ['maturin', 'pep517', 'build-wheel', '-i', '/home/multiarq/.local/share/build-bench/envs/rust-power9/build/bin/python', '--compatibility', 'off'] returned non-zero exit status 1
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for mitmproxy_wireguard
+Failed to build mitmproxy_wireguard
+ERROR: Failed to build one or more wheels

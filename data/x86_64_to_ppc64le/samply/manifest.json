@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "samply",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "samply": "https://github.com/mstange/samply/archive/da75c28f367454c621e690eeb4e44ec2ebb29a78.tar.gz",
+      "vendor": "https://api.opensuse.org/public/source/openSUSE:Factory/samply/vendor.tar.zst?rev=8be8893ae568e13517abe0e3d350f46a&expand=1"
+    }
+  },
+  "environment": "rust-power9",
+  "version": 1
+}

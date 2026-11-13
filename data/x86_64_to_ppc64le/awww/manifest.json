@@ -1,0 +1,14 @@
+{
+  "task": {
+    "package": "awww",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "awww": "https://api.opensuse.org/public/source/openSUSE:Factory/awww/awww-0.12.0.tar.zst?rev=cb3ac9179e008ff7c441869aac9abd58&expand=1",
+      "vendor": "https://api.opensuse.org/public/source/openSUSE:Factory/awww/vendor.tar.zst?rev=cb3ac9179e008ff7c441869aac9abd58&expand=1"
+    },
+    "version": "0.12.0"
+  },
+  "environment": "rust-power9",
+  "version": 1
+}

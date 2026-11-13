@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "wl-screenrec",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "wl-screenrec": "https://api.opensuse.org/public/source/openSUSE:Factory/wl-screenrec/wl-screenrec-0.3.2%2Bgit.20260810T091406.73b5890.tar.gz?rev=daaae22e6ee02753bc85e6bdd7558e65&expand=1",
+      "vendor": "https://api.opensuse.org/public/source/openSUSE:Factory/wl-screenrec/vendor.tar.zst?rev=daaae22e6ee02753bc85e6bdd7558e65&expand=1"
+    }
+  },
+  "environment": "rust-power9",
+  "version": 1
+}

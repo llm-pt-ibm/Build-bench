@@ -8,7 +8,7 @@
   "gui-power9": "c-power9 plus SDL2, X11, OpenGL and toolkits: sdl2 openal-soft physfs glew freeglut glfw libusb gtk3 alsa-lib freetype fontconfig libpng libjpeg-turbo libvorbis libogg xorg-libx11 xorg-libxinerama libgl-devel llvmdev mbedtls fmt libmagic imagemagick sqlite",
   "sci-power9": "c-power9 plus Fortran and scientific libraries: gfortran openblas liblapack fftw gsl hdf5 hdf4 libnetcdf netcdf-fortran proj udunits2 libaec eccodes armadillo fastjet libctl harminv guile gmp mpfr openmpi metis occt pybind11 numpy sympy octave",
   "py-power9": "Python packages: python=3.12 pip pytest numpy scipy h5py matplotlib pandas lxml pydot pygraphviz pyyaml pillow cython cysignals tesseract sdl2 scikit-build-core eigen tsl_robin_map xtensor pybind11 cmake ninja gxx=15.2.0",
-  "rust-power9": "Rust (vendored crates, no network): rust clang cmake pkg-config openssl ffmpeg wayland wayland-protocols libdrm alsa-lib dbus python=3.12 pip maturin corrosion libuuid gxx=15.2.0 scdoc",
+  "rust-power9": "Rust (vendored crates, no network): envs/rust-power9/env.yaml",
   "go-power9": "Go (vendored modules, no network): go clang llvm libpcap git gcc=15.2.0",
   "nyxt": "Common Lisp: sbcl gcc make (libfixposix from source)",
   "elixir": "Elixir on Erlang/OTP: erlang make git"
@@ -520,30 +520,6 @@
     "vendored dependencies (vendor/) from OBS: build.sh points cargo at them (.cargo/config.toml, vendored-sources)"
    ]
   },
-  "spotifyd": {
-   "group": "Rust crates without ppc64le",
-   "evidence": "aws-lc-sys does not compile for ppc64le",
-   "cause_seen_in_log": true,
-   "env": "rust-power9",
-   "version": "0.4.2",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "8f0ba8a897a5e9beebbed8d17c3acae9",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/spotifyd/_log"
-   },
-   "minutes": {
-    "x86_64": 8.7,
-    "ppc64le": 3.3
-   },
-   "sources": [
-    "https://github.com/Spotifyd/spotifyd/archive/refs/tags/v0.4.2.tar.gz",
-    "vendor=https://api.opensuse.org/public/source/openSUSE:Factory/spotifyd/vendor.tar.xz?rev=8f0ba8a897a5e9beebbed8d17c3acae9&expand=1"
-   ],
-   "new_case": "make new-case CASE=spotifyd SOURCE=\"https://github.com/Spotifyd/spotifyd/archive/refs/tags/v0.4.2.tar.gz vendor=https://api.opensuse.org/public/source/openSUSE:Factory/spotifyd/vendor.tar.xz?rev=8f0ba8a897a5e9beebbed8d17c3acae9&expand=1\" ENV=rust-power9",
-   "notes": [
-    "vendored dependencies (vendor/) from OBS: build.sh points cargo at them (.cargo/config.toml, vendored-sources)"
-   ]
-  },
   "python-mitmproxy-wireguard": {
    "group": "Rust crates without ppc64le",
    "evidence": "ring 0.16, built through pip and maturin",
@@ -981,30 +957,6 @@
    "new_case": "make new-case CASE=python-tesserocr SOURCE=\"https://files.pythonhosted.org/packages/source/t/tesserocr/tesserocr-2.11.0.tar.gz\" ENV=py-power9",
    "notes": []
   },
-  "jaq": {
-   "group": "system and CPU behavior tests",
-   "evidence": "jaq-core tests fail",
-   "cause_seen_in_log": false,
-   "env": "rust-power9",
-   "version": "2.3.0",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "c313f446c6d5d6a1ee90b0e81e145189",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/jaq/_log"
-   },
-   "minutes": {
-    "x86_64": 2.1,
-    "ppc64le": 3.4
-   },
-   "sources": [
-    "https://github.com/01mf02/jaq/archive/refs/tags/v2.3.0.tar.gz",
-    "vendor=https://api.opensuse.org/public/source/openSUSE:Factory/jaq/vendor.tar.zst?rev=c313f446c6d5d6a1ee90b0e81e145189&expand=1"
-   ],
-   "new_case": "make new-case CASE=jaq SOURCE=\"https://github.com/01mf02/jaq/archive/refs/tags/v2.3.0.tar.gz vendor=https://api.opensuse.org/public/source/openSUSE:Factory/jaq/vendor.tar.zst?rev=c313f446c6d5d6a1ee90b0e81e145189&expand=1\" ENV=rust-power9",
-   "notes": [
-    "vendored dependencies (vendor/) from OBS: build.sh points cargo at them (.cargo/config.toml, vendored-sources)"
-   ]
-  },
   "netgen": {
    "group": "cause to confirm",
    "evidence": "9 numeric tests fail (assert approx)",
@@ -1117,31 +1069,6 @@
     "openSUSE carries 5 patch(es): apply only those the x86_64 build needs, none for ppc64le"
    ]
   },
-  "taskwarrior": {
-   "group": "cause to confirm",
-   "evidence": "the linker gets ':-z noexecstack' as file names",
-   "cause_seen_in_log": false,
-   "env": "rust-power9",
-   "version": "3.4.2",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "826d0382a0cc667be6a84ac708e84ff1",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/taskwarrior/_log"
-   },
-   "minutes": {
-    "x86_64": 9.0,
-    "ppc64le": 1.5
-   },
-   "sources": [
-    "https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v3.4.2/task-3.4.2.tar.gz",
-    "vendor=https://api.opensuse.org/public/source/openSUSE:Factory/taskwarrior/vendor.tar.zst?rev=826d0382a0cc667be6a84ac708e84ff1&expand=1"
-   ],
-   "new_case": "make new-case CASE=taskwarrior SOURCE=\"https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v3.4.2/task-3.4.2.tar.gz vendor=https://api.opensuse.org/public/source/openSUSE:Factory/taskwarrior/vendor.tar.zst?rev=826d0382a0cc667be6a84ac708e84ff1&expand=1\" ENV=rust-power9",
-   "notes": [
-    "vendored dependencies (vendor/) from OBS: build.sh points cargo at them (.cargo/config.toml, vendored-sources)",
-    "openSUSE carries 3 patch(es): apply only those the x86_64 build needs, none for ppc64le"
-   ]
-  },
   "elixir": {
    "group": "cause to confirm",
    "evidence": "a test assertion (=~) fails",
@@ -1184,6 +1111,9 @@
   "blosc2": "builds and passes its tests on ppc64le from the upstream sources, with GCC 15 and with GCC 16 (baselines of 2026-11-12): the OBS failure does not reproduce",
   "libcdada": "builds and passes its tests on ppc64le from the upstream sources, with GCC 15 and with GCC 16 (baselines of 2026-11-12): the OBS failure does not reproduce",
   "ckermit": "builds and passes its tests on ppc64le from the upstream sources, with GCC 15 and with GCC 16 (baselines of 2026-11-12): the OBS failure does not reproduce",
-  "ctypes.sh": "builds and passes its test (without struct support, as on OBS) on ppc64le from the upstream sources, with GCC 15 and with GCC 16 (baselines of 2026-11-12): the OBS failure does not reproduce"
+  "ctypes.sh": "builds and passes its test (without struct support, as on OBS) on ppc64le from the upstream sources, with GCC 15 and with GCC 16 (baselines of 2026-11-12): the OBS failure does not reproduce",
+  "spotifyd": "builds and passes on ppc64le from the upstream sources, with its default features and with the distribution's (alsa_backend, dbus_mpris, pulseaudio_backend): the aws-lc-sys failure on OBS, a warning made an error by the distribution's flags, does not reproduce",
+  "jaq": "builds and passes its tests (jaq-core's among them) on ppc64le: the OBS failure does not reproduce",
+  "taskwarrior": "the OBS failure comes from the spec (LDFLAGS=$LDFLAGS:\"-z noexecstack\"), not from the architecture; the recipe also needs cxxbridge-cmd, which Corrosion installs from crates.io"
  }
 }

@@ -1,0 +1,14 @@
+{
+  "task": {
+    "package": "python-mitmproxy-wireguard",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "mitmproxy_wireguard": "https://files.pythonhosted.org/packages/source/m/mitmproxy_wireguard/mitmproxy_wireguard-0.1.23.tar.gz",
+      "vendor": "https://api.opensuse.org/public/source/openSUSE:Factory/python-mitmproxy-wireguard/vendor.tar.zst?rev=f78c1d9738f51e37d1cb87952d7e7a39&expand=1"
+    },
+    "version": "0.1.23"
+  },
+  "environment": "rust-power9",
+  "version": 1
+}
