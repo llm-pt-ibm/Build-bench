@@ -1,0 +1,516 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment gui-power9 07eba05c51b1 in /home/multiarq/.local/share/build-bench/envs/gui-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/gui-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/gui-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/schismtracker/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/schismtracker/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+fatal: not a git repository (or any parent up to mount point /home/multiarq/yalle/stage/schismtracker)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+fatal: not a git repository (or any parent up to mount point /home/multiarq/yalle/stage/schismtracker)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+fatal: not a git repository (or any parent up to mount point /home/multiarq/yalle/stage/schismtracker)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+configure.ac:264: warning: The macro 'AC_PROG_CC_C99' is obsolete.
+configure.ac:264: You should run autoupdate.
+./lib/autoconf/c.m4:1662: AC_PROG_CC_C99 is expanded from...
+configure.ac:264: the top level
+configure.ac:390: warning: The macro 'AC_STRUCT_ST_BLKSIZE' is obsolete.
+configure.ac:390: You should run autoupdate.
+./lib/autoconf/types.m4:1029: AC_STRUCT_ST_BLKSIZE is expanded from...
+configure.ac:390: the top level
+fatal: not a git repository (or any parent up to mount point /home/multiarq/yalle/stage/schismtracker)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+configure.ac:260: installing './compile'
+configure.ac:35: installing './config.guess'
+configure.ac:35: installing './config.sub'
+configure.ac:32: installing './install-sh'
+configure.ac:32: installing './missing'
+Makefile.am: installing './depcomp'
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether sleep supports fractional seconds... yes
+checking filesystem timestamp resolution... 0.01
+checking whether build environment is sane... yes
+checking for a race-free mkdir -p... /usr/bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking xargs -n works... yes
+checking whether UID '1000' is supported by ustar format... yes
+checking whether GID '1000' is supported by ustar format... yes
+checking how to create a ustar tar archive... gnutar
+checking build system type... powerpc64le-unknown-linux-gnu
+checking host system type... powerpc64le-unknown-linux-gnu
+*** empty version
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether the compiler supports GNU C... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to enable C11 features... none needed
+checking whether gcc understands -c and -o together... yes
+checking whether make supports the include directive... yes (GNU style)
+checking dependency style of gcc... gcc3
+checking how to run the C preprocessor... gcc -E
+checking whether ln -s works... yes
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for fgrep... /usr/bin/grep -F
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for gsort... no
+checking for sort... sort
+checking for git... no
+checking for windres... no
+checking for perl... perl
+checking for stdio.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for strings.h... yes
+checking for sys/stat.h... yes
+checking for sys/types.h... yes
+checking for unistd.h... yes
+checking whether byte ordering is bigendian... no
+checking for cos in -lm... yes
+checking for pkg-config... /home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/pkg-config
+checking pkg-config is at least version 0.9.0... yes
+checking for libutf8proc... yes
+checking for alloca... no
+checking for strchr... yes
+checking for memmove... yes
+checking for strerror... yes
+checking for strtol... yes
+checking for strcasecmp... yes
+checking for strncasecmp... yes
+checking for strverscmp... yes
+checking for stricmp... no
+checking for strnicmp... no
+checking for _stricmp... no
+checking for _strnicmp... no
+checking for strcasestr... yes
+checking for asprintf... yes
+checking for vasprintf... yes
+checking for snprintf... yes
+checking for vsnprintf... yes
+checking for memcmp... yes
+checking for nice... yes
+checking for setenv... yes
+checking for unsetenv... yes
+checking for dup... yes
+checking for fnmatch... yes
+checking for mkstemp... yes
+checking for localtime_r... yes
+checking for umask... yes
+checking for execl... yes
+checking for posix_spawn... yes
+checking for fork... yes
+checking for waitid... yes
+checking for waitpid... yes
+checking for nanosleep... yes
+checking for usleep... yes
+checking for access... yes
+checking for getopt_long... yes
+checking for fdopen... yes
+checking for tzset... yes
+checking for putenv... yes
+checking for chmod... yes
+checking for posix_spawn_file_actions_addchdir... no
+checking for posix_spawn_file_actions_addchdir_np... no
+checking for sysconf... yes
+checking for mprotect... yes
+checking for assert.h... yes
+checking for alloca.h... yes
+checking for dirent.h... yes
+checking for limits.h... yes
+checking for signal.h... yes
+checking for unistd.h... (cached) yes
+checking for sys/param.h... yes
+checking for sys/ioctl.h... yes
+checking for sys/socket.h... yes
+checking for sys/soundcard.h... yes
+checking for poll.h... yes
+checking for sys/poll.h... yes
+checking for linux/fb.h... yes
+checking for sys/kd.h... yes
+checking for stdint.h... (cached) yes
+checking for inttypes.h... (cached) yes
+checking for tgmath.h... yes
+checking for sys/types.h... (cached) yes
+checking for sal.h... no
+checking for stdbit.h... no
+checking for mmap... yes
+checking for sys/mman.h... yes
+checking for an ANSI C-conforming const... yes
+checking for inline... inline
+checking for int8_t... yes
+checking for int16_t... yes
+checking for int32_t... yes
+checking for int64_t... yes
+checking for unsigned long long int... yes
+checking for long long int... yes
+checking for intmax_t... yes
+checking for intptr_t... yes
+checking for uint8_t... yes
+checking for uint16_t... yes
+checking for uint32_t... yes
+checking for uint64_t... yes
+checking for uintmax_t... yes
+checking for uintptr_t... yes
+checking for off_t... yes
+checking for size_t... yes
+checking for mode_t... yes
+checking for ssize_t... yes
+checking whether struct tm is in sys/time.h or time.h... time.h
+checking for struct stat.st_blksize... yes
+checking size of void *... 8
+checking for struct stat... yes
+checking size of size_t... 8
+checking for size_t format specifier... l
+checking size of float... 4
+checking size of double... 8
+checking size of long double... 16
+checking size of _Float32... 4
+checking size of _Float64... 8
+checking size of _Float64x... 16
+checking size of __float80... 0
+checking host platform... need to do more checks
+checking for IOS_ReloadIOS in -logc... no
+checking for OSDynLoad_Acquire in -lwut... no
+checking for library containing socket... none required
+checking for library containing dlopen... -ldl
+checking for arithmetic right shift... yes
+checking for C99 VLA support... yes
+checking for C99 flexible array member support... yes
+checking if fseek allows to go past EOF... yes
+checking for flac... yes
+checking for jack... yes
+checking for gstreamer-1.0 gstreamer-pbutils-1.0 gstreamer-audio-1.0... no
+checking for libavformat libavcodec libavutil... no
+checking for zlib... yes
+checking for bzip2... no
+checking for liblzma... no
+checking for libzstd... yes
+checking for sdl3... yes
+checking for sdl2... yes
+checking for sdl... no
+checking for snd_seq_open in -lasound... yes
+checking for X... libraries , headers 
+checking for gethostbyname... yes
+checking for connect... yes
+checking for remove... yes
+checking for shmat... yes
+checking for IceConnectionNumber in -lICE... yes
+checking for -Werror=unknown-warning-option support... no
+checking for -Werror=return-type support... yes
+checking for -Werror=implicit-int support... yes
+checking for -Werror=implicit-function-declaration support... yes
+checking for -Werror=old-style-declaration support... yes
+checking for -Werror=old-style-definition support... yes
+checking for -Werror=write-strings support... yes
+checking for -Werror=restrict support... yes
+checking for -Werror=overlength-strings support... yes
+checking for C11 32-bit atomics... yes
+checking for C11 64-bit atomics... yes
+checking for GCC 4.7 32-bit atomics... yes
+checking for GCC 4.7 64-bit atomics... yes
+checking for GCC 4.1 32-bit atomics... yes
+checking for GCC 4.1 64-bit atomics... yes
+checking for -msse2 support... no
+checking for -msse4.1 support... no
+checking for -mavx2 support... no
+checking for -mavx512bw support... no
+checking for -maltivec support... yes
+checking for packed structure support... yes
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating build-config.h
+config.status: executing depfiles commands
+make  all-am
+make[1]: Entering directory '/home/multiarq/yalle/build-bench/temp_workspace/schismtracker/schismtracker'
+/usr/bin/mkdir -p auto
+/usr/bin/mkdir -p auto
+sh ./scripts/build-font.sh . font/default-lower.fnt font/default-upper-alt.fnt font/default-upper-itf.fnt font/half-width.fnt font/hiragana.fnt font/extended-latin.fnt font/greek.fnt font/cp866.fnt >auto/default-font.c
+perl ./scripts/genhelp.pl . helptext/global-keys helptext/copyright helptext/info-page helptext/instrument-list helptext/message-editor helptext/midi-output helptext/orderlist-pan helptext/orderlist-vol helptext/pattern-editor helptext/adlib-sample helptext/sample-list helptext/palettes helptext/time-information >auto/helptext.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-flac.o -MD -MP -MF fmt/.deps/schismtracker-flac.Tpo -c -o fmt/schismtracker-flac.o `test -f 'fmt/flac.c' || echo './'`fmt/flac.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT player/schismtracker-fmopl3.o -MD -MP -MF player/.deps/schismtracker-fmopl3.Tpo -c -o player/schismtracker-fmopl3.o `test -f 'player/fmopl3.c' || echo './'`player/fmopl3.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-zlib.o -MD -MP -MF fmt/.deps/schismtracker-zlib.Tpo -c -o fmt/schismtracker-zlib.o `test -f 'fmt/zlib.c' || echo './'`fmt/zlib.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-zstd.o -MD -MP -MF fmt/.deps/schismtracker-zstd.Tpo -c -o fmt/schismtracker-zstd.o `test -f 'fmt/zstd.c' || echo './'`fmt/zstd.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -maltivec -MT schism/schismtracker-util-altivec.o -MD -MP -MF schism/.deps/schismtracker-util-altivec.Tpo -c -o schism/schismtracker-util-altivec.o `test -f 'schism/util-altivec.c' || echo './'`schism/util-altivec.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-669.o -MD -MP -MF fmt/.deps/schismtracker-669.Tpo -c -o fmt/schismtracker-669.o `test -f 'fmt/669.c' || echo './'`fmt/669.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-aiff.o -MD -MP -MF fmt/.deps/schismtracker-aiff.Tpo -c -o fmt/schismtracker-aiff.o `test -f 'fmt/aiff.c' || echo './'`fmt/aiff.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-ams.o -MD -MP -MF fmt/.deps/schismtracker-ams.Tpo -c -o fmt/schismtracker-ams.o `test -f 'fmt/ams.c' || echo './'`fmt/ams.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-au.o -MD -MP -MF fmt/.deps/schismtracker-au.Tpo -c -o fmt/schismtracker-au.o `test -f 'fmt/au.c' || echo './'`fmt/au.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-brr.o -MD -MP -MF fmt/.deps/schismtracker-brr.Tpo -c -o fmt/schismtracker-brr.o `test -f 'fmt/brr.c' || echo './'`fmt/brr.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-compression.o -MD -MP -MF fmt/.deps/schismtracker-compression.Tpo -c -o fmt/schismtracker-compression.o `test -f 'fmt/compression.c' || echo './'`fmt/compression.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-d00.o -MD -MP -MF fmt/.deps/schismtracker-d00.Tpo -c -o fmt/schismtracker-d00.o `test -f 'fmt/d00.c' || echo './'`fmt/d00.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-dsm.o -MD -MP -MF fmt/.deps/schismtracker-dsm.Tpo -c -o fmt/schismtracker-dsm.o `test -f 'fmt/dsm.c' || echo './'`fmt/dsm.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-edl.o -MD -MP -MF fmt/.deps/schismtracker-edl.Tpo -c -o fmt/schismtracker-edl.o `test -f 'fmt/edl.c' || echo './'`fmt/edl.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-f2r.o -MD -MP -MF fmt/.deps/schismtracker-f2r.Tpo -c -o fmt/schismtracker-f2r.o `test -f 'fmt/f2r.c' || echo './'`fmt/f2r.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-far.o -MD -MP -MF fmt/.deps/schismtracker-far.Tpo -c -o fmt/schismtracker-far.o `test -f 'fmt/far.c' || echo './'`fmt/far.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-generic.o -MD -MP -MF fmt/.deps/schismtracker-generic.Tpo -c -o fmt/schismtracker-generic.o `test -f 'fmt/generic.c' || echo './'`fmt/generic.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-imf.o -MD -MP -MF fmt/.deps/schismtracker-imf.Tpo -c -o fmt/schismtracker-imf.o `test -f 'fmt/imf.c' || echo './'`fmt/imf.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-iff.o -MD -MP -MF fmt/.deps/schismtracker-iff.Tpo -c -o fmt/schismtracker-iff.o `test -f 'fmt/iff.c' || echo './'`fmt/iff.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-it.o -MD -MP -MF fmt/.deps/schismtracker-it.Tpo -c -o fmt/schismtracker-it.o `test -f 'fmt/it.c' || echo './'`fmt/it.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-iti.o -MD -MP -MF fmt/.deps/schismtracker-iti.Tpo -c -o fmt/schismtracker-iti.o `test -f 'fmt/iti.c' || echo './'`fmt/iti.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-its.o -MD -MP -MF fmt/.deps/schismtracker-its.Tpo -c -o fmt/schismtracker-its.o `test -f 'fmt/its.c' || echo './'`fmt/its.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-liq.o -MD -MP -MF fmt/.deps/schismtracker-liq.Tpo -c -o fmt/schismtracker-liq.o `test -f 'fmt/liq.c' || echo './'`fmt/liq.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-mdl.o -MD -MP -MF fmt/.deps/schismtracker-mdl.Tpo -c -o fmt/schismtracker-mdl.o `test -f 'fmt/mdl.c' || echo './'`fmt/mdl.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-med.o -MD -MP -MF fmt/.deps/schismtracker-med.Tpo -c -o fmt/schismtracker-med.o `test -f 'fmt/med.c' || echo './'`fmt/med.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-mf.o -MD -MP -MF fmt/.deps/schismtracker-mf.Tpo -c -o fmt/schismtracker-mf.o `test -f 'fmt/mf.c' || echo './'`fmt/mf.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-mid.o -MD -MP -MF fmt/.deps/schismtracker-mid.Tpo -c -o fmt/schismtracker-mid.o `test -f 'fmt/mid.c' || echo './'`fmt/mid.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-mmcmp.o -MD -MP -MF fmt/.deps/schismtracker-mmcmp.Tpo -c -o fmt/schismtracker-mmcmp.o `test -f 'fmt/mmcmp.c' || echo './'`fmt/mmcmp.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-mod.o -MD -MP -MF fmt/.deps/schismtracker-mod.Tpo -c -o fmt/schismtracker-mod.o `test -f 'fmt/mod.c' || echo './'`fmt/mod.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-mt2.o -MD -MP -MF fmt/.deps/schismtracker-mt2.Tpo -c -o fmt/schismtracker-mt2.o `test -f 'fmt/mt2.c' || echo './'`fmt/mt2.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-mtm.o -MD -MP -MF fmt/.deps/schismtracker-mtm.Tpo -c -o fmt/schismtracker-mtm.o `test -f 'fmt/mtm.c' || echo './'`fmt/mtm.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-mus.o -MD -MP -MF fmt/.deps/schismtracker-mus.Tpo -c -o fmt/schismtracker-mus.o `test -f 'fmt/mus.c' || echo './'`fmt/mus.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-ntk.o -MD -MP -MF fmt/.deps/schismtracker-ntk.Tpo -c -o fmt/schismtracker-ntk.o `test -f 'fmt/ntk.c' || echo './'`fmt/ntk.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-okt.o -MD -MP -MF fmt/.deps/schismtracker-okt.Tpo -c -o fmt/schismtracker-okt.o `test -f 'fmt/okt.c' || echo './'`fmt/okt.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-pat.o -MD -MP -MF fmt/.deps/schismtracker-pat.Tpo -c -o fmt/schismtracker-pat.o `test -f 'fmt/pat.c' || echo './'`fmt/pat.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-psm.o -MD -MP -MF fmt/.deps/schismtracker-psm.Tpo -c -o fmt/schismtracker-psm.o `test -f 'fmt/psm.c' || echo './'`fmt/psm.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-raw.o -MD -MP -MF fmt/.deps/schismtracker-raw.Tpo -c -o fmt/schismtracker-raw.o `test -f 'fmt/raw.c' || echo './'`fmt/raw.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-s3i.o -MD -MP -MF fmt/.deps/schismtracker-s3i.Tpo -c -o fmt/schismtracker-s3i.o `test -f 'fmt/s3i.c' || echo './'`fmt/s3i.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-s3m.o -MD -MP -MF fmt/.deps/schismtracker-s3m.Tpo -c -o fmt/schismtracker-s3m.o `test -f 'fmt/s3m.c' || echo './'`fmt/s3m.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-sbi.o -MD -MP -MF fmt/.deps/schismtracker-sbi.Tpo -c -o fmt/schismtracker-sbi.o `test -f 'fmt/sbi.c' || echo './'`fmt/sbi.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-sf2.o -MD -MP -MF fmt/.deps/schismtracker-sf2.Tpo -c -o fmt/schismtracker-sf2.o `test -f 'fmt/sf2.c' || echo './'`fmt/sf2.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-sfx.o -MD -MP -MF fmt/.deps/schismtracker-sfx.Tpo -c -o fmt/schismtracker-sfx.o `test -f 'fmt/sfx.c' || echo './'`fmt/sfx.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-stm.o -MD -MP -MF fmt/.deps/schismtracker-stm.Tpo -c -o fmt/schismtracker-stm.o `test -f 'fmt/stm.c' || echo './'`fmt/stm.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-stx.o -MD -MP -MF fmt/.deps/schismtracker-stx.Tpo -c -o fmt/schismtracker-stx.o `test -f 'fmt/stx.c' || echo './'`fmt/stx.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-ult.o -MD -MP -MF fmt/.deps/schismtracker-ult.Tpo -c -o fmt/schismtracker-ult.o `test -f 'fmt/ult.c' || echo './'`fmt/ult.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-w64.o -MD -MP -MF fmt/.deps/schismtracker-w64.Tpo -c -o fmt/schismtracker-w64.o `test -f 'fmt/w64.c' || echo './'`fmt/w64.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-wav.o -MD -MP -MF fmt/.deps/schismtracker-wav.Tpo -c -o fmt/schismtracker-wav.o `test -f 'fmt/wav.c' || echo './'`fmt/wav.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-xi.o -MD -MP -MF fmt/.deps/schismtracker-xi.Tpo -c -o fmt/schismtracker-xi.o `test -f 'fmt/xi.c' || echo './'`fmt/xi.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT fmt/schismtracker-xm.o -MD -MP -MF fmt/.deps/schismtracker-xm.Tpo -c -o fmt/schismtracker-xm.o `test -f 'fmt/xm.c' || echo './'`fmt/xm.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT player/schismtracker-csndfile.o -MD -MP -MF player/.deps/schismtracker-csndfile.Tpo -c -o player/schismtracker-csndfile.o `test -f 'player/csndfile.c' || echo './'`player/csndfile.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT player/schismtracker-effects.o -MD -MP -MF player/.deps/schismtracker-effects.Tpo -c -o player/schismtracker-effects.o `test -f 'player/effects.c' || echo './'`player/effects.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT player/schismtracker-equalizer.o -MD -MP -MF player/.deps/schismtracker-equalizer.Tpo -c -o player/schismtracker-equalizer.o `test -f 'player/equalizer.c' || echo './'`player/equalizer.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT player/schismtracker-filters.o -MD -MP -MF player/.deps/schismtracker-filters.Tpo -c -o player/schismtracker-filters.o `test -f 'player/filters.c' || echo './'`player/filters.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT player/schismtracker-fmpatches.o -MD -MP -MF player/.deps/schismtracker-fmpatches.Tpo -c -o player/schismtracker-fmpatches.o `test -f 'player/fmpatches.c' || echo './'`player/fmpatches.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT player/schismtracker-mixer.o -MD -MP -MF player/.deps/schismtracker-mixer.Tpo -c -o player/schismtracker-mixer.o `test -f 'player/mixer.c' || echo './'`player/mixer.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT player/schismtracker-mixutil.o -MD -MP -MF player/.deps/schismtracker-mixutil.Tpo -c -o player/schismtracker-mixutil.o `test -f 'player/mixutil.c' || echo './'`player/mixutil.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT player/schismtracker-snd_fm.o -MD -MP -MF player/.deps/schismtracker-snd_fm.Tpo -c -o player/schismtracker-snd_fm.o `test -f 'player/snd_fm.c' || echo './'`player/snd_fm.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT player/schismtracker-snd_gm.o -MD -MP -MF player/.deps/schismtracker-snd_gm.Tpo -c -o player/schismtracker-snd_gm.o `test -f 'player/snd_gm.c' || echo './'`player/snd_gm.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT player/schismtracker-sndmix.o -MD -MP -MF player/.deps/schismtracker-sndmix.Tpo -c -o player/schismtracker-sndmix.o `test -f 'player/sndmix.c' || echo './'`player/sndmix.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT player/schismtracker-tables.o -MD -MP -MF player/.deps/schismtracker-tables.Tpo -c -o player/schismtracker-tables.o `test -f 'player/tables.c' || echo './'`player/tables.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/auto/schismtracker-schismico_hires.o -MD -MP -MF schism/auto/.deps/schismtracker-schismico_hires.Tpo -c -o schism/auto/schismtracker-schismico_hires.o `test -f 'schism/auto/schismico_hires.c' || echo './'`schism/auto/schismico_hires.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/auto/schismtracker-schismico.o -MD -MP -MF schism/auto/.deps/schismtracker-schismico.Tpo -c -o schism/auto/schismtracker-schismico.o `test -f 'schism/auto/schismico.c' || echo './'`schism/auto/schismico.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-atomic.o -MD -MP -MF schism/.deps/schismtracker-atomic.Tpo -c -o schism/schismtracker-atomic.o `test -f 'schism/atomic.c' || echo './'`schism/atomic.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-audio_loadsave.o -MD -MP -MF schism/.deps/schismtracker-audio_loadsave.Tpo -c -o schism/schismtracker-audio_loadsave.o `test -f 'schism/audio_loadsave.c' || echo './'`schism/audio_loadsave.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-audio_playback.o -MD -MP -MF schism/.deps/schismtracker-audio_playback.Tpo -c -o schism/schismtracker-audio_playback.o `test -f 'schism/audio_playback.c' || echo './'`schism/audio_playback.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-charset.o -MD -MP -MF schism/.deps/schismtracker-charset.Tpo -c -o schism/schismtracker-charset.o `test -f 'schism/charset.c' || echo './'`schism/charset.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-charset_stdlib.o -MD -MP -MF schism/.deps/schismtracker-charset_stdlib.Tpo -c -o schism/schismtracker-charset_stdlib.o `test -f 'schism/charset_stdlib.c' || echo './'`schism/charset_stdlib.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-charset_unicode.o -MD -MP -MF schism/.deps/schismtracker-charset_unicode.Tpo -c -o schism/schismtracker-charset_unicode.o `test -f 'schism/charset_unicode.c' || echo './'`schism/charset_unicode.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-clippy.o -MD -MP -MF schism/.deps/schismtracker-clippy.Tpo -c -o schism/schismtracker-clippy.o `test -f 'schism/clippy.c' || echo './'`schism/clippy.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-config-parser.o -MD -MP -MF schism/.deps/schismtracker-config-parser.Tpo -c -o schism/schismtracker-config-parser.o `test -f 'schism/config-parser.c' || echo './'`schism/config-parser.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-config.o -MD -MP -MF schism/.deps/schismtracker-config.Tpo -c -o schism/schismtracker-config.o `test -f 'schism/config.c' || echo './'`schism/config.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-cpu.o -MD -MP -MF schism/.deps/schismtracker-cpu.Tpo -c -o schism/schismtracker-cpu.o `test -f 'schism/cpu.c' || echo './'`schism/cpu.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-dialog.o -MD -MP -MF schism/.deps/schismtracker-dialog.Tpo -c -o schism/schismtracker-dialog.o `test -f 'schism/dialog.c' || echo './'`schism/dialog.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-disko.o -MD -MP -MF schism/.deps/schismtracker-disko.Tpo -c -o schism/schismtracker-disko.o `test -f 'schism/disko.c' || echo './'`schism/disko.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-dmoz.o -MD -MP -MF schism/.deps/schismtracker-dmoz.Tpo -c -o schism/schismtracker-dmoz.o `test -f 'schism/dmoz.c' || echo './'`schism/dmoz.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-events.o -MD -MP -MF schism/.deps/schismtracker-events.Tpo -c -o schism/schismtracker-events.o `test -f 'schism/events.c' || echo './'`schism/events.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-fakemem.o -MD -MP -MF schism/.deps/schismtracker-fakemem.Tpo -c -o schism/schismtracker-fakemem.o `test -f 'schism/fakemem.c' || echo './'`schism/fakemem.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-fonts.o -MD -MP -MF schism/.deps/schismtracker-fonts.Tpo -c -o schism/schismtracker-fonts.o `test -f 'schism/fonts.c' || echo './'`schism/fonts.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-ieee-float.o -MD -MP -MF schism/.deps/schismtracker-ieee-float.Tpo -c -o schism/schismtracker-ieee-float.o `test -f 'schism/ieee-float.c' || echo './'`schism/ieee-float.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-itf.o -MD -MP -MF schism/.deps/schismtracker-itf.Tpo -c -o schism/schismtracker-itf.o `test -f 'schism/itf.c' || echo './'`schism/itf.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-keyboard.o -MD -MP -MF schism/.deps/schismtracker-keyboard.Tpo -c -o schism/schismtracker-keyboard.o `test -f 'schism/keyboard.c' || echo './'`schism/keyboard.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-loadso.o -MD -MP -MF schism/.deps/schismtracker-loadso.Tpo -c -o schism/schismtracker-loadso.o `test -f 'schism/loadso.c' || echo './'`schism/loadso.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-main.o -MD -MP -MF schism/.deps/schismtracker-main.Tpo -c -o schism/schismtracker-main.o `test -f 'schism/main.c' || echo './'`schism/main.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-mem.o -MD -MP -MF schism/.deps/schismtracker-mem.Tpo -c -o schism/schismtracker-mem.o `test -f 'schism/mem.c' || echo './'`schism/mem.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-menu.o -MD -MP -MF schism/.deps/schismtracker-menu.Tpo -c -o schism/schismtracker-menu.o `test -f 'schism/menu.c' || echo './'`schism/menu.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-midi-core.o -MD -MP -MF schism/.deps/schismtracker-midi-core.Tpo -c -o schism/schismtracker-midi-core.o `test -f 'schism/midi-core.c' || echo './'`schism/midi-core.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-midi-ip.o -MD -MP -MF schism/.deps/schismtracker-midi-ip.Tpo -c -o schism/schismtracker-midi-ip.o `test -f 'schism/midi-ip.c' || echo './'`schism/midi-ip.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-mplink.o -MD -MP -MF schism/.deps/schismtracker-mplink.Tpo -c -o schism/schismtracker-mplink.o `test -f 'schism/mplink.c' || echo './'`schism/mplink.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-mt.o -MD -MP -MF schism/.deps/schismtracker-mt.Tpo -c -o schism/schismtracker-mt.o `test -f 'schism/mt.c' || echo './'`schism/mt.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page.o -MD -MP -MF schism/.deps/schismtracker-page.Tpo -c -o schism/schismtracker-page.o `test -f 'schism/page.c' || echo './'`schism/page.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_about.o -MD -MP -MF schism/.deps/schismtracker-page_about.Tpo -c -o schism/schismtracker-page_about.o `test -f 'schism/page_about.c' || echo './'`schism/page_about.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_blank.o -MD -MP -MF schism/.deps/schismtracker-page_blank.Tpo -c -o schism/schismtracker-page_blank.o `test -f 'schism/page_blank.c' || echo './'`schism/page_blank.c
+mv -f schism/auto/.deps/schismtracker-schismico_hires.Tpo schism/auto/.deps/schismtracker-schismico_hires.Po
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_config.o -MD -MP -MF schism/.deps/schismtracker-page_config.Tpo -c -o schism/schismtracker-page_config.o `test -f 'schism/page_config.c' || echo './'`schism/page_config.c
+mv -f schism/auto/.deps/schismtracker-schismico.Tpo schism/auto/.deps/schismtracker-schismico.Po
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_help.o -MD -MP -MF schism/.deps/schismtracker-page_help.Tpo -c -o schism/schismtracker-page_help.o `test -f 'schism/page_help.c' || echo './'`schism/page_help.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_info.o -MD -MP -MF schism/.deps/schismtracker-page_info.Tpo -c -o schism/schismtracker-page_info.o `test -f 'schism/page_info.c' || echo './'`schism/page_info.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_instruments.o -MD -MP -MF schism/.deps/schismtracker-page_instruments.Tpo -c -o schism/schismtracker-page_instruments.o `test -f 'schism/page_instruments.c' || echo './'`schism/page_instruments.c
+mv -f schism/.deps/schismtracker-mem.Tpo schism/.deps/schismtracker-mem.Po
+mv -f schism/.deps/schismtracker-page_blank.Tpo schism/.deps/schismtracker-page_blank.Po
+mv -f player/.deps/schismtracker-equalizer.Tpo player/.deps/schismtracker-equalizer.Po
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_loadinst.o -MD -MP -MF schism/.deps/schismtracker-page_loadinst.Tpo -c -o schism/schismtracker-page_loadinst.o `test -f 'schism/page_loadinst.c' || echo './'`schism/page_loadinst.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_loadmodule.o -MD -MP -MF schism/.deps/schismtracker-page_loadmodule.Tpo -c -o schism/schismtracker-page_loadmodule.o `test -f 'schism/page_loadmodule.c' || echo './'`schism/page_loadmodule.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_loadsample.o -MD -MP -MF schism/.deps/schismtracker-page_loadsample.Tpo -c -o schism/schismtracker-page_loadsample.o `test -f 'schism/page_loadsample.c' || echo './'`schism/page_loadsample.c
+mv -f schism/.deps/schismtracker-fakemem.Tpo schism/.deps/schismtracker-fakemem.Po
+mv -f schism/.deps/schismtracker-events.Tpo schism/.deps/schismtracker-events.Po
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_log.o -MD -MP -MF schism/.deps/schismtracker-page_log.Tpo -c -o schism/schismtracker-page_log.o `test -f 'schism/page_log.c' || echo './'`schism/page_log.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_message.o -MD -MP -MF schism/.deps/schismtracker-page_message.Tpo -c -o schism/schismtracker-page_message.o `test -f 'schism/page_message.c' || echo './'`schism/page_message.c
+mv -f schism/.deps/schismtracker-mt.Tpo schism/.deps/schismtracker-mt.Po
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_midi.o -MD -MP -MF schism/.deps/schismtracker-page_midi.Tpo -c -o schism/schismtracker-page_midi.o `test -f 'schism/page_midi.c' || echo './'`schism/page_midi.c
+mv -f schism/.deps/schismtracker-midi-ip.Tpo schism/.deps/schismtracker-midi-ip.Po
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_midiout.o -MD -MP -MF schism/.deps/schismtracker-page_midiout.Tpo -c -o schism/schismtracker-page_midiout.o `test -f 'schism/page_midiout.c' || echo './'`schism/page_midiout.c
+mv -f schism/.deps/schismtracker-page_about.Tpo schism/.deps/schismtracker-page_about.Po
+mv -f schism/.deps/schismtracker-fonts.Tpo schism/.deps/schismtracker-fonts.Po
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_orderpan.o -MD -MP -MF schism/.deps/schismtracker-page_orderpan.Tpo -c -o schism/schismtracker-page_orderpan.o `test -f 'schism/page_orderpan.c' || echo './'`schism/page_orderpan.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_palette.o -MD -MP -MF schism/.deps/schismtracker-page_palette.Tpo -c -o schism/schismtracker-page_palette.o `test -f 'schism/page_palette.c' || echo './'`schism/page_palette.c
+mv -f schism/.deps/schismtracker-ieee-float.Tpo schism/.deps/schismtracker-ieee-float.Po
+mv -f fmt/.deps/schismtracker-iff.Tpo fmt/.deps/schismtracker-iff.Po
+mv -f schism/.deps/schismtracker-menu.Tpo schism/.deps/schismtracker-menu.Po
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_patedit.o -MD -MP -MF schism/.deps/schismtracker-page_patedit.Tpo -c -o schism/schismtracker-page_patedit.o `test -f 'schism/page_patedit.c' || echo './'`schism/page_patedit.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_preferences.o -MD -MP -MF schism/.deps/schismtracker-page_preferences.Tpo -c -o schism/schismtracker-page_preferences.o `test -f 'schism/page_preferences.c' || echo './'`schism/page_preferences.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_samples.o -MD -MP -MF schism/.deps/schismtracker-page_samples.Tpo -c -o schism/schismtracker-page_samples.o `test -f 'schism/page_samples.c' || echo './'`schism/page_samples.c
+mv -f schism/.deps/schismtracker-page_config.Tpo schism/.deps/schismtracker-page_config.Po
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_timeinfo.o -MD -MP -MF schism/.deps/schismtracker-page_timeinfo.Tpo -c -o schism/schismtracker-page_timeinfo.o `test -f 'schism/page_timeinfo.c' || echo './'`schism/page_timeinfo.c
+mv -f schism/.deps/schismtracker-page_help.Tpo schism/.deps/schismtracker-page_help.Po
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_vars.o -MD -MP -MF schism/.deps/schismtracker-page_vars.Tpo -c -o schism/schismtracker-page_vars.o `test -f 'schism/page_vars.c' || echo './'`schism/page_vars.c
+mv -f fmt/.deps/schismtracker-sf2.Tpo fmt/.deps/schismtracker-sf2.Po
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-page_waterfall.o -MD -MP -MF schism/.deps/schismtracker-page_waterfall.Tpo -c -o schism/schismtracker-page_waterfall.o `test -f 'schism/page_waterfall.c' || echo './'`schism/page_waterfall.c
+mv -f schism/.deps/schismtracker-main.Tpo schism/.deps/schismtracker-main.Po
+mv -f fmt/.deps/schismtracker-ntk.Tpo fmt/.deps/schismtracker-ntk.Po
+mv -f schism/.deps/schismtracker-mplink.Tpo schism/.deps/schismtracker-mplink.Po
+mv -f player/.deps/schismtracker-tables.Tpo player/.deps/schismtracker-tables.Po
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-palettes.o -MD -MP -MF schism/.deps/schismtracker-palettes.Tpo -c -o schism/schismtracker-palettes.o `test -f 'schism/palettes.c' || echo './'`schism/palettes.c
+mv -f fmt/.deps/schismtracker-zstd.Tpo fmt/.deps/schismtracker-zstd.Po
+mv -f schism/.deps/schismtracker-midi-core.Tpo schism/.deps/schismtracker-midi-core.Po
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-pattern-view.o -MD -MP -MF schism/.deps/schismtracker-pattern-view.Tpo -c -o schism/schismtracker-pattern-view.o `test -f 'schism/pattern-view.c' || echo './'`schism/pattern-view.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-sample-edit.o -MD -MP -MF schism/.deps/schismtracker-sample-edit.Tpo -c -o schism/schismtracker-sample-edit.o `test -f 'schism/sample-edit.c' || echo './'`schism/sample-edit.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-slurp.o -MD -MP -MF schism/.deps/schismtracker-slurp.Tpo -c -o schism/schismtracker-slurp.o `test -f 'schism/slurp.c' || echo './'`schism/slurp.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-status.o -MD -MP -MF schism/.deps/schismtracker-status.Tpo -c -o schism/schismtracker-status.o `test -f 'schism/status.c' || echo './'`schism/status.c
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-str.o -MD -MP -MF schism/.deps/schismtracker-str.Tpo -c -o schism/schismtracker-str.o `test -f 'schism/str.c' || echo './'`schism/str.c
+mv -f schism/.deps/schismtracker-atomic.Tpo schism/.deps/schismtracker-atomic.Po
+gcc -DHAVE_CONFIG_H -I.  -I./include -I.    -O -D_FORTIFY_SOURCE=2    -Isys/x11             -DUTF8PROC_EXPORTS       -g -O2 -Werror=return-type -Werror=implicit-int -Werror=implicit-function-declaration -Werror=old-style-declaration -Werror=old-style-definition -Werror=write-strings -Werror=restrict -Werror=overlength-strings -mabi=altivec -MT schism/schismtracker-timer.o -MD -MP -MF schism/.deps/schismtracker-timer.Tpo -c -o schism/schismtracker-timer.o `test -f 'schism/timer.c' || echo './'`schism/timer.c
+schism/util-altivec.c: In function 'altivec_loadu_s8':
+schism/util-altivec.c:51:9: warning: 'vec_lvsl' is deprecated for little endian; use assignment for unaligned loads and stores [-Wdeprecated]
+   51 |         return altivec_load_unaligned_((const signed char *)x);
+      |         ^~~~~~
+schism/util-altivec.c: In function 'altivec_loadu_s16':
+schism/util-altivec.c:57:9: warning: 'vec_lvsl' is deprecated for little endian; use assignment for unaligned loads and stores [-Wdeprecated]
+   57 |         return altivec_load_unaligned_((const signed short *)x);
+      |         ^~~~~~
+In file included from schism/util-altivec.c:30:
+schism/util-altivec.c: At top level:
+./include/util-vec.h:30:17: error: unknown type name 'minmax_8_final_spec'
+   30 |                 minmax_##BITS##_final_spec final) \
+      |                 ^~~~~~~
+schism/util-altivec.c:62:1: note: in expansion of macro 'MINMAX_INTRINSICS_EX'
+   62 | MINMAX_INTRINSICS_EX(extern, altivec, altivec, vector signed char, 8, 16,
+      | ^~~~~~~~~~~~~~~~~~~~
+mv -f fmt/.deps/schismtracker-zlib.Tpo fmt/.deps/schismtracker-zlib.Po
+./include/util-vec.h:30:17: error: unknown type name 'minmax_16_final_spec'
+   30 |                 minmax_##BITS##_final_spec final) \
+      |                 ^~~~~~~
+schism/util-altivec.c:66:1: note: in expansion of macro 'MINMAX_INTRINSICS_EX'
+   66 | MINMAX_INTRINSICS_EX(extern, altivec, altivec, vector signed short, 16, 8,
+      | ^~~~~~~~~~~~~~~~~~~~
+make[1]: *** [Makefile:5406: schism/schismtracker-util-altivec.o] Error 1
+make[1]: *** Waiting for unfinished jobs....
+mv -f fmt/.deps/schismtracker-liq.Tpo fmt/.deps/schismtracker-liq.Po
+mv -f fmt/.deps/schismtracker-ams.Tpo fmt/.deps/schismtracker-ams.Po
+mv -f player/.deps/schismtracker-fmpatches.Tpo player/.deps/schismtracker-fmpatches.Po
+mv -f fmt/.deps/schismtracker-stm.Tpo fmt/.deps/schismtracker-stm.Po
+mv -f fmt/.deps/schismtracker-med.Tpo fmt/.deps/schismtracker-med.Po
+mv -f fmt/.deps/schismtracker-dsm.Tpo fmt/.deps/schismtracker-dsm.Po
+mv -f fmt/.deps/schismtracker-au.Tpo fmt/.deps/schismtracker-au.Po
+mv -f fmt/.deps/schismtracker-f2r.Tpo fmt/.deps/schismtracker-f2r.Po
+mv -f fmt/.deps/schismtracker-edl.Tpo fmt/.deps/schismtracker-edl.Po
+mv -f fmt/.deps/schismtracker-mus.Tpo fmt/.deps/schismtracker-mus.Po
+schism/cpu.c: In function 'cpu_init':
+schism/cpu.c:140:13: warning: builtin '__builtin_cpu_supports' needs GLIBC (2.23 and newer) that exports hardware capability bits
+  140 |         if (__builtin_cpu_supports(NAME)) \
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+schism/cpu.c:150:9: note: in expansion of macro 'CPU_FEATURE'
+  150 |         CPU_FEATURE("altivec", CPU_FEATURE_ALTIVEC);
+      |         ^~~~~~~~~~~
+mv -f player/.deps/schismtracker-filters.Tpo player/.deps/schismtracker-filters.Po
+mv -f schism/.deps/schismtracker-charset_unicode.Tpo schism/.deps/schismtracker-charset_unicode.Po
+mv -f schism/.deps/schismtracker-cpu.Tpo schism/.deps/schismtracker-cpu.Po
+mv -f fmt/.deps/schismtracker-mf.Tpo fmt/.deps/schismtracker-mf.Po
+mv -f fmt/.deps/schismtracker-mt2.Tpo fmt/.deps/schismtracker-mt2.Po
+mv -f fmt/.deps/schismtracker-raw.Tpo fmt/.deps/schismtracker-raw.Po
+schism/disko.c: In function 'next_fib64':
+schism/disko.c:194:77: warning: integer constant is so large that it is unsigned
+  194 |                 2880067194370816120,4660046610375530309,7540113804746346429,12200160415121876738
+      |                                                                             ^~~~~~~~~~~~~~~~~~~~
+mv -f fmt/.deps/schismtracker-sbi.Tpo fmt/.deps/schismtracker-sbi.Po
+mv -f schism/.deps/schismtracker-loadso.Tpo schism/.deps/schismtracker-loadso.Po
+mv -f fmt/.deps/schismtracker-brr.Tpo fmt/.deps/schismtracker-brr.Po
+mv -f player/.deps/schismtracker-snd_fm.Tpo player/.deps/schismtracker-snd_fm.Po
+mv -f fmt/.deps/schismtracker-s3i.Tpo fmt/.deps/schismtracker-s3i.Po
+mv -f schism/.deps/schismtracker-page_midiout.Tpo schism/.deps/schismtracker-page_midiout.Po
+mv -f fmt/.deps/schismtracker-sfx.Tpo fmt/.deps/schismtracker-sfx.Po
+mv -f fmt/.deps/schismtracker-w64.Tpo fmt/.deps/schismtracker-w64.Po
+mv -f schism/.deps/schismtracker-clippy.Tpo schism/.deps/schismtracker-clippy.Po
+mv -f schism/.deps/schismtracker-page_palette.Tpo schism/.deps/schismtracker-page_palette.Po
+mv -f schism/.deps/schismtracker-page.Tpo schism/.deps/schismtracker-page.Po
+mv -f fmt/.deps/schismtracker-its.Tpo fmt/.deps/schismtracker-its.Po
+mv -f fmt/.deps/schismtracker-far.Tpo fmt/.deps/schismtracker-far.Po
+mv -f player/.deps/schismtracker-mixutil.Tpo player/.deps/schismtracker-mixutil.Po
+mv -f schism/.deps/schismtracker-timer.Tpo schism/.deps/schismtracker-timer.Po
+mv -f fmt/.deps/schismtracker-wav.Tpo fmt/.deps/schismtracker-wav.Po
+mv -f fmt/.deps/schismtracker-pat.Tpo fmt/.deps/schismtracker-pat.Po
+mv -f schism/.deps/schismtracker-palettes.Tpo schism/.deps/schismtracker-palettes.Po
+mv -f schism/.deps/schismtracker-page_preferences.Tpo schism/.deps/schismtracker-page_preferences.Po
+mv -f fmt/.deps/schismtracker-aiff.Tpo fmt/.deps/schismtracker-aiff.Po
+mv -f fmt/.deps/schismtracker-okt.Tpo fmt/.deps/schismtracker-okt.Po
+mv -f fmt/.deps/schismtracker-mtm.Tpo fmt/.deps/schismtracker-mtm.Po
+mv -f fmt/.deps/schismtracker-669.Tpo fmt/.deps/schismtracker-669.Po
+mv -f schism/.deps/schismtracker-page_log.Tpo schism/.deps/schismtracker-page_log.Po
+mv -f schism/.deps/schismtracker-page_timeinfo.Tpo schism/.deps/schismtracker-page_timeinfo.Po
+mv -f schism/.deps/schismtracker-page_vars.Tpo schism/.deps/schismtracker-page_vars.Po
+mv -f fmt/.deps/schismtracker-ult.Tpo fmt/.deps/schismtracker-ult.Po
+mv -f fmt/.deps/schismtracker-mmcmp.Tpo fmt/.deps/schismtracker-mmcmp.Po
+mv -f schism/.deps/schismtracker-page_midi.Tpo schism/.deps/schismtracker-page_midi.Po
+mv -f schism/.deps/schismtracker-config.Tpo schism/.deps/schismtracker-config.Po
+mv -f schism/.deps/schismtracker-config-parser.Tpo schism/.deps/schismtracker-config-parser.Po
+mv -f fmt/.deps/schismtracker-stx.Tpo fmt/.deps/schismtracker-stx.Po
+mv -f fmt/.deps/schismtracker-generic.Tpo fmt/.deps/schismtracker-generic.Po
+mv -f schism/.deps/schismtracker-status.Tpo schism/.deps/schismtracker-status.Po
+mv -f schism/.deps/schismtracker-page_loadinst.Tpo schism/.deps/schismtracker-page_loadinst.Po
+mv -f fmt/.deps/schismtracker-mid.Tpo fmt/.deps/schismtracker-mid.Po
+mv -f schism/.deps/schismtracker-keyboard.Tpo schism/.deps/schismtracker-keyboard.Po
+mv -f schism/.deps/schismtracker-dialog.Tpo schism/.deps/schismtracker-dialog.Po
+mv -f fmt/.deps/schismtracker-xi.Tpo fmt/.deps/schismtracker-xi.Po
+mv -f schism/.deps/schismtracker-str.Tpo schism/.deps/schismtracker-str.Po
+mv -f fmt/.deps/schismtracker-compression.Tpo fmt/.deps/schismtracker-compression.Po
+mv -f fmt/.deps/schismtracker-imf.Tpo fmt/.deps/schismtracker-imf.Po
+mv -f schism/.deps/schismtracker-page_loadsample.Tpo schism/.deps/schismtracker-page_loadsample.Po
+mv -f schism/.deps/schismtracker-charset_stdlib.Tpo schism/.deps/schismtracker-charset_stdlib.Po
+mv -f fmt/.deps/schismtracker-d00.Tpo fmt/.deps/schismtracker-d00.Po
+mv -f schism/.deps/schismtracker-page_loadmodule.Tpo schism/.deps/schismtracker-page_loadmodule.Po
+mv -f schism/.deps/schismtracker-audio_loadsave.Tpo schism/.deps/schismtracker-audio_loadsave.Po
+mv -f schism/.deps/schismtracker-page_message.Tpo schism/.deps/schismtracker-page_message.Po
+mv -f fmt/.deps/schismtracker-flac.Tpo fmt/.deps/schismtracker-flac.Po
+mv -f fmt/.deps/schismtracker-mod.Tpo fmt/.deps/schismtracker-mod.Po
+mv -f player/.deps/schismtracker-snd_gm.Tpo player/.deps/schismtracker-snd_gm.Po
+mv -f fmt/.deps/schismtracker-psm.Tpo fmt/.deps/schismtracker-psm.Po
+mv -f schism/.deps/schismtracker-dmoz.Tpo schism/.deps/schismtracker-dmoz.Po
+mv -f fmt/.deps/schismtracker-iti.Tpo fmt/.deps/schismtracker-iti.Po
+mv -f schism/.deps/schismtracker-page_info.Tpo schism/.deps/schismtracker-page_info.Po
+mv -f schism/.deps/schismtracker-pattern-view.Tpo schism/.deps/schismtracker-pattern-view.Po
+mv -f schism/.deps/schismtracker-page_waterfall.Tpo schism/.deps/schismtracker-page_waterfall.Po
+mv -f schism/.deps/schismtracker-itf.Tpo schism/.deps/schismtracker-itf.Po
+mv -f schism/.deps/schismtracker-sample-edit.Tpo schism/.deps/schismtracker-sample-edit.Po
+mv -f schism/.deps/schismtracker-page_orderpan.Tpo schism/.deps/schismtracker-page_orderpan.Po
+mv -f fmt/.deps/schismtracker-xm.Tpo fmt/.deps/schismtracker-xm.Po
+mv -f schism/.deps/schismtracker-slurp.Tpo schism/.deps/schismtracker-slurp.Po
+mv -f fmt/.deps/schismtracker-mdl.Tpo fmt/.deps/schismtracker-mdl.Po
+mv -f schism/.deps/schismtracker-disko.Tpo schism/.deps/schismtracker-disko.Po
+mv -f player/.deps/schismtracker-sndmix.Tpo player/.deps/schismtracker-sndmix.Po
+mv -f fmt/.deps/schismtracker-it.Tpo fmt/.deps/schismtracker-it.Po
+mv -f schism/.deps/schismtracker-charset.Tpo schism/.deps/schismtracker-charset.Po
+mv -f fmt/.deps/schismtracker-s3m.Tpo fmt/.deps/schismtracker-s3m.Po
+mv -f schism/.deps/schismtracker-page_samples.Tpo schism/.deps/schismtracker-page_samples.Po
+mv -f schism/.deps/schismtracker-audio_playback.Tpo schism/.deps/schismtracker-audio_playback.Po
+mv -f schism/.deps/schismtracker-page_instruments.Tpo schism/.deps/schismtracker-page_instruments.Po
+mv -f player/.deps/schismtracker-fmopl3.Tpo player/.deps/schismtracker-fmopl3.Po
+mv -f player/.deps/schismtracker-effects.Tpo player/.deps/schismtracker-effects.Po
+mv -f player/.deps/schismtracker-csndfile.Tpo player/.deps/schismtracker-csndfile.Po
+mv -f schism/.deps/schismtracker-page_patedit.Tpo schism/.deps/schismtracker-page_patedit.Po
+mv -f player/.deps/schismtracker-mixer.Tpo player/.deps/schismtracker-mixer.Po
+make[1]: Leaving directory '/home/multiarq/yalle/build-bench/temp_workspace/schismtracker/schismtracker'
+make: *** [Makefile:1593: all] Error 2

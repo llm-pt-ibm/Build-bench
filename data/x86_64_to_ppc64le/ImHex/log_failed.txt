@@ -1,0 +1,1023 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment gui-power9 07eba05c51b1 in /home/multiarq/.local/share/build-bench/envs/gui-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/gui-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/gui-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/ImHex/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/ImHex/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+-- Configuring ImHex v1.38.1
+-- The C compiler identification is GNU 16.2.0
+-- The CXX compiler identification is GNU 16.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Enabled bundled plugin 'builtin'
+-- Enabled bundled plugin 'decompress'
+-- Enabled bundled plugin 'diffing'
+-- Enabled bundled plugin 'disassembler'
+-- Enabled bundled plugin 'fonts'
+-- Enabled bundled plugin 'hashes'
+-- Enabled bundled plugin 'remote'
+-- Enabled bundled plugin 'script_loader'
+-- Enabled bundled plugin 'ui'
+-- Enabled bundled plugin 'visualizers'
+-- Enabled bundled plugin 'windows'
+-- Enabled bundled plugin 'yara_rules'
+-- Looking for sys/types.h
+-- Looking for sys/types.h - found
+-- Looking for stdint.h
+-- Looking for stdint.h - found
+-- Looking for stddef.h
+-- Looking for stddef.h - found
+-- Check size of __uint128_t
+-- Check size of __uint128_t - done
+-- {fmt} version: 12.1.0
+-- Build type: Release
+-- Found CURL: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libcurl.so (found version "8.23.0")
+CMake Warning (deprecated) at lib/third_party/nativefiledialog/CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+This warning is for project developers.  Use -Wno-author or -Wno-deprecated
+to suppress it.
+
+nfd Platform: PLATFORM_LINUX
+nfd Compiler: COMPILER_GNU
+-- Found PkgConfig: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/pkg-config (found version "0.29.2")
+-- Checking for module 'dbus-1'
+--   Found dbus-1, version 1.16.2
+Using DBUS version: 1.16.2
+-- Found nlohmann_json: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake (found suitable version "3.12.0", minimum required is "3.10.2") 
+-- Using plutovg submodule.
+-- Looking for threads.h
+-- Looking for threads.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+CMake Warning (deprecated) at lib/third_party/md4c/CMakeLists.txt:2 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+This warning is for project developers.  Use -Wno-author or -Wno-deprecated
+to suppress it.
+
+-- libpl static library is being created
+-- Found Freetype: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libfreetype.so (found version "2.14.3")
+-- Found OpenGL: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libOpenGL.so
+-- Found X11: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/include
+-- Looking for XOpenDisplay in /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libX11.so;/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libXext.so
+-- Looking for XOpenDisplay in /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libX11.so;/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libXext.so - found
+-- Looking for gethostbyname
+-- Looking for gethostbyname - found
+-- Looking for connect
+-- Looking for connect - found
+-- Looking for remove
+-- Looking for remove - found
+-- Looking for shmat
+-- Looking for shmat - found
+-- Looking for IceConnectionNumber in ICE
+-- Looking for IceConnectionNumber in ICE - found
+-- Found libmagic: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libmagic.so  
+CMake Warning at lib/libimhex/CMakeLists.txt:121 (message):
+  Failed to to determine commit hash/branch
+
+
+-- Performing Test ZSTD_AVAILABLE_COMPILER
+-- Performing Test ZSTD_AVAILABLE_COMPILER - Success
+-- Performing Test ZSTD_AVAILABLE_LINKER
+-- Performing Test ZSTD_AVAILABLE_LINKER - Success
+-- Performing Test COMPRESS_AVAILABLE_COMPILER
+-- Performing Test COMPRESS_AVAILABLE_COMPILER - Success
+-- Performing Test COMPRESS_AVAILABLE_LINKER
+Using Zstd compression for debug info because both compiler and linker support it
+-- Performing Test COMPRESS_AVAILABLE_LINKER - Success
+-- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY
+-- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY - Success
+-- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY
+-- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY - Success
+-- Performing Test COMPILER_HAS_DEPRECATED_ATTR
+-- Performing Test COMPILER_HAS_DEPRECATED_ATTR - Success
+-- Found Fontconfig: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libfontconfig.so (found version "2.18.3")
+-- Using Fontconfig version: 2.18.3
+-- Found ZLIB: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libz.so (found version "1.3.2")
+-- Enabling decompression support using ZLIB (1.3.2)
+-- Found BZip2: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libbz2.so (found version "1.0.8")
+-- Looking for BZ2_bzCompressInit
+-- Looking for BZ2_bzCompressInit - found
+-- Enabling decompression support using BZip2 (1.0.8)
+-- Could NOT find LibLZMA (missing: LIBLZMA_LIBRARY LIBLZMA_INCLUDE_DIR) 
+-- Found ZSTD: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libzstd.so  
+-- Found Zstd: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libzstd.so
+-- Enabling decompression support using ZSTD ()
+-- Found LZ4: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/liblz4.so  
+-- Looking for lz4frame.h
+-- Looking for lz4frame.h - found
+-- Enabling decompression support using LZ4 ()
+Setting warning flags
+-- Performing Test WOLD_STYLE_CAST
+-- Performing Test WOLD_STYLE_CAST - Success
+-- Performing Test WSHADOW
+-- Performing Test WSHADOW - Success
+-- PROJECT_VERSION: 1.38.1 CAPSTONE_VERSION: 1.38.1
+-- Performing Test SUPPORTS_MU
+-- Performing Test SUPPORTS_MU - Success
+-- Performing Test SUPPORTS_SHADOWING
+-- Performing Test SUPPORTS_SHADOWING - Success
+-- Performing Test SUPPORTS_SUNINIT
+-- Performing Test SUPPORTS_SUNINIT - Failed
+Enabling CAPSTONE_ARM_SUPPORT
+Enabling CAPSTONE_AARCH64_SUPPORT
+Enabling CAPSTONE_M68K_SUPPORT
+Enabling CAPSTONE_MIPS_SUPPORT
+Enabling CAPSTONE_PPC_SUPPORT
+Enabling CAPSTONE_SPARC_SUPPORT
+Enabling CAPSTONE_SYSTEMZ_SUPPORT
+Enabling CAPSTONE_XCORE_SUPPORT
+Enabling CAPSTONE_X86_SUPPORT
+Enabling CAPSTONE_TMS320C64X_SUPPORT
+Enabling CAPSTONE_M680X_SUPPORT
+Enabling CAPSTONE_EVM_SUPPORT
+Enabling CAPSTONE_MOS65XX_SUPPORT
+Enabling CAPSTONE_WASM_SUPPORT
+Enabling CAPSTONE_BPF_SUPPORT
+Enabling CAPSTONE_RISCV_SUPPORT
+Enabling CAPSTONE_SH_SUPPORT
+Enabling CAPSTONE_TRICORE_SUPPORT
+Enabling CAPSTONE_ALPHA_SUPPORT
+Enabling CAPSTONE_HPPA_SUPPORT
+Enabling CAPSTONE_LOONGARCH_SUPPORT
+Enabling CAPSTONE_XTENSA_SUPPORT
+Enabling CAPSTONE_ARC_SUPPORT
+-- Found OpenSSL: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libcrypto.so (found version "3.6.5")
+-- Found LibSSH2: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libssh2.so (found version "1.11.1") 
+-- Unable to find any .NET runtimes
+-- Performing Test HAVE_STDCPPEXP
+-- Performing Test HAVE_STDCPPEXP - Failed
+-- Performing Test HAVE_STDCPP_LIBBACKTRACE
+-- Performing Test HAVE_STDCPP_LIBBACKTRACE - Failed
+-- Looking for backtrace
+-- Looking for backtrace - found
+-- backtrace facility detected in default set of libraries
+-- Found Backtrace: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/powerpc64le-conda-linux-gnu/sysroot/usr/include  
+-- Backtrace enabled! Header: execinfo.h
+-- Configuring done (9.7s)
+-- Generating done (0.9s)
+CMake Warning (unused-cli):
+  Manually-specified variables were not used by the project:
+
+    USE_SYSTEM_CURL
+
+
+-- Build files have been written to: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/build
+[  0%] Building CXX object lib/third_party/llvm-demangle/CMakeFiles/LLVMDemangle.dir/source/Demangle.cpp.o
+[  0%] Building CXX object lib/external/libwolv/libs/utils/CMakeFiles/libwolv-utils.dir/source/utils/string.cpp.o
+[  0%] Building CXX object lib/third_party/imgui/cimgui/CMakeFiles/imgui_cimgui.dir/source/cimgui.cpp.o
+[  1%] Building CXX object lib/third_party/llvm-demangle/CMakeFiles/LLVMDemangle.dir/source/DLangDemangle.cpp.o
+[  1%] Building CXX object lib/third_party/llvm-demangle/CMakeFiles/LLVMDemangle.dir/source/MicrosoftDemangle.cpp.o
+[  1%] Building CXX object lib/third_party/llvm-demangle/CMakeFiles/LLVMDemangle.dir/source/RustDemangle.cpp.o
+[  1%] Building CXX object lib/third_party/llvm-demangle/CMakeFiles/LLVMDemangle.dir/source/MicrosoftDemangleNodes.cpp.o
+[  1%] Building CXX object lib/third_party/llvm-demangle/CMakeFiles/LLVMDemangle.dir/source/ItaniumDemangle.cpp.o
+[  1%] Building C object lib/third_party/lunasvg/plutovg/CMakeFiles/plutovg.dir/source/plutovg-font.c.o
+[  1%] Building C object lib/third_party/lunasvg/plutovg/CMakeFiles/plutovg.dir/source/plutovg-blend.c.o
+[  1%] Building C object lib/third_party/md4c/src/CMakeFiles/md4c.dir/md4c.c.o
+[  1%] Building C object lib/third_party/lunasvg/plutovg/CMakeFiles/plutovg.dir/source/plutovg-canvas.c.o
+[  1%] Building C object lib/third_party/lunasvg/plutovg/CMakeFiles/plutovg.dir/source/plutovg-matrix.c.o
+[  1%] Building CXX object lib/third_party/imgui/implot/CMakeFiles/imgui_implot.dir/source/implot.cpp.o
+[  1%] Building CXX object lib/third_party/imgui/implot/CMakeFiles/imgui_implot.dir/source/implot_items.cpp.o
+[  1%] Building C object lib/third_party/lunasvg/plutovg/CMakeFiles/plutovg.dir/source/plutovg-rasterize.c.o
+[  1%] Building C object lib/third_party/lunasvg/plutovg/CMakeFiles/plutovg.dir/source/plutovg-paint.c.o
+[  2%] Building C object lib/third_party/lunasvg/plutovg/CMakeFiles/plutovg.dir/source/plutovg-ft-math.c.o
+[  2%] Building CXX object lib/third_party/imgui/implot/CMakeFiles/imgui_implot.dir/source/implot_demo.cpp.o
+[  2%] Building C object lib/third_party/lunasvg/plutovg/CMakeFiles/plutovg.dir/source/plutovg-path.c.o
+[  3%] Building CXX object lib/third_party/imgui/backend/CMakeFiles/imgui_backend.dir/source/imgui_impl_glfw.cpp.o
+[  3%] Building CXX object lib/third_party/imgui/implot3d/CMakeFiles/imgui_implot3d.dir/source/implot3d.cpp.o
+[  3%] Building CXX object lib/third_party/imgui/backend/CMakeFiles/imgui_backend.dir/source/imgui_impl_opengl3.cpp.o
+[  3%] Building C object lib/third_party/lunasvg/plutovg/CMakeFiles/plutovg.dir/source/plutovg-surface.c.o
+[  3%] Building CXX object lib/third_party/nativefiledialog/src/CMakeFiles/nfd.dir/nfd_portal.cpp.o
+[  3%] Building CXX object lib/third_party/imgui/implot3d/CMakeFiles/imgui_implot3d.dir/source/implot3d_meshes.cpp.o
+[  3%] Building CXX object lib/third_party/imgui/imnodes/CMakeFiles/imgui_imnodes.dir/source/imnodes.cpp.o
+[  3%] Building CXX object lib/third_party/imgui/implot3d/CMakeFiles/imgui_implot3d.dir/source/implot3d_demo.cpp.o
+[  3%] Building C object lib/third_party/lunasvg/plutovg/CMakeFiles/plutovg.dir/source/plutovg-ft-stroker.c.o
+[  3%] Building C object lib/third_party/lunasvg/plutovg/CMakeFiles/plutovg.dir/source/plutovg-ft-raster.c.o
+[  5%] Building CXX object lib/third_party/imgui/implot3d/CMakeFiles/imgui_implot3d.dir/source/implot3d_items.cpp.o
+[  5%] Building CXX object plugins/fonts/libromfs/generator/CMakeFiles/generator-fonts.dir/source/main.cpp.o
+[  5%] Building C object lib/third_party/microtar/CMakeFiles/microtar.dir/source/microtar.c.o
+[  5%] Building CXX object plugins/ui/libromfs/generator/CMakeFiles/generator-ui.dir/source/main.cpp.o
+[  5%] Built target CLI11
+[  5%] Building CXX object main/gui/main/gui/libromfs/generator/CMakeFiles/generator-imhex.dir/source/main.cpp.o
+[  6%] Building CXX object plugins/yara_rules/libromfs/generator/CMakeFiles/generator-yara_rules.dir/source/main.cpp.o
+[  6%] Building CXX object plugins/diffing/edlib/CMakeFiles/edlib.dir/edlib/src/edlib.cpp.o
+[  6%] Building CXX object plugins/builtin/libromfs/generator/CMakeFiles/generator-builtin.dir/source/main.cpp.o
+[  6%] Building CXX object plugins/decompress/libromfs/generator/CMakeFiles/generator-decompress.dir/source/main.cpp.o
+[  7%] Building CXX object plugins/diffing/libromfs/generator/CMakeFiles/generator-diffing.dir/source/main.cpp.o
+[  7%] Building CXX object plugins/hashes/HashLibPlus/CMakeFiles/hashplus.dir/Base/Hash.cpp.o
+[  7%] Building CXX object plugins/hashes/HashLibPlus/CMakeFiles/hashplus.dir/Base/HashFactory.cpp.o
+[  7%] Building CXX object plugins/script_loader/libromfs/generator/CMakeFiles/generator-script_loader.dir/source/main.cpp.o
+[  7%] Building CXX object plugins/disassembler/libromfs/generator/CMakeFiles/generator-disassembler.dir/source/main.cpp.o
+[  7%] Building CXX object plugins/hashes/libromfs/generator/CMakeFiles/generator-hashes.dir/source/main.cpp.o
+[  8%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/ahocorasick.c.o
+[  9%] Building CXX object plugins/hashes/HashLibPlus/CMakeFiles/hashplus.dir/Base/HashResult.cpp.o
+[  9%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/arena.c.o
+[  9%] Building CXX object plugins/hashes/HashLibPlus/CMakeFiles/hashplus.dir/Crypto/Blake2B.cpp.o
+[  9%] Building CXX object plugins/hashes/HashLibPlus/CMakeFiles/hashplus.dir/Crypto/Blake2S.cpp.o
+[  9%] Building CXX object plugins/remote/libromfs/generator/CMakeFiles/generator-remote.dir/source/main.cpp.o
+[  9%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/atoms.c.o
+[  9%] Building CXX object plugins/hashes/HashLibPlus/CMakeFiles/hashplus.dir/Params/Blake2BParams.cpp.o
+[  9%] Building C object plugins/visualizers/miniaudio/CMakeFiles/miniaudio.dir/source/miniaudio.c.o
+[  9%] Building CXX object plugins/hashes/HashLibPlus/CMakeFiles/hashplus.dir/Params/Blake2SParams.cpp.o
+[  9%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/bitmask.c.o
+[  9%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/compiler.c.o
+[  9%] Building CXX object plugins/hashes/HashLibPlus/CMakeFiles/hashplus.dir/Utils/BitConverter.cpp.o
+[  9%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/base64.c.o
+[  9%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/exec.c.o
+[ 10%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/endian.c.o
+[ 10%] Building CXX object plugins/visualizers/libromfs/generator/CMakeFiles/generator-visualizers.dir/source/main.cpp.o
+[ 10%] Built target romfs_file_packer-builtin
+[ 10%] Built target romfs_file_packer-decompress
+[ 10%] Built target romfs_file_packer-disassembler
+[ 10%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/filemap.c.o
+[ 10%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/exefiles.c.o
+[ 10%] Built target romfs_file_packer-diffing
+[ 10%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/libyara.c.o
+[ 10%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/hash.c.o
+[ 10%] Built target romfs_file_packer-fonts
+[ 10%] Built target romfs_file_packer-remote
+[ 10%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/Mapping.c.o
+[ 10%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/mem.c.o
+[ 10%] Built target romfs_file_packer-hashes
+[ 10%] Built target romfs_file_packer-script_loader
+[ 11%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/notebook.c.o
+[ 11%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/modules.c.o
+[ 11%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/parser.c.o
+[ 11%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/object.c.o
+[ 11%] Built target romfs_file_packer-ui
+[ 11%] Built target romfs_file_packer-visualizers
+[ 11%] Built target romfs_file_packer-yara_rules
+[ 11%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/cs.c.o
+[ 11%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/MCInst.c.o
+[ 11%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/re.c.o
+[ 11%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/proc.c.o
+[ 11%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/MCInstPrinter.c.o
+[ 11%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/MCInstrDesc.c.o
+[ 12%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/SStream.c.o
+[ 12%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/MCRegisterInfo.c.o
+[ 12%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/rules.c.o
+[ 13%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/utils.c.o
+[ 13%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/scan.c.o
+[ 13%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/ARM/ARMBaseInfo.c.o
+[ 13%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/ARM/ARMModule.c.o
+[ 13%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/AArch64/AArch64BaseInfo.c.o
+[ 13%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/ARM/ARMDisassembler.c.o
+[ 13%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/ARM/ARMDisassemblerExtension.c.o
+[ 13%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/scanner.c.o
+[ 13%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/AArch64/AArch64Disassembler.c.o
+[ 13%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/AArch64/AArch64InstPrinter.c.o
+[ 14%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/ARM/ARMMapping.c.o
+[ 14%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/AArch64/AArch64DisassemblerExtension.c.o
+[ 14%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/ARM/ARMInstPrinter.c.o
+[ 14%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/AArch64/AArch64Mapping.c.o
+[ 15%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/AArch64/AArch64Module.c.o
+[ 15%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Mips/MipsDisassembler.c.o
+[ 15%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Mips/MipsInstPrinter.c.o
+[ 15%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Mips/MipsMapping.c.o
+[ 15%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Mips/MipsModule.c.o
+[ 15%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/PowerPC/PPCDisassembler.c.o
+[ 17%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/PowerPC/PPCInstPrinter.c.o
+[ 17%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/sizedstr.c.o
+[ 17%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/PowerPC/PPCMapping.c.o
+[ 17%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/PowerPC/PPCModule.c.o
+[ 17%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/X86/X86Disassembler.c.o
+[ 17%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/simple_str.c.o
+[ 17%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/stack.c.o
+[ 17%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/X86/X86DisassemblerDecoder.c.o
+[ 17%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/stopwatch.c.o
+[ 17%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/strutils.c.o
+[ 17%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/X86/X86IntelInstPrinter.c.o
+[ 18%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/stream.c.o
+[ 18%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/threading.c.o
+[ 18%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/X86/X86InstPrinterCommon.c.o
+[ 18%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/lexer.c.o
+[ 19%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/X86/X86Mapping.c.o
+[ 19%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/hex_lexer.c.o
+[ 19%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/X86/X86Module.c.o
+[ 19%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/grammar.c.o
+[ 19%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/X86/X86ATTInstPrinter.c.o
+[ 19%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Sparc/SparcDisassembler.c.o
+[ 19%] Linking C static library libmicrotar.a
+[ 19%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Sparc/SparcDisassemblerExtension.c.o
+[ 19%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Sparc/SparcInstPrinter.c.o
+[ 19%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Sparc/SparcMapping.c.o
+[ 19%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/re_lexer.c.o
+[ 19%] Built target microtar
+[ 20%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/hex_grammar.c.o
+[ 21%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Sparc/SparcModule.c.o
+[ 21%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/re_grammar.c.o
+[ 21%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/proc/none.c.o
+[ 21%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/SystemZ/SystemZDisassembler.c.o
+[ 21%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/tlshc/tlsh.c.o
+[ 21%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/SystemZ/SystemZDisassemblerExtension.c.o
+[ 21%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/SystemZ/SystemZInstPrinter.c.o
+[ 21%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/SystemZ/SystemZMapping.c.o
+[ 21%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/SystemZ/SystemZModule.c.o
+[ 21%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/SystemZ/SystemZMCTargetDesc.c.o
+[ 21%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/tlshc/tlsh_impl.c.o
+[ 22%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/tlshc/tlsh_util.c.o
+[ 22%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/XCore/XCoreDisassembler.c.o
+[ 22%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/modules/console/console.c.o
+[ 22%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/XCore/XCoreInstPrinter.c.o
+[ 23%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/modules/dex/dex.c.o
+[ 23%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/XCore/XCoreMapping.c.o
+[ 23%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/modules/dotnet/dotnet.c.o
+[ 23%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/modules/elf/elf.c.o
+[ 23%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/modules/hash/hash.c.o
+[ 23%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/XCore/XCoreModule.c.o
+[ 23%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/M68K/M68KInstPrinter.c.o
+[ 23%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/M68K/M68KDisassembler.c.o
+[ 23%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/M68K/M68KModule.c.o
+[ 23%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/modules/magic/magic.c.o
+[ 23%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/modules/macho/macho.c.o
+[ 23%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/modules/math/math.c.o
+[ 24%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/modules/pe/pe.c.o
+[ 24%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/modules/pe/pe_utils.c.o
+[ 25%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/modules/string/string.c.o
+[ 25%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/TMS320C64x/TMS320C64xDisassembler.c.o
+[ 25%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/TMS320C64x/TMS320C64xInstPrinter.c.o
+[ 25%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/modules/tests/tests.c.o
+[ 25%] Building C object plugins/yara_rules/yara/CMakeFiles/libyara.dir/yara/libyara/modules/time/time.c.o
+[ 25%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/TMS320C64x/TMS320C64xMapping.c.o
+[ 25%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/TMS320C64x/TMS320C64xModule.c.o
+[ 25%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/M680X/M680XDisassembler.c.o
+[ 25%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/M680X/M680XInstPrinter.c.o
+[ 26%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/M680X/M680XModule.c.o
+[ 26%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/EVM/EVMDisassembler.c.o
+[ 26%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/EVM/EVMInstPrinter.c.o
+[ 26%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/EVM/EVMMapping.c.o
+[ 26%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/EVM/EVMModule.c.o
+[ 26%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/WASM/WASMDisassembler.c.o
+[ 26%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/WASM/WASMInstPrinter.c.o
+[ 27%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/WASM/WASMMapping.c.o
+[ 27%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/WASM/WASMModule.c.o
+[ 27%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/MOS65XX/MOS65XXModule.c.o
+[ 27%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/MOS65XX/MOS65XXDisassembler.c.o
+[ 27%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/BPF/BPFDisassembler.c.o
+[ 27%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/BPF/BPFInstPrinter.c.o
+[ 27%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/BPF/BPFMapping.c.o
+[ 28%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/BPF/BPFModule.c.o
+[ 28%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/RISCV/RISCVDisassembler.c.o
+[ 28%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/RISCV/RISCVInstPrinter.c.o
+[ 28%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/RISCV/RISCVMapping.c.o
+[ 28%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/RISCV/RISCVModule.c.o
+[ 28%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/SH/SHDisassembler.c.o
+[ 28%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/SH/SHInstPrinter.c.o
+[ 29%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/SH/SHModule.c.o
+[ 29%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/TriCore/TriCoreDisassembler.c.o
+[ 29%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/TriCore/TriCoreInstPrinter.c.o
+[ 29%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/TriCore/TriCoreMapping.c.o
+[ 29%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/TriCore/TriCoreModule.c.o
+[ 29%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Alpha/AlphaDisassembler.c.o
+[ 29%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Alpha/AlphaInstPrinter.c.o
+[ 30%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Alpha/AlphaMapping.c.o
+[ 30%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Alpha/AlphaModule.c.o
+[ 30%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/HPPA/HPPADisassembler.c.o
+[ 30%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/HPPA/HPPAInstPrinter.c.o
+[ 30%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/HPPA/HPPAMapping.c.o
+[ 30%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/HPPA/HPPAModule.c.o
+[ 31%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/LoongArch/LoongArchDisassembler.c.o
+[ 31%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/LoongArch/LoongArchDisassemblerExtension.c.o
+[ 31%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/LoongArch/LoongArchInstPrinter.c.o
+[ 31%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/LoongArch/LoongArchMapping.c.o
+[ 31%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/LoongArch/LoongArchModule.c.o
+[ 31%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Xtensa/XtensaDisassembler.c.o
+[ 31%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Xtensa/XtensaInstPrinter.c.o
+[ 32%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Xtensa/XtensaModule.c.o
+[ 32%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/Xtensa/XtensaMapping.c.o
+[ 32%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/ARC/ARCDisassembler.c.o
+[ 32%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/ARC/ARCInstPrinter.c.o
+[ 32%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/ARC/ARCMapping.c.o
+[ 32%] Building C object plugins/disassembler/capstone/CMakeFiles/capstone.dir/arch/ARC/ARCModule.c.o
+[ 32%] Built target imgui_backend
+[ 32%] Linking CXX executable generator-diffing
+[ 32%] Built target generator-diffing
+[ 34%] Generating libromfs_resources.cpp
+[libromfs] Resource Folders: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/diffing/romfs
+[libromfs] Packing resource folder: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/diffing/romfs
+[libromfs] Bundling resource: lang/fr_FR.json
+[libromfs] Bundling resource: lang/languages.json
+[libromfs] Bundling resource: lang/de_DE.json
+[libromfs] Bundling resource: lang/pt_BR.json
+[libromfs] Bundling resource: lang/pl_PL.json
+[libromfs] Bundling resource: lang/ja_JP.json
+[libromfs] Bundling resource: lang/hu_HU.json
+[libromfs] Bundling resource: lang/ru_RU.json
+[libromfs] Bundling resource: lang/it_IT.json
+[libromfs] Bundling resource: lang/zh_TW.json
+[libromfs] Bundling resource: lang/uk_UA.json
+[libromfs] Bundling resource: lang/ko_KR.json
+[libromfs] Bundling resource: lang/es_ES.json
+[libromfs] Bundling resource: lang/zh_CN.json
+[libromfs] Bundling resource: lang/en_US.json
+[ 34%] Linking CXX executable generator-builtin
+[ 34%] Building CXX object plugins/diffing/libromfs/lib/CMakeFiles/libromfs-diffing.dir/libromfs_resources.cpp.o
+[ 34%] Building CXX object plugins/diffing/libromfs/lib/CMakeFiles/libromfs-diffing.dir/source/romfs.cpp.o
+[ 34%] Built target generator-builtin
+[ 34%] Generating libromfs_resources.cpp
+[ 34%] Linking CXX executable generator-decompress
+[ 34%] Linking CXX executable generator-ui
+[ 34%] Linking CXX executable generator-visualizers
+[ 34%] Linking CXX executable generator-imhex
+[ 34%] Linking CXX executable generator-remote
+[ 34%] Linking CXX executable generator-fonts
+[ 34%] Built target generator-decompress
+[ 34%] Built target generator-ui
+[ 34%] Built target generator-visualizers
+[ 34%] Generating libromfs_resources.cpp
+[ 34%] Generating libromfs_resources.cpp
+[ 34%] Linking CXX static library libnfd.a
+[ 34%] Generating libromfs_resources.cpp
+[libromfs] Resource Folders: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/decompress/romfs
+[libromfs] Packing resource folder: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/decompress/romfs
+[libromfs] Resource Folders: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/ui/romfs
+[libromfs] Packing resource folder: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/ui/romfs
+[libromfs] Bundling resource: lang/fr_FR.json
+[libromfs] Bundling resource: lang/languages.json
+[libromfs] Bundling resource: lang/de_DE.json
+[libromfs] Bundling resource: lang/pt_BR.json
+[libromfs] Bundling resource: lang/pl_PL.json
+[libromfs] Bundling resource: lang/ja_JP.json
+[libromfs] Bundling resource: lang/hu_HU.json
+[libromfs] Bundling resource: lang/ru_RU.json
+[libromfs] Bundling resource: lang/it_IT.json
+[libromfs] Bundling resource: lang/zh_TW.json
+[libromfs] Bundling resource: lang/uk_UA.json
+[libromfs] Bundling resource: lang/ko_KR.json
+[libromfs] Bundling resource: lang/es_ES.json
+[libromfs] Bundling resource: lang/zh_CN.json
+[libromfs] Bundling resource: lang/en_US.json
+[ 34%] Built target generator-imhex
+[ 35%] Linking CXX executable generator-script_loader
+[ 35%] Building CXX object plugins/decompress/libromfs/lib/CMakeFiles/libromfs-decompress.dir/libromfs_resources.cpp.o
+[ 35%] Building CXX object plugins/decompress/libromfs/lib/CMakeFiles/libromfs-decompress.dir/source/romfs.cpp.o
+[ 35%] Built target nfd
+[ 35%] Generating libromfs_resources.cpp
+[libromfs] Resource Folders: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/visualizers/romfs
+[libromfs] Packing resource folder: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/visualizers/romfs
+[libromfs] Bundling resource: licenses/MAP_LICENSE
+[libromfs] Bundling resource: lang/fr_FR.json
+[libromfs] Bundling resource: lang/languages.json
+[libromfs] Bundling resource: lang/de_DE.json
+[libromfs] Bundling resource: lang/pt_BR.json
+[libromfs] Bundling resource: lang/pl_PL.json
+[libromfs] Bundling resource: lang/ja_JP.json
+[libromfs] Bundling resource: lang/hu_HU.json
+[libromfs] Bundling resource: lang/ru_RU.json
+[libromfs] Bundling resource: lang/it_IT.json
+[libromfs] Bundling resource: lang/zh_TW.json
+[libromfs] Bundling resource: lang/uk_UA.json
+[libromfs] Bundling resource: lang/ko_KR.json
+[libromfs] Bundling resource: lang/es_ES.json
+[libromfs] Bundling resource: lang/zh_CN.json
+[libromfs] Bundling resource: lang/en_US.json
+[libromfs] Bundling resource: assets/common/map.jpg
+[libromfs] Bundling resource: shaders/default/lightFragment.glsl
+[libromfs] Bundling resource: shaders/default/vertex.glsl
+[libromfs] Bundling resource: shaders/default/fragment.glsl
+[libromfs] Bundling resource: shaders/default/lineVertex.glsl
+[libromfs] Bundling resource: shaders/default/lineFragment.glsl
+[libromfs] Bundling resource: shaders/default/lightVertex.glsl
+[ 35%] Building CXX object plugins/ui/libromfs/lib/CMakeFiles/libromfs-ui.dir/source/romfs.cpp.o
+[ 35%] Building CXX object plugins/ui/libromfs/lib/CMakeFiles/libromfs-ui.dir/libromfs_resources.cpp.o
+[ 35%] Built target generator-remote
+[ 35%] Built target generator-fonts
+[ 35%] Linking CXX executable generator-yara_rules
+[libromfs] Resource Folders: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/main/gui/romfs
+[libromfs] Packing resource folder: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/main/gui/romfs
+[libromfs] Bundling resource: splash_background.svg
+[libromfs] Bundling resource: splash_colors.json
+[libromfs] Bundling resource: splash_text.svg
+[ 36%] Linking CXX executable generator-hashes
+[ 36%] Generating libromfs_resources.cpp
+[ 36%] Generating libromfs_resources.cpp
+[ 36%] Building CXX object plugins/visualizers/libromfs/lib/CMakeFiles/libromfs-visualizers.dir/libromfs_resources.cpp.o
+[ 37%] Building CXX object plugins/visualizers/libromfs/lib/CMakeFiles/libromfs-visualizers.dir/source/romfs.cpp.o
+[libromfs] Resource Folders: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/remote/romfs
+[libromfs] Packing resource folder: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/remote/romfs
+[libromfs] Bundling resource: lang/fr_FR.json
+[libromfs] Bundling resource: lang/languages.json
+[libromfs] Bundling resource: lang/de_DE.json
+[libromfs] Bundling resource: lang/pt_BR.json
+[libromfs] Bundling resource: lang/pl_PL.json
+[libromfs] Bundling resource: lang/ja_JP.json
+[libromfs] Bundling resource: lang/hu_HU.json
+[libromfs] Bundling resource: lang/ru_RU.json
+[libromfs] Bundling resource: lang/it_IT.json
+[libromfs] Bundling resource: lang/zh_TW.json
+[libromfs] Bundling resource: lang/uk_UA.json
+[libromfs] Bundling resource: lang/ko_KR.json
+[libromfs] Bundling resource: lang/es_ES.json
+[libromfs] Bundling resource: lang/zh_CN.json
+[libromfs] Bundling resource: lang/en_US.json
+[ 37%] Building CXX object main/gui/main/gui/libromfs/lib/CMakeFiles/libromfs-imhex.dir/libromfs_resources.cpp.o
+[ 37%] Building CXX object main/gui/main/gui/libromfs/lib/CMakeFiles/libromfs-imhex.dir/source/romfs.cpp.o
+[ 37%] Built target generator-script_loader
+[ 37%] Generating libromfs_resources.cpp
+[ 37%] Building CXX object plugins/remote/libromfs/lib/CMakeFiles/libromfs-remote.dir/source/romfs.cpp.o
+[ 38%] Building CXX object plugins/remote/libromfs/lib/CMakeFiles/libromfs-remote.dir/libromfs_resources.cpp.o
+[libromfs] Resource Folders: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/script_loader/romfs
+[libromfs] Packing resource folder: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/script_loader/romfs
+[libromfs] Bundling resource: lang/fr_FR.json
+[libromfs] Bundling resource: lang/languages.json
+[libromfs] Bundling resource: lang/de_DE.json
+[libromfs] Bundling resource: lang/pt_BR.json
+[libromfs] Bundling resource: lang/pl_PL.json
+[libromfs] Bundling resource: lang/ja_JP.json
+[libromfs] Bundling resource: lang/hu_HU.json
+[libromfs] Bundling resource: lang/ru_RU.json
+[libromfs] Bundling resource: lang/it_IT.json
+[libromfs] Bundling resource: lang/zh_TW.json
+[libromfs] Bundling resource: lang/uk_UA.json
+[libromfs] Bundling resource: lang/ko_KR.json
+[libromfs] Bundling resource: lang/es_ES.json
+[libromfs] Bundling resource: lang/zh_CN.json
+[libromfs] Bundling resource: lang/en_US.json
+[ 38%] Built target generator-yara_rules
+[ 38%] Generating libromfs_resources.cpp
+[ 38%] Building CXX object plugins/script_loader/libromfs/lib/CMakeFiles/libromfs-script_loader.dir/source/romfs.cpp.o
+[ 38%] Building CXX object plugins/script_loader/libromfs/lib/CMakeFiles/libromfs-script_loader.dir/libromfs_resources.cpp.o
+[ 38%] Built target generator-hashes
+[libromfs] Resource Folders: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/yara_rules/romfs
+[libromfs] Packing resource folder: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/yara_rules/romfs
+[libromfs] Bundling resource: lang/fr_FR.json
+[libromfs] Bundling resource: lang/languages.json
+[libromfs] Bundling resource: lang/de_DE.json
+[libromfs] Bundling resource: lang/pt_BR.json
+[libromfs] Bundling resource: lang/pl_PL.json
+[libromfs] Bundling resource: lang/ja_JP.json
+[libromfs] Bundling resource: lang/hu_HU.json
+[libromfs] Bundling resource: lang/ru_RU.json
+[libromfs] Bundling resource: lang/it_IT.json
+[libromfs] Bundling resource: lang/zh_TW.json
+[libromfs] Bundling resource: lang/uk_UA.json
+[libromfs] Bundling resource: lang/ko_KR.json
+[libromfs] Bundling resource: lang/es_ES.json
+[libromfs] Bundling resource: lang/zh_CN.json
+[libromfs] Bundling resource: lang/en_US.json
+[ 38%] Generating libromfs_resources.cpp
+[ 38%] Building CXX object plugins/yara_rules/libromfs/lib/CMakeFiles/libromfs-yara_rules.dir/libromfs_resources.cpp.o
+[ 38%] Building CXX object plugins/yara_rules/libromfs/lib/CMakeFiles/libromfs-yara_rules.dir/source/romfs.cpp.o
+[libromfs] Resource Folders: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/hashes/romfs
+[libromfs] Packing resource folder: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/hashes/romfs
+[libromfs] Bundling resource: lang/fr_FR.json
+[libromfs] Bundling resource: lang/languages.json
+[libromfs] Bundling resource: lang/de_DE.json
+[libromfs] Bundling resource: lang/pt_BR.json
+[libromfs] Bundling resource: lang/pl_PL.json
+[libromfs] Bundling resource: lang/ja_JP.json
+[libromfs] Bundling resource: lang/hu_HU.json
+[libromfs] Bundling resource: lang/ru_RU.json
+[libromfs] Bundling resource: lang/it_IT.json
+[libromfs] Bundling resource: lang/zh_TW.json
+[libromfs] Bundling resource: lang/uk_UA.json
+[libromfs] Bundling resource: lang/ko_KR.json
+[libromfs] Bundling resource: lang/es_ES.json
+[libromfs] Bundling resource: lang/zh_CN.json
+[libromfs] Bundling resource: lang/en_US.json
+[libromfs] Bundling resource: assets/achievements/fortune-cookie.png
+[ 38%] Building CXX object plugins/hashes/libromfs/lib/CMakeFiles/libromfs-hashes.dir/libromfs_resources.cpp.o
+[ 39%] Building CXX object plugins/hashes/libromfs/lib/CMakeFiles/libromfs-hashes.dir/source/romfs.cpp.o
+[ 39%] Linking CXX executable generator-disassembler
+[ 39%] Built target generator-disassembler
+[ 39%] Generating libromfs_resources.cpp
+[libromfs] Resource Folders: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/disassembler/romfs
+[libromfs] Packing resource folder: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/disassembler/romfs
+[libromfs] Bundling resource: lang/fr_FR.json
+[libromfs] Bundling resource: lang/languages.json
+[libromfs] Bundling resource: lang/de_DE.json
+[libromfs] Bundling resource: lang/pt_BR.json
+[libromfs] Bundling resource: lang/pl_PL.json
+[libromfs] Bundling resource: lang/ja_JP.json
+[libromfs] Bundling resource: lang/hu_HU.json
+[libromfs] Bundling resource: lang/ru_RU.json
+[libromfs] Bundling resource: lang/it_IT.json
+[libromfs] Bundling resource: lang/zh_TW.json
+[libromfs] Bundling resource: lang/uk_UA.json
+[libromfs] Bundling resource: lang/ko_KR.json
+[libromfs] Bundling resource: lang/es_ES.json
+[libromfs] Bundling resource: lang/zh_CN.json
+[libromfs] Bundling resource: lang/en_US.json
+[ 39%] Building CXX object plugins/disassembler/libromfs/lib/CMakeFiles/libromfs-disassembler.dir/libromfs_resources.cpp.o
+[ 39%] Building CXX object plugins/disassembler/libromfs/lib/CMakeFiles/libromfs-disassembler.dir/source/romfs.cpp.o
+[ 39%] Linking C static library libyara.a
+[ 39%] Built target libyara
+[ 39%] Linking CXX static library ../../../lib/libedlib.a
+[ 39%] Built target edlib
+[ 39%] Linking CXX static library libwolv-utils.a
+[ 39%] Built target libwolv-utils
+[ 40%] Building CXX object lib/external/libwolv/libs/net/CMakeFiles/libwolv-net.dir/source/net/common.cpp.o
+[ 40%] Building CXX object lib/external/libwolv/libs/math_eval/CMakeFiles/libwolv-math_eval.dir/source/math_eval/math_evaluator.cpp.o
+[ 40%] Building CXX object lib/external/libwolv/libs/io/CMakeFiles/libwolv-io.dir/source/io/file.cpp.o
+[ 40%] Building CXX object lib/external/libwolv/libs/net/CMakeFiles/libwolv-net.dir/source/net/socket_client.cpp.o
+[ 40%] Building CXX object lib/external/libwolv/libs/net/CMakeFiles/libwolv-net.dir/source/net/socket_server.cpp.o
+[ 41%] Building CXX object lib/external/libwolv/libs/io/CMakeFiles/libwolv-io.dir/source/io/fs.cpp.o
+[ 41%] Building CXX object lib/external/libwolv/libs/io/CMakeFiles/libwolv-io.dir/source/io/file_unix.cpp.o
+[ 41%] Building CXX object lib/external/libwolv/libs/io/CMakeFiles/libwolv-io.dir/source/io/handle.cpp.o
+[libromfs] Resource Folders: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/fonts/romfs
+[libromfs] Packing resource folder: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/fonts/romfs
+[libromfs] Bundling resource: JETBRAINS_MONO_LICENSE.txt
+[libromfs] Bundling resource: BLENDERICONS_LICENSE.txt
+[libromfs] Bundling resource: fonts/codicons.ttf
+[libromfs] Bundling resource: fonts/JetBrainsMono.ttf
+[libromfs] Bundling resource: fonts/blendericons.ttf
+[libromfs] Bundling resource: fonts/tablericons.ttf
+[libromfs] Bundling resource: fonts/unifont.otf
+[libromfs] Bundling resource: TABLERICONS_LICENSE.txt
+[libromfs] Bundling resource: VSCODICONS_LICENSE.txt
+[libromfs] Bundling resource: lang/fr_FR.json
+[libromfs] Bundling resource: lang/languages.json
+[libromfs] Bundling resource: lang/de_DE.json
+[libromfs] Bundling resource: lang/pt_BR.json
+[libromfs] Bundling resource: lang/pl_PL.json
+[libromfs] Bundling resource: lang/ja_JP.json
+[libromfs] Bundling resource: lang/hu_HU.json
+[libromfs] Bundling resource: lang/ru_RU.json
+[libromfs] Bundling resource: lang/it_IT.json
+[libromfs] Bundling resource: lang/zh_TW.json
+[libromfs] Bundling resource: lang/uk_UA.json
+[libromfs] Bundling resource: lang/ko_KR.json
+[libromfs] Bundling resource: lang/es_ES.json
+[libromfs] Bundling resource: lang/zh_CN.json
+[libromfs] Bundling resource: lang/en_US.json
+[libromfs] Bundling resource: UNIFONT_LICENSE.txt
+[ 41%] Building CXX object plugins/fonts/libromfs/lib/CMakeFiles/libromfs-fonts.dir/source/romfs.cpp.o
+[ 41%] Building CXX object plugins/fonts/libromfs/lib/CMakeFiles/libromfs-fonts.dir/libromfs_resources.cpp.o
+[libromfs] Resource Folders: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/build/plugins/builtin/romfs,/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/builtin/romfs
+[libromfs] Packing resource folder: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/build/plugins/builtin/romfs
+[libromfs] Packing resource folder: /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/plugins/builtin/romfs
+[libromfs] Bundling resource: always_auto_extract/magic/magic.mgc
+[libromfs] Bundling resource: layouts/minimal.hexlyt
+[libromfs] Bundling resource: layouts/default.hexlyt
+[libromfs] Bundling resource: logo.ans
+[libromfs] Bundling resource: auto_extract/workspaces/default.hexws
+[libromfs] Bundling resource: auto_extract/workspaces/minimal.hexws
+[libromfs] Bundling resource: themes/dark.json
+[libromfs] Bundling resource: themes/classic.json
+[libromfs] Bundling resource: themes/light.json
+[libromfs] Bundling resource: licenses/LICENSE
+[libromfs] Bundling resource: lang/fr_FR.json
+[libromfs] Bundling resource: lang/languages.json
+[libromfs] Bundling resource: lang/de_DE.json
+[libromfs] Bundling resource: lang/pt_BR.json
+[libromfs] Bundling resource: lang/pl_PL.json
+[libromfs] Bundling resource: lang/ja_JP.json
+[libromfs] Bundling resource: lang/hu_HU.json
+[libromfs] Bundling resource: lang/ru_RU.json
+[libromfs] Bundling resource: lang/it_IT.json
+[libromfs] Bundling resource: lang/zh_TW.json
+[libromfs] Bundling resource: lang/uk_UA.json
+[libromfs] Bundling resource: lang/ko_KR.json
+[libromfs] Bundling resource: lang/es_ES.json
+[libromfs] Bundling resource: lang/zh_CN.json
+[libromfs] Bundling resource: lang/en_US.json
+[libromfs] Bundling resource: assets/common/donation/paypal.png
+[libromfs] Bundling resource: assets/common/donation/github.png
+[libromfs] Bundling resource: assets/common/donation/patreon.png
+[libromfs] Bundling resource: assets/common/nightly.svg
+[libromfs] Bundling resource: assets/common/logo.svg
+[libromfs] Bundling resource: assets/common/globe.png
+[libromfs] Bundling resource: assets/common/color_names.json
+[libromfs] Bundling resource: assets/common/compass.png
+[libromfs] Bundling resource: assets/common/icon.png
+[libromfs] Bundling resource: assets/light/backdrop.png
+[libromfs] Bundling resource: assets/light/banner.svg
+[libromfs] Bundling resource: assets/screenshots/simplified_mode.png
+[libromfs] Bundling resource: assets/screenshots/tools.png
+[libromfs] Bundling resource: assets/screenshots/floating_windows.png
+[libromfs] Bundling resource: assets/screenshots/welcome_screen.png
+[libromfs] Bundling resource: assets/screenshots/bookmarks.png
+[libromfs] Bundling resource: assets/screenshots/data_processor.png
+[libromfs] Bundling resource: assets/screenshots/data_analysis.png
+[libromfs] Bundling resource: assets/screenshots/3d_visualizer.png
+[libromfs] Bundling resource: assets/screenshots/diffing.png
+[libromfs] Bundling resource: assets/screenshots/patterns.png
+[libromfs] Bundling resource: assets/dark/backdrop.png
+[libromfs] Bundling resource: assets/dark/banner.svg
+[libromfs] Bundling resource: assets/achievements/frame-with-picture.png
+[libromfs] Bundling resource: assets/achievements/briefcase.png
+[libromfs] Bundling resource: assets/achievements/bookmark.png
+[libromfs] Bundling resource: assets/achievements/linked-paperclips.png
+[libromfs] Bundling resource: assets/achievements/hourglass.png
+[libromfs] Bundling resource: assets/achievements/black-question-mark-ornament.png
+[libromfs] Bundling resource: assets/achievements/adhesive-bandage.png
+[libromfs] Bundling resource: assets/achievements/hammer.png
+[libromfs] Bundling resource: assets/achievements/right-pointing-magnifying-glass.png
+[libromfs] Bundling resource: assets/achievements/brain.png
+[libromfs] Bundling resource: assets/achievements/copy.png
+[libromfs] Bundling resource: assets/achievements/water-wave.png
+[libromfs] Bundling resource: assets/achievements/package.png
+[libromfs] Bundling resource: assets/achievements/page-facing-up.png
+[libromfs] Bundling resource: assets/achievements/open-book.png
+[libromfs] Bundling resource: assets/achievements/bookmark-tabs.png
+[libromfs] Bundling resource: assets/achievements/pencil.png
+[libromfs] Bundling resource: assets/achievements/card-index-dividers.png
+[libromfs] Bundling resource: assets/achievements/hammer-and-wrench.png
+[libromfs] Bundling resource: assets/achievements/clipboard.png
+[libromfs] Bundling resource: assets/achievements/ring.png
+[libromfs] Bundling resource: assets/achievements/wrench.png
+[libromfs] Bundling resource: assets/achievements/hammer-and-pick.png
+[libromfs] Bundling resource: assets/achievements/cloud.png
+[libromfs] Bundling resource: assets/achievements/abacus.png
+[libromfs] Bundling resource: assets/achievements/eye-in-speech-bubble.png
+[libromfs] Bundling resource: assets/achievements/collision-symbol.png
+[libromfs] Bundling resource: assets/screenshot_descriptions.json
+[libromfs] Bundling resource: shaders/retro/vertex.glsl
+[libromfs] Bundling resource: shaders/retro/fragment.glsl
+[libromfs] Bundling resource: tips.json
+[ 42%] Building CXX object plugins/builtin/libromfs/lib/CMakeFiles/libromfs-builtin.dir/source/romfs.cpp.o
+[ 42%] Building CXX object plugins/builtin/libromfs/lib/CMakeFiles/libromfs-builtin.dir/libromfs_resources.cpp.o
+[ 42%] Built target imgui_imnodes
+[ 42%] Linking CXX static library libromfs-remote.a
+[ 42%] Built target libromfs-remote
+[ 42%] Linking CXX static library libromfs-diffing.a
+[ 42%] Linking CXX static library libromfs-yara_rules.a
+[ 42%] Built target libromfs-diffing
+[ 42%] Built target libromfs-yara_rules
+[ 43%] Linking CXX static library libromfs-script_loader.a
+[ 43%] Built target libromfs-script_loader
+[ 43%] Linking CXX static library libromfs-decompress.a
+[ 43%] Linking CXX static library libromfs-visualizers.a
+[ 43%] Built target libromfs-decompress
+[ 43%] Built target imgui_cimgui
+[ 43%] Built target libromfs-visualizers
+[ 43%] Linking CXX static library libromfs-ui.a
+[ 43%] Built target libromfs-ui
+[ 44%] Linking CXX static library libromfs-disassembler.a
+[ 44%] Linking CXX static library libromfs-hashes.a
+[ 44%] Built target libromfs-disassembler
+[ 44%] Built target libromfs-hashes
+[ 44%] Linking CXX static library libromfs-imhex.a
+[ 44%] Built target libromfs-imhex
+[ 44%] Linking CXX static library libLLVMDemangle.a
+[ 44%] Built target LLVMDemangle
+[ 44%] Building CXX object lib/trace/CMakeFiles/tracing.dir/source/stacktrace.cpp.o
+[ 44%] Building CXX object lib/trace/CMakeFiles/tracing.dir/source/exceptions.cpp.o
+[ 44%] Linking C static library libmd4c.a
+[ 44%] Linking CXX static library libwolv-net.a
+[ 44%] Built target md4c
+[ 44%] Built target libwolv-net
+[ 44%] Linking CXX static library libromfs-fonts.a
+[ 44%] Linking CXX static library liblibwolv-io.a
+[ 44%] Built target libwolv-io
+[ 45%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_array_variable_decl.cpp.o
+[ 45%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node.cpp.o
+[ 45%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/helpers/utils.cpp.o
+[ 45%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/pattern_language.cpp.o
+[ 45%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_attribute.cpp.o
+[ 45%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_bitfield.cpp.o
+[ 45%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_bitfield_field.cpp.o
+[ 45%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_bitfield_array_variable_decl.cpp.o
+[ 45%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_builtin_type.cpp.o
+[ 46%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_compound_statement.cpp.o
+[ 46%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_cast.cpp.o
+[ 46%] Built target libromfs-fonts
+[ 46%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_conditional_statement.cpp.o
+[ 46%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_enum.cpp.o
+[ 46%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_control_flow_statement.cpp.o
+[ 46%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_function_definition.cpp.o
+[ 46%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_lvalue_assignment.cpp.o
+[ 46%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_imported_type.cpp.o
+[ 46%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_function_call.cpp.o
+[ 46%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_match_statement.cpp.o
+[ 47%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_literal.cpp.o
+[ 47%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_mathematical_expression.cpp.o
+[ 47%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_multi_variable_decl.cpp.o
+[ 47%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_rvalue.cpp.o
+[ 47%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_parameter_pack.cpp.o
+[ 48%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_pointer_variable_decl.cpp.o
+[ 48%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_rvalue_assignment.cpp.o
+[ 48%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_scope_resolution.cpp.o
+[ 48%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_struct.cpp.o
+[ 48%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_type_decl.cpp.o
+[ 48%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_ternary_expression.cpp.o
+[ 48%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_type_operator.cpp.o
+[ 48%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_try_catch_statement.cpp.o
+[ 50%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_type_application.cpp.o
+[ 50%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_while_statement.cpp.o
+[ 50%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_union.cpp.o
+[ 50%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/ast/ast_node_variable_decl.cpp.o
+[ 50%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/token.cpp.o
+[ 51%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/evaluator.cpp.o
+[ 51%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/parser.cpp.o
+[ 51%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/lexer.cpp.o
+[ 51%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/preprocessor.cpp.o
+[ 51%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/validator.cpp.o
+[ 51%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/parser_manager.cpp.o
+[ 51%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/resolver.cpp.o
+[ 52%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/error.cpp.o
+[ 52%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/lib/std/pragmas.cpp.o
+[ 52%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/lib/std/std.cpp.o
+[ 52%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/lib/std/math.cpp.o
+[ 52%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/lib/std/mem.cpp.o
+[ 52%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/lib/std/string.cpp.o
+[ 52%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/lib/std/file.cpp.o
+[ 52%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/core/resolvers.cpp.o
+[ 53%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/lib/std/time.cpp.o
+[ 53%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/lib/std/hash.cpp.o
+[ 53%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/lib/std/random.cpp.o
+[ 53%] Building CXX object lib/external/pattern_language/lib/CMakeFiles/libpl.dir/source/pl/lib/std/core.cpp.o
+[ 53%] Linking CXX static library libtracing.a
+[ 53%] Built target tracing
+[ 53%] Linking C static library libplutovg.a
+[ 53%] Built target plutovg
+[ 54%] Building CXX object lib/third_party/lunasvg/CMakeFiles/lunasvg.dir/source/lunasvg.cpp.o
+[ 54%] Building CXX object lib/third_party/lunasvg/CMakeFiles/lunasvg.dir/source/svgelement.cpp.o
+[ 54%] Building CXX object lib/third_party/lunasvg/CMakeFiles/lunasvg.dir/source/graphics.cpp.o
+[ 54%] Building CXX object lib/third_party/lunasvg/CMakeFiles/lunasvg.dir/source/svggeometryelement.cpp.o
+[ 54%] Building CXX object lib/third_party/lunasvg/CMakeFiles/lunasvg.dir/source/svglayoutstate.cpp.o
+[ 54%] Building CXX object lib/third_party/lunasvg/CMakeFiles/lunasvg.dir/source/svgpaintelement.cpp.o
+[ 54%] Building CXX object lib/third_party/lunasvg/CMakeFiles/lunasvg.dir/source/svgparser.cpp.o
+[ 54%] Building CXX object lib/third_party/lunasvg/CMakeFiles/lunasvg.dir/source/svgproperty.cpp.o
+[ 55%] Building CXX object lib/third_party/lunasvg/CMakeFiles/lunasvg.dir/source/svgrenderstate.cpp.o
+[ 55%] Building CXX object lib/third_party/lunasvg/CMakeFiles/lunasvg.dir/source/svgtextelement.cpp.o
+[ 55%] Linking CXX static library libromfs-builtin.a
+[ 55%] Built target libromfs-builtin
+[ 55%] Linking CXX static library liblunasvg.a
+[ 55%] Built target lunasvg
+[ 55%] Building CXX object lib/third_party/imgui/imgui/CMakeFiles/imgui_imgui.dir/source/imgui.cpp.o
+[ 55%] Building CXX object lib/third_party/imgui/imgui/CMakeFiles/imgui_imgui.dir/source/imgui_draw.cpp.o
+[ 55%] Building CXX object lib/third_party/imgui/imgui/CMakeFiles/imgui_imgui.dir/source/imgui_demo.cpp.o
+[ 55%] Building CXX object lib/third_party/imgui/imgui/CMakeFiles/imgui_imgui.dir/source/misc/freetype/imgui_freetype.cpp.o
+[ 56%] Building CXX object lib/third_party/imgui/imgui/CMakeFiles/imgui_imgui.dir/source/imgui_widgets.cpp.o
+[ 56%] Building CXX object lib/third_party/imgui/imgui/CMakeFiles/imgui_imgui.dir/source/imgui_tables.cpp.o
+[ 56%] Linking CXX static library libwolv-math_eval.a
+[ 56%] Built target libwolv-math_eval
+[ 56%] Building CXX object lib/external/disassembler/lib/CMakeFiles/libdisassembler.dir/source/spec/spec.cpp.o
+[ 56%] Building CXX object lib/external/disassembler/lib/CMakeFiles/libdisassembler.dir/source/spec/loader.cpp.o
+[ 56%] Building CXX object lib/external/disassembler/lib/CMakeFiles/libdisassembler.dir/source/spec/bit_pattern.cpp.o
+[ 56%] Building CXX object lib/external/pattern_language/cli/CMakeFiles/plcli.dir/source/subcommands/format.cpp.o
+[ 56%] Building CXX object lib/external/pattern_language/cli/CMakeFiles/plcli.dir/source/main.cpp.o
+[ 57%] Building CXX object lib/external/pattern_language/cli/CMakeFiles/plcli.dir/source/helpers/utils.cpp.o
+[ 57%] Building CXX object lib/external/pattern_language/cli/CMakeFiles/plcli.dir/source/helpers/info_utils.cpp.o
+[ 58%] Building CXX object lib/external/disassembler/lib/CMakeFiles/libdisassembler.dir/source/spec/opcode.cpp.o
+[ 58%] Building CXX object lib/external/pattern_language/cli/CMakeFiles/plcli.dir/source/subcommands/docs.cpp.o
+[ 58%] Building CXX object lib/external/pattern_language/cli/CMakeFiles/plcli.dir/source/subcommands/run.cpp.o
+[ 58%] Building CXX object lib/external/pattern_language/cli/CMakeFiles/plcli.dir/source/subcommands/info.cpp.o
+[ 58%] Built target imgui_implot3d
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/lib/third_party/miniaudio/source/miniaudio.c:2:
+In function 'ma_dr_mp3_L3_decode_scalefactors',
+    inlined from 'ma_dr_mp3_L3_decode' at /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/lib/third_party/miniaudio/include/miniaudio.h:90954:9,
+    inlined from 'ma_dr_mp3dec_decode_frame' at /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/lib/third_party/miniaudio/include/miniaudio.h:91446:17:
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/lib/third_party/miniaudio/include/miniaudio.h:90458:42: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+90458 |             iscf[gr->n_long_sfb + i + 1] = (ma_uint8)(iscf[gr->n_long_sfb + i + 1] + (gr->subblock_gain[1] << sh));
+      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/lib/third_party/miniaudio/include/miniaudio.h: In function 'ma_dr_mp3dec_decode_frame':
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/lib/third_party/miniaudio/include/miniaudio.h:90426:27: note: at offset 40 into destination object 'iscf' of size 40
+90426 |     ma_uint8 scf_size[4], iscf[40];
+      |                           ^~~~
+In function 'ma_dr_mp3_L3_decode_scalefactors',
+    inlined from 'ma_dr_mp3_L3_decode' at /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/lib/third_party/miniaudio/include/miniaudio.h:90954:9,
+    inlined from 'ma_dr_mp3dec_decode_frame' at /home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/lib/third_party/miniaudio/include/miniaudio.h:91446:17:
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/lib/third_party/miniaudio/include/miniaudio.h:90459:42: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+90459 |             iscf[gr->n_long_sfb + i + 2] = (ma_uint8)(iscf[gr->n_long_sfb + i + 2] + (gr->subblock_gain[2] << sh));
+      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/lib/third_party/miniaudio/include/miniaudio.h: In function 'ma_dr_mp3dec_decode_frame':
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/lib/third_party/miniaudio/include/miniaudio.h:90426:27: note: at offset [41, 296] into destination object 'iscf' of size 40
+90426 |     ma_uint8 scf_size[4], iscf[40];
+      |                           ^~~~
+[ 58%] Built target capstone
+[ 58%] Linking C static library libminiaudio.a
+[ 58%] Built target miniaudio
+[ 58%] Linking CXX static library liblibdisassembler.a
+[ 58%] Built target libdisassembler
+[ 58%] Built target imgui_imgui
+[ 58%] Built target libpl
+[ 58%] Linking CXX static library libhashplus.a
+[ 58%] Built target hashplus
+[ 58%] Built target plcli
+[ 58%] Built target imgui_implot
+[ 58%] Building CXX object lib/third_party/imgui/imgui_test_engine/CMakeFiles/imgui_test_engine.dir/source/imgui_te_context.cpp.o
+[ 58%] Building CXX object lib/third_party/imgui/imgui_test_engine/CMakeFiles/imgui_test_engine.dir/source/imgui_capture_tool.cpp.o
+[ 58%] Building CXX object lib/third_party/imgui/imgui_test_engine/CMakeFiles/imgui_test_engine.dir/source/imgui_te_coroutine.cpp.o
+[ 58%] Building CXX object lib/third_party/imgui/imgui_test_engine/CMakeFiles/imgui_test_engine.dir/source/imgui_te_engine.cpp.o
+[ 58%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/api/imhex_api.cpp.o
+[ 58%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/api/content_registry.cpp.o
+[ 59%] Building CXX object lib/third_party/imgui/imgui_test_engine/CMakeFiles/imgui_test_engine.dir/source/imgui_te_exporters.cpp.o
+[ 59%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/api/event_manager.cpp.o
+[ 59%] Building CXX object lib/third_party/imgui/imgui_test_engine/CMakeFiles/imgui_test_engine.dir/source/imgui_te_perftool.cpp.o
+[ 59%] Building CXX object lib/third_party/imgui/imgui_test_engine/CMakeFiles/imgui_test_engine.dir/source/imgui_te_ui.cpp.o
+[ 59%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/api/task_manager.cpp.o
+[ 59%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/api/shortcut_manager.cpp.o
+[ 60%] Building CXX object lib/third_party/imgui/imgui_test_engine/CMakeFiles/imgui_test_engine.dir/source/imgui_te_utils.cpp.o
+[ 60%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/api/plugin_manager.cpp.o
+[ 60%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/api/theme_manager.cpp.o
+[ 60%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/api/project_file_manager.cpp.o
+[ 60%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/api/achievement_manager.cpp.o
+[ 60%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/api/layout_manager.cpp.o
+[ 60%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/api/workspace_manager.cpp.o
+[ 60%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/api/tutorial_manager.cpp.o
+[ 60%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/utils.cpp.o
+[ 60%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/data_processor/node.cpp.o
+[ 61%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/api/localization_manager.cpp.o
+[ 61%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/data_processor/attribute.cpp.o
+[ 61%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/data_processor/link.cpp.o
+[ 61%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/utils_linux.cpp.o
+[ 62%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/fs.cpp.o
+[ 62%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/magic.cpp.o
+[ 62%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/crypto.cpp.o
+[ 62%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/http_requests.cpp.o
+[ 62%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/http_requests_emscripten.cpp.o
+[ 62%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/encoding_file.cpp.o
+[ 62%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/http_requests_native.cpp.o
+[ 63%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/patches.cpp.o
+[ 63%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/opengl.cpp.o
+[ 63%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/logger.cpp.o
+[ 63%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/debugging.cpp.o
+[ 63%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/tar.cpp.o
+[ 64%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/imgui_hooks.cpp.o
+[ 64%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/semantic_version.cpp.o
+[ 64%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/default_paths.cpp.o
+[ 64%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/udp_server.cpp.o
+[ 64%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/keys.cpp.o
+[ 64%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/scaling.cpp.o
+[ 64%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/helpers/binary_pattern.cpp.o
+[ 64%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/test/tests.cpp.o
+[ 64%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/providers/provider.cpp.o
+[ 65%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/providers/memory_provider.cpp.o
+[ 65%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/providers/cached_provider.cpp.o
+[ 65%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/providers/undo/stack.cpp.o
+[ 65%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/ui/imgui_imhex_extensions.cpp.o
+[ 65%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/ui/popup.cpp.o
+[ 65%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/ui/view.cpp.o
+[ 67%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/ui/toast.cpp.o
+[ 67%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/ui/banner.cpp.o
+[ 67%] Building CXX object lib/libimhex/CMakeFiles/libimhex.dir/source/subcommands/subcommands.cpp.o
+[ 67%] Built target imgui_test_engine
+[ 67%] Linking CXX shared library libimhex.so
+[ 67%] Built target libimhex
+[ 67%] Building CXX object main/updater/CMakeFiles/updater.dir/source/main.cpp.o
+[ 67%] Building CXX object plugins/fonts/CMakeFiles/fonts.dir/source/fonts.cpp.o
+[ 67%] Building CXX object plugins/fonts/CMakeFiles/fonts.dir/source/library_fonts.cpp.o
+[ 67%] Building CXX object plugins/fonts/CMakeFiles/fonts.dir/source/font_settings.cpp.o
+[ 67%] Building CXX object plugins/fonts/CMakeFiles/fonts.dir/source/font_loader.cpp.o
+[ 67%] Building CXX object plugins/builtin/tests/CMakeFiles/builtin_tests.dir/source/main.cpp.o
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/main/updater/source/main.cpp:110:6: error: #error "Unsupported architecture for updater"
+  110 |     #error "Unsupported architecture for updater"
+      |      ^~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/main/updater/source/main.cpp: In function 'std::string_view getUpdateArtifactEnding()':
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/main/updater/source/main.cpp:122:20: error: 'ARCH_DEPENDENT' was not declared in this scope
+  122 |             return ARCH_DEPENDENT("x86_64.AppImage", "arm64.AppImage");
+      |                    ^~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/main/updater/source/main.cpp:124:20: error: 'ARCH_DEPENDENT' was not declared in this scope
+  124 |             return ARCH_DEPENDENT("x86_64.flatpak", "arm64.flatpak");
+      |                    ^~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/main/updater/source/main.cpp:126:20: error: 'ARCH_DEPENDENT' was not declared in this scope
+  126 |             return ARCH_DEPENDENT("x86_64.snap", "arm64.snap");
+      |                    ^~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/main/updater/source/main.cpp:129:24: error: 'ARCH_DEPENDENT' was not declared in this scope
+  129 |                 return ARCH_DEPENDENT("Ubuntu-24.04-x86_64.deb", "");
+      |                        ^~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/main/updater/source/main.cpp:131:24: error: 'ARCH_DEPENDENT' was not declared in this scope
+  131 |                 return ARCH_DEPENDENT("Ubuntu-25.04-x86_64.deb", "");
+      |                        ^~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/main/updater/source/main.cpp:134:24: error: 'ARCH_DEPENDENT' was not declared in this scope
+  134 |                 return ARCH_DEPENDENT("Fedora-41-x86_64.rpm", "");
+      |                        ^~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/main/updater/source/main.cpp:136:24: error: 'ARCH_DEPENDENT' was not declared in this scope
+  136 |                 return ARCH_DEPENDENT("Fedora-42-x86_64.rpm", "");
+      |                        ^~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/main/updater/source/main.cpp:138:24: error: 'ARCH_DEPENDENT' was not declared in this scope
+  138 |                 return ARCH_DEPENDENT("Fedora-43-x86_64.rpm", "");
+      |                        ^~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/main/updater/source/main.cpp:140:24: error: 'ARCH_DEPENDENT' was not declared in this scope
+  140 |                 return ARCH_DEPENDENT("Fedora-rawhide-x86_64.rpm", "");
+      |                        ^~~~~~~~~~~~~~
+/home/multiarq/yalle/build-bench/temp_workspace/ImHex/ImHex/main/updater/source/main.cpp:142:20: error: 'ARCH_DEPENDENT' was not declared in this scope
+  142 |             return ARCH_DEPENDENT("ArchLinux-x86_64.pkg.tar.zst", "");
+      |                    ^~~~~~~~~~~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option '-Wno-include-angled-in-module-purview' may have been intended to silence earlier diagnostics
+gmake[2]: *** [main/updater/CMakeFiles/updater.dir/build.make:79: main/updater/CMakeFiles/updater.dir/source/main.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:3545: main/updater/CMakeFiles/updater.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+[ 67%] Built target builtin_tests
+[ 67%] Linking CXX shared library ../fonts.hexpluglib
+[ 67%] Built target fonts
+gmake: *** [Makefile:146: all] Error 2

@@ -1,0 +1,105 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment gui-power9 07eba05c51b1 in /home/multiarq/.local/share/build-bench/envs/gui-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/gui-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/gui-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/noise-suppression-for-voice/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/noise-suppression-for-voice/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+-- The C compiler identification is GNU 16.2.0
+-- The CXX compiler identification is GNU 16.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test RNNOISE_HAS_UBSAN
+-- Performing Test RNNOISE_HAS_UBSAN - Success
+-- Found PkgConfig: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/pkg-config (found version "0.29.2")
+-- Checking for module 'alsa'
+--   Found alsa, version 1.2.16.1
+-- Checking for module 'freetype2'
+--   Found freetype2, version 26.6.20
+-- Checking for module 'gl'
+--   Found gl, version 1.2
+-- Checking for module 'libcurl'
+--   Found libcurl, version 8.23.0
+-- Checking for modules 'webkit2gtk-4.0;gtk+-x11-3.0'
+--   No package 'webkit2gtk-4.0' found
+--   Package 'expat', required by 'fontconfig', not found
+-- Configuring juceaide
+-- Building juceaide
+-- Configuring incomplete, errors occurred!
+CMake Error at external/JUCE/extras/Build/juceaide/CMakeLists.txt:139 (message):
+  Failed to build juceaide
+
+  [ 12%] Building CXX object
+  extras/Build/juceaide/CMakeFiles/juceaide.dir/Main.cpp.o
+
+  
+  /home/multiarq/yalle/build-bench/temp_workspace/noise-suppression-for-voice/noise-suppression-for-voice/external/JUCE/extras/Build/juceaide/Main.cpp:
+  In lambda function:
+
+  
+  /home/multiarq/yalle/build-bench/temp_workspace/noise-suppression-for-voice/noise-suppression-for-voice/external/JUCE/extras/Build/juceaide/Main.cpp:581:5:
+  warning: control reaches end of non-void function [-Wreturn-type]
+
+    581 |     });
+        |     ^
+
+  [ 25%] Building CXX object
+  extras/Build/juceaide/CMakeFiles/juceaide.dir/__/juce_build_tools/juce_build_tools.cpp.o
+
+  [ 37%] Building CXX object
+  extras/Build/juceaide/CMakeFiles/juceaide.dir/__/__/__/modules/juce_gui_basics/juce_gui_basics.cpp.o
+
+  [ 50%] Building CXX object
+  extras/Build/juceaide/CMakeFiles/juceaide.dir/__/__/__/modules/juce_graphics/juce_graphics.cpp.o
+
+  [ 62%] Building CXX object
+  extras/Build/juceaide/CMakeFiles/juceaide.dir/__/__/__/modules/juce_events/juce_events.cpp.o
+
+  [ 75%] Building CXX object
+  extras/Build/juceaide/CMakeFiles/juceaide.dir/__/__/__/modules/juce_core/juce_core.cpp.o
+
+  [ 87%] Building CXX object
+  extras/Build/juceaide/CMakeFiles/juceaide.dir/__/__/__/modules/juce_data_structures/juce_data_structures.cpp.o
+
+  [100%] Linking CXX executable juceaide_artefacts/Debug/juceaide
+
+  
+  /home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/powerpc64le-conda-linux-gnu-ld:
+  CMakeFiles/juceaide.dir/__/__/__/modules/juce_graphics/juce_graphics.cpp.o:
+  in function
+  `juce::pnglibNamespace::png_init_filter_functions(juce::pnglibNamespace::png_struct_def*)':
+
+  
+  /home/multiarq/yalle/build-bench/temp_workspace/noise-suppression-for-voice/noise-suppression-for-voice/external/JUCE/modules/juce_graphics/image_formats/pnglib/pngrutil.c:4126:(.text+0x855c0):
+  undefined reference to
+  `juce::pnglibNamespace::png_init_filter_functions_vsx(juce::pnglibNamespace::png_struct_def*,
+  unsigned int)'
+
+  collect2: error: ld returned 1 exit status
+
+  gmake[2]: ***
+  [extras/Build/juceaide/CMakeFiles/juceaide.dir/build.make:198:
+  extras/Build/juceaide/juceaide_artefacts/Debug/juceaide] Error 1
+
+  gmake[1]: *** [CMakeFiles/Makefile2:148:
+  extras/Build/juceaide/CMakeFiles/juceaide.dir/all] Error 2
+
+  gmake: *** [Makefile:136: all] Error 2
+
+
+

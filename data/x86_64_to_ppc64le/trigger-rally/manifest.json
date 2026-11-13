@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "trigger-rally",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "trigger-rally": "https://downloads.sourceforge.net/project/trigger-rally/trigger-0.6.7/trigger-rally-0.6.7.tar.gz"
+    },
+    "version": "0.6.7"
+  },
+  "environment": "gui-power9",
+  "version": 1
+}

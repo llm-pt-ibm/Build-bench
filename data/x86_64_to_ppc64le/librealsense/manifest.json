@@ -1,0 +1,15 @@
+{
+  "task": {
+    "package": "librealsense",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "librealsense": "https://github.com/IntelRealSense/librealsense/archive/v2.59.1.tar.gz",
+      "fastcdr": "https://api.opensuse.org/public/source/openSUSE:Factory/librealsense/fastcdr-1.0.25.tar.xz?rev=7722a28b3ea2415a27f8a70b993770ff&expand=1",
+      "libdeflate": "https://api.opensuse.org/public/source/openSUSE:Factory/librealsense/libdeflate-1.25.tar.xz?rev=7722a28b3ea2415a27f8a70b993770ff&expand=1"
+    },
+    "version": "2.59.1"
+  },
+  "environment": "gui-power9",
+  "version": 1
+}

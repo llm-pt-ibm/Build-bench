@@ -1,0 +1,2229 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment gui-power9 07eba05c51b1 in /home/multiarq/.local/share/build-bench/envs/gui-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/gui-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/gui-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/libbullet/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/libbullet/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+CMake Warning (deprecated) at CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+This warning is for project developers.  Use -Wno-author or -Wno-deprecated
+to suppress it.
+
+-- The C compiler identification is GNU 16.2.0
+-- The CXX compiler identification is GNU 16.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+Linux
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+CMake Warning (policy) at /home/multiarq/.local/share/build-bench/envs/gui-power9/build/share/cmake-4.4/Modules/FindOpenGL.cmake:533 (cmake_policy):
+  Policy CMP0072 is not set: FindOpenGL prefers GLVND by default when
+  available.  Run "cmake --help-policy CMP0072" for policy details.  Use the
+  cmake_policy command to set the policy and suppress this warning.
+
+  FindOpenGL found both a legacy GL library:
+
+    OPENGL_gl_LIBRARY: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libGL.so
+
+  and GLVND libraries for OpenGL and GLX:
+
+    OPENGL_opengl_LIBRARY: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libOpenGL.so
+    OPENGL_glx_LIBRARY: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libGLX.so
+
+  OpenGL_GL_PREFERENCE has not been set to "GLVND" or "LEGACY", so for
+  compatibility with CMake 3.10 and below the legacy GL library will be used.
+Call Stack (most recent call first):
+  CMakeLists.txt:312 (FIND_PACKAGE)
+This warning is for project developers.  Use -Wno-author or -Wno-policy to
+suppress it.
+
+-- Found OpenGL: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libGL.so
+OPENGL FOUND
+/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libGL.so/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libGLU.so
+-- Configuring done (0.9s)
+CMake Warning (policy) at examples/ExampleBrowser/CMakeLists.txt:433 (ADD_EXECUTABLE):
+  Policy CMP0115 is not set: Source file extensions must be explicit.  Run
+  "cmake --help-policy CMP0115" for policy details.  Use the cmake_policy
+  command to set the policy and suppress this warning.
+
+  File:
+
+    /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/examples/Benchmarks/TaruData.h
+This warning is for project developers.  Use -Wno-author or -Wno-policy to
+suppress it.
+
+-- Generating done (0.7s)
+-- Build files have been written to: /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/build
+[  0%] Building CXX object src/Bullet3Common/CMakeFiles/Bullet3Common.dir/b3AlignedAllocator.cpp.o
+[  0%] Building CXX object src/LinearMath/CMakeFiles/LinearMath.dir/btAlignedAllocator.cpp.o
+[  0%] Building CXX object examples/ThirdPartyLibs/clsocket/CMakeFiles/clsocket.dir/src/ActiveSocket.cpp.o
+[  0%] Building CXX object examples/ThirdPartyLibs/clsocket/CMakeFiles/clsocket.dir/src/PassiveSocket.cpp.o
+[  0%] Building CXX object examples/ThirdPartyLibs/clsocket/CMakeFiles/clsocket.dir/src/SimpleSocket.cpp.o
+[  1%] Building CXX object src/LinearMath/CMakeFiles/LinearMath.dir/btConvexHull.cpp.o
+[  1%] Building CXX object examples/ThirdPartyLibs/BussIK/CMakeFiles/BussIK.dir/Jacobian.cpp.o
+[  1%] Building CXX object test/gtest-1.7.0/CMakeFiles/gtest.dir/src/gtest-all.cc.o
+[  1%] Building CXX object src/LinearMath/CMakeFiles/LinearMath.dir/btConvexHullComputer.cpp.o
+[  1%] Building CXX object Extras/HACD/CMakeFiles/HACD.dir/hacdGraph.cpp.o
+[  2%] Building CXX object src/Bullet3Common/CMakeFiles/Bullet3Common.dir/b3Vector3.cpp.o
+[  2%] Building CXX object Extras/HACD/CMakeFiles/HACD.dir/hacdICHull.cpp.o
+[  2%] Building CXX object src/Bullet3Common/CMakeFiles/Bullet3Common.dir/b3Logging.cpp.o
+[  2%] Building CXX object examples/ThirdPartyLibs/BussIK/CMakeFiles/BussIK.dir/LinearR2.cpp.o
+[  2%] Building CXX object Extras/HACD/CMakeFiles/HACD.dir/hacdHACD.cpp.o
+[  2%] Building CXX object src/LinearMath/CMakeFiles/LinearMath.dir/btGeometryUtil.cpp.o
+[  2%] Building CXX object src/LinearMath/CMakeFiles/LinearMath.dir/btPolarDecomposition.cpp.o
+[  2%] Building CXX object examples/ThirdPartyLibs/BussIK/CMakeFiles/BussIK.dir/LinearR3.cpp.o
+[  2%] Building CXX object examples/ThirdPartyLibs/BussIK/CMakeFiles/BussIK.dir/LinearR4.cpp.o
+[  2%] Building CXX object Extras/HACD/CMakeFiles/HACD.dir/hacdManifoldMesh.cpp.o
+[  3%] Building CXX object examples/ThirdPartyLibs/BussIK/CMakeFiles/BussIK.dir/MatrixRmn.cpp.o
+[  3%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Anim.cpp.o
+[  3%] Building CXX object src/LinearMath/CMakeFiles/LinearMath.dir/btSerializer.cpp.o
+[  3%] Building CXX object src/LinearMath/CMakeFiles/LinearMath.dir/btReducedVector.cpp.o
+[  3%] Building CXX object examples/ThirdPartyLibs/BussIK/CMakeFiles/BussIK.dir/Misc.cpp.o
+[  3%] Building CXX object src/LinearMath/CMakeFiles/LinearMath.dir/btQuickprof.cpp.o
+[  3%] Building CXX object src/LinearMath/CMakeFiles/LinearMath.dir/btThreads.cpp.o
+[  3%] Building CXX object examples/ThirdPartyLibs/BussIK/CMakeFiles/BussIK.dir/Tree.cpp.o
+[  3%] Building CXX object src/LinearMath/CMakeFiles/LinearMath.dir/btSerializer64.cpp.o
+[  3%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/BaseRender.cpp.o
+[  3%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/Base.cpp.o
+[  4%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/Button.cpp.o
+[  4%] Building CXX object src/LinearMath/CMakeFiles/LinearMath.dir/btVector3.cpp.o
+[  4%] Building CXX object examples/ThirdPartyLibs/BussIK/CMakeFiles/BussIK.dir/Node.cpp.o
+[  4%] Building CXX object examples/ThirdPartyLibs/BussIK/CMakeFiles/BussIK.dir/VectorRn.cpp.o
+[  4%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/Canvas.cpp.o
+[  4%] Building CXX object src/LinearMath/CMakeFiles/LinearMath.dir/TaskScheduler/btThreadSupportPosix.cpp.o
+[  5%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/CheckBox.cpp.o
+[  5%] Building CXX object src/LinearMath/CMakeFiles/LinearMath.dir/TaskScheduler/btTaskScheduler.cpp.o
+[  5%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/ColorPicker.cpp.o
+[  5%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/ColorControls.cpp.o
+[  5%] Building CXX object src/LinearMath/CMakeFiles/LinearMath.dir/TaskScheduler/btThreadSupportWin32.cpp.o
+[  5%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/ComboBox.cpp.o
+[  5%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/Dialog/FileOpen.cpp.o
+[  5%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/Dialog/Query.cpp.o
+[  5%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/Dialog/FileSave.cpp.o
+[  5%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/CrossSplitter.cpp.o
+[  5%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/DockedTabControl.cpp.o
+[  5%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/DockBase.cpp.o
+[  5%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/HSVColorPicker.cpp.o
+[  5%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/Dragger.cpp.o
+[  6%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/GroupBox.cpp.o
+[  6%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/HorizontalSlider.cpp.o
+[  6%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/HorizontalScrollBar.cpp.o
+[  6%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/Label.cpp.o
+[  6%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/ImagePanel.cpp.o
+[  6%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/LabelClickable.cpp.o
+[  6%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/ListBox.cpp.o
+[  6%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/Menu.cpp.o
+[  6%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/MenuItem.cpp.o
+[  6%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/NumericUpDown.cpp.o
+[  7%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/MenuStrip.cpp.o
+[  7%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/PanelListPanel.cpp.o
+[  7%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/ProgressBar.cpp.o
+[  7%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/Properties.cpp.o
+[  7%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/RadioButtonController.cpp.o
+[  7%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/ResizableControl.cpp.o
+[  7%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/RadioButton.cpp.o
+[  7%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/Resizer.cpp.o
+[  7%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/RichLabel.cpp.o
+[  8%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/ScrollBar.cpp.o
+[  8%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/ScrollBarBar.cpp.o
+[  8%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/ScrollBarButton.cpp.o
+[  8%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/ScrollControl.cpp.o
+[  8%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/Slider.cpp.o
+[  8%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/SplitterBar.cpp.o
+[  8%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/TabButton.cpp.o
+[  8%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/TabStrip.cpp.o
+[  8%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/TabControl.cpp.o
+[  9%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/Text.cpp.o
+[  9%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/TextBoxNumeric.cpp.o
+[  9%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/TextBox.cpp.o
+[  9%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/TreeControl.cpp.o
+[  9%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/TreeNode.cpp.o
+[  9%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/VerticalScrollBar.cpp.o
+[  9%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/WindowControl.cpp.o
+[  9%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/DragAndDrop.cpp.o
+[  9%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Controls/VerticalSlider.cpp.o
+[  9%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Platforms/Windows.cpp.o
+[  9%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Gwen.cpp.o
+[ 10%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Hook.cpp.o
+[ 10%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Skin.cpp.o
+[ 10%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Renderers/OpenGL_DebugFont.cpp.o
+[ 10%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/ToolTip.cpp.o
+[ 10%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Platforms/Null.cpp.o
+[ 10%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/Utility.cpp.o
+[ 10%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/events.cpp.o
+[ 10%] Building CXX object examples/ThirdPartyLibs/Gwen/CMakeFiles/gwen.dir/inputhandler.cpp.o
+[ 10%] Linking CXX shared library libBullet3Common.so
+[ 10%] Built target Bullet3Common
+[ 10%] Building CXX object Extras/obj2sdf/CMakeFiles/App_obj2sdf.dir/__/__/examples/Utils/b3ResourcePath.cpp.o
+[ 10%] Building CXX object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/X11OpenGLWindow.cpp.o
+[ 10%] Building CXX object Extras/obj2sdf/CMakeFiles/App_obj2sdf.dir/__/__/examples/ThirdPartyLibs/Wavefront/tiny_obj_loader.cpp.o
+[ 10%] Building CXX object src/Bullet3Geometry/CMakeFiles/Bullet3Geometry.dir/b3GeometryUtil.cpp.o
+[ 10%] Building CXX object Extras/obj2sdf/CMakeFiles/App_obj2sdf.dir/obj2sdf.cpp.o
+[ 10%] Building CXX object src/Bullet3Geometry/CMakeFiles/Bullet3Geometry.dir/b3ConvexHullComputer.cpp.o
+[ 10%] Building C object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/__/ThirdPartyLibs/glad/gl.c.o
+[ 10%] Building C object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/__/ThirdPartyLibs/glad/glx.c.o
+[ 10%] Building CXX object src/Bullet3Serialize/Bullet2FileLoader/CMakeFiles/Bullet2FileLoader.dir/b3BulletFile.cpp.o
+[ 10%] Building CXX object src/Bullet3Serialize/Bullet2FileLoader/CMakeFiles/Bullet2FileLoader.dir/b3Chunk.cpp.o
+[ 10%] Building CXX object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/EGLOpenGLWindow.cpp.o
+[ 10%] Building CXX object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/GLFWOpenGLWindow.cpp.o
+[ 11%] Building CXX object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/GLInstancingRenderer.cpp.o
+[ 11%] Building CXX object src/Bullet3Serialize/Bullet2FileLoader/CMakeFiles/Bullet2FileLoader.dir/b3DNA.cpp.o
+[ 12%] Building CXX object src/Bullet3Serialize/Bullet2FileLoader/CMakeFiles/Bullet2FileLoader.dir/b3File.cpp.o
+[ 12%] Building CXX object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/GLPrimitiveRenderer.cpp.o
+[ 12%] Building CXX object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/GLRenderToTexture.cpp.o
+[ 12%] Building CXX object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/LoadShader.cpp.o
+[ 12%] Building CXX object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/OpenSans.cpp.o
+[ 12%] Building CXX object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/SimpleCamera.cpp.o
+[ 12%] Building CXX object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/SimpleOpenGL2App.cpp.o
+[ 12%] Building CXX object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/SimpleOpenGL2Renderer.cpp.o
+[ 12%] Building CXX object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/TwFonts.cpp.o
+[ 12%] Building CXX object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/SimpleOpenGL3App.cpp.o
+[ 13%] Building CXX object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/fontstash.cpp.o
+[ 13%] Building CXX object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/opengl_fontstashcallbacks.cpp.o
+[ 13%] Building C object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/__/ThirdPartyLibs/glad/egl.c.o
+[ 13%] Building CXX object examples/OpenGLWindow/CMakeFiles/OpenGLWindow.dir/__/ThirdPartyLibs/stb_image/stb_image_write.cpp.o
+[ 13%] Building CXX object src/Bullet3Serialize/Bullet2FileLoader/CMakeFiles/Bullet2FileLoader.dir/b3Serializer.cpp.o
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/examples/Utils/b3ResourcePath.cpp:14:
+In static member function 'static int b3FileUtils::extractPath(const char*, char*, int)',
+    inlined from 'static int b3ResourcePath::findResourcePath(const char*, char*, int, PFN_FIND_FILE, void*)' at /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/examples/Utils/b3ResourcePath.cpp:127:44:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3Common/b3FileUtils.h:87:35: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+   87 |                         path[len] = 0;
+      |                         ~~~~~~~~~~^~~
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/examples/Utils/b3ResourcePath.cpp: In static member function 'static int b3ResourcePath::findResourcePath(const char*, char*, int, PFN_FIND_FILE, void*)':
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/examples/Utils/b3ResourcePath.cpp:125:22: note: at offset [-9223372036854775808, -1] into destination object 'pathToExe' of size 4096
+  125 |                 char pathToExe[B3_MAX_EXE_PATH_LEN];
+      |                      ^~~~~~~~~
+[ 14%] Linking CXX static library libclsocket.a
+[ 14%] Built target clsocket
+[ 14%] Linking CXX shared library libBussIK.so
+[ 14%] Built target BussIK
+[ 14%] Linking CXX shared library libBullet2FileLoader.so
+[ 14%] Built target Bullet2FileLoader
+[ 14%] Linking CXX shared library libLinearMath.so
+[ 14%] Built target LinearMath
+[ 14%] Building CXX object Extras/Serialize/BulletFileLoader/CMakeFiles/BulletFileLoader.dir/bFile.cpp.o
+[ 14%] Building CXX object Extras/Serialize/BulletFileLoader/CMakeFiles/BulletFileLoader.dir/bChunk.cpp.o
+[ 14%] Building CXX object Extras/Serialize/BulletFileLoader/CMakeFiles/BulletFileLoader.dir/btBulletFile.cpp.o
+[ 14%] Building CXX object Extras/Serialize/BulletFileLoader/CMakeFiles/BulletFileLoader.dir/bDNA.cpp.o
+[ 14%] Building CXX object src/BulletInverseDynamics/CMakeFiles/BulletInverseDynamics.dir/MultiBodyTree.cpp.o
+[ 15%] Building CXX object src/BulletInverseDynamics/CMakeFiles/BulletInverseDynamics.dir/details/MultiBodyTreeImpl.cpp.o
+[ 15%] Building CXX object src/BulletInverseDynamics/CMakeFiles/BulletInverseDynamics.dir/IDMath.cpp.o
+[ 15%] Building CXX object src/BulletInverseDynamics/CMakeFiles/BulletInverseDynamics.dir/details/MultiBodyTreeInitCache.cpp.o
+[ 15%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/BroadphaseCollision/btAxisSweep3.cpp.o
+[ 15%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/BroadphaseCollision/btCollisionAlgorithm.cpp.o
+[ 15%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/BroadphaseCollision/btBroadphaseProxy.cpp.o
+[ 15%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/BroadphaseCollision/btDbvt.cpp.o
+[ 16%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/BroadphaseCollision/btDispatcher.cpp.o
+[ 16%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/BroadphaseCollision/btDbvtBroadphase.cpp.o
+[ 16%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/BroadphaseCollision/btOverlappingPairCache.cpp.o
+[ 16%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/BroadphaseCollision/btQuantizedBvh.cpp.o
+[ 16%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/BroadphaseCollision/btSimpleBroadphase.cpp.o
+[ 16%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btActivatingCollisionAlgorithm.cpp.o
+[ 16%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btBoxBoxCollisionAlgorithm.cpp.o
+[ 16%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btBox2dBox2dCollisionAlgorithm.cpp.o
+[ 16%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btCollisionWorld.cpp.o
+[ 16%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btCollisionDispatcher.cpp.o
+[ 17%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btCollisionObject.cpp.o
+[ 17%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btCollisionDispatcherMt.cpp.o
+[ 17%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btCompoundCollisionAlgorithm.cpp.o
+[ 17%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btCollisionWorldImporter.cpp.o
+[ 17%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btBoxBoxDetector.cpp.o
+[ 17%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btConvex2dConvex2dAlgorithm.cpp.o
+[ 17%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btCompoundCompoundCollisionAlgorithm.cpp.o
+[ 17%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btConvexConcaveCollisionAlgorithm.cpp.o
+[ 18%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btDefaultCollisionConfiguration.cpp.o
+[ 18%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btConvexPlaneCollisionAlgorithm.cpp.o
+[ 18%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btConvexConvexAlgorithm.cpp.o
+[ 18%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btGhostObject.cpp.o
+[ 18%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btEmptyCollisionAlgorithm.cpp.o
+[ 18%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btHashedSimplePairCache.cpp.o
+[ 18%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btInternalEdgeUtility.cpp.o
+[ 18%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btManifoldResult.cpp.o
+[ 18%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btSimulationIslandManager.cpp.o
+[ 18%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btSphereBoxCollisionAlgorithm.cpp.o
+[ 18%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btSphereSphereCollisionAlgorithm.cpp.o
+[ 19%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btUnionFind.cpp.o
+[ 19%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/SphereTriangleDetector.cpp.o
+[ 19%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionDispatch/btSphereTriangleCollisionAlgorithm.cpp.o
+[ 19%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btBoxShape.cpp.o
+[ 19%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btBox2dShape.cpp.o
+[ 19%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btBvhTriangleMeshShape.cpp.o
+[ 19%] Linking CXX shared library libHACD.so
+[ 19%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btCapsuleShape.cpp.o
+[ 19%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btCollisionShape.cpp.o
+[ 19%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btConcaveShape.cpp.o
+[ 19%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btCompoundShape.cpp.o
+[ 20%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btConeShape.cpp.o
+[ 20%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btConvexInternalShape.cpp.o
+[ 20%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btConvexHullShape.cpp.o
+[ 20%] Linking CXX shared library libOpenGLWindow.so
+[ 20%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btConvex2dShape.cpp.o
+[ 20%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btConvexPolyhedron.cpp.o
+[ 20%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btConvexPointCloudShape.cpp.o
+[ 20%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btConvexShape.cpp.o
+[ 20%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btConvexTriangleMeshShape.cpp.o
+[ 20%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btCylinderShape.cpp.o
+[ 20%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btMiniSDF.cpp.o
+[ 21%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btHeightfieldTerrainShape.cpp.o
+[ 21%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btMinkowskiSumShape.cpp.o
+[ 21%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btMultimaterialTriangleMeshShape.cpp.o
+[ 21%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btEmptyShape.cpp.o
+[ 22%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btPolyhedralConvexShape.cpp.o
+[ 22%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btSphereShape.cpp.o
+[ 22%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btScaledBvhTriangleMeshShape.cpp.o
+[ 22%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btOptimizedBvh.cpp.o
+[ 22%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btMultiSphereShape.cpp.o
+[ 22%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btSdfCollisionShape.cpp.o
+[ 22%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btShapeHull.cpp.o
+[ 22%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btStridingMeshInterface.cpp.o
+[ 22%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btStaticPlaneShape.cpp.o
+[ 22%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btTriangleIndexVertexMaterialArray.cpp.o
+[ 22%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btTriangleIndexVertexArray.cpp.o
+[ 22%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btTriangleCallback.cpp.o
+[ 22%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btTriangleBuffer.cpp.o
+[ 23%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btTriangleMeshShape.cpp.o
+[ 23%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btTriangleMesh.cpp.o
+[ 23%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btTetrahedronShape.cpp.o
+[ 23%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/Gimpact/btContactProcessing.cpp.o
+[ 23%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/CollisionShapes/btUniformScalingShape.cpp.o
+[ 23%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/Gimpact/btGenericPoolAllocator.cpp.o
+[ 23%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/Gimpact/btGImpactQuantizedBvh.cpp.o
+[ 23%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/Gimpact/btGImpactBvh.cpp.o
+[ 23%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/Gimpact/btGImpactCollisionAlgorithm.cpp.o
+[ 23%] Built target HACD
+[ 23%] Built target OpenGLWindow
+[ 23%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/Gimpact/btGImpactShape.cpp.o
+[ 23%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/Gimpact/btTriangleShapeEx.cpp.o
+[ 23%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/Gimpact/gim_box_set.cpp.o
+[ 24%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/Gimpact/gim_contact.cpp.o
+[ 24%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/Gimpact/gim_memory.cpp.o
+[ 25%] Linking CXX shared library libgwen.so
+[ 25%] Linking CXX shared library libBullet3Geometry.so
+[ 25%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/Gimpact/gim_tri_collision.cpp.o
+[ 25%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/NarrowPhaseCollision/btContinuousConvexCollision.cpp.o
+[ 25%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/NarrowPhaseCollision/btConvexCast.cpp.o
+[ 25%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/NarrowPhaseCollision/btGjkConvexCast.cpp.o
+[ 25%] Built target Bullet3Geometry
+[ 25%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/NarrowPhaseCollision/btGjkEpa2.cpp.o
+[ 25%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/NarrowPhaseCollision/btGjkEpaPenetrationDepthSolver.cpp.o
+[ 25%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/NarrowPhaseCollision/btGjkPairDetector.cpp.o
+[ 25%] Building CXX object src/Bullet3Collision/CMakeFiles/Bullet3Collision.dir/BroadPhaseCollision/b3DynamicBvh.cpp.o
+[ 25%] Building CXX object src/Bullet3Collision/CMakeFiles/Bullet3Collision.dir/BroadPhaseCollision/b3DynamicBvhBroadphase.cpp.o
+[ 25%] Building CXX object src/Bullet3Collision/CMakeFiles/Bullet3Collision.dir/BroadPhaseCollision/b3OverlappingPairCache.cpp.o
+[ 25%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/NarrowPhaseCollision/btMinkowskiPenetrationDepthSolver.cpp.o
+[ 25%] Building CXX object src/Bullet3Collision/CMakeFiles/Bullet3Collision.dir/NarrowPhaseCollision/b3ConvexUtility.cpp.o
+[ 25%] Building CXX object src/Bullet3Collision/CMakeFiles/Bullet3Collision.dir/NarrowPhaseCollision/b3CpuNarrowPhase.cpp.o
+[ 26%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/NarrowPhaseCollision/btRaycastCallback.cpp.o
+[ 26%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/NarrowPhaseCollision/btPersistentManifold.cpp.o
+[ 26%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/NarrowPhaseCollision/btSubSimplexConvexCast.cpp.o
+[ 26%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/NarrowPhaseCollision/btVoronoiSimplexSolver.cpp.o
+[ 26%] Building CXX object src/BulletCollision/CMakeFiles/BulletCollision.dir/NarrowPhaseCollision/btPolyhedralContactClipping.cpp.o
+[ 26%] Built target gwen
+[ 26%] Linking CXX executable App_obj2sdf
+[ 26%] Built target App_obj2sdf
+[ 26%] Linking CXX shared library libBulletFileLoader.so
+[ 26%] Built target BulletFileLoader
+[ 26%] Linking CXX shared library libBullet3Collision.so
+[ 26%] Built target Bullet3Collision
+[ 26%] Building CXX object src/Bullet3Dynamics/CMakeFiles/Bullet3Dynamics.dir/ConstraintSolver/b3PgsJacobiSolver.cpp.o
+[ 26%] Building CXX object src/Bullet3Dynamics/CMakeFiles/Bullet3Dynamics.dir/ConstraintSolver/b3Generic6DofConstraint.cpp.o
+[ 26%] Building CXX object src/Bullet3Dynamics/CMakeFiles/Bullet3Dynamics.dir/ConstraintSolver/b3Point2PointConstraint.cpp.o
+[ 26%] Building CXX object src/Bullet3Dynamics/CMakeFiles/Bullet3Dynamics.dir/ConstraintSolver/b3FixedConstraint.cpp.o
+[ 26%] Building CXX object src/Bullet3Dynamics/CMakeFiles/Bullet3Dynamics.dir/b3CpuRigidBodyPipeline.cpp.o
+[ 26%] Building CXX object src/Bullet3Dynamics/CMakeFiles/Bullet3Dynamics.dir/ConstraintSolver/b3TypedConstraint.cpp.o
+[ 26%] Linking CXX shared library libBulletInverseDynamics.so
+[ 26%] Built target BulletInverseDynamics
+[ 27%] Linking CXX shared library libBullet3Dynamics.so
+[ 27%] Built target Bullet3Dynamics
+[ 27%] Linking CXX shared library libBulletCollision.so
+[ 27%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/BroadphaseCollision/b3GpuGridBroadphase.cpp.o
+[ 27%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/BroadphaseCollision/b3GpuParallelLinearBvh.cpp.o
+[ 27%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/BroadphaseCollision/b3GpuSapBroadphase.cpp.o
+[ 27%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/BroadphaseCollision/b3GpuParallelLinearBvhBroadphase.cpp.o
+[ 27%] Building C object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/__/clew/clew.c.o
+[ 27%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/Initialize/b3OpenCLUtils.cpp.o
+[ 27%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/NarrowphaseCollision/b3ConvexHullContact.cpp.o
+[ 28%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/NarrowphaseCollision/b3ContactCache.cpp.o
+[ 28%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/NarrowphaseCollision/b3OptimizedBvh.cpp.o
+[ 28%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/NarrowphaseCollision/b3GjkEpa.cpp.o
+[ 28%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/NarrowphaseCollision/b3StridingMeshInterface.cpp.o
+[ 28%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/NarrowphaseCollision/b3TriangleCallback.cpp.o
+[ 28%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/NarrowphaseCollision/b3QuantizedBvh.cpp.o
+[ 28%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/NarrowphaseCollision/b3VoronoiSimplexSolver.cpp.o
+[ 28%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/NarrowphaseCollision/b3TriangleIndexVertexArray.cpp.o
+[ 28%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/ParallelPrimitives/b3BoundSearchCL.cpp.o
+[ 28%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/ParallelPrimitives/b3LauncherCL.cpp.o
+[ 29%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/ParallelPrimitives/b3FillCL.cpp.o
+[ 29%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/ParallelPrimitives/b3PrefixScanCL.cpp.o
+[ 29%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/ParallelPrimitives/b3RadixSort32CL.cpp.o
+[ 29%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/ParallelPrimitives/b3PrefixScanFloat4CL.cpp.o
+[ 29%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/RigidBody/b3GpuJacobiContactSolver.cpp.o
+[ 29%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/RigidBody/b3GpuGenericConstraint.cpp.o
+[ 29%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/Raycast/b3GpuRaycast.cpp.o
+[ 29%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/RigidBody/b3GpuNarrowPhase.cpp.o
+[ 30%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/RigidBody/b3GpuPgsConstraintSolver.cpp.o
+[ 30%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/RigidBody/b3GpuPgsContactSolver.cpp.o
+[ 30%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/RigidBody/b3GpuRigidBodyPipeline.cpp.o
+[ 30%] Building CXX object src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/RigidBody/b3Solver.cpp.o
+[ 30%] Built target BulletCollision
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLUtils.h:22,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLUtils.cpp:29:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+[ 30%] Building CXX object Extras/ConvexDecomposition/CMakeFiles/ConvexDecomposition.dir/bestfitobb.cpp.o
+[ 30%] Building CXX object Extras/ConvexDecomposition/CMakeFiles/ConvexDecomposition.dir/ConvexBuilder.cpp.o
+[ 30%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btConeTwistConstraint.cpp.o
+[ 30%] Building CXX object Extras/ConvexDecomposition/CMakeFiles/ConvexDecomposition.dir/cd_wavefront.cpp.o
+[ 30%] Building CXX object Extras/ConvexDecomposition/CMakeFiles/ConvexDecomposition.dir/raytri.cpp.o
+[ 30%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btContactConstraint.cpp.o
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+[ 31%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Character/btKinematicCharacterController.cpp.o
+[ 31%] Building CXX object Extras/ConvexDecomposition/CMakeFiles/ConvexDecomposition.dir/fitsphere.cpp.o
+[ 31%] Building CXX object Extras/ConvexDecomposition/CMakeFiles/ConvexDecomposition.dir/vlookup.cpp.o
+[ 31%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btGearConstraint.cpp.o
+[ 31%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btGeneric6DofConstraint.cpp.o
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+[ 31%] Building CXX object Extras/ConvexDecomposition/CMakeFiles/ConvexDecomposition.dir/cd_hull.cpp.o
+[ 32%] Building CXX object Extras/ConvexDecomposition/CMakeFiles/ConvexDecomposition.dir/bestfit.cpp.o
+[ 32%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btFixedConstraint.cpp.o
+[ 32%] Building CXX object Extras/ConvexDecomposition/CMakeFiles/ConvexDecomposition.dir/ConvexDecomposition.cpp.o
+[ 32%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btGeneric6DofSpringConstraint.cpp.o
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+[ 32%] Building CXX object Extras/ConvexDecomposition/CMakeFiles/ConvexDecomposition.dir/meshvolume.cpp.o
+[ 32%] Building CXX object Extras/ConvexDecomposition/CMakeFiles/ConvexDecomposition.dir/float_math.cpp.o
+[ 33%] Building CXX object Extras/ConvexDecomposition/CMakeFiles/ConvexDecomposition.dir/splitplane.cpp.o
+[ 33%] Building CXX object Extras/ConvexDecomposition/CMakeFiles/ConvexDecomposition.dir/planetri.cpp.o
+[ 33%] Building CXX object Extras/ConvexDecomposition/CMakeFiles/ConvexDecomposition.dir/concavity.cpp.o
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+[ 33%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btHinge2Constraint.cpp.o
+[ 33%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btPoint2PointConstraint.cpp.o
+[ 33%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btGeneric6DofSpring2Constraint.cpp.o
+[ 33%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btSequentialImpulseConstraintSolver.cpp.o
+[ 33%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btHingeConstraint.cpp.o
+[ 33%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btNNCGConstraintSolver.cpp.o
+[ 34%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btBatchedConstraints.cpp.o
+[ 34%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btSequentialImpulseConstraintSolverMt.cpp.o
+[ 34%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btSliderConstraint.cpp.o
+[ 34%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btSolve2LinearConstraint.cpp.o
+[ 34%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btUniversalConstraint.cpp.o
+[ 34%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/ConstraintSolver/btTypedConstraint.cpp.o
+[ 34%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Dynamics/btSimulationIslandManagerMt.cpp.o
+[ 34%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Dynamics/btDiscreteDynamicsWorld.cpp.o
+[ 34%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Dynamics/btDiscreteDynamicsWorldMt.cpp.o
+[ 34%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Dynamics/btRigidBody.cpp.o
+[ 35%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Dynamics/btSimpleDynamicsWorld.cpp.o
+[ 35%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Featherstone/btMultiBody.cpp.o
+[ 35%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Vehicle/btRaycastVehicle.cpp.o
+[ 35%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Featherstone/btMultiBodyConstraint.cpp.o
+[ 35%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Vehicle/btWheelInfo.cpp.o
+[ 35%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Featherstone/btMultiBodyConstraintSolver.cpp.o
+[ 35%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Featherstone/btMultiBodyDynamicsWorld.cpp.o
+[ 35%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Featherstone/btMultiBodyFixedConstraint.cpp.o
+[ 35%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Featherstone/btMultiBodyGearConstraint.cpp.o
+[ 36%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Featherstone/btMultiBodyJointLimitConstraint.cpp.o
+[ 36%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Featherstone/btMultiBodyJointMotor.cpp.o
+[ 36%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Featherstone/btMultiBodyMLCPConstraintSolver.cpp.o
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:149: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/Initialize/b3OpenCLUtils.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+[ 36%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Featherstone/btMultiBodySphericalJointLimit.cpp.o
+[ 36%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Featherstone/btMultiBodyPoint2Point.cpp.o
+[ 36%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Featherstone/btMultiBodySliderConstraint.cpp.o
+[ 36%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/Featherstone/btMultiBodySphericalJointMotor.cpp.o
+[ 36%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/MLCPSolvers/btMLCPSolver.cpp.o
+[ 36%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/MLCPSolvers/btDantzigLCP.cpp.o
+[ 36%] Building CXX object src/BulletDynamics/CMakeFiles/BulletDynamics.dir/MLCPSolvers/btLemkeAlgorithm.cpp.o
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLUtils.h:22,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/BroadphaseCollision/b3GpuParallelLinearBvh.cpp:14:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Raycast/b3GpuRaycast.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Raycast/b3GpuRaycast.cpp:2:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3OpenCLArray.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/NarrowphaseCollision/b3ConvexHullContact.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/NarrowphaseCollision/b3ConvexHullContact.cpp:46:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/BroadphaseCollision/b3GpuBroadphaseInterface.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/BroadphaseCollision/b3GpuParallelLinearBvhBroadphase.h:17,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/BroadphaseCollision/b3GpuParallelLinearBvhBroadphase.cpp:14:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3OpenCLArray.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3PrefixScanFloat4CL.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3PrefixScanFloat4CL.cpp:1:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/BroadphaseCollision/b3GpuBroadphaseInterface.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/BroadphaseCollision/b3GpuGridBroadphase.h:4,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/BroadphaseCollision/b3GpuGridBroadphase.cpp:2:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3OpenCLArray.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3FillCL.h:4,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3FillCL.cpp:1:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3OpenCLArray.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3PrefixScanCL.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3PrefixScanCL.cpp:1:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/BroadphaseCollision/b3GpuParallelLinearBvh.cpp:17:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/BroadphaseCollision/b3GpuParallelLinearBvh.h:88:30: warning: ignoring attributes on template argument 'cl_long' {aka 'long int'} [-Wignored-attributes]
+   88 |         b3OpenCLArray<b3Int64> m_commonPrefixes;
+      |                              ^
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:345: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/ParallelPrimitives/b3PrefixScanFloat4CL.cpp.o] Error 1
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/RigidBody/b3GpuJacobiContactSolver.h:4,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/RigidBody/b3GpuJacobiContactSolver.cpp:2:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/RigidBody/b3GpuPgsContactSolver.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/RigidBody/b3GpuPgsContactSolver.cpp:14:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3OpenCLArray.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3BoundSearchCL.h:27,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3BoundSearchCL.cpp:22:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:135: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/BroadphaseCollision/b3GpuParallelLinearBvh.cpp.o] Error 1
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:303: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/ParallelPrimitives/b3FillCL.cpp.o] Error 1
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3OpenCLArray.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3RadixSort32CL.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3RadixSort32CL.cpp:2:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/RigidBody/b3GpuRigidBodyPipeline.h:19,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/RigidBody/b3GpuRigidBodyPipeline.cpp:16:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Raycast/b3GpuRaycast.cpp:13:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/BroadphaseCollision/b3GpuParallelLinearBvh.h:88:30: warning: ignoring attributes on template argument 'cl_long' {aka 'long int'} [-Wignored-attributes]
+   88 |         b3OpenCLArray<b3Int64> m_commonPrefixes;
+      |                              ^
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3OpenCLArray.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/RigidBody/b3Solver.h:19,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/RigidBody/b3Solver.cpp:16:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3OpenCLArray.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/BroadphaseCollision/b3GpuSapBroadphase.h:4,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/BroadphaseCollision/b3GpuSapBroadphase.cpp:4:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3OpenCLArray.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3BufferInfoCL.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3LauncherCL.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3LauncherCL.cpp:1:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:331: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/ParallelPrimitives/b3PrefixScanCL.cpp.o] Error 1
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/RigidBody/b3GpuNarrowPhase.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/RigidBody/b3GpuNarrowPhase.cpp:1:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:373: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/Raycast/b3GpuRaycast.cpp.o] Error 1
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:289: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/ParallelPrimitives/b3BoundSearchCL.cpp.o] Error 1
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:359: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/ParallelPrimitives/b3RadixSort32CL.cpp.o] Error 1
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:93: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/BroadphaseCollision/b3GpuGridBroadphase.cpp.o] Error 1
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/BroadphaseCollision/b3GpuParallelLinearBvhBroadphase.h:19:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/BroadphaseCollision/b3GpuParallelLinearBvh.h:88:30: warning: ignoring attributes on template argument 'cl_long' {aka 'long int'} [-Wignored-attributes]
+   88 |         b3OpenCLArray<b3Int64> m_commonPrefixes;
+      |                              ^
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:317: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/ParallelPrimitives/b3LauncherCL.cpp.o] Error 1
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:121: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/BroadphaseCollision/b3GpuParallelLinearBvhBroadphase.cpp.o] Error 1
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:471: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/RigidBody/b3Solver.cpp.o] Error 1
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:107: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/BroadphaseCollision/b3GpuSapBroadphase.cpp.o] Error 1
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/Initialize/b3OpenCLInclude.h:20,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/ParallelPrimitives/b3OpenCLArray.h:5,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/RigidBody/b3GpuPgsConstraintSolver.h:28,
+                 from /home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/Bullet3OpenCL/RigidBody/b3GpuPgsConstraintSolver.cpp:24:
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:323:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  323 |         typedef vector unsigned char __cl_uchar16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:324:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  324 |         typedef vector signed char __cl_char16;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:325:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  325 |         typedef vector unsigned short __cl_ushort8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:326:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  326 |         typedef vector signed short __cl_short8;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:327:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  327 |         typedef vector unsigned int __cl_uint4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:328:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  328 |         typedef vector signed int __cl_int4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:329:17: error: 'vector' does not name a type; did you mean 'vec_or'?
+  329 |         typedef vector float __cl_float4;
+      |                 ^~~~~~
+      |                 vec_or
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:574:17: error: '__cl_char16' does not name a type; did you mean 'cl_char8'?
+  574 |                 __cl_char16 v16;
+      |                 ^~~~~~~~~~~
+      |                 cl_char8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:680:17: error: '__cl_uchar16' does not name a type; did you mean 'cl_char16'?
+  680 |                 __cl_uchar16 v16;
+      |                 ^~~~~~~~~~~~
+      |                 cl_char16
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:756:17: error: '__cl_short8' does not name a type; did you mean 'cl_short4'?
+  756 |                 __cl_short8 v8;
+      |                 ^~~~~~~~~~~
+      |                 cl_short4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:783:17: error: '__cl_short8' does not name a type; did you mean 'cl_short8'?
+  783 |                 __cl_short8 v8[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_short8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:862:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort4'?
+  862 |                 __cl_ushort8 v8;
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:889:17: error: '__cl_ushort8' does not name a type; did you mean 'cl_ushort8'?
+  889 |                 __cl_ushort8 v8[2];
+      |                 ^~~~~~~~~~~~
+      |                 cl_ushort8
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:938:17: error: '__cl_int4' does not name a type; did you mean 'cl_int2'?
+  938 |                 __cl_int4 v4;
+      |                 ^~~~~~~~~
+      |                 cl_int2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:965:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  965 |                 __cl_int4 v4[2];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:992:17: error: '__cl_int4' does not name a type; did you mean 'cl_int4'?
+  992 |                 __cl_int4 v4[4];
+      |                 ^~~~~~~~~
+      |                 cl_int4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1044:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint2'?
+ 1044 |                 __cl_uint4 v4;
+      |                 ^~~~~~~~~~
+      |                 cl_uint2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1071:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1071 |                 __cl_uint4 v4[2];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1098:17: error: '__cl_uint4' does not name a type; did you mean 'cl_uint4'?
+ 1098 |                 __cl_uint4 v4[4];
+      |                 ^~~~~~~~~~
+      |                 cl_uint4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1363:17: error: '__cl_float4' does not name a type; did you mean 'cl_float2'?
+ 1363 |                 __cl_float4 v4;
+      |                 ^~~~~~~~~~~
+      |                 cl_float2
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1390:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1390 |                 __cl_float4 v4[2];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+/home/multiarq/yalle/build-bench/temp_workspace/libbullet/bullet3/src/clew/clew.h:1417:17: error: '__cl_float4' does not name a type; did you mean 'cl_float4'?
+ 1417 |                 __cl_float4 v4[4];
+      |                 ^~~~~~~~~~~
+      |                 cl_float4
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:443: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/RigidBody/b3GpuPgsContactSolver.cpp.o] Error 1
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:401: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/RigidBody/b3GpuJacobiContactSolver.cpp.o] Error 1
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:415: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/RigidBody/b3GpuNarrowPhase.cpp.o] Error 1
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:177: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/NarrowphaseCollision/b3ConvexHullContact.cpp.o] Error 1
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:457: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/RigidBody/b3GpuRigidBodyPipeline.cpp.o] Error 1
+gmake[2]: *** [src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/build.make:429: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/RigidBody/b3GpuPgsConstraintSolver.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:1977: src/Bullet3OpenCL/CMakeFiles/Bullet3OpenCL_clew.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+[ 36%] Linking CXX shared library libgtest.so
+[ 36%] Built target gtest
+[ 36%] Linking CXX shared library libConvexDecomposition.so
+[ 36%] Built target ConvexDecomposition
+[ 37%] Linking CXX shared library libBulletDynamics.so
+[ 37%] Built target BulletDynamics
+gmake: *** [Makefile:146: all] Error 2

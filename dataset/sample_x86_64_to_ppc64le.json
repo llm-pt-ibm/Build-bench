@@ -5,7 +5,7 @@
  "use": "on the build host, each case's new_case command creates it (make new-case), then build.sh, the acceptance test and make baseline as in docs/TUTORIAL.md; a case whose baseline builds, or fails for another reason, gives its place to a reserve",
  "envs": {
   "c-power9": "C and C++ with make, CMake, Meson or autotools: envs/c-power9/env.yaml",
-  "gui-power9": "c-power9 plus SDL2, X11, OpenGL and toolkits: sdl2 openal-soft physfs glew freeglut glfw libusb gtk3 alsa-lib freetype fontconfig libpng libjpeg-turbo libvorbis libogg xorg-libx11 xorg-libxinerama libgl-devel llvmdev mbedtls fmt libmagic imagemagick sqlite",
+  "gui-power9": "SDL, OpenGL, X11 and audio: envs/gui-power9/env.yaml",
   "sci-power9": "c-power9 plus Fortran and scientific libraries: gfortran openblas liblapack fftw gsl hdf5 hdf4 libnetcdf netcdf-fortran proj udunits2 libaec eccodes armadillo fastjet libctl harminv guile gmp mpfr openmpi metis occt pybind11 numpy sympy octave",
   "py-power9": "Python packages: python=3.12 pip pytest numpy scipy h5py matplotlib pandas lxml pydot pygraphviz pyyaml pillow cython cysignals tesseract sdl2 scikit-build-core eigen tsl_robin_map xtensor pybind11 cmake ninja gxx=15.2.0",
   "rust-power9": "Rust (vendored crates, no network): envs/rust-power9/env.yaml",
@@ -446,29 +446,6 @@
    ],
    "new_case": "make new-case CASE=python-emcee SOURCE=\"https://files.pythonhosted.org/packages/source/e/emcee/emcee-3.1.6.tar.gz\" ENV=py-power9",
    "notes": []
-  },
-  "openomf": {
-   "group": "types and ABI",
-   "evidence": "test 'Broken Markup' fails",
-   "cause_seen_in_log": false,
-   "env": "gui-power9",
-   "version": "0.8.6",
-   "obs": {
-    "project": "openSUSE:Factory",
-    "rev": "04468b59695644206f0aec21b29a294d",
-    "ppc64le_log": "https://api.opensuse.org/public/build/openSUSE:Factory:PowerPC/standard/ppc64le/openomf/_log"
-   },
-   "minutes": {
-    "x86_64": 1.3,
-    "ppc64le": 4.0
-   },
-   "sources": [
-    "https://api.opensuse.org/public/source/openSUSE:Factory/openomf/openomf-0.8.6.tar.xz?rev=04468b59695644206f0aec21b29a294d&expand=1"
-   ],
-   "new_case": "make new-case CASE=openomf SOURCE=\"https://api.opensuse.org/public/source/openSUSE:Factory/openomf/openomf-0.8.6.tar.xz?rev=04468b59695644206f0aec21b29a294d&expand=1\" ENV=gui-power9",
-   "notes": [
-    "openSUSE carries 1 patch(es): apply only those the x86_64 build needs, none for ppc64le"
-   ]
   },
   "awww": {
    "group": "Rust crates without ppc64le",
@@ -1114,6 +1091,7 @@
   "ctypes.sh": "builds and passes its test (without struct support, as on OBS) on ppc64le from the upstream sources, with GCC 15 and with GCC 16 (baselines of 2026-11-12): the OBS failure does not reproduce",
   "spotifyd": "builds and passes on ppc64le from the upstream sources, with its default features and with the distribution's (alsa_backend, dbus_mpris, pulseaudio_backend): the aws-lc-sys failure on OBS, a warning made an error by the distribution's flags, does not reproduce",
   "jaq": "builds and passes its tests (jaq-core's among them) on ppc64le: the OBS failure does not reproduce",
-  "taskwarrior": "the OBS failure comes from the spec (LDFLAGS=$LDFLAGS:\"-z noexecstack\"), not from the architecture; the recipe also needs cxxbridge-cmd, which Corrosion installs from crates.io"
+  "taskwarrior": "the OBS failure comes from the spec (LDFLAGS=$LDFLAGS:\"-z noexecstack\"), not from the architecture; the recipe also needs cxxbridge-cmd, which Corrosion installs from crates.io",
+  "openomf": "its test program does not link from the upstream sources (null_audio_backend_* undefined, on any architecture), and the OBS failure (a test) shows no cause of the architecture"
  }
 }

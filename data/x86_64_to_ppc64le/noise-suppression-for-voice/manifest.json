@@ -1,0 +1,12 @@
+{
+  "task": {
+    "package": "noise-suppression-for-voice",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "noise-suppression-for-voice": "https://github.com/werman/noise-suppression-for-voice/archive/0b8c03b368ca609247a0cb65b0c8eb651759dd69.tar.gz"
+    }
+  },
+  "environment": "gui-power9",
+  "version": 1
+}

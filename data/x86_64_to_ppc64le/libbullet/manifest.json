@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "libbullet",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "bullet3": "https://github.com/bulletphysics/bullet3/archive/3.25/bullet3-3.25.tar.gz"
+    },
+    "version": "3.25"
+  },
+  "environment": "gui-power9",
+  "version": 1
+}

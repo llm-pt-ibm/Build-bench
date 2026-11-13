@@ -1,0 +1,99 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment gui-power9 07eba05c51b1 in /home/multiarq/.local/share/build-bench/envs/gui-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/gui-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/gui-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/trigger-rally/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/trigger-rally/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+make: Entering directory '/home/multiarq/yalle/build-bench/temp_workspace/trigger-rally/trigger-rally/src'
+
+current values of user-set variables:
+g++	PEngine/app.cpp -> PEngine/app.o
+g++	PEngine/audio.cpp -> PEngine/audio.o
+g++	PEngine/config.cpp -> PEngine/config.o
+g++	PEngine/fxman.cpp -> PEngine/fxman.o
+g++	PEngine/model.cpp -> PEngine/model.o
+g++	PEngine/physfs_rw.cpp -> PEngine/physfs_rw.o
+g++	PEngine/render.cpp -> PEngine/render.o
+g++	PEngine/rigidity.cpp -> PEngine/rigidity.o
+	DESTDIR      ?= 
+g++	PEngine/terrain.cpp -> PEngine/terrain.o
+	prefix       ?= /usr/local
+g++	PEngine/texture.cpp -> PEngine/texture.o
+g++	PEngine/util.cpp -> PEngine/util.o
+g++	PEngine/vbuffer.cpp -> PEngine/vbuffer.o
+g++	PEngine/vmath.cpp -> PEngine/vmath.o
+g++	PSim/collision.cpp -> PSim/collision.o
+	exec_prefix  ?= /usr/local
+g++	PSim/damage.cpp -> PSim/damage.o
+	OPTIMS       ?= -march=native -mtune=native -Ofast
+g++	PSim/engine.cpp -> PSim/engine.o
+g++	PSim/sim.cpp -> PSim/sim.o
+g++	PSim/rigidbody.cpp -> PSim/rigidbody.o
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+make: *** [GNUmakefile:167: PEngine/app.o] Error 1
+make: *** Waiting for unfinished jobs....
+g++	PSim/vehicle.cpp -> PSim/vehicle.o
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+g++	Trigger/game.cpp -> Trigger/game.o
+g++	Trigger/control.cpp -> Trigger/control.o
+make: *** [GNUmakefile:168: PEngine/config.o] Error 1
+	WARNINGS     ?= -Wall -Wextra -pedantic
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+g++	Trigger/ghost.cpp -> Trigger/ghost.o
+make: *** [GNUmakefile:168: PEngine/audio.o] Error 1
+make: *** [GNUmakefile:168: PEngine/fxman.o] Error 1
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+g++	Trigger/main.cpp -> Trigger/main.o
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+make: *** [GNUmakefile:168: PEngine/model.o] Error 1
+make: *** [GNUmakefile:168: PEngine/physfs_rw.o] Error 1
+make: *** [GNUmakefile:168: PEngine/render.o] Error 1
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+make: *** [GNUmakefile:168: PEngine/rigidity.o] Error 1
+
+resulting values of build variables:
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+make: *** [GNUmakefile:168: PEngine/texture.o] Error 1
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+	CXXFLAGS     += -std=c++11 -Wall -Wextra -pedantic -march=native -mtune=native -Ofast
+make: *** [GNUmakefile:168: PEngine/terrain.o] Error 1
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+make: *** [GNUmakefile:168: PSim/collision.o] Error 1
+	CPPFLAGS     += -DNDEBUG -DUNIX -DPACKAGE_VERSION="0.6.7" -I'./include'
+	LDFLAGS      += -pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib -lSDL2main -lGL -lGLEW -lSDL2 -lSDL2_image -lphysfs -lopenal -lalut -lpthread -ltinyxml2
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+make: *** [GNUmakefile:168: PSim/rigidbody.o] Error 1
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+make: *** [GNUmakefile:168: PSim/damage.o] Error 1
+make: *** [GNUmakefile:168: PEngine/vbuffer.o] Error 1
+make: *** [GNUmakefile:168: PSim/vehicle.o] Error 1
+make: *** [GNUmakefile:168: PEngine/util.o] Error 1
+
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+make: *** [GNUmakefile:168: PEngine/vmath.o] Error 1
+make: *** [GNUmakefile:168: Trigger/ghost.o] Error 1
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+make: *** [GNUmakefile:168: Trigger/main.o] Error 1
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+make: *** [GNUmakefile:168: Trigger/game.o] Error 1
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+make: *** [GNUmakefile:168: PSim/engine.o] Error 1
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+make: *** [GNUmakefile:168: PSim/sim.o] Error 1
+g++: error: unrecognized command-line option '-march=native'; did you mean '-mcpu=native'?
+make: *** [GNUmakefile:168: Trigger/control.o] Error 1
+make: Leaving directory '/home/multiarq/yalle/build-bench/temp_workspace/trigger-rally/trigger-rally/src'

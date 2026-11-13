@@ -1,0 +1,12 @@
+{
+  "task": {
+    "package": "schismtracker",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "schismtracker": "https://github.com/schismtracker/schismtracker/archive/refs/tags/20261102.tar.gz"
+    }
+  },
+  "environment": "gui-power9",
+  "version": 1
+}

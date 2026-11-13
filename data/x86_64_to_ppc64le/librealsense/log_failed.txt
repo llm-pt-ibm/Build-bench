@@ -1,0 +1,63 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment gui-power9 07eba05c51b1 in /home/multiarq/.local/share/build-bench/envs/gui-power9
+PYTHON=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/python (Python 3.12.16); TEST_PYTHON=/home/multiarq/.local/share/build-bench/envs/gui-power9/test/bin/python
+CC=gcc
+CXX=g++
+CPATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/gui-power9/build/share/pkgconfig
+CMAKE_PREFIX_PATH=/home/multiarq/.local/share/build-bench/envs/gui-power9/build
+LDFLAGS=-pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/librealsense/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/librealsense/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+-- The CXX compiler identification is GNU 16.2.0
+-- The C compiler identification is GNU 16.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Checking internet connection...
+-- Internet connection identified
+-- Info: REALSENSE_VERSION_STRING=2.59.1
+-- Setting Unix configurations
+-- Building with SSE optimizations
+-- CHECK_FOR_UPDATES/ENABLE_AI_ASSISTANT depend on BUILD_GRAPHICAL_EXAMPLES flag, turning them off..
+-- Building libcurl enabled
+-- Found OpenSSL: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libcrypto.so (found version "3.6.5")
+-- Fetching libdeflate...
+-- Fetching libdeflate... done
+-- using RS2_USE_V4L2_BACKEND
+-- Found usb: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/lib/libusb-1.0.so
+-- Found PkgConfig: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/bin/pkg-config (found version "0.29.2")
+-- Checking for module 'libudev'
+--   Found libudev, version 262
+-- Found Udev: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/include
+-- Using external nlohmann_json package
+-- Found nlohmann_json: /home/multiarq/.local/share/build-bench/envs/gui-power9/build/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake (found suitable version "3.12.0", minimum required is "3.11.3")
+-- Found nlohmann_json 3.12.0
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - not found
+-- Check if compiler accepts -pthread
+-- Check if compiler accepts -pthread - no
+CMake Error at /home/multiarq/.local/share/build-bench/envs/gui-power9/build/share/cmake-4.4/Modules/FindPackageHandleStandardArgs.cmake:290 (message):
+  Could NOT find Threads (missing: Threads_FOUND)
+Call Stack (most recent call first):
+  /home/multiarq/.local/share/build-bench/envs/gui-power9/build/share/cmake-4.4/Modules/FindPackageHandleStandardArgs.cmake:654 (_FPHSA_FAILURE_MESSAGE)
+  /home/multiarq/.local/share/build-bench/envs/gui-power9/build/share/cmake-4.4/Modules/FindThreads.cmake:289 (find_package_handle_standard_args)
+  CMake/external_sqlite3.cmake:33 (find_package)
+  third-party/realsense-file/CMakeLists.txt:7 (include)
+
+
+-- Configuring incomplete, errors occurred!

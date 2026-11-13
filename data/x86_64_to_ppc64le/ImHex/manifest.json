@@ -1,0 +1,14 @@
+{
+  "task": {
+    "package": "ImHex",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "ImHex": "https://api.opensuse.org/public/source/openSUSE:Factory/ImHex/ImHex-1.38.1.tar.xz?rev=13e9ff1a41165c16c670e64cb25a7b74&expand=1",
+      "patterns": "https://api.opensuse.org/public/source/openSUSE:Factory/ImHex/ImHex-Patterns-master.zip?rev=13e9ff1a41165c16c670e64cb25a7b74&expand=1"
+    },
+    "version": "1.38.1"
+  },
+  "environment": "gui-power9",
+  "version": 1
+}

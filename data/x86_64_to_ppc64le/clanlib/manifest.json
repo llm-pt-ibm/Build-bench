@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "clanlib",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "ClanLib": "https://api.opensuse.org/public/source/openSUSE:Factory/clanlib/ClanLib-4.2.0.tar.gz?rev=856f08402a5c323f7cfbe92a0a3841f8&expand=1"
+    },
+    "version": "4.2.0"
+  },
+  "environment": "gui-power9",
+  "version": 1
+}
