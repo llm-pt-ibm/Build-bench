@@ -144,15 +144,15 @@ def _lock_spec(lock: str):
     return None
 
 
-def _conda_env(conda: str, prefix: str, lock: str, packages: list, what: str, channels: list) -> None:
+def _conda_env(conda: str, prefix: str, lock: str, packages: list, what: str, channels: list) -> bool:
     """A conda environment: exactly the packages of lock when it exists, else
     solved from packages, whose solution is then written to lock. A lock solved
     from other lists than env.yaml's now is solved again, and an environment
-    made from other lists is made again."""
+    made from other lists is made again. True when it was made (again)."""
     wanted = json.dumps({"packages": packages, "channels": channels}, sort_keys=True)
     done = os.path.join(prefix, ".bench-created")
     if os.path.isfile(done) and open(done).read() == wanted:
-        return
+        return False
     if os.path.isfile(lock) and _lock_spec(lock) not in (None, wanted):
         print(f"{os.path.basename(lock)} was solved from other lists of env.yaml: solving them again")
         os.remove(lock)
@@ -179,6 +179,7 @@ def _conda_env(conda: str, prefix: str, lock: str, packages: list, what: str, ch
         print(f"wrote {shown}: commit it with env.yaml")
     with open(done, "w") as f:
         f.write(wanted)
+    return True
 
 
 def _java_home(d: str):
@@ -364,9 +365,11 @@ def setup(name: str, bazel_binary: str = None, wheels_from: str = None) -> str:
     if os.path.exists(os.path.join(d, ".complete")):
         os.remove(os.path.join(d, ".complete"))       # until this setup ends
 
-    if spec["conda"]:
-        _conda_env(conda, os.path.join(d, "build"), os.path.join(here, "build.lock"), spec["conda"], "build",
-                   spec["channels"])
+    # what setup installed into the build environment goes with it: a new one runs setup again
+    if spec["conda"] and _conda_env(conda, os.path.join(d, "build"), os.path.join(here, "build.lock"),
+                                    spec["conda"], "build", spec["channels"]):
+        if os.path.exists(os.path.join(d, ".bench-setup")):
+            os.remove(os.path.join(d, ".bench-setup"))
     if spec["tools"]:
         _conda_env(conda, os.path.join(d, "tools"), os.path.join(here, "tools.lock"), spec["tools"], "tools",
                    spec["channels"])
