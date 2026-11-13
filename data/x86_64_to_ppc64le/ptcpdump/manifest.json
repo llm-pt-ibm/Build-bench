@@ -1,0 +1,14 @@
+{
+  "task": {
+    "package": "ptcpdump",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "ptcpdump": "https://github.com/mozillazg/ptcpdump/archive/773055f60c8fb637358991b134ed3f99e8791192.tar.gz",
+      "vendor": "https://api.opensuse.org/public/source/openSUSE:Factory/ptcpdump/vendor.tar.gz?rev=47d1a2c6492dbb609de3eed2f30731ca&expand=1",
+      "libpcap": "https://github.com/the-tcpdump-group/libpcap/archive/bbcbc9174df3298a854daee2b3e666a4b6e5383a.tar.gz"
+    }
+  },
+  "environment": "go-power9",
+  "version": 1
+}

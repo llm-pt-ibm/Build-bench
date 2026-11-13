@@ -1,0 +1,4 @@
+# sources downloaded by make new-case; make fetch downloads them again
+/ptcpdump/
+/vendor/
+/libpcap/

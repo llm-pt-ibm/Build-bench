@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "steampipe",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "steampipe": "https://github.com/turbot/steampipe/archive/4269e1dc4865647605da6af8f1828e77278106a0.tar.gz",
+      "vendor": "https://api.opensuse.org/public/source/openSUSE:Factory/steampipe/vendor.tar.gz?rev=ddf94359c9d79fe82d4d0375d48771ff&expand=1"
+    }
+  },
+  "environment": "go-power9",
+  "version": 1
+}

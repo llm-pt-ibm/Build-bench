@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "inspektor-gadget",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "inspektor-gadget": "https://github.com/inspektor-gadget/inspektor-gadget/archive/461906a52de982c1b1ad80f9c2faaa9595c47550.tar.gz",
+      "vendor": "https://api.opensuse.org/public/source/openSUSE:Factory/inspektor-gadget/vendor.tar.gz?rev=ff354bc9da66ac42bc970132a2df9207&expand=1"
+    }
+  },
+  "environment": "go-power9",
+  "version": 1
+}

@@ -1,0 +1,21 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment go-power9 90a6a1186a1b in /home/multiarq/.local/share/build-bench/envs/go-power9
+CLANG=/home/multiarq/.local/share/build-bench/envs/go-power9/build/bin/clang (clang version 23.1.5 (https://github.com/conda-forge/clangdev-feedstock 30fd4e93e83162141ae372db80ef9db7baa31094))
+CC=gcc
+CXX=g++
+GOTOOLCHAIN=local
+GOPROXY=off
+CPATH=/home/multiarq/.local/share/build-bench/envs/go-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/go-power9/build/share/pkgconfig
+CGO_LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib
+LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/steampipe/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/steampipe/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+# github.com/turbot/steampipe/v2/pkg/filepaths
+pkg/filepaths/db_path.go:70:62: undefined: platform.Paths
+pkg/filepaths/db_path.go:74:62: undefined: platform.Paths
+pkg/filepaths/db_path.go:78:62: undefined: platform.Paths
+pkg/filepaths/db_path.go:82:62: undefined: platform.Paths

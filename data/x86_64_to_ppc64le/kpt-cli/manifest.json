@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "kpt-cli",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "kpt": "https://github.com/kptdev/kpt/archive/6c8a2e16f1f51605d6db9404ddea4f05db0e2aa2.tar.gz",
+      "vendor": "https://api.opensuse.org/public/source/openSUSE:Factory/kpt-cli/vendor.tar.gz?rev=ae898537e826356aba66435e7747d5fe&expand=1"
+    }
+  },
+  "environment": "go-power9",
+  "version": 1
+}

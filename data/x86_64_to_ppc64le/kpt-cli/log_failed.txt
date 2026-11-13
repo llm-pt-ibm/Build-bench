@@ -1,0 +1,22 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment go-power9 90a6a1186a1b in /home/multiarq/.local/share/build-bench/envs/go-power9
+CLANG=/home/multiarq/.local/share/build-bench/envs/go-power9/build/bin/clang (clang version 23.1.5 (https://github.com/conda-forge/clangdev-feedstock 30fd4e93e83162141ae372db80ef9db7baa31094))
+CC=gcc
+CXX=g++
+GOTOOLCHAIN=local
+GOPROXY=off
+CPATH=/home/multiarq/.local/share/build-bench/envs/go-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/go-power9/build/share/pkgconfig
+CGO_LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib
+LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/kpt-cli/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/kpt-cli/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+# github.com/kptdev/kpt
+/home/multiarq/.local/share/build-bench/envs/go-power9/build/go/pkg/tool/linux_ppc64le/link: running gcc failed: exit status 1
+/home/multiarq/.local/share/build-bench/envs/go-power9/build/bin/gcc -m64 -Wl,-z,relro -pie -Wl,-z,now -Wl,-z,nocopyreloc -Wl,--build-id=0x2605d9590932d000a66e9828712e92cc037f647c -o $WORK/b001/exe/a.out -rdynamic -Wl,--compress-debug-sections=zlib /tmp/go-link-2446439611/go.o /tmp/go-link-2446439611/000000.o /tmp/go-link-2446439611/000001.o /tmp/go-link-2446439611/000002.o /tmp/go-link-2446439611/000003.o /tmp/go-link-2446439611/000004.o /tmp/go-link-2446439611/000005.o /tmp/go-link-2446439611/000006.o /tmp/go-link-2446439611/000007.o /tmp/go-link-2446439611/000008.o /tmp/go-link-2446439611/000009.o /tmp/go-link-2446439611/000010.o /tmp/go-link-2446439611/000011.o /tmp/go-link-2446439611/000012.o /tmp/go-link-2446439611/000013.o /tmp/go-link-2446439611/000014.o /tmp/go-link-2446439611/000015.o /tmp/go-link-2446439611/000016.o /tmp/go-link-2446439611/000017.o /tmp/go-link-2446439611/000018.o /tmp/go-link-2446439611/000019.o /tmp/go-link-2446439611/000020.o /tmp/go-link-2446439611/000021.o /tmp/go-link-2446439611/000022.o /tmp/go-link-2446439611/000023.o /tmp/go-link-2446439611/000024.o /tmp/go-link-2446439611/000025.o /tmp/go-link-2446439611/000026.o /tmp/go-link-2446439611/000027.o /tmp/go-link-2446439611/000028.o /tmp/go-link-2446439611/000029.o /tmp/go-link-2446439611/000030.o /tmp/go-link-2446439611/000031.o /tmp/go-link-2446439611/000032.o /tmp/go-link-2446439611/000033.o /tmp/go-link-2446439611/000034.o /tmp/go-link-2446439611/000035.o /tmp/go-link-2446439611/000036.o /tmp/go-link-2446439611/000037.o /tmp/go-link-2446439611/000038.o /tmp/go-link-2446439611/000039.o /tmp/go-link-2446439611/000040.o /tmp/go-link-2446439611/000041.o /tmp/go-link-2446439611/000042.o /tmp/go-link-2446439611/000043.o /tmp/go-link-2446439611/000044.o /tmp/go-link-2446439611/000045.o /tmp/go-link-2446439611/000046.o /tmp/go-link-2446439611/000047.o /tmp/go-link-2446439611/000048.o /tmp/go-link-2446439611/000049.o /tmp/go-link-2446439611/000050.o /tmp/go-link-2446439611/000051.o /tmp/go-link-2446439611/000052.o -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib -lwasmtime -lm -ldl -pthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib -lresolv -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib -lpthread -Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib -ldl -z noexecstack
+/home/multiarq/.local/share/build-bench/envs/go-power9/build/bin/powerpc64le-conda-linux-gnu-ld: cannot find -lwasmtime: No such file or directory
+collect2: error: ld returned 1 exit status
+

@@ -1,0 +1,22 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment go-power9 90a6a1186a1b in /home/multiarq/.local/share/build-bench/envs/go-power9
+CLANG=/home/multiarq/.local/share/build-bench/envs/go-power9/build/bin/clang (clang version 23.1.5 (https://github.com/conda-forge/clangdev-feedstock 30fd4e93e83162141ae372db80ef9db7baa31094))
+CC=gcc
+CXX=g++
+GOTOOLCHAIN=local
+GOPROXY=off
+CPATH=/home/multiarq/.local/share/build-bench/envs/go-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/go-power9/build/share/pkgconfig
+CGO_LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib
+LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/kluctl/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/kluctl/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+package command-line-arguments
+	imports github.com/kluctl/kluctl/v2/cmd/kluctl/commands
+	imports github.com/kluctl/kluctl/v2/cmd/kluctl/args
+	imports github.com/kluctl/kluctl/v2/pkg/kluctl_project
+	imports github.com/kluctl/kluctl/lib/go-jinja2
+	imports github.com/kluctl/kluctl/lib/go-jinja2/internal/data: build constraints exclude all Go files in /home/multiarq/yalle/build-bench/temp_workspace/kluctl/kluctl/vendor/github.com/kluctl/kluctl/lib/go-jinja2/internal/data

@@ -9,7 +9,7 @@
   "sci-power9": "c-power9 plus Fortran and scientific libraries: gfortran openblas liblapack fftw gsl hdf5 hdf4 libnetcdf netcdf-fortran proj udunits2 libaec eccodes armadillo fastjet libctl harminv guile gmp mpfr openmpi metis occt pybind11 numpy sympy octave",
   "py-power9": "Python packages: python=3.12 pip pytest numpy scipy h5py matplotlib pandas lxml pydot pygraphviz pyyaml pillow cython cysignals tesseract sdl2 scikit-build-core eigen tsl_robin_map xtensor pybind11 cmake ninja gxx=15.2.0",
   "rust-power9": "Rust (vendored crates, no network): envs/rust-power9/env.yaml",
-  "go-power9": "Go (vendored modules, no network): go clang llvm libpcap git gcc=15.2.0",
+  "go-power9": "Go (vendored modules, no network): envs/go-power9/env.yaml",
   "nyxt": "Common Lisp: sbcl gcc make (libfixposix from source)",
   "elixir": "Elixir on Erlang/OTP: erlang make git"
  },

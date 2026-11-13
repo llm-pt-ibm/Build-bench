@@ -1,0 +1,528 @@
+=== network: through the build host's proxy, which logs every connection
+=== build environment: env
+environment go-power9 90a6a1186a1b in /home/multiarq/.local/share/build-bench/envs/go-power9
+CLANG=/home/multiarq/.local/share/build-bench/envs/go-power9/build/bin/clang (clang version 23.1.5 (https://github.com/conda-forge/clangdev-feedstock 30fd4e93e83162141ae372db80ef9db7baa31094))
+CC=gcc
+CXX=g++
+GOTOOLCHAIN=local
+GOPROXY=off
+CPATH=/home/multiarq/.local/share/build-bench/envs/go-power9/build/include
+LIBRARY_PATH=/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib
+PKG_CONFIG_PATH=/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib/pkgconfig:/home/multiarq/.local/share/build-bench/envs/go-power9/build/share/pkgconfig
+CGO_LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib
+LDFLAGS=-Wl,-rpath,/home/multiarq/.local/share/build-bench/envs/go-power9/build/lib
+BENCH_CACHE_DIR=/home/multiarq/yalle/stage/ptcpdump/cache (build state of this run); BENCH_SHARED_CACHE_DIR=/home/multiarq/yalle/stage/ptcpdump/shared (shared caches)
+=== build host: ppc64le, 160 cpus, 94 jobs
+=== running ./build.sh
+fatal: not a git repository (or any parent up to mount point /home/multiarq/yalle/stage/ptcpdump)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+fatal: not a git repository (or any parent up to mount point /home/multiarq/yalle/stage/ptcpdump)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+TARGET=amd64 go generate ./...
+TARGET=arm64 go generate ./...
+TARGET=arm go generate ./...
+go: ignoring package vendor/golang.org/x/net/http/httpguts which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/net/idna which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/text/secure/bidirule which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/text/transform which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/text/unicode/bidi which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/text/unicode/norm which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/net/http2/hpack which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:29:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   29 |     return (BPF_CORE_READ(opthdr, hdrlen) + 1) << 3;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:33:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   33 |     return (BPF_CORE_READ(opthdr, hdrlen) + 2) << 2;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:216:15: warning: default initialization of an object of type 'typeof ((skb)->mac_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  216 |     u16 mac = BPF_CORE_READ(skb, mac_header);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:217:19: warning: default initialization of an object of type 'typeof ((skb)->network_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  217 |     u16 network = BPF_CORE_READ(skb, network_header);
+      |                   ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:220:61: warning: default initialization of an object of type 'typeof ((skb)->mac_len)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  220 |            !(is_valid_network(network) && network == mac && BPF_CORE_READ(skb, mac_len) == 0);
+      |                                                             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:11:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/process.h:196:15: warning: default initialization of an object of type 'typeof ((task)->cred->uid.val)' (aka 'const unsigned int') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  196 |     u32 uid = BPF_CORE_READ(task, cred, uid.val);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+6 warnings generated.
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:29:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   29 |     return (BPF_CORE_READ(opthdr, hdrlen) + 1) << 3;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:33:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   33 |     return (BPF_CORE_READ(opthdr, hdrlen) + 2) << 2;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:216:15: warning: default initialization of an object of type 'typeof ((skb)->mac_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  216 |     u16 mac = BPF_CORE_READ(skb, mac_header);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:217:19: warning: default initialization of an object of type 'typeof ((skb)->network_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  217 |     u16 network = BPF_CORE_READ(skb, network_header);
+      |                   ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:220:61: warning: default initialization of an object of type 'typeof ((skb)->mac_len)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  220 |            !(is_valid_network(network) && network == mac && BPF_CORE_READ(skb, mac_len) == 0);
+      |                                                             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:11:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/process.h:196:15: warning: default initialization of an object of type 'typeof ((task)->cred->uid.val)' (aka 'const unsigned int') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  196 |     u32 uid = BPF_CORE_READ(task, cred, uid.val);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+6 warnings generated.
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:29:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   29 |     return (BPF_CORE_READ(opthdr, hdrlen) + 1) << 3;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:33:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   33 |     return (BPF_CORE_READ(opthdr, hdrlen) + 2) << 2;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:216:15: warning: default initialization of an object of type 'typeof ((skb)->mac_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  216 |     u16 mac = BPF_CORE_READ(skb, mac_header);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:217:19: warning: default initialization of an object of type 'typeof ((skb)->network_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  217 |     u16 network = BPF_CORE_READ(skb, network_header);
+      |                   ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:220:61: warning: default initialization of an object of type 'typeof ((skb)->mac_len)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  220 |            !(is_valid_network(network) && network == mac && BPF_CORE_READ(skb, mac_len) == 0);
+      |                                                             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:11:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/process.h:196:15: warning: default initialization of an object of type 'typeof ((task)->cred->uid.val)' (aka 'const unsigned int') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  196 |     u32 uid = BPF_CORE_READ(task, cred, uid.val);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+6 warnings generated.
+go: ignoring package vendor/golang.org/x/net/http/httpguts which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/net/idna which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/text/secure/bidirule which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/text/unicode/bidi which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/text/unicode/norm which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/text/transform which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/net/http2/hpack which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:29:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   29 |     return (BPF_CORE_READ(opthdr, hdrlen) + 1) << 3;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:33:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   33 |     return (BPF_CORE_READ(opthdr, hdrlen) + 2) << 2;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:216:15: warning: default initialization of an object of type 'typeof ((skb)->mac_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  216 |     u16 mac = BPF_CORE_READ(skb, mac_header);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:217:19: warning: default initialization of an object of type 'typeof ((skb)->network_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  217 |     u16 network = BPF_CORE_READ(skb, network_header);
+      |                   ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:220:61: warning: default initialization of an object of type 'typeof ((skb)->mac_len)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  220 |            !(is_valid_network(network) && network == mac && BPF_CORE_READ(skb, mac_len) == 0);
+      |                                                             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:11:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/process.h:196:15: warning: default initialization of an object of type 'typeof ((task)->cred->uid.val)' (aka 'const unsigned int') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  196 |     u32 uid = BPF_CORE_READ(task, cred, uid.val);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+6 warnings generated.
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:29:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   29 |     return (BPF_CORE_READ(opthdr, hdrlen) + 1) << 3;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:33:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   33 |     return (BPF_CORE_READ(opthdr, hdrlen) + 2) << 2;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:216:15: warning: default initialization of an object of type 'typeof ((skb)->mac_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  216 |     u16 mac = BPF_CORE_READ(skb, mac_header);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:217:19: warning: default initialization of an object of type 'typeof ((skb)->network_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  217 |     u16 network = BPF_CORE_READ(skb, network_header);
+      |                   ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:220:61: warning: default initialization of an object of type 'typeof ((skb)->mac_len)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  220 |            !(is_valid_network(network) && network == mac && BPF_CORE_READ(skb, mac_len) == 0);
+      |                                                             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:11:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/process.h:196:15: warning: default initialization of an object of type 'typeof ((task)->cred->uid.val)' (aka 'const unsigned int') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  196 |     u32 uid = BPF_CORE_READ(task, cred, uid.val);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+6 warnings generated.
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:29:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   29 |     return (BPF_CORE_READ(opthdr, hdrlen) + 1) << 3;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:33:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   33 |     return (BPF_CORE_READ(opthdr, hdrlen) + 2) << 2;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:216:15: warning: default initialization of an object of type 'typeof ((skb)->mac_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  216 |     u16 mac = BPF_CORE_READ(skb, mac_header);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:217:19: warning: default initialization of an object of type 'typeof ((skb)->network_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  217 |     u16 network = BPF_CORE_READ(skb, network_header);
+      |                   ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:220:61: warning: default initialization of an object of type 'typeof ((skb)->mac_len)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  220 |            !(is_valid_network(network) && network == mac && BPF_CORE_READ(skb, mac_len) == 0);
+      |                                                             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:11:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/process.h:196:15: warning: default initialization of an object of type 'typeof ((task)->cred->uid.val)' (aka 'const unsigned int') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  196 |     u32 uid = BPF_CORE_READ(task, cred, uid.val);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+6 warnings generated.
+go: ignoring package vendor/golang.org/x/net/http/httpguts which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/net/idna which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/text/secure/bidirule which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/net/http2/hpack which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/text/unicode/bidi which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/text/transform which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/text/unicode/norm which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:29:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   29 |     return (BPF_CORE_READ(opthdr, hdrlen) + 1) << 3;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:33:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   33 |     return (BPF_CORE_READ(opthdr, hdrlen) + 2) << 2;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:216:15: warning: default initialization of an object of type 'typeof ((skb)->mac_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  216 |     u16 mac = BPF_CORE_READ(skb, mac_header);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:217:19: warning: default initialization of an object of type 'typeof ((skb)->network_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  217 |     u16 network = BPF_CORE_READ(skb, network_header);
+      |                   ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:220:61: warning: default initialization of an object of type 'typeof ((skb)->mac_len)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  220 |            !(is_valid_network(network) && network == mac && BPF_CORE_READ(skb, mac_len) == 0);
+      |                                                             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:11:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/process.h:196:15: warning: default initialization of an object of type 'typeof ((task)->cred->uid.val)' (aka 'const unsigned int') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  196 |     u32 uid = BPF_CORE_READ(task, cred, uid.val);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+6 warnings generated.
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:29:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   29 |     return (BPF_CORE_READ(opthdr, hdrlen) + 1) << 3;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:33:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   33 |     return (BPF_CORE_READ(opthdr, hdrlen) + 2) << 2;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:216:15: warning: default initialization of an object of type 'typeof ((skb)->mac_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  216 |     u16 mac = BPF_CORE_READ(skb, mac_header);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:217:19: warning: default initialization of an object of type 'typeof ((skb)->network_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  217 |     u16 network = BPF_CORE_READ(skb, network_header);
+      |                   ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:220:61: warning: default initialization of an object of type 'typeof ((skb)->mac_len)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  220 |            !(is_valid_network(network) && network == mac && BPF_CORE_READ(skb, mac_len) == 0);
+      |                                                             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:11:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/process.h:196:15: warning: default initialization of an object of type 'typeof ((task)->cred->uid.val)' (aka 'const unsigned int') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  196 |     u32 uid = BPF_CORE_READ(task, cred, uid.val);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+6 warnings generated.
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:29:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   29 |     return (BPF_CORE_READ(opthdr, hdrlen) + 1) << 3;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:4:
+./headers/bpf_ipv6.h:33:13: warning: default initialization of an object of type 'typeof ((opthdr)->hdrlen)' (aka 'const unsigned char') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+   33 |     return (BPF_CORE_READ(opthdr, hdrlen) + 2) << 2;
+      |             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:216:15: warning: default initialization of an object of type 'typeof ((skb)->mac_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  216 |     u16 mac = BPF_CORE_READ(skb, mac_header);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:217:19: warning: default initialization of an object of type 'typeof ((skb)->network_header)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  217 |     u16 network = BPF_CORE_READ(skb, network_header);
+      |                   ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:9:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/net.h:220:61: warning: default initialization of an object of type 'typeof ((skb)->mac_len)' (aka 'const unsigned short') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  220 |            !(is_valid_network(network) && network == mac && BPF_CORE_READ(skb, mac_len) == 0);
+      |                                                             ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/ptcpdump.c:6:
+In file included from /home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/flow.h:11:
+/home/multiarq/yalle/build-bench/temp_workspace/ptcpdump/ptcpdump/bpf/process.h:196:15: warning: default initialization of an object of type 'typeof ((task)->cred->uid.val)' (aka 'const unsigned int') leaves the object uninitialized [-Wdefault-const-init-var-unsafe]
+  196 |     u32 uid = BPF_CORE_READ(task, cred, uid.val);
+      |               ^
+./headers/bpf/bpf_core_read.h:443:35: note: expanded from macro 'BPF_CORE_READ'
+  443 |         ___type((src), a, ##__VA_ARGS__) __r;                               \
+      |                                          ^
+6 warnings generated.
+fatal: not a git repository (or any parent up to mount point /home/multiarq/yalle/stage/ptcpdump)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+fatal: not a git repository (or any parent up to mount point /home/multiarq/yalle/stage/ptcpdump)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+CGO_ENABLED=1 go build -tags dynamic -ldflags "-X github.com/mozillazg/ptcpdump/internal.Version=0.37.0 -X github.com/mozillazg/ptcpdump/internal.GitCommit= -buildmode=pie" 
+go: ignoring package vendor/golang.org/x/net/http/httpguts which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/net/idna which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/text/secure/bidirule which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/text/unicode/bidi which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/text/transform which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/text/unicode/norm which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+go: ignoring package vendor/golang.org/x/net/http2/hpack which exists in the vendor directory but is missing from vendor/modules.txt. To sync the vendor directory run go mod vendor.
+# github.com/mozillazg/ptcpdump/bpf
+bpf/bpf.go:30:14: undefined: BpfObjects
+bpf/bpf.go:206:48: undefined: BpfFlowPidKeyT
+bpf/bpf.go:206:63: undefined: BpfProcessMetaT
+bpf/event.go:32:2: undefined: BpfPacketEventT
+bpf/event.go:123:73: undefined: BpfExecEventT
+bpf/event.go:163:84: undefined: BpfExecEventT
+bpf/event.go:200:77: undefined: BpfGoKeylogEventT
+bpf/event.go:241:88: undefined: BpfGoKeylogEventT
+bpf/event.go:277:92: undefined: BpfNewNetdeviceEventT
+bpf/event.go:316:49: undefined: BpfNewNetdeviceEventT
+bpf/event.go:316:49: too many errors
+make: *** [Makefile:74: build-dynamic-link] Error 1

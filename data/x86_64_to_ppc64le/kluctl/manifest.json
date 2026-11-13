@@ -1,0 +1,13 @@
+{
+  "task": {
+    "package": "kluctl",
+    "direction": "x86_64_to_ppc64le",
+    "type": "recipe",
+    "sources": {
+      "kluctl": "https://github.com/kluctl/kluctl/archive/b8269b5ece61e7d3e036f80ce7dea5b59c949141.tar.gz",
+      "vendor": "https://api.opensuse.org/public/source/devel:kubic/kluctl/vendor.tar.gz?rev=60c77feb7d6daeaeeb59087491828125&expand=1"
+    }
+  },
+  "environment": "go-power9",
+  "version": 1
+}
