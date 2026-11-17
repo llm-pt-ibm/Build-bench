@@ -715,6 +715,19 @@ improvements` shows them file by file.
   - the retries of a model call wait up to 20 min, about an hour in all: ck's
     provider limited requests (429) for more than the 18 min they covered.
 
+- gpt-oss tool calls without the harmony tokens (teste_gptoss20, gpt-oss 20B
+  on a local server): the server dropped `<|message|>` and `<|call|>`, and the
+  model wrote its calls as `` ```commentary to=functions.NAME `` followed by
+  the JSON arguments and a closing fence. The text parser required
+  `<|message|>`, so every such reply ended its attempt as "no tool calls":
+  attempts 2 and 4–7 had no round at all. The parser now takes a
+  `to=functions.NAME` followed, after header tokens or a fence only, by a JSON
+  object; a name mentioned in prose stays text.
+- The reply that ends an attempt without tool calls is kept in its transcript
+  (and so in the notes of the next attempt): it was dropped, and only the
+  last attempt's could be read, in `<package>_result.txt`. `make transcript`
+  shows it as the final reply and counts rounds with tool calls only.
+
 ### Planned
 - Count a repair as successful only if the package still builds on the source
   architecture.

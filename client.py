@@ -1077,6 +1077,11 @@ class AutoRepairClient:
                 break
         else:
             summary["ended_by"] = "no_tool_calls"
+            # the reply that ended the attempt, for the transcript and the notes
+            reply = {"role": "assistant", "content": choice.message.content}
+            if message_reasoning(choice.message):
+                reply["reasoning"] = message_reasoning(choice.message)
+            messages.append(reply)
 
         ok = await self._final_verification(package_name, package_path, summary)
         return latest_text, ok, summary

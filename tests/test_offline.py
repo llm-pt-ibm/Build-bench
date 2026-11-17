@@ -118,6 +118,7 @@ async def main():
         text, ok, summary = await cli._llm_tools_loop(PKG, init["package_path"], messages, tools)
         assert not ok and text == "done"
         assert summary["ended_by"] == "no_tool_calls" and summary["final_check"] is None, summary
+        assert messages[-1] == {"role": "assistant", "content": "done"}, "the closing reply was not kept"
         tool_msgs = {m["tool_call_id"]: m["content"] for m in messages if m["role"] == "tool"}
         validate_conversation(messages)
         assert "arm_neon.h" in tool_msgs["call_1"], "log was not read"

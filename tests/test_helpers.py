@@ -928,12 +928,17 @@ for _text, _rest in [
         ('<｜tool▁call▁begin｜>run_command_tool<｜tool▁sep｜>{"command": "ls"}<｜tool▁call▁end｜>', ""),
         ('<|channel|>commentary to=functions.run_command_tool <|constrain|>json<|message|>{"command": "ls"}<|call|>',
          ""),
+        # gpt-oss when the server drops the special tokens (teste_gptoss20)
+        ('Read the log:\n\n```commentary to=functions.run_command_tool\n{\n  "command": "ls"\n}\n```', "Read the log:"),
+        ('to=functions.run_command_tool json\n```json\n{"command": "ls"}\n```\nThen build.', "Then build."),
         ('```json\n{"name": "run_command_tool", "arguments": {"command": "ls"}}\n```', "")]:
     assert parse_text_calls(_text, _tools) == ([_cmd], _rest), (_text, parse_text_calls(_text, _tools))
 assert parse_text_calls("<function=run_command_tool><parameter=timeout_seconds>60</parameter></function>",
                         _tools)[0][0]["arguments"] == {"timeout_seconds": 60}
 for _text in ('The call would be {"name": "run_command_tool", "arguments": {"command": "ls"}} but I stop.',
-              '<tool_call>{"name": "other_tool", "arguments": {}}</tool_call>', "Done: the build passed.", ""):
+              '<tool_call>{"name": "other_tool", "arguments": {}}</tool_call>', "Done: the build passed.", "",
+              'I called to=functions.run_command_tool before. The result was {"command": "ls"}.',
+              '```commentary to=functions.other_tool\n{"command": "ls"}\n```'):
     assert parse_text_calls(_text, _tools)[0] == [], _text
 print("text tool calls: OK (Hermes/Qwen, Qwen3-Coder, GLM, Mistral, Llama, DeepSeek, gpt-oss, bare JSON; "
       "prose and unknown tools left alone)")

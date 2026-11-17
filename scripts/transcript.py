@@ -82,7 +82,7 @@ def overview(run_dir: str, package: str, files: dict) -> None:
         builds = summary.get("builds") or [r.splitlines()[0] for _, calls in rs for c, r in calls
                                            if c["function"]["name"] == "check_build_result" and r]
         last = build_outcome(builds[-1]) if builds else "no build"
-        print(f"{attempt:>3} {len(rs):>6} {sum(n in EDITS for n in names):>5} {len(builds):>6} "
+        print(f"{attempt:>3} {sum(bool(calls) for _, calls in rs):>6} {sum(n in EDITS for n in names):>5} {len(builds):>6} "
               f"{names.count('run_command_tool'):>5} {sum(bool(m.get('reasoning')) for m, _ in rs):>6}  "
               f"{summary.get('ended_by') or 'stopped'}; {last}")
     print("\nedits: modify/replace calls; cmds: run_command_tool calls; reason: replies with saved reasoning")
@@ -104,7 +104,7 @@ def show_attempt(path: str, args) -> None:
                          + [c["function"]["arguments"] + (r or "") for c, r in calls])
         if args.grep and not re.search(args.grep, text, re.I):
             continue
-        print(f"--- round {number}")
+        print(f"--- round {number}" if m.get("tool_calls") else "--- final reply (no tool calls)")
         if args.reasoning and m.get("reasoning"):
             print(f"[reasoning] {shorten(m['reasoning'], SHORT['reasoning'], args.full)}")
         if (m.get("content") or "").strip():

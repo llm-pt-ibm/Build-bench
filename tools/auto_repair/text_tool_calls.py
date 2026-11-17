@@ -8,7 +8,8 @@ tools in these formats, with values converted to the types of their schema:
   Mistral:              [TOOL_CALLS][{"name": ..., "arguments": {...}}]  or  [TOOL_CALLS]NAME[ARGS]{...}
   Llama 3.x:            <|python_tag|>{"name": ..., "parameters": {...}}
   DeepSeek V3/R1:       <｜tool▁call▁begin｜>function<｜tool▁sep｜>NAME ```json {...}``` <｜tool▁call▁end｜>
-  gpt-oss (harmony):    to=functions.NAME ... <|message|>{...}<|call|>
+  gpt-oss (harmony):    to=functions.NAME ... <|message|>{...}<|call|>, or without the
+                        special tokens: ```commentary to=functions.NAME\n{...}\n```
   a reply that is only JSON calls (bare or in ```json fences)"""
 import json
 import re
@@ -154,15 +155,30 @@ def parse(text: str, tools: list):
             if call:
                 calls.append(call)
                 spans.append(m.span())
-    # gpt-oss (harmony)
+    # gpt-oss (harmony), also without the special tokens a server dropped:
+    # ```commentary to=functions.NAME\n{...}\n```
     if not calls and "to=functions." in text:
-        for m in re.finditer(r"(?:<\|start\|>\w*)?(?:<\|channel\|>\w+\s*)?to=functions\.([\w.\-]+).*?"
-                             r"<\|message\|>(.*?)(?:<\|call\|>|$)", text, re.S):
-            values = _json_values(m.group(2))
-            call = _call({"name": m.group(1), "arguments": values[0][0] if values else {}}, schemas)
+        heads = list(re.finditer(r"(?:```[ \t]*)?(?:<\|start\|>\w*)?(?:<\|channel\|>)?(?:\w+[ \t]+)?"
+                                 r"to=functions\.([\w.\-]*[\w\-])", text))
+        for i, m in enumerate(heads):
+            end = heads[i + 1].start() if i + 1 < len(heads) else len(text)
+            values = _json_values(text[m.end():end])
+            if not values or not isinstance(values[0][0], dict):
+                continue
+            args, a, b = values[0]
+            # between the name and the arguments only header tokens (<|constrain|>json<|message|>) or a fence
+            if not re.fullmatch(r"[\s\w`]*(?:<\|\w+\|>[\s\w`]*)*", text[m.end():m.end() + a]):
+                continue
+            call = _call({"name": m.group(1), "arguments": args}, schemas)
             if call:
+                stop = m.end() + b
+                tail = re.match(r"\s*(?:<\|call\|>)?", text[stop:])
+                stop += tail.end()
+                if text[m.start():stop].count("```") % 2:      # the fence the call opened
+                    close = re.match(r"\s*```", text[stop:])
+                    stop += close.end() if close else 0
                 calls.append(call)
-                spans.append(m.span())
+                spans.append((m.start(), stop))
     # Llama 3.x
     if not calls and "<|python_tag|>" in text:
         start = text.index("<|python_tag|>")
